@@ -9,6 +9,10 @@ Modified to perform automated tests.
 #include <pspkernel.h>
 #include <stdio.h>
 #include <string.h>
+
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
 //#include "../common/emits.h"
 
 void __attribute__((noinline)) vcopy(ScePspFVector4 *v0, ScePspFVector4 *v1) {
@@ -17,6 +21,18 @@ void __attribute__((noinline)) vcopy(ScePspFVector4 *v0, ScePspFVector4 *v1) {
 		"sv.q   C100, %0\n"
 
 		: "+m" (*v0) : "m" (*v1)
+	);
+}
+
+void __attribute__((noinline)) vrot(float angle, ScePspFVector4 *v0) {
+	asm volatile (
+		"mtv    %1, s501\n"
+
+		"vrot.p	r500, s501, [c, s]\n"
+		
+		"sv.q   r500, %0\n"
+
+		: "+m" (*v0) : "r" (angle)
 	);
 }
 
@@ -67,6 +83,16 @@ void __attribute__((noinline)) vmidt(int size, ScePspFVector4 *v0, ScePspFVector
 		: "+m" (*v0) : "m" (*v1)
 	);
 }
+
+void __attribute__((noinline)) vfim(ScePspFVector4 *v0) {
+	asm volatile (
+		"vfim.s	 s500, 0.011111111111111112\n"
+		"sv.q    C500, %0\n"
+
+		: "+m" (*v0)
+	);
+}
+
 
 ScePspFVector4 v0, v1, v2;
 ScePspFVector4 matrix[4];
@@ -166,12 +192,20 @@ void checkConstants() {
 		"0.693147,2.302585,6.283185,0.523599\n"
 		"0.301030,3.321928,0.866025,0.000000\n"
 	));
+	
+	puts(buf);
 }
 
 void checkVectorCopy() {
 	initValues();
 	vcopy(&v0, &v1);
 	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+}
+
+void checkVfim() {
+	initValues();
+	vfim(&v0);
+	printf("VFIM: %f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
 }
 
 void checkDot() {
@@ -184,6 +218,12 @@ void checkScale() {
 	initValues();
 	vsclq(&v0, &v1, &v2);
 	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+}
+
+void checkRotation() {
+	initValues();
+	vrot(0.7, &v0);
+	printf("%f, %f\n", v0.x, v0.y);
 }
 
 void moveNormalRegister() {
@@ -201,13 +241,35 @@ void moveNormalRegister() {
 	printf("%f, %f, %f, %f\n", v.x, v.y, v.z, v.w);
 }
 
+void checkGlRotate() {
+	int n;
+	float M[16]; 
+	
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glRotatef(180, 0, 0, 1.0);
+	
+	glGetFloatv(GL_MODELVIEW_MATRIX, M);
+	for (n = 0; n < 4; n++) {
+		printf("%f, %f, %f, %f\n", M[n * 4 + 0], M[n * 4 + 1], M[n * 4 + 2], M[n * 4 + 3]);
+	}
+}
+
 int main(int argc, char *argv[]) {
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+	glutInitWindowSize(480, 272);
+	glutCreateWindow(__FILE__);
+
 	moveNormalRegister();
+	checkVfim();
 	checkVectorCopy();
 	checkDot();
 	checkScale();
+	checkRotation();
+	checkGlRotate();
 	checkMatrixIdentity();
 	checkConstants();
-
+	
 	return 0;
 }
