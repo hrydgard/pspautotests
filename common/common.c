@@ -76,8 +76,9 @@ void test_end() {
 			if (key.Buttons & PSP_CTRL_CROSS) break;
 		}
 	}
-
+	
 	//fclose(stdout);
+	sceKernelExitGame();
 	
 	exit(0);
 }
@@ -138,8 +139,10 @@ int main(int argc, char *argv[]) {
 	RUNNING_ON_EMULATOR = (KprintfFd > 0);
 
 	//if (strncmp(argv[0], START_WITH, strlen(START_WITH)) == 0) RUNNING_ON_EMULATOR = 1;
-	
-	test_psp_setup_callbacks();
+
+	if (!RUNNING_ON_EMULATOR) {
+		test_psp_setup_callbacks();
+	}
 	atexit(sceKernelExitGame);
 
 	test_begin();

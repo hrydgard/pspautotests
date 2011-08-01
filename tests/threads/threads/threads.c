@@ -6,26 +6,19 @@
  * If new threads are not executed immediately, it would output: 2, 2, -1.
  * It's expected to output 0, 1, -1.
  */
-//#pragma compile, "%PSPSDK%/bin/psp-gcc" -I. -I"%PSPSDK%/psp/sdk/include" -L. -L"%PSPSDK%/psp/sdk/lib" -D_PSP_FW_VERSION=150 -Wall -g thread_start.c ../common/emits.c -lpspsdk -lc -lpspuser -lpspkernel -o thread_start.elf
-//#pragma compile, "%PSPSDK%/bin/psp-fixup-imports" thread_start.elf
+#include <common.h>
 
 #include <pspsdk.h>
 #include <pspkernel.h>
 #include <pspthreadman.h>
 #include <psploadexec.h>
 
-#define eprintf(...) pspDebugScreenPrintf(__VA_ARGS__); Kprintf(__VA_ARGS__);
-//#define eprintf(...) pspDebugScreenPrintf(__VA_ARGS__);
-
-PSP_MODULE_INFO("THREAD TEST", 0, 1, 1);
-PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER | THREAD_ATTR_VFPU);
-
 static int semaphore = 0;
 
 static int threadFunction(int args, void* argp) {
 	int local_value = *(int *)argp;
 
-	eprintf("%d, %d\n", args, local_value);
+	printf("%d, %d\n", args, local_value);
 
 	sceKernelSignalSema(semaphore, 1);
 	
@@ -53,24 +46,24 @@ void testThreads() {
 	sceKernelWaitSema(semaphore, 2, NULL);
 
 	// After both threads have been executed, we will emit a -1 to check that semaphores work fine.
-	eprintf("%d\n", -1);
+	printf("%d\n", -1);
 }
 
 static int threadEndedFunction1(int args, void* argp) {
-	eprintf("Thread1.Started\n");
+	printf("Thread1.Started\n");
 	return 0;
 }
 
 static int threadEndedFunction2(int args, void* argp) {
-	eprintf("Thread2.Started\n");
+	printf("Thread2.Started\n");
 	sceKernelExitThread(0);
 	return 0;
 }
 
 static int threadEndedFunction3(int args, void* argp) {
-	eprintf("Thread3.Started\n");
+	printf("Thread3.Started\n");
 	sceKernelDelayThread(10 * 1000);
-	eprintf("Thread3.GoingToEnd\n");
+	printf("Thread3.GoingToEnd\n");
 	sceKernelExitThread(0);
 	return 0;
 }
@@ -97,21 +90,19 @@ void testThreadsEnded() {
 	// This waits 5ms and supposes both threads (1 and 2) have ended. Thread 3 should have not ended. Thread 4 is not going to be started.
 	sceKernelDelayThread(2 * 1000);
 
-	eprintf("Threads.EndedExpected\n");
+	printf("Threads.EndedExpected\n");
 	
 	sceKernelWaitThreadEnd(thread1, NULL);
-	eprintf("Thread1.Ended\n");
+	printf("Thread1.Ended\n");
 	sceKernelWaitThreadEnd(thread2, NULL);
-	eprintf("Thread2.Ended\n");
+	printf("Thread2.Ended\n");
 	sceKernelWaitThreadEnd(thread3, NULL);
-	eprintf("Thread3.Ended\n");
+	printf("Thread3.Ended\n");
 	sceKernelWaitThreadEnd(thread4, NULL);
-	eprintf("Thread4.NotStartedSoEnded\n");
+	printf("Thread4.NotStartedSoEnded\n");
 }
 
 int main(int argc, char **argv) {
-	pspDebugScreenInit();
-
 	testThreads();
 	testThreadsEnded();
 	

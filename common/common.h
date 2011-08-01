@@ -1,7 +1,10 @@
 #ifndef _COMMON_H
-#define _COMMON_H
+#define _COMMON_H 1
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <string.h>
 
 #undef main
 #define main test_main

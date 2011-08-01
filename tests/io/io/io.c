@@ -1,5 +1,4 @@
-//#pragma compile, "%PSPSDK%/bin/psp-gcc" -I. -I"%PSPSDK%/psp/sdk/include" -L. -L"%PSPSDK%/psp/sdk/lib" -D_PSP_FW_VERSION=150 -Wall -g io.c ../common/emits.c -lpspsdk -lc -lpspuser -lpspkernel -lpsprtc -o io.elf
-//#pragma compile, "%PSPSDK%/bin/psp-fixup-imports" io.elf
+#include <common.h>
 
 #include <pspkernel.h>
 #include <pspctrl.h>
@@ -17,8 +16,6 @@
 
 //#include "../common/emits.h"
 
-PSP_MODULE_INFO("iotest", 0, 1, 1);
-
 char buf[MAXPATHLEN] = {0};
 char startPath[MAXPATHLEN] = {0};
 
@@ -27,9 +24,9 @@ char startPath[MAXPATHLEN] = {0};
  */
 void checkChangePathsTry(const char *dest) {
 	if (chdir(dest) < 0) {
-		Kprintf("(chdir error)\n");
+		printf("(chdir error)\n");
 	} else {
-		Kprintf("%s\n", getcwd(buf, MAXPATHLEN) ?: "(getcwd error)");
+		printf("%s\n", getcwd(buf, MAXPATHLEN) ?: "(getcwd error)");
 	}
 }
 
@@ -37,7 +34,7 @@ void checkChangePathsTry(const char *dest) {
  * Check changing paths.
  */
 void checkChangePaths() {
-	Kprintf("%s\n", getcwd(buf, MAXPATHLEN));
+	printf("%s\n", getcwd(buf, MAXPATHLEN));
 	checkChangePathsTry("");                 // empty string
 	checkChangePathsTry("hello");            // nonexistent path
 	checkChangePathsTry("..");               // parent dir
@@ -58,13 +55,13 @@ void checkChangePaths() {
  */
 void checkFileOpen() {
 	FILE *file = fopen("io.expected", "rb");
-	Kprintf("%d\n", file != NULL);
+	printf("%d\n", file != NULL);
 	if (file != NULL) {
 		fseek(file, 0, SEEK_END);
-		Kprintf("%d\n", ftell(file) > 0);
+		printf("%d\n", ftell(file) > 0);
 		fclose(file);
 	} else {
-		Kprintf("%d\n", 0);
+		printf("%d\n", 0);
 	}
 }
 
@@ -78,7 +75,7 @@ void checkDirectoryList() {
 	if (dir != NULL) {
 		while ((dp = readdir(dir)) != NULL) {
 			if (strncmp("io", dp->d_name, 2) == 0) {
-				Kprintf("%s\n", dp->d_name);
+				printf("%s\n", dp->d_name);
 			}
 		}
 		closedir(dir);
@@ -103,7 +100,7 @@ void checkDirectoryListEx() {
 		if (strcmp(files[nfiles].d_name, "GAME") == 0) {
 			// st_attr should only contain FIO_SO_IFDIR flag. (Required by NesterJ).
 			if (files[nfiles].d_stat.st_attr == FIO_SO_IFDIR){
-				Kprintf("%s\n", files[nfiles].d_name);
+				printf("%s\n", files[nfiles].d_name);
 				continue;
 			}
 		}
@@ -118,8 +115,8 @@ void checkDirectoryListEx() {
  */
 void checkMainArgs(int argc, char** argv) {
 	int n;
-	Kprintf("%d\n", argc);
-	for (n = 0; n < argc; n++) Kprintf("%s\n", argv[n]);
+	printf("%d\n", argc);
+	for (n = 0; n < argc; n++) printf("%s\n", argv[n]);
 }
 
 int main(int argc, char** argv) {

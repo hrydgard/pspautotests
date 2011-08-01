@@ -1,3 +1,5 @@
+#include <common.h>
+
 #include <pspkernel.h>
 #include <pspdisplay.h>
 #include <pspdebug.h>
@@ -10,9 +12,6 @@
 #include <pspgu.h>
 #include <pspgum.h>
 #include <pspdisplay.h>
-
-PSP_MODULE_INFO("ge test", 0, 1, 1);
-PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER);
 
 static unsigned int __attribute__((aligned(16))) list[262144];
 
@@ -69,9 +68,9 @@ void dumpPixels(int dx, int dy, int w, int h) {
 	
 	for (x = 0; x < w; x++) {
 		for (y = 0; y < h; y++) {
-			Kprintf("%04X,", pixels[(bufferWidth * (y + dy)) + (x + dx)]);
+			printf("%04X,", pixels[(bufferWidth * (y + dy)) + (x + dx)]);
 		}
-		Kprintf("\n");
+		printf("\n");
 	}
 }
 
@@ -109,8 +108,8 @@ void testVertexAlignment() {
 	vertices[0] = buildVertexType1(0xFF0000FF, 0, 0, 0, 0, 0);
 	vertices[1] = buildVertexType1(0xFF0000FF, 4, 4, 4, 4, 0);
 
-	Kprintf("testVertexAlignment\n");
-	Kprintf("Struct Size: %d\n", sizeof(VertexType1)); // 12
+	printf("testVertexAlignment\n");
+	printf("Struct Size: %d\n", sizeof(VertexType1)); // 12
 
 	sceGuStart(GU_DIRECT,list);
 	sceGuClear(GU_COLOR_BUFFER_BIT | GU_DEPTH_BUFFER_BIT);
@@ -141,7 +140,7 @@ void testColorAdd() {
 	vertices[0] = buildVertexType2(0, 0, 0, 0, 0);
 	vertices[1] = buildVertexType2(4, 4, 4, 4, 0);
 
-	Kprintf("testColorAdd\n");
+	printf("testColorAdd\n");
 	
 	sceGuStart(GU_DIRECT, list);
 	sceGuClear(GU_COLOR_BUFFER_BIT | GU_DEPTH_BUFFER_BIT);

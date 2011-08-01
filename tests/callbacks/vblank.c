@@ -1,11 +1,7 @@
-//#pragma compile, "%PSPSDK%/bin/psp-gcc" -I. -I"%PSPSDK%/psp/sdk/include" -L. -L"%PSPSDK%/psp/sdk/lib" -D_PSP_FW_VERSION=150 -Wall -g -O0 test.c ../common/emits.c -lpspsdk -lc -lpspuser -lpspkernel -o test.elf
-//#pragma compile, "%PSPSDK%/bin/psp-fixup-imports" test.elf
+#include <common.h>
+
 #include <pspkernel.h>
 #include <pspthreadman.h>
-
-
-PSP_MODULE_INFO("THREAD TEST", 0, 1, 1);
-PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER | THREAD_ATTR_VFPU);
 
 int pointer;
 
@@ -20,7 +16,7 @@ void vblankCallback(int no, void *value) {
 	}
 	*/
 	sceKernelSignalSema(sema, 1);
-	Kprintf("vblankCallback(%d)\n", *(int *)value);
+	printf("vblankCallback(%d)\n", *(int *)value);
 }
 
 int main(int argc, char** argv) {
@@ -29,14 +25,14 @@ int main(int argc, char** argv) {
 
 	//int cb = sceKernelCreateCallback("vblankCallback", vblankCallback, NULL);
 	sceKernelRegisterSubIntrHandler(PSP_DISPLAY_SUBINT, 0, vblankCallback, &value);
-	Kprintf("beforeEnableVblankCallback\n");
+	printf("beforeEnableVblankCallback\n");
 	sceKernelEnableSubIntr(PSP_DISPLAY_SUBINT, 0);
-	Kprintf("afterEnableVblankCallback\n");
+	printf("afterEnableVblankCallback\n");
 	
 	sceKernelWaitSemaCB(sema, 1, NULL);
 	//while (!vblankCalled) { sceKernelDelayThread(1000); }
 	
-	Kprintf("ended\n");
+	printf("ended\n");
 	
 	sceKernelExitGame();
 	return 0;

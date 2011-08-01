@@ -1,5 +1,4 @@
-//#pragma compile, "%PSPSDK%/bin/psp-gcc" -I. -I"%PSPSDK%/psp/sdk/include" -L. -L"%PSPSDK%/psp/sdk/lib" -D_PSP_FW_VERSION=150 -Wall -g intr.c ../common/emits.c -lpspsdk -lc -lpspuser -lpspkernel -lpsprtc -o intr.elf
-//#pragma compile, "%PSPSDK%/bin/psp-fixup-imports" intr.elf
+#include <common.h>
 
 #include <pspsdk.h>
 #include <pspkernel.h>
@@ -10,16 +9,12 @@
 #include <math.h>
 #include <string.h>
 
-//#include "../common/emits.h"
 #include <pspintrman.h>
-
-PSP_MODULE_INFO("intrtest", 0, 1, 1);
-PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER);
 
 // http://forums.ps2dev.org/viewtopic.php?t=5687
 // @TODO! Fixme! In which thread should handlers be executed?
 
-//#define eprintf(...) pspDebugScreenPrintf(__VA_ARGS__); Kprintf(__VA_ARGS__);
+//#define eprintf(...) pspDebugScreenPrintf(__VA_ARGS__); printf(__VA_ARGS__);
 
 void vblank_handler_counter(int no, int* counter) {
 	*counter = *counter + 1;
@@ -29,28 +24,28 @@ void checkVblankInterruptHandler() {
 	int counter = 0, last_counter = 0;
 	int results[3], n;
 
-	pspDebugScreenInit();
+	//pspDebugScreenInit();
 	pspDebugScreenPrintf("Starting...\n");
-	Kprintf("Starting...\n");
+	printf("Starting...\n");
 
 	sceKernelRegisterSubIntrHandler(PSP_VBLANK_INT, 0, vblank_handler_counter, &counter);
 	sceKernelDelayThread(80000);
 	results[0] = counter;
-	Kprintf("%d\n", counter); // 0. Not enabled yet.
+	printf("%d\n", counter); // 0. Not enabled yet.
 	
 	sceKernelEnableSubIntr(PSP_VBLANK_INT, 0);
 	sceKernelDelayThread(160000);
 	results[1] = counter;
-	Kprintf("%d\n", counter >= 2); // n. Already enabled.
+	printf("%d\n", counter >= 2); // n. Already enabled.
 
 	sceKernelReleaseSubIntrHandler(PSP_VBLANK_INT, 0);
 	last_counter = counter;
 	sceKernelDelayThread(80000);
 	results[2] = counter;
-	Kprintf("%d\n", last_counter == counter); // n. Disabled.
+	printf("%d\n", last_counter == counter); // n. Disabled.
 	
 	for (n = 0; n < 3; n++) {
-		//Kprintf("Output %d:%d\n", n, results[n]);
+		//printf("Output %d:%d\n", n, results[n]);
 		pspDebugScreenPrintf("%d\n", results[n]);
 	}
 }

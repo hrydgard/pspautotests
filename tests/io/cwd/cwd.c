@@ -12,6 +12,8 @@
  *
  * $Id: main.c 1175 2005-10-20 15:41:33Z chip $
  */
+#include <common.h>
+
 #include <pspkernel.h>
 #include <pspctrl.h>
 #include <pspdebug.h>
@@ -24,19 +26,15 @@
 #include <sys/types.h>
 #include <sys/unistd.h>
 
-#define eprintf(...) pspDebugScreenPrintf(__VA_ARGS__); Kprintf(__VA_ARGS__);
-
-PSP_MODULE_INFO("CwdTest", 0, 1, 1);
-
 void try(const char *dest)
 {
 	char buf[MAXPATHLEN];
 
-	eprintf("%16s --> ", dest);
+	printf("%16s --> ", dest);
 	if(chdir(dest) < 0) {
-		eprintf("(chdir error)\n");
+		printf("(chdir error)\n");
 	} else {
-		eprintf("%s\n", getcwd(buf, MAXPATHLEN) ?: "(getcwd error)");
+		printf("%s\n", getcwd(buf, MAXPATHLEN) ?: "(getcwd error)");
 	}
 }
 
@@ -45,17 +43,15 @@ int main(int argc, char *argv[])
 	int n;
 	char buf[MAXPATHLEN];
 	
-	pspDebugScreenInit();
-
-	eprintf("Working Directory Examples\n");
-	eprintf("Arguments: %d\n", argc);
+	printf("Working Directory Examples\n");
+	printf("Arguments: %d\n", argc);
 	for (n = 0; n < argc; n++) {
-		eprintf("Argument[%d]: '%s'\n", n, argv[n]);
+		printf("Argument[%d]: '%s'\n", n, argv[n]);
 	}
-	eprintf("Initial dir: %s\n\n", getcwd(buf, MAXPATHLEN) ?: "(error)");
+	printf("Initial dir: %s\n\n", getcwd(buf, MAXPATHLEN) ?: "(error)");
 
-	eprintf("%16s --> %s\n", "chdir() attempt", "resulting getcwd()");
-	eprintf("%16s --> %s\n", "---------------", "------------------");
+	printf("%16s --> %s\n", "chdir() attempt", "resulting getcwd()");
+	printf("%16s --> %s\n", "---------------", "------------------");
 	try("");		   /* empty string                */
 	try("hello");		   /* nonexistent path            */
 	try("..");		   /* parent dir                  */
@@ -69,7 +65,7 @@ int main(int argc, char *argv[])
 	try("flash0:/");           /* different drive             */
 	try("ms0:/PSP/../PSP/");   /* mixed                       */
 
-	eprintf("\nAll done!\n");
+	printf("\nAll done!\n");
 
 	return 0;
 }

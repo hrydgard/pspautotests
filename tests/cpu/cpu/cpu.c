@@ -1,15 +1,14 @@
-#include <pspkernel.h>
+#include <common.h>
 
-PSP_MODULE_INFO("cpu test", 0, 1, 1);
-PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER);
+#include <pspkernel.h>
 
 #define OP1(TYPE) int __attribute__((noinline)) op_##TYPE(int x       ) { int result; asm volatile(#TYPE " %0, %1" : "=r"(result) : "r"(x)); return result; }
 #define OP2(TYPE) int __attribute__((noinline)) op_##TYPE(int x, int y) { int result; asm volatile(#TYPE " %0, %1, %2" : "=r"(result) : "r"(x), "r"(y)); return result; }
 
-#define OPX_TEST_START() Kprintf("--\n");
-#define OP1_TEST_X(TYPE, a) Kprintf("%s 0x%08X -> %d\n", #TYPE, a, op_##TYPE(a));
-#define OP1_TEST(TYPE, a) Kprintf("%s %d -> %d\n", #TYPE, a, op_##TYPE(a));
-#define OP2_TEST(TYPE, a, b) Kprintf("%s %d, %d -> %d\n", #TYPE, a, b, op_##TYPE(a, b));
+#define OPX_TEST_START() printf("--\n");
+#define OP1_TEST_X(TYPE, a) printf("%s 0x%08X -> %d\n", #TYPE, a, op_##TYPE(a));
+#define OP1_TEST(TYPE, a) printf("%s %d -> %d\n", #TYPE, a, op_##TYPE(a));
+#define OP2_TEST(TYPE, a, b) printf("%s %d, %d -> %d\n", #TYPE, a, b, op_##TYPE(a, b));
 
 #define OP2_TEST_SET(TYPE) \
 	OPX_TEST_START(); \

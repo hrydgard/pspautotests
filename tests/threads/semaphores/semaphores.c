@@ -1,25 +1,22 @@
+#include <common.h>
+
 #include <pspsdk.h>
 #include <pspkernel.h>
 #include <pspthreadman.h>
 #include <psploadexec.h>
-
-#define eprintf(...) pspDebugScreenPrintf(__VA_ARGS__); Kprintf(__VA_ARGS__);
-
-PSP_MODULE_INFO("THREAD SEMAPHORES TEST", 0, 1, 1);
-PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER | THREAD_ATTR_VFPU);
 
 SceUID threads[3];
 SceUID sema;
 int test[4] = {0x0123, 0x4567, 0x89AB, 0xCDEF};
 
 static int threadFunction(int args, void* argp) {
-	eprintf("[1]:%d:%04X\n", args, argp ? *((u32*)argp) : 0);
+	printf("[1]:%d:%04X\n", args, argp ? *((u32*)argp) : 0);
 	sceKernelWaitSemaCB(sema, 1, NULL);
-	eprintf("[2]:%d:%04X\n", args, argp ? *((u32*)argp) : 0);
+	printf("[2]:%d:%04X\n", args, argp ? *((u32*)argp) : 0);
 	return 0;
 }
 
-#define PRINT_SEMAPHORE(sema, info) eprintf("Sema(Id=%d,Size=%d,Name='%s',Attr=%d,init=%d,cur=%d,max=%d,wait=%d)\n", sema, info.size, info.name, info.attr, info.initCount, info.currentCount, info.maxCount, info.numWaitThreads);
+#define PRINT_SEMAPHORE(sema, info) printf("Sema(Id=%d,Size=%d,Name='%s',Attr=%d,init=%d,cur=%d,max=%d,wait=%d)\n", sema, info.size, info.name, info.attr, info.initCount, info.currentCount, info.maxCount, info.numWaitThreads);
 
 int main(int argc, char **argv) {
 	int result;
@@ -42,33 +39,33 @@ int main(int argc, char **argv) {
 
 	sceKernelDelayThread(10 * 1000);
 	
-	eprintf("---\n");
+	printf("---\n");
 	sceKernelReferSemaStatus(sema, &info);
 	PRINT_SEMAPHORE(sema, info);
-	eprintf("---\n");
+	printf("---\n");
 	
 	sceKernelSignalSema(sema, 1);
 	
 	sceKernelDelayThread(10 * 1000);
 
-	eprintf("---\n");
+	printf("---\n");
 	sceKernelReferSemaStatus(sema, &info);
 	PRINT_SEMAPHORE(sema, info);
-	eprintf("---\n");
+	printf("---\n");
 
 	sceKernelSignalSema(sema, 1);
 	
 	sceKernelDelayThread(10 * 1000);
 
-	eprintf("---\n");
+	printf("---\n");
 	sceKernelReferSemaStatus(sema, &info);
 	PRINT_SEMAPHORE(sema, info);
-	eprintf("---\n");
+	printf("---\n");
 	
 	result = sceKernelDeleteSema(sema);
-	eprintf("%08X\n", result);
+	printf("%08X\n", result);
 	result = sceKernelDeleteSema(sema);
-	eprintf("%08X\n", result);
+	printf("%08X\n", result);
 	
 	return 0;
 }

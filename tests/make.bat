@@ -20,8 +20,13 @@ SET PSP_LIBS=%PSP_LIBS% -lc
 SET PSP_LIBS=%PSP_LIBS% -lpspnet
 SET PSP_LIBS=%PSP_LIBS% -lpspnet_inet
 SET PSP_LIBS=%PSP_LIBS% -lpspuser
+REM SET PSP_LIBS=%PSP_LIBS% -lpspkernel
 SET PSP_LIBS=%PSP_LIBS% -lpsprtc
 SET PSP_LIBS=%PSP_LIBS% -lpspctrl
+
+IF EXIST make_prepare.bat (
+	CALL make_prepare.bat
+)
 
 psp-gcc -I. -I"%PSPSDK%/psp/sdk/include" -I"%~dp0/../common" -L. -L"%PSPSDK%/psp/sdk/lib" -D_PSP_FW_VERSION=150 -Wall -g -O0 %C_FILES% %PRX_INFO% %PSP_LIBS% -o %ELF_FILE%
 

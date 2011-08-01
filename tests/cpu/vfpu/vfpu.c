@@ -4,17 +4,12 @@ http://code.google.com/p/jpcsp/source/browse/trunk/demos/src/fputest/main.c
 Modified to perform automated tests.
 */
 
-//#pragma compile, "%PSPSDK%/bin/psp-gcc" -I. -I"%PSPSDK%/psp/sdk/include" -L. -L"%PSPSDK%/psp/sdk/lib" -D_PSP_FW_VERSION=150 -Wall -g simple.c ../common/emits.c -lpspsdk -lc -lpspuser -lpspkernel -o simple.elf
-//#pragma compile, "%PSPSDK%/bin/psp-fixup-imports" simple.elf
+#include <common.h>
 
 #include <pspkernel.h>
 #include <stdio.h>
 #include <string.h>
 //#include "../common/emits.h"
-
-PSP_MODULE_INFO("vfpu test", 0, 1, 1);
-
-PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER | PSP_THREAD_ATTR_VFPU);
 
 void __attribute__((noinline)) vcopy(ScePspFVector4 *v0, ScePspFVector4 *v1) {
 	asm volatile (
@@ -112,17 +107,17 @@ void checkMatrixIdentity() {
 			}
 		}
 		/*
-		Kprintf("-------------------\n");
-		for (y = 0; y < 4; y++) Kprintf("(%3.0f, %3.0f, %3.0f, %3.0f)\n", matrix[y].x, matrix[y].y, matrix[y].z, matrix[y].w);
-		Kprintf("+\n");
-		for (y = 0; y < 4; y++) Kprintf("(%3.0f, %3.0f, %3.0f, %3.0f)\n", matrix2[y].x, matrix2[y].y, matrix2[y].z, matrix2[y].w);
-		Kprintf("\n");
+		printf("-------------------\n");
+		for (y = 0; y < 4; y++) printf("(%3.0f, %3.0f, %3.0f, %3.0f)\n", matrix[y].x, matrix[y].y, matrix[y].z, matrix[y].w);
+		printf("+\n");
+		for (y = 0; y < 4; y++) printf("(%3.0f, %3.0f, %3.0f, %3.0f)\n", matrix2[y].x, matrix2[y].y, matrix2[y].z, matrix2[y].w);
+		printf("\n");
 		*/
-		Kprintf("%d\n", memcmp((void *)&matrix, (void *)&matrix2, sizeof(matrix)));
+		printf("%d\n", memcmp((void *)&matrix, (void *)&matrix2, sizeof(matrix)));
 	}
 	
-	//Kprintf("Test! %f, %f, %f, %f, %f, %f, %f, %f, %f, %f\n", 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0);
-	//Kprintf("Test! %d, %d, %d, %d\n", 1, 2, 3, -3);
+	//printf("Test! %f, %f, %f, %f, %f, %f, %f, %f, %f, %f\n", 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0);
+	//printf("Test! %d, %d, %d, %d\n", 1, 2, 3, -3);
 }
 
 void checkConstants() {
@@ -163,8 +158,8 @@ void checkConstants() {
 		sprintf(temp, "%f,%f,%f,%f\n", v[n].x, v[n].y, v[n].z, v[n].w);
 		strcat(buf, temp);
 	}
-	//Kprintf("%s", buf);
-	Kprintf("%d\n", strcmp(buf,
+	//printf("%s", buf);
+	printf("%d\n", strcmp(buf,
 		"inf,1.414214,0.707107,1.128379\n"
 		"0.636620,0.318310,0.785398,1.570796\n"
 		"3.141593,2.718282,1.442695,0.434294\n"
@@ -176,19 +171,19 @@ void checkConstants() {
 void checkVectorCopy() {
 	initValues();
 	vcopy(&v0, &v1);
-	Kprintf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
 }
 
 void checkDot() {
 	initValues();
 	vdotq(&v0, &v1, &v2);
-	Kprintf("%f\n", v0.x);
+	printf("%f\n", v0.x);
 }
 
 void checkScale() {
 	initValues();
 	vsclq(&v0, &v1, &v2);
-	Kprintf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
 }
 
 void moveNormalRegister() {
@@ -203,7 +198,7 @@ void moveNormalRegister() {
 		"sv.q   C410, 0x00+%0\n"
 		: "+m" (v) : "t" (t)
 	);
-	Kprintf("%f, %f, %f, %f\n", v.x, v.y, v.z, v.w);
+	printf("%f, %f, %f, %f\n", v.x, v.y, v.z, v.w);
 }
 
 int main(int argc, char *argv[]) {
