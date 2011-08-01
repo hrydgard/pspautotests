@@ -87,6 +87,9 @@ void __attribute__((noinline)) vmidt(int size, ScePspFVector4 *v0, ScePspFVector
 void __attribute__((noinline)) vfim(ScePspFVector4 *v0) {
 	asm volatile (
 		"vfim.s	 s500, 0.011111111111111112\n"
+		"vfim.s	 s501, -0.011111111111111112\n"
+		"vfim.s	 s502, inf\n"
+		"vfim.s	 s503, nan\n"
 		"sv.q    C500, %0\n"
 
 		: "+m" (*v0)
