@@ -18,7 +18,10 @@
 PSP_MODULE_INFO("TESTMODULE", PSP_MODULE_USER, 1, 0);
 PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER | THREAD_ATTR_VFPU);
 
-int RUNNING_ON_EMULATOR = 0;
+#define EMULATOR_DEVCTL__GET_HAS_DISPLAY 0x00000001
+
+unsigned int RUNNING_ON_EMULATOR = 0;
+unsigned int HAS_DISPLAY = 1;
 
 extern int test_main(int argc, char *argv[]);
 
@@ -31,11 +34,13 @@ static int writeStdoutHook(struct _reent *ptr, void *cookie, const char *buf, in
 	if (KprintfFd != 0) sceIoWrite(KprintfFd, buf, buf_len);
 
 	if (buf_len < sizeof(temp)) {
-		memcpy(temp, buf, buf_len);
-		temp[buf_len] = 0;
+		if (HAS_DISPLAY) {
+			memcpy(temp, buf, buf_len);
+			temp[buf_len] = 0;
 
-		//Kprintf("%s", temp);
-		pspDebugScreenPrintf("%s", temp);
+			//Kprintf("%s", temp);
+			pspDebugScreenPrintf("%s", temp);
+		}
 	}
 	
 	if (stdout_back._write != NULL) {
@@ -46,7 +51,9 @@ static int writeStdoutHook(struct _reent *ptr, void *cookie, const char *buf, in
 }
 
 void test_begin() {
-	pspDebugScreenInit();
+	if (HAS_DISPLAY) {
+		pspDebugScreenInit();
+	}
 
 	if (RUNNING_ON_EMULATOR) {
 		fclose(stdout);
@@ -137,6 +144,10 @@ int main(int argc, char *argv[]) {
 	KprintfFd = sceIoOpen("emulator:/Kprintf", O_WRONLY, 0777);
 	
 	RUNNING_ON_EMULATOR = (KprintfFd > 0);
+
+	if (RUNNING_ON_EMULATOR) {
+		sceIoDevctl("emulator:", EMULATOR_DEVCTL__GET_HAS_DISPLAY, NULL, 0, &HAS_DISPLAY, sizeof(HAS_DISPLAY));
+	}
 
 	//if (strncmp(argv[0], START_WITH, strlen(START_WITH)) == 0) RUNNING_ON_EMULATOR = 1;
 
