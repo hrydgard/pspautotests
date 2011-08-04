@@ -11,19 +11,21 @@
  *
  * $Id: main.c 1095 2005-09-27 21:02:16Z jim $
  */
+#include <common.h>
+
 #include <pspkernel.h>
 #include <pspdebug.h>
 #include <pspdisplay.h>
 #include <pspsdk.h>
 #include <string.h>
 
-PSP_MODULE_INFO("PRXLOADER", 0x1000, 1, 1);
+//PSP_MODULE_INFO("PRXLOADER", 0x1000, 1, 1);
 /* Define the main thread's attribute value (optional) */
-PSP_MAIN_THREAD_ATTR(0);
+//PSP_MAIN_THREAD_ATTR(0);
 
 /* Define printf, just to make typing easier */
 //#define printf	pspDebugScreenPrintf
-#define printf	Kprintf
+//#define printf	Kprintf
 
 SceUID load_module(const char *path, int flags, int type)
 {
