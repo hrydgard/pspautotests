@@ -1,4 +1,9 @@
-testSimpleScheduling:FFFFFF00
+testNoThreadSwitchingWhenSuspendedInterrupts:
+Main Thread with disabled interrupts
+Sleeping Thread
+Main Thread with enabled interrupts
+testSimpleScheduling:
+FFFFFF00
 FFFFFF01
 FFFFFF00
 FFFFFF02
@@ -14,7 +19,8 @@ FFFFFF03
 FFFFFF02
 FFFFFF03
 FFFFFF03
-testSimpleVblankScheduling:FFFFFF00
+testSimpleVblankScheduling:
+FFFFFF00
 FFFFFF00
 FFFFFF01
 FFFFFF02

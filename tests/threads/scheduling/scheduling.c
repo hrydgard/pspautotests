@@ -2,6 +2,7 @@
 
 #include <pspsdk.h>
 #include <pspkernel.h>
+#include <pspdisplay.h>
 #include <pspthreadman.h>
 #include <psploadexec.h>
 
@@ -23,7 +24,7 @@ int testSimpleScheduling_Thread(SceSize args, void *argp) {
 void testSimpleScheduling() {
 	unsigned int n;
 	
-	printf("testSimpleScheduling:");
+	printf("testSimpleScheduling:\n");
 	
 	sema = sceKernelCreateSema("EndSema", 0, 0, 4, NULL);
 	
@@ -55,7 +56,7 @@ int testSimpleVblankScheduling_Thread(SceSize args, void *argp) {
 void testSimpleVblankScheduling() {
 	unsigned int n;
 	
-	printf("testSimpleVblankScheduling:");
+	printf("testSimpleVblankScheduling:\n");
 	
 	sema = sceKernelCreateSema("EndSema", 0, 0, 4, NULL);
 	
@@ -71,7 +72,42 @@ void testSimpleVblankScheduling() {
 	}
 }
 
+char buffer[10000];
+char *msg;
+
+int testNoThreadSwitchingWhenSuspendedInterrupts_sleepingThread(SceSize args, void *argp) {
+	sceKernelSleepThread();
+	strcat(msg, "Sleeping Thread\n");
+	return 0;
+}
+
+// http://code.google.com/p/jpcsp/source/detail?r=2253
+void testNoThreadSwitchingWhenSuspendedInterrupts() {
+	msg = buffer;
+	strcpy(msg, "");
+	
+	printf("testNoThreadSwitchingWhenSuspendedInterrupts:\n");
+	
+	SceUID sleepingThid = sceKernelCreateThread(
+		"Sleeping Thread",
+		testNoThreadSwitchingWhenSuspendedInterrupts_sleepingThread,
+		0x10,
+		0x1000,
+		0,
+		0
+	);
+	sceKernelStartThread(sleepingThid, 0, 0);
+	sceKernelDelayThread(100000);
+	int intr = sceKernelCpuSuspendIntr();
+	sceKernelWakeupThread(sleepingThid);
+	strcat(msg, "Main Thread with disabled interrupts\n");
+	sceKernelCpuResumeIntr(intr);
+	strcat(msg, "Main Thread with enabled interrupts\n");
+	printf("%s", msg);
+}
+
 int main(int argc, char **argv) {
+	testNoThreadSwitchingWhenSuspendedInterrupts();
 	testSimpleScheduling();
 	testSimpleVblankScheduling();
 
