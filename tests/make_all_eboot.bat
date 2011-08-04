@@ -1,11 +1,6 @@
 @echo off
 REM http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/for.mspx?mfr=true
 
-DIR *.expected /S /B > EXPECTED_FILES
-for /F %%i IN (EXPECTED_FILES) DO (
-	PUSHD %%~dpi
-		CALL %~dp0\make_eboot.bat %%~dpi%%~ni
-	POPD
+FOR /F "usebackq delims==" %%i IN (`dir *.expected /S /B`) DO (
+	CALL %~dp0\make_eboot.bat %%~dpi%%~ni
 )
-
-DEL EXPECTED_FILES
