@@ -19,6 +19,8 @@ PSP_MODULE_INFO("TESTMODULE", PSP_MODULE_USER, 1, 0);
 PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER | THREAD_ATTR_VFPU);
 
 #define EMULATOR_DEVCTL__GET_HAS_DISPLAY 0x00000001
+#define EMULATOR_DEVCTL__SEND_OUTPUT     0x00000002
+#define EMULATOR_DEVCTL__IS_EMULATOR     0x00000003
 
 unsigned int RUNNING_ON_EMULATOR = 0;
 unsigned int HAS_DISPLAY = 1;
@@ -26,12 +28,15 @@ unsigned int HAS_DISPLAY = 1;
 extern int test_main(int argc, char *argv[]);
 
 FILE stdout_back = {NULL};
-SceUID KprintfFd = 0;
+//int KprintfFd = 0;
 
 static int writeStdoutHook(struct _reent *ptr, void *cookie, const char *buf, int buf_len) {
 	char temp[1024 + 1];
 
-	if (KprintfFd != 0) sceIoWrite(KprintfFd, buf, buf_len);
+	//if (KprintfFd > 0) sceIoWrite(KprintfFd, buf, buf_len);
+	if (RUNNING_ON_EMULATOR) {
+		sceIoDevctl("emulator:", EMULATOR_DEVCTL__SEND_OUTPUT, (void *)buf, buf_len, NULL, 0);
+	}
 
 	if (buf_len < sizeof(temp)) {
 		if (HAS_DISPLAY) {
@@ -141,9 +146,12 @@ void emitHex(void *address, unsigned int size) {
 int main(int argc, char *argv[]) {
 	int retval = 0;
 
-	KprintfFd = sceIoOpen("emulator:/Kprintf", O_WRONLY, 0777);
+	//KprintfFd = sceIoOpen("emulator:/Kprintf", O_WRONLY, 0777);
+	//RUNNING_ON_EMULATOR = (KprintfFd > 0);
 	
-	RUNNING_ON_EMULATOR = (KprintfFd > 0);
+	if (sceIoDevctl("emulator:", EMULATOR_DEVCTL__IS_EMULATOR, NULL, 0, NULL, 0) == 0) {
+		RUNNING_ON_EMULATOR = 1;
+	}
 
 	if (RUNNING_ON_EMULATOR) {
 		sceIoDevctl("emulator:", EMULATOR_DEVCTL__GET_HAS_DISPLAY, NULL, 0, &HAS_DISPLAY, sizeof(HAS_DISPLAY));
