@@ -208,7 +208,7 @@ void checkVectorCopy() {
 void checkVfim() {
 	initValues();
 	vfim(&v0);
-	printf("VFIM: %f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
 }
 
 void checkDot() {
@@ -259,20 +259,24 @@ void checkGlRotate() {
 }
 
 int main(int argc, char *argv[]) {
+	printf("Started\n");
+
+	printf("moveNormalRegister: "); moveNormalRegister();
+	printf("checkVfim: "); checkVfim();
+	printf("checkConstants:\n"); checkConstants();
+	printf("checkVectorCopy: "); checkVectorCopy();
+	printf("checkDot: "); checkDot();
+	printf("checkScale: "); checkScale();
+	printf("checkRotation: "); checkRotation();
+	printf("checkMatrixIdentity:\n"); checkMatrixIdentity();
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(480, 272);
 	glutCreateWindow(__FILE__);
-
-	moveNormalRegister();
-	checkVfim();
-	checkVectorCopy();
-	checkDot();
-	checkScale();
-	checkRotation();
 	checkGlRotate();
-	checkMatrixIdentity();
-	checkConstants();
-	
+
+	printf("Ended\n");
+
 	return 0;
 }
