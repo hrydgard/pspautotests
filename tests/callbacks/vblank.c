@@ -4,11 +4,12 @@
 #include <pspthreadman.h>
 #include <pspdisplay.h>
 
-int pointer;
-
-SceUID sema;
+SceUID sema = -1;
 int vblankCalled = 0;
 int mainThreadId = 0;
+int called = 0;
+
+int vblankCalledThread = -1;
 
 void vblankCallback(int no, void *value) {
 	//sceKernelSignalSema(sema, 1);
@@ -17,7 +18,9 @@ void vblankCallback(int no, void *value) {
 		vblankCalled = 1;
 	}
 	*/
-	printf("vblankCallback(%d):%d\n", *(int *)value, (sceKernelGetThreadId() == mainThreadId));
+	vblankCalledThread = sceKernelGetThreadId();
+	called = 1;
+	*(uint *)value = 3;
 	sceKernelSignalSema(sema, 1);
 }
 
@@ -34,6 +37,9 @@ int main(int argc, char** argv) {
 	
 	sceKernelWaitSemaCB(sema, 1, NULL);
 	//while (!vblankCalled) { sceKernelDelayThread(1000); }
+	if (called) {
+		printf("vblankCallback(%d):%d\n", *(int *)&value, (vblankCalledThread == mainThreadId));
+	}
 	
 	sceKernelReleaseSubIntrHandler(PSP_DISPLAY_SUBINT, 0);
 	//sceDisplayWaitVblank();
