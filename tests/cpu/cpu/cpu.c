@@ -17,7 +17,18 @@
 	OP2_TEST(TYPE, -1, 0); \
 	OP2_TEST(TYPE, -1, -10); \
 	OP2_TEST(TYPE, 0, 0); \
-	
+
+unsigned int fixed_ror(unsigned int value) {
+	asm volatile (
+		"ror $v0, $a0, 4\n"
+	);
+}
+
+unsigned int fixed_rorv(unsigned int value, int offset) {
+	asm volatile (
+		"rorv $v0, $a0, $a1\n"
+	);
+}
 
 OP2(max)
 OP2(min)
@@ -53,6 +64,10 @@ int main(int argc, char *argv[]) {
 	OP1_TEST_X(clz, 0xF000000F)
 	OP1_TEST_X(clz, 0x0000007F)
 	OP1_TEST_X(clz, 0xFFFFFFFF)
+
+	OPX_TEST_START();
+	printf("rotr 0x%08X\n", fixed_ror(0x12345678));
+	printf("rotrv 0x%08X\n", fixed_rorv(0x12345678, 8));
 
 	return 0;
 }

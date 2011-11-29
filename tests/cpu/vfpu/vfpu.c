@@ -188,13 +188,13 @@ void checkConstants() {
 		strcat(buf, temp);
 	}
 	//printf("%s", buf);
-	printf("%d\n", strcmp(buf,
+	printf("checkConstants(Comparison): %s\n", (strcmp(buf,
 		"inf,1.414214,0.707107,1.128379\n"
 		"0.636620,0.318310,0.785398,1.570796\n"
 		"3.141593,2.718282,1.442695,0.434294\n"
 		"0.693147,2.302585,6.283185,0.523599\n"
 		"0.301030,3.321928,0.866025,0.000000\n"
-	));
+	) == 0) ? "Ok" : "ERROR");
 	
 	puts(buf);
 }
@@ -270,6 +270,7 @@ int main(int argc, char *argv[]) {
 	printf("checkRotation: "); checkRotation();
 	printf("checkMatrixIdentity:\n"); checkMatrixIdentity();
 
+	printf("checkGlRotate:\n");
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(480, 272);

@@ -48,3 +48,6 @@ clz 0x0000000F -> 28
 clz 0xF000000F -> 0
 clz 0x0000007F -> 25
 clz 0xFFFFFFFF -> 0
+--
+rotr 0x81234567
+rotrv 0x78123456
