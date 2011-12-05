@@ -43,19 +43,12 @@
 	#define PSP_SAS_OUTPUTMODE_STEREO       0
 	#define PSP_SAS_OUTPUTMODE_MULTICHANNEL 1
 
-	/**
-	 * Initialized a sasCore structure.
-	 * Note: PSP can only handle one at a time.
-	 *
-	 * @example __sceSasInit(&sasCore, PSP_SAS_GRAIN_SAMPLES, PSP_SAS_VOICES_MAX, OutputMode.PSP_SAS_OUTPUTMODE_STEREO, 44100);
-	 *
-	 * @param   sasCore       Pointer to a SasCore structure that will contain information.
-	 * @param   grainSamples  Number of grainSamples
-	 * @param   maxVoices     Max number of voices
-	 * @param   outMode       Out Mode
-	 * @param   sampleRate    Sample Rate
-	 *
-	 * @return  0 on success
-	 */
 	int __sceSasInit(SasCore* sasCore, int grainSamples, int maxVoices, int outMode, int sampleRate);
+	int __sceSasSetOutputmode(SasCore* sasCore, int outputMode);
+	int __sceSasSetVoice(SasCore* sasCore, int voice, char* vagPointer, int vagSize, int loopCount);
+	int __sceSasSetPitch(SasCore* sasCore, int voice, int pitch);
+	int __sceSasSetVolume(SasCore* sasCore, int voice, int leftVolume, int rightVolume);
+	int __sceSasSetKeyOn(SasCore* sasCore, int voice);
+	unsigned int __sceSasCore(SasCore* sasCore, void* SasOut);
+
 #endif
