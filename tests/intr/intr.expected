@@ -1,4 +1,4 @@
 Starting...
-0
-1
-1
+NotEnabled: Counter:zero
+Enabled (GreaterThan2): Counter:greater
+Disabled (NotChangedAfterDisabled): not changed

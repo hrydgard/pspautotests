@@ -14,7 +14,7 @@ void testEvents_thread1(int args, void* argp) {
 	printf("[2]\n");
 	result = sceKernelSetEventFlag(evid, 4);
 	//sceKernelDelayThread(1000);
-	//printf("[3]\n");
+	printf("[3]\n");
 }
 
 void testEvents() {

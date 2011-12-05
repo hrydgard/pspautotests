@@ -31,18 +31,18 @@ void checkVblankInterruptHandler() {
 	sceKernelRegisterSubIntrHandler(PSP_VBLANK_INT, 0, vblank_handler_counter, &counter);
 	sceKernelDelayThread(80000);
 	results[0] = counter;
-	printf("%d\n", counter); // 0. Not enabled yet.
+	printf("NotEnabled: Counter:%s\n", (counter == 0) ? "zero" : "non-zero"); // 0. Not enabled yet.
 	
 	sceKernelEnableSubIntr(PSP_VBLANK_INT, 0);
 	sceKernelDelayThread(160000);
 	results[1] = counter;
-	printf("%d\n", counter >= 2); // n. Already enabled.
+	printf("Enabled (GreaterThan2): Counter:%s\n", (counter >= 2) ? "greater" : "no greater"); // n. Already enabled.
 
 	sceKernelReleaseSubIntrHandler(PSP_VBLANK_INT, 0);
 	last_counter = counter;
 	sceKernelDelayThread(80000);
 	results[2] = counter;
-	printf("%d\n", last_counter == counter); // n. Disabled.
+	printf("Disabled (NotChangedAfterDisabled): %s\n", (last_counter != counter) ? "changed" : "not changed"); // n. Disabled.
 	
 	for (n = 0; n < 3; n++) {
 		//printf("Output %d:%d\n", n, results[n]);
