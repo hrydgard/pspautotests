@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
 	result = sceUmdRegisterUMDCallBack(umdCbCallbackId);
 	printf("%08X\n", result);
 	
-	sceKernelCheckCallback();
+	printf("%d\n", sceKernelCheckCallback());
 	
 	result = sceUmdUnRegisterUMDCallBack(umdCbCallbackId);
 	printf("%08X\n", result);

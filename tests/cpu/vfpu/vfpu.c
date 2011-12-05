@@ -9,6 +9,7 @@ Modified to perform automated tests.
 #include <pspkernel.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -258,9 +259,127 @@ void checkGlRotate() {
 	}
 }
 
+void _checkMultiply(ScePspFVector4* v0) {
+	float scale1 = 2.0f;
+	float scale2 = -3.0f;
+
+	__asm__ volatile (
+		"vmidt.q M000\n"
+		"vmidt.q M100\n"
+
+		"mtv    %1, S300\n"
+		"mtv    %2, S301\n"
+
+		"vscl.q R000, R000, S300\n"
+		"vscl.q R001, R001, S300\n"
+		"vscl.q R002, R002, S300\n"
+		"vscl.q R003, R003, S300\n"
+
+		"vscl.q R100, R100, S301\n"
+		"vscl.q R101, R101, S301\n"
+		"vscl.q R102, R102, S301\n"
+		"vscl.q R103, R103, S301\n"
+
+		"vmmul.q M200, M000, M100\n"
+
+		"sv.q    R200, 0x00+%0\n"
+		"sv.q    R201, 0x10+%0\n"
+		"sv.q    R202, 0x20+%0\n"
+		"sv.q    R203, 0x30+%0\n"
+		: "+m" (*v0) : "r" (scale1), "r" (scale2)
+	);
+}
+
+void checkMultiply() {
+	int n;
+	_checkMultiply(&matrix);
+	for (n = 0; n < 4; n++) {
+		printf("%f, %f, %f, %f\n", matrix[n].x, matrix[n].y, matrix[n].z, matrix[n].w);
+	}
+}
+
+void _checkPrefixes0(ScePspFVector4* v0) {
+	__asm__ volatile (
+		"vmov.q R000, R000[1, 1, 1, 1]\n"
+		"sv.q   R000, 0x00+%0\n"
+		: "+m" (*v0)
+	);
+}
+
+void _checkPrefixes1(ScePspFVector4* v0) {
+	__asm__ volatile (
+		"vmov.q R000, R000[0, 1, 2, 1/2]\n"
+		"sv.q   R000, 0x00+%0\n"
+		: "+m" (*v0)
+	);
+}
+
+void _checkPrefixes2(ScePspFVector4* v0) {
+	__asm__ volatile (
+		"vmov.q R000, R000[3, 1/3, 1/4, 1/6]\n"
+		"sv.q   R000, 0x00+%0\n"
+		: "+m" (*v0)
+	);
+}
+
+void _checkPrefixes3(ScePspFVector4* v0) {
+	__asm__ volatile (
+		"vmov.q R000, R000[0, 1, 2, 3]\n"
+		"vmov.q R000, R000[y, -y, z, -z]\n"
+		"sv.q   R000, 0x00+%0\n"
+		: "+m" (*v0)
+	);
+}
+
+void checkPrefixes() {
+	v0.x = v0.y = v0.z = v0.w = NAN;
+	_checkPrefixes0(&v0);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+	_checkPrefixes1(&v0);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+	_checkPrefixes2(&v0);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+	_checkPrefixes3(&v0);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+}
+
+void _checkLoadUnaligned(ScePspFVector4* v0, int index, int column) {
+	float list[64] = {0.0f};
+	float *vec = &list[index];
+	int n;
+	for (n = 0; n < 64; n++) {
+		list[n] = -(float)n;
+	}
+
+	if (column) {
+		__asm__ volatile (
+			"vmov.q C000, R000[0, 0, 0, 0]\n"
+			"lvl.q C000, %1\n"
+			"sv.q   C000, 0x00+%0\n"
+			: "+m" (*v0) : "m" (*vec)
+		);
+	} else {
+		__asm__ volatile (
+			"vmov.q R000, R000[0, 0, 0, 0]\n"
+			"lvl.q  R000, %1\n"
+			"sv.q   R000, 0x00+%0\n"
+			: "+m" (*v0) : "m" (*vec)
+		);
+	}
+}
+
+void checkLoadUnaligned() {
+	_checkLoadUnaligned(&v0, 13, 0);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+	_checkLoadUnaligned(&v0, 24, 0);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+	_checkLoadUnaligned(&v0, 32, 0);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+}
+
 int main(int argc, char *argv[]) {
 	printf("Started\n");
-
+	
 	printf("moveNormalRegister: "); moveNormalRegister();
 	printf("checkVfim: "); checkVfim();
 	printf("checkConstants:\n"); checkConstants();
@@ -269,6 +388,8 @@ int main(int argc, char *argv[]) {
 	printf("checkScale: "); checkScale();
 	printf("checkRotation: "); checkRotation();
 	printf("checkMatrixIdentity:\n"); checkMatrixIdentity();
+	printf("checkPrefixes:\n"); checkPrefixes();
+	printf("checkMultiply:\n"); checkMultiply();
 
 	printf("checkGlRotate:\n");
 	glutInit(&argc, argv);
@@ -277,7 +398,13 @@ int main(int argc, char *argv[]) {
 	glutCreateWindow(__FILE__);
 	checkGlRotate();
 
+	printf("checkLoadUnaligned: "); checkLoadUnaligned();
+
 	printf("Ended\n");
+	
+	while (1) {
+		sceDisplayWaitVblankStart();
+	}
 
 	return 0;
 }

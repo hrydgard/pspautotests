@@ -149,12 +149,15 @@ int main(int argc, char *argv[]) {
 	//KprintfFd = sceIoOpen("emulator:/Kprintf", O_WRONLY, 0777);
 	//RUNNING_ON_EMULATOR = (KprintfFd > 0);
 	
-	if (sceIoDevctl("emulator:", EMULATOR_DEVCTL__IS_EMULATOR, NULL, 0, NULL, 0) == 0) {
+	if (sceIoDevctl("kemulator:", EMULATOR_DEVCTL__IS_EMULATOR, NULL, 0, NULL, 0) == 0) {
 		RUNNING_ON_EMULATOR = 1;
 	}
+	
+	// TEMP HACK
+	//RUNNING_ON_EMULATOR = 0;
 
 	if (RUNNING_ON_EMULATOR) {
-		sceIoDevctl("emulator:", EMULATOR_DEVCTL__GET_HAS_DISPLAY, NULL, 0, &HAS_DISPLAY, sizeof(HAS_DISPLAY));
+		sceIoDevctl("kemulator:", EMULATOR_DEVCTL__GET_HAS_DISPLAY, NULL, 0, &HAS_DISPLAY, sizeof(HAS_DISPLAY));
 	}
 
 	//if (strncmp(argv[0], START_WITH, strlen(START_WITH)) == 0) RUNNING_ON_EMULATOR = 1;
