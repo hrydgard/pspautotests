@@ -65,11 +65,13 @@ static int threadFunction2(int args, void* argp) {
 	
 	sceKernelDelayThread(10 * 1000);
 	
-	printf("[5]\n");
+	printf("[6]\n");
 	
 	sceKernelExitThread(777);
 	
-	return 777;
+	printf("[NO]\n");
+	
+	return 888;
 }
 
 void testThreadsWakeup2() {
@@ -92,7 +94,11 @@ void testThreadsWakeup2() {
 	
 	sceKernelWakeupThread(thid);
 	
+	printf("[5]\n");
+	
 	sceKernelWaitThreadEndCB(thid, NULL);
+	
+	printf("[7]\n");
 	
 	printf("%d\n", sceKernelGetThreadExitStatus(thid));
 	
