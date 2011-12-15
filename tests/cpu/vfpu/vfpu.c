@@ -377,6 +377,34 @@ void checkLoadUnaligned() {
 	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
 }
 
+void _checkVzero(ScePspFVector4* v0) {
+	__asm__ volatile (
+		"vzero.q R000\n"
+		"sv.q   R000, 0x00+%0\n"
+		: "+m" (*v0)
+	);
+}
+
+void checkVzero() {
+	v0.w = v0.z = v0.y = v0.x = -1.0f;
+	_checkVzero(&v0);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+}
+
+void _checkVone(ScePspFVector4* v0) {
+	__asm__ volatile (
+		"vone.q R000\n"
+		"sv.q   R000, 0x00+%0\n"
+		: "+m" (*v0)
+	);
+}
+
+void checkVone() {
+	v0.w = v0.z = v0.y = v0.x = -1.0f;
+	_checkVone(&v0);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+}
+
 int main(int argc, char *argv[]) {
 	printf("Started\n");
 	
@@ -390,6 +418,8 @@ int main(int argc, char *argv[]) {
 	printf("checkMatrixIdentity:\n"); checkMatrixIdentity();
 	printf("checkPrefixes:\n"); checkPrefixes();
 	printf("checkMultiply:\n"); checkMultiply();
+	printf("checkVzero:\n"); checkVzero();
+	printf("checkVone:\n"); checkVone();
 
 	printf("checkGlRotate:\n");
 	glutInit(&argc, argv);
