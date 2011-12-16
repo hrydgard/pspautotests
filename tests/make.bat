@@ -16,6 +16,7 @@ SET PSP_LIBS=%PSP_LIBS% -lpspgum
 SET PSP_LIBS=%PSP_LIBS% -lpspge
 SET PSP_LIBS=%PSP_LIBS% -lpspdisplay
 SET PSP_LIBS=%PSP_LIBS% -lpspsdk
+SET PSP_LIBS=%PSP_LIBS% -lm
 SET PSP_LIBS=%PSP_LIBS% -lc
 SET PSP_LIBS=%PSP_LIBS% -lpspnet
 SET PSP_LIBS=%PSP_LIBS% -lpspnet_inet

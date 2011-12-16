@@ -16,6 +16,22 @@ Modified to perform automated tests.
 #include <GL/glut.h>
 //#include "../common/emits.h"
 
+#include <pspgu.h>
+#include <pspgum.h>
+
+void resetAllMatrices() {
+	asm volatile (
+		"vmzero.q  M000\n"
+		"vmzero.q  M100\n"
+		"vmzero.q  M200\n"
+		"vmzero.q  M300\n"
+		"vmzero.q  M400\n"
+		"vmzero.q  M500\n"
+		"vmzero.q  M600\n"
+		"vmzero.q  M700\n"
+	);
+}
+
 void __attribute__((noinline)) vcopy(ScePspFVector4 *v0, ScePspFVector4 *v1) {
 	asm volatile (
 		"lv.q   C100, %1\n"
@@ -200,6 +216,52 @@ void checkConstants() {
 	puts(buf);
 }
 
+void checkVadd() {
+	printf("TODO!\n");
+}
+
+void checkVsub() {
+	printf("TODO!\n");
+}
+
+void checkVdiv() {
+	printf("TODO!\n");
+}
+
+void checkVmmov() {
+	printf("TODO!\n");
+}
+
+void checkVmul() {
+	printf("TODO!\n");
+}
+
+void checkVrcp() {
+	printf("TODO!\n");
+}
+
+void checkVpfxt() {
+	printf("TODO!\n");
+}
+
+void checkViim() {
+	int n;
+	ScePspFVector4 v[5];
+
+	asm volatile(
+		"viim.s S000, 0\n"
+		"viim.s S010, 1\n"
+		"viim.s S020, -3\n"
+		"viim.s S030, 777\n"
+		"sv.q   R000, 0x00+%0\n"
+		: "+m" (v)
+	);
+
+	for (n = 0; n < 1; n++) {
+		printf("%f,%f,%f,%f\n", v[n].x, v[n].y, v[n].z, v[n].w);
+	}
+}
+
 void checkVectorCopy() {
 	initValues();
 	vcopy(&v0, &v1);
@@ -245,20 +307,6 @@ void moveNormalRegister() {
 	printf("%f, %f, %f, %f\n", v.x, v.y, v.z, v.w);
 }
 
-void checkGlRotate() {
-	int n;
-	float M[16]; 
-	
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glRotatef(180, 0, 0, 1.0);
-	
-	glGetFloatv(GL_MODELVIEW_MATRIX, M);
-	for (n = 0; n < 4; n++) {
-		printf("%f, %f, %f, %f\n", M[n * 4 + 0], M[n * 4 + 1], M[n * 4 + 2], M[n * 4 + 3]);
-	}
-}
-
 void _checkMultiply(ScePspFVector4* v0) {
 	float scale1 = 2.0f;
 	float scale2 = -3.0f;
@@ -292,7 +340,7 @@ void _checkMultiply(ScePspFVector4* v0) {
 
 void checkMultiply() {
 	int n;
-	_checkMultiply(&matrix);
+	_checkMultiply(&matrix[0]);
 	for (n = 0; n < 4; n++) {
 		printf("%f, %f, %f, %f\n", matrix[n].x, matrix[n].y, matrix[n].z, matrix[n].w);
 	}
@@ -343,7 +391,7 @@ void checkPrefixes() {
 	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
 }
 
-void _checkLoadUnaligned(ScePspFVector4* v0, int index, int column) {
+void _checkLoadUnaligned1(ScePspFVector4* v0, int index, int column) {
 	float list[64] = {0.0f};
 	float *vec = &list[index];
 	int n;
@@ -368,13 +416,65 @@ void _checkLoadUnaligned(ScePspFVector4* v0, int index, int column) {
 	}
 }
 
+void _checkLoadUnaligned2(ScePspFVector4* v0, int index, int column) {
+	float list[64] = {0.0f};
+	float *vec = &list[index];
+	int n;
+	for (n = 0; n < 64; n++) {
+		list[n] = -(float)n;
+	}
+
+	if (column) {
+		__asm__ volatile (
+			"vmov.q C000, R000[0, 0, 0, 0]\n"
+			"lvr.q C000, %1\n"
+			"sv.q   C000, 0x00+%0\n"
+			: "+m" (*v0) : "m" (*vec)
+		);
+	} else {
+		__asm__ volatile (
+			"vmov.q R000, R000[0, 0, 0, 0]\n"
+			"lvr.q  R000, %1\n"
+			"sv.q   R000, 0x00+%0\n"
+			: "+m" (*v0) : "m" (*vec)
+		);
+	}
+}
+
 void checkLoadUnaligned() {
-	_checkLoadUnaligned(&v0, 13, 0);
+	printf(" lvl_row:\n");
+	_checkLoadUnaligned1(&v0, 13, 0);
 	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
-	_checkLoadUnaligned(&v0, 24, 0);
+	_checkLoadUnaligned1(&v0, 24, 0);
 	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
-	_checkLoadUnaligned(&v0, 32, 0);
+	_checkLoadUnaligned1(&v0, 32, 0);
 	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+
+	printf(" lvl_column:\n");
+	_checkLoadUnaligned1(&v0, 15, 1);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+	_checkLoadUnaligned1(&v0, 23, 1);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+	_checkLoadUnaligned1(&v0, 31, 1);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+	
+
+	printf(" lvr_row:\n");
+	_checkLoadUnaligned2(&v0, 13, 0);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+	_checkLoadUnaligned2(&v0, 24, 0);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+	_checkLoadUnaligned2(&v0, 32, 0);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+
+	printf(" lvr_column:\n");
+	_checkLoadUnaligned2(&v0, 15, 1);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+	_checkLoadUnaligned2(&v0, 23, 1);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+	_checkLoadUnaligned2(&v0, 31, 1);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+
 }
 
 void _checkVzero(ScePspFVector4* v0) {
@@ -405,9 +505,196 @@ void checkVone() {
 	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
 }
 
+/*
+int gum_current_mode = GU_PROJECTION;
+
+int gum_matrix_update[4] = { 0 };
+int gum_current_matrix_update = 0;
+
+ScePspFMatrix4* gum_current_matrix = gum_matrix_stack[GU_PROJECTION];
+
+ScePspFMatrix4* gum_stack_depth[4] =
+{
+  gum_matrix_stack[GU_PROJECTION],
+  gum_matrix_stack[GU_VIEW],
+  gum_matrix_stack[GU_MODEL],
+  gum_matrix_stack[GU_TEXTURE]
+};
+
+ScePspFMatrix4 gum_matrix_stack[4][32];
+
+struct pspvfpu_context *gum_vfpucontext;
+*/
+
+void printVector(ScePspFVector4 *v) {
+	printf("%f,%f,%f,%f\n", v->x, v->y, v->z, v->w);
+}
+
+void printMatrix(ScePspFMatrix4 *m) {
+	printVector(&m->x);
+	printVector(&m->y);
+	printVector(&m->z);
+	printVector(&m->w);
+}
+
+void checkGum() {
+	ScePspFMatrix4 m;
+	int val = 0;
+
+	sceGuInit();
+
+	sceGumMatrixMode(GU_PROJECTION);
+	sceGumLoadIdentity();
+	sceGumPerspective(75.0f,16.0f/9.0f,0.5f,1000.0f);
+	sceGumStoreMatrix(&m);
+	printf(" PROJ:\n");
+	printMatrix(&m);
+
+	sceGumMatrixMode(GU_VIEW);
+	sceGumLoadIdentity();
+	sceGumStoreMatrix(&m);
+	printf(" VIEW:\n");
+	printMatrix(&m);
+
+	sceGumMatrixMode(GU_MODEL);
+	sceGumLoadIdentity();
+	{
+		ScePspFVector3 pos = { 0, 0, -2.5f };
+		ScePspFVector3 rot = { val * 0.79f * (GU_PI/180.0f), val * 0.98f * (GU_PI/180.0f), val * 1.32f * (GU_PI/180.0f) };
+		sceGumTranslate(&pos);
+		sceGumRotateXYZ(&rot);
+	}
+	printf(" MODEL:\n");
+	sceGumStoreMatrix(&m);
+	printMatrix(&m);
+	
+	//sceGumUpdateMatrix();
+}
+
+void _checkGlRotate() {
+	int n;
+	float M[16]; 
+	
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glRotatef(180, 0, 0, 1.0);
+	
+	glGetFloatv(GL_MODELVIEW_MATRIX, M);
+	for (n = 0; n < 4; n++) {
+		printf("%f, %f, %f, %f\n", M[n * 4 + 0], M[n * 4 + 1], M[n * 4 + 2], M[n * 4 + 3]);
+	}
+}
+
+void checkGlRotate(int argc, char *argv[]) {
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+	glutInitWindowSize(480, 272);
+	glutCreateWindow(__FILE__);
+	_checkGlRotate();
+}
+
+void checkMultiplyFull() {
+	ScePspFMatrix4 m1 = {
+		{  2,  3,  5,  7 },
+		{ 11, 13, 17, 19 },
+		{ 23, 29, 31, 37 },
+		{ 41, 43, 47, 53 },
+	};
+
+	ScePspFMatrix4 m2 = {
+		{  59,  61,  67,  71 },
+		{  73,  79,  83,  89 },
+		{  97, 101, 103, 107 },
+		{ 109, 113, 127, 131 },
+	};
+	
+	ScePspFMatrix4 m3;
+	
+	ScePspFVector4 *v0 = NULL, *v1 = NULL;
+
+	v1 = &m1.x;
+
+	asm volatile (
+		"lv.q    R000, 0x00+%1\n"
+		"lv.q    R001, 0x10+%1\n"
+		"lv.q    R002, 0x20+%1\n"
+		"lv.q    R003, 0x30+%1\n"
+
+		: "+m" (*v0) : "m" (*v1)
+	);
+
+
+	v1 = &m2.x;
+
+	asm volatile (
+		"lv.q    R100, 0x00+%1\n"
+		"lv.q    R101, 0x10+%1\n"
+		"lv.q    R102, 0x20+%1\n"
+		"lv.q    R103, 0x30+%1\n"
+
+		: "+m" (*v0) : "m" (*v1)
+	);
+	
+	v0 = &m3.x;
+
+	asm volatile (
+		"vmmul.q   M200, M000, M100\n"
+		"sv.q R200, 0x00+%0\n"
+		"sv.q R201, 0x10+%0\n"
+		"sv.q R202, 0x20+%0\n"
+		"sv.q R203, 0x30+%0\n"
+		
+		: "+m" (*v0)
+	);
+	
+	printMatrix(&m3);
+
+	/*
+	asm volatile (
+		"lv.q   C100, %1\n"
+		"sv.q   C100, %0\n"
+
+		: "+m" (*v0) : "m" (*v1)
+	);
+	*/
+}
+
+void checkMisc() {
+	float fovy = 75.0f;
+	
+	ScePspFVector4 v;
+	ScePspFVector4 *v0 = &v;
+	
+	resetAllMatrices();
+	
+	__asm__ volatile (
+        "vmzero.q M100\n"                   // set M100 to all zeros
+        "mtv     %1, S000\n"                // S000 = fovy
+        "viim.s  S001, 90\n"                // S002 = 90.0f
+        "vrcp.s  S001, S001\n"              // S002 = 1/90
+        "vmul.s  S000, S000, S000[1/2]\n"   // S000 = fovy * 0.5 = fovy/2
+        "vmul.s  S000, S000, S001\n"        // S000 = (fovy/2)/90
+		"sv.q   C000, %0\n"
+		: "+m" (*v0) : "r"(fovy)
+	);
+	
+	printVector(v0);
+}
+
 int main(int argc, char *argv[]) {
 	printf("Started\n");
+
+	resetAllMatrices();
 	
+	printf("checkMisc:\n"); checkMisc();
+	printf("checkMultiplyFull:\n"); checkMultiplyFull();
+	printf("checkVadd:\n"); checkVadd();
+	printf("checkVsub:\n"); checkVsub();
+	printf("checkVdiv:\n"); checkVdiv();
+	printf("checkVmul:\n"); checkVmul();
+	printf("checkVrcp:\n"); checkVrcp();
+	printf("checkViim:\n"); checkViim();
+	printf("checkLoadUnaligned:\n"); checkLoadUnaligned();
 	printf("moveNormalRegister: "); moveNormalRegister();
 	printf("checkVfim: "); checkVfim();
 	printf("checkConstants:\n"); checkConstants();
@@ -420,21 +707,18 @@ int main(int argc, char *argv[]) {
 	printf("checkMultiply:\n"); checkMultiply();
 	printf("checkVzero:\n"); checkVzero();
 	printf("checkVone:\n"); checkVone();
+	printf("checkGlRotate:\n"); checkGlRotate(argc, argv);
+	printf("checkGum:\n"); checkGum();
 
-	printf("checkGlRotate:\n");
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-	glutInitWindowSize(480, 272);
-	glutCreateWindow(__FILE__);
-	checkGlRotate();
-
-	printf("checkLoadUnaligned: "); checkLoadUnaligned();
+	//return 0;
 
 	printf("Ended\n");
 	
+	/*
 	while (1) {
 		sceDisplayWaitVblankStart();
 	}
+	*/
 
 	return 0;
 }
