@@ -1,6 +1,11 @@
 @ECHO OFF
 CALL %~dp0\prepare.bat
 SET BASE_FILE=%1
+IF EXIST "%~dp0\..\..\pspsdk\bin\psp-gcc.exe" (
+	SET PSPSDK=%~dp0\..\..\pspsdk
+) ELSE (
+	SET PSPSDK=C:\pspsdk
+)
 SET C_FILES=
 SET C_FILES=%C_FILES% "%~dp0/../common/common.c" 
 SET C_FILES=%C_FILES% %BASE_FILE%.c
@@ -26,16 +31,18 @@ REM SET PSP_LIBS=%PSP_LIBS% -lpspkernel
 SET PSP_LIBS=%PSP_LIBS% -lpsprtc
 SET PSP_LIBS=%PSP_LIBS% -lpspctrl
 
+SET PATH=%PSPSDK%\bin;%PATH%
+
 PUSHD %~dp1
 
 	IF EXIST make_prepare.bat (
 		CALL make_prepare.bat
 	)
 
-	psp-gcc -I. -I"%PSPSDK%/psp/sdk/include" -I"%~dp0/../common" -L. -L"%PSPSDK%/psp/sdk/lib" -D_PSP_FW_VERSION=150 -Wall -g -O0 %C_FILES% %PRX_INFO% %PSP_LIBS% -o %ELF_FILE%
+	"%PSPSDK%\bin\psp-gcc" -I. -I"%PSPSDK%/psp/sdk/include" -I"%~dp0/../common" -L. -L"%PSPSDK%/psp/sdk/lib" -D_PSP_FW_VERSION=150 -Wall -g -O0 %C_FILES% %PRX_INFO% %PSP_LIBS% -o %ELF_FILE%
 
 	IF EXIST %ELF_FILE% (
-		psp-fixup-imports %ELF_FILE%
+		"%PSPSDK%\bin\psp-fixup-imports" %ELF_FILE%
 	)
 
 POPD

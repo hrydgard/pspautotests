@@ -19,15 +19,21 @@
 	OP2_TEST(TYPE, 0, 0); \
 
 unsigned int fixed_ror(unsigned int value) {
+	int ret;
 	asm volatile (
-		"ror $v0, $a0, 4\n"
+		"ror %0, $a0, 4\n"
+		: "=r"(ret)
 	);
+	return ret;
 }
 
 unsigned int fixed_rorv(unsigned int value, int offset) {
+	int ret;
 	asm volatile (
-		"rorv $v0, $a0, $a1\n"
+		"rorv %0, $a0, $a1\n"
+		: "=r"(ret)
 	);
+	return ret;
 }
 
 OP2(max)
