@@ -346,51 +346,6 @@ void checkMultiply() {
 	}
 }
 
-void _checkPrefixes0(ScePspFVector4* v0) {
-	__asm__ volatile (
-		"vmov.q R000, R000[1, 1, 1, 1]\n"
-		"sv.q   R000, 0x00+%0\n"
-		: "+m" (*v0)
-	);
-}
-
-void _checkPrefixes1(ScePspFVector4* v0) {
-	__asm__ volatile (
-		"vmov.q R000, R000[0, 1, 2, 1/2]\n"
-		"sv.q   R000, 0x00+%0\n"
-		: "+m" (*v0)
-	);
-}
-
-void _checkPrefixes2(ScePspFVector4* v0) {
-	__asm__ volatile (
-		"vmov.q R000, R000[3, 1/3, 1/4, 1/6]\n"
-		"sv.q   R000, 0x00+%0\n"
-		: "+m" (*v0)
-	);
-}
-
-void _checkPrefixes3(ScePspFVector4* v0) {
-	__asm__ volatile (
-		"vmov.q R000, R000[0, 1, 2, 3]\n"
-		"vmov.q R000, R000[y, -y, z, -z]\n"
-		"sv.q   R000, 0x00+%0\n"
-		: "+m" (*v0)
-	);
-}
-
-void checkPrefixes() {
-	v0.x = v0.y = v0.z = v0.w = NAN;
-	_checkPrefixes0(&v0);
-	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
-	_checkPrefixes1(&v0);
-	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
-	_checkPrefixes2(&v0);
-	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
-	_checkPrefixes3(&v0);
-	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
-}
-
 void _checkLoadUnaligned1(ScePspFVector4* v0, int index, int column) {
 	float list[64] = {0.0f};
 	float *vec = &list[index];
@@ -539,7 +494,12 @@ void printMatrix(ScePspFMatrix4 *m) {
 
 void checkGum() {
 	ScePspFMatrix4 m;
-	int val = 0;
+	int val = 45;
+	float angle = 0.7f;
+	float c = cosf(angle);
+	float s = sinf(angle);
+	ScePspFVector3 pos = { 0, 0, -2.5f };
+	ScePspFVector3 rot = { val * 0.79f * (GU_PI/180.0f), val * 0.98f * (GU_PI/180.0f), val * 1.32f * (GU_PI/180.0f) };
 
 	sceGuInit();
 
@@ -556,16 +516,23 @@ void checkGum() {
 	printf(" VIEW:\n");
 	printMatrix(&m);
 
+	// Complete Rotation
 	sceGumMatrixMode(GU_MODEL);
 	sceGumLoadIdentity();
-	{
-		ScePspFVector3 pos = { 0, 0, -2.5f };
-		ScePspFVector3 rot = { val * 0.79f * (GU_PI/180.0f), val * 0.98f * (GU_PI/180.0f), val * 1.32f * (GU_PI/180.0f) };
-		sceGumTranslate(&pos);
-		sceGumRotateXYZ(&rot);
-	}
+	sceGumTranslate(&pos);
+	sceGumRotateXYZ(&rot);
 	printf(" MODEL:\n");
+	printf("Vec: (x=%f, y=%f, z=%f)\n", rot.x, rot.y, rot.z);
+	printf("Cos/Sin (%f, %f)\n", c, s);
 	sceGumStoreMatrix(&m);
+	printMatrix(&m);
+
+	// Simple Rotation
+	sceGumMatrixMode(GU_MODEL);
+	sceGumLoadIdentity();
+	sceGumRotateX(30.0f);
+	sceGumStoreMatrix(&m);
+	printf(" MODEL:\n");
 	printMatrix(&m);
 	
 	//sceGumUpdateMatrix();
@@ -685,7 +652,7 @@ int main(int argc, char *argv[]) {
 	printf("Started\n");
 
 	resetAllMatrices();
-	
+
 	printf("checkMisc:\n"); checkMisc();
 	printf("checkMultiplyFull:\n"); checkMultiplyFull();
 	printf("checkVadd:\n"); checkVadd();
@@ -703,7 +670,6 @@ int main(int argc, char *argv[]) {
 	printf("checkScale: "); checkScale();
 	printf("checkRotation: "); checkRotation();
 	printf("checkMatrixIdentity:\n"); checkMatrixIdentity();
-	printf("checkPrefixes:\n"); checkPrefixes();
 	printf("checkMultiply:\n"); checkMultiply();
 	printf("checkVzero:\n"); checkVzero();
 	printf("checkVone:\n"); checkVone();
