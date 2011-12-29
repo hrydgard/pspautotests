@@ -8,12 +8,13 @@
 //PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER);
 
 typedef struct {
-	char* pointer;
+	unsigned char* pointer;
 	int length;
 } ByteArray;
 
 ByteArray loadData()
 {
+	int n;
 	int length;
 	FILE *file;
 	ByteArray data = {0};
@@ -26,9 +27,17 @@ ByteArray loadData()
 		fread(data.pointer, data.length, 1, file);
 		fclose(file);
 	}
+	if (data.length == 0) {
+		printf("DATA:Can't read file\n");
+	} else {
+		printf("DATA:");
+		for (n = 0; n < 0x20; n++) printf("%02X", data.pointer[n]);
+		printf("\n");
+	}
 	return data;
 }
 
+// http://www.psp-programming.com/forums/index.php?action=printpage;topic=4404.0
 int main(int argc, char *argv[]) {
 	SasCore sasCore;
 	int sasVoice = 0;
@@ -36,6 +45,12 @@ int main(int argc, char *argv[]) {
 	int n, m;
 	short samples[256 * 2] = {0};
 	ByteArray data;
+	
+	//pspSdkLoadStartModule("flash0:/kd/sc_sascore.prx", PSP_MEMORY_PARTITION_KERNEL);
+	if (pspSdkLoadStartModule("flash0:/kd/sc_sascore.prx", PSP_MEMORY_PARTITION_USER) == ERROR_KERNEL_LIBRARY_NOT_FOUND) {
+		printf("Can't load library\n");
+		return 0;
+	}
 	
 	data = loadData();
 	

@@ -31,6 +31,10 @@ REM SET PSP_LIBS=%PSP_LIBS% -lpspkernel
 SET PSP_LIBS=%PSP_LIBS% -lpsprtc
 SET PSP_LIBS=%PSP_LIBS% -lpspctrl
 
+REM SET PSP_FW_VERSION=150
+REM SET PSP_FW_VERSION=371
+SET PSP_FW_VERSION=500
+
 SET PATH=%PSPSDK%\bin;%PATH%
 
 PUSHD %~dp1
@@ -39,7 +43,7 @@ PUSHD %~dp1
 		CALL make_prepare.bat
 	)
 
-	"%PSPSDK%\bin\psp-gcc" -I. -I"%PSPSDK%/psp/sdk/include" -I"%~dp0/../common" -L. -L"%PSPSDK%/psp/sdk/lib" -D_PSP_FW_VERSION=150 -Wall -g -O0 %C_FILES% %PRX_INFO% %PSP_LIBS% -o %ELF_FILE%
+	"%PSPSDK%\bin\psp-gcc" -I. -I"%PSPSDK%/psp/sdk/include" -I"%~dp0/../common" -L. -L"%PSPSDK%/psp/sdk/lib" -D_PSP_FW_VERSION=%PSP_FW_VERSION% -Wall -g -O0 %C_FILES% %PRX_INFO% %PSP_LIBS% -o %ELF_FILE%
 
 	IF EXIST %ELF_FILE% (
 		"%PSPSDK%\bin\psp-fixup-imports" %ELF_FILE%
