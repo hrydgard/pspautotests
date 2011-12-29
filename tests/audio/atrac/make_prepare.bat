@@ -1,0 +1,1 @@
+SET PSP_LIBS=%PSP_LIBS% -lpspatrac3 -lpspaudio
