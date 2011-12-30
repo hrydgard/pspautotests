@@ -39,6 +39,8 @@ foreach (recursive_directory_iterator($path) as $file) {
 	$dirbase = dirname($filebase);
 	$cfile = "{$filebase}.c";
 	$outfile = "{$filebase}.elf";
+	$eboot_pbp = "{$dirbase}/EBOOT.PBP";
+	$param_sfo = "{$dirbase}/PARAM.SFO";
 	$compilefile = "{$filebase}.compile";
 	
 	$libraries = array(
@@ -79,12 +81,26 @@ foreach (recursive_directory_iterator($path) as $file) {
 		'output' => $outfile,
 	);
 	
+	$src_time = @max(array_map('filemtime', $sources));
+	$out_time = @filemtime($outfile);
+
 	echo "{$cfile}...";
-	$output = $pspSdk->gcc($gcc_args);
-	echo $output;
-	echo "Ok\n";
-	
-	if (is_file($outfile)) {
-		touch($outfile, filemtime($cfile));
+	if ($out_time < $src_time) {
+		$output = $pspSdk->gcc($gcc_args);
+		echo $output;
+		
+		if (is_file($outfile)) {
+			echo `{$pspSdk->MKSFO} TESTMODULE "{$param_sfo}"`;
+			echo `{$pspSdk->PACK_PBP} "{$eboot_pbp}" "{$param_sfo}" NUL NUL NUL NUL NUL "{$outfile}" NUL > NUL`;
+			
+			@unlink($param_sfo);
+			
+			touch($outfile, $src_time);
+			touch($eboot_pbp, $src_time);
+		}
+
+		echo "Ok\n";
+	} else {
+		echo "Uptodate\n";
 	}
 }
