@@ -2,6 +2,7 @@
 
 #include <pspkernel.h>
 #include <stdio.h>
+#include <pspsdk.h>
 #include "sascore.h"
 
 //PSP_MODULE_INFO("sascore test", 0, 1, 1);
@@ -15,13 +16,12 @@ typedef struct {
 ByteArray loadData()
 {
 	int n;
-	int length;
 	FILE *file;
 	ByteArray data = {0};
 	if ((file = fopen("test.vag", "rb")) != NULL) {
 		fseek(file, 0, SEEK_END);
 		data.length = ftell(file);
-		data.pointer = (char *)malloc(data.length);
+		data.pointer = (unsigned char *)malloc(data.length);
 		memset(data.pointer, 0, data.length);
 		fseek(file, 0, SEEK_SET);
 		fread(data.pointer, data.length, 1, file);
@@ -44,7 +44,7 @@ __attribute__((aligned(64))) short samples[256 * 2 * 16] = {0};
 ByteArray data;
 int result;
 
-int sasCoreThread(int argsize, void* argdata) {
+int sasCoreThread(SceSize argsize, void *argdata) {
 	int sasVoice = 0;
 	int n, m;
 	SasCore sasCoreInvalidAddress;
@@ -53,7 +53,7 @@ int sasCoreThread(int argsize, void* argdata) {
 	printf("__sceSasInit         : 0x%08X\n", result = __sceSasInit(&sasCore, PSP_SAS_GRAIN_SAMPLES, PSP_SAS_VOICES_MAX, PSP_SAS_OUTPUTMODE_STEREO, 44100));
 	printf("__sceSasSetOutputmode: 0x%08X\n", result = __sceSasSetOutputmode(&sasCore, PSP_SAS_OUTPUTMODE_STEREO));
 	printf("__sceSasSetKeyOn     : 0x%08X\n", result = __sceSasSetKeyOn(&sasCore, sasVoice));
-	printf("__sceSasSetVoice     : 0x%08X\n", result = __sceSasSetVoice(&sasCore, sasVoice, data.pointer, data.length, 0));
+	printf("__sceSasSetVoice     : 0x%08X\n", result = __sceSasSetVoice(&sasCore, sasVoice, (char *)data.pointer, data.length, 0));
 	printf("__sceSasSetPitch     : 0x%08X\n", result = __sceSasSetPitch(&sasCore, sasVoice, 4096));
 	printf("__sceSasSetVolume    : 0x%08X\n", result = __sceSasSetVolume(&sasCore, sasVoice, 0x1000, 0x1000));
 	printf("Data(%d):\n", data.length);

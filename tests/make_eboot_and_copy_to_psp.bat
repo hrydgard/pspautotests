@@ -1,5 +1,0 @@
-@ECHO OFF
-SET PSP_EBOOT=H:\PSP\GAME\test\EBOOT.PBP
-DEL "%PSP_EBOOT%"
-CALL make_eboot.bat %*
-COPY /Y "%1\..\EBOOT.PBP" "%PSP_EBOOT%"
