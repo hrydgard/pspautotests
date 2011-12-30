@@ -46,6 +46,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	pspSdkLoadStartModule("flash0:/kd/audiocodec.prx", PSP_MEMORY_PARTITION_KERNEL);
+	pspSdkLoadStartModule("flash0:/kd/libatrac3plus.prx", PSP_MEMORY_PARTITION_KERNEL);
 	
 	printf("at3: %08X, %08X\n", (unsigned int)at3_data, at3_size);
 	printf("Header: %s\n", (char *)at3_data);
