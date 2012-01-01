@@ -1,10 +1,4 @@
 #include <common.h>
-
-//#include <pspsdk.h>
-//#include <pspkernel.h>
-//#include <pspthreadman.h>
-//#include <psploadexec.h>
-
 #include <pspdebug.h>
 #include <pspdisplay.h>
 #include <stdio.h>
@@ -20,7 +14,7 @@ void printSystemParam(int id, int iVal, char *sVal) {
 			printf("%-17s: %d\n", "AdHoc Channel", iVal);
 			break;
 		case(PSP_SYSTEMPARAM_ID_INT_WLAN_POWERSAVE):
-			printf("%-17s: %s\n", "WLAN Powersave", iVal == 0 ? "enabled   " : "disabled");
+			printf("%-17s: %s\n", "WLAN Powersave", iVal == 0 ? "off   " : "on");
 			break;
 		case(PSP_SYSTEMPARAM_ID_INT_DATE_FORMAT):
 			switch(iVal) {
@@ -98,7 +92,7 @@ void printSystemParam(int id, int iVal, char *sVal) {
 			}
 			break;
 		case(PSP_SYSTEMPARAM_ID_INT_UNKNOWN):
-			printf("%-17s: %d (1 on NA PSPs and 0 on JAP PSPs, v1.5+ only)\n", "Unknown:", iVal);
+			printf("%-17s: %d \n", "Button Assignment", iVal);
 			break;
 		default:
 			printf("%-17s: int 0x%08X, string '%s'\n", "Unknown", iVal, sVal);
