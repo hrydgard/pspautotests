@@ -3,7 +3,6 @@
 *.map
 *.o
 *.a
-*.prx
 .pspsh.hist
 PARAM.SFO
 __testoutput.txt
