@@ -15,7 +15,7 @@ ASFLAGS = $(CFLAGS)
 
 LIBDIR = ../../common
 LDFLAGS = -G0
-LIBS= -lpspgu -lpsprtc -lpspctrl -lpspmath -lcommon -lc -lm
+LIBS= -lpspgu -lpsprtc -lpsppower -lpspctrl -lpspmath -lcommon -lc -lm
 
 EXTRA_TARGETS = EBOOT.PBP
 #PSP_EBOOT_ICON = icon.png
