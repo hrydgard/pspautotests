@@ -95,8 +95,10 @@ void test_begin() {
 		//stderr = stdout;
 		setbuf(stdout, NULL);
 	} else {
-		freopen("ms0:/__testoutput.txt", "wb", stdout);
-		freopen("ms0:/__testerror.txt", "wb", stderr);
+		//freopen("ms0:/__testoutput.txt", "wb", stdout);
+		//freopen("ms0:/__testerror.txt", "wb", stderr);
+		freopen("host0:/__testoutput.txt", "wb", stdout);
+		freopen("host0:/__testerror.txt", "wb", stderr);
 		stdout_back._write = stdout->_write;
 	}
 	stdout->_write = writeStdoutHook;
@@ -115,11 +117,13 @@ void test_end() {
 	fclose(stderr);
 
 	if (!RUNNING_ON_EMULATOR) {
+    // We want tests to exit immediately.
+    /*
 		SceCtrlData key;
 		while (1) {
 			sceCtrlReadBufferPositive(&key, 1);
 			if (key.Buttons & PSP_CTRL_CROSS) break;
-		}
+		}*/
 	}
 	
 	//fclose(stdout);

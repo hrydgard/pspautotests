@@ -4,6 +4,11 @@ http://code.google.com/p/jpcsp/source/browse/trunk/demos/src/fputest/main.c
 Modified to perform automated tests.
 */
 
+
+// For some reason, vectors on the stack all are unaligned. So I've pulled them out
+// into globals, which is horribly ugly. But it'll do for now.
+
+
 #include <common.h>
 
 #include <pspkernel.h>
@@ -18,6 +23,10 @@ Modified to perform automated tests.
 
 #include <pspgu.h>
 #include <pspgum.h>
+
+
+__attribute__ ((aligned (16))) ScePspFVector4 v0, v1, v2;
+__attribute__ ((aligned (16))) ScePspFVector4 matrix[4];
 
 void resetAllMatrices() {
 	asm volatile (
@@ -113,10 +122,6 @@ void __attribute__((noinline)) vfim(ScePspFVector4 *v0) {
 	);
 }
 
-
-ScePspFVector4 v0, v1, v2;
-ScePspFVector4 matrix[4];
-
 void initValues() {
 	// Reset output values
 	v0.x = 1001;
@@ -167,7 +172,7 @@ void checkMatrixIdentity() {
 }
 
 void checkConstants() {
-	ScePspFVector4 v[5];
+	static ScePspFVector4 v[5];
 	int n;
 	asm volatile(
 		"vcst.s S000, VFPU_HUGE\n"
@@ -195,7 +200,7 @@ void checkConstants() {
 		"sv.q   R002, 0x20+%0\n"
 		"sv.q   R003, 0x30+%0\n"
 		"sv.q   R100, 0x40+%0\n"
-		: "+m" (v)
+		: "+m" (v[0])
 	);
 	char buf[1024];
 	char temp[1024];
@@ -206,7 +211,7 @@ void checkConstants() {
 	}
 	//printf("%s", buf);
 	printf("checkConstants(Comparison): %s\n", (strcmp(buf,
-		"inf,1.414214,0.707107,1.128379\n"
+		"340282346638528859811704183484516925440.000000,1.414214,0.707107,1.128379\n"
 		"0.636620,0.318310,0.785398,1.570796\n"
 		"3.141593,2.718282,1.442695,0.434294\n"
 		"0.693147,2.302585,6.283185,0.523599\n"
@@ -246,18 +251,23 @@ void checkVpfxt() {
 
 void checkViim() {
 	int n;
-	ScePspFVector4 v[5];
+	static ScePspFVector4 v[5];
 
 	asm volatile(
 		"viim.s S000, 0\n"
 		"viim.s S010, 1\n"
 		"viim.s S020, -3\n"
 		"viim.s S030, 777\n"
+		"viim.s S001, 32767\n"
+		"viim.s S011, -8\n"
+		"viim.s S021, -3\n"
+		"viim.s S031, -1\n"
 		"sv.q   R000, 0x00+%0\n"
-		: "+m" (v)
+		"sv.q   R001, 0x10+%0\n"
+		: "+m" (v[0])
 	);
 
-	for (n = 0; n < 1; n++) {
+	for (n = 0; n < 2; n++) {
 		printf("%f,%f,%f,%f\n", v[n].x, v[n].y, v[n].z, v[n].w);
 	}
 }
@@ -289,22 +299,23 @@ void checkScale() {
 void checkRotation() {
 	initValues();
 	vrot(0.7, &v0);
-	printf("%f, %f\n", v0.x, v0.y);
+	// HACK: TOLERANCE
+	printf("%0.5f, %0.5f\n", v0.x, v0.y);
 }
 
 void moveNormalRegister() {
 	float t = 5.0;
 	//int t2 = *(int *)&t;
-	ScePspFVector4 v;
+	static ScePspFVector4 v[1];
 	asm volatile(
 		"mtv %1, S410\n"
 		"mtv %1, S411\n"
 		"mtv %1, S412\n"
 		"mtv %1, S413\n"
 		"sv.q   C410, 0x00+%0\n"
-		: "+m" (v) : "t" (t)
+		: "+m" (v[0]) : "t" (t)
 	);
-	printf("%f, %f, %f, %f\n", v.x, v.y, v.z, v.w);
+	printf("%f, %f, %f, %f\n", v[0].x, v[0].y, v[0].z, v[0].w);
 }
 
 void _checkMultiply(ScePspFVector4* v0) {
@@ -493,13 +504,13 @@ void printMatrix(ScePspFMatrix4 *m) {
 }
 
 void checkGum() {
-	ScePspFMatrix4 m;
+	__attribute__ ((aligned (16))) ScePspFMatrix4 m;
 	int val = 45;
 	float angle = 0.7f;
 	float c = cosf(angle);
 	float s = sinf(angle);
-	ScePspFVector3 pos = { 0, 0, -2.5f };
-	ScePspFVector3 rot = { val * 0.79f * (GU_PI/180.0f), val * 0.98f * (GU_PI/180.0f), val * 1.32f * (GU_PI/180.0f) };
+	__attribute__ ((aligned (16))) ScePspFVector3 pos = { 0, 0, -2.5f };
+	__attribute__ ((aligned (16))) ScePspFVector3 rot = { val * 0.79f * (GU_PI/180.0f), val * 0.98f * (GU_PI/180.0f), val * 1.32f * (GU_PI/180.0f) };
 
 	sceGuInit();
 
@@ -561,23 +572,23 @@ void checkGlRotate(int argc, char *argv[]) {
 }
 
 void checkMultiplyFull() {
-	ScePspFMatrix4 m1 = {
+	static __attribute__ ((aligned (16))) ScePspFMatrix4 m1 = {
 		{  2,  3,  5,  7 },
 		{ 11, 13, 17, 19 },
 		{ 23, 29, 31, 37 },
 		{ 41, 43, 47, 53 },
 	};
 
-	ScePspFMatrix4 m2 = {
+	static __attribute__ ((aligned (16))) ScePspFMatrix4 m2 = {
 		{  59,  61,  67,  71 },
 		{  73,  79,  83,  89 },
 		{  97, 101, 103, 107 },
 		{ 109, 113, 127, 131 },
 	};
 	
-	ScePspFMatrix4 m3;
+	static __attribute__ ((aligned (16))) ScePspFMatrix4 m3;
 	
-	ScePspFVector4 *v0 = NULL, *v1 = NULL;
+	__attribute__ ((aligned (16))) ScePspFVector4 *v0 = NULL, *v1 = NULL;
 
 	v1 = &m1.x;
 
@@ -629,7 +640,7 @@ void checkMultiplyFull() {
 void checkMisc() {
 	float fovy = 75.0f;
 	
-	ScePspFVector4 v;
+	__attribute__ ((aligned (16))) ScePspFVector4 v;
 	ScePspFVector4 *v0 = &v;
 	
 	resetAllMatrices();
@@ -658,8 +669,8 @@ void __attribute__((noinline)) _checkSimpleLoad(ScePspFVector4 *v0, ScePspFVecto
 }
 
 void __attribute__((noinline)) checkSimpleLoad() {
-	ScePspFVector4 vIn = {0.0f, 0.0f, 0.0f, 0.0f};
-	ScePspFVector4 vOut = {0.0f, 0.0f, 0.0f, 0.0f};
+	__attribute__ ((aligned (16))) ScePspFVector4 vIn = {0.0f, 0.0f, 0.0f, 0.0f};
+	__attribute__ ((aligned (16))) ScePspFVector4 vOut = {0.0f, 0.0f, 0.0f, 0.0f};
 	vIn.x = 0.3f;
 	_checkSimpleLoad(&vOut, &vIn);
 	printf("%f\n", vOut.x);
@@ -688,8 +699,8 @@ void __attribute__((noinline)) _checkAggregatedAvg(ScePspFVector4 *v0, ScePspFVe
 }
 
 void checkAggregated() {
-	ScePspFVector4 vIn = {11.0f, 22.0f, 33.0f, 44.0f};
-	ScePspFVector4 vOut = {0.0f, 0.0f, 0.0f, 0.0f};
+	static ScePspFVector4 vIn = {11.0f, 22.0f, 33.0f, 44.0f};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vOut = {0.0f, 0.0f, 0.0f, 0.0f};
 	_checkAggregatedAdd(&vOut, &vIn);
 	printf("SUM: %f\n", vOut.x);
 	_checkAggregatedAvg(&vOut, &vIn);
@@ -727,7 +738,7 @@ void _checkMatrixScale(ScePspFMatrix4 *matrix) {
 }
 
 void checkMatrixScale() {
-	ScePspFMatrix4 matrix;
+	static __attribute__ ((aligned (16))) ScePspFMatrix4 matrix;
 	_checkMatrixScale(&matrix);
 	printMatrix(&matrix);
 }
@@ -764,16 +775,17 @@ void _checkHMatrixPerVector(ScePspFMatrix4 *matrix, ScePspFVector4 *vmult, ScePs
 	);
 }
 
+
 void checkMatrixPerVector() {
-	ScePspFMatrix4 matrix = {
+	static ScePspFMatrix4 matrix = {
 		{ 1.0f, 5.0f,  9.0f, 13.0f },
 		{ 2.0f, 6.0f, 10.0f, 14.0f },
 		{ 3.0f, 7.0f, 11.0f, 15.0f },
 		{ 4.0f, 8.0f, 12.0f, 16.0f }
 	};
-	ScePspFVector4 vmult = { -10.0f, -20.0f, 30.0f, 40.0f};
-	ScePspFVector4 vout = { 0.0f, 0.0f, 0.0f, 0.0f };
-	
+	static ScePspFVector4 vmult = { -10.0f, -20.0f, 30.0f, 40.0f};
+	static ScePspFVector4 vout = { 0.0f, 0.0f, 0.0f, 0.0f };
+
 	_checkMatrixPerVector(&matrix, &vmult, &vout);
 	printVector(&vout);
 	
@@ -783,7 +795,7 @@ void checkMatrixPerVector() {
 
 int main(int argc, char *argv[]) {
 	printf("Started\n");
-
+	
 	resetAllMatrices();
 	
 	printf("checkMatrixPerVector:\n"); checkMatrixPerVector();
@@ -798,7 +810,6 @@ int main(int argc, char *argv[]) {
 	printf("checkVmul:\n"); checkVmul();
 	printf("checkVrcp:\n"); checkVrcp();
 	printf("checkViim:\n"); checkViim();
-	printf("checkLoadUnaligned:\n"); checkLoadUnaligned();
 	printf("moveNormalRegister: "); moveNormalRegister();
 	printf("checkVfim: "); checkVfim();
 	printf("checkConstants:\n"); checkConstants();
@@ -812,6 +823,7 @@ int main(int argc, char *argv[]) {
 	printf("checkVone:\n"); checkVone();
 	printf("checkGlRotate:\n"); checkGlRotate(argc, argv);
 	printf("checkGum:\n"); checkGum();
+	printf("checkLoadUnaligned:\n"); checkLoadUnaligned();
 	
 	printf("checkMatrixScale:\n"); checkMatrixScale();
 	
