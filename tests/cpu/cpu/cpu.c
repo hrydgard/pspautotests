@@ -18,7 +18,7 @@
 	OP2_TEST(TYPE, -1, -10); \
 	OP2_TEST(TYPE, 0, 0); \
 
-unsigned int fixed_ror(unsigned int value) {
+__attribute__ ((noinline)) unsigned int fixed_ror(unsigned int value) {
 	int ret;
 	asm volatile (
 		"ror %0, $a0, 4\n"
@@ -27,7 +27,7 @@ unsigned int fixed_ror(unsigned int value) {
 	return ret;
 }
 
-unsigned int fixed_rorv(unsigned int value, int offset) {
+__attribute__ ((noinline)) unsigned int fixed_rorv(unsigned int value, int offset) {
 	int ret;
 	asm volatile (
 		"rorv %0, $a0, $a1\n"
