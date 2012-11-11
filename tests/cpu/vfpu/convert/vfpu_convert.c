@@ -60,7 +60,7 @@ void test_vuc2i() {
 
 	memset(out_i, 0, sizeof(out_i)); vfpu_vuc2i_s(in_i, out_i); printf("vfpu_vuc2i_s: %08X, %08X, %08X, %08X\n", out_i[0], out_i[1], out_i[2], out_i[3]);
 
-	in_i[0] = 0xFFFFFFFF;
+	in_i[0] = 0xFEDCBA89;
 	in_i[1] = 0x00000000;
 	in_i[2] = 0x00000000;
 	in_i[3] = 0x00000000;
@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
 	printf("Started\n");
 	{
 		test_vc2i();
-		// test_vuc2i();
+		test_vuc2i();
 		test_vs2i();
 		test_vi2f();
 	}
