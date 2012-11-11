@@ -6,3 +6,5 @@
 *.prx
 .pspsh.hist
 PARAM.SFO
+__testoutput.txt
+__testerror.txt
