@@ -13,8 +13,8 @@
 #include <pspgu.h>
 #include <pspgum.h>
 
-ScePspFVector4 v0, v1, v2;
-ScePspFVector4 matrix[4];
+__attribute__ ((aligned (16))) ScePspFVector4 v0, v1, v2;
+__attribute__ ((aligned (16))) ScePspFVector4 matrix[4];
 
 void resetAllMatrices() {
 	asm volatile (
@@ -59,6 +59,13 @@ void test_vuc2i() {
 	in_i[3] = 0x89ABCDEF;
 
 	memset(out_i, 0, sizeof(out_i)); vfpu_vuc2i_s(in_i, out_i); printf("vfpu_vuc2i_s: %08X, %08X, %08X, %08X\n", out_i[0], out_i[1], out_i[2], out_i[3]);
+
+	in_i[0] = 0xFFFFFFFF;
+	in_i[1] = 0x00000000;
+	in_i[2] = 0x00000000;
+	in_i[3] = 0x00000000;
+
+	memset(out_i, 0, sizeof(out_i)); vfpu_vuc2i_s(in_i, out_i); printf("vfpu_vuc2i_s: %08X, %08X, %08X, %08X\n", out_i[0], out_i[1], out_i[2], out_i[3]);
 }
 
 void test_vs2i() {
@@ -68,6 +75,12 @@ void test_vs2i() {
 	
 	in_i[0] = 0x01234567;
 	in_i[1] = 0x89ABCDEF;
+
+	memset(out_i, 0, sizeof(out_i)); vfpu_vs2i_s(in_i, out_i); printf("vfpu_vs2i_s: %08X, %08X, %08X, %08X\n", out_i[0], out_i[1], out_i[2], out_i[3]);
+	memset(out_i, 0, sizeof(out_i)); vfpu_vs2i_p(in_i, out_i); printf("vfpu_vs2i_p: %08X, %08X, %08X, %08X\n", out_i[0], out_i[1], out_i[2], out_i[3]);
+
+  in_i[0] = 0xFCCF00FF;
+	in_i[1] = 0x1100FF11;
 
 	memset(out_i, 0, sizeof(out_i)); vfpu_vs2i_s(in_i, out_i); printf("vfpu_vs2i_s: %08X, %08X, %08X, %08X\n", out_i[0], out_i[1], out_i[2], out_i[3]);
 	memset(out_i, 0, sizeof(out_i)); vfpu_vs2i_p(in_i, out_i); printf("vfpu_vs2i_p: %08X, %08X, %08X, %08X\n", out_i[0], out_i[1], out_i[2], out_i[3]);
@@ -90,7 +103,7 @@ int main(int argc, char *argv[]) {
 	printf("Started\n");
 	{
 		test_vc2i();
-		test_vuc2i();
+		// test_vuc2i();
 		test_vs2i();
 		test_vi2f();
 	}

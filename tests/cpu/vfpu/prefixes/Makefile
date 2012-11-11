@@ -1,6 +1,6 @@
-TARGET = vfpu_colors
-OBJS = vfpu_colors.o vfpu_colors_asm.o
-PSP_EBOOT_TITLE = vfpu_colors test 
+TARGET = vfpu_prefixes
+OBJS = vfpu_prefixes.o
+PSP_EBOOT_TITLE = vfpu_prefixes test 
 
 BUILD_PRX = 1
 PSP_FW_VERSION = 500
