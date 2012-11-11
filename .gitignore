@@ -1,3 +1,8 @@
 *.PBP
 *.elf
 *.map
+*.o
+*.a
+*.prx
+.pspsh.hist
+PARAM.SFO
