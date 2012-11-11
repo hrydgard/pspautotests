@@ -1,6 +1,6 @@
-TARGET = dmactest
-OBJS = dmactest.o dmac-imports.o
-PSP_EBOOT_TITLE = dmactest test 
+TARGET = atractest
+OBJS = atractest.o
+PSP_EBOOT_TITLE = atractest test 
 
 BUILD_PRX = 1
 PSP_FW_VERSION = 500
@@ -8,14 +8,14 @@ PSP_FW_VERSION = 500
 PSP_DRIVE = /cygdrive/j
 USE_PSPSDK_LIBC = 1
 
-INCDIR = ../../common
+INCDIR = ../../../common
 CFLAGS = -g -G0 -Wall -O0 -fno-strict-aliasing
 CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti 
 ASFLAGS = $(CFLAGS)
 
-LIBDIR = ../../common
+LIBDIR = ../../../common
 LDFLAGS = -G0
-LIBS= -lpspgu -lpsprtc -lpspctrl -lpspmath -lcommon -lc -lm
+LIBS= -lpspaudio -lpspatrac3 -lpspsnd -lpspgu -lpsprtc -lpspctrl -lpspmath -lcommon -lc -lm
 
 EXTRA_TARGETS = EBOOT.PBP
 #PSP_EBOOT_ICON = icon.png

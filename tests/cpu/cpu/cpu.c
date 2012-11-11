@@ -21,8 +21,8 @@
 __attribute__ ((noinline)) unsigned int fixed_ror(unsigned int value) {
 	int ret;
 	asm volatile (
-		"ror %0, $a0, 4\n"
-		: "=r"(ret)
+		"ror %0, %1, 4\n"
+		: "=r"(ret) : "r"(value)
 	);
 	return ret;
 }
@@ -30,10 +30,30 @@ __attribute__ ((noinline)) unsigned int fixed_ror(unsigned int value) {
 __attribute__ ((noinline)) unsigned int fixed_rorv(unsigned int value, int offset) {
 	int ret;
 	asm volatile (
-		"rorv %0, $a0, $a1\n"
-		: "=r"(ret)
+		"rorv %0, %1, %2\n"
+		: "=r"(ret) : "r"(value), "r"(offset)
 	);
 	return ret;
+}
+
+
+void test_mul64() {
+  volatile unsigned long long a = 0x8234567812345678ULL;
+  volatile unsigned long long b = 0x2345678123456783ULL;
+  volatile signed long long c = 0x8234567812345678ULL;
+  volatile signed long long d = 0xF234567812345678ULL;
+  printf("%llu\n", a * b);
+  printf("%llu\n", b * c - 1);
+  printf("%llu\n", (c * d) >> 7);
+}
+
+void test_div() {
+  volatile int a = 1 << 31; 
+  volatile int b = -1;
+  volatile int c = 100;
+  volatile int d = 3;
+  printf("%08x\n", a/b);
+  printf("%08x\n", c/d); 
 }
 
 OP2(max)
@@ -74,6 +94,9 @@ int main(int argc, char *argv[]) {
 	OPX_TEST_START();
 	printf("rotr 0x%08X\n", fixed_ror(0x12345678));
 	printf("rotrv 0x%08X\n", fixed_rorv(0x12345678, 8));
+
+  test_mul64();
+  test_div();
 
 	return 0;
 }

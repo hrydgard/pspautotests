@@ -1,6 +1,6 @@
-TARGET = dmactest
-OBJS = dmactest.o dmac-imports.o
-PSP_EBOOT_TITLE = dmactest test 
+TARGET = string
+OBJS = string.o
+PSP_EBOOT_TITLE = string test 
 
 BUILD_PRX = 1
 PSP_FW_VERSION = 500

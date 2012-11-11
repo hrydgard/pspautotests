@@ -50,6 +50,57 @@ void __attribute__((noinline)) vcopy(ScePspFVector4 *v0, ScePspFVector4 *v1) {
 	);
 }
 
+void __attribute__((noinline)) vf2h(ScePspFVector4 *v0, ScePspFVector4 *v1) {
+	asm volatile (
+		"lv.q   C100, %1\n"
+    "vf2h.q C200, C100\n"
+		"sv.q   C200, %0\n"
+
+		: "+m" (*v0) : "m" (*v1)
+	);
+}
+
+void __attribute__((noinline)) vf2id(ScePspFVector4 *v0, ScePspFVector4 *v1) {
+	asm volatile (
+		"lv.q   C100, %1\n"
+		"vf2id.q C200, C100, 1\n"
+		"sv.q   C200, %0\n"
+
+		: "+m" (*v0) : "m" (*v1)
+		);
+}
+
+void __attribute__((noinline)) vf2in(ScePspFVector4 *v0, ScePspFVector4 *v1) {
+	asm volatile (
+		"lv.q   C100, %1\n"
+		"vf2in.q C200, C100, 1\n"
+		"sv.q   C200, %0\n"
+
+		: "+m" (*v0) : "m" (*v1)
+		);
+}
+
+void __attribute__((noinline)) vf2iu(ScePspFVector4 *v0, ScePspFVector4 *v1) {
+	asm volatile (
+		"lv.q   C100, %1\n"
+		"vf2iu.q C200, C100, 1\n"
+		"sv.q   C200, %0\n"
+
+		: "+m" (*v0) : "m" (*v1)
+		);
+}
+
+void __attribute__((noinline)) vf2iz(ScePspFVector4 *v0, ScePspFVector4 *v1) {
+	asm volatile (
+		"lv.q   C100, %1\n"
+		"vf2iz.q C200, C100, 1\n"
+		"sv.q   C200, %0\n"
+
+		: "+m" (*v0) : "m" (*v1)
+		);
+}
+
+
 void __attribute__((noinline)) vrot(float angle, ScePspFVector4 *v0) {
 	asm volatile (
 		"mtv    %1, s501\n"
@@ -121,6 +172,7 @@ void __attribute__((noinline)) vfim(ScePspFVector4 *v0) {
 		: "+m" (*v0)
 	);
 }
+
 
 void initValues() {
 	// Reset output values
@@ -219,6 +271,44 @@ void checkConstants() {
 	) == 0) ? "Ok" : "ERROR");
 	
 	puts(buf);
+}
+
+
+void CheckVF2I() {
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn1 =
+	{0.9f, 1.3f, 2.7f, 1000.5f};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn2 =
+	{-0.9f, -1.3f, -2.7f, -1000.5f};
+
+	static __attribute__ ((aligned (16))) ScePspFVector4 vOutF =
+	{0.0f, 0.0f, 0.0f, 0.0f};
+
+  struct {int x,y,z,w;} vOut;
+
+	//vf2h(&vOutF, &vIn1); memcpy(&vOut, &vOutF, 16);
+	//printf("vf2h: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	//vf2h(&vOutF, &vIn2); memcpy(&vOut, &vOutF, 16);
+	//printf("vf2h: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
+
+	vf2id(&vOutF, &vIn1); memcpy(&vOut, &vOutF, 16);
+	printf("vf2id: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	vf2id(&vOutF, &vIn2); memcpy(&vOut, &vOutF, 16);
+	printf("vf2id: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
+
+	vf2in(&vOutF, &vIn1); memcpy(&vOut, &vOutF, 16);
+	printf("vf2in: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	vf2in(&vOutF, &vIn2); memcpy(&vOut, &vOutF, 16);
+	printf("vf2in: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
+
+	vf2iz(&vOutF, &vIn1); memcpy(&vOut, &vOutF, 16);
+	printf("vf2iz: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	vf2iz(&vOutF, &vIn2); memcpy(&vOut, &vOutF, 16);
+	printf("vf2iz: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
+
+	vf2iu(&vOutF, &vIn1); memcpy(&vOut, &vOutF, 16);
+	printf("vf2iu: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	vf2iu(&vOutF, &vIn2); memcpy(&vOut, &vOutF, 16);
+	printf("vf2iu: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
 }
 
 void checkVadd() {
@@ -699,7 +789,7 @@ void __attribute__((noinline)) _checkAggregatedAvg(ScePspFVector4 *v0, ScePspFVe
 }
 
 void checkAggregated() {
-	static ScePspFVector4 vIn = {11.0f, 22.0f, 33.0f, 44.0f};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn = {11.0f, 22.0f, 33.0f, 44.0f};
 	static __attribute__ ((aligned (16))) ScePspFVector4 vOut = {0.0f, 0.0f, 0.0f, 0.0f};
 	_checkAggregatedAdd(&vOut, &vIn);
 	printf("SUM: %f\n", vOut.x);
@@ -800,6 +890,7 @@ int main(int argc, char *argv[]) {
 	
 	printf("checkMatrixPerVector:\n"); checkMatrixPerVector();
 	//return 0;
+	printf("checkVF2I:\n"); CheckVF2I();
 	printf("checkAggregated:\n"); checkAggregated();
 	printf("checkSimpleLoad:\n"); checkSimpleLoad();
 	printf("checkMisc:\n"); checkMisc();

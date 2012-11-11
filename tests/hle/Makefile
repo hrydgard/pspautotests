@@ -1,6 +1,6 @@
-TARGET = dmactest
-OBJS = dmactest.o dmac-imports.o
-PSP_EBOOT_TITLE = dmactest test 
+TARGET = check_not_used_uids
+OBJS = check_not_used_uids.o
+PSP_EBOOT_TITLE = check_not_used_uids test 
 
 BUILD_PRX = 1
 PSP_FW_VERSION = 500
