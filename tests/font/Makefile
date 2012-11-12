@@ -1,23 +1,21 @@
-TARGET = vtimer
-OBJS = vtimer.o
-
-PSP_EBOOT_TITLE = vtimer test 
+TARGET = fonttest
+OBJS = fonttest.o libfont-imports.o
+PSP_EBOOT_TITLE = font test 
 
 BUILD_PRX = 1
 PSP_FW_VERSION = 500
 
-
 PSP_DRIVE = /cygdrive/j
 USE_PSPSDK_LIBC = 1
 
-INCDIR = ../../../common
+INCDIR = ../../common
 CFLAGS = -g -G0 -Wall -O0 -fno-strict-aliasing
 CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti 
 ASFLAGS = $(CFLAGS)
 
-LIBDIR = ../../../common
+LIBDIR = ../../common
 LDFLAGS = -G0
-LIBS= -lpspgu -lpsprtc -lpspctrl -lpspmath -lpspmpeg -lcommon -lc -lm
+LIBS= -lpspgu -lpsprtc -lpspctrl -lpspmath -lcommon -lc -lm
 
 EXTRA_TARGETS = EBOOT.PBP
 #PSP_EBOOT_ICON = icon.png

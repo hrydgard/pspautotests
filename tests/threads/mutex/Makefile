@@ -1,5 +1,5 @@
 TARGET = mutex
-OBJS = mutex.o
+OBJS = mutex.o mutex-imports.o
 
 PSP_EBOOT_TITLE = mutex test 
 
@@ -17,7 +17,7 @@ ASFLAGS = $(CFLAGS)
 
 LIBDIR = ../../../common
 LDFLAGS = -G0
-LIBS= -lpspgu -lpsprtc -lpspctrl -lpspmath -lpspmpeg -lcommon -lc -lm
+LIBS= -lpspgu -lpspmath -lpspmpeg -lcommon -lc -lm
 
 EXTRA_TARGETS = EBOOT.PBP
 #PSP_EBOOT_ICON = icon.png

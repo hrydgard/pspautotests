@@ -1,11 +1,9 @@
-TARGET = vtimer
-OBJS = vtimer.o
-
-PSP_EBOOT_TITLE = vtimer test 
+TARGET = systemparam
+OBJS = systemparam.o
+PSP_EBOOT_TITLE = systemparam test 
 
 BUILD_PRX = 1
 PSP_FW_VERSION = 500
-
 
 PSP_DRIVE = /cygdrive/j
 USE_PSPSDK_LIBC = 1
@@ -17,7 +15,7 @@ ASFLAGS = $(CFLAGS)
 
 LIBDIR = ../../../common
 LDFLAGS = -G0
-LIBS= -lpspgu -lpsprtc -lpspctrl -lpspmath -lpspmpeg -lcommon -lc -lm
+LIBS= -lpspgu -lpsprtc -lpspctrl -lpspmath -lcommon -lc -lm
 
 EXTRA_TARGETS = EBOOT.PBP
 #PSP_EBOOT_ICON = icon.png
