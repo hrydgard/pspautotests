@@ -49,6 +49,10 @@ PSP_MAIN_THREAD_ATTR(PSP_THREAD_ATTR_USER | PSP_THREAD_ATTR_VFPU);
 #define EMULATOR_DEVCTL__SEND_CTRLDATA   0x00000010
 #define EMULATOR_DEVCTL__EMIT_SCREENSHOT 0x00000020
 
+// Need to set this to not get a 64KB heap now that we build PRXs.
+// See libcglue.c in the pspsdk.
+unsigned int sce_newlib_heap_kb_size = -1;
+
 unsigned int RUNNING_ON_EMULATOR = 0;
 unsigned int HAS_DISPLAY = 1;
 

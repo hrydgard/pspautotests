@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <malloc.h>
 
 #define NUM_BUFFERS 1024
 #define BUFFER_SIZE (5 * 1024)
