@@ -49,10 +49,6 @@ PSP_MAIN_THREAD_ATTR(PSP_THREAD_ATTR_USER | PSP_THREAD_ATTR_VFPU);
 #define EMULATOR_DEVCTL__SEND_CTRLDATA   0x00000010
 #define EMULATOR_DEVCTL__EMIT_SCREENSHOT 0x00000020
 
-// Need to set this to not get a 64KB heap now that we build PRXs.
-// See libcglue.c in the pspsdk.
-unsigned int sce_newlib_heap_kb_size = -1;
-
 unsigned int RUNNING_ON_EMULATOR = 0;
 unsigned int HAS_DISPLAY = 1;
 
@@ -99,10 +95,8 @@ void test_begin() {
 		//stderr = stdout;
 		setbuf(stdout, NULL);
 	} else {
-		//freopen("ms0:/__testoutput.txt", "wb", stdout);
-		//freopen("ms0:/__testerror.txt", "wb", stderr);
-		freopen("host0:/__testoutput.txt", "wb", stdout);
-		freopen("host0:/__testerror.txt", "wb", stderr);
+		freopen("ms0:/__testoutput.txt", "wb", stdout);
+		freopen("ms0:/__testerror.txt", "wb", stderr);
 		stdout_back._write = stdout->_write;
 	}
 	stdout->_write = writeStdoutHook;
@@ -121,13 +115,11 @@ void test_end() {
 	fclose(stderr);
 
 	if (!RUNNING_ON_EMULATOR) {
-    // We want tests to exit immediately.
-    /*
 		SceCtrlData key;
 		while (1) {
 			sceCtrlReadBufferPositive(&key, 1);
 			if (key.Buttons & PSP_CTRL_CROSS) break;
-		}*/
+		}
 	}
 	
 	//fclose(stdout);
@@ -227,10 +219,18 @@ void emulatorEmitScreenshot() {
 				vram_row = (uint *)(topaddr + 512 * 4 * (271 - y));
 				for (x = 0; x < 512; x++) {
 					c = vram_row[x];
+					/*
 					row_buf[x] = (
 						((extractBits(c,  0, 8)) <<  0) |
 						((extractBits(c,  8, 8)) <<  8) |
 						((extractBits(c, 16, 8)) << 16) |
+						((                0x00 ) << 24) |
+					0);
+					*/
+					row_buf[x] = (
+						((extractBits(c, 16, 8)) <<  0) |
+						((extractBits(c,  8, 8)) <<  8) |
+						((extractBits(c,  0, 8)) << 16) |
 						((                0x00 ) << 24) |
 					0);
 				}
