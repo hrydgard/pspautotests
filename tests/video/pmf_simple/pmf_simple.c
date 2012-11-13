@@ -260,7 +260,7 @@ void LoadAndDecode(char * pFileName) {
 			printf("sceMpegGetAtracAu             : 0x%08X\n", (unsigned int)(result = sceMpegGetAtracAu(&m_Mpeg, &m_MpegStreamAtrac, &m_MpegAuAtrac, &atrac3PlusPointer)));
 			DumpSceMpegAu(&m_MpegAuAtrac);
 			fflush(stdout);
-			printf("sceMpegAtracDecode            : 0x%08X\n", (unsigned int)(result = sceMpegAtracDecode(&m_Mpeg, &m_MpegAuAtrac, m_pAudioBuffer, (int)&iInitAudio)));
+			printf("sceMpegAtracDecode            : 0x%08X\n", (unsigned int)(result = sceMpegAtracDecode(&m_Mpeg, &m_MpegAuAtrac, m_pAudioBuffer, &iInitAudio)));
 			fflush(stdout);
 			printf("     DATA: %02X %02X %02X %02X\n", m_pAudioBuffer[0], m_pAudioBuffer[1], m_pAudioBuffer[2], m_pAudioBuffer[3]);
 			DumpSceMpegAu(&m_MpegAuAtrac);
@@ -271,8 +271,7 @@ void LoadAndDecode(char * pFileName) {
 			printf("sceMpegGetAvcAu               : 0x%08X\n", (unsigned int)(result = sceMpegGetAvcAu (&m_Mpeg, m_MpegStreamAVC, &m_MpegAuAVC, &atrac3PlusPointer)));
 			DumpSceMpegAu(&m_MpegAuAVC);
 			fflush(stdout);
-
-			printf("sceMpegAvcDecode              : 0x%08X\n", (unsigned int)(result = sceMpegAvcDecode(&m_Mpeg, &m_MpegAuAVC, BUFFER_WIDTH, m_pVideoBuffer, (void*)&iVideoStatus)));
+			printf("sceMpegAvcDecode              : 0x%08X\n", (unsigned int)(result = sceMpegAvcDecode(&m_Mpeg, &m_MpegAuAVC, BUFFER_WIDTH, m_pVideoBuffer, &iVideoStatus)));
 			fflush(stdout);
 			printf("     Init: %d\n", iVideoStatus);
 			printf("     DATA: %02X %02X %02X %02X\n", m_pVideoBuffer[0], m_pVideoBuffer[1], m_pVideoBuffer[2], m_pVideoBuffer[3]);
@@ -280,7 +279,7 @@ void LoadAndDecode(char * pFileName) {
 			fflush(stdout);
 		}
 		
-		printf("sceMpegAvcDecodeStop          : 0x%08X\n", (unsigned int)(result = sceMpegAvcDecodeStop (&m_Mpeg, BUFFER_WIDTH, m_pVideoBuffer, (void*)&iVideoStatus)));
+		printf("sceMpegAvcDecodeStop          : 0x%08X\n", (unsigned int)(result = sceMpegAvcDecodeStop (&m_Mpeg, BUFFER_WIDTH, m_pVideoBuffer, &iVideoStatus)));
 		printf("sceMpegFlushAllStream         : 0x%08X\n", (unsigned int)(result = sceMpegFlushAllStream(&m_Mpeg)));
 	}
 	// Shutdown.

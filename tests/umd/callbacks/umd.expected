@@ -1,6 +1,4 @@
-sceUmdRegisterUMDCallBack: 00000000
-sceUmdActivate: 00000000
-umdHandler called: 00000001, 00000001, 00001234
-sceKernelCheckCallback: 1
-sceUmdUnRegisterUMDCallBack: 00000001
-sceUmdUnRegisterUMDCallBack: 00000000
+00000000
+0
+04673855
+80010016

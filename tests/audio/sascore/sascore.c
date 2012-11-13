@@ -19,16 +19,13 @@ ByteArray loadData()
 	FILE *file;
 	ByteArray data = {0};
 	if ((file = fopen("test.vag", "rb")) != NULL) {
-		printf("DATA:Reading file...\n");
 		fseek(file, 0, SEEK_END);
 		data.length = ftell(file);
 		data.pointer = (unsigned char *)malloc(data.length);
 		memset(data.pointer, 0, data.length);
-		printf("DATA:Data Length %i\n", data.length);
 		fseek(file, 0, SEEK_SET);
 		fread(data.pointer, data.length, 1, file);
 		fclose(file);
-		printf("DATA:Finished reading file...\n");
 	}
 	if (data.length == 0) {
 		printf("DATA:Can't read file\n");
