@@ -52,6 +52,8 @@ PSP_MAIN_THREAD_ATTR(PSP_THREAD_ATTR_USER | PSP_THREAD_ATTR_VFPU);
 unsigned int RUNNING_ON_EMULATOR = 0;
 unsigned int HAS_DISPLAY = 1;
 
+unsigned int sce_newlib_heap_kb_size = -1;
+
 extern int test_main(int argc, char *argv[]);
 
 FILE stdout_back = {NULL};
