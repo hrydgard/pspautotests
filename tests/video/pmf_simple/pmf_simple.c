@@ -137,19 +137,18 @@ typedef struct {
 } _SceMpeg;
 
 void DumpSceMpegRingbuffer(SceMpegRingbuffer *ringBuffer) {
+	printf("    iPackets  : 0x%08X\n", (unsigned int)ringBuffer->iPackets);
+	printf("    iUnk0     : 0x%08X\n", (unsigned int)ringBuffer->iUnk0);
+	printf("    iUnk1     : 0x%08X\n", (unsigned int)ringBuffer->iUnk1);
+	printf("    iUnk2     : 0x%08X\n", (unsigned int)ringBuffer->iUnk2);
+	printf("    iUnk3     : 0x%08X\n", (unsigned int)ringBuffer->iUnk3);
+	printf("    pData     : 0x%08X\n", (unsigned int)ringBuffer->pData);
+	printf("    Callback  : 0x%08X\n", (unsigned int)ringBuffer->Callback);
+	printf("    pCBparam  : 0x%08X\n", (unsigned int)ringBuffer->pCBparam);
+	printf("    iUnk4     : 0x%08X\n", (unsigned int)ringBuffer->iUnk4);
+	printf("    iUnk5     : 0x%08X\n", (unsigned int)ringBuffer->iUnk5);
+	printf("    pSceMpeg  : 0x%08X\n", (unsigned int)ringBuffer->pSceMpeg);
 	/*
-	printf("    iPackets  : 0x%08X\n", (unsigned int)((SceMpegRingbuffer *)&ringBuffer)->iPackets);
-	printf("    iUnk0     : 0x%08X\n", (unsigned int)((SceMpegRingbuffer *)&ringBuffer)->iUnk0);
-	printf("    iUnk1     : 0x%08X\n", (unsigned int)((SceMpegRingbuffer *)&ringBuffer)->iUnk1);
-	printf("    iUnk2     : 0x%08X\n", (unsigned int)((SceMpegRingbuffer *)&ringBuffer)->iUnk2);
-	printf("    iUnk3     : 0x%08X\n", (unsigned int)((SceMpegRingbuffer *)&ringBuffer)->iUnk3);
-	printf("    pData     : 0x%08X\n", (unsigned int)((SceMpegRingbuffer *)&ringBuffer)->pData);
-	printf("    Callback  : 0x%08X\n", (unsigned int)((SceMpegRingbuffer *)&ringBuffer)->Callback);
-	printf("    pCBparam  : 0x%08X\n", (unsigned int)((SceMpegRingbuffer *)&ringBuffer)->pCBparam);
-	printf("    iUnk4     : 0x%08X\n", (unsigned int)((SceMpegRingbuffer *)&ringBuffer)->iUnk4);
-	printf("    iUnk5     : 0x%08X\n", (unsigned int)((SceMpegRingbuffer *)&ringBuffer)->iUnk5);
-	printf("    pSceMpeg  : 0x%08X\n", (unsigned int)((SceMpegRingbuffer *)&ringBuffer)->pSceMpeg);
-	*/
 	printf("    packets          : 0x%08X\n", (unsigned int)((_SceMpegRingbuffer *)&ringBuffer)->packets);
 	printf("    packetsRead      : 0x%08X\n", (unsigned int)((_SceMpegRingbuffer *)&ringBuffer)->packetsRead);
 	printf("    packetsWritten   : 0x%08X\n", (unsigned int)((_SceMpegRingbuffer *)&ringBuffer)->packetsWritten);
@@ -161,7 +160,7 @@ void DumpSceMpegRingbuffer(SceMpegRingbuffer *ringBuffer) {
 	printf("    dataUpperBound   : 0x%08X\n", (unsigned int)((_SceMpegRingbuffer *)&ringBuffer)->dataUpperBound);
 	printf("    semaId           : 0x%08X\n", (unsigned int)((_SceMpegRingbuffer *)&ringBuffer)->semaId);
 	printf("    mpeg             : 0x%08X\n", (unsigned int)((_SceMpegRingbuffer *)&ringBuffer)->mpeg);
-	
+	*/
 	fflush(stdout);
 }
 
