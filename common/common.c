@@ -97,8 +97,9 @@ void test_begin() {
 		//stderr = stdout;
 		setbuf(stdout, NULL);
 	} else {
-		freopen("ms0:/__testoutput.txt", "wb", stdout);
-		freopen("ms0:/__testerror.txt", "wb", stderr);
+    // Send the output to the host.
+		freopen("host0:/__testoutput.txt", "wb", stdout);
+		freopen("host0:/__testerror.txt", "wb", stderr);
 		stdout_back._write = stdout->_write;
 	}
 	stdout->_write = writeStdoutHook;
@@ -116,7 +117,8 @@ void test_end() {
 	fclose(stdout);
 	fclose(stderr);
 
-	if (!RUNNING_ON_EMULATOR) {
+  // Disabled the wait, much more convienent when running automated.
+	if (0 && !RUNNING_ON_EMULATOR) {
 		SceCtrlData key;
 		while (1) {
 			sceCtrlReadBufferPositive(&key, 1);

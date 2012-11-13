@@ -1,9 +1,11 @@
-TARGET = vfpu
-OBJS = vfpu.o
-PSP_EBOOT_TITLE = vfpu test 
+TARGET = k0
+OBJS = k0.o
+
+PSP_EBOOT_TITLE = k0 test 
 
 BUILD_PRX = 1
 PSP_FW_VERSION = 500
+
 
 PSP_DRIVE = /cygdrive/j
 USE_PSPSDK_LIBC = 1
@@ -15,10 +17,11 @@ ASFLAGS = $(CFLAGS)
 
 LIBDIR = ../../../common
 LDFLAGS = -G0
-LIBS= -lGLUT -lGL -lpspvfpu -lpspgu -lpspgum -lpsprtc -lpspctrl -lpspmath -lcommon -lc -lm
+LIBS= -lpspgu -lpsprtc -lpspctrl -lpspmath -lpspmpeg -lcommon -lc -lm
 
 EXTRA_TARGETS = EBOOT.PBP
 #PSP_EBOOT_ICON = icon.png
 
 PSPSDK=$(shell psp-config --pspsdk-path)
 include $(PSPSDK)/lib/build.mak
+	
