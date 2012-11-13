@@ -13,7 +13,7 @@
  * @param powerInfo - combination of PSP_POWER_CB_ flags
  */
 int powerHandler(int unknown, int powerInfo, void *arg) {
-	printf("powerHandler called: %08X, %08X, %08X\n", (uint)unknown, (uint)powerInfo != 0, (uint)arg);
+	printf("powerHandler called: %08X, %08X, %08X\n", (uint)unknown, (uint)powerInfo, (uint)arg);
 
 	return 0;
 }

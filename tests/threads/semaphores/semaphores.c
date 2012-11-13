@@ -10,9 +10,15 @@ SceUID sema;
 unsigned int test[5] = {0x0123, 0x4567, 0x89AB, 0xCDEF, 0x12345678};
 
 static int threadFunction(int argSize, void* argPointer) {
+	printf("sceKernelPollSema(0): %08X\n", sceKernelPollSema(sema, 0));
+	printf("sceKernelPollSema(1): %08X\n", sceKernelPollSema(sema, 1));
+	printf("sceKernelPollSema(2): %08X\n", sceKernelPollSema(sema, 2));
 	printf("[1]:%d:%04X\n", argSize, argPointer ? *((unsigned int*)argPointer) : 0);
 	sceKernelWaitSemaCB(sema, 1, NULL);
 
+	printf("sceKernelPollSema(0): %08X\n", sceKernelPollSema(sema, 0));
+	printf("sceKernelPollSema(1): %08X\n", sceKernelPollSema(sema, 1));
+	printf("sceKernelPollSema(2): %08X\n", sceKernelPollSema(sema, 2));
 	printf("[2]:%d:%04X\n", argSize, argPointer ? *((unsigned int*)argPointer) : 0);
 	return 0;
 }
