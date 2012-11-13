@@ -226,6 +226,12 @@ void LoadAndDecode(char * pFileName) {
 		printf("   m_MpegAtracOutSize: %d\n", (int)m_MpegAtracOutSize);
 		printf("m_pEsBufferAtrac             :0x%08X\n", (unsigned int)(m_pEsBufferAtrac = memalign(64, m_MpegAtracEsSize)));
 		printf("sceMpegInitAu                :0x%08X\n", (unsigned int)(retVal = sceMpegInitAu(&m_Mpeg, m_pEsBufferAtrac, &m_MpegAuAtrac)));
+		printf("   iPtsMSB           : 0x%08X\n", (unsigned int)m_MpegAuAtrac.iPtsMSB);
+		printf("   iPts              : 0x%08X\n", (unsigned int)m_MpegAuAtrac.iPts);
+		printf("   iDtsMSB           : 0x%08X\n", (unsigned int)m_MpegAuAtrac.iDtsMSB);
+		printf("   iDts              : 0x%08X\n", (unsigned int)m_MpegAuAtrac.iDts);
+		printf("   iEsBuffer         : 0x%08X\n", (unsigned int)m_MpegAuAtrac.iEsBuffer);
+		printf("   iAuSize           : 0x%08X\n", (unsigned int)m_MpegAuAtrac.iAuSize);
 	}
 	// Decode.
 	{
