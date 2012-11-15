@@ -9,15 +9,15 @@
 #define PSP_MUTEX_ATTR_PRIORITY 0x100
 #define PSP_MUTEX_ATTR_ALLOW_RECURSIVE 0x200
 
-int sceKernelCreateMutex(char *name, uint attributes, int options);
+int sceKernelCreateMutex(const char *name, uint attributes, int initial_count, void* options);
 int sceKernelDeleteMutex(int mutexId);
 int sceKernelLockMutex(int mutexId, int count, uint* timeout);
 int sceKernelTryLockMutex(int mutexId, int count);
 int sceKernelUnlockMutex(int mutexId, int count);
 
 void simpleTest() {
-	int mutexid;
-	printf("sceKernelCreateMutex:0x%08X\n", mutexid = sceKernelCreateMutex("test", PSP_MUTEX_ATTR_FIFO, 0));
+	int mutexid = sceKernelCreateMutex("test", PSP_MUTEX_ATTR_FIFO, 0, 0);
+	printf("sceKernelCreateMutex:0x%08X\n", mutexid < 0 ? mutexid : 1);
 	{
 		printf("sceKernelLockMutex:0x%08X\n", sceKernelLockMutex(mutexid, 1, NULL));
 		printf("sceKernelUnlockMutex:0x%08X\n", sceKernelUnlockMutex(mutexid, 1));
@@ -28,8 +28,8 @@ void simpleTest() {
 }
 
 void recursiveTest() {
-	int mutexid;
-	printf("sceKernelCreateMutex:0x%08X\n", mutexid = sceKernelCreateMutex("test", PSP_MUTEX_ATTR_FIFO | PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 0));
+	int mutexid = sceKernelCreateMutex("test", PSP_MUTEX_ATTR_FIFO | PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 0, 0);
+	printf("sceKernelCreateMutex:0x%08X\n", mutexid < 0 ? mutexid : 1);
 	{
 		printf("[0]sceKernelLockMutex:0x%08X\n", sceKernelLockMutex(mutexid, 1, NULL));
 		{
@@ -77,7 +77,7 @@ void multipleTest() {
 	int n;
 	
 	semaid = sceKernelCreateSema("sema1", 0, 0, 255, NULL);
-	mutexid = sceKernelCreateMutex("mutex", PSP_MUTEX_ATTR_FIFO | PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 0);
+	mutexid = sceKernelCreateMutex("mutex", PSP_MUTEX_ATTR_FIFO | PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 0, 0);
 	{
 		for (n = 0; n < N_THREADS; n++) {
 			sceKernelStartThread(threads[n] = sceKernelCreateThread("multipleTestThread", (void *)&multipleTestThread, 0x12, 0x10000, 0, NULL), sizeof(int), &n);
