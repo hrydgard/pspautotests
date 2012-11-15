@@ -447,6 +447,52 @@ void checkVsat0() {
 	printf("vsat0.q: %f,%f,%f,%f\n", vOut.x, vOut.y, vOut.z, vOut.w);
 }
 
+void __attribute__((noinline)) vmin(ScePspFVector4 *v0, ScePspFVector4 *v1, ScePspFVector4 *v2) {
+	asm volatile (
+		"lv.q   C100, %1\n"
+		"lv.q   C200, %2\n"
+		"vmin.q C300, C100, C200\n"
+		"sv.q   C300, %0\n"
+
+		: "+m" (*v0): "m" (*v1), "m" (*v2)
+		);
+}
+
+void checkVmin() {
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn =
+	{3.0f, -4.0f, NAN, 86.0f};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn2 =
+	{4.0f, -5.0f, 0.0f, NAN};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vOut =
+	{0.0f, 0.0f, 0.0f, 0.0f};
+
+	vmin(&vOut, &vIn, &vIn2);
+	printf("vmin.q: %f,%f,%f,%f\n", vOut.x, vOut.y, vOut.z, vOut.w);
+}
+
+void __attribute__((noinline)) vmax(ScePspFVector4 *v0, ScePspFVector4 *v1, ScePspFVector4 *v2) {
+	asm volatile (
+		"lv.q   C100, %1\n"
+		"lv.q   C200, %2\n"
+		"vmin.q C300, C200, C100\n"
+		"sv.q   C300, %0\n"
+
+		: "+m" (*v0): "m" (*v1), "m" (*v2)
+		);
+}
+
+void checkVmax() {
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn =
+	{3.0f, -4.0f, NAN, 86.0f};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn2 =
+	{4.0f, -5.0f, 0.0f, NAN};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vOut =
+	{0.0f, 0.0f, 0.0f, 0.0f};
+
+	vmax(&vOut, &vIn, &vIn2);
+	printf("vmax.q: %f,%f,%f,%f\n", vOut.x, vOut.y, vOut.z, vOut.w);
+}
+
 void checkVpfxt() {
 	printf("TODO!\n");
 }
@@ -1081,6 +1127,8 @@ int main(int argc, char *argv[]) {
 	printf("checkSimpleLoad:\n"); checkSimpleLoad();
 	printf("checkMisc:\n"); checkMisc();
 	printf("checkMultiplyFull:\n"); checkMultiplyFull();
+	printf("checkVmin:\n"); checkVmin();
+	printf("checkVmax:\n"); checkVmax();
 	printf("checkVadd:\n"); checkVadd();
 	printf("checkVsub:\n"); checkVsub();
 	printf("checkVdiv:\n"); checkVdiv();
