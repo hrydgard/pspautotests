@@ -331,8 +331,120 @@ void checkVmul() {
 	printf("TODO!\n");
 }
 
+void __attribute__((noinline)) vsgn(ScePspFVector4 *v0, ScePspFVector4 *v1) {
+	asm volatile (
+		"lv.q   C100, %1\n"
+		"vsgn.q C200, C100\n"
+		"sv.q   C200, %0\n"
+
+		: "+m" (*v0) : "m" (*v1)
+		);
+}
+
+void checkVsgn() {
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn =
+	{-0.0f, 1.3f, -INFINITY, NAN};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn2 =
+	{0.0f, -1.0f, INFINITY, -NAN};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vOut =
+	{0.0f, 0.0f, 0.0f, 0.0f};
+
+	vsgn(&vOut, &vIn);
+	printf("vsgn.q: %f,%f,%f,%f\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	vsgn(&vOut, &vIn2);
+	printf("vsgn.q: %f,%f,%f,%f\n", vOut.x, vOut.y, vOut.z, vOut.w);
+}
+
+void __attribute__((noinline)) vrcp(ScePspFVector4 *v0, ScePspFVector4 *v1) {
+	asm volatile (
+		"lv.q   C100, %1\n"
+		"vrcp.q C200, C100\n"
+		"sv.q   C200, %0\n"
+
+		: "+m" (*v0) : "m" (*v1)
+		);
+}
+
 void checkVrcp() {
-	printf("TODO!\n");
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn =
+	{0.0f, -1.3f, INFINITY, NAN};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vOut =
+	{0.0f, 0.0f, 0.0f, 0.0f};
+
+	vrcp(&vOut, &vIn);
+	printf("vrcp.q: %f,%f,%f,%f\n", vOut.x, vOut.y, vOut.z, vOut.w);
+}
+
+void __attribute__((noinline)) vbfy1(ScePspFVector4 *v0, ScePspFVector4 *v1) {
+	asm volatile (
+		"lv.q   C100, %1\n"
+		"vbfy1.q C200, C100\n"
+		"sv.q   C200, %0\n"
+
+		: "+m" (*v0) : "m" (*v1)
+		);
+}
+
+void checkVbfy1() {
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn =
+	{10.0f, -5.f, 7.f, 3.f};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn2 =
+	{6.0f, -46.f, 7.f, -INFINITY};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vOut =
+	{0.0f, 0.0f, 0.0f, 0.0f};
+
+	vbfy1(&vOut, &vIn);
+	printf("vbfy1.q: %f,%f,%f,%f\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	vbfy1(&vOut, &vIn2);
+	printf("vbfy1.q: %f,%f,%f,%f\n", vOut.x, vOut.y, vOut.z, vOut.w);
+}
+
+void __attribute__((noinline)) vbfy2(ScePspFVector4 *v0, ScePspFVector4 *v1) {
+	asm volatile (
+		"lv.q   C100, %1\n"
+		"vbfy2.q C200, C100\n"
+		"sv.q   C200, %0\n"
+
+		: "+m" (*v0) : "m" (*v1)
+		);
+}
+
+void checkVbfy2() {
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn =
+	{20.0f, -1.f, 4.f, 9.f};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn2 =
+	{11.0f, -3.f, 8.f, NAN};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vOut =
+	{0.0f, 0.0f, 0.0f, 0.0f};
+
+	vbfy2(&vOut, &vIn);
+	printf("vbfy2.q: %f,%f,%f,%f\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	vbfy2(&vOut, &vIn2);
+	printf("vbfy2.q: %f,%f,%f,%f\n", vOut.x, vOut.y, vOut.z, vOut.w);
+}
+
+void __attribute__((noinline)) vsat0(ScePspFVector4 *v0, ScePspFVector4 *v1) {
+	asm volatile (
+		"lv.q   C100, %1\n"
+		"vsat0.q C200, C100\n"
+		"sv.q   C200, %0\n"
+
+		: "+m" (*v0) : "m" (*v1)
+		);
+}
+
+void checkVsat0() {
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn =
+	{0.0f, -1.3f, INFINITY, NAN};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn2 =
+	{10e10f, 1.000001f, -INFINITY, -NAN};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vOut =
+	{0.0f, 0.0f, 0.0f, 0.0f};
+
+	vsat0(&vOut, &vIn);
+	printf("vsat0.q: %f,%f,%f,%f\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	vsat0(&vOut, &vIn2);
+	printf("vsat0.q: %f,%f,%f,%f\n", vOut.x, vOut.y, vOut.z, vOut.w);
 }
 
 void checkVpfxt() {
@@ -903,6 +1015,26 @@ void checkCrossProduct() {
 	printVector(&vout);
 }
 
+void _checkHalfCrossProduct(ScePspFVector4 *vleft, ScePspFVector4 *vright, ScePspFVector4 *vresult) {
+	asm volatile (
+		"lv.q R500, 0x00+%1\n"
+		"lv.q R600, 0x00+%2\n"
+		
+		"vcrs.t R100, R500, R600\n"
+		
+		"sv.q    R100, 0x00+%0\n"
+		: "+m" (*vresult) : "m" (*vleft), "m" (*vright)
+	);
+}
+
+void checkHalfCrossProduct() {
+	static __attribute__ ((aligned (16))) ScePspFVector4 vleft = { -1.0f, -2.0f, 3.0f, 4.0f};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vright = { -3.0f, 5.0f, 7.0f, -11.0f };
+	static __attribute__ ((aligned (16))) ScePspFVector4 vout = { 0.0f, 0.0f, 0.0f, 0.0f };
+	_checkHalfCrossProduct(&vleft, &vright, &vout);
+	printVector(&vout);
+}
+
 void _checkCompare(ScePspFVector4 *vleft, ScePspFVector4 *vright, ScePspFVector4 *vresult) {
 	asm volatile (
 		"lv.q R500, 0x00+%1\n"
@@ -941,6 +1073,9 @@ int main(int argc, char *argv[]) {
 	printf("checkCompare:\n"); checkCompare();
   printf("checkVF2I:\n"); checkVF2I();
 	printf("checkCrossProduct:\n"); checkCrossProduct();
+	printf("checkHalfCrossProduct:\n"); checkHalfCrossProduct();
+	printf("checkButterfly1:\n"); checkVbfy1();
+	printf("checkButterfly2:\n"); checkVbfy2();
 	printf("checkMatrixPerVector:\n"); checkMatrixPerVector();
 	printf("checkAggregated:\n"); checkAggregated();
 	printf("checkSimpleLoad:\n"); checkSimpleLoad();
@@ -952,6 +1087,8 @@ int main(int argc, char *argv[]) {
 	printf("checkVmul:\n"); checkVmul();
 	printf("checkVrcp:\n"); checkVrcp();
 	printf("checkViim:\n"); checkViim();
+  printf("checkVsgn:\n"); checkVsgn();
+  printf("checkVsat0:\n"); checkVsat0();
 	printf("checkLoadUnaligned:\n"); checkLoadUnaligned();
 	printf("moveNormalRegister: "); moveNormalRegister();
 	printf("checkVfim: "); checkVfim();
