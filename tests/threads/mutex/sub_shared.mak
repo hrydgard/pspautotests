@@ -1,4 +1,4 @@
-OBJS = $(TARGET).o ../mutex-imports.o ../sub_shared.o
+OBJS = $(TARGET).o ../mutex-imports.o
 
 BUILD_PRX = 1
 PSP_FW_VERSION = 500

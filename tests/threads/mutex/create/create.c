@@ -1,5 +1,7 @@
 #include "../sub_shared.h"
 
+SETUP_SCHED_TEST;
+
 #define CREATE_TEST(title, name, attr, count, options) { \
 	mutex = sceKernelCreateMutex(name, attr, count, options); \
 	if (mutex > 0) { \

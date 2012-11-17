@@ -1,0 +1,18 @@
+Lock 0 => 0: Failed (800201BD)
+Lock 0 => 1: OK
+Lock 0 => 2: Failed (800201BD)
+Lock 0 => -1: Failed (800201BD)
+Lock 1 => 1: Failed (800201C8)
+Lock 0 => 2 (recursive): OK
+Lock 0 => -1 (recursive): Failed (800201BD)
+Lock 1 => 1 (recursive): OK
+Locked 1 => 1: L1 L2 Failed (800201C8)
+Locked 0 => 1: L1 L2 Failed (800201C4)
+Locked 1 => 1 (recursive): L1 L2 OK
+Locked 0 => 1 (recursive): L1 L2 Failed (800201C4)
+After delete: 800201C4
+NULL => 0: Failed (800201C3)
+NULL => 1: Failed (800201C3)
+Invalid => 1: Failed (800201C3)
+Deleted => 1: Failed (800201C3)
+Scheduling: ABCDE
