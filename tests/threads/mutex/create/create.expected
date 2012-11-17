@@ -1,0 +1,11 @@
+NULL name: Failed (80020001)
+Blank name: OK
+Long name: OK
+Weird attr: OK
+Negative count: Failed (800201BD)
+Positive count: OK
+Large count: Failed (800201BD)
+Two with same name: OK
+Scheduling: ABCDE
+Initial locked: ABCDE
+Initial unlocked: ABCDE
