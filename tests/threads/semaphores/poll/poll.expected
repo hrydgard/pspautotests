@@ -1,8 +1,9 @@
-00000000
-800201AD
-800201BD
-800201BD
-800201BD
-80020199
-80020199
+Signaled: OK
+Not signaled: Failed (800201AD)
+Zero (while not signaled): Failed (800201AD)
+Zero (while signaled): Failed (800201BD)
+Negative: Failed (800201BD)
+NULL: Failed (80020199)
+Invalid: Failed (80020199)
+Deleted: Failed (80020199)
 ABCDE

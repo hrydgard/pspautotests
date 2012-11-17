@@ -1,12 +1,31 @@
-00000000
-800201BD
-800201BD - 99
-00000000
-00000000
-Sema(Id=1,Size=56,Name='cancel',Attr=0,init=0,cur=0,max=1,wait=0)
-AB00000000 - 0
-CD00000000 - 1
+Normal: OK
+Sema: OK (size=56,name='cancel',attr=0,init=0,cur=1,max=1,wait=0)
+Greater than max: Failed (800201BD)
+Sema: OK (size=56,name='cancel',attr=0,init=0,cur=1,max=1,wait=0)
+Zero: OK
+Sema: OK (size=56,name='cancel',attr=0,init=0,cur=0,max=1,wait=0)
+Negative -3: OK
+Sema: OK (size=56,name='cancel',attr=0,init=0,cur=0,max=1,wait=0)
+Negative -1: OK
+Sema: OK (size=56,name='cancel',attr=0,init=0,cur=0,max=1,wait=0)
+Normal: OK (0 waiting)
+Sema: OK (size=56,name='cancel',attr=0,init=0,cur=1,max=1,wait=0)
+Greater than max: Failed (800201BD, 99 waiting)
+Sema: OK (size=56,name='cancel',attr=0,init=0,cur=1,max=1,wait=0)
+Zero: OK (0 waiting)
+Sema: OK (size=56,name='cancel',attr=0,init=0,cur=0,max=1,wait=0)
+Negative -3: OK (0 waiting)
+Sema: OK (size=56,name='cancel',attr=0,init=0,cur=0,max=1,wait=0)
+Negative -1: OK (0 waiting)
+Sema: OK (size=56,name='cancel',attr=0,init=0,cur=0,max=1,wait=0)
+ABTo 0: OK (0 waiting)
+Sema: OK (size=56,name='schedTest1',attr=0,init=0,cur=0,max=1,wait=1)
+CDTo 1: OK (1 waiting)
+Sema: OK (size=56,name='schedTest1',attr=0,init=0,cur=1,max=1,wait=0)
 E
-Sema(Id=1,Size=56,Name='cancel',Attr=0,init=0,cur=1,max=1,wait=0)
-80020199
-80020199
+NULL: Failed (80020199)
+Sema: Failed (00000000)
+Invalid: Failed (80020199)
+Sema: Invalid (80020199)
+Deleted: Failed (80020199)
+Sema: Invalid (80020199)

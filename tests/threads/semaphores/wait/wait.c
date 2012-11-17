@@ -1,25 +1,26 @@
-#include <common.h>
+#include "../sub_shared.h"
 
-#include <pspsdk.h>
-#include <pspkernel.h>
-#include <pspthreadman.h>
-#include <psploadexec.h>
+SETUP_SCHED_TEST;
 
-#define PRINT_SEMAPHORE(sema) { \
-	if (sema > 0) { \
-		SceKernelSemaInfo semainfo; \
-		sceKernelReferSemaStatus(sema, &semainfo); \
-		printf("Sema(Id=%d,Size=%d,Name='%s',Attr=%d,init=%d,cur=%d,max=%d,wait=%d)\n", (sema > 0) ? 1 : 0, semainfo.size, semainfo.name, semainfo.attr, semainfo.initCount, semainfo.currentCount, semainfo.maxCount, semainfo.numWaitThreads); \
+#define WAIT_TEST_SIMPLE(title, sema, count) { \
+	int result = sceKernelWaitSema(sema, count, NULL); \
+	if (result == 0) { \
+		printf("%s: OK\n", title); \
 	} else { \
-		printf("Sema(Id=0,result=%x)\n", sema); \
+		printf("%s: Failed (%X)\n", title, result); \
 	} \
+	PRINT_SEMAPHORE(sema); \
 }
 
-static int threadFunc(int argSize, void* argPointer) {
-	printf("B");
-	sceKernelWaitSemaCB(*(int*) argPointer, 1, NULL);
-	printf("D");
-	return 0;
+#define WAIT_TEST_SIMPLE_TIMEOUT(title, sema, count, initial_timeout) { \
+	SceUInt timeout = initial_timeout; \
+	int result = sceKernelWaitSema(sema, count, &timeout); \
+	if (result == 0) { \
+		printf("%s: OK (%dms left)\n", title, timeout); \
+	} else { \
+		printf("%s: Failed (%X, %dms left)\n", title, result, timeout); \
+	} \
+	PRINT_SEMAPHORE(sema); \
 }
 
 static int waitTestFunc(int argSize, void* argPointer) {
@@ -30,78 +31,52 @@ static int waitTestFunc(int argSize, void* argPointer) {
 	return 0;
 }
 
+static int deleteMeFunc(int argSize, void* argPointer) {
+	int result = sceKernelWaitSema(*(int*) argPointer, 1, NULL);
+	printf("After delete: %08X\n", result);
+	return 0;
+}
+
 int main(int argc, char **argv) {
-	int result;
-	SceUID sema;
-	SceUInt timeout;
+	SceUID sema = sceKernelCreateSema("wait1", 0, 1, 1, NULL);
 
-	sema = sceKernelCreateSema("wait1", 0, 1, 1, NULL);
+	WAIT_TEST_SIMPLE("Signaled", sema, 1);
+	WAIT_TEST_SIMPLE("Greater than max", sema, 100);
+	WAIT_TEST_SIMPLE("Negative", sema, -1);
 
-	// Wait with timeout, signaled.
-	timeout = 500;
-	result = sceKernelWaitSema(sema, 1, &timeout);
-	printf("%08X - %d\n", result, timeout);
-
-	// Wait with timeout, greater than max.
-	timeout = 500;
-	result = sceKernelWaitSema(sema, 100, &timeout);
-	printf("%08X - %d\n", result, timeout);
-
-	// Wait with timeout, never signaled.
-	timeout = 500;
-	result = sceKernelWaitSema(sema, 1, &timeout);
-	printf("%08X - %d\n", result, timeout);
+	sceKernelSignalSema(sema, 1);
+	WAIT_TEST_SIMPLE_TIMEOUT("Signaled", sema, 1, 500);
+	WAIT_TEST_SIMPLE_TIMEOUT("Never signaled", sema, 1, 500);
+	WAIT_TEST_SIMPLE_TIMEOUT("Greater than max", sema, 100, 500);
+	WAIT_TEST_SIMPLE_TIMEOUT("Zero", sema, 0, 500);
+	WAIT_TEST_SIMPLE_TIMEOUT("Negative", sema, -1, 500);
+	WAIT_TEST_SIMPLE_TIMEOUT("Zero timeout", sema, 1, 0);
 	
 	// Signaled off thread.
 	printf("A");
-	timeout = 5000;
+	SceUInt timeout = 5000;
 	SceUID thread = sceKernelCreateThread("waitTest", (void *)&waitTestFunc, 0x12, 0x10000, 0, NULL);
 	sceKernelStartThread(thread, sizeof(int), &sema);
 	printf("B");
-	result = sceKernelWaitSema(sema, 1, &timeout);
+	int result = sceKernelWaitSema(sema, 1, &timeout);
 	printf("E\n");
 	printf("%08X - %d\n", result, timeout / 1000);
 
-	// Wait with timeout, negative desired.
-	timeout = 500;
-	result = sceKernelWaitSema(sema, -1, &timeout);
-	printf("%08X - %d\n", result, timeout);
-	PRINT_SEMAPHORE(sema);
-
-	// Wait with timeout, zero desired.
-	timeout = 500;
-	result = sceKernelWaitSema(sema, 0, &timeout);
-	printf("%08X - %d\n", result, timeout);
-
-	// Wait without timeout, signaled.
-	sceKernelSignalSema(sema, 1);
-	result = sceKernelWaitSema(sema, 1, NULL);
-	printf("%08X\n", result);
-
-	// Wait without timeout, greater than max.
-	result = sceKernelWaitSema(sema, 100, NULL);
-	printf("%08X\n", result);
-
 	sceKernelDeleteSema(sema);
 
-	// Wait NULL?
-	result = sceKernelWaitSema(0, 0, NULL);
-	printf("%08X\n", result);
+	SceUID deleteThread = CREATE_SIMPLE_THREAD(deleteMeFunc);
+	sema = sceKernelCreateSema("wait1", 0, 0, 1, NULL);
+	sceKernelStartThread(deleteThread, sizeof(int), &sema);
+	sceKernelDelayThread(500);
+	sceKernelDeleteSema(sema);
 
-	// Wait deleted?
-	result = sceKernelWaitSema(sema, 0, NULL);
-	printf("%08X\n", result);
+	WAIT_TEST_SIMPLE("NULL", 0, 1);
+	WAIT_TEST_SIMPLE("Invalid", 0xDEADBEEF, 1);
+	WAIT_TEST_SIMPLE("Deleted", sema, 1);
 
-	SceUID sema1 = sceKernelCreateSema("wait1", 0, 0, 1, NULL);
-	SceUID sema2 = sceKernelCreateSema("wait2", 0, 1, 1, NULL);
+	BASIC_SCHED_TEST(
+		sceKernelWaitSema(sema2, 1, NULL);
+	);
 
-	// Verify scheduling order.
-	printf("A");
-	thread = sceKernelCreateThread("waitTest", (void *)&threadFunc, 0x12, 0x10000, 0, NULL);
-	sceKernelStartThread(thread, sizeof(int), &sema1);
-	sceKernelWaitSema(sema2, 1, NULL);
-	printf("C");
-	sceKernelDeleteSema(sema1);
-	printf("E\n");
-	sceKernelDeleteSema(sema2);
+	return 0;
 }

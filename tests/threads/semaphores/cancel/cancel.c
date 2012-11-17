@@ -1,77 +1,54 @@
-#include <common.h>
+#include "../sub_shared.h"
 
-#include <pspsdk.h>
-#include <pspkernel.h>
-#include <pspthreadman.h>
-#include <psploadexec.h>
+SETUP_SCHED_TEST;
 
-#define PRINT_SEMAPHORE(sema) { \
-	if (sema > 0) { \
-		SceKernelSemaInfo semainfo; \
-		sceKernelReferSemaStatus(sema, &semainfo); \
-		printf("Sema(Id=%d,Size=%d,Name='%s',Attr=%d,init=%d,cur=%d,max=%d,wait=%d)\n", (sema > 0) ? 1 : 0, semainfo.size, semainfo.name, semainfo.attr, semainfo.initCount, semainfo.currentCount, semainfo.maxCount, semainfo.numWaitThreads); \
+#define CANCEL_TEST(title, sema, count) { \
+	int result = sceKernelCancelSema(sema, count, NULL); \
+	if (result == 0) { \
+		printf("%s: OK\n", title); \
 	} else { \
-		printf("Sema(Id=0,result=%x)\n", sema); \
+		printf("%s: Failed (%X)\n", title, result); \
 	} \
+	PRINT_SEMAPHORE(sema); \
 }
 
-static int threadFunc(int argSize, void* argPointer) {
-	printf("B");
-	sceKernelWaitSemaCB(*(int*) argPointer, 1, NULL);
-	printf("D");
-	return 0;
+#define CANCEL_TEST_WITH_WAIT(title, sema, count) { \
+	int waitThreads = 99; \
+	int result = sceKernelCancelSema(sema, count, &waitThreads); \
+	if (result == 0) { \
+		printf("%s: OK (%d waiting)\n", title, waitThreads); \
+	} else { \
+		printf("%s: Failed (%X, %d waiting)\n", title, result, waitThreads); \
+	} \
+	PRINT_SEMAPHORE(sema); \
 }
 
 int main(int argc, char **argv) {
-	int result;
-	SceUID sema;
-	int waitThreads;
+	SceUID sema = sceKernelCreateSema("cancel", 0, 0, 1, NULL);
 
-	sema = sceKernelCreateSema("cancel", 0, 0, 1, NULL);
+	CANCEL_TEST("Normal", sema, 1);
+	CANCEL_TEST("Greater than max", sema, 3);
+	CANCEL_TEST("Zero", sema, 0);
+	CANCEL_TEST("Negative -3", sema, -3);
+	CANCEL_TEST("Negative -1", sema, -1);
 
-	// Cancel with null waitThreads.
-	result = sceKernelCancelSema(sema, 1, NULL);
-	printf("%08X\n", result);
-
-	// Cancel with greater than max init, no waitThreads.
-	result = sceKernelCancelSema(sema, 3, NULL);
-	printf("%08X\n", result);
-
-	// Cancel with greater than max init, with waitThreads.
-	waitThreads = 99;
-	result = sceKernelCancelSema(sema, 3, &waitThreads);
-	printf("%08X - %d\n", result, waitThreads);
-
-	// Cancel with negative init, no waitThreads.
-	result = sceKernelCancelSema(sema, -3, NULL);
-	printf("%08X\n", result);
-
-	// Cancel with -1 init, no waitThreads.
-	result = sceKernelCancelSema(sema, -1, NULL);
-	printf("%08X\n", result);
-	PRINT_SEMAPHORE(sema);
+	CANCEL_TEST_WITH_WAIT("Normal", sema, 1);
+	CANCEL_TEST_WITH_WAIT("Greater than max", sema, 3);
+	CANCEL_TEST_WITH_WAIT("Zero", sema, 0);
+	CANCEL_TEST_WITH_WAIT("Negative -3", sema, -3);
+	CANCEL_TEST_WITH_WAIT("Negative -1", sema, -1);
 
 	sceKernelDeleteSema(sema);
 
-	// Verify scheduling order.
-	printf("A");
-	sema = sceKernelCreateSema("cancel", 0, 0, 1, NULL);
-	SceUID thread = sceKernelCreateThread("cancelTest", (void *)&threadFunc, 0x12, 0x10000, 0, NULL);
-	sceKernelStartThread(thread, sizeof(int), &sema);
-	result = sceKernelCancelSema(sema, 0, &waitThreads);
-	printf("%08X - %d\n", result, waitThreads);
-	printf("C");
-	result = sceKernelCancelSema(sema, 1, &waitThreads);
-	printf("%08X - %d\n", result, waitThreads);
-	printf("E\n");
-	PRINT_SEMAPHORE(sema);
-	sceKernelDeleteSema(sema);
+	TWO_STEP_SCHED_TEST(0, 1,
+		CANCEL_TEST_WITH_WAIT("To 0", sema1, 0);
+	,
+		CANCEL_TEST_WITH_WAIT("To 1", sema1, 1);
+	);
 
-	// Cancel NULL?
-	result = sceKernelCancelSema(0, 0, NULL);
-	printf("%08X\n", result);
+	CANCEL_TEST("NULL", 0, 0);
+	CANCEL_TEST("Invalid", 0xDEADBEEF, 0);
+	CANCEL_TEST("Deleted", sema, 0);
 
-	// Cancel deleted?
-	result = sceKernelCancelSema(sema, 0, NULL);
-	printf("%08X\n", result);
+	return 0;
 }

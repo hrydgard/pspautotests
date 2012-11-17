@@ -1,87 +1,43 @@
-#include <common.h>
+#include "../sub_shared.h"
 
-#include <pspsdk.h>
-#include <pspkernel.h>
-#include <pspthreadman.h>
-#include <psploadexec.h>
+SETUP_SCHED_TEST;
 
-#define PRINT_SEMAPHORE(sema) { \
-	if (sema > 0) { \
-		SceKernelSemaInfo semainfo; \
-		sceKernelReferSemaStatus(sema, &semainfo); \
-		printf("Sema(Id=%d,Size=%d,Name='%s',Attr=%d,init=%d,cur=%d,max=%d,wait=%d)\n", (sema > 0) ? 1 : 0, semainfo.size, semainfo.name, semainfo.attr, semainfo.initCount, semainfo.currentCount, semainfo.maxCount, semainfo.numWaitThreads); \
+#define SIGNAL_TEST(title, sema, count) { \
+	int result = sceKernelSignalSema(sema, count); \
+	if (result == 0) { \
+		printf("%s: OK\n", title); \
 	} else { \
-		printf("Sema(Id=0,result=%x)\n", sema); \
+		printf("%s: Failed (%X)\n", title, result); \
 	} \
-}
-
-static int threadFunc(int argSize, void* argPointer) {
-	printf("B");
-	sceKernelWaitSemaCB(*(int*) argPointer, 1, NULL);
-	printf("D");
-	return 0;
+	PRINT_SEMAPHORE(sema); \
 }
 
 int main(int argc, char **argv) {
-	int result;
-	SceUID sema;
-
-	// Basic signal.
-	sema = sceKernelCreateSema("signal", 0, 0, 1, NULL);
-	PRINT_SEMAPHORE(sema);
-	result = sceKernelSignalSema(sema, 2);
-	printf("%08X\n", result);
+	SceUID sema = sceKernelCreateSema("signal", 0, 0, 1, NULL);
 	PRINT_SEMAPHORE(sema);
 
-	// Signal a second time.
-	result = sceKernelSignalSema(sema, 1);
-	printf("%08X\n", result);
-	PRINT_SEMAPHORE(sema);
-
-	// Negative signal.
-	result = sceKernelSignalSema(sema, -1);
-	printf("%08X\n", result);
-	PRINT_SEMAPHORE(sema);
-
-	// Negative signal back to 0.
-	result = sceKernelSignalSema(sema, -2);
-	printf("%08X\n", result);
-	PRINT_SEMAPHORE(sema);
-
-	// Zero signal.
-	result = sceKernelSignalSema(sema, 0);
-	printf("%08X\n", result);
-	PRINT_SEMAPHORE(sema);
+	SIGNAL_TEST("Basic +2", sema, 2);
+	SIGNAL_TEST("Basic +1", sema, 1);
+	SIGNAL_TEST("Negative - 1", sema, -1);
+	SIGNAL_TEST("Negative - 2", sema, -2);
+	SIGNAL_TEST("Zero", sema, 0);
 
 	sceKernelDeleteSema(sema);
 
-	// Signal a semaphore started negative.
 	sema = sceKernelCreateSema("signal", 0, -3, 3, NULL);
 	PRINT_SEMAPHORE(sema);
-	result = sceKernelSignalSema(sema, 1);
-	printf("%08X\n", result);
-	PRINT_SEMAPHORE(sema);
-
+	SIGNAL_TEST("Start negative", sema, 1);
 	sceKernelDeleteSema(sema);
 
-	// Verify scheduling order.
-	SceUID sema1 = sceKernelCreateSema("signal1", 0, 0, 1, NULL);
-	SceUID sema2 = sceKernelCreateSema("signal2", 0, 0, 1, NULL);
-	printf("A");
-	SceUID thread = sceKernelCreateThread("signalTest", (void *)&threadFunc, 0x12, 0x10000, 0, NULL);
-	sceKernelStartThread(thread, sizeof(int), &sema1);
-	sceKernelSignalSema(sema2, 1);
-	printf("C");
-	sceKernelSignalSema(sema1, 1);
-	printf("E\n");
-	sceKernelDeleteSema(sema1);
-	sceKernelDeleteSema(sema2);
+	TWO_STEP_SCHED_TEST(0, 0,
+		sceKernelSignalSema(sema2, 1);
+	,
+		sceKernelSignalSema(sema1, 1);
+	);
 
-	// Signal invalid sema.
-	result = sceKernelSignalSema(0, 1);
-	printf("%08X\n", result);
+	SIGNAL_TEST("NULL", 0, 1);
+	SIGNAL_TEST("Invalid", 0xDEADBEEF, 1);
+	SIGNAL_TEST("Deleted", sema, 1);
 
-	// Signal deleted sema.
-	result = sceKernelSignalSema(sema, 1);
-	printf("%08X\n", result);
+	return 0;
 }
