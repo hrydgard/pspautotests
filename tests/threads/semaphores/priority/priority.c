@@ -72,6 +72,12 @@ void execPriorityTests(int attr) {
 }
 
 int main(int argc, char **argv) {
+	sema = sceKernelCreateSema("sema0", 0, 0, 2, NULL);
+	// This is concerning: remove this line and the future PRINT_SEMAPHORE()s will print garbage?
+	// Happens on a real PSP.
+	PRINT_SEMAPHORE(sema);
+	sceKernelDeleteSema(sema);
+
 	execPriorityTests(0x000);
 	execPriorityTests(0x100);
 }
