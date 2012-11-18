@@ -70,5 +70,25 @@ int main(int argc, char **argv) {
 	printf("E\n");
 	sceKernelDeleteMutex(mutex1);
 
+	SceUID mutexes[1024];
+	int i, result = 0;
+	for (i = 0; i < 1024; i++)
+	{
+		mutexes[i] = sceKernelCreateMutex("create", 0, 0, NULL);
+		if (mutexes[i] < 0)
+		{
+			result = mutexes[i];
+			break;
+		}
+	}
+
+	if (result != 0)
+		printf("Create 1024: Failed at %d (%08X)\n", i, result);
+	else
+		printf("Create 1024: OK\n");
+
+	while (--i >= 0)
+		sceKernelDeleteMutex(mutexes[i]);
+
 	return 0;
 }

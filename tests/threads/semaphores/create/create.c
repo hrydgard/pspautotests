@@ -71,22 +71,25 @@ int main(int argc, char **argv) {
 	printf("E\n");
 	sceKernelDeleteSema(sema1);
 
-	// Note: causes PSP to be unstable.
-	/*SceUID create_max[2048];
-	int i;
-	for (i = 0; i < 2048; i++)
+	SceUID semas[1024];
+	int i, result = 0;
+	for (i = 0; i < 1024; i++)
 	{
-		create_max[i] = sceKernelCreateSema("create", 0, 0, 2, NULL);
-		if (create_max[i] < 0)
+		semas[i] = sceKernelCreateSema("create", 0, 0, 2, NULL);
+		if (semas[i] < 0)
 		{
-			PRINT_SEMAPHORE(create_max[i]);
+			result = semas[i];
 			break;
 		}
 	}
-	printf("Created %d successfully.\n", i);
-	int j;
-	for (j = 0; j < i; j++)
-		sceKernelDeleteSema(create_max[i]);*/
+
+	if (result != 0)
+		printf("Create 1024: Failed at %d (%08X)\n", i, result);
+	else
+		printf("Create 1024: OK\n");
+
+	while (--i >= 0)
+		sceKernelDeleteSema(semas[i]);
 
 	return 0;
 }
