@@ -51,16 +51,17 @@ static int deleteMeFunc(int argSize, void* argPointer) {
 }
 
 int main(int argc, char **argv) {
-	UNLOCK_TEST("Lock 0 => 0", PSP_MUTEX_ATTR_FIFO, 0, 0);
-	UNLOCK_TEST("Lock 0 => 1", PSP_MUTEX_ATTR_FIFO, 0, 1);
-	UNLOCK_TEST("Lock 0 => 2", PSP_MUTEX_ATTR_FIFO, 0, 2);
-	UNLOCK_TEST("Lock 0 => -1", PSP_MUTEX_ATTR_FIFO, 0, -1);
-	UNLOCK_TEST("Lock 1 => 1", PSP_MUTEX_ATTR_FIFO, 1, 1);
-	UNLOCK_TEST("Lock 1 => 2", PSP_MUTEX_ATTR_FIFO, 1, 2);
-	UNLOCK_TEST("Lock 2 => 1", PSP_MUTEX_ATTR_FIFO, 2, 1);
-	UNLOCK_TEST("Lock 0 => 2 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 0, 2);
-	UNLOCK_TEST("Lock 0 => -1 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 0, -1);
-	UNLOCK_TEST("Lock 1 => 1 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 1, 1);
+	UNLOCK_TEST("Unlock 0 => 0", PSP_MUTEX_ATTR_FIFO, 0, 0);
+	UNLOCK_TEST("Unlock 0 => 1", PSP_MUTEX_ATTR_FIFO, 0, 1);
+	UNLOCK_TEST("Unlock 0 => 2", PSP_MUTEX_ATTR_FIFO, 0, 2);
+	UNLOCK_TEST("Unlock 0 => -1", PSP_MUTEX_ATTR_FIFO, 0, -1);
+	UNLOCK_TEST("Unlock 1 => 1", PSP_MUTEX_ATTR_FIFO, 1, 1);
+	UNLOCK_TEST("Unlock 1 => 2", PSP_MUTEX_ATTR_FIFO, 1, 2);
+	UNLOCK_TEST("Unlock 2 => 1", PSP_MUTEX_ATTR_FIFO, 2, 1);
+	UNLOCK_TEST("Unlock 0 => 2 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 0, 2);
+	UNLOCK_TEST("Unlock 0 => -1 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 0, -1);
+	UNLOCK_TEST("Unlock 1 => 1 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 1, 1);
+	UNLOCK_TEST("Unlock 1 => 2 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 1, 2);
 
 	SceUID lockThread = CREATE_SIMPLE_THREAD(lockFunc);
 	UNLOCK_TEST_THREAD("Locked 1 => 1", PSP_MUTEX_ATTR_FIFO, 1, 1);
