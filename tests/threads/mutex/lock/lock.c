@@ -1,4 +1,5 @@
 #include "../sub_shared.h"
+#include <limits.h>
 
 SETUP_SCHED_TEST;
 
@@ -73,6 +74,9 @@ int main(int argc, char **argv) {
 	LOCK_TEST("Lock 0 => 2 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 0, 2);
 	LOCK_TEST("Lock 0 => -1 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 0, -1);
 	LOCK_TEST("Lock 1 => 1 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 1, 1);
+	LOCK_TEST("Lock 1 => INT_MAX - 1 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 1, INT_MAX - 1);
+	LOCK_TEST("Lock 1 => INT_MAX (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 1, INT_MAX);
+	LOCK_TEST("Lock INT_MAX => INT_MAX (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, INT_MAX, INT_MAX);
 
 	LOCK_TEST_TIMEOUT("Lock 0 => 0", PSP_MUTEX_ATTR_FIFO, 0, 0, 500);
 	LOCK_TEST_TIMEOUT("Lock 0 => 1", PSP_MUTEX_ATTR_FIFO, 0, 1, 500);
