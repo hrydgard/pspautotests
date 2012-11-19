@@ -7,6 +7,7 @@ IMPORT_FUNC	"ThreadManForUser",0xB7D098C6,sceKernelCreateMutex
 IMPORT_FUNC	"ThreadManForUser",0xF8170FBE,sceKernelDeleteMutex
 IMPORT_FUNC	"ThreadManForUser",0x6B30100F,sceKernelUnlockMutex
 IMPORT_FUNC	"ThreadManForUser",0xB011B11F,sceKernelLockMutex
+IMPORT_FUNC	"ThreadManForUser",0x5bf4dd27,sceKernelLockMutexCB
 IMPORT_FUNC	"ThreadManForUser",0x0DDCD2C9,sceKernelTryLockMutex
 
 IMPORT_FUNC	"ThreadManForUser",0x6E9EA350,_sceKernelReturnFromCallback

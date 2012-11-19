@@ -1,52 +1,34 @@
-#include <common.h>
+#include "../sub_shared.h"
 
-#include <pspsdk.h>
-#include <pspkernel.h>
-#include <pspthreadman.h>
-#include <psploadexec.h>
+SETUP_SCHED_TEST;
 
-#define PRINT_SEMAPHORE(sema) { \
-	if (sema > 0) { \
-		SceKernelSemaInfo semainfo; \
-		sceKernelReferSemaStatus(sema, &semainfo); \
-		printf("Sema(Id=%d,Size=%d,Name='%s',Attr=%d,init=%d,cur=%d,max=%d,wait=%d)\n", (sema > 0) ? 1 : 0, semainfo.size, semainfo.name, semainfo.attr, semainfo.initCount, semainfo.currentCount, semainfo.maxCount, semainfo.numWaitThreads); \
+#define DELETE_TEST(title, sema) { \
+	int result = sceKernelDeleteSema(sema); \
+	if (result == 0) { \
+		printf("%s: OK\n", title); \
 	} else { \
-		printf("Sema(Id=0,result=%x)\n", sema); \
+		printf("%s: Failed (%X)\n", title, result); \
 	} \
 }
 
-static int threadFunc(int argSize, void* argPointer) {
-	printf("B");
-	sceKernelWaitSemaCB(*(int*) argPointer, 1, NULL);
-	printf("D");
-	return 0;
-}
-
 int main(int argc, char **argv) {
-	int result;
-	SceUID sema;
+	SceUID sema = sceKernelCreateSema("delete1", 0, 0, 1, NULL);
 
-	// Delete NULL?
-	result = sceKernelDeleteSema(0);
-	printf("%08X\n", result);
+	DELETE_TEST("Normal", sema);
+	DELETE_TEST("NULL", 0);
+	DELETE_TEST("Invalid", 0xDEADBEEF);
+	DELETE_TEST("Deleted", sema);
+	
+	BASIC_SCHED_TEST("Delete other",
+		result = sceKernelDeleteSema(sema2);
+	);
+	BASIC_SCHED_TEST("Delete same",
+		result = sceKernelDeleteSema(sema1);
+	);
+	BASIC_SCHED_TEST("NULL",
+		result = sceKernelDeleteSema(0);
+	);
 
-	// Delete invalid?
-	result = sceKernelDeleteSema(0xDEADBEEF);
-	printf("%08X\n", result);
-
-	// Verify scheduling order.
-	SceUID sema1 = sceKernelCreateSema("delete1", 0, 0, 1, NULL);
-	SceUID sema2 = sceKernelCreateSema("delete2", 0, 0, 1, NULL);
-	SceUID thread = sceKernelCreateThread("deleteTest", (void *)&threadFunc, 0x12, 0x10000, 0, NULL);
-
-	printf("A");
-	sceKernelStartThread(thread, sizeof(int), &sema1);
-	sceKernelDeleteSema(sema2);
-	printf("C");
-	sceKernelDeleteSema(sema1);
-	printf("E\n");
-
-	// Delete twice?
-	result = sceKernelDeleteSema(sema1);
-	printf("%08X\n", result);
+	return 0;
+	
 }

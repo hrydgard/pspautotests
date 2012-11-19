@@ -1,0 +1,38 @@
+Lock 0 => 0: Failed (800201BD)
+Lock 0 => 1: OK
+Lock 0 => 2: Failed (800201BD)
+Lock 0 => -1: Failed (800201BD)
+Lock 1 => 1: Failed (800201C8)
+Lock 0 => 2 (recursive): OK
+Lock 0 => -1 (recursive): Failed (800201BD)
+Lock 1 => 1 (recursive): OK
+Lock 1 => INT_MAX - 1 (recursive): OK
+Lock 1 => INT_MAX (recursive): Failed (800201C6)
+Lock INT_MAX => INT_MAX (recursive): Failed (800201C6)
+Lock 0 => 0: Failed (800201BD, 500ms left)
+Lock 0 => 1: OK (500ms left)
+Lock 0 => 2: Failed (800201BD, 500ms left)
+Lock 0 => -1: Failed (800201BD, 500ms left)
+Lock 1 => 1: Failed (800201C8, 500ms left)
+Lock 0 => 2 (recursive): OK (500ms left)
+Lock 0 => -1 (recursive): Failed (800201BD, 500ms left)
+Lock 1 => 1 (recursive): OK (500ms left)
+Zero timeout: OK (0ms left)
+Locked 1 => 1: L2 L1 Failed (800201C8, 500ms left)
+Locked 0 => 1: L1 L2 Failed (800201A8, 0ms left)
+Locked 1 => 1 (recursive): L2 L1 OK (500ms left)
+Locked 0 => 1 (recursive): L1 L2 Failed (800201A8, 0ms left)
+Locked zero timeout: L1 L2 Failed (800201A8, 0ms left)
+After delete: 800201B5
+NULL => 0: Failed (800201C3)
+NULL => 1: Failed (800201C3)
+Invalid => 1: Failed (800201C3)
+Deleted => 1: Failed (800201C3)
+NULL: A1B1C2E2D2F2 (thread=800201B5, main=800201C3)
+Zero: A1B1C2E2D2F2 (thread=800201B5, main=800201BD)
+Lock same: A1B1C2E2D2F2 (thread=800201B5, main=800201C8)
+Lock other: A1B1C2E2D2F2 (thread=800201B5, main=00000000)
+Lock same with timeout: A1B1C2E2D2F2 (thread=800201B5, main=800201C8)
+Lock other with timeout: A1B1C2E2D2F2 (thread=800201B5, main=00000000)
+Now exiting: 00000000
+Woke up after other thread exited.
