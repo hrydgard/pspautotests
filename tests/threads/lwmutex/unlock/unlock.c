@@ -2,8 +2,8 @@
 
 SETUP_SCHED_TEST;
 
-#define UNLOCK_TEST_SIMPLE(title, mutex, count) { \
-	int result = sceKernelUnlockMutex(mutex, count); \
+#define UNLOCK_TEST_SIMPLE(title, workareaPtr, count) { \
+	int result = sceKernelUnlockLwMutex(workareaPtr, count); \
 	if (result == 0) { \
 		printf("%s: OK\n", title); \
 	} else { \
@@ -12,17 +12,28 @@ SETUP_SCHED_TEST;
 }
 
 #define UNLOCK_TEST(title, attr, initial, count) { \
-	SceUID mutex = sceKernelCreateMutex("lock", attr, initial, NULL); \
-	UNLOCK_TEST_SIMPLE(title, mutex, count); \
-	sceKernelDeleteMutex(mutex); \
+	SceLwMutexWorkarea workarea; \
+	int result = sceKernelCreateLwMutex(&workarea, "lock", attr, initial, NULL); \
+	if (result == 0) { \
+		UNLOCK_TEST_SIMPLE(title, &workarea, count); \
+	} else { \
+		printf("%s: Failed (%X)\n", title, result); \
+	} \
+	PRINT_LWMUTEX(workarea); \
+	sceKernelDeleteLwMutex(&workarea); \
+	FAKE_LWMUTEX(workarea, attr, initial); \
+	UNLOCK_TEST_SIMPLE(title " (fake)", &workarea, count); \
+	PRINT_LWMUTEX(workarea); \
 }
 
 #define UNLOCK_TEST_THREAD(title, attr, initial, count) { \
 	printf("%s: ", title); \
-	SceUID mutex = sceKernelCreateMutex("lock", attr, initial, NULL); \
-	sceKernelStartThread(lockThread, sizeof(int), &mutex); \
+	SceLwMutexWorkarea workarea; \
+	sceKernelCreateLwMutex(&workarea, "lock", attr, initial, NULL); \
+	void *workareaPtr = &workarea; \
+	sceKernelStartThread(lockThread, sizeof(void*), &workareaPtr); \
 	sceKernelDelayThread(500); \
-	int result = sceKernelUnlockMutex(mutex, count); \
+	int result = sceKernelUnlockLwMutex(&workarea, count); \
 	printf("L2 "); \
 	sceKernelDelayThread(500); \
 	if (result == 0) { \
@@ -30,22 +41,38 @@ SETUP_SCHED_TEST;
 	} else { \
 		printf("Failed (%X)\n", result); \
 	} \
-	sceKernelDeleteMutex(mutex); \
+	sceKernelDeleteLwMutex(&workarea); \
+	sceKernelTerminateThread(lockThread); \
+	\
+	FAKE_LWMUTEX(workarea, attr, initial); \
+	printf("%s (fake): ", title); \
+	sceKernelStartThread(lockThread, sizeof(void*), &workareaPtr); \
+	sceKernelDelayThread(500); \
+	result = sceKernelUnlockLwMutex(&workarea, count); \
+	printf("L2 "); \
+	sceKernelDelayThread(500); \
+	if (result == 0) { \
+		printf("OK\n"); \
+	} else { \
+		printf("Failed (%X)\n", result); \
+	} \
 	sceKernelTerminateThread(lockThread); \
 }
 
 static int lockFunc(SceSize argSize, void* argPointer) {
 	SceUInt timeout = 1000;
-	sceKernelLockMutex(*(int*) argPointer, 1, &timeout);
+	int result = sceKernelLockLwMutex(*(void**) argPointer, 1, &timeout);
 	printf("L1 ");
 	sceKernelDelayThread(1000);
+	if (result == 0)
+		sceKernelUnlockLwMutex(*(void**) argPointer, 1);
 	return 0;
 }
 
 static int deleteMeFunc(SceSize argSize, void* argPointer) {
-	sceKernelLockMutex(*(int*) argPointer, 1, NULL);
+	sceKernelLockLwMutex(*(void**) argPointer, 1, NULL);
 	sceKernelDelayThread(1000);
-	int result = sceKernelUnlockMutex(*(int*) argPointer, 1);
+	int result = sceKernelUnlockLwMutex(*(void**) argPointer, 1);
 	printf("After delete: %08X\n", result);
 	return 0;
 }
@@ -73,27 +100,27 @@ int main(int argc, char **argv) {
 	UNLOCK_TEST_THREAD("Locked 0 => 1 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 0, 1);
 
 	SceUID deleteThread = CREATE_SIMPLE_THREAD(deleteMeFunc);
-	SceUID mutex = sceKernelCreateMutex("unlock", 0, 0, NULL);
-	sceKernelStartThread(deleteThread, sizeof(int), &mutex);
+	SceLwMutexWorkarea workarea;
+	sceKernelCreateLwMutex(&workarea, "unlock", 0, 0, NULL);
+	void *workareaPtr = &workarea;
+	sceKernelStartThread(deleteThread, sizeof(void*), &workareaPtr);
 	sceKernelDelayThread(500);
-	sceKernelDeleteMutex(mutex);
+	sceKernelDeleteLwMutex(&workarea);
 
-	UNLOCK_TEST_SIMPLE("NULL => 0", 0, 0);
-	UNLOCK_TEST_SIMPLE("NULL => 1", 0, 1);
-	UNLOCK_TEST_SIMPLE("Invalid => 1", 0xDEADBEEF, 1);
-	UNLOCK_TEST_SIMPLE("Deleted => 1", mutex, 1);
+	// Crashes.
+	//UNLOCK_TEST_SIMPLE("NULL => 0", 0, 0);
+	//UNLOCK_TEST_SIMPLE("NULL => 1", 0, 1);
+	//UNLOCK_TEST_SIMPLE("Invalid => 1", 0xDEADBEEF, 1);
+	UNLOCK_TEST_SIMPLE("Deleted => 1", &workarea, 1);
 
-	BASIC_SCHED_TEST("NULL",
-		result = sceKernelUnlockMutex(0, 1);
-	);
 	BASIC_SCHED_TEST("Zero",
-		result = sceKernelUnlockMutex(mutex2, 0);
+		result = sceKernelUnlockLwMutex(&workarea2, 0);
 	);
 	BASIC_SCHED_TEST("Unlock same",
-		result = sceKernelUnlockMutex(mutex1, 1);
+		result = sceKernelUnlockLwMutex(&workarea1, 1);
 	);
 	BASIC_SCHED_TEST("Unlock other",
-		result = sceKernelUnlockMutex(mutex2, 1);
+		result = sceKernelUnlockLwMutex(&workarea2, 1);
 	);
 
 	return 0;
