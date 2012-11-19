@@ -23,7 +23,7 @@ SETUP_SCHED_TEST;
 	PRINT_SEMAPHORE(sema); \
 }
 
-static int waitTestFunc(int argSize, void* argPointer) {
+static int waitTestFunc(SceSize argSize, void* argPointer) {
 	sceKernelDelayThread(1000);
 	printf("C");
 	sceKernelSignalSema(*(int*) argPointer, 1);
@@ -31,7 +31,7 @@ static int waitTestFunc(int argSize, void* argPointer) {
 	return 0;
 }
 
-static int deleteMeFunc(int argSize, void* argPointer) {
+static int deleteMeFunc(SceSize argSize, void* argPointer) {
 	int result = sceKernelWaitSema(*(int*) argPointer, 1, NULL);
 	printf("After delete: %08X\n", result);
 	return 0;
@@ -75,10 +75,10 @@ int main(int argc, char **argv) {
 	WAIT_TEST_SIMPLE("Deleted", sema, 1);
 	
 	BASIC_SCHED_TEST("NULL",
-		result = sceKernelWaitSema("NULL", 1, NULL);
+		result = sceKernelWaitSema(0, 1, NULL);
 	);
 	BASIC_SCHED_TEST("Greater than max",
-		result = sceKernelWaitSema("NULL", 2, NULL);
+		result = sceKernelWaitSema(sema2, 2, NULL);
 	);
 	BASIC_SCHED_TEST("Other",
 		result = sceKernelWaitSema(sema2, 1, NULL);
