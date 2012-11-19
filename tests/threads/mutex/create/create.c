@@ -35,16 +35,16 @@ int main(int argc, char **argv) {
 
 	BASIC_SCHED_TEST("NULL name",
 		mutex = sceKernelCreateMutex(NULL, 0, 0, NULL);
-		result = mutex > 0 ? : mutex;
+		result = mutex > 0 ? 1 : mutex;
 	);
 	BASIC_SCHED_TEST("Create locked",
 		mutex = sceKernelCreateMutex("create2", 0, 1, NULL);
-		result = mutex > 0 ? : mutex;
+		result = mutex > 0 ? 1 : mutex;
 	);
 	sceKernelDeleteMutex(mutex);
 	BASIC_SCHED_TEST("Create not locked",
 		mutex = sceKernelCreateMutex("create2", 0, 0, NULL);
-		result = mutex > 0 ? : mutex;
+		result = mutex > 0 ? 1 : mutex;
 	);
 	sceKernelDeleteMutex(mutex);
 
