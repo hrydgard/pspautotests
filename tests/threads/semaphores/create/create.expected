@@ -1,13 +1,18 @@
-Sema(Id=0,result=80020001)
-Sema(Id=1,Size=56,Name='',Attr=0,init=0,cur=0,max=2,wait=0)
-Sema(Id=1,Size=56,Name='1234567890123456789012345678901',Attr=0,init=0,cur=0,max=2,wait=0)
-Sema(Id=1,Size=56,Name='create',Attr=1,init=0,cur=0,max=2,wait=0)
-Sema(Id=1,Size=56,Name='create',Attr=0,init=-1,cur=-1,max=2,wait=0)
-Sema(Id=1,Size=56,Name='create',Attr=0,init=1,cur=1,max=2,wait=0)
-Sema(Id=1,Size=56,Name='create',Attr=0,init=3,cur=3,max=2,wait=0)
-Sema(Id=1,Size=56,Name='create',Attr=0,init=0,cur=0,max=-1,wait=0)
-Sema(Id=1,Size=56,Name='create',Attr=0,init=65537,cur=65537,max=0,wait=0)
-Sema(Id=1,Size=56,Name='create',Attr=0,init=0,cur=0,max=65537,wait=0)
-Sema(Id=1,Size=56,Name='create',Attr=0,init=0,cur=0,max=2,wait=0)
-Sema(Id=1,Size=56,Name='create',Attr=0,init=0,cur=0,max=2,wait=0)
-ABCDE
+NULL name: Failed (80020001)
+Blank name: OK
+Long name: OK
+Weird attr: OK
+Negative initial count: OK
+Positive initial count: OK
+Initial count above max: OK
+Negative max count: OK
+Large initial count: OK
+Large max count: OK
+Sema: OK (size=0,name='',attr=142709572,init=0,cur=1024,max=142640004,wait=50)
+Sema: OK (size=0,name='',attr=142709572,init=0,cur=1024,max=142640004,wait=50)
+NULL name: A1B1C2E2D2F2 (thread=800201B5, main=80020001)
+Create signaled: A1B1C2E2D2F2 (thread=800201B5, main=00000001)
+Create not signaled: A1B1C2E2D2F2 (thread=800201B5, main=00000001)
+Initial not signaled: A1B1C2E2D2F2 (thread=00000000, main=00000000)
+Initial signaled: A1B1C2D2E2F1 (thread=00000000, main=00000000)
+Create 1024: OK
