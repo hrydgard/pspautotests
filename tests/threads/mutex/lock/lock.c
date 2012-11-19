@@ -65,6 +65,12 @@ static int deleteMeFunc(SceSize argSize, void* argPointer) {
 	return 0;
 }
 
+static int exitFunc(SceSize argSize, void* argPointer) {
+	int result = sceKernelLockMutex(*(int*) argPointer, 1, NULL);
+	printf("Now exiting: %08X\n", result);
+	return 0;
+}
+
 int main(int argc, char **argv) {
 	LOCK_TEST("Lock 0 => 0", PSP_MUTEX_ATTR_FIFO, 0, 0);
 	LOCK_TEST("Lock 0 => 1", PSP_MUTEX_ATTR_FIFO, 0, 1);
@@ -126,6 +132,14 @@ int main(int argc, char **argv) {
 		SceUInt timeout = 100;
 		result = sceKernelLockMutex(mutex2, 1, &timeout);
 	);
+
+	SceUID exitThread = CREATE_SIMPLE_THREAD(exitFunc);
+	mutex = sceKernelCreateMutex("lock", 0, 0, NULL);
+	sceKernelStartThread(exitThread, sizeof(int), &mutex);
+	sceKernelDelayThread(500);
+	sceKernelLockMutex(mutex, 1, NULL);
+	sceKernelDeleteMutex(mutex);
+	printf("Woke up after other thread exited.\n");
 
 	return 0;
 }

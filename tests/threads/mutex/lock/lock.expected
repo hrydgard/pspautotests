@@ -34,3 +34,5 @@ Lock same: A1B1C2E2D2F2 (thread=800201B5, main=800201C8)
 Lock other: A1B1C2E2D2F2 (thread=800201B5, main=00000000)
 Lock same with timeout: A1B1C2E2D2F2 (thread=800201B5, main=800201C8)
 Lock other with timeout: A1B1C2E2D2F2 (thread=800201B5, main=00000000)
+Now exiting: 00000000
+Woke up after other thread exited.
