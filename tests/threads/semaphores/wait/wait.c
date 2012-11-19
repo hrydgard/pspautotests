@@ -73,9 +73,23 @@ int main(int argc, char **argv) {
 	WAIT_TEST_SIMPLE("NULL", 0, 1);
 	WAIT_TEST_SIMPLE("Invalid", 0xDEADBEEF, 1);
 	WAIT_TEST_SIMPLE("Deleted", sema, 1);
-
-	BASIC_SCHED_TEST(
-		sceKernelWaitSema(sema2, 1, NULL);
+	
+	BASIC_SCHED_TEST("NULL",
+		result = sceKernelWaitSema("NULL", 1, NULL);
+	);
+	BASIC_SCHED_TEST("Greater than max",
+		result = sceKernelWaitSema("NULL", 2, NULL);
+	);
+	BASIC_SCHED_TEST("Other",
+		result = sceKernelWaitSema(sema2, 1, NULL);
+	);
+	BASIC_SCHED_TEST("Other timeout",
+		timeout = 100;
+		result = sceKernelWaitSema(sema2, 1, &timeout);
+	);
+	BASIC_SCHED_TEST("Same timeout",
+		timeout = 100;
+		result = sceKernelWaitSema(sema1, 1, &timeout);
 	);
 
 	return 0;

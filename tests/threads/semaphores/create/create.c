@@ -12,13 +12,6 @@ SETUP_SCHED_TEST;
 	} \
 }
 
-static int signaledTestFunc(int argSize, void* argPointer) {
-	printf("B");
-	sceKernelWaitSemaCB(*(int*) argPointer, 1, NULL);
-	printf("C");
-	return 0;
-}
-
 int main(int argc, char **argv) {
 	SceUID sema;
 
@@ -41,35 +34,31 @@ int main(int argc, char **argv) {
 	sceKernelDeleteSema(sema1);
 	sceKernelDeleteSema(sema2);
 
-	SceUID thread = CREATE_SIMPLE_THREAD(scheduleTestFunc);
-	SceUID signaledThread = CREATE_SIMPLE_THREAD(signaledTestFunc);
+	BASIC_SCHED_TEST("NULL name",
+		sema = sceKernelCreateSema(NULL, 0, 0, 1, NULL);
+		result = sema > 0 ? : sema;
+	);
+	BASIC_SCHED_TEST("Create signaled",
+		sema = sceKernelCreateSema("create2", 0, 1, 1, NULL);
+		result = sema > 0 ? : sema;
+	);
+	sceKernelDeleteSema(sema);
+	BASIC_SCHED_TEST("Create not signaled",
+		sema = sceKernelCreateSema("create2", 0, 0, 1, NULL);
+		result = sema > 0 ? : sema;
+	);
+	sceKernelDeleteSema(sema);
 
-	printf("Scheduling: A");
-	sema1 = sceKernelCreateSema("create1", 0, 0, 1, NULL);
-	sceKernelStartThread(thread, sizeof(int), &sema1);
-	sema2 = sceKernelCreateSema("create2", 0, 0, 1, NULL);
-	printf("C");
-	sceKernelDeleteSema(sema1);
-	printf("E\n");
-	sceKernelDeleteSema(sema2);
-
-	printf("Initial not signaled: A");
-	sema1 = sceKernelCreateSema("create1", 0, 0, 1, NULL);
-	sceKernelStartThread(thread, sizeof(int), &sema1);
-	sceKernelDelayThread(1000);
-	printf("C");
-	sceKernelSignalSema(sema1, 1);
-	printf("E\n");
-	sceKernelDeleteSema(sema1);
-
-	printf("Initial signaled: A");
-	sema1 = sceKernelCreateSema("create1", 0, 1, 1, NULL);
-	sceKernelStartThread(signaledThread, sizeof(int), &sema1);
-	sceKernelDelayThread(1000);
-	printf("D");
-	sceKernelSignalSema(sema1, 1);
-	printf("E\n");
-	sceKernelDeleteSema(sema1);
+	TWO_STEP_SCHED_TEST("Initial not signaled", 0, 1,
+		sceKernelDelayThread(1000);
+	,
+		result = sceKernelSignalSema(sema1, 1);
+	);
+	TWO_STEP_SCHED_TEST("Initial signaled", 1, 1,
+		sceKernelDelayThread(1000);
+	,
+		result = sceKernelSignalSema(sema1, 1);
+	);
 
 	SceUID semas[1024];
 	int i, result = 0;

@@ -26,9 +26,21 @@ int main(int argc, char **argv) {
 	POLL_TEST("NULL", 0, 1);
 	POLL_TEST("Invalid", 0xDEADBEEF, 1);
 	POLL_TEST("Deleted", sema, 1);
-
-	BASIC_SCHED_TEST(
-		sceKernelPollSema(sema2, 1);
+	
+	BASIC_SCHED_TEST("NULL",
+		result = sceKernelPollSema(NULL, 0);
+	);
+	BASIC_SCHED_TEST("Zero other",
+		result = sceKernelPollSema(sema2, 0);
+	);
+	BASIC_SCHED_TEST("Zero same",
+		result = sceKernelPollSema(sema1, 0);
+	);
+	BASIC_SCHED_TEST("Poll other",
+		result = sceKernelPollSema(sema2, 1);
+	);
+	BASIC_SCHED_TEST("Poll same",
+		result = sceKernelPollSema(sema1, 1);
 	);
 
 	return 0;

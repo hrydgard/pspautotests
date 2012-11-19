@@ -23,6 +23,9 @@ SETUP_SCHED_TEST;
 	PRINT_SEMAPHORE(sema); \
 }
 
+void foo() {
+}
+
 int main(int argc, char **argv) {
 	SceUID sema = sceKernelCreateSema("cancel", 0, 0, 1, NULL);
 
@@ -40,10 +43,32 @@ int main(int argc, char **argv) {
 
 	sceKernelDeleteSema(sema);
 
-	TWO_STEP_SCHED_TEST(0, 1,
+	TWO_STEP_SCHED_TEST("Cancel waited 0 then 1", 0, 1,
+		result = 0;
 		CANCEL_TEST_WITH_WAIT("To 0", sema1, 0);
 	,
 		CANCEL_TEST_WITH_WAIT("To 1", sema1, 1);
+	);
+
+	BASIC_SCHED_TEST("NULL",
+		result = sceKernelCancelSema(0, 0, NULL);
+	);
+	BASIC_SCHED_TEST("Cancel bad count",
+		result = sceKernelCancelSema(sema2, 0, NULL);
+	);
+	BASIC_SCHED_TEST("Cancel other",
+		result = sceKernelCancelSema(sema2, 1, NULL);
+	);
+	BASIC_SCHED_TEST("Cancel waited",
+		result = sceKernelCancelSema(sema1, 1, NULL);
+	);
+	BASIC_SCHED_TEST("Cancel other with threads",
+		int n;
+		result = sceKernelCancelSema(sema2, 1, &n);
+	);
+	BASIC_SCHED_TEST("Cancel waited with threads",
+		int n;
+		result = sceKernelCancelSema(sema1, 1, &n);
 	);
 
 	CANCEL_TEST("NULL", 0, 0);

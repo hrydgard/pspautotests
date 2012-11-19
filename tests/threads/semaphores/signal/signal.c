@@ -29,15 +29,37 @@ int main(int argc, char **argv) {
 	SIGNAL_TEST("Start negative", sema, 1);
 	sceKernelDeleteSema(sema);
 
-	TWO_STEP_SCHED_TEST(0, 0,
-		sceKernelSignalSema(sema2, 1);
-	,
-		sceKernelSignalSema(sema1, 1);
-	);
-
 	SIGNAL_TEST("NULL", 0, 1);
 	SIGNAL_TEST("Invalid", 0xDEADBEEF, 1);
 	SIGNAL_TEST("Deleted", sema, 1);
+
+	TWO_STEP_SCHED_TEST("Signal other then same", 0, 0,
+		result = sceKernelSignalSema(sema2, 1);
+	,
+		result = sceKernelSignalSema(sema1, 1);
+	);
+
+	BASIC_SCHED_TEST("NULL",
+		result = sceKernelSignalSema(0, 0);
+	);
+	BASIC_SCHED_TEST("Other + 2",
+		result = sceKernelSignalSema(sema2, 2);
+	);
+	BASIC_SCHED_TEST("Other + 1",
+		result = sceKernelSignalSema(sema2, 1);
+	);
+	BASIC_SCHED_TEST("Other - 1",
+		result = sceKernelSignalSema(sema2, -1);
+	);
+	BASIC_SCHED_TEST("Same + 2",
+		result = sceKernelSignalSema(sema1, 2);
+	);
+	BASIC_SCHED_TEST("Same + 1",
+		result = sceKernelSignalSema(sema1, 1);
+	);
+	BASIC_SCHED_TEST("Same - 1",
+		result = sceKernelSignalSema(sema1, -1);
+	);
 
 	return 0;
 }

@@ -2,7 +2,7 @@
 
 SceUID mutex;
 
-static int threadFunction(int argSize, void* argPointer) {
+static int threadFunction(SceSize argSize, void* argPointer) {
 	int num = argPointer ? *((int*)argPointer) : 0;
 	printf("A%d\n", num);
 	sceKernelLockMutexCB(mutex, 1, NULL);
@@ -14,6 +14,7 @@ static int threadFunction(int argSize, void* argPointer) {
 void execPriorityTests(int attr) {
 	SceUID threads[5];
 	int test[5] = {1, 2, 3, 4, 5};
+	int result;
 
 	mutex = sceKernelCreateMutex("mutex1", attr, 1, NULL);
 
@@ -24,15 +25,19 @@ void execPriorityTests(int attr) {
 	}
 
 	// This one intentionally is an invalid unlock.
-	sceKernelDelayThread(10 * 1000);
+	sceKernelDelayThread(1000);
 	printf("Unlocking...\n");
-	printf("Unlocked 2? %08X\n", sceKernelUnlockMutex(mutex, 2));
+	result = sceKernelUnlockMutex(mutex, 2);
+	sceKernelDelayThread(5000);
+	printf("Unlocked 2? %08X\n", result);
 
-	sceKernelDelayThread(10 * 1000);
+	sceKernelDelayThread(1000);
 	printf("Unlocking...\n");
-	printf("Unlocked 1? %08X\n", sceKernelUnlockMutex(mutex, 1));
+	result = sceKernelUnlockMutex(mutex, 1);
+	sceKernelDelayThread(5000);
+	printf("Unlocked 1? %08X\n", result);
 
-	sceKernelDelayThread(10 * 1000);
+	sceKernelDelayThread(1000);
 	printf("Delete: %08X\n", sceKernelDeleteMutex(mutex));
 	printf("\n\n");
 }

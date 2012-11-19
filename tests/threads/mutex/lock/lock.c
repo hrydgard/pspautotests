@@ -51,7 +51,7 @@ SETUP_SCHED_TEST;
 	sceKernelTerminateThread(lockThread); \
 }
 
-static int lockFunc(int argSize, void* argPointer) {
+static int lockFunc(SceSize argSize, void* argPointer) {
 	SceUInt timeout = 1000;
 	sceKernelLockMutex(*(int*) argPointer, 1, &timeout);
 	printf("L1 ");
@@ -59,7 +59,7 @@ static int lockFunc(int argSize, void* argPointer) {
 	return 0;
 }
 
-static int deleteMeFunc(int argSize, void* argPointer) {
+static int deleteMeFunc(SceSize argSize, void* argPointer) {
 	int result = sceKernelLockMutex(*(int*) argPointer, 1, NULL);
 	printf("After delete: %08X\n", result);
 	return 0;
@@ -105,9 +105,26 @@ int main(int argc, char **argv) {
 	LOCK_TEST_SIMPLE("NULL => 1", 0, 1);
 	LOCK_TEST_SIMPLE("Invalid => 1", 0xDEADBEEF, 1);
 	LOCK_TEST_SIMPLE("Deleted => 1", mutex, 1);
-
-	BASIC_SCHED_TEST(
-		sceKernelLockMutex(mutex2, 1, NULL);
+	
+	BASIC_SCHED_TEST("NULL",
+		result = sceKernelLockMutex(0, 1, NULL);
+	);
+	BASIC_SCHED_TEST("Zero",
+		result = sceKernelLockMutex(mutex2, 0, NULL);
+	);
+	BASIC_SCHED_TEST("Lock same",
+		result = sceKernelLockMutex(mutex1, 1, NULL);
+	);
+	BASIC_SCHED_TEST("Lock other",
+		result = sceKernelLockMutex(mutex2, 1, NULL);
+	);
+	BASIC_SCHED_TEST("Lock same with timeout",
+		SceUInt timeout = 100;
+		result = sceKernelLockMutex(mutex1, 1, &timeout);
+	);
+	BASIC_SCHED_TEST("Lock other with timeout",
+		SceUInt timeout = 100;
+		result = sceKernelLockMutex(mutex2, 1, &timeout);
 	);
 
 	return 0;

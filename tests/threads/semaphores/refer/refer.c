@@ -24,9 +24,15 @@ int main(int argc, char **argv) {
 	REFER_TEST("NULL", 0, &semainfo);
 	REFER_TEST("Invalid", 0xDEADBEEF, &semainfo);
 	REFER_TEST("Deleted", sema, &semainfo);
-
-	BASIC_SCHED_TEST(
-		sceKernelReferSemaStatus(sema2, &semainfo);
+	
+	BASIC_SCHED_TEST("NULL",
+		result = sceKernelReferSemaStatus(NULL, &semainfo);
+	);
+	BASIC_SCHED_TEST("Refer other",
+		result = sceKernelReferSemaStatus(sema2, &semainfo);
+	);
+	BASIC_SCHED_TEST("Refer same",
+		result = sceKernelReferSemaStatus(sema1, &semainfo);
 	);
 
 	return 0;

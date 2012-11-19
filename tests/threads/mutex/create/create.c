@@ -12,13 +12,6 @@ SETUP_SCHED_TEST;
 	} \
 }
 
-static int unlockedTestFunc(int argSize, void* argPointer) {
-	printf("B");
-	sceKernelLockMutexCB(*(int*) argPointer, 1, NULL);
-	printf("C");
-	return 0;
-}
-
 int main(int argc, char **argv) {
 	SceUID mutex;
 
@@ -40,35 +33,30 @@ int main(int argc, char **argv) {
 	sceKernelDeleteMutex(mutex1);
 	sceKernelDeleteMutex(mutex2);
 
-	SceUID thread = CREATE_SIMPLE_THREAD(scheduleTestFunc);
-	SceUID unlockedThread = CREATE_SIMPLE_THREAD(unlockedTestFunc);
+	BASIC_SCHED_TEST("NULL name",
+		mutex = sceKernelCreateMutex(NULL, 0, 0, NULL);
+		result = mutex > 0 ? : mutex;
+	);
+	BASIC_SCHED_TEST("Create locked",
+		mutex = sceKernelCreateMutex("create2", 0, 1, NULL);
+		result = mutex > 0 ? : mutex;
+	);
+	sceKernelDeleteMutex(mutex);
+	BASIC_SCHED_TEST("Create not locked",
+		mutex = sceKernelCreateMutex("create2", 0, 0, NULL);
+		result = mutex > 0 ? : mutex;
+	);
+	sceKernelDeleteMutex(mutex);
 
-	printf("Scheduling: A");
-	mutex1 = sceKernelCreateMutex("create1", 0, 1, NULL);
-	sceKernelStartThread(thread, sizeof(int), &mutex1);
-	mutex2 = sceKernelCreateMutex("create2", 0, 1, NULL);
-	printf("C");
-	sceKernelDeleteMutex(mutex1);
-	printf("E\n");
-	sceKernelDeleteMutex(mutex2);
+	LOCKED_SCHED_TEST("Initial not locked", 0, 0,
+		sceKernelDelayThread(1000);
+		result = 0;
+	);
 
-	printf("Initial locked: A");
-	mutex1 = sceKernelCreateMutex("create1", 0, 1, NULL);
-	sceKernelStartThread(thread, sizeof(int), &mutex1);
-	sceKernelDelayThread(1000);
-	printf("C");
-	sceKernelUnlockMutex(mutex1, 1);
-	printf("E\n");
-	sceKernelDeleteMutex(mutex1);
-
-	printf("Initial unlocked: A");
-	mutex1 = sceKernelCreateMutex("create1", 0, 0, NULL);
-	sceKernelStartThread(unlockedThread, sizeof(int), &mutex1);
-	sceKernelDelayThread(1000);
-	printf("D");
-	sceKernelUnlockMutex(mutex1, 1);
-	printf("E\n");
-	sceKernelDeleteMutex(mutex1);
+	LOCKED_SCHED_TEST("Initial locked", 1, 0,
+		sceKernelDelayThread(1000);
+		result = 0;
+	);
 
 	SceUID mutexes[1024];
 	int i, result = 0;

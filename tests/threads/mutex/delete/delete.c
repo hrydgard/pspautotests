@@ -12,15 +12,21 @@ SETUP_SCHED_TEST;
 }
 
 int main(int argc, char **argv) {
+	SceUID mutex = sceKernelCreateMutex("delete", 0, 0, NULL);
+
+	DELETE_TEST("Normal", mutex);
 	DELETE_TEST("NULL", 0);
 	DELETE_TEST("Invalid", 0xDEADBEEF);
+	DELETE_TEST("Deleted", mutex);
 
-	SceUID mutex = sceKernelCreateMutex("delete", 0, 0, NULL);
-	DELETE_TEST("Valid", mutex);
-	DELETE_TEST("Twice", mutex);
-
-	BASIC_SCHED_TEST(
-		sceKernelDeleteMutex(mutex2);
+	BASIC_SCHED_TEST("Delete other",
+		result = sceKernelDeleteMutex(mutex2);
+	);
+	BASIC_SCHED_TEST("Delete same",
+		result = sceKernelDeleteMutex(mutex1);
+	);
+	BASIC_SCHED_TEST("NULL",
+		result = sceKernelDeleteMutex(0);
 	);
 
 	return 0;

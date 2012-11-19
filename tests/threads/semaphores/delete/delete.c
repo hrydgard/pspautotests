@@ -12,7 +12,6 @@ SETUP_SCHED_TEST;
 }
 
 int main(int argc, char **argv) {
-	// Verify scheduling order.
 	SceUID sema = sceKernelCreateSema("delete1", 0, 0, 1, NULL);
 
 	DELETE_TEST("Normal", sema);
@@ -20,8 +19,14 @@ int main(int argc, char **argv) {
 	DELETE_TEST("Invalid", 0xDEADBEEF);
 	DELETE_TEST("Deleted", sema);
 	
-	BASIC_SCHED_TEST(
-		sceKernelDeleteSema(sema2);
+	BASIC_SCHED_TEST("Delete other",
+		result = sceKernelDeleteSema(sema2);
+	);
+	BASIC_SCHED_TEST("Delete same",
+		result = sceKernelDeleteSema(sema1);
+	);
+	BASIC_SCHED_TEST("NULL",
+		result = sceKernelDeleteSema(0);
 	);
 
 	return 0;
