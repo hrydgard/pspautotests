@@ -19,33 +19,58 @@ How to build and use
 If you just want to run the tests, you just need to run your emulator on the PRX-es and compare with the .expected
 files. PPSSPP has a convenient script for this called test.py.
 
-If you want to change tests, you'll need to read the rest.
+If you want to change tests, you'll need to read the rest. This tutorial is for Windows but can probably be used on Linux and Mac too, you just don't need to install the driver there.
 
-* First you need to install the homebrew PSPSDK. On Windows I'd recommend MinPSPW, http://www.jetdrone.com/minpspw.
-* Then, you need to install PSPLink on your PSP. Upgrade your PSP to 6.60 and install CFW if you haven't already.
-* Then copy the OE version of PSPLink to PSP/GAME on the PSP, and run it.
+* Prerequisites:
+  - A PSP with custom firmware installed (6.60 recommended)
+  - A USB cable to use between your PC and PSP
+  - PSPSDK installed (on Windows I'd recommend MinPSPW, http://www.jetdrone.com/minpspw. )
 
-Alright, PSP prepared, now for the PC. I had a lot of trouble connecting to PSPLink on Windows 7 x64 and with modern FW, but I figured it out. Here's what you have to do:
+The rest of this tutorial will assume that you installed the PSPSDK in C:\pspsdk.
 
-Before installing the psplink driver, you have to boot windows using F8 at bootup and select "Disable driver signing verification" or something.
+Step 1: Install PSPLink on your PSP
+  - Copy the OE version of PSPLink (C:\pspsdk\psplink\psp\oe\psplink) to PSP/GAME on the PSP, and run it on your PSP from the game menu.
 
-When you then connect your PSP running PSPLink to your PC, the PC will ask for a driver first time, choose the one that comes with the pspsdk. Then, in one cmd terminal, sitting in the emu directory:
+Step 2: Prepare the PC.
+I had a lot of trouble connecting to PSPLink on Windows 7 x64 and with modern FW, but I figured it out. Here's what you have to do:
+- Disconnect the PSP from your PC.
+- IMPORTANT on x64: Boot Windows using F8 at bootup to get the boot menu, and select "Disable driver signing verification". You will always need to do this when you want to use PSPLink.
+- Connect your PSP running PSPLink to the PC using the USB cable.
+
+Windows will now ask you for a driver for this new device. If it doesn't, go into Device Manager, 
+find the PSP in the list, and rightclick it, go into properties and choose Update Driver. In the resulting dialog, coose things like "Don't look for a driver on Windows Update" and "I have my own driver".
+
+The driver you want exists in either C:\pspsdk\bin\driver or C:\pspsdk\bin\driver_x64, depending on your Windows version. Windows should accept and install your driver.
+
+One more step:
+- Add C:\pspsdk\bin to your PATH if you haven't already got it.
+
+You are now ready to roll!
+
+In a command prompt in the directory that you want the PSP software to regard as "host0:/" if it tries to read files over the cable (if you want to run PPSSPP tests, this should be your PPSSPP directory), type the following:
 
 > usbhostfs_pc -b 3000
 
-Then in another terminal:
+Then in another command prompt:
 
 > pspsh -p 3000
+host0:/
 
-Now you have full access to the PSP from this prompt. test.py simply calls pspsh with a single line script file to execute each test on the PSP and copy the output file to the correct directory.
+If you don't see the host0:/ prompt, something is wrong. Most likely the driver has not loaded correctly. If the port 3000 happened to be taken (usbhostfs_pc would have complained), try another port number.
+
+Now you have full access to the PSP from this prompt. You can run executables on the PSP that reside on the PC directly from within this shell, just cd to the directory and run ./my_program.prx.
+
+Note that you CAN'T run ELF files on modern firmware, you MUST build as .PRX. To do this, set BUILD_PRX = 1 in your makefile.
+
+Also, somewhere in your program, add the following line to get a proper heap size:
+
+unsigned int sce_newlib_heap_kb_size = -1;
+
+For some probably historical reason, by default PSPSDK assumes that you want a 64k heap when you build a PRX.
 
 
 
-Old notes:
 
-However, here I had one more problem: Modern PSPLink won't load ELF files. You have to build everything as PRX (encrypted elf). So I had to switch pspautotests over to use pspsdk makefiles and set BUILD_PRX = 1. This exposed one more problem : by default when you build a PRX, it sets the heap size to 64k. So I added a workaround for that in common.c.
-
-Finally, everything works :)
 
 
 
