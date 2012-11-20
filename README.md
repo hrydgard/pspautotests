@@ -54,9 +54,8 @@ In a command prompt in the directory that you want the PSP software to regard as
 Then in another command prompt:
 
 > pspsh -p 3000
-host0:/
 
-If you don't see the host0:/ prompt, something is wrong. Most likely the driver has not loaded correctly. If the port 3000 happened to be taken (usbhostfs_pc would have complained), try another port number.
+If you now don't see a host0:/ prompt, something is wrong. Most likely the driver has not loaded correctly. If the port 3000 happened to be taken (usbhostfs_pc would have complained), try another port number.
 
 Now you have full access to the PSP from this prompt. You can run executables on the PSP that reside on the PC directly from within this shell, just cd to the directory and run ./my_program.prx.
 
