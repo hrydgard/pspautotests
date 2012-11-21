@@ -42,11 +42,9 @@ static int lockFunc(SceSize argSize, void* argPointer) {
 	return 0;
 }
 
-static int deleteMeFunc(SceSize argSize, void* argPointer) {
-	sceKernelLockMutex(*(int*) argPointer, 1, NULL);
-	sceKernelDelayThread(1000);
+static int unlockFunc(SceSize argSize, void* argPointer) {
 	int result = sceKernelUnlockMutex(*(int*) argPointer, 1);
-	printf("After delete: %08X\n", result);
+	printf("After unlock: %08X\n", result);
 	return 0;
 }
 
@@ -72,9 +70,9 @@ int main(int argc, char **argv) {
 	UNLOCK_TEST_THREAD("Locked 2 => 2 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 2, 2);
 	UNLOCK_TEST_THREAD("Locked 0 => 1 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 0, 1);
 
-	SceUID deleteThread = CREATE_SIMPLE_THREAD(deleteMeFunc);
-	SceUID mutex = sceKernelCreateMutex("unlock", 0, 0, NULL);
-	sceKernelStartThread(deleteThread, sizeof(int), &mutex);
+	SceUID unlockThread = CREATE_SIMPLE_THREAD(unlockFunc);
+	SceUID mutex = sceKernelCreateMutex("unlock", 0, 1, NULL);
+	sceKernelStartThread(unlockThread, sizeof(int), &mutex);
 	sceKernelDelayThread(500);
 	sceKernelDeleteMutex(mutex);
 
