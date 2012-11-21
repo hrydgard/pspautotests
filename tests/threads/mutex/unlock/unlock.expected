@@ -16,7 +16,7 @@ Locked 2 => 1 (recursive): L2 L1 OK
 Locked 1 => 2 (recursive): L2 L1 Failed (800201C7)
 Locked 2 => 2 (recursive): L1 L2 OK
 Locked 0 => 1 (recursive): L1 L2 Failed (800201C5)
-After delete: 800201C3
+After unlock: 800201C5
 NULL => 0: Failed (800201C3)
 NULL => 1: Failed (800201C3)
 Invalid => 1: Failed (800201C3)

@@ -56,7 +56,7 @@ Locked 2 => 2 (recursive): L1 L2 OK
 Locked 2 => 2 (recursive) (fake): L1 L2 OK
 Locked 0 => 1 (recursive): L1 L2 Failed (800201CC)
 Locked 0 => 1 (recursive) (fake): L1 L2 Failed (800201CC)
-After delete: 800201CA
+After unlock: 800201CC
 Deleted => 1: Failed (800201CA)
 Zero: A1B1C2E2D2F2 (thread=800201B5, main=800201BD)
 Unlock same: A1B1C2D2E2F1 (thread=00000000, main=00000000)
