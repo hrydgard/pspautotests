@@ -1299,12 +1299,90 @@ void checkCompare() {
 	printVector(&vout);
 }
 
+const char *cmpNames[16] = {
+  "FL",
+  "EQ",
+  "LT",
+  "LE",
+  "TR",
+  "NE",
+  "GE",
+  "GT",
+  "EZ",
+  "EN",
+  "EI",
+  "ES",
+  "NZ",
+  "NN",
+  "NI",
+  "NS",
+};
+
+void _checkCompare2(float a, float b) {
+ 	static __attribute__ ((aligned (16))) ScePspFVector4 vleft;
+	static __attribute__ ((aligned (16))) ScePspFVector4 vright;
+ 	ScePspFVector4 *vLeft = &vleft;
+ 	ScePspFVector4 *vRight = &vright;
+  int i;
+  for (i = 0; i < 4; i++) {
+    memcpy(((float*)&vleft) + i, &a, 4);
+    memcpy(((float*)&vright) + i, &b, 4);
+  }
+  int temp;
+  unsigned int res[16];
+  printf("=== Comparing %f, %f ===\n", a, b);
+  memset(res, 0, sizeof(res));
+  asm volatile(
+		"lv.q R500, 0x00+%1\n"
+		"lv.q R600, 0x00+%2\n"
+    "li %3, 0\n"
+    "mtvc %3, $131\n"
+		// $131 = VFPU_CC
+    "vcmp.q FL, R500, R600\n" "mfvc %3, $131\n" "sw %3, 0+%0\n"
+    "vcmp.q EQ, R500, R600\n" "mfvc %3, $131\n" "sw %3, 4+%0\n"
+    "vcmp.q LT, R500, R600\n" "mfvc %3, $131\n" "sw %3, 8+%0\n"
+    "vcmp.q LE, R500, R600\n" "mfvc %3, $131\n" "sw %3, 12+%0\n"
+
+    "vcmp.q TR, R500, R600\n" "mfvc %3, $131\n" "sw %3, 16+%0\n"
+    "vcmp.q NE, R500, R600\n" "mfvc %3, $131\n" "sw %3, 20+%0\n"
+    "vcmp.q GE, R500, R600\n" "mfvc %3, $131\n" "sw %3, 24+%0\n"
+    "vcmp.q GT, R500, R600\n" "mfvc %3, $131\n" "sw %3, 28+%0\n"
+
+    "vcmp.q EZ, R500, R600\n" "mfvc %3, $131\n" "sw %3, 32+%0\n"
+    "vcmp.q EN, R500, R600\n" "mfvc %3, $131\n" "sw %3, 36+%0\n"
+    "vcmp.q EI, R500, R600\n" "mfvc %3, $131\n" "sw %3, 40+%0\n"
+    "vcmp.q ES, R500, R600\n" "mfvc %3, $131\n" "sw %3, 44+%0\n"
+    
+    "vcmp.q NZ, R500, R600\n" "mfvc %3, $131\n" "sw %3, 48+%0\n"
+    "vcmp.q NN, R500, R600\n" "mfvc %3, $131\n" "sw %3, 52+%0\n"
+    "vcmp.q NI, R500, R600\n" "mfvc %3, $131\n" "sw %3, 56+%0\n"
+    "vcmp.q NS, R500, R600\n" "mfvc %3, $131\n" "sw %3, 60+%0\n"
+    : "=m"(res[0]) : "m"(*vLeft), "m"(*vRight), "r"(temp)
+  );
+  for (i = 0; i < 16; i++) {
+    if (0) {
+      //simple mode, only condition flag
+      printf("%f %f %s: %s\n", a, b, cmpNames[i], ((res[i]>>23)&1) ? "T" : "F");
+    } else {
+      printf("%f %f %s: %08x\n", a, b, cmpNames[i], res[i]);
+    }
+  }
+}
+
+void checkCompare2() {
+  _checkCompare2(1.0f, 2.0f);
+  _checkCompare2(2.0f, 1.0f);
+  _checkCompare2(2.0f, 2.0f);
+}
+
+
 int main(int argc, char *argv[]) {
 	printf("Started\n");
 
 	resetAllMatrices();
 	
 	printf("checkCompare:\n"); checkCompare();
+	printf("checkCompare2:\n"); checkCompare2();
   printf("checkVF2I:\n"); checkVF2I();
   printf("checkVI2F:\n"); checkVI2F();
 	printf("checkCrossProduct:\n"); checkCrossProduct();
