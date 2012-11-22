@@ -62,6 +62,16 @@ void _checkPrefixes3(ScePspFVector4* v0) {
 	);
 }
 
+void _checkPrefixes4(ScePspFVector4* v0) {
+	__asm__ volatile (
+		"vmov.q R000[0:1, 0:1, 0:1, 0:1], R000[0, 1, 2, 3]\n"
+		"vmov.q R000[m, m, 0:1, m], R000[3, 2, 1, 0]\n"
+		"vmov.q R000, R000[y, -1, z, -y]\n"
+		"sv.q   R000, 0x00+%0\n"
+		: "+m" (*v0)
+	);
+}
+
 void checkPrefixes() {
 	v0.x = v0.y = v0.z = v0.w = NAN;
 	_checkPrefixes0(&v0);
@@ -71,6 +81,8 @@ void checkPrefixes() {
 	_checkPrefixes2(&v0);
 	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
 	_checkPrefixes3(&v0);
+	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
+	_checkPrefixes4(&v0);
 	printf("%f, %f, %f, %f\n", v0.x, v0.y, v0.z, v0.w);
 }
 

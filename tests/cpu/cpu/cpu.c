@@ -36,6 +36,14 @@ __attribute__ ((noinline)) unsigned int fixed_rorv(unsigned int value, int offse
 	return ret;
 }
 
+__attribute__ ((noinline)) unsigned int test_bitrev(unsigned int value) {
+	int ret;
+	asm volatile (
+		"bitrev %0, %1\n"
+		: "=r"(ret) : "r"(value)
+	);
+	return ret;
+}
 
 void test_mul64() {
   volatile unsigned long long a = 0x8234567812345678ULL;
@@ -95,8 +103,11 @@ int main(int argc, char *argv[]) {
 	printf("rotr 0x%08X\n", fixed_ror(0x12345678));
 	printf("rotrv 0x%08X\n", fixed_rorv(0x12345678, 8));
 
+	OPX_TEST_START();
   test_mul64();
   test_div();
 
+	OPX_TEST_START();
+  printf("bitrev 0x%08x\n", test_bitrev(0xF18abcde));
 	return 0;
 }
