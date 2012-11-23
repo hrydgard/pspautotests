@@ -30,12 +30,32 @@ int ms_callback(int arg1, int arg2, void *arg)
 	printf("ms_callback: %08X, %08X, %08X\n", (unsigned int)arg1, (unsigned int)arg2, (unsigned int)arg);
 	
 	sceIoDevctl("fatms0:", 0x02425818, (void *)&sizeInfoPointer, sizeof(void*), 0, 0);
-	
+
+	// No need to match exactly, let's call 256 MB "enough" and 128 GB "too much."
+	// Remember that storage uses SI units.
+	int acceptableMinClusters = (256 * 1000 * 1000) / (512 * 64);
+	int acceptableMaxClusters = (128 * 1000 * 1000 * 1000) / (512 * 64) - 1;
+
+	if (sizeInfo.maxClusters >= acceptableMinClusters && sizeInfo.maxClusters <= acceptableMaxClusters) {
+		printf("sizeInfo:: maxClusters: OK\n");
+	} else {
+		printf("sizeInfo:: maxClusters: Unexpected %d\n", sizeInfo.maxClusters);
+	}
+
+	if (sizeInfo.freeClusters >= acceptableMinClusters && sizeInfo.freeClusters <= acceptableMaxClusters) {
+		printf("sizeInfo:: freeClusters: OK\n");
+	} else {
+		printf("sizeInfo:: freeClusters: Unexpected %d\n", sizeInfo.freeClusters);
+	}
+
+	if (sizeInfo.maxSectors >= acceptableMinClusters && sizeInfo.maxSectors <= acceptableMaxClusters) {
+		printf("sizeInfo:: maxSectors: OK\n");
+	} else {
+		printf("sizeInfo:: maxSectors: Unexpected %d\n", sizeInfo.maxSectors);
+	}
+
 	printf(
-		"sizeInfo:: maxClusters=%d, freeClusters=%d, maxSectors=%d, sectorSize=%d, sectorCount=%d\n",
-		sizeInfo.maxClusters,
-		sizeInfo.freeClusters,
-		sizeInfo.maxSectors,
+		"sizeInfo:: sectorSize=%d, sectorCount=%d\n",
 		sizeInfo.sectorSize,
 		sizeInfo.sectorCount
 	);
