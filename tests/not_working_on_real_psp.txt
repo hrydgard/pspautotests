@@ -10,7 +10,4 @@ intr
 
 kirk
 
-
-scheduling
-threads
-
+modules

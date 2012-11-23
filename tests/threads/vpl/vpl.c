@@ -21,7 +21,7 @@ void testSimpleVpl() {
 	void *pointer2 = NULL;
 	void *pointer3 = NULL;
 	vpl = sceKernelCreateVpl("VPL", PSP_MEMORY_PARTITION_USER, PSP_VPL_ATTR_NONE, 1300, NULL);
-	printf("%08X\n", vpl);
+	printf("%08X\n", vpl > 0 ? 1 : vpl);
 	{
 		result = sceKernelTryAllocateVpl(vpl, 1, &pointer_base);
 		printf("%08X\n", result);

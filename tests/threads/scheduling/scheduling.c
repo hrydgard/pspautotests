@@ -28,16 +28,18 @@ void testSimpleScheduling() {
 	
 	sema = sceKernelCreateSema("EndSema", 0, 0, 4, NULL);
 	
-	for (n = 0; n < 4; n++) {
+	for (n = 0; n < 3; n++) {
 		threads[n] = sceKernelCreateThread("Thread-N", testSimpleScheduling_Thread, 0x18, 0x10000, 0, NULL);
 		sceKernelStartThread(threads[n], 1, &n);
 	}
 	
-	sceKernelWaitSemaCB(sema, 4, NULL);
+	sceKernelWaitSemaCB(sema, 3, NULL);
 
-	for (n = 0; n < 4; n++) {
+	for (n = 0; n < 3; n++) {
 		sceKernelDeleteThread(threads[n]);
 	}
+
+	sceKernelDeleteSema(sema);
 }
 
 int testSimpleVblankScheduling_Thread(SceSize args, void *argp) {
@@ -60,16 +62,18 @@ void testSimpleVblankScheduling() {
 	
 	sema = sceKernelCreateSema("EndSema", 0, 0, 4, NULL);
 	
-	for (n = 0; n < 4; n++) {
+	for (n = 0; n < 3; n++) {
 		threads[n] = sceKernelCreateThread("Thread-N", testSimpleVblankScheduling_Thread, 0x18, 0x10000, 0, NULL);
 		sceKernelStartThread(threads[n], 1, &n);
 	}
 	
-	sceKernelWaitSemaCB(sema, 4, NULL);
+	sceKernelWaitSemaCB(sema, 3, NULL);
 	
-	for (n = 0; n < 4; n++) {
+	for (n = 0; n < 3; n++) {
 		sceKernelDeleteThread(threads[n]);
 	}
+
+	sceKernelDeleteSema(sema);
 }
 
 char buffer[10000];
@@ -104,6 +108,8 @@ void testNoThreadSwitchingWhenSuspendedInterrupts() {
 	sceKernelCpuResumeIntr(intr);
 	strcat(msg, "Main Thread with enabled interrupts\n");
 	printf("%s", msg);
+
+	sceKernelDeleteThread(sleepingThid);
 }
 
 int main(int argc, char **argv) {
