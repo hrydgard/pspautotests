@@ -1,19 +1,25 @@
 1
-ms0:/PSP/GAME/TEST/EBOOT.PBP
-ms0:/PSP/GAME/TEST
-ms0:/PSP/GAME/TEST
-(chdir error)
-ms0:/PSP/GAME
-ms0:/PSP/SAVEDATA
-ms0:
-ms0:
-ms0:/PSP
-ms0:/PSP/GAME
-ms0:
-ms0:/PSP/GAME
-(chdir error)
-ms0:/PSP
+/io.prx
+result: 1
+Initial: /testdir/testdir2
+Empty: /testdir/testdir2
+Non-existent: (chdir error)
+Parent: /testdir
+Parent + subdirs: /testdir/testdir2
+Multiple parents: outside or at basedir
+Back to testdir: /testdir
+Current dir: /testdir
+Current + extra slashes: /testdir/testdir2
+Switch drive no slash: (chdir error)
+Switch drive + slash: ms0:
+Absolute + drive: ms0:/PSP/SAVEDATA
+Absolute no drive: ms0:/PSP
+Root: ms0:
+Flash drive: (chdir error)
+PSP and back again + trailing /: ms0:/PSP
 1
 1
+io.c
 io.expected
+io.prx
 GAME

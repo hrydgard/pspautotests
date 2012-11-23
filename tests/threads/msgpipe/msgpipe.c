@@ -22,7 +22,7 @@ void testMsgPipeSimple1() {
 
 	msgpipe = sceKernelCreateMsgPipe("MSGPIPE", 2, 0, (void *)(sizeof(Message) * msgpipe_capacity), /*NULL*/0);
 	//msgpipe = sceKernelCreateMsgPipe("MSGPIPE", 2, 0, 1, NULL);
-	printf("CREATE:%08X\n", msgpipe);
+	printf("CREATE:%08X\n", msgpipe > 0 ? 1 : msgpipe);
 	for (n = 0; n < msgpipe_trycount; n++)
 	{
 		int resultSize;

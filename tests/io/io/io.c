@@ -13,20 +13,28 @@
 #include <dirent.h>
 #include <sys/types.h>
 #include <sys/unistd.h>
+#include <sys/stat.h>
 
 //#include "../common/emits.h"
 
 char buf[MAXPATHLEN] = {0};
 char startPath[MAXPATHLEN] = {0};
 
+
 /**
  * Utility for .
  */
-void checkChangePathsTry(const char *dest) {
+void checkChangePathsTry(const char *name, const char *dest, int offset) {
 	if (chdir(dest) < 0) {
-		printf("(chdir error)\n");
+		printf("%s: (chdir error)\n", name);
 	} else {
-		printf("%s\n", getcwd(buf, MAXPATHLEN) ?: "(getcwd error)");
+		char *result = getcwd(buf, MAXPATHLEN);
+		int len = strlen(buf);
+		if (len <= offset) {
+			printf("%s: outside or at basedir\n", name);
+		} else {
+			printf("%s: %s\n", name, result ? result + offset : "(getcwd error)");
+		}
 	}
 }
 
@@ -34,19 +42,34 @@ void checkChangePathsTry(const char *dest) {
  * Check changing paths.
  */
 void checkChangePaths() {
-	printf("%s\n", getcwd(buf, MAXPATHLEN));
-	checkChangePathsTry("");                 // empty string
-	checkChangePathsTry("hello");            // nonexistent path
-	checkChangePathsTry("..");               // parent dir
-	checkChangePathsTry("../SAVEDATA");      // parent dir and subdir
-	checkChangePathsTry("../..");            // multiple parents
-	checkChangePathsTry(".");                // current dir
-	checkChangePathsTry("./././//PSP");      // current dirs, extra slashes
-	checkChangePathsTry("/PSP/./GAME");      // absolute with no drive
-	checkChangePathsTry("/");                // root with no drive
-	checkChangePathsTry("ms0:/PSP/GAME");    // absolute with drive
-	checkChangePathsTry("flash0:/");         // different drive
-	checkChangePathsTry("ms0:/PSP/../PSP/"); // mixed
+	char baseDir[MAXPATHLEN];
+	int baseDirLen;
+
+	printf("result: %d\n", getcwd(baseDir, MAXPATHLEN) == baseDir);
+	baseDirLen = strlen(baseDir);
+
+	// Setup paths.
+	mkdir("otherdir", 0777);
+	mkdir("testdir", 0777);
+	mkdir("testdir/testdir2", 0777);
+
+	checkChangePathsTry("Initial", "testdir/testdir2", baseDirLen);
+	checkChangePathsTry("Empty", "", baseDirLen);
+	checkChangePathsTry("Non-existent", "hello", baseDirLen);
+	checkChangePathsTry("Parent", "..", baseDirLen);
+	checkChangePathsTry("Parent + subdirs", "../testdir/testdir2", baseDirLen);
+	checkChangePathsTry("Multiple parents", "../..", baseDirLen);
+	checkChangePathsTry("Back to testdir", "testdir", baseDirLen);
+	checkChangePathsTry("Current dir", ".", baseDirLen);
+	checkChangePathsTry("Current + extra slashes", "./././//testdir2", baseDirLen);
+	checkChangePathsTry("Switch drive no slash", "ms0:", 0);
+	checkChangePathsTry("Switch drive + slash", "ms0:/", 0);
+	checkChangePathsTry("Absolute + drive", "ms0:/PSP/SAVEDATA", 0);
+	checkChangePathsTry("Absolute no drive", "/PSP", 0);
+	checkChangePathsTry("Root", "/", 0);
+	checkChangePathsTry("Flash drive", "flash0:/", 0);
+	checkChangePathsTry("PSP and back again + trailing /", "ms0:/PSP/../PSP/", 0);
+
 	chdir(startPath);
 }
 
@@ -116,7 +139,16 @@ void checkDirectoryListEx() {
 void checkMainArgs(int argc, char** argv) {
 	int n;
 	printf("%d\n", argc);
-	for (n = 0; n < argc; n++) printf("%s\n", argv[n]);
+
+	if (strlen(argv[0]) > strlen(startPath)) {
+		printf("%s\n", argv[0] + strlen(startPath));
+	} else {
+		printf("%s\n", argv[0]);
+	}
+
+	for (n = 1; n < argc; n++) {
+		printf("%s\n", argv[n]);
+	}
 }
 
 int main(int argc, char** argv) {
