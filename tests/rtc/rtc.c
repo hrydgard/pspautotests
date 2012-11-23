@@ -2,6 +2,7 @@
 
 #include <pspkernel.h>
 #include <psprtc.h>
+#include <limits.h>
 
 /**
  * Check that getCurrentTick works fine.
@@ -24,9 +25,74 @@ void checkGetCurrentTick() {
 	printf("%d\n", (tick1 - tick0) >= microseconds);
 }
 
+void checkPspTime(pspTime pt) {
+	if (pt.year > 1980) {
+		printf("Year: OK\n");
+	} else {
+		printf("Year: Failed, or great job on that time machine to %d\n", pt.year);
+	}
+
+	if (pt.month < 1 || pt.month > 12 || pt.day < 1 || pt.day > 31) {
+		printf("Date: Failed %04d-%02d-%02d\n", pt.year, pt.month, pt.day);
+	} else {
+		printf("Date: OK\n");
+	}
+
+	if (pt.hour < 0 || pt.hour > 23 || pt.minutes < 0 || pt.minutes > 59 || pt.seconds < 0 || pt.seconds > 59) {
+		printf("Time: Failed %02d:%02d:%02d\n", pt.hour, pt.minutes, pt.seconds);
+	} else {
+		printf("Time: OK\n");
+	}
+
+	if (pt.microseconds >= 1000000) {
+		printf("Microseconds: Failed, impossibly high: %d\n", pt.microseconds);
+	} else {
+		printf("Microseconds: OK\n");
+	}
+}
+
 void checkGetCurrentClock() {
 	printf("Checking sceRtcGetCurrentClock\n");
-	/*sceRtcGetCurrentClock */
+
+	pspTime pt_baseline;
+	pspTime pt;
+
+	do
+	{
+		sceRtcGetCurrentClock(&pt_baseline, 0);
+		sceRtcGetCurrentClock(&pt, -60);
+	}
+	// Rollover is annoying.  We could test in a more complicated way, I guess.
+	while (pt_baseline.minutes == 59 && pt_baseline.seconds == 59);
+
+	if (pt.hour != pt_baseline.hour - 1 && !(pt.hour == 12 && pt_baseline.hour == 1))
+		printf("-60 TZ: Failed, got time different by %d hours.\n", (pt_baseline.hour - pt.hour) % 12);
+	else
+		printf("-60 TZ: OK\n");
+
+	checkPspTime(pt);
+
+	// Crash.
+	//printf("NULL, 0 TZ: %08x\n", sceRtcGetCurrentClock(NULL, 0));
+	printf("0 TZ: %08x\n", sceRtcGetCurrentClock(&pt, 0));
+	printf("+13 TZ: %08x\n", sceRtcGetCurrentClock(&pt, 13));
+	printf("+60 TZ: %08x\n", sceRtcGetCurrentClock(&pt, 60));
+	printf("-60 TZ: %08x\n", sceRtcGetCurrentClock(&pt, -60));
+	printf("-600000 TZ: %08x\n", sceRtcGetCurrentClock(&pt, -600000));
+	printf("INT_MAX TZ: %08x\n", sceRtcGetCurrentClock(&pt, INT_MAX));
+	printf("-INT_MAX TZ: %08x\n", sceRtcGetCurrentClock(&pt, -INT_MAX));
+}
+
+void checkGetCurrentClockLocalTime() {
+	printf("Checking sceRtcGetCurrentClockLocalTime\n");
+	pspTime pt;
+
+	// Crash.
+	//printf("NULL: %08x\n", sceRtcGetCurrentClockLocalTime(NULL));
+	// Not much to test here...
+	printf("Normal: %08x\n", sceRtcGetCurrentClockLocalTime(&pt));
+
+	checkPspTime(pt);
 }
 
 void checkDaysInMonth() {
@@ -41,11 +107,39 @@ void checkDayOfWeek() {
 	printf("%d\n", sceRtcGetDayOfWeek(2010, 4, 27));
 }
 
+void checkGetTick() {
+	pspTime pt;
+	u64 ticks;
+
+	printf("Checking sceRtcGetTick\n");
+
+	pt.year = 2012;
+	pt.month = 9;
+	pt.day = 20;
+	pt.hour = 7;
+	pt.minutes = 0;
+	pt.seconds = 0;
+	pt.microseconds = 0;
+	printf("Normal: %08x\n", sceRtcGetTick(&pt, &ticks));
+	// TODO: Should ticks match?  Depends on timezone?
+
+	pt.year = 0;
+	pt.month = 324;
+	pt.day = 99;
+	pt.hour = -56;
+	pt.minutes = 42;
+	pt.seconds = 42;
+	pt.microseconds = 42000000;
+	printf("Bad date: %08x\n", sceRtcGetTick(&pt, &ticks));
+}
+
 int main(int argc, char **argv) {
 	checkGetCurrentTick();
 	checkDaysInMonth();
 	checkDayOfWeek();
 	checkGetCurrentClock();
+	checkGetCurrentClockLocalTime();
+	checkGetTick();
 	
 	return 0;
 }
