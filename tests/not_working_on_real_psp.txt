@@ -12,5 +12,4 @@ kirk
 
 
 scheduling
-threads
 

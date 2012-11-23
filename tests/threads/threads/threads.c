@@ -26,7 +26,9 @@ static int threadFunction(int args, void* argp) {
 }
 
 void testThreads() {
+	int result;
 	int n;
+	SceUID threads[3];
 
 	// Create a semaphore for waiting both threads to execute.
 	semaphore = sceKernelCreateSema("Semaphore", 0, 0, 2, NULL);
@@ -36,10 +38,10 @@ void testThreads() {
 		// When sceKernelStartThread, thread is executed immediately, so in a while it has access
 		// to the unmodified stack of the thread that created this one and can access n,
 		// before it changes its value.
+		threads[n] = sceKernelCreateThread("Test Thread", (void *)&threadFunction, 0x12, 0x10000, 0, NULL);
 		sceKernelStartThread(
-			sceKernelCreateThread("Test Thread", (void *)&threadFunction, 0x12, 0x10000, 0, NULL),
-			//sizeof(n), &n
-			n, &n
+			threads[n],
+			sizeof(n), &n
 		);
 	}
 
@@ -48,21 +50,29 @@ void testThreads() {
 
 	// After both threads have been executed, we will emit a -1 to check that semaphores work fine.
 	printf("%d\n", -1);
+
+	for (n = 0; n < 2; n++) {
+		sceKernelDeleteThread(threads[n]);
+	}
+
+	sceKernelDeleteSema(semaphore);
 }
 
+static volatile int threadFlag[4];
+
 static int threadEndedFunction1(int args, void* argp) {
-	printf("Thread1.Started\n");
+	threadFlag[0] = 1;
 	return 0;
 }
 
 static int threadEndedFunction2(int args, void* argp) {
-	printf("Thread2.Started\n");
+	threadFlag[1] = 1;
 	sceKernelExitThread(0);
 	return 0;
 }
 
 static int threadEndedFunction3(int args, void* argp) {
-	printf("Thread3.Started\n");
+	threadFlag[2] = 1;
 	sceKernelDelayThread(10 * 1000);
 	printf("Thread3.GoingToEnd\n");
 	sceKernelExitThread(0);
@@ -84,6 +94,10 @@ void testThreadsEnded() {
 	// Thread4 won't start never, so sceKernelWaitThreadEnd can be executed before thread is started.
 	thread4 = sceKernelCreateThread("threadEndedFunction4", NULL, 0x12, 0x10000, 0, NULL);
 
+	int i;
+	for (i = 0; i < 4; i++)
+		threadFlag[i] = 0;
+
 	sceKernelStartThread(thread1, 0, NULL);
 	sceKernelStartThread(thread2, 0, NULL);
 	sceKernelStartThread(thread3, 0, NULL);
@@ -91,7 +105,10 @@ void testThreadsEnded() {
 	// This waits 5ms and supposes both threads (1 and 2) have ended. Thread 3 should have not ended. Thread 4 is not going to be started.
 	sceKernelDelayThread(2 * 1000);
 
-	printf("Threads.EndedExpected\n");
+	printf("Threads.EndedExpected - start status: ");
+	for (i = 0; i < 4; i++)
+		printf("%d", threadFlag[i]);
+	printf("\n");
 	
 	sceKernelWaitThreadEnd(thread1, NULL);
 	printf("Thread1.Ended\n");
