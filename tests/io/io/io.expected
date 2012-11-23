@@ -20,8 +20,6 @@ PSP and back again + trailing /: ms0:/PSP
 1
 1
 io.c
-io.elf
 io.expected
-io.o
 io.prx
 GAME
