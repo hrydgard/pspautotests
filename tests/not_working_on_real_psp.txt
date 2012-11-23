@@ -9,7 +9,3 @@ fonttest
 intr
 
 kirk
-
-
-scheduling
-
