@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <malloc.h>
 
 int sceAtracGetSecondBufferInfo(int atracID, u32 *puiPosition, u32 *puiDataByte);
 int sceAtracGetNextDecodePosition(int atracID, u32 *puiSamplePosition);
@@ -45,30 +46,41 @@ int main(int argc, char *argv[]) {
 		fclose(file);
 	}
 
-	pspSdkLoadStartModule("flash0:/kd/audiocodec.prx", PSP_MEMORY_PARTITION_KERNEL);
-	pspSdkLoadStartModule("flash0:/kd/libatrac3plus.prx", PSP_MEMORY_PARTITION_KERNEL);
-	
+	int id = pspSdkLoadStartModule("flash0:/kd/libaudiocodec2.prx", PSP_MEMORY_PARTITION_USER);
+	int id2 = pspSdkLoadStartModule("flash0:/kd/libatrac3plus.prx", PSP_MEMORY_PARTITION_USER);
+
+	if ((id > 0 || (u32) id == 0x80020139UL) && (id2 > 0 || (u32) id2 == 0x80020139UL)) {
+		printf("Audio modules: OK\n");
+	} else {
+		printf("Audio modules: Failed %08x %08x\n", id, id2);
+	}
+
 	printf("at3: %08X, %08X\n", (unsigned int)at3_data, at3_size);
 	printf("Header: %s\n", (char *)at3_data);
 		
 	atracID = sceAtracSetDataAndGetID(at3_data, at3_size);
+	if (atracID < 0) {
+		printf("sceAtracSetDataAndGetID: Failed %08x\n", atracID);
+		return 1;
+	} else {
+		printf("sceAtracSetDataAndGetID: OK\n");
+	}
 	
 	result = sceAtracSetLoopNum(atracID, 2);
 	printf("sceAtracSetLoopNum: %08X\n", result);
 
-	printf("sceAtracSetDataAndGetID: %08X\n", atracID);
-	
 	result = sceAtracGetMaxSample(atracID, &maxSamples);
 	printf("sceAtracGetMaxSample: %08X, %d\n", result, maxSamples);
 	
 	channel = sceAudioChReserve(0, maxSamples, PSP_AUDIO_FORMAT_STEREO);
+	printf("sceAudioChReserve: %08X\n", channel);
 	
 	result = sceAtracGetSecondBufferInfo(atracID, &puiPosition, &puiDataByte);
 	printf("sceAtracGetSecondBufferInfo: %08X, %u, %u\n", result, (unsigned int)puiPosition, (unsigned int)puiDataByte);
 	
 	int end = 0;
 	int steps = 0;
-	while (!end) {
+	while (!end && steps < 65536) {
 		//int remainFrame = -1;
 		int remainFrame = 0;
 		//int decodeBufferPosition = 0;
@@ -98,6 +110,7 @@ int main(int argc, char *argv[]) {
 			printf("sceAtracDecodeData: %08X, at3_size: %d, decode_size: %d, samples: %d, end: %d, remainFrame: %d\n\n", result, at3_size, decode_size, samples, end, remainFrame);
 			if (steps == 1) {
 				for (n = 0; n < 32; n++) printf("%04X ", (u16)decode_data[n]);
+				printf("\n");
 			}
 			printf("sceAtracGetRemainFrame: %08X\n", result);
 		}
@@ -105,9 +118,10 @@ int main(int argc, char *argv[]) {
 		steps++;
 	}
 	
-	sceAudioChRelease(channel);
+	result = sceAudioChRelease(channel);
+	printf("sceAudioChRelease: %08X\n", result);
 	result = sceAtracReleaseAtracID(atracID);
-	printf("sceAtracGetRemainFrame: %08X\n", result);
+	printf("sceAtracReleaseAtracID: %08X\n", result);
 
 	return 0;
 }
