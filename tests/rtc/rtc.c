@@ -186,7 +186,7 @@ void checkRtcTickAddTicks()
 	u64 destTick = 0;
 	pspTime pt;
 
-	printf("62135596800000445 adding -62135596800000445 ticks: %08x\n", sceRtcTickAddTicks(&destTick, &sourceTick, -62135596800000445));
+	printf("62135596800000445 adding -62135596800000445 ticks:%llu\n", sceRtcTickAddTicks(&destTick, &sourceTick, -62135596800000445));
 	printf("source tick %llu\n", sourceTick);
 	sceRtcSetTick(&pt, &sourceTick);
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
@@ -198,7 +198,7 @@ void checkRtcTickAddTicks()
 	sourceTick = 62135596800000445;
 	destTick = 0;
 
-	printf("62135596800000445 adding +62135596800000445 ticks: %08x\n", sceRtcTickAddTicks(&destTick, &sourceTick, 62135596800000445));
+	printf("62135596800000445 adding +62135596800000445 ticks: %llu\n", sceRtcTickAddTicks(&destTick, &sourceTick, 62135596800000445));
 	sceRtcSetTick(&pt, &sourceTick);
 	printf("source tick %llu\n", sourceTick);
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
@@ -210,7 +210,7 @@ void checkRtcTickAddTicks()
 	sourceTick = 62135596800000445;
 	destTick = 0;
 
-	printf("62135596800000445 adding +621355968000 ticks: %08x\n", sceRtcTickAddTicks(&destTick, &sourceTick, 621355968000));
+	printf("62135596800000445 adding +621355968000 ticks: %llu\n", sceRtcTickAddTicks(&destTick, &sourceTick, 621355968000));
 	printf("source tick %llu\n", sourceTick);
 	sceRtcSetTick(&pt, &sourceTick);
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
@@ -219,10 +219,7 @@ void checkRtcTickAddTicks()
 	sceRtcSetTick(&pt, &destTick);
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
 
-
 }
-
-
 
 void checkRtcTickAddYears()
 {
@@ -254,9 +251,6 @@ void checkRtcTickAddYears()
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
 
 }
-
-
-
 
 int main(int argc, char **argv) {
 	checkGetCurrentTick();
