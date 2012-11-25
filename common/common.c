@@ -213,7 +213,7 @@ void emulatorEmitScreenshot() {
             topaddr |= 0x40000000;
         }
 	
-		if ((file = sceIoOpen("__screenshot.bmp", PSP_O_CREAT | PSP_O_WRONLY | PSP_O_TRUNC, 0777)) >= 0) {
+		if ((file = sceIoOpen("host0:/__screenshot.bmp", PSP_O_CREAT | PSP_O_WRONLY | PSP_O_TRUNC, 0777)) >= 0) {
 			int y, x;
 			uint c;
 			uint* vram_row;
