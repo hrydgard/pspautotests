@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
 	unsigned int *buffers[NUM_BUFFERS];
 	unsigned int *buffer;
 	char *temp;
-	printf("STARTED\n");
+	printf("Allocating %d MB\n", (NUM_BUFFERS * BUFFER_SIZE * sizeof(unsigned int)) / (1024 * 1024));
 	{
 		for (n = 0; n < NUM_BUFFERS; n++) {
 			buffers[n] = calloc(BUFFER_SIZE, sizeof(unsigned int));
@@ -30,13 +30,13 @@ int main(int argc, char** argv) {
 			for (m = 0; m < BUFFER_SIZE; m++) sum += buffer[m];
 			printf("%d: %d\n", n, sum);
 		}
-		temp = malloc(10 * 1024 * 1024);
-		printf("%s\n", (temp == NULL) ? "NULL" : "NOT NULL");
+		temp = malloc(20 * 1024 * 1024);
+		printf("Allocate 20 MB: %s\n", (temp == NULL) ? "NULL" : "NOT NULL");
 		for (n = 0; n < NUM_BUFFERS; n++) {
 			free(buffers[n]);
 		}
-		temp = malloc(10 * 1024 * 1024);
-		printf("%s\n", (temp == NULL) ? "NULL" : "NOT NULL");
+		temp = malloc(20 * 1024 * 1024);
+		printf("Allocate 20 MB after free: %s\n", (temp == NULL) ? "NULL" : "NOT NULL");
 	}
 	printf("ENDED\n");
 
