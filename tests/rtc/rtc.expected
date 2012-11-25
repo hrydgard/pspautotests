@@ -28,3 +28,14 @@ Microseconds: OK
 Checking sceRtcGetTick
 Normal: 00000000
 Bad date: 800001fe
+checkSetTick: empty small value: 00000000
+1, 1, 1, 0, 0, 0, 835072
+checkSetTick: empty rtcMagicOffset: 00000000
+1970, 1, 1, 0, 0, 0, 0
+Normal: 00000000
+checkSetTick: 2012, 09, 20, 7, 12, 15, 500: 00000000
+2012, 9, 20, 7, 12, 15, 500
+preset
+2010, 9, 20, 7, 12, 15, 500
+checkSetTick: not empty:00000000
+2012, 9, 20, 7, 12, 15, 500

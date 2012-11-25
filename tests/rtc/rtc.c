@@ -4,6 +4,8 @@
 #include <psprtc.h>
 #include <limits.h>
 
+
+
 /**
  * Check that getCurrentTick works fine.
  *
@@ -107,6 +109,51 @@ void checkDayOfWeek() {
 	printf("%d\n", sceRtcGetDayOfWeek(2010, 4, 27));
 }
 
+void checkSetTick()
+{
+	pspTime pt;
+	u64 ticks = 835072;
+
+	memset(&pt, 0, sizeof(pt));
+
+	printf("checkSetTick: empty small value: %08x\n", sceRtcSetTick(&pt, &ticks));
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	ticks = 62135596800000000L;
+	memset(&pt, 0, sizeof(pt));
+	printf("checkSetTick: empty rtcMagicOffset: %08x\n", sceRtcSetTick(&pt, &ticks));
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	pt.year = 2012;
+	pt.month = 9;
+	pt.day = 20;
+	pt.hour = 7;
+	pt.minutes = 12;
+	pt.seconds = 15;
+	pt.microseconds = 500;
+	printf("Normal: %08x\n", sceRtcGetTick(&pt, &ticks)); // if this does depend on timezone the next bit might have differnt results
+
+	printf("checkSetTick: 2012, 09, 20, 7, 12, 15, 500: %08x\n", sceRtcSetTick(&pt, &ticks));
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+
+	pt.year = 2010;
+	pt.month = 9;
+	pt.day = 20;
+	pt.hour = 7;
+	pt.minutes = 12;
+	pt.seconds = 15;
+	pt.microseconds = 500;
+	printf("preset\n");
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+	printf("checkSetTick: not empty:%08x\n", sceRtcSetTick(&pt, &ticks));
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+	
+
+
+
+}
+
 void checkGetTick() {
 	pspTime pt;
 	u64 ticks;
@@ -140,6 +187,6 @@ int main(int argc, char **argv) {
 	checkGetCurrentClock();
 	checkGetCurrentClockLocalTime();
 	checkGetTick();
-	
+	checkSetTick();
 	return 0;
 }
