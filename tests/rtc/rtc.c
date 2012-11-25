@@ -231,11 +231,11 @@ void checkRtcTickAddYears()
 	pspTime pt;
 
 	printf("62135596800000445 adding -2000 years: %08x\n", sceRtcTickAddYears(&destTick, &sourceTick, -2000));
-	printf("source tick %d\n", sourceTick);
+	printf("source tick %llu\n", sourceTick);
 	sceRtcSetTick(&pt, &sourceTick);
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
 
-	printf("dest tick %d\n", destTick);
+	printf("dest tick  %llu\n", destTick);
 	sceRtcSetTick(&pt, &destTick);
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
 
@@ -243,10 +243,11 @@ void checkRtcTickAddYears()
 	destTick = 0;
 
 	printf("62135596800000445 adding +2000 years: %08x\n", sceRtcTickAddYears(&destTick, &sourceTick, 2000));
+	printf("source tick  %llu\n", sourceTick);
 	sceRtcSetTick(&pt, &sourceTick);
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
 
-	printf("dest tick %d\n", destTick);
+	printf("dest tick  %llu\n", destTick);
 	sceRtcSetTick(&pt, &destTick);
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
 
