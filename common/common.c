@@ -118,6 +118,13 @@ void test_end() {
 	fclose(stdout);
 	fclose(stderr);
 
+	FILE *finish = fopen("host0:/__testfinish.txt", "wb");
+	if (finish)
+	{
+		fwrite("1", sizeof(char), 1, finish);
+		fclose(finish);
+	}
+
   // Disabled the wait, much more convienent when running automated.
 	if (0 && !RUNNING_ON_EMULATOR) {
 		SceCtrlData key;
