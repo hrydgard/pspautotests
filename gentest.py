@@ -10,6 +10,7 @@ import shutil
 import time
 
 PSPSH = "pspsh"
+MAKE = "make"
 TEST_ROOT = "tests/"
 PORT = 3000
 OUTFILE = "__testoutput.txt"
@@ -55,13 +56,30 @@ def wait_until(predicate, timeout, interval):
   return False
 
 def pspsh_is_ready():
-  c = Command([PSPSH, "-p", str(PORT), "-e", "ls"]);
+  c = Command([PSPSH, "-p", str(PORT), "-e", "ls"])
   c.run(0.5)
-  return c.output.count('\n') > 2
+  return c.output.count("\n") > 2
 
-def gen_test(test):
+def init():
+  if not os.path.exists(TEST_ROOT + "../common/libcommon.a"):
+    print "Please install the pspsdk and run make in common/"
+    if not ("-k" in sys.argv or "--keep" in sys.argv):
+      sys.exit(1)
+
+def gen_test(test, args):
+  if not ("-k" in args or "--keep" in args):
+    olddir = os.getcwd()
+    os.chdir(TEST_ROOT + os.path.dirname(test))
+
+    make_target = "all"
+    if "-r" in args or "--rebuild" in args:
+      make_target = "rebuild"
+
+    os.system("%s MAKE=\"%s\" %s" % (MAKE, MAKE, make_target))
+    os.chdir(olddir)
+
   print("Running test " + test + " on the PSP...")
-  
+
   if os.path.exists(OUTFILE):
     os.unlink(OUTFILE)
   if os.path.exists(OUTFILE2):
@@ -80,7 +98,7 @@ def gen_test(test):
   if not pspsh_is_ready():
     print "Waiting for PSP to connect..."
 
-    success = wait_until(pspsh_is_ready, 5, 0.2);
+    success = wait_until(pspsh_is_ready, 5, 0.2)
 
     # No good, it never came back.
     if not success:
@@ -110,13 +128,28 @@ def gen_test(test):
     print "ERROR: No or empty " + OUTFILE + " was written, can't write .expected"
 
 def main():
-  args = sys.argv[1:]
-  
-  tests = tests_to_generate
-  if len(args):
-    tests = args
+  init()
+  tests = []
+  args = []
+  for arg in sys.argv[1:]:
+    if arg[0] == "-":
+      args.append(arg)
+    else:
+      tests.append(arg.replace("\\", "/"))
+
+  if not tests:
+    tests = tests_to_generate
+
+  if "-h" in args or "--help" in args:
+    print "Usage: %s [options] cpu/icache/icache rtc/rtc...\n" % (os.path.basename(sys.argv[0]))
+    print "Tests should be found under %s and omit the .prx extension." % (TEST_ROOT)
+    print "Automatically runs make in the test by default.\n"
+    print "Options:"
+    print "  -r, --rebuild         run make rebuild for each test"
+    print "  -k, --keep            do not run make before tests"
+    return
 
   for test in tests:
-    gen_test(test.replace("\\", "/"))
+    gen_test(test, args)
 
 main()
