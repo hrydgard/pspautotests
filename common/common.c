@@ -52,8 +52,8 @@ PSP_MAIN_THREAD_ATTR(PSP_THREAD_ATTR_USER | PSP_THREAD_ATTR_VFPU);
 unsigned int RUNNING_ON_EMULATOR = 0;
 unsigned int HAS_DISPLAY = 1;
 
-// 24 MB to give space for thread stacks and etc.
-unsigned int sce_newlib_heap_kb_size = 24576;
+// 21 MB to give space for thread stacks and etc.
+unsigned int sce_newlib_heap_kb_size = 21504;
 
 extern int test_main(int argc, char *argv[]);
 
