@@ -7,11 +7,11 @@
 
 
 /**
- * Check that getCurrentTick works fine.
- *
- * @TODO: Currently sceKernelDelayThread only work with ms.
- *        It should check that work with microseconds precission.
- */
+* Check that getCurrentTick works fine.
+*
+* @TODO: Currently sceKernelDelayThread only work with ms.
+*        It should check that work with microseconds precission.
+*/
 void checkGetCurrentTick() {
 	u64 tick0, tick1;
 	int microseconds = 2 * 1000; // 2ms
@@ -23,7 +23,7 @@ void checkGetCurrentTick() {
 		sceKernelDelayThread(microseconds);
 	}
 	sceRtcGetCurrentTick(&tick1);
-	
+
 	printf("%d\n", (tick1 - tick0) >= microseconds);
 }
 
@@ -119,7 +119,7 @@ void checkSetTick()
 	printf("checkSetTick: empty small value: %08x\n", sceRtcSetTick(&pt, &ticks));
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
 
-	ticks = 62135596800000000L;
+	ticks = 62135596800000000ULL;
 	memset(&pt, 0, sizeof(pt));
 	printf("checkSetTick: empty rtcMagicOffset: %08x\n", sceRtcSetTick(&pt, &ticks));
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
@@ -132,10 +132,8 @@ void checkSetTick()
 	pt.seconds = 15;
 	pt.microseconds = 500;
 	printf("Normal: %08x\n", sceRtcGetTick(&pt, &ticks)); // if this does depend on timezone the next bit might have differnt results
-
 	printf("checkSetTick: 2012, 09, 20, 7, 12, 15, 500: %08x\n", sceRtcSetTick(&pt, &ticks));
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
-
 
 	pt.year = 2010;
 	pt.month = 9;
@@ -181,11 +179,11 @@ void checkRtcTickAddTicks()
 {
 	printf("Checking sceRtcTickAddTicks\n");
 
-	u64 sourceTick = 62135596800000445;
+	u64 sourceTick = 62135596800000445ULL;
 	u64 destTick = 0;
 	pspTime pt;
 
-	printf("62135596800000445 adding -62135596800000445 ticks:%d\n", sceRtcTickAddTicks(&destTick, &sourceTick,(u64)-62135596800000445));
+	printf("62135596800000445 adding -62135596800000445 ticks:%d\n", sceRtcTickAddTicks(&destTick, &sourceTick,(u64)-62135596800000445ULL));
 	printf("source tick %llu\n", sourceTick);
 	sceRtcSetTick(&pt, &sourceTick);
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
@@ -194,7 +192,7 @@ void checkRtcTickAddTicks()
 	sceRtcSetTick(&pt, &destTick);
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
 
-	sourceTick = 62135596800000445;
+	sourceTick = 62135596800000445ULL;
 	destTick = 0;
 
 	printf("62135596800000445 adding +62135596800000445 ticks: %d\n", sceRtcTickAddTicks(&destTick, &sourceTick, sourceTick));
@@ -206,7 +204,7 @@ void checkRtcTickAddTicks()
 	sceRtcSetTick(&pt, &destTick);
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
 
-	sourceTick = 62135596800000445;
+	sourceTick = 62135596800000445ULL;
 	destTick = 0;
 
 	printf("62135596800000445 adding +621355968000 ticks: %d\n", sceRtcTickAddTicks(&destTick, &sourceTick, 621355968000));
@@ -224,8 +222,7 @@ void checkRtcTickAddYears()
 {
 	printf("Checking checkRtcTickAddYears\n");
 
-	//62135596800000445 and -2000 years
-	u64 sourceTick = 62135596800000445;
+	u64 sourceTick = 62135596800000445ULL;
 	u64 destTick = 0;
 	pspTime pt;
 
@@ -238,7 +235,7 @@ void checkRtcTickAddYears()
 	sceRtcSetTick(&pt, &destTick);
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
 
-	sourceTick = 62135596800000445;
+	sourceTick = 62135596800000445ULL;
 	destTick = 0;
 
 	printf("62135596800000445 adding +2000 years: %08x\n", sceRtcTickAddYears(&destTick, &sourceTick, 2000));
@@ -252,6 +249,457 @@ void checkRtcTickAddYears()
 
 }
 
+void checkIsLeapYear()
+{
+	printf("Checking sceRtcIsLeapYear\n");
+	printf("Leap Years:\n");
+	printf("1636: %08x\n", sceRtcIsLeapYear(1636));
+	printf("1776: %08x\n", sceRtcIsLeapYear(1776));
+	printf("1872: %08x\n", sceRtcIsLeapYear(1872));
+	printf("1948: %08x\n", sceRtcIsLeapYear(1948));
+	printf("2004: %08x\n", sceRtcIsLeapYear(2004));
+	printf("2096: %08x\n", sceRtcIsLeapYear(2096));
+	printf("Non-Leap Years:\n");
+	printf("1637: %08x\n", sceRtcIsLeapYear(1636));
+	printf("1777: %08x\n", sceRtcIsLeapYear(1776));
+	printf("1873: %08x\n", sceRtcIsLeapYear(1872));
+	printf("1949: %08x\n", sceRtcIsLeapYear(1948));
+	printf("2005: %08x\n", sceRtcIsLeapYear(2004));
+	printf("2097: %08x\n", sceRtcIsLeapYear(2096));
+}
+
+void checkRtcConvertLocalTimeToUTC()
+{
+	printf("Checking sceRtcConvertLocalTimeToUTC\n");
+	u64 tick1=62135596800000000ULL;
+	u64 tick2=0; 
+	sceRtcConvertLocalTimeToUTC(&tick1, &tick2);
+	printf("epoch : %llu\n", tick1);
+	printf("epoch as UTC: %llu\n", tick2);
+}
+
+void checkRtcConvertUtcToLocalTime()
+{
+	printf("Checking checkRtcConvertUtcToLocalTime\n");
+	u64 tick1=62135596800000000ULL;
+	u64 tick2=0; 
+	sceRtcConvertUtcToLocalTime(&tick1, &tick2);
+	printf("epoch as UTC: %llu\n", tick1);
+	printf("epoch as UTC as Local : %llu\n", tick2);
+}
+
+void checkRtcCheckValid()
+{
+	printf("Checking sceRtcCheckValid\n");
+
+	pspTime pt;
+	
+	pt.year = 2012;
+	pt.month = 9;
+	pt.day = 20;
+	pt.hour = 7;
+	pt.minutes = 0;
+	pt.seconds = 0;
+	pt.microseconds = 0;
+
+	printf("Valid Date:%d\n", sceRtcCheckValid(&pt));
+
+	pt.year = -98;
+	pt.month = 56;
+	pt.day = 100;
+	pt.hour = 26;
+	pt.minutes = 61;
+	pt.seconds = 61;
+	pt.microseconds = 100000000;
+
+	printf("Very invalid Date:%d\n", sceRtcCheckValid(&pt));
+
+	pt.year = -98;
+	pt.month = 9;
+	pt.day = 20;
+	pt.hour = 7;
+	pt.minutes = 0;
+	pt.seconds = 0;
+	pt.microseconds = 0;
+
+	printf("invalid year:%d\n", sceRtcCheckValid(&pt));
+
+	pt.year = 2012;
+	pt.month = -9;
+	pt.day = 20;
+	pt.hour = 7;
+	pt.minutes = 0;
+	pt.seconds = 0;
+	pt.microseconds = 0;
+
+	printf("invalid month:%d\n", sceRtcCheckValid(&pt));
+
+	pt.year = 2012;
+	pt.month = 9;
+	pt.day = -20;
+	pt.hour = 7;
+	pt.minutes = 0;
+	pt.seconds = 0;
+	pt.microseconds = 0;
+
+	printf("invalid day:%d\n", sceRtcCheckValid(&pt));
+
+	pt.year = 2012;
+	pt.month = 9;
+	pt.day = 20;
+	pt.hour = -7;
+	pt.minutes = 0;
+	pt.seconds = 0;
+	pt.microseconds = 0;
+
+	printf("invalid hour:%d\n", sceRtcCheckValid(&pt));
+
+	pt.year = 2012;
+	pt.month = 9;
+	pt.day = 20;
+	pt.hour = 7;
+	pt.minutes = -10;
+	pt.seconds = 10;
+	pt.microseconds =10;
+
+	printf("invalid minutes:%d\n", sceRtcCheckValid(&pt));
+
+	pt.year = 2012;
+	pt.month = 9;
+	pt.day = 20;
+	pt.hour = 7;
+	pt.minutes = 10;
+	pt.seconds = -10;
+	pt.microseconds =10;
+
+	printf("invalid seconds:%d\n", sceRtcCheckValid(&pt));
+
+	pt.year = 2012;
+	pt.month = 9;
+	pt.day = 20;
+	pt.hour = 7;
+	pt.minutes = 10;
+	pt.seconds = 10;
+	pt.microseconds =-10;
+
+	printf("invalid microseconds:%d\n", sceRtcCheckValid(&pt));
+
+}
+
+void checkRtcSetTime_t()
+{
+	printf("Checking sceRtcSetTime_t\n");
+
+	pspTime pt;
+
+	printf("from epoc:%d\n",sceRtcSetTime_t(&pt, 62135596800000000ULL));
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+
+}
+
+void checkRtcGetTime_t()
+{
+	printf("Checking sceRtcGetTime_t\n");
+	pspTime pt;
+	u64 ticks=0;
+	pt.year = 2012;
+	pt.month = 9;
+	pt.day = 20;
+	pt.hour = 7;
+	pt.minutes = 12;
+	pt.seconds = 15;
+	pt.microseconds = 500;
+
+
+	printf("from epoc:%d\n",sceRtcGetTime_t( &pt, &ticks));
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+	printf("ticks: %ull\n", ticks);
+}
+
+void checkRtcSetDosTime()
+{
+	printf("Checking sceRtcSetDosTime\n");
+
+	pspTime pt;
+
+	printf("from epoc:%d\n",sceRtcSetDosTime(&pt, 62135596800000000ULL));
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+
+}
+
+void checkRtcGetDosTime()
+{
+	printf("Checking sceRtcGetDosTime\n");
+
+	pspTime pt;
+	u64 ticks=0;
+	pt.year = 2012;
+	pt.month = 9;
+	pt.day = 20;
+	pt.hour = 7;
+	pt.minutes = 12;
+	pt.seconds = 15;
+	pt.microseconds = 500;
+
+
+	printf("from epoc:%d\n",sceRtcGetDosTime( &pt, &ticks));
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+	printf("ticks: %ull\n", ticks);
+
+}
+
+
+void checkRtcCompareTick()
+{
+	printf("Checking sceRtcCompareTick\n");
+
+	u64 tickbig1 = 62135596800000000ULL;
+	u64 tickbig2 = 62135596800000000ULL;
+	u64 ticksmall1 = 500;
+	u64 ticksmall2 = 500;
+
+	printf("big small :%d\n",sceRtcCompareTick(&tickbig1, &ticksmall1));
+	printf("big big :%d\n",sceRtcCompareTick(&tickbig1, &tickbig2));
+	printf("small big :%d\n",sceRtcCompareTick(&ticksmall1, &tickbig2));
+	printf("small small :%d\n",sceRtcCompareTick(&ticksmall1, &ticksmall2));
+}
+
+void checkRtcTickAddMicroseconds()
+{
+	printf("Checking sceRtcTickAddMicroseconds\n");
+
+	u64 sourceTick = 62135596800000445ULL;
+	u64 destTick = 0;
+	pspTime pt;
+
+	printf("62135596800000445 adding -2000 ms: %08x\n", sceRtcTickAddMicroseconds(&destTick, &sourceTick, -2000));
+	printf("source tick %llu\n", sourceTick);
+	sceRtcSetTick(&pt, &sourceTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	printf("dest tick  %llu\n", destTick);
+	sceRtcSetTick(&pt, &destTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	sourceTick = 62135596800000445ULL;
+	destTick = 0;
+
+	printf("62135596800000445 adding +2000 ms: %08x\n", sceRtcTickAddMicroseconds(&destTick, &sourceTick, 2000));
+	printf("source tick  %llu\n", sourceTick);
+	sceRtcSetTick(&pt, &sourceTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	printf("dest tick  %llu\n", destTick);
+	sceRtcSetTick(&pt, &destTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+}
+
+void checkRtcTickAddSeconds()
+{
+	printf("Checking sceRtcTickAddSeconds\n");
+
+	u64 sourceTick = 62135596800000445ULL;
+	u64 destTick = 0;
+	pspTime pt;
+
+	printf("62135596800000445 adding -2000 sec: %08x\n", sceRtcTickAddSeconds(&destTick, &sourceTick, -2000));
+	printf("source tick %llu\n", sourceTick);
+	sceRtcSetTick(&pt, &sourceTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	printf("dest tick  %llu\n", destTick);
+	sceRtcSetTick(&pt, &destTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	sourceTick = 62135596800000445ULL;
+	destTick = 0;
+
+	printf("62135596800000445 adding +2000 sec: %08x\n", sceRtcTickAddSeconds(&destTick, &sourceTick, 2000));
+	printf("source tick  %llu\n", sourceTick);
+	sceRtcSetTick(&pt, &sourceTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	printf("dest tick  %llu\n", destTick);
+	sceRtcSetTick(&pt, &destTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+}
+
+void checkRtcTickAddMinutes()
+{
+	printf("Checking sceRtcTickAddMinutes\n");
+
+	u64 sourceTick = 62135596800000445ULL;
+	u64 destTick = 0;
+	pspTime pt;
+
+	printf("62135596800000445 adding -2000 min: %08x\n", sceRtcTickAddMinutes(&destTick, &sourceTick, -2000));
+	printf("source tick %llu\n", sourceTick);
+	sceRtcSetTick(&pt, &sourceTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	printf("dest tick  %llu\n", destTick);
+	sceRtcSetTick(&pt, &destTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	sourceTick = 62135596800000445ULL;
+	destTick = 0;
+
+	printf("62135596800000445 adding +2000 min: %08x\n", sceRtcTickAddMinutes(&destTick, &sourceTick, 2000));
+	printf("source tick  %llu\n", sourceTick);
+	sceRtcSetTick(&pt, &sourceTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	printf("dest tick  %llu\n", destTick);
+	sceRtcSetTick(&pt, &destTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+}
+
+void checkRtcTickAddHours()
+{
+	printf("Checking sceRtcTickAddHours\n");
+
+	u64 sourceTick = 62135596800000445ULL;
+	u64 destTick = 0;
+	pspTime pt;
+
+	printf("62135596800000445 adding -2000 hour: %08x\n", sceRtcTickAddHours(&destTick, &sourceTick, -2000));
+	printf("source tick %llu\n", sourceTick);
+	sceRtcSetTick(&pt, &sourceTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	printf("dest tick  %llu\n", destTick);
+	sceRtcSetTick(&pt, &destTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	sourceTick = 62135596800000445ULL;
+	destTick = 0;
+
+	printf("62135596800000445 adding +2000 hour: %08x\n", sceRtcTickAddHours(&destTick, &sourceTick, 2000));
+	printf("source tick  %llu\n", sourceTick);
+	sceRtcSetTick(&pt, &sourceTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	printf("dest tick  %llu\n", destTick);
+	sceRtcSetTick(&pt, &destTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+}
+
+void checkRtcTickAddDays()
+{
+	printf("Checking sceRtcTickAddDays\n");
+
+	u64 sourceTick = 62135596800000445ULL;
+	u64 destTick = 0;
+	pspTime pt;
+
+	printf("62135596800000445 adding -2000 day: %08x\n", sceRtcTickAddDays(&destTick, &sourceTick, -2000));
+	printf("source tick %llu\n", sourceTick);
+	sceRtcSetTick(&pt, &sourceTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	printf("dest tick  %llu\n", destTick);
+	sceRtcSetTick(&pt, &destTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	sourceTick = 62135596800000445ULL;
+	destTick = 0;
+
+	printf("62135596800000445 adding +2000 day: %08x\n", sceRtcTickAddDays(&destTick, &sourceTick, 2000));
+	printf("source tick  %llu\n", sourceTick);
+	sceRtcSetTick(&pt, &sourceTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	printf("dest tick  %llu\n", destTick);
+	sceRtcSetTick(&pt, &destTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+}
+
+void checkRtcTickAddWeeks()
+{
+	printf("Checking sceRtcTickAddWeeks\n");
+
+	u64 sourceTick = 62135596800000445ULL;
+	u64 destTick = 0;
+	pspTime pt;
+
+	printf("62135596800000445 adding -2000 weeks: %08x\n", sceRtcTickAddWeeks(&destTick, &sourceTick, -2000));
+	printf("source tick %llu\n", sourceTick);
+	sceRtcSetTick(&pt, &sourceTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	printf("dest tick  %llu\n", destTick);
+	sceRtcSetTick(&pt, &destTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	sourceTick = 62135596800000445ULL;
+	destTick = 0;
+
+	printf("62135596800000445 adding +2000 weeks: %08x\n", sceRtcTickAddWeeks(&destTick, &sourceTick, 2000));
+	printf("source tick  %llu\n", sourceTick);
+	sceRtcSetTick(&pt, &sourceTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	printf("dest tick  %llu\n", destTick);
+	sceRtcSetTick(&pt, &destTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+}
+
+void checkRtcTickAddMonths()
+{
+	printf("Checking sceRtcTickAddMonths\n");
+
+	u64 sourceTick = 62135596800000445ULL;
+	u64 destTick = 0;
+	pspTime pt;
+
+	printf("62135596800000445 adding -2000 months: %08x\n", sceRtcTickAddMonths(&destTick, &sourceTick, -2000));
+	printf("source tick %llu\n", sourceTick);
+	sceRtcSetTick(&pt, &sourceTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	printf("dest tick  %llu\n", destTick);
+	sceRtcSetTick(&pt, &destTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	sourceTick = 62135596800000445ULL;
+	destTick = 0;
+
+	printf("62135596800000445 adding +2000 months: %08x\n", sceRtcTickAddMonths(&destTick, &sourceTick, 2000));
+	printf("source tick  %llu\n", sourceTick);
+	sceRtcSetTick(&pt, &sourceTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+	printf("dest tick  %llu\n", destTick);
+	sceRtcSetTick(&pt, &destTick);
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+
+}
+
+void checkRtcParseDateTime()
+{
+	printf("Checking sceRtcParseDateTime\n");
+	printf("UNTESTED!\n");
+}
+
+void checkRtcSetWin32FileTime()
+{
+	printf("Checking sceRtcSetWin32FileTime\n");
+	printf("UNTESTED!\n");
+}
+
+void checkRtcGetWin32FileTime()
+{
+	printf("Checking sceRtcGetWin32FileTime\n");
+	printf("UNTESTED!\n");
+}
+
 int main(int argc, char **argv) {
 	checkGetCurrentTick();
 	checkDaysInMonth();
@@ -262,6 +710,24 @@ int main(int argc, char **argv) {
 	checkSetTick();	
 	checkRtcTickAddTicks();
 	checkRtcTickAddYears();
+	checkIsLeapYear();
+	checkRtcConvertLocalTimeToUTC();
+	checkRtcConvertUtcToLocalTime();
+	checkRtcCheckValid();
+	checkRtcSetTime_t();
+	checkRtcGetTime_t();
+	checkRtcSetDosTime();
+	checkRtcGetDosTime();
+	checkRtcSetWin32FileTime();
+	checkRtcGetWin32FileTime();
+	checkRtcCompareTick();
+	checkRtcTickAddMicroseconds();
+	checkRtcTickAddSeconds();
+	checkRtcTickAddMinutes();
+	checkRtcTickAddHours();
+	checkRtcTickAddWeeks();
+	checkRtcTickAddMonths();
+	checkRtcParseDateTime();
 
 	return 0;
 }
