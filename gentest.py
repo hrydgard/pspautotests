@@ -75,8 +75,12 @@ def gen_test(test, args):
     if "-r" in args or "--rebuild" in args:
       make_target = "rebuild"
 
-    os.system("%s MAKE=\"%s\" %s" % (MAKE, MAKE, make_target))
+    make_result = os.system("%s MAKE=\"%s\" %s" % (MAKE, MAKE, make_target))
     os.chdir(olddir)
+
+    # Don't run the test if make failed, let them fix it.
+    if make_result > 0:
+      sys.exit(make_result)
 
   print("Running test " + test + " on the PSP...")
 
