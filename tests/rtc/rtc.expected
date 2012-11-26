@@ -66,3 +66,125 @@ source tick  62135596800000445
 1970, 1, 1, 0, 0, 0, 445
 dest tick  125249500800000445
 3970, 1, 1, 0, 0, 0, 445
+Checking sceRtcIsLeapYear
+Leap Years:
+1636: 00000001
+1776: 00000001
+1872: 00000001
+1948: 00000001
+2004: 00000001
+2096: 00000001
+Non-Leap Years:
+1637: 00000001
+1777: 00000001
+1873: 00000001
+1949: 00000001
+2005: 00000001
+2097: 00000001
+Checking sceRtcConvertLocalTimeToUTC
+epoch : 62135596800000000
+epoch as UTC: 62135596800000000
+Checking checkRtcConvertUtcToLocalTime
+epoch as UTC: 62135596800000000
+epoch as UTC as Local : 62135596800000000
+Checking sceRtcCheckValid
+Valid Date:0
+Very invalid Date:-1
+invalid year:-1
+invalid month:-2
+invalid day:-3
+invalid hour:-4
+invalid minutes:-5
+invalid seconds:-6
+invalid microseconds:-7
+Checking sceRtcSetTime_t
+from epoc:0
+2105, 8, 30, 6, 34, 40, 0
+Checking sceRtcGetTime_t
+from epoc:0
+2012, 9, 20, 7, 12, 15, 500
+ticks: 142722716ll
+Checking sceRtcSetDosTime
+from epoc:0
+2107, 9, 11, 24, 0, 0, 0
+Checking sceRtcGetDosTime
+from epoc:0
+2012, 9, 20, 7, 12, 15, 500
+ticks: 142722716ll
+Checking sceRtcSetWin32FileTime
+UNTESTED!
+Checking sceRtcGetWin32FileTime
+UNTESTED!
+Checking sceRtcCompareTick
+big small :1
+big big :0
+small big :-1
+small small :0
+Checking sceRtcTickAddMicroseconds
+62135596800000445 adding -2000 ms: 00000000
+source tick 62135596800000445
+1970, 1, 1, 0, 0, 0, 445
+dest tick  62135596799998445
+1969, 12, 31, 23, 59, 59, 998445
+62135596800000445 adding +2000 ms: 00000000
+source tick  62135596800000445
+1970, 1, 1, 0, 0, 0, 445
+dest tick  62135596800002445
+1970, 1, 1, 0, 0, 0, 2445
+Checking sceRtcTickAddSeconds
+62135596800000445 adding -2000 sec: 00000000
+source tick 62135596800000445
+1970, 1, 1, 0, 0, 0, 445
+dest tick  62135594800000445
+1969, 12, 31, 23, 26, 40, 445
+62135596800000445 adding +2000 sec: 00000000
+source tick  62135596800000445
+1970, 1, 1, 0, 0, 0, 445
+dest tick  62135598800000445
+1970, 1, 1, 0, 33, 20, 445
+Checking sceRtcTickAddMinutes
+62135596800000445 adding -2000 min: 00000000
+source tick 62135596800000445
+1970, 1, 1, 0, 0, 0, 445
+dest tick  62135476800000445
+1969, 12, 30, 14, 40, 0, 445
+62135596800000445 adding +2000 min: 00000000
+source tick  62135596800000445
+1970, 1, 1, 0, 0, 0, 445
+dest tick  62135716800000445
+1970, 1, 2, 9, 20, 0, 445
+Checking sceRtcTickAddHours
+62135596800000445 adding -2000 hour: 00000000
+source tick 62135596800000445
+1970, 1, 1, 0, 0, 0, 445
+dest tick  62128396800000445
+1969, 10, 9, 16, 0, 0, 445
+62135596800000445 adding +2000 hour: 00000000
+source tick  62135596800000445
+1970, 1, 1, 0, 0, 0, 445
+dest tick  62142796800000445
+1970, 3, 25, 8, 0, 0, 445
+Checking sceRtcTickAddWeeks
+62135596800000445 adding -2000 weeks: 00000000
+source tick 62135596800000445
+1970, 1, 1, 0, 0, 0, 445
+dest tick  60925996800000445
+1931, 9, 3, 0, 0, 0, 445
+62135596800000445 adding +2000 weeks: 00000000
+source tick  62135596800000445
+1970, 1, 1, 0, 0, 0, 445
+dest tick  63345196800000445
+2008, 5, 1, 0, 0, 0, 445
+Checking sceRtcTickAddMonths
+62135596800000445 adding -2000 months: 00000000
+source tick 62135596800000445
+1970, 1, 1, 0, 0, 0, 445
+dest tick  56875910400000445
+1803, 5, 1, 0, 0, 0, 445
+62135596800000445 adding +2000 months: 00000000
+source tick  62135596800000445
+1970, 1, 1, 0, 0, 0, 445
+dest tick  67395110400000445
+2136, 9, 1, 0, 0, 0, 445
+Checking sceRtcParseDateTime
+UNTESTED!
