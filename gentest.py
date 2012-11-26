@@ -128,7 +128,7 @@ def gen_test(test, args):
   elif os.path.exists(OUTFILE) and os.path.getsize(OUTFILE) > 0:
     # Normalize line endings on windows to avoid spurious git warnings.
     if sys.platform == 'win32':
-      expected_data = open(expected_path, "rt").read()
+      expected_data = open(OUTFILE, "rt").read()
       open(expected_path, "wt").write(expected_data)
     else:
       shutil.copyfile(OUTFILE, expected_path)
