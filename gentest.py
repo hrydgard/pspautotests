@@ -122,7 +122,12 @@ def gen_test(test, args):
   elif os.path.exists(OUTFILE2) and os.path.getsize(OUTFILE2) > 0:
     print "ERROR: Script produced stderr output"
   elif os.path.exists(OUTFILE) and os.path.getsize(OUTFILE) > 0:
-    shutil.copyfile(OUTFILE, expected_path)
+    # Normalize line endings on windows to avoid spurious git warnings.
+    if sys.platform == 'win32':
+      expected_data = open(expected_path, "rt").read()
+      open(expected_path, "wt").write(expected_data)
+    else:
+      shutil.copyfile(OUTFILE, expected_path)
     print "Expected file written: " + expected_path
   else:
     print "ERROR: No or empty " + OUTFILE + " was written, can't write .expected"
