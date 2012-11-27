@@ -13,10 +13,10 @@ Medium count (recursive): OK LwMutex (count=255, thread=00000001, attr=200, wait
 Large count (recursive): OK LwMutex (count=65537, thread=00000001, attr=200, waiting=0, uid=00000001, 00000000, 00000000, 00000000)
 Two with same name: OK
 Two with same workarea: OK LwMutex (count=0, thread=00000000, attr=000, waiting=0, uid=00000001, 00000000, 00000000, 00000000)
-NULL name: A1B1C2E2D2F2 (thread=800201B5, main=80020001)
-Negative count: A1B1C2E2D2F2 (thread=800201B5, main=800201BD)
-Create locked: A1B1C2E2D2F2 (thread=800201B5, main=00000000)
-Create not locked: A1B1C2E2D2F2 (thread=800201B5, main=00000000)
-Initial not locked: A1B1C2D2E2F1 (thread=00000000, main=00000000)
-Initial locked: A1B1C2E2D2F2 (thread=800201B5, main=00000000)
+NULL name: A1B1C2E1D1F2 (thread=800201B5, main=80020001)
+Negative count: A1B1C2E1D1F2 (thread=800201B5, main=800201BD)
+Create locked: A1B1C2E1D1F2 (thread=800201B5, main=00000000)
+Create not locked: A1B1C2E1D1F2 (thread=800201B5, main=00000000)
+Initial not locked: A1B1D2C2E1F1 (thread=00000000, main=00000000)
+Initial locked: A1B1C2E2D1F2 (thread=800201B5, main=00000000)
 Create 1024: OK

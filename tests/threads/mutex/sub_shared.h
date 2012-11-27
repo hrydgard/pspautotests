@@ -17,7 +17,7 @@
 #define SCHED_LOG(letter, placement) { \
 	int old = schedulingPlacement; \
 	schedulingPlacement = placement; \
-	printf(#letter "%d", old); \
+	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, #letter "%d", old); \
 }
 
 // Avoid linking or other things.
@@ -26,6 +26,9 @@
 	static volatile int schedulingPlacement = 0; \
 	/* So we can log the result from the thread. */ \
 	static int schedulingResult = -1; \
+	/* printf() seems to reschedule, so can't use it. */ \
+	static char schedulingLog[8192]; \
+	static volatile int schedulingLogPos = 0; \
 	\
 	static int scheduleTestFunc(SceSize argSize, void* argPointer) { \
 		int result = 0x800201A8; \
@@ -51,6 +54,7 @@
 	SceUID mutex2 = sceKernelCreateMutex("schedTest2", 0, init2, NULL); \
 	int result = -1; \
 	\
+	schedulingLogPos = 0; \
 	schedulingPlacement = 1; \
 	printf("%s: ", title); \
 	\
@@ -62,7 +66,9 @@
 	sceKernelDeleteMutex(mutex1); \
 	SCHED_LOG(F, 1); \
 	\
-	printf(" (thread=%08X, main=%08X)\n", schedulingResult, result); \
+	schedulingLog[schedulingLogPos] = 0; \
+	schedulingLogPos = 0; \
+	printf("%s (thread=%08X, main=%08X)\n", schedulingLog, schedulingResult, result); \
 	sceKernelDeleteMutex(mutex2); \
 }
 #define BASIC_SCHED_TEST(title, x) LOCKED_SCHED_TEST(title, 1, 0, x);

@@ -90,11 +90,11 @@ Locked zero timeout: L1 L2 Failed (800201A8, 0ms left)
 Locked zero timeout (fake): L1 L2 Failed (800201CA)
 After delete: 800201B5
 Deleted => 1: Failed (800201CA)
-Zero: A1B1C2E2D2F2 (thread=800201B5, main=800201BD)
-Lock same: A1B1C2E2D2F2 (thread=800201B5, main=800201CF)
-Lock other: A1B1C2E2D2F2 (thread=800201B5, main=00000000)
-Lock same with timeout: A1B1C2E2D2F2 (thread=800201B5, main=800201CF)
-Lock other with timeout: A1B1C2E2D2F2 (thread=800201B5, main=00000000)
+Zero: A1B1C2E1D1F2 (thread=800201B5, main=800201BD)
+Lock same: A1B1C2E1D1F2 (thread=800201B5, main=800201CF)
+Lock other: A1B1C2E1D1F2 (thread=800201B5, main=00000000)
+Lock same with timeout: A1B1C2E1D1F2 (thread=800201B5, main=800201CF)
+Lock other with timeout: A1B1C2E1D1F2 (thread=800201B5, main=00000000)
 Lock copy #1: OK
 Lock copy #2: OK
 Now exiting: 00000000

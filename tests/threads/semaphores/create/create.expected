@@ -8,11 +8,11 @@ Initial count above max: OK
 Negative max count: OK
 Large initial count: OK
 Large max count: OK
-Sema: OK (size=0,name='',attr=142709572,init=0,cur=1024,max=142640004,wait=50)
-Sema: OK (size=0,name='',attr=142709572,init=0,cur=1024,max=142640004,wait=50)
-NULL name: A1B1C2E2D2F2 (thread=800201B5, main=80020001)
-Create signaled: A1B1C2E2D2F2 (thread=800201B5, main=00000001)
-Create not signaled: A1B1C2E2D2F2 (thread=800201B5, main=00000001)
-Initial not signaled: A1B1C2E2D2F2 (thread=00000000, main=00000000)
-Initial signaled: A1B1C2D2E2F1 (thread=00000000, main=00000000)
+Sema: OK (size=56,name='create',attr=0,init=0,cur=0,max=2,wait=0)
+Sema: OK (size=56,name='create',attr=0,init=0,cur=0,max=2,wait=0)
+NULL name: A1B1C2E1D1F2 (thread=800201B5, main=80020001)
+Create signaled: A1B1C2E1D1F2 (thread=800201B5, main=00000001)
+Create not signaled: A1B1C2E1D1F2 (thread=800201B5, main=00000001)
+Initial not signaled: A1B1C2E2D1F2 (thread=00000000, main=00000000)
+Initial signaled: A1B1D2C2E1F1 (thread=00000000, main=00000000)
 Create 1024: OK

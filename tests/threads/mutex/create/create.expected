@@ -6,9 +6,9 @@ Negative count: Failed (800201BD)
 Positive count: OK
 Large count: Failed (800201BD)
 Two with same name: OK
-NULL name: A1B1C2E2D2F2 (thread=800201B5, main=80020001)
-Create locked: A1B1C2E2D2F2 (thread=800201B5, main=00000001)
-Create not locked: A1B1C2E2D2F2 (thread=800201B5, main=00000001)
-Initial not locked: A1B1C2D2E2F1 (thread=00000000, main=00000000)
-Initial locked: A1B1C2E2D2F2 (thread=800201B5, main=00000000)
+NULL name: A1B1C2E1D1F2 (thread=800201B5, main=80020001)
+Create locked: A1B1C2E1D1F2 (thread=800201B5, main=00000001)
+Create not locked: A1B1C2E1D1F2 (thread=800201B5, main=00000001)
+Initial not locked: A1B1D2C2E1F1 (thread=00000000, main=00000000)
+Initial locked: A1B1C2E2D1F2 (thread=800201B5, main=00000000)
 Create 1024: OK
