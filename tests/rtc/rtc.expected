@@ -97,20 +97,22 @@ invalid hour:-4
 invalid minutes:-5
 invalid seconds:-6
 invalid microseconds:-7
+Checking sceRtcCheckValid for maximum year
+Max year: 10000, struct year: 10000, result: -1
 Checking sceRtcSetTime_t
 from epoc:0
 2105, 8, 30, 6, 34, 40, 0
 Checking sceRtcGetTime_t
 from epoc:0
 2012, 9, 20, 7, 12, 15, 500
-ticks: 142722716ll
+ticks: 142723044ll
 Checking sceRtcSetDosTime
 from epoc:0
 2107, 9, 11, 24, 0, 0, 0
 Checking sceRtcGetDosTime
 from epoc:0
 2012, 9, 20, 7, 12, 15, 500
-ticks: 142722716ll
+ticks: 142723044ll
 Checking sceRtcSetWin32FileTime
 UNTESTED!
 Checking sceRtcGetWin32FileTime
