@@ -25,9 +25,9 @@ SETUP_SCHED_TEST;
 
 static int waitTestFunc(SceSize argSize, void* argPointer) {
 	sceKernelDelayThread(1000);
-	printf("C");
-	sceKernelSignalSema(*(int*) argPointer, 1);
-	printf("D");
+	SCHED_LOG(C, 2);
+	schedulingResult = sceKernelSignalSema(*(int*) argPointer, 1);
+	SCHED_LOG(D, 2);
 	return 0;
 }
 
@@ -53,14 +53,16 @@ int main(int argc, char **argv) {
 	WAIT_TEST_SIMPLE_TIMEOUT("Zero timeout", sema, 1, 0);
 	
 	// Signaled off thread.
-	printf("A");
+	schedulingLogPos = 0;
+	schedulingPlacement = 1;
+	SCHED_LOG(A, 1);
 	SceUInt timeout = 5000;
 	SceUID thread = sceKernelCreateThread("waitTest", (void *)&waitTestFunc, 0x12, 0x10000, 0, NULL);
 	sceKernelStartThread(thread, sizeof(int), &sema);
-	printf("B");
+	SCHED_LOG(B, 1);
 	int result = sceKernelWaitSema(sema, 1, &timeout);
-	printf("E\n");
-	printf("%08X - %d\n", result, timeout / 1000);
+	SCHED_LOG(E, 1);
+	printf("Wait timeout: %s (thread=%08X, main=%08X, remaining=%d)\n", schedulingLog, schedulingResult, result, timeout / 1000);
 
 	sceKernelDeleteSema(sema);
 

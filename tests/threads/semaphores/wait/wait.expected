@@ -16,8 +16,7 @@ Negative: Failed (800201BD, 500ms left)
 Sema: OK (size=56,name='wait1',attr=0,init=1,cur=0,max=1,wait=0)
 Zero timeout: Failed (800201A8, 0ms left)
 Sema: OK (size=56,name='wait1',attr=0,init=1,cur=0,max=1,wait=0)
-ABCDE
-00000000 - 4
+Wait timeout: A1B1C1D2E2 (thread=00000000, main=00000000, remaining=4)
 After delete: 800201B5
 NULL: Failed (80020199)
 Sema: Failed (00000000)
