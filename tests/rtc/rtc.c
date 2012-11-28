@@ -386,6 +386,33 @@ void checkRtcCheckValid()
 
 }
 
+void checkMaxYear()
+{
+	printf("Checking sceRtcCheckValid for maximum year\n");
+
+	int result, y;
+
+	pspTime pt;
+	pt.year = 1;
+	pt.month = 1;
+	pt.day = 1;
+	pt.hour = 0;
+	pt.minutes = 0;
+	pt.seconds = 0;
+	pt.microseconds =1;
+
+	for (y = 1; y < SHRT_MAX; y++) 
+	{
+		pt.year = y;
+		result = sceRtcCheckValid(&pt);
+		if (result != 0) 
+		{
+			printf("Max year: %d, struct year: %d, result: %d\n", y, pt.year, result);
+			break;
+		}
+	}
+}
+
 void checkRtcSetTime_t()
 {
 	printf("Checking sceRtcSetTime_t\n");
@@ -714,6 +741,8 @@ int main(int argc, char **argv) {
 	checkRtcConvertLocalTimeToUTC();
 	checkRtcConvertUtcToLocalTime();
 	checkRtcCheckValid();
+
+	checkMaxYear();
 	checkRtcSetTime_t();
 	checkRtcGetTime_t();
 	checkRtcSetDosTime();
