@@ -36,16 +36,16 @@ int main(int argc, char **argv) {
 
 	BASIC_SCHED_TEST("NULL name",
 		sema = sceKernelCreateSema(NULL, 0, 0, 1, NULL);
-		result = sema > 0 ? : sema;
+		result = sema > 0 ? 1 : sema;
 	);
 	BASIC_SCHED_TEST("Create signaled",
-		sema = sceKernelCreateSema("create2", 0, 1, 1, NULL);
-		result = sema > 0 ? : sema;
+		sema = sceKernelCreateSema("create", 0, 1, 1, NULL);
+		result = sema > 0 ? 1 : sema;
 	);
 	sceKernelDeleteSema(sema);
 	BASIC_SCHED_TEST("Create not signaled",
-		sema = sceKernelCreateSema("create2", 0, 0, 1, NULL);
-		result = sema > 0 ? : sema;
+		sema = sceKernelCreateSema("create", 0, 0, 1, NULL);
+		result = sema > 0 ? 1 : sema;
 	);
 	sceKernelDeleteSema(sema);
 
