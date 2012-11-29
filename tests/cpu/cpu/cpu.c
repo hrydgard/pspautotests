@@ -2,21 +2,29 @@
 
 #include <pspkernel.h>
 
-#define OP1(TYPE) int __attribute__((noinline)) op_##TYPE(int x       ) { int result; asm volatile(#TYPE " %0, %1" : "=r"(result) : "r"(x)); return result; }
-#define OP2(TYPE) int __attribute__((noinline)) op_##TYPE(int x, int y) { int result; asm volatile(#TYPE " %0, %1, %2" : "=r"(result) : "r"(x), "r"(y)); return result; }
+#define lengthof(vector) (sizeof((vector)) / sizeof((vector)[0]))
 
-#define OPX_TEST_START() printf("--\n");
-#define OP1_TEST_X(TYPE, a) printf("%s 0x%08X -> %d\n", #TYPE, a, op_##TYPE(a));
-#define OP1_TEST(TYPE, a) printf("%s %d -> %d\n", #TYPE, a, op_##TYPE(a));
-#define OP2_TEST(TYPE, a, b) printf("%s %d, %d -> %d\n", #TYPE, a, b, op_##TYPE(a, b));
+#define OP_r_r(TYPE)  int __attribute__((noinline)) op_##TYPE(int x       ) { int result; asm volatile(#TYPE " %0, %1" : "=r"(result) : "r"(x)); return result; }
+#define OP_r_rr(TYPE) int __attribute__((noinline)) op_##TYPE(int x, int y) { int result; asm volatile(#TYPE " %0, %1, %2" : "=r"(result) : "r"(x), "r"(y)); return result; }
 
-#define OP2_TEST_SET(TYPE) \
-	OPX_TEST_START(); \
-	OP2_TEST(TYPE, 1, 7); \
-	OP2_TEST(TYPE, 3, 1); \
-	OP2_TEST(TYPE, -1, 0); \
-	OP2_TEST(TYPE, -1, -10); \
-	OP2_TEST(TYPE, 0, 0); \
+#define OP_r_ri_x(TYPE, KEY, VALUE) int __attribute__((noinline)) op_##TYPE##KEY(int x) { int result; asm volatile(#TYPE " %0, %1, " #VALUE : "=r"(result) : "r"(x)); return result; }
+#define OP_r_ri(TYPE) OP_r_ri_x(TYPE, 0, 0) OP_r_ri_x(TYPE, 1, 1) OP_r_ri_x(TYPE, 2, 2) OP_r_ri_x(TYPE, 3, 3) OP_r_ri_x(TYPE, 4, -1) OP_r_ri_x(TYPE, 5, -2) OP_r_ri_x(TYPE, 6, -32768) OP_r_ri_x(TYPE, 7, 32767) OP_r_ri_x(TYPE, 8, 11123)
+#define OP_r_ri_u(TYPE) OP_r_ri_x(TYPE, 0, 0) OP_r_ri_x(TYPE, 1, 1) OP_r_ri_x(TYPE, 2, 2) OP_r_ri_x(TYPE, 3, 3) OP_r_ri_x(TYPE, 4, 0x1234) OP_r_ri_x(TYPE, 5, 0x2345) OP_r_ri_x(TYPE, 6, 0x3456) OP_r_ri_x(TYPE, 7, 0xffff) OP_r_ri_x(TYPE, 8, 0x7fff)
+#define OP_r_rp(TYPE) OP_r_ri_x(TYPE, 0, 0) OP_r_ri_x(TYPE, 1, 1) OP_r_ri_x(TYPE, 2, 2) OP_r_ri_x(TYPE, 3, 3) OP_r_ri_x(TYPE, 4, 7) OP_r_ri_x(TYPE, 5, 15) OP_r_ri_x(TYPE, 6, 29) OP_r_ri_x(TYPE, 7, 30) OP_r_ri_x(TYPE, 8, 31)
+
+#define TEST_START(TYPE) printf("%s: ", #TYPE);
+#define TEST_END(TYPE) printf("\n");
+
+#define TEST_r_r(TYPE, x    ) printf("0x%08X, ", op_##TYPE(x));
+#define TEST_r_rr(TYPE, x, y) printf("0x%08X, ", op_##TYPE(x, y));
+#define TEST_r_ri_x(TYPE, KEY, x   ) printf("0x%08X, ", op_##TYPE##KEY(x));
+#define TEST_r_ri(TYPE, x   ) { TEST_r_ri_x(TYPE, 0, x) TEST_r_ri_x(TYPE, 1, x) TEST_r_ri_x(TYPE, 2, x) TEST_r_ri_x(TYPE, 3, x) TEST_r_ri_x(TYPE, 4, x) TEST_r_ri_x(TYPE, 5, x) TEST_r_ri_x(TYPE, 6, x) TEST_r_ri_x(TYPE, 7, x) TEST_r_ri_x(TYPE, 8, x) }
+
+const int arithmeticValues[] = { 0, 1, 2, 3, 2147483647, -1, -2, -2147483648 };
+#define TEST_r_rr_SET(TYPE) { TEST_START(TYPE); int x, y; for (x = 0; x < lengthof(arithmeticValues); x++) for (y = 0; y < lengthof(arithmeticValues); y++) TEST_r_rr(TYPE, arithmeticValues[x], arithmeticValues[y]); TEST_END(TYPE); }
+#define TEST_r_r_SET(TYPE) { TEST_START(TYPE); int x; for (x = 0; x < lengthof(arithmeticValues); x++) TEST_r_r(TYPE, arithmeticValues[x]); TEST_END(TYPE); }
+#define TEST_r_ri_SET(TYPE) { TEST_START(TYPE); int x; for (x = 0; x < lengthof(arithmeticValues); x++) TEST_r_ri(TYPE, arithmeticValues[x]); TEST_END(TYPE); }
+#define TEST_r_rp_SET TEST_r_ri_SET
 
 __attribute__ ((noinline)) unsigned int fixed_ror(unsigned int value) {
 	int ret;
@@ -36,78 +44,99 @@ __attribute__ ((noinline)) unsigned int fixed_rorv(unsigned int value, int offse
 	return ret;
 }
 
-__attribute__ ((noinline)) unsigned int test_bitrev(unsigned int value) {
-	int ret;
-	asm volatile (
-		"bitrev %0, %1\n"
-		: "=r"(ret) : "r"(value)
-	);
-	return ret;
-}
-
 void test_mul64() {
-  volatile unsigned long long a = 0x8234567812345678ULL;
-  volatile unsigned long long b = 0x2345678123456783ULL;
-  volatile signed long long c = 0x8234567812345678ULL;
-  volatile signed long long d = 0xF234567812345678ULL;
-  printf("%llu\n", a * b);
-  printf("%llu\n", b * c - 1);
-  printf("%llu\n", (c * d) >> 7);
+	volatile unsigned long long a = 0x8234567812345678ULL;
+	volatile unsigned long long b = 0x2345678123456783ULL;
+	volatile signed long long c = 0x8234567812345678ULL;
+	volatile signed long long d = 0xF234567812345678ULL;
+	printf("%llu\n", a * b);
+	printf("%llu\n", b * c - 1);
+	printf("%llu\n", (c * d) >> 7);
 }
 
 void test_div() {
-  volatile int a = 1 << 31; 
-  volatile int b = -1;
-  volatile int c = 100;
-  volatile int d = 3;
-  printf("%08x\n", a/b);
-  printf("%08x\n", c/d); 
+	volatile int a = 1 << 31; 
+	volatile int b = -1;
+	volatile int c = 100;
+	volatile int d = 3;
+	printf("%08x\n", a / b);
+	printf("%08x\n", c / d); 
 }
 
-OP2(max)
-OP2(min)
+// Arithmetic operations.
+OP_r_rr(add)
+OP_r_rr(addu)
+OP_r_rr(sub)
+OP_r_rr(subu)
+OP_r_ri(addi)
+OP_r_ri(addiu)
 
-OP2(add)
-OP2(addu)
-OP2(sub)
-OP2(subu)
+// Logical Operations.
+OP_r_rr(and);
+OP_r_rr(or);
+OP_r_rr(xor);
+OP_r_rr(nor);
+OP_r_ri_u(andi);
+OP_r_ri_u(ori);
+OP_r_ri_u(xori);
 
-OP1(clo)
-OP1(clz)
+// Shift Left/Right Logical/Arithmethic (Variable).
+OP_r_rp(sll);
+OP_r_rp(sra);
+OP_r_rp(srl);
+OP_r_rp(ror);
+OP_r_rr(sllv);
+OP_r_rr(srav);
+OP_r_rr(srlv);
+OP_r_rr(rotrv);
+
+// Other
+
+OP_r_rr(max)
+OP_r_rr(min)
+
+OP_r_r(clo)
+OP_r_r(clz)
+OP_r_r(bitrev)
+
 
 int main(int argc, char *argv[]) {
-	OP2_TEST_SET(max);
-	OP2_TEST_SET(min);
-	OP2_TEST_SET(add);
-	OP2_TEST_SET(addu);
-	OP2_TEST_SET(sub);
-	OP2_TEST_SET(subu);
+	// Arithmetic operations.
+	TEST_r_rr_SET(add);
+	TEST_r_rr_SET(addu);
+	TEST_r_rr_SET(sub);
+	TEST_r_rr_SET(subu);
+	TEST_r_ri_SET(addi);
+	TEST_r_ri_SET(addiu);
 	
-	OPX_TEST_START();
-	OP1_TEST_X(clo, 0x00000000)
-	OP1_TEST_X(clo, 0x80000000)
-	OP1_TEST_X(clo, 0xF0000000)
-	OP1_TEST_X(clo, 0xF000000F)
-	OP1_TEST_X(clo, 0xFFFF000F)
-	OP1_TEST_X(clo, 0xF7FF000F)
-	OP1_TEST_X(clo, 0xFFFFFFFF)
+	// Logical Operations.
+	TEST_r_rr_SET(and);
+	TEST_r_rr_SET(or);
+	TEST_r_rr_SET(xor);
+	TEST_r_rr_SET(nor);
+	TEST_r_ri_SET(andi);
+	TEST_r_ri_SET(ori);
+	TEST_r_ri_SET(xori);
+	
+	// Shift Left/Right Logical/Arithmethic (Variable).
+	TEST_r_rp_SET(sll);
+	TEST_r_rp_SET(sra);
+	TEST_r_rp_SET(srl);
+	TEST_r_rp_SET(ror);
+	TEST_r_rr_SET(sllv);
+	TEST_r_rr_SET(srav);
+	TEST_r_rr_SET(srlv);
+	TEST_r_rr_SET(rotrv);
 
-	OPX_TEST_START();
-	OP1_TEST_X(clz, 0x00000000)
-	OP1_TEST_X(clz, 0x0000000F)
-	OP1_TEST_X(clz, 0xF000000F)
-	OP1_TEST_X(clz, 0x0000007F)
-	OP1_TEST_X(clz, 0xFFFFFFFF)
+	// Other
+	TEST_r_rr_SET(max);
+	TEST_r_rr_SET(min);
+	TEST_r_r_SET(clo);
+	TEST_r_r_SET(clz);
+	TEST_r_r_SET(bitrev);
 
-	OPX_TEST_START();
-	printf("rotr 0x%08X\n", fixed_ror(0x12345678));
-	printf("rotrv 0x%08X\n", fixed_rorv(0x12345678, 8));
+	test_mul64();
+	test_div();
 
-	OPX_TEST_START();
-  test_mul64();
-  test_div();
-
-	OPX_TEST_START();
-  printf("bitrev 0x%08x\n", test_bitrev(0xF18abcde));
 	return 0;
 }
