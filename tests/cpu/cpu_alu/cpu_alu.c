@@ -64,11 +64,11 @@ void test_div() {
 }
 
 // Arithmetic operations.
-OP_r_rr(add)
+//OP_r_rr(add)
 OP_r_rr(addu)
-OP_r_rr(sub)
+//OP_r_rr(sub)
 OP_r_rr(subu)
-OP_r_ri(addi)
+//OP_r_ri(addi)
 OP_r_ri(addiu)
 
 // Logical Operations.
@@ -87,7 +87,7 @@ OP_r_rp(srl);
 OP_r_rp(ror);
 OP_r_rr(sllv);
 OP_r_rr(srav);
-OP_r_rr(srlv);
+//OP_r_rr(srlv);
 OP_r_rr(rotrv);
 
 // Set Less Than (Immediate) (Unsigned).
@@ -121,11 +121,11 @@ OP_r_r(wsbw)
 
 int main(int argc, char *argv[]) {
 	// Arithmetic operations.
-	TEST_r_rr_SET(add);
+	//TEST_r_rr_SET(add);
 	TEST_r_rr_SET(addu);
-	TEST_r_rr_SET(sub);
+	//TEST_r_rr_SET(sub);
 	TEST_r_rr_SET(subu);
-	TEST_r_ri_SET(addi);
+//	TEST_r_ri_SET(addi);
 	TEST_r_ri_SET(addiu);
 	
 	// Logical Operations.
@@ -144,7 +144,7 @@ int main(int argc, char *argv[]) {
 	TEST_r_rp_SET(ror);
 	TEST_r_rr_SET(sllv);
 	TEST_r_rr_SET(srav);
-	TEST_r_rr_SET(srlv);
+	//TEST_r_rr_SET(srlv);
 	TEST_r_rr_SET(rotrv);
 
 	// Set Less Than (Immediate) (Unsigned).
