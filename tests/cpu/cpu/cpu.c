@@ -20,7 +20,7 @@
 #define TEST_r_ri_x(TYPE, KEY, x   ) printf("0x%08X, ", op_##TYPE##KEY(x));
 #define TEST_r_ri(TYPE, x   ) { TEST_r_ri_x(TYPE, 0, x) TEST_r_ri_x(TYPE, 1, x) TEST_r_ri_x(TYPE, 2, x) TEST_r_ri_x(TYPE, 3, x) TEST_r_ri_x(TYPE, 4, x) TEST_r_ri_x(TYPE, 5, x) TEST_r_ri_x(TYPE, 6, x) TEST_r_ri_x(TYPE, 7, x) TEST_r_ri_x(TYPE, 8, x) }
 
-const int arithmeticValues[] = { 0, 1, 2, 3, 2147483647, -1, -2, -2147483648 };
+const int arithmeticValues[] = { 0, 1, 2, 0x81, 0x7f, 0x8123, 0x7fff, 2147483647, -1, -2, -2147483648 };
 #define TEST_r_rr_SET(TYPE) { TEST_START(TYPE); int x, y; for (x = 0; x < lengthof(arithmeticValues); x++) for (y = 0; y < lengthof(arithmeticValues); y++) TEST_r_rr(TYPE, arithmeticValues[x], arithmeticValues[y]); TEST_END(TYPE); }
 #define TEST_r_r_SET(TYPE) { TEST_START(TYPE); int x; for (x = 0; x < lengthof(arithmeticValues); x++) TEST_r_r(TYPE, arithmeticValues[x]); TEST_END(TYPE); }
 #define TEST_r_ri_SET(TYPE) { TEST_START(TYPE); int x; for (x = 0; x < lengthof(arithmeticValues); x++) TEST_r_ri(TYPE, arithmeticValues[x]); TEST_END(TYPE); }
@@ -90,14 +90,33 @@ OP_r_rr(srav);
 OP_r_rr(srlv);
 OP_r_rr(rotrv);
 
-// Other
+// Set Less Than (Immediate) (Unsigned).
+OP_r_rr(slt);
+OP_r_rr(sltu);
+OP_r_ri(slti);
+OP_r_ri_u(sltu);
 
+// Load Upper Immediate.
+OP_r_r(lui)
+
+// Sign Extend Byte/Half word.
+OP_r_r(seb)
+OP_r_r(seh)
+
+// BIT REVerse.
+OP_r_r(bitrev)
+
+// MAXimum/MINimum.
 OP_r_rr(max)
 OP_r_rr(min)
 
+// Count Leading Ones/Zeros in word.
 OP_r_r(clo)
 OP_r_r(clz)
-OP_r_r(bitrev)
+
+// Word Swap Bytes Within Halfwords/Words.
+OP_r_r(wsbh)
+OP_r_r(wsbw)
 
 
 int main(int argc, char *argv[]) {
@@ -128,13 +147,42 @@ int main(int argc, char *argv[]) {
 	TEST_r_rr_SET(srlv);
 	TEST_r_rr_SET(rotrv);
 
-	// Other
-	TEST_r_rr_SET(max);
-	TEST_r_rr_SET(min);
-	TEST_r_r_SET(clo);
-	TEST_r_r_SET(clz);
+	// Set Less Than (Immediate) (Unsigned).
+	TEST_r_rr_SET(slt);
+	TEST_r_rr_SET(sltu);
+	TEST_r_ri_SET(slti);
+	TEST_r_ri_SET(sltu);
+
+	// Load Upper Immediate.
+	TEST_r_r_SET(lui)
+	
+	// Sign Extend Byte/Half word.
+	TEST_r_r_SET(seb)
+	TEST_r_r_SET(seh)
+
+	// BIT REVerse.
 	TEST_r_r_SET(bitrev);
 
+	// MAXimum/MINimum.
+	TEST_r_rr_SET(max);
+	TEST_r_rr_SET(min);
+
+	// Count Leading Ones/Zeros in word.
+	TEST_r_r_SET(clo);
+	TEST_r_r_SET(clz);
+
+	// Word Swap Bytes Within Halfwords/Words.
+	TEST_r_r_SET(wsbh)
+	TEST_r_r_SET(wsbw)
+
+	// Must test individually:
+	// ext, ins
+	// movz, movn
+	// mfhi, mflo, mthi, mtlo
+	// div, divu
+	// mult, multu, madd, maddu, msub, msubu
+
+	// Other
 	test_mul64();
 	test_div();
 
