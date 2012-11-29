@@ -12,7 +12,7 @@
 #define OP_r_ri_u(TYPE) OP_r_ri_x(TYPE, 0, 0) OP_r_ri_x(TYPE, 1, 1) OP_r_ri_x(TYPE, 2, 2) OP_r_ri_x(TYPE, 3, 3) OP_r_ri_x(TYPE, 4, 0x1234) OP_r_ri_x(TYPE, 5, 0x2345) OP_r_ri_x(TYPE, 6, 0x3456) OP_r_ri_x(TYPE, 7, 0xffff) OP_r_ri_x(TYPE, 8, 0x7fff)
 #define OP_r_rp(TYPE) OP_r_ri_x(TYPE, 0, 0) OP_r_ri_x(TYPE, 1, 1) OP_r_ri_x(TYPE, 2, 2) OP_r_ri_x(TYPE, 3, 3) OP_r_ri_x(TYPE, 4, 7) OP_r_ri_x(TYPE, 5, 15) OP_r_ri_x(TYPE, 6, 29) OP_r_ri_x(TYPE, 7, 30) OP_r_ri_x(TYPE, 8, 31)
 
-#define TEST_START(TYPE) printf("%s: ", #TYPE);
+#define TEST_START(TYPE) printf("%-8s: ", #TYPE);
 #define TEST_END(TYPE) printf("\n");
 
 #define TEST_r_r(TYPE, x    ) printf("0x%08X, ", op_##TYPE(x));
