@@ -1,10 +1,10 @@
-TARGET = cpu
-OBJS = cpu.o
+TARGET = cpu_alu
+OBJS = cpu_alu.o
 
 BUILD_PRX = 1
 PSP_FW_VERSION = 500
 
-PSP_EBOOT_TITLE = cpu test 
+PSP_EBOOT_TITLE = cpu_alu test 
 
 PSP_DRIVE = /cygdrive/j
 USE_PSPSDK_LIBC = 1
