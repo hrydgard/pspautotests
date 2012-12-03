@@ -1,0 +1,30 @@
+BEFORE sceCtrlSetSamplingMode 1
+AFTER sceCtrlSetSamplingMode 1: 00000000 preempt:0
+BEFORE sceCtrlSetSamplingMode 0
+AFTER sceCtrlSetSamplingMode 0: 00000001 preempt:0
+BEFORE sceCtrlSetSamplingCycle 0
+AFTER sceCtrlSetSamplingCycle 0: 00000000 preempt:0
+BEFORE sceCtrlGetSamplingMode
+VALUE: 00000000
+AFTER sceCtrlGetSamplingMode: 00000000 preempt:0
+BEFORE sceCtrlReadBufferPositive 1
+00000001  00000000 (128, 128)  000000000000
+AFTER sceCtrlReadBufferPositive 1: 00000001 preempt:0
+BEFORE sceCtrlReadBufferPositive 64
+00000001  00000000 (128, 128)  000000000000
+AFTER sceCtrlReadBufferPositive 64: 00000001 preempt:1
+BEFORE sceCtrlPeekBufferPositive 64
+00000040  00000000 (128, 128)  000000000000
+AFTER sceCtrlPeekBufferPositive 64: 00000040 preempt:0
+BEFORE sceCtrlReadBufferPositive 96
+80000104  00000000 (128, 128)  000000000000
+AFTER sceCtrlReadBufferPositive 96: 80000104 preempt:0
+BEFORE sceCtrlPeekLatch
+00000001  make=00000000, break=00000000, press=00000000, release=ffffffff
+AFTER sceCtrlPeekLatch: 00000001 preempt:0
+BEFORE sceCtrlReadLatch
+00000001  make=00000000, break=00000000, press=00000000, release=ffffffff
+AFTER sceCtrlReadLatch: 00000001 preempt:0
+BEFORE sceCtrlPeekLatch
+00000000  make=00000000, break=00000000, press=00000000, release=00000000
+AFTER sceCtrlPeekLatch: 00000000 preempt:0
