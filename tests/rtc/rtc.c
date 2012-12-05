@@ -428,6 +428,8 @@ void checkRtcSetTime_t()
 	printf("from epoc:%d\n",sceRtcSetTime_t(&pt, 62135596800000000ULL));
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
 
+	printf("from epoc&0xffffffff:%d\n",sceRtcSetTime_t(&pt, 62135596800000000ULL&0xffffffff));
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
 
 }
 
