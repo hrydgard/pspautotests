@@ -107,6 +107,12 @@ void checkDayOfWeek() {
 	printf("Checking sceRtcGetDayOfWeek\n");
 	printf("sceRtcGetDayOfWeek:2010, 4, 27\n");
 	printf("%d\n", sceRtcGetDayOfWeek(2010, 4, 27));
+
+	//A game does this: sceRtcGetDayOfWeek(166970016, 1024, 0)
+
+	
+	printf("sceRtcGetDayOfWeek:166970016, 1024, 0\n");
+	printf("%d\n", sceRtcGetDayOfWeek(166970016, 1024, 0));
 }
 
 void checkSetTick()
@@ -422,6 +428,8 @@ void checkRtcSetTime_t()
 	printf("from epoc:%d\n",sceRtcSetTime_t(&pt, 62135596800000000ULL));
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
 
+	printf("from epoc&0xffffffff:%d\n",sceRtcSetTime_t(&pt, 62135596800000000ULL&0xffffffff));
+	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
 
 }
 
