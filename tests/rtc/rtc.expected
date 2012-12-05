@@ -6,6 +6,8 @@ sceRtcGetDaysInMonth:2010, 4
 Checking sceRtcGetDayOfWeek
 sceRtcGetDayOfWeek:2010, 4, 27
 2
+sceRtcGetDayOfWeek:166970016, 1024, 0
+3
 Checking sceRtcGetCurrentClock
 -60 TZ: OK
 Year: OK
@@ -105,14 +107,14 @@ from epoc:0
 Checking sceRtcGetTime_t
 from epoc:0
 2012, 9, 20, 7, 12, 15, 500
-ticks: 142723044ll
+ticks: 142723148ll
 Checking sceRtcSetDosTime
 from epoc:0
 2107, 9, 11, 24, 0, 0, 0
 Checking sceRtcGetDosTime
 from epoc:0
 2012, 9, 20, 7, 12, 15, 500
-ticks: 142723044ll
+ticks: 142723148ll
 Checking sceRtcSetWin32FileTime
 UNTESTED!
 Checking sceRtcGetWin32FileTime
