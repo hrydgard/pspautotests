@@ -9,10 +9,10 @@ Lock 1 => 1 (recursive): OK
 Lock 1 => INT_MAX - 1 (recursive): OK
 Lock 1 => INT_MAX (recursive): Failed (800201C6)
 Lock INT_MAX => INT_MAX (recursive): Failed (800201C6)
-Locked 1 => 1: L1 L2 Failed (800201C8)
-Locked 0 => 1: L1 L2 Failed (800201C4)
-Locked 1 => 1 (recursive): L1 L2 OK
-Locked 0 => 1 (recursive): L1 L2 Failed (800201C4)
+Locked 1 => 1: L2 L1 Failed (thread=800201A8, main=800201C8)
+Locked 0 => 1: L1 L2 Failed (thread=00000000, main=800201C4)
+Locked 1 => 1 (recursive): L2 L1 OK (thread=800201A8)
+Locked 0 => 1 (recursive): L1 L2 Failed (thread=00000000, main=800201C4)
 After delete: 800201C4
 NULL => 0: Failed (800201C3)
 NULL => 1: Failed (800201C3)

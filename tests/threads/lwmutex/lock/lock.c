@@ -56,42 +56,54 @@ SETUP_SCHED_TEST;
 // Test sceKernelLockLwMutex by locking on a separate thread first.
 #define LOCK_TEST_TIMEOUT_THREAD(title, attr, initial, count, initial_timeout) { \
 	printf("%s: ", title); \
+	schedulingLogPos = 0; \
+	schedulingResult = -1; \
 	SceLwMutexWorkarea workarea; \
 	sceKernelCreateLwMutex(&workarea, "lock", attr, initial, NULL); \
 	void *workareaPtr = &workarea; \
 	sceKernelStartThread(lockThread, sizeof(void*), &workareaPtr); \
-	sceKernelDelayThread(500); \
+	sceKernelDelayThread(400); \
 	SceUInt timeout = initial_timeout; \
 	int result = sceKernelLockLwMutex(&workarea, count, &timeout); \
-	printf("L2 "); \
-	if (result == 0) { \
-		printf("OK (%dms left)\n", timeout); \
-	} else { \
-		printf("Failed (%X, %dms left)\n", result, timeout); \
-	} \
+	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, "L2 "); \
+	sceKernelDelayThread(600); \
 	sceKernelDeleteLwMutex(&workarea); \
+	sceKernelWaitThreadEnd(lockThread, NULL); \
+	schedulingLog[schedulingLogPos] = 0; \
+	schedulingLogPos = 0; \
+	if (result == 0) { \
+		printf("%sOK (thread=%08X, %dms left)\n", schedulingLog, schedulingResult, timeout); \
+	} else { \
+		printf("%sFailed (thread=%08X, main=%08X, %dms left)\n", schedulingLog, schedulingResult, result, timeout); \
+	} \
 	sceKernelTerminateThread(lockThread); \
 	\
 	FAKE_LWMUTEX(workarea, attr, initial); \
 	printf("%s (fake): ", title); \
+	schedulingLogPos = 0; \
+	schedulingResult = -1; \
 	sceKernelStartThread(lockThread, sizeof(void*), &workareaPtr); \
-	sceKernelDelayThread(500); \
+	sceKernelDelayThread(400); \
 	timeout = initial_timeout; \
 	result = sceKernelLockLwMutex(&workarea, count, &timeout); \
-	printf("L2 "); \
+	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, "L2 "); \
+	sceKernelDelayThread(600); \
+	sceKernelWaitThreadEnd(lockThread, NULL); \
 	if (result == 0) { \
-		printf("OK\n"); \
+		printf("%sOK (thread=%08X)\n", schedulingLog, schedulingResult); \
 	} else { \
-		printf("Failed (%X)\n", result); \
+		printf("%sFailed (thread=%08X, main=%08X)\n", schedulingLog, schedulingResult, result); \
 	} \
 	sceKernelTerminateThread(lockThread); \
 }
 
 static int lockFunc(SceSize argSize, void* argPointer) {
 	SceUInt timeout = 1000;
-	sceKernelLockLwMutex(*(void**) argPointer, 1, &timeout);
-	printf("L1 ");
+	schedulingResult = sceKernelLockLwMutex(*(void**) argPointer, 1, &timeout);
+	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, "L1 "); \
 	sceKernelDelayThread(1000);
+	if (schedulingResult == 0)
+		sceKernelUnlockLwMutex(*(void**) argPointer, 1);
 	return 0;
 }
 
