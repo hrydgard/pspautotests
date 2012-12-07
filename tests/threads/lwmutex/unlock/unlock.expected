@@ -42,20 +42,20 @@ Unlock 1 => 2 (recursive): Failed (800201CE)
 LwMutex (count=1, thread=00000001, attr=200, waiting=0, uid=00000001, 00000000, 00000000, 00000000)
 Unlock 1 => 2 (recursive) (fake): Failed (800201CE)
 LwMutex (count=1, thread=00000001, attr=200, waiting=0, uid=00000000, DEADBEEF, DEADBEEF, DEADBEEF)
-Locked 1 => 1: L1 L2 OK
-Locked 1 => 1 (fake): L1 L2 OK
-Locked 0 => 1: L1 L2 Failed (800201CC)
-Locked 0 => 1 (fake): L1 L2 Failed (800201CC)
-Locked 1 => 1 (recursive): L1 L2 OK
-Locked 1 => 1 (recursive) (fake): L1 L2 OK
-Locked 2 => 1 (recursive): L2 L1 OK
-Locked 2 => 1 (recursive) (fake): L1 L2 OK
-Locked 1 => 2 (recursive): L2 L1 Failed (800201CE)
-Locked 1 => 2 (recursive) (fake): L1 L2 Failed (800201CE)
-Locked 2 => 2 (recursive): L1 L2 OK
-Locked 2 => 2 (recursive) (fake): L1 L2 OK
-Locked 0 => 1 (recursive): L1 L2 Failed (800201CC)
-Locked 0 => 1 (recursive) (fake): L1 L2 Failed (800201CC)
+Locked 1 => 1: L1 L2 OK (thread=00000000)
+Locked 1 => 1 (fake): L1 L2 OK (thread=800201CA)
+Locked 0 => 1: L1 L2 Failed (thread=00000000, main=800201CC)
+Locked 0 => 1 (fake): L1 L2 Failed (thread=00000000, main=800201CC)
+Locked 1 => 1 (recursive): L1 L2 OK (thread=00000000)
+Locked 1 => 1 (recursive) (fake): L1 L2 OK (thread=800201CA)
+Locked 2 => 1 (recursive): L2 L1 OK (thread=800201A8)
+Locked 2 => 1 (recursive) (fake): L1 L2 OK (thread=800201CA)
+Locked 1 => 2 (recursive): L2 L1 Failed (thread=800201A8, main=800201CE)
+Locked 1 => 2 (recursive) (fake): L1 L2 Failed (thread=800201CA, main=800201CE)
+Locked 2 => 2 (recursive): L1 L2 OK (thread=00000000)
+Locked 2 => 2 (recursive) (fake): L1 L2 OK (thread=800201CA)
+Locked 0 => 1 (recursive): L1 L2 Failed (thread=00000000, main=800201CC)
+Locked 0 => 1 (recursive) (fake): L1 L2 Failed (thread=00000000, main=800201CC)
 After unlock: 800201CC
 Deleted => 1: Failed (800201CA)
 Zero: A1B1C2E1D1F2 (thread=800201B5, main=800201BD)
