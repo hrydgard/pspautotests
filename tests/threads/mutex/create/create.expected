@@ -2,6 +2,11 @@ NULL name: Failed (80020001)
 Blank name: OK
 Long name: OK
 Weird attr: OK
+0x100 attr: OK
+0x200 attr: OK
+0xB00 attr: OK
+0xBFF attr: OK
+0xC00 attr: Failed (80020191)
 Negative count: Failed (800201BD)
 Positive count: OK
 Large count: Failed (800201BD)
