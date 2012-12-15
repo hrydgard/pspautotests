@@ -19,6 +19,11 @@ int main(int argc, char **argv) {
 	CREATE_TEST("Blank name", "", 0, 0, NULL);
 	CREATE_TEST("Long name", "1234567890123456789012345678901234567890123456789012345678901234", 0, 0, NULL);
 	CREATE_TEST("Weird attr", "create", 1, 0, NULL);
+	CREATE_TEST("0x100 attr", "create", 0x100, 0, NULL);
+	CREATE_TEST("0x200 attr", "create", 0x200, 0, NULL);
+	CREATE_TEST("0xB00 attr", "create", 0xB00, 0, NULL);
+	CREATE_TEST("0xBFF attr", "create", 0xBFF, 0, NULL);
+	CREATE_TEST("0xC00 attr", "create", 0xC00, 0, NULL);
 	CREATE_TEST("Negative count", "create", 0, -1, NULL);
 	CREATE_TEST("Positive count", "create", 0, 1, NULL);
 	CREATE_TEST("Large count", "create", 0, 65537, NULL);

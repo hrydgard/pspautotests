@@ -24,6 +24,11 @@ int main(int argc, char **argv) {
 	CREATE_TEST("Blank name", &workarea, "", 0, 0, NULL);
 	CREATE_TEST("Long name", &workarea, "1234567890123456789012345678901234567890123456789012345678901234", 0, 0, NULL);
 	CREATE_TEST("Weird attr", &workarea, "create", 1, 0, NULL);
+	CREATE_TEST("0x100 attr", &workarea, "create", 0x100, 0, NULL);
+	CREATE_TEST("0x200 attr", &workarea, "create", 0x200, 0, NULL);
+	CREATE_TEST("0x300 attr", &workarea, "create", 0x300, 0, NULL);
+	CREATE_TEST("0x3FF attr", &workarea, "create", 0x3FF, 0, NULL);
+	CREATE_TEST("0x400 attr", &workarea, "create", 0x400, 0, NULL);
 	CREATE_TEST("Positive count", &workarea, "create", 0, 1, NULL);
 	CREATE_TEST("Negative count", &workarea, "create", 0, -1, NULL);
 	CREATE_TEST("Count = -5", &workarea, "create", 0, -5, NULL);
