@@ -20,6 +20,7 @@
 }
 
 #define PSP_EVENT_ATTR_ALLOW_WAITMULTIPLE 0x200
+#define PSP_EVENT_WAITCLEARALL 0x10
 
 #define CREATE_PRIORITY_THREAD(func, priority) \
 	sceKernelCreateThread(#func, &func, priority, 0x10000, 0, NULL)
