@@ -2,6 +2,10 @@ NULL name: Failed (80020001)
 Blank name: OK
 Long name: OK
 Weird attr: OK
+0x100 attr: OK
+0x1FF attr: OK
+0x200 attr: Failed (80020191)
+0x900 attr: Failed (80020191)
 Negative initial count: OK
 Positive initial count: OK
 Initial count above max: OK
