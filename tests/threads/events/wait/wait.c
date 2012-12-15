@@ -56,7 +56,11 @@ int main(int argc, char **argv) {
 	WAIT_TEST_SIMPLE("And 0x00000001", flag, 1, PSP_EVENT_WAITAND, 1);
 	WAIT_TEST_SIMPLE("Or 0x00000001", flag, 1, PSP_EVENT_WAITOR, 1);
 	WAIT_TEST_SIMPLE("Clear 0x00000001", flag, 1, PSP_EVENT_WAITCLEAR, 1);
+	WAIT_TEST_SIMPLE("Wrong (0x02) 0x00000001", flag, 1, 0x02, 1);
 	WAIT_TEST_SIMPLE("Wrong (0x04) 0x00000001", flag, 1, 0x04, 1);
+	WAIT_TEST_SIMPLE("Wrong (0x08) 0x00000001", flag, 1, 0x08, 1);
+	WAIT_TEST_SIMPLE("Wrong (0x40) 0x00000001", flag, 1, 0x40, 1);
+	WAIT_TEST_SIMPLE("Wrong (0x80) 0x00000001", flag, 1, 0x80, 1);
 	WAIT_TEST_SIMPLE("Wrong (0xFF) 0x00000001", flag, 1, 0xFF, 1);
 
 	sceKernelSetEventFlag(flag, 0xFFFFFFFF);
@@ -77,6 +81,9 @@ int main(int argc, char **argv) {
 	WAIT_TEST_SIMPLE_TIMEOUT("0x0000FFFF | 0xFFFFFFFF", flag, 0xFFFFFFFF, PSP_EVENT_WAITOR, 500);
 	WAIT_TEST_SIMPLE_TIMEOUT("0x0000FFFF & 0xFFFFFFFF with clear", flag, 0xFFFFFFFF, PSP_EVENT_WAITAND | PSP_EVENT_WAITCLEAR, 500);
 	WAIT_TEST_SIMPLE_TIMEOUT("0x0000FFFF | 0xFFFFFFFF with clear", flag, 0xFFFFFFFF, PSP_EVENT_WAITOR | PSP_EVENT_WAITCLEAR, 500);
+	sceKernelClearEventFlag(flag, 0x0000FFFF);
+	WAIT_TEST_SIMPLE_TIMEOUT("0x0000FFFF & 0xFFFFFFFF with clear all", flag, 0xFFFFFFFF, PSP_EVENT_WAITAND | PSP_EVENT_WAITCLEARALL, 500);
+	WAIT_TEST_SIMPLE_TIMEOUT("0x0000FFFF | 0xFFFFFFFF with clear all", flag, 0xFFFFFFFF, PSP_EVENT_WAITOR | PSP_EVENT_WAITCLEARALL, 500);
 	sceKernelClearEventFlag(flag, 0x00000000);
 	WAIT_TEST_SIMPLE_TIMEOUT("0x00000000 & 0xFFFFFFFF", flag, 0xFFFFFFFF, PSP_EVENT_WAITAND, 500);
 	WAIT_TEST_SIMPLE_TIMEOUT("Zero timeout", flag, 0xFFFFFFFF, PSP_EVENT_WAITAND, 0);
@@ -92,7 +99,7 @@ int main(int argc, char **argv) {
 	SCHED_LOG(B, 1);
 	int result = sceKernelWaitEventFlag(flag, 0xFFFFFFFF, PSP_EVENT_WAITAND, NULL, &timeout);
 	SCHED_LOG(E, 1);
-	printf("Wait timeout: %s (thread=%08X, main=%08X, remaining=%d)\n", schedulingLog, schedulingResult, result, timeout / 1000);
+	printf("Wait timeout: %s (thread=%08X, main=%08X, remaining=%d)\n", schedulingLog, schedulingResult, result, (timeout + 5) / 1000);
 
 	sceKernelDeleteEventFlag(flag);
 

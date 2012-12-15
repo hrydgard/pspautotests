@@ -25,7 +25,11 @@ int main(int argc, char **argv) {
 	POLL_TEST("And 0x00000001", flag, 1, PSP_EVENT_WAITAND, 1);
 	POLL_TEST("Or 0x00000001", flag, 1, PSP_EVENT_WAITOR, 1);
 	POLL_TEST("Clear 0x00000001", flag, 1, PSP_EVENT_WAITCLEAR, 1);
+	POLL_TEST("Wrong (0x02) 0x00000001", flag, 1, 0x02, 1);
 	POLL_TEST("Wrong (0x04) 0x00000001", flag, 1, 0x04, 1);
+	POLL_TEST("Wrong (0x08) 0x00000001", flag, 1, 0x08, 1);
+	POLL_TEST("Wrong (0x40) 0x00000001", flag, 1, 0x40, 1);
+	POLL_TEST("Wrong (0x80) 0x00000001", flag, 1, 0x80, 1);
 	POLL_TEST("Wrong (0xFF) 0x00000001", flag, 1, 0xFF, 1);
 
 	sceKernelSetEventFlag(flag, 0xFFFFFFFF);
@@ -38,6 +42,12 @@ int main(int argc, char **argv) {
 	POLL_TEST("Clear/Or 0x00000001 (no out bits)", flag, 1, PSP_EVENT_WAITCLEAR | PSP_EVENT_WAITOR, 0);
 
 	sceKernelSetEventFlag(flag, 0xFFFFFFFF);
+	POLL_TEST("Clear all/Or 0x00000001", flag, 1, PSP_EVENT_WAITCLEARALL | PSP_EVENT_WAITOR, 1);
+
+	sceKernelSetEventFlag(flag, 0xFFFFFFFF);
+	POLL_TEST("Clear all/Clear/And 0x00000001", flag, 1, PSP_EVENT_WAITCLEARALL | PSP_EVENT_WAITCLEAR, 1);
+
+	sceKernelSetEventFlag(flag, 0xFFFFFFFF);
 	POLL_TEST("0xFFFFFFFF & 0x00000000", flag, 0x00000000, PSP_EVENT_WAITAND, 1);
 	POLL_TEST("0xFFFFFFFF & 0xFFFFFFFF", flag, 0xFFFFFFFF, PSP_EVENT_WAITAND, 1);
 	POLL_TEST("0xFFFFFFFF | 0xFFFFFFFF", flag, 0xFFFFFFFF, PSP_EVENT_WAITOR, 1);
@@ -46,6 +56,9 @@ int main(int argc, char **argv) {
 	POLL_TEST("0x0000FFFF | 0xFFFFFFFF", flag, 0xFFFFFFFF, PSP_EVENT_WAITOR, 1);
 	POLL_TEST("0x0000FFFF & 0xFFFFFFFF with clear", flag, 0xFFFFFFFF, PSP_EVENT_WAITAND | PSP_EVENT_WAITCLEAR, 1);
 	POLL_TEST("0x0000FFFF | 0xFFFFFFFF with clear", flag, 0xFFFFFFFF, PSP_EVENT_WAITOR | PSP_EVENT_WAITCLEAR, 1);
+	sceKernelClearEventFlag(flag, 0x0000FFFF);
+	POLL_TEST("0x0000FFFF & 0xFFFFFFFF with clear all", flag, 0xFFFFFFFF, PSP_EVENT_WAITAND | PSP_EVENT_WAITCLEARALL, 1);
+	POLL_TEST("0x0000FFFF | 0xFFFFFFFF with clear all", flag, 0xFFFFFFFF, PSP_EVENT_WAITOR | PSP_EVENT_WAITCLEARALL, 1);
 	sceKernelClearEventFlag(flag, 0x00000000);
 	POLL_TEST("0x00000000 & 0xFFFFFFFF", flag, 0xFFFFFFFF, PSP_EVENT_WAITAND, 1);
 
