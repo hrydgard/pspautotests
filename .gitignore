@@ -8,3 +8,10 @@ PARAM.SFO
 __testoutput.txt
 __testerror.txt
 __testfinish.txt
+
+# For vcproj
+*.user
+*.sdf
+*.ncb
+*.opensdf
+*.suo
