@@ -1,6 +1,14 @@
 #ifndef _COMMON_H
 #define _COMMON_H 1
 
+// Just to make IntelliSense happy, not attempting to compile.
+#ifdef _MSC_VER
+#define __inline__ inline
+#define __attribute__(...)
+#define __extension__
+#define __builtin_va_list int
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
