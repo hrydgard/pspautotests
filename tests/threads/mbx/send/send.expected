@@ -1,0 +1,28 @@
+Mailbox: OK (size=52,name='set',attr=0,wait=0,count=0,first=NULL)
+Empty: OK
+Mailbox: OK (size=52,name='set',attr=0,wait=0,count=1,first=OTHER)
+  MSG prio=00 next=ITSELF
+Modified: OK
+Mailbox: OK (size=52,name='set',attr=0,wait=0,count=2,first=OTHER)
+  MSG prio=00 next=OTHER  MSG prio=00 next=FIRST
+Mailbox: OK (size=52,name='set',attr=0,wait=0,count=2,first=OTHER)
+  MSG prio=00 next=ITSELF
+Receive tampered #1: Failed (800201C9, 5000ms left, ptr=DEAD)
+Receive tampered #2: Failed (800201C9, 5000ms left, ptr=DEAD)
+Send twice #1: OK
+Mailbox: OK (size=52,name='set',attr=0,wait=0,count=1,first=OTHER)
+  MSG prio=00 next=ITSELF
+Send twice #2: Failed (800201C9)
+Mailbox: OK (size=52,name='set',attr=0,wait=0,count=1,first=OTHER)
+  MSG prio=00 next=ITSELF
+Receive twice #1: OK (5000ms left, ptr=OTHER) GOT: "hi 2" (next=ITSELF, prio=00) Mailbox: OK (size=52,name='set',attr=0,wait=0,count=0,first=NULL)
+Receive twice #2: Failed (800201A8, 0ms left, ptr=DEAD)
+NULL: Failed (8002019B)
+Mailbox: Failed (00000000)
+Invalid: Failed (8002019B)
+Mailbox: Failed (DEADBEEF)
+Deleted: Failed (8002019B)
+Mailbox: Invalid (8002019B)
+NULL: A1B1C2E1D1F2 (thread=800201B5, main=8002019B)
+Other: A1B1C2E1D1F2 (thread=800201B5, main=00000000)
+Same: A1B1C2D1E2F1 (thread=00000000, main=00000000)

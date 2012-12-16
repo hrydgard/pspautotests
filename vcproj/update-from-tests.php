@@ -223,9 +223,12 @@ class VCXProjectFile extends MSProjectFile
 	}
 }
 
+$old = getcwd();
+chdir(__DIR__);
+
 if (!file_exists('pspautotests.vcxproj'))
 {
-	echo 'For now, please run this in the project directory.', "\n";
+	echo 'Oops, where\'s pspautotests.vcxproj?', "\n";
 	exit(1);
 }
 
@@ -236,6 +239,8 @@ process_dir('../tests', $proj, $filters);
 
 $proj->save();
 $filters->save();
+
+chdir($old);
 
 function process_dir($path, $proj, $filters)
 {
