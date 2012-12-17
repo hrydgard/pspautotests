@@ -51,7 +51,38 @@ int main(int argc, char **argv) {
 	PRINT_MBX(mbx);
 
 	waitSimpleTimeout("Receive tampered #1", mbx, 5000, 1);
+	PRINT_MBX(mbx);
 	waitSimpleTimeout("Receive tampered #2", mbx, 5000, 1);
+
+	sceKernelDeleteMbx(mbx);
+
+	mbx = sceKernelCreateMbx("set", 0, NULL);
+	PRINT_MBX(mbx);
+
+	sendTest("Empty", mbx);
+
+	modified = sendTest("Modified B", mbx);
+	modified->header.next = NULL;
+	PRINT_MBX(mbx);
+
+	waitSimpleTimeout("Receive tampered B #1", mbx, 5000, 1);
+	waitSimpleTimeout("Receive tampered B #2", mbx, 5000, 1);
+
+	sceKernelDeleteMbx(mbx);
+
+	mbx = sceKernelCreateMbx("set", 0, NULL);
+	PRINT_MBX(mbx);
+
+	modified = sendTest("Modified C", mbx);
+
+	// This is evil.
+	TestMbxMessage *extra = nextMbxMsg();
+	modified->header.next = (SceKernelMsgPacket *) extra;
+	extra->header.next = (SceKernelMsgPacket *) modified;
+	PRINT_MBX(mbx);
+
+	waitSimpleTimeout("Receive tampered C #1", mbx, 5000, 1);
+	waitSimpleTimeout("Receive tampered C #2", mbx, 5000, 1);
 
 	sceKernelDeleteMbx(mbx);
 

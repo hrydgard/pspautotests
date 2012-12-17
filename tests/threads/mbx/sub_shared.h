@@ -60,11 +60,11 @@ inline void printMbxInfo(int result, SceKernelMbxInfo *mbxinfo) {
 	if (result == 0) {
 		printf("Mailbox: OK (size=%d,name='%s',attr=%d,wait=%d,count=%d,first=%s)\n", mbxinfo->size, mbxinfo->name, mbxinfo->attr, mbxinfo->numWaitThreads, mbxinfo->numMessages, mbxPtrStatusInfo(mbxinfo->firstMessage, NULL, NULL));
 
-		SceKernelMsgPacket *packet = (SceKernelMsgPacket *) mbxinfo->firstMessage;
+		TestMbxMessage *packet = (TestMbxMessage *) mbxinfo->firstMessage;
 		int recur = 0;
 		while (packet != 0 && (uint) packet != 0xDEADBEEF && ++recur < 20) {
-			printf("  MSG prio=%02X next=%s", (uint) packet->msgPriority, mbxPtrStatusInfo(packet->next, mbxinfo, packet));
-			packet = (SceKernelMsgPacket *) packet->next;
+			printf("  %s prio=%02X next=%s", packet->text, (uint) packet->header.msgPriority, mbxPtrStatusInfo(packet->header.next, mbxinfo, packet));
+			packet = (TestMbxMessage *) packet->header.next;
 
 			// Seems they loop.
 			if (packet == mbxinfo->firstMessage) {

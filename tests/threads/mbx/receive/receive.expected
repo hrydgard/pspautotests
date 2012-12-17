@@ -1,49 +1,49 @@
 For attr 00000000:
 Single standard: OK (ptr=OTHER) GOT: "hi 0" (next=ITSELF, prio=20) Mailbox: OK (size=52,name='wait1',attr=0,wait=0,count=0,first=NULL)
 Multiple standard #1: OK (ptr=OTHER) GOT: "hi 1" (next=FIRST, prio=15) Mailbox: OK (size=52,name='wait1',attr=0,wait=0,count=1,first=OTHER)
-  MSG prio=05 next=ITSELF
+  hi 2 prio=05 next=ITSELF
 Multiple standard #2: OK (ptr=OTHER) GOT: "hi 2" (next=ITSELF, prio=05) Mailbox: OK (size=52,name='wait1',attr=0,wait=0,count=0,first=NULL)
 Empty no ptr: Failed (800201A8, 0ms left, ptr=DEAD)
 Empty standard: Failed (800201A8, 0ms left, ptr=DEAD)
 Single standard: OK (500ms left, ptr=OTHER) GOT: "hi 3" (next=ITSELF, prio=20) Mailbox: OK (size=52,name='wait1',attr=0,wait=0,count=0,first=NULL)
 Multiple standard #1: OK (500ms left, ptr=OTHER) GOT: "hi 4" (next=FIRST, prio=15) Mailbox: OK (size=52,name='wait1',attr=0,wait=0,count=1,first=OTHER)
-  MSG prio=05 next=ITSELF
+  hi 5 prio=05 next=ITSELF
 Multiple standard #2: OK (500ms left, ptr=OTHER) GOT: "hi 5" (next=ITSELF, prio=05) Mailbox: OK (size=52,name='wait1',attr=0,wait=0,count=0,first=NULL)
 Multiple standard #3: Failed (800201A8, 0ms left, ptr=DEAD)
 For attr 00000100:
 Single standard: OK (ptr=OTHER) GOT: "hi 6" (next=ITSELF, prio=20) Mailbox: OK (size=52,name='wait1',attr=256,wait=0,count=0,first=NULL)
 Multiple standard #1: OK (ptr=OTHER) GOT: "hi 7" (next=FIRST, prio=15) Mailbox: OK (size=52,name='wait1',attr=256,wait=0,count=1,first=OTHER)
-  MSG prio=05 next=ITSELF
+  hi 8 prio=05 next=ITSELF
 Multiple standard #2: OK (ptr=OTHER) GOT: "hi 8" (next=ITSELF, prio=05) Mailbox: OK (size=52,name='wait1',attr=256,wait=0,count=0,first=NULL)
 Empty no ptr: Failed (800201A8, 0ms left, ptr=DEAD)
 Empty standard: Failed (800201A8, 0ms left, ptr=DEAD)
 Single standard: OK (500ms left, ptr=OTHER) GOT: "hi 9" (next=ITSELF, prio=20) Mailbox: OK (size=52,name='wait1',attr=256,wait=0,count=0,first=NULL)
 Multiple standard #1: OK (500ms left, ptr=OTHER) GOT: "hi 10" (next=FIRST, prio=15) Mailbox: OK (size=52,name='wait1',attr=256,wait=0,count=1,first=OTHER)
-  MSG prio=05 next=ITSELF
+  hi 11 prio=05 next=ITSELF
 Multiple standard #2: OK (500ms left, ptr=OTHER) GOT: "hi 11" (next=ITSELF, prio=05) Mailbox: OK (size=52,name='wait1',attr=256,wait=0,count=0,first=NULL)
 Multiple standard #3: Failed (800201A8, 0ms left, ptr=DEAD)
 For attr 00000400:
 Single standard: OK (ptr=OTHER) GOT: "hi 12" (next=ITSELF, prio=20) Mailbox: OK (size=52,name='wait1',attr=1024,wait=0,count=0,first=NULL)
 Multiple standard #1: OK (ptr=OTHER) GOT: "hi 14" (next=FIRST, prio=05) Mailbox: OK (size=52,name='wait1',attr=1024,wait=0,count=1,first=OTHER)
-  MSG prio=15 next=ITSELF
+  hi 13 prio=15 next=ITSELF
 Multiple standard #2: OK (ptr=OTHER) GOT: "hi 13" (next=ITSELF, prio=15) Mailbox: OK (size=52,name='wait1',attr=1024,wait=0,count=0,first=NULL)
 Empty no ptr: Failed (800201A8, 0ms left, ptr=DEAD)
 Empty standard: Failed (800201A8, 0ms left, ptr=DEAD)
 Single standard: OK (500ms left, ptr=OTHER) GOT: "hi 15" (next=ITSELF, prio=20) Mailbox: OK (size=52,name='wait1',attr=1024,wait=0,count=0,first=NULL)
 Multiple standard #1: OK (500ms left, ptr=OTHER) GOT: "hi 17" (next=FIRST, prio=05) Mailbox: OK (size=52,name='wait1',attr=1024,wait=0,count=1,first=OTHER)
-  MSG prio=15 next=ITSELF
+  hi 16 prio=15 next=ITSELF
 Multiple standard #2: OK (500ms left, ptr=OTHER) GOT: "hi 16" (next=ITSELF, prio=15) Mailbox: OK (size=52,name='wait1',attr=1024,wait=0,count=0,first=NULL)
 Multiple standard #3: Failed (800201A8, 0ms left, ptr=DEAD)
 For attr 00000500:
 Single standard: OK (ptr=OTHER) GOT: "hi 18" (next=ITSELF, prio=20) Mailbox: OK (size=52,name='wait1',attr=1280,wait=0,count=0,first=NULL)
 Multiple standard #1: OK (ptr=OTHER) GOT: "hi 20" (next=FIRST, prio=05) Mailbox: OK (size=52,name='wait1',attr=1280,wait=0,count=1,first=OTHER)
-  MSG prio=15 next=ITSELF
+  hi 19 prio=15 next=ITSELF
 Multiple standard #2: OK (ptr=OTHER) GOT: "hi 19" (next=ITSELF, prio=15) Mailbox: OK (size=52,name='wait1',attr=1280,wait=0,count=0,first=NULL)
 Empty no ptr: Failed (800201A8, 0ms left, ptr=DEAD)
 Empty standard: Failed (800201A8, 0ms left, ptr=DEAD)
 Single standard: OK (500ms left, ptr=OTHER) GOT: "hi 21" (next=ITSELF, prio=20) Mailbox: OK (size=52,name='wait1',attr=1280,wait=0,count=0,first=NULL)
 Multiple standard #1: OK (500ms left, ptr=OTHER) GOT: "hi 23" (next=FIRST, prio=05) Mailbox: OK (size=52,name='wait1',attr=1280,wait=0,count=1,first=OTHER)
-  MSG prio=15 next=ITSELF
+  hi 22 prio=15 next=ITSELF
 Multiple standard #2: OK (500ms left, ptr=OTHER) GOT: "hi 22" (next=ITSELF, prio=15) Mailbox: OK (size=52,name='wait1',attr=1280,wait=0,count=0,first=NULL)
 Multiple standard #3: Failed (800201A8, 0ms left, ptr=DEAD)
 Wait timeout: A1B1C1D2E2 (thread=00000000, main=00000000, remaining=4)

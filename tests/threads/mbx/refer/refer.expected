@@ -1,4 +1,5 @@
 Normal: OK
+Mailbox: OK (size=52,name='refer1',attr=0,wait=0,count=0,first=NULL)
 Size 00000000 => 00000000 (result=00000000)
 Size 00000001 => 00000034 (result=00000000)
 Size 00000002 => 00000034 (result=00000000)
@@ -17,6 +18,13 @@ Size 00FF0000 => 00000034 (result=00000000)
 Size 80000001 => 00000034 (result=00000000)
 Size CCCCCCCC => 00000034 (result=00000000)
 Size FFFFFFFF => 00000034 (result=00000000)
+Modified A: OK
+Mailbox: OK (size=52,name='refer1',attr=0,wait=0,count=2,first=OTHER)
+  hi 1 prio=00 next=ITSELF
+Modified B: OK
+Mailbox: OK (size=52,name='refer1',attr=0,wait=0,count=2,first=NULL)
+Modified C: OK
+Mailbox: OK (size=52,name='refer1',attr=0,wait=0,count=2,first=NULL)
 NULL: Failed (8002019B)
 Invalid: Failed (8002019B)
 Deleted: Failed (8002019B)

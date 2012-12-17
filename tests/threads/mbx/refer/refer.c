@@ -6,6 +6,7 @@ SETUP_SCHED_TEST;
 	int result = sceKernelReferMbxStatus(mbx, mbxinfo); \
 	if (result == 0) { \
 		printf("%s: OK\n", title); \
+		printMbxInfo(result, mbxinfo); \
 	} else { \
 		printf("%s: Failed (%X)\n", title, result); \
 	} \
@@ -14,6 +15,7 @@ SETUP_SCHED_TEST;
 int main(int argc, char **argv) {
 	SceUID mbx = sceKernelCreateMbx("refer1", 0, NULL);
 	SceKernelMbxInfo mbxinfo;
+	mbxinfo.size = sizeof(mbxinfo);
 
 	// Crashes.
 	//REFER_TEST("NULL info", mbx, NULL);
@@ -28,6 +30,18 @@ int main(int argc, char **argv) {
 		result = sceKernelReferMbxStatus(mbx, &mbxinfo);
 		printf("Size %08X => %08X (result=%08X)\n", sizes[i], mbxinfo.size, result);
 	}
+
+	// Evil stuff.
+	TestMbxMessage *msg1 = sendMbx(mbx, 0);
+	TestMbxMessage *msg2 = sendMbx(mbx, 0);
+	msg2->header.next = (SceKernelMsgPacket *) msg2;
+	REFER_TEST("Modified A", mbx, &mbxinfo);
+
+	msg2->header.next = NULL;
+	REFER_TEST("Modified B", mbx, &mbxinfo);
+
+	TestMbxMessage *msg3 = sendMbx(mbx, 0);
+	REFER_TEST("Modified C", mbx, &mbxinfo);
 
 	sceKernelDeleteMbx(mbx);
 
