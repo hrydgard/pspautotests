@@ -6,8 +6,8 @@ SETUP_SCHED_TEST;
 	flag = sceKernelCreateEventFlag(name, attr, bits, options); \
 	if (flag > 0) { \
 		printf("%s: OK\n", title); \
-		sceKernelDeleteEventFlag(flag); \
 		PRINT_FLAG(flag); \
+		sceKernelDeleteEventFlag(flag); \
 	} else { \
 		printf("%s: Failed (%X)\n", title, flag); \
 	} \

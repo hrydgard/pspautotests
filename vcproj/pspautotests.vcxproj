@@ -199,8 +199,17 @@
     <ClCompile Include="..\tests\threads\events\create\create.c" />
     <ClCompile Include="..\tests\threads\events\clear\clear.c" />
     <ClCompile Include="..\tests\threads\events\cancel\cancel.c" />
+    <ClCompile Include="..\tests\threads\mbx\poll\poll.c" />
+    <ClCompile Include="..\tests\threads\mbx\refer\refer.c" />
+    <ClCompile Include="..\tests\threads\mbx\create\create.c" />
+    <ClCompile Include="..\tests\threads\mbx\delete\delete.c" />
+    <ClCompile Include="..\tests\threads\mbx\cancel\cancel.c" />
+    <ClCompile Include="..\tests\threads\mbx\receive\receive.c" />
+    <ClCompile Include="..\tests\threads\mbx\priority\priority.c" />
+    <ClCompile Include="..\tests\threads\mbx\send\send.c" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\gentest.py" />
     <None Include="..\tests\video\pmf_simple\readme.txt" />
     <None Include="..\tests\video\pmf_simple\pmf_simple.expected" />
     <None Include="..\tests\video\pmf\test.info" />
@@ -299,6 +308,14 @@
     <None Include="..\tests\threads\events\create\create.expected" />
     <None Include="..\tests\threads\events\clear\clear.expected" />
     <None Include="..\tests\threads\events\cancel\cancel.expected" />
+    <None Include="..\tests\threads\mbx\poll\poll.expected" />
+    <None Include="..\tests\threads\mbx\refer\refer.expected" />
+    <None Include="..\tests\threads\mbx\cancel\cancel.expected" />
+    <None Include="..\tests\threads\mbx\create\create.expected" />
+    <None Include="..\tests\threads\mbx\delete\delete.expected" />
+    <None Include="..\tests\threads\mbx\receive\receive.expected" />
+    <None Include="..\tests\threads\mbx\priority\priority.expected" />
+    <None Include="..\tests\threads\mbx\send\send.expected" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\tests\video\pmf\pmf_video.h" />
@@ -328,6 +345,7 @@
     <ClInclude Include="..\tests\font\libfont.h" />
     <ClInclude Include="..\tests\audio\sascore\sascore.h" />
     <ClInclude Include="..\tests\threads\events\sub_shared.h" />
+    <ClInclude Include="..\tests\threads\mbx\sub_shared.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

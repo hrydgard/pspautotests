@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <ItemGroup>
     <Filter Include="tests">
@@ -501,6 +501,31 @@
     <None Include="..\tests\threads\mbx\mbx.expected">
       <Filter>tests\threads\mbx\expected</Filter>
     </None>
+    <None Include="..\tests\threads\mbx\poll\poll.expected">
+      <Filter>tests\threads\mbx\expected</Filter>
+    </None>
+    <None Include="..\tests\threads\mbx\refer\refer.expected">
+      <Filter>tests\threads\mbx\expected</Filter>
+    </None>
+    <None Include="..\tests\threads\mbx\cancel\cancel.expected">
+      <Filter>tests\threads\mbx\expected</Filter>
+    </None>
+    <None Include="..\tests\threads\mbx\create\create.expected">
+      <Filter>tests\threads\mbx\expected</Filter>
+    </None>
+    <None Include="..\tests\threads\mbx\delete\delete.expected">
+      <Filter>tests\threads\mbx\expected</Filter>
+    </None>
+    <None Include="..\tests\threads\mbx\receive\receive.expected">
+      <Filter>tests\threads\mbx\expected</Filter>
+    </None>
+    <None Include="..\tests\threads\mbx\priority\priority.expected">
+      <Filter>tests\threads\mbx\expected</Filter>
+    </None>
+    <None Include="..\tests\threads\mbx\send\send.expected">
+      <Filter>tests\threads\mbx\expected</Filter>
+    </None>
+    <None Include="..\gentest.py" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\tests\video\pmf\pmf_video.h">
@@ -583,6 +608,9 @@
     </ClInclude>
     <ClInclude Include="..\tests\threads\events\sub_shared.h">
       <Filter>tests\threads\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\tests\threads\mbx\sub_shared.h">
+      <Filter>tests\threads\mbx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -947,6 +975,30 @@
       <Filter>tests\threads\events</Filter>
     </ClCompile>
     <ClCompile Include="..\tests\threads\mbx\mbx.c">
+      <Filter>tests\threads\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\threads\mbx\poll\poll.c">
+      <Filter>tests\threads\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\threads\mbx\refer\refer.c">
+      <Filter>tests\threads\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\threads\mbx\create\create.c">
+      <Filter>tests\threads\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\threads\mbx\delete\delete.c">
+      <Filter>tests\threads\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\threads\mbx\cancel\cancel.c">
+      <Filter>tests\threads\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\threads\mbx\receive\receive.c">
+      <Filter>tests\threads\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\threads\mbx\priority\priority.c">
+      <Filter>tests\threads\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\threads\mbx\send\send.c">
       <Filter>tests\threads\mbx</Filter>
     </ClCompile>
   </ItemGroup>
