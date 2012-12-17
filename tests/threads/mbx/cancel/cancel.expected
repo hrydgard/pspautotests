@@ -1,13 +1,13 @@
 Without any messages: OK
-Mailbox: OK (size=52,name='cancel',attr=0,wait=0,count=0,first=NULL)
+Messagebox: OK (size=52,name='cancel',attr=0,wait=0,count=0,first=NULL)
 With messages: OK
-Mailbox: OK (size=52,name='cancel',attr=0,wait=0,count=1,first=OTHER)
+Messagebox: OK (size=52,name='cancel',attr=0,wait=0,count=1,first=OTHER)
   hi 0 prio=15 next=ITSELF
 Without any messages: OK (0 waiting)
-Mailbox: OK (size=52,name='cancel',attr=0,wait=0,count=1,first=OTHER)
+Messagebox: OK (size=52,name='cancel',attr=0,wait=0,count=1,first=OTHER)
   hi 0 prio=15 next=ITSELF
 With messages: OK (0 waiting)
-Mailbox: OK (size=52,name='cancel',attr=0,wait=0,count=2,first=OTHER)
+Messagebox: OK (size=52,name='cancel',attr=0,wait=0,count=2,first=OTHER)
   hi 0 prio=15 next=OTHER  hi 1 prio=15 next=FIRST
 NULL: A1B1C2E1D1F2 (thread=800201B5, main=8002019B)
 Other: A1B1C2E1D1F2 (thread=800201B5, main=00000000)
@@ -16,8 +16,8 @@ Cancel other with threads: A1B1C2E1D1F2 (thread=800201B5, main=00000000)
 Cancel waited with threads: A1B1C2D1E2F1 (thread=800201A9, main=00000000)
 Other with messages: A1B1C2E1D1F2 (thread=800201B5, main=00000000)
 NULL: Failed (8002019B)
-Mailbox: Failed (00000000)
+Messagebox: Failed (00000000)
 Invalid: Failed (8002019B)
-Mailbox: Failed (DEADBEEF)
+Messagebox: Failed (DEADBEEF)
 Deleted: Failed (8002019B)
-Mailbox: Invalid (8002019B)
+Messagebox: Invalid (8002019B)

@@ -1,8 +1,8 @@
 For attr 00000000:
-Mailbox: OK (size=52,name='mbx1',attr=0,wait=0,count=0,first=NULL)
-Mailbox: OK (size=52,name='mbx1',attr=0,wait=5,count=0,first=NULL)
-Mailbox: OK (size=52,name='mbx1',attr=0,wait=4,count=0,first=NULL)
-Mailbox: OK (size=52,name='mbx1',attr=0,wait=2,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=0,wait=0,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=0,wait=5,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=0,wait=4,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=0,wait=2,count=0,first=NULL)
 A1
 B1
 OK (ptr=OTHER) GOT: "hi 0" (next=FIRST, prio=20) 
@@ -33,10 +33,10 @@ Failed: 800201B5
 
 
 For attr 00000100:
-Mailbox: OK (size=52,name='mbx1',attr=256,wait=0,count=0,first=NULL)
-Mailbox: OK (size=52,name='mbx1',attr=256,wait=5,count=0,first=NULL)
-Mailbox: OK (size=52,name='mbx1',attr=256,wait=4,count=0,first=NULL)
-Mailbox: OK (size=52,name='mbx1',attr=256,wait=2,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=256,wait=0,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=256,wait=5,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=256,wait=4,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=256,wait=2,count=0,first=NULL)
 A1
 B1
 OK (ptr=OTHER) GOT: "hi 5" (next=FIRST, prio=20) 
@@ -67,10 +67,10 @@ Failed: 800201B5
 
 
 For attr 00000400:
-Mailbox: OK (size=52,name='mbx1',attr=1024,wait=0,count=0,first=NULL)
-Mailbox: OK (size=52,name='mbx1',attr=1024,wait=5,count=0,first=NULL)
-Mailbox: OK (size=52,name='mbx1',attr=1024,wait=4,count=0,first=NULL)
-Mailbox: OK (size=52,name='mbx1',attr=1024,wait=2,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=1024,wait=0,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=1024,wait=5,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=1024,wait=4,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=1024,wait=2,count=0,first=NULL)
 A1
 B1
 OK (ptr=OTHER) GOT: "hi 11" (next=FIRST, prio=10) 
@@ -101,10 +101,10 @@ Failed: 800201B5
 
 
 For attr 00000500:
-Mailbox: OK (size=52,name='mbx1',attr=1280,wait=0,count=0,first=NULL)
-Mailbox: OK (size=52,name='mbx1',attr=1280,wait=5,count=0,first=NULL)
-Mailbox: OK (size=52,name='mbx1',attr=1280,wait=4,count=0,first=NULL)
-Mailbox: OK (size=52,name='mbx1',attr=1280,wait=2,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=1280,wait=0,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=1280,wait=5,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=1280,wait=4,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=1280,wait=2,count=0,first=NULL)
 A1
 B1
 OK (ptr=OTHER) GOT: "hi 16" (next=FIRST, prio=10) 
@@ -135,11 +135,11 @@ Failed: 800201B5
 
 
 For attr 00000100 and changed priorities:
-Mailbox: OK (size=52,name='mbx1',attr=256,wait=0,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=256,wait=0,count=0,first=NULL)
 Priorities reversed.  Have a nice day.
-Mailbox: OK (size=52,name='mbx1',attr=256,wait=5,count=0,first=NULL)
-Mailbox: OK (size=52,name='mbx1',attr=256,wait=4,count=0,first=NULL)
-Mailbox: OK (size=52,name='mbx1',attr=256,wait=2,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=256,wait=5,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=256,wait=4,count=0,first=NULL)
+Messagebox: OK (size=52,name='mbx1',attr=256,wait=2,count=0,first=NULL)
 A1
 B1
 OK (ptr=OTHER) GOT: "hi 20" (next=FIRST, prio=20) 

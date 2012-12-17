@@ -58,7 +58,7 @@ inline TestMbxMessage *sendMbx(SceUID mbx, char prio) {
 
 inline void printMbxInfo(int result, SceKernelMbxInfo *mbxinfo) {
 	if (result == 0) {
-		printf("Mailbox: OK (size=%d,name='%s',attr=%d,wait=%d,count=%d,first=%s)\n", mbxinfo->size, mbxinfo->name, mbxinfo->attr, mbxinfo->numWaitThreads, mbxinfo->numMessages, mbxPtrStatusInfo(mbxinfo->firstMessage, NULL, NULL));
+		printf("Messagebox: OK (size=%d,name='%s',attr=%d,wait=%d,count=%d,first=%s)\n", mbxinfo->size, mbxinfo->name, mbxinfo->attr, mbxinfo->numWaitThreads, mbxinfo->numMessages, mbxPtrStatusInfo(mbxinfo->firstMessage, NULL, NULL));
 
 		TestMbxMessage *packet = (TestMbxMessage *) mbxinfo->firstMessage;
 		int recur = 0;
@@ -75,7 +75,7 @@ inline void printMbxInfo(int result, SceKernelMbxInfo *mbxinfo) {
 			printf("\n");
 		}
 	} else {
-		printf("Mailbox: Invalid (%08X)\n", result);
+		printf("Messagebox: Invalid (%08X)\n", result);
 	}
 }
 
@@ -86,7 +86,7 @@ inline void PRINT_MBX(SceUID mbx) {
 		int result = sceKernelReferMbxStatus(mbx, &mbxinfo);
 		printMbxInfo(result, &mbxinfo);
 	} else {
-		printf("Mailbox: Failed (%08X)\n", mbx);
+		printf("Messagebox: Failed (%08X)\n", mbx);
 	}
 }
 
