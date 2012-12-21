@@ -208,7 +208,7 @@
     <ClCompile Include="..\tests\threads\mbx\receive\receive.c" />
     <ClCompile Include="..\tests\threads\mbx\priority\priority.c" />
     <ClCompile Include="..\tests\threads\mbx\send\send.c" />
-  </ItemGroup>
+  <ClCompile Include="..\tests\threads\alarm\set\set.c" /><ClCompile Include="..\tests\threads\alarm\refer\refer.c" /><ClCompile Include="..\tests\threads\alarm\cancel\cancel.c" /></ItemGroup>
   <ItemGroup>
     <None Include="..\gentest.py" />
     <None Include="..\tests\video\pmf_simple\readme.txt" />
@@ -318,7 +318,7 @@
     <None Include="..\tests\threads\mbx\priority\priority.expected" />
     <None Include="..\tests\threads\mbx\send\send.expected" />
     <None Include="..\tests\threads\alarm\alarm.expected" />
-  </ItemGroup>
+  <None Include="..\tests\threads\alarm\set\set.expected" /><None Include="..\tests\threads\alarm\refer\refer.expected" /><None Include="..\tests\threads\alarm\cancel\cancel.expected" /></ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\tests\video\pmf\pmf_video.h" />
     <ClInclude Include="..\tests\video\pmf\pmf_reader.h" />
@@ -348,7 +348,7 @@
     <ClInclude Include="..\tests\audio\sascore\sascore.h" />
     <ClInclude Include="..\tests\threads\events\sub_shared.h" />
     <ClInclude Include="..\tests\threads\mbx\sub_shared.h" />
-  </ItemGroup>
+  <ClInclude Include="..\tests\threads\alarm\sub_shared.h" /></ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
