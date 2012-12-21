@@ -2,3 +2,5 @@ beforeEnableVblankCallback
 afterEnableVblankCallback
 vblankCallback(3):0
 ended
+Interrupts suspended: 0
+Interrupts resumed: 18

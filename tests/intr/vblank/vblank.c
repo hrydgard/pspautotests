@@ -24,7 +24,7 @@ void vblankCallback(int no, void *value) {
 	sceKernelSignalSema(sema, 1);
 }
 
-int main(int argc, char** argv) {
+void basicUsage() {
 	int value = 7;
 	sema = sceKernelCreateSema("semaphore", 0, 0, 255, NULL);
 	mainThreadId = sceKernelGetThreadId();
@@ -45,6 +45,39 @@ int main(int argc, char** argv) {
 	//sceDisplayWaitVblank();
 	
 	printf("ended\n");
+}
+
+void vblank_counter(int no, int* counter) {
+	*counter = *counter + 1;
+}
+
+void suspendUsage() {
+	int counter;
+	sceKernelRegisterSubIntrHandler(PSP_VBLANK_INT, 0, vblank_counter, &counter);
+
+	counter = 0;
+	sceKernelEnableSubIntr(PSP_VBLANK_INT, 0);
+	int flag = sceKernelCpuSuspendIntr();
+	sceKernelDelayThread(300000);
+	sceKernelCpuResumeIntr(flag);
+	sceKernelDisableSubIntr(PSP_VBLANK_INT, 0);
+
+	printf("Interrupts suspended: %d\n", counter);
+
+	counter = 0;
+	sceKernelRegisterSubIntrHandler(PSP_VBLANK_INT, 0, vblank_counter, &counter);
+	sceKernelEnableSubIntr(PSP_VBLANK_INT, 0);
+	sceKernelDelayThread(300000);
+	sceKernelDisableSubIntr(PSP_VBLANK_INT, 0);
+
+	sceKernelReleaseSubIntrHandler(PSP_VBLANK_INT, 0);
+
+	printf("Interrupts resumed: %d\n", counter);
+}
+
+int main(int argc, char** argv) {
+	basicUsage();
+	suspendUsage();
 	
 	return 0;
 }
