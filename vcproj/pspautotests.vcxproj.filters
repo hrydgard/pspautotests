@@ -205,6 +205,12 @@
     <Filter Include="tests\audio\expected">
       <UniqueIdentifier>{F9B8F4CA-313B-4E20-8571-AA8D5F1188C9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\threads\alarm">
+      <UniqueIdentifier>{CD1F1422-F491-4C51-B8FE-FB1AFDBA1A3E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests\threads\alarm\expected">
+      <UniqueIdentifier>{53C203E1-9C75-4E6A-9732-9FE8B1C28039}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\tests\video\pmf_simple\readme.txt">
@@ -529,6 +535,15 @@
     <None Include="..\tests\threads\alarm\alarm.expected">
       <Filter>tests\threads\expected</Filter>
     </None>
+    <None Include="..\tests\threads\alarm\set\set.expected">
+      <Filter>tests\threads\alarm\expected</Filter>
+    </None>
+    <None Include="..\tests\threads\alarm\refer\refer.expected">
+      <Filter>tests\threads\alarm\expected</Filter>
+    </None>
+    <None Include="..\tests\threads\alarm\cancel\cancel.expected">
+      <Filter>tests\threads\alarm\expected</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\tests\video\pmf\pmf_video.h">
@@ -614,6 +629,9 @@
     </ClInclude>
     <ClInclude Include="..\tests\threads\mbx\sub_shared.h">
       <Filter>tests\threads\mbx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\tests\threads\alarm\sub_shared.h">
+      <Filter>tests\threads\alarm</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1006,6 +1024,15 @@
     </ClCompile>
     <ClCompile Include="..\tests\threads\alarm\alarm.c">
       <Filter>tests\threads</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\threads\alarm\set\set.c">
+      <Filter>tests\threads\alarm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\threads\alarm\refer\refer.c">
+      <Filter>tests\threads\alarm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\threads\alarm\cancel\cancel.c">
+      <Filter>tests\threads\alarm</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

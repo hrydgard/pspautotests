@@ -70,6 +70,20 @@ abstract class MSProjectFile
 	{
 		return false;
 	}
+
+	public function save()
+	{
+		if (!DRY_RUN)
+		{
+			$xml = $this->data->asXML();
+
+			// Correct some differences between SimplXML and what Visual Studio writes out.
+			$xml = "\xEF\xBB\xBF" . trim(str_replace('"/>', '" />', $xml));
+			$xml = str_replace("\n", "\r\n", $xml);
+
+			file_put_contents($this->filename, $xml);
+		}
+	}
 }
 
 class FiltersFile extends MSProjectFile
@@ -162,12 +176,6 @@ class FiltersFile extends MSProjectFile
 	{
 		return isset($this->filters[$filter]);
 	}
-
-	public function save()
-	{
-		if (!DRY_RUN)
-			$this->data->asXML($this->filename);
-	}
 }
 
 class VCXProjectFile extends MSProjectFile
@@ -214,12 +222,6 @@ class VCXProjectFile extends MSProjectFile
 
 		$this->files[$type][$file] = true;
 		return true;
-	}
-
-	public function save()
-	{
-		if (!DRY_RUN)
-			$this->data->asXML($this->filename);
 	}
 }
 
