@@ -526,6 +526,9 @@
       <Filter>tests\threads\mbx\expected</Filter>
     </None>
     <None Include="..\gentest.py" />
+    <None Include="..\tests\threads\alarm\alarm.expected">
+      <Filter>tests\threads\expected</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\tests\video\pmf\pmf_video.h">
@@ -1000,6 +1003,9 @@
     </ClCompile>
     <ClCompile Include="..\tests\threads\mbx\send\send.c">
       <Filter>tests\threads\mbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\threads\alarm\alarm.c">
+      <Filter>tests\threads</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
