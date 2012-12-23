@@ -78,6 +78,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\common\common.c" />
     <ClCompile Include="..\tests\threads\alarm\alarm.c" />
     <ClCompile Include="..\tests\video\pmf_simple\pmf_simple.c" />
     <ClCompile Include="..\tests\video\pmf\pmf.c" />
@@ -208,7 +209,12 @@
     <ClCompile Include="..\tests\threads\mbx\receive\receive.c" />
     <ClCompile Include="..\tests\threads\mbx\priority\priority.c" />
     <ClCompile Include="..\tests\threads\mbx\send\send.c" />
-  <ClCompile Include="..\tests\threads\alarm\set\set.c" /><ClCompile Include="..\tests\threads\alarm\refer\refer.c" /><ClCompile Include="..\tests\threads\alarm\cancel\cancel.c" /></ItemGroup>
+    <ClCompile Include="..\tests\threads\alarm\set\set.c" />
+    <ClCompile Include="..\tests\threads\alarm\refer\refer.c" />
+    <ClCompile Include="..\tests\threads\alarm\cancel\cancel.c" />
+    <ClCompile Include="..\tests\ctrl\idle\idle.c" />
+    <ClCompile Include="..\tests\ctrl\sampling2\sampling2.c" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="..\gentest.py" />
     <None Include="..\tests\video\pmf_simple\readme.txt" />
@@ -318,8 +324,14 @@
     <None Include="..\tests\threads\mbx\priority\priority.expected" />
     <None Include="..\tests\threads\mbx\send\send.expected" />
     <None Include="..\tests\threads\alarm\alarm.expected" />
-  <None Include="..\tests\threads\alarm\set\set.expected" /><None Include="..\tests\threads\alarm\refer\refer.expected" /><None Include="..\tests\threads\alarm\cancel\cancel.expected" /></ItemGroup>
+    <None Include="..\tests\threads\alarm\set\set.expected" />
+    <None Include="..\tests\threads\alarm\refer\refer.expected" />
+    <None Include="..\tests\threads\alarm\cancel\cancel.expected" />
+    <None Include="..\tests\ctrl\idle\idle.expected" />
+    <None Include="..\tests\ctrl\sampling2\sampling2.expected" />
+  </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\common\common.h" />
     <ClInclude Include="..\tests\video\pmf\pmf_video.h" />
     <ClInclude Include="..\tests\video\pmf\pmf_reader.h" />
     <ClInclude Include="..\tests\video\pmf\pmf_decoder.h" />
@@ -348,7 +360,8 @@
     <ClInclude Include="..\tests\audio\sascore\sascore.h" />
     <ClInclude Include="..\tests\threads\events\sub_shared.h" />
     <ClInclude Include="..\tests\threads\mbx\sub_shared.h" />
-  <ClInclude Include="..\tests\threads\alarm\sub_shared.h" /></ItemGroup>
+    <ClInclude Include="..\tests\threads\alarm\sub_shared.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
