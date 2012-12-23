@@ -550,6 +550,9 @@
     <None Include="..\tests\ctrl\idle\idle.expected">
       <Filter>tests\ctrl\expected</Filter>
     </None>
+    <None Include="..\tests\ctrl\sampling2\sampling2.expected">
+      <Filter>tests\ctrl\expected</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\tests\video\pmf\pmf_video.h">
@@ -1048,6 +1051,9 @@
     </ClCompile>
     <ClCompile Include="..\common\common.c">
       <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\ctrl\sampling2\sampling2.c">
+      <Filter>tests\ctrl</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

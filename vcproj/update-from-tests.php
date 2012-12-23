@@ -79,6 +79,16 @@ abstract class MSProjectFile
 
 			// Correct some differences between SimplXML and what Visual Studio writes out.
 			$xml = "\xEF\xBB\xBF" . trim(str_replace('"/>', '" />', $xml));
+
+			// Yeah, these are ugly, sorry.  Would rather not add the whitespace in the DOM.
+			$xml = str_replace('></ItemGroup>', '>' . "\n" . '  </ItemGroup>', $xml);
+			// Ident ClInclude/ClCompileNone inside ItemGroup two spaces.
+			$xml = preg_replace('~\n  \<(ClInclude|ClCompile|None) ~', "\n" . '    <$1 ', $xml);
+			$xml = preg_replace('~\>\<(ClInclude|ClCompile|None) ~', '>' . "\n" . '    <$1 ', $xml);
+			// Indent Filter two spaces, the VC way.
+			$xml = str_replace('><Filter>', '>' . "\n" . '      <Filter>', $xml);
+			$xml = str_replace('</Filter><', '</Filter>' . "\n" . '    <', $xml);
+
 			$xml = str_replace("\n", "\r\n", $xml);
 
 			file_put_contents($this->filename, $xml);

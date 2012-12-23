@@ -213,6 +213,7 @@
     <ClCompile Include="..\tests\threads\alarm\refer\refer.c" />
     <ClCompile Include="..\tests\threads\alarm\cancel\cancel.c" />
     <ClCompile Include="..\tests\ctrl\idle\idle.c" />
+    <ClCompile Include="..\tests\ctrl\sampling2\sampling2.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\gentest.py" />
@@ -327,6 +328,7 @@
     <None Include="..\tests\threads\alarm\refer\refer.expected" />
     <None Include="..\tests\threads\alarm\cancel\cancel.expected" />
     <None Include="..\tests\ctrl\idle\idle.expected" />
+    <None Include="..\tests\ctrl\sampling2\sampling2.expected" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\common.h" />
