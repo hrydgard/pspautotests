@@ -211,6 +211,9 @@
     <Filter Include="tests\threads\alarm\expected">
       <UniqueIdentifier>{53C203E1-9C75-4E6A-9732-9FE8B1C28039}</UniqueIdentifier>
     </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{fc104fc6-0286-4498-b89c-5ba6ca628c83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\tests\video\pmf_simple\readme.txt">
@@ -544,6 +547,12 @@
     <None Include="..\tests\threads\alarm\cancel\cancel.expected">
       <Filter>tests\threads\alarm\expected</Filter>
     </None>
+    <None Include="..\tests\ctrl\idle\idle.expected">
+      <Filter>tests\ctrl\expected</Filter>
+    </None>
+    <None Include="..\tests\ctrl\sampling2\sampling2.expected">
+      <Filter>tests\ctrl\expected</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\tests\video\pmf\pmf_video.h">
@@ -632,6 +641,9 @@
     </ClInclude>
     <ClInclude Include="..\tests\threads\alarm\sub_shared.h">
       <Filter>tests\threads\alarm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\common.h">
+      <Filter>common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1033,6 +1045,15 @@
     </ClCompile>
     <ClCompile Include="..\tests\threads\alarm\cancel\cancel.c">
       <Filter>tests\threads\alarm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\ctrl\idle\idle.c">
+      <Filter>tests\ctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\common.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\ctrl\sampling2\sampling2.c">
+      <Filter>tests\ctrl</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
