@@ -128,10 +128,90 @@ void testCompare(float a, float b) {
 float floatRelevantValues[] = {0, 1, -1, 1.5, -1.5, 1.6, -1.6, 1.4, -1.4, 2.0, -2.0, 4.0, INFINITY, -INFINITY, NAN, -NAN };
 #define lengthof(v) (sizeof(v) / sizeof((v)[0]))
 
+int isOperandOkay(const char *name, float a1) {
+	// None of the ops actually support NaN, just crash.
+	if (isnan(a1)) {
+		return 0;
+	}
+
+	if (!strcmp(name, "sqrt")) {
+		if (a1 <= 0) {
+			return 0;
+		}
+	}
+
+	return 1;
+}
+
+// We just get a crash for any of these values, so don't try it.
+int areOperandsOkay(const char *name, float a1, float a2) {
+	// TODO: Seems like NaN for either arg crashes all the ops.
+	if (isnan(a1) || isnan(a2)) {
+		return 0;
+	}
+
+	if (!strcmp(name, "add") || !strcmp(name, "sub")) {
+		if (isinf(a1) && isinf(a2)) {
+			return 0;
+		}
+	}
+	if (!strcmp(name, "mul")) {
+		if (a1 == 0.0 && isinf(a2)) {
+			return 0;
+		}
+		if (a2 == 0.0 && isinf(a1)) {
+			return 0;
+		}
+	}
+	if (!strcmp(name, "div")) {
+		if (a2 == 0.0) {
+			return 0;
+		}
+		if (isinf(a1) && isinf(a2)) {
+			return 0;
+		}
+	}
+
+	return 1;
+}
+
+inline void runOperands(const char *name, float (*func)(float, float)) {
+	int i, j;
+	printf("%s.s:\n", name);
+	for (i = 0; i < lengthof(floatRelevantValues); i++) {
+		for (j = 0; j < lengthof(floatRelevantValues); j++) {
+			printf("%f, %f => ", floatRelevantValues[i], floatRelevantValues[j]);
+
+			if (areOperandsOkay(name, floatRelevantValues[i], floatRelevantValues[j])) {
+				printf("%f\n", func(floatRelevantValues[i], floatRelevantValues[j]));
+			} else {
+				printf("SKIPPED\n");
+			}
+		}
+	}
+	printf("\n\n");
+}
+
+inline void runOperand(const char *name, float (*func)(float)) {
+	int i;
+	printf("%s.s:\n", name);
+	for (i = 0; i < lengthof(floatRelevantValues); i++) {
+		printf("%f => ", floatRelevantValues[i]);
+
+		if (isOperandOkay(name, floatRelevantValues[i])) {
+			printf("%f\n", func(floatRelevantValues[i]));
+		} else {
+			printf("SKIPPED\n");
+		}
+	}
+	printf("\n\n");
+}
+
+
 #define CHECK_OP(op, expected) { float f = 0.0; f = op; printf("%s\n%f\n", #op " == " #expected, f);}
 
-#define OUTPUT_2(OP) { int i, j; printf(#OP ".s: "); for (i = 0; i < lengthof(floatRelevantValues); i++) for (j = 0; j < lengthof(floatRelevantValues); j++) printf("%f, ", op_##OP(floatRelevantValues[i], floatRelevantValues[j])); printf("\n"); }
-#define OUTPUT_1(OP) { int i   ; printf(#OP ".s: "); for (i = 0; i < lengthof(floatRelevantValues); i++) printf("%f, ", op_##OP(floatRelevantValues[i])); printf("\n"); }
+#define OUTPUT_2(OP) { runOperands(#OP, op_##OP); }
+#define OUTPUT_1(OP) { runOperand(#OP, op_##OP); }
 
 #define RINT_0  0
 #define CAST_1  1
