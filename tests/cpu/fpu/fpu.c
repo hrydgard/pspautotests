@@ -5,50 +5,23 @@ Modified to perform automated tests.
 */
 
 #include <common.h>
+#include <math.h>
 
 #include <pspkernel.h>
 
-float __attribute__((noinline)) adds(float x, float y) {
-	float result;
-	asm volatile("add.s %0, %1, %2" : "=f"(result) : "f"(x), "f"(y));
-	return result;
-}
+#define DEFINE_OP2(name) \
+	float __attribute__((noinline)) op_##name(float x, float y) { \
+		float result; \
+		asm volatile(#name ".s %0, %1, %2" : "=f"(result) : "f"(x), "f"(y)); \
+		return result; \
+	}
 
-float __attribute__((noinline)) subs(float x, float y) {
-	float result;
-	asm volatile("sub.s %0, %1, %2" : "=f"(result) : "f"(x), "f"(y));
-	return result;
-}
-
-float __attribute__((noinline)) muls(float x, float y) {
-	float result;
-	asm volatile("mul.s %0, %1, %2" : "=f"(result) : "f"(x), "f"(y));
-	return result;
-}
-
-float __attribute__((noinline)) divs(float x, float y) {
-	float result;
-	asm volatile("div.s %0, %1, %2" : "=f"(result) : "f"(x), "f"(y));
-	return result;
-}
-
-float __attribute__((noinline)) sqrts(float x) {
-	float result;
-	asm volatile("sqrt.s %0, %1" : "=f"(result) : "f"(x));
-	return result;
-}
-
-float __attribute__((noinline)) abss(float x) {
-	float result;
-	asm volatile("abs.s %0, %1" : "=f"(result) : "f"(x));
-	return result;
-}
-
-float __attribute__((noinline)) negs(float x) {
-	float result;
-	asm volatile("neg.s %0, %1" : "=f"(result) : "f"(x));
-	return result;
-}
+#define DEFINE_OP1(name) \
+	float __attribute__((noinline)) op_##name(float x) { \
+		float result; \
+		asm volatile(#name ".s %0, %1" : "=f"(result) : "f"(x)); \
+		return result; \
+	}
 
 int __attribute__((noinline)) cvtws(float x, int rm) {
 	float resultFloat;
@@ -152,24 +125,36 @@ void testCompare(float a, float b) {
   }
 }
 
-
+float floatRelevantValues[] = {0, 1, -1, 1.5, -1.5, 1.6, -1.6, 1.4, -1.4, 2.0, -2.0, 4.0, INFINITY, -INFINITY, NAN, -NAN };
+#define lengthof(v) (sizeof(v) / sizeof((v)[0]))
 
 #define CHECK_OP(op, expected) { float f = 0.0; f = op; printf("%s\n%f\n", #op " == " #expected, f);}
+
+#define OUTPUT_2(OP) { int i, j; printf(#OP ".s: "); for (i = 0; i < lengthof(floatRelevantValues); i++) for (j = 0; j < lengthof(floatRelevantValues); j++) printf("%f, ", op_##OP(floatRelevantValues[i], floatRelevantValues[j])); printf("\n"); }
+#define OUTPUT_1(OP) { int i   ; printf(#OP ".s: "); for (i = 0; i < lengthof(floatRelevantValues); i++) printf("%f, ", op_##OP(floatRelevantValues[i])); printf("\n"); }
 
 #define RINT_0  0
 #define CAST_1  1
 #define CEIL_2  2
 #define FLOOR_3 3
 
+DEFINE_OP2(add)
+DEFINE_OP2(sub)
+DEFINE_OP2(mul)
+DEFINE_OP2(div)
+
+DEFINE_OP1(sqrt)
+DEFINE_OP1(abs)
+DEFINE_OP1(neg)
+
 int main(int argc, char *argv[]) {
-	CHECK_OP(adds(1.0, 1.0), 2.0);
-	CHECK_OP(subs(3.0, 1.0), 2.0);
-	CHECK_OP(muls(2.0, 1.0), 2.0);
-	CHECK_OP(divs(4.0, 2.0), 2.0);
-	CHECK_OP(abss(+2.0), 2.0);
-	CHECK_OP(abss(-2.0), 2.0);
-	CHECK_OP(negs(negs(+2.0)), 2.0);
-	CHECK_OP(sqrts(4.0), 2.0);
+	OUTPUT_2(add);
+	OUTPUT_2(sub);
+	OUTPUT_2(mul);
+	OUTPUT_2(div);
+	OUTPUT_1(sqrt);
+	OUTPUT_1(abs);
+	OUTPUT_1(neg);
 
 	CHECK_OP(cvtws(1.1, RINT_0), 1);
 	CHECK_OP(cvtws(1.1, CAST_1), 1);
@@ -195,10 +180,10 @@ int main(int argc, char *argv[]) {
 	CHECK_OP(cvtws(1.5, CEIL_2), 2);
 	CHECK_OP(cvtws(1.5, FLOOR_3), 1);
 
-  testCompare(0.0f, 0.0f);
-  testCompare(1.0f, 1.0f);
-  testCompare(1.0f, 2.0f);
-  testCompare(1.0f, -2.0f);
+	testCompare(0.0f, 0.0f);
+	testCompare(1.0f, 1.0f);
+	testCompare(1.0f, 2.0f);
+	testCompare(1.0f, -2.0f);
 
 	return 0;
 }
