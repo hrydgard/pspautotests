@@ -57,16 +57,16 @@ void ge_signal(int value, void* arg) {
 	u32 addr;
 	int status, i;
 	
-    asm("sw $a2, %0" : "=m"(addr));
-	bpos += sprintf(bpos, "ge_signal(id=%08X, arg=%08X, addr=%08X)\n", (unsigned int)value, (unsigned int)arg, addr);
+	status = sceGeDrawSync(1);
+	bpos += sprintf(bpos, "signal: sceGeDrawSync: %X %s\n", status, status_str(status));
 }
 
 void ge_finish(int value, void* arg) {
 	u32 addr;
 	int status, i;
 	
-    asm("sw $a2, %0" : "=m"(addr));
-	bpos += sprintf(bpos, "ge_finish(id=%08X, arg=%08X, addr=%08X)\n", (unsigned int)value, (unsigned int)arg, addr);
+	status = sceGeDrawSync(1);
+	bpos += sprintf(bpos, "signal: sceGeDrawSync: %X %s\n", status, status_str(status));
 }
 
 int cbid, cbid2;
@@ -101,13 +101,6 @@ void init() {
 	cbdata.finish_func = ge_finish;
 	cbdata.finish_arg  = NULL;	
 	cbid = sceGeSetCallback(&cbdata);
-	
-	PspGeCallbackData cbdata2;
-	cbdata2.signal_func = ge_signal;
-	cbdata2.signal_arg  = 1;
-	cbdata2.finish_func = ge_finish;
-	cbdata2.finish_arg  = 1;
-	cbid2 = sceGeSetCallback(&cbdata2);
 }
 
 unsigned int __attribute__((aligned(16))) dlist1[] = {
@@ -122,10 +115,54 @@ unsigned int __attribute__((aligned(16))) dlist1[] = {
 void testGeCallbacks() {
 	int status, res;
 	dlid[dlidcount++] = sceGeListEnQueue(dlist1, 0, cbid, 0);
-	dlid[dlidcount++] = sceGeListEnQueue(dlist1, 0, cbid2, 0);
+	dlid[dlidcount++] = sceGeListEnQueue(dlist1, dlist1, -1, 0);
+	dlid[dlidcount++] = sceGeListEnQueue(dlist1, dlist1, -1, 0);
+	printListSync();
+	
+	res = sceGeBreak(0, 0);
+	bpos += sprintf(bpos, "sceGeBreak(0, ...): %d\n", res);
+	printListSync();
+	
+	sceGeContinue();
+	bpos += sprintf(bpos, "sceGeContinue()\n");
+	printListSync();
+	
+	dlid[dlidcount++] = sceGeListEnQueueHead(dlist1, 0, -1, 0);
+	bpos += sprintf(bpos, "sceGeListEnQueueHead(...)\n");
+	printListSync();
+	sceGeBreak(0, 0);
+	
+	dlid[dlidcount++] = sceGeListEnQueueHead(dlist1, dlist1, -1, 0);
+	dlid[dlidcount++] = sceGeListEnQueueHead(dlist1, 0, -1, 0);
+	bpos += sprintf(bpos, "sceGeBreak(0, 0) then sceGeListEnQueueHead(...)\n");
+	printListSync();
+	
+	sceGeContinue();
+	bpos += sprintf(bpos, "sceGeContinue()\n");
+	printListSync();
+	
+	sceGeListUpdateStallAddr(dlid[dlidcount - 2], 0);
+	bpos += sprintf(bpos, "sceGeListUpdateStallAddr(%d)\n", dlidcount - 2);
+	printListSync();
+	
+	res = sceGeBreak(1, 0);
+	bpos += sprintf(bpos, "sceGeBreak(1, ...)\n");
+	printListSync();
+	
+	dlidcount = 0;
+	dlid[dlidcount++] = sceGeListEnQueue(dlist1, 0, -1, 0);
+	dlid[dlidcount++] = sceGeListEnQueue(dlist1, 0, -1, 0);
+	bpos += sprintf(bpos, "Enqueue 2 more\n");
+	printListSync();
+	
+	sceGeListSync(dlid[dlidcount - 1], 0);
+	bpos += sprintf(bpos, "After sceGeListSync with wait\n");
+	printListSync();
 	
 	sceGeDrawSync(0);
-
+	bpos += sprintf(bpos, "sceGeDrawSync(0)\n");
+	printListSync();
+	
 	printf("%s\n", buffer);
 }
 
