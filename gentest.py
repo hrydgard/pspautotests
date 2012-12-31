@@ -22,10 +22,77 @@ RECONNECT_TIMEOUT = 6
 
 
 tests_to_generate = [
-  "cpu/cpu/cpu",
+  "cpu/cpu_alu/cpu_alu",
+  "cpu/vfpu/base/vfpu",
+  "cpu/vfpu/convert/vfpu_convert",
+  "cpu/vfpu/prefixes/vfpu_prefixes",
+  "cpu/vfpu/colors/vfpu_colors",
   "cpu/icache/icache",
   "cpu/lsu/lsu",
   "cpu/fpu/fpu",
+
+  "ctrl/ctrl",
+  "ctrl/idle/idle",
+  "ctrl/sampling/sampling",
+  "ctrl/sampling2/sampling2",
+  "display/display",
+  "dmac/dmactest",
+  "loader/bss/bss",
+  "intr/intr",
+  "intr/vblank/vblank",
+  "misc/testgp",
+  "string/string",
+  "gpu/callbacks/ge_callbacks",
+  "gpu/displaylist/state",
+  "threads/alarm/alarm",
+  "threads/alarm/cancel/cancel",
+  "threads/alarm/refer/refer",
+  "threads/alarm/set/set",
+  "threads/events/events",
+  "threads/events/cancel/cancel",
+  "threads/events/clear/clear",
+  "threads/events/create/create",
+  "threads/events/delete/delete",
+  "threads/events/poll/poll",
+  "threads/events/refer/refer",
+  "threads/events/set/set",
+  "threads/events/wait/wait",
+  "threads/lwmutex/create/create",
+  "threads/lwmutex/delete/delete",
+  "threads/lwmutex/lock/lock",
+  "threads/lwmutex/priority/priority",
+  "threads/lwmutex/try/try",
+  "threads/lwmutex/try600/try600",
+  "threads/lwmutex/unlock/unlock",
+  "threads/mbx/mbx",
+  "threads/mbx/cancel/cancel",
+  "threads/mbx/create/create",
+  "threads/mbx/delete/delete",
+  "threads/mbx/poll/poll",
+  "threads/mbx/priority/priority",
+  "threads/mbx/receive/receive",
+  "threads/mbx/refer/refer",
+  "threads/mbx/send/send",
+  "threads/mutex/mutex",
+  "threads/mutex/create/create",
+  "threads/mutex/delete/delete",
+  "threads/mutex/lock/lock",
+  "threads/mutex/priority/priority",
+  "threads/mutex/try/try",
+  "threads/mutex/unlock/unlock",
+  "threads/semaphores/semaphores",
+  "threads/semaphores/cancel/cancel",
+  "threads/semaphores/create/create",
+  "threads/semaphores/delete/delete",
+  "threads/semaphores/poll/poll",
+  "threads/semaphores/priority/priority",
+  "threads/semaphores/refer/refer",
+  "threads/semaphores/signal/signal",
+  "threads/semaphores/wait/wait",
+  "power/power",
+  "umd/callbacks/umd",
+  "umd/wait/wait",
+  "io/directory/directory",
 ]
 
 # This list is probably not at all correct.
@@ -185,18 +252,25 @@ def gen_test_expected(test, args):
     else:
       shutil.copyfile(OUTFILE, expected_path)
     print "Expected file written: " + expected_path
+    return True
+
+  return False
 
 def gen_test_all_versions(test, args):
   print("Running test " + test + " on the PSP...")
   prepare_test(test, args)
   standard_result = gen_test(test, args)
 
+  diff = False
   for name in all_versions:
     sys.stdout.write("Version %s... " % (name))
     result = gen_test(test, all_versions[name] + args)
 
     if result != standard_result:
       print "*** %s got a different result using %s" % (test, " ".join(all_versions[name]))
+      diff = True
+
+  return diff
 
 def main():
   init()
@@ -224,8 +298,15 @@ def main():
     return
 
   if "-a" in args or "--all-versions" in args:
+    warnings = []
     for test in tests:
-	  gen_test_all_versions(test, args)
+	  if gen_test_all_versions(test, args):
+	    warnings.append(test)
+
+    if len(warnings):
+      print "\nDifferences:"
+      for test in warnings:
+        print "  " + test
   else:
     for test in tests:
       gen_test_expected(test, args)
