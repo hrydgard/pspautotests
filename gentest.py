@@ -111,7 +111,7 @@ def gen_test(test, args):
       return
 
   # Okay, time to run the command.
-  c = Command([PSPSH, "-p", str(PORT), "-e", prx_path])
+  c = Command([PSPSH, "-p", str(PORT), "-e", prx_path + " " + " ".join(args)])
   c.run(TIMEOUT)
   print c.output
 
@@ -156,6 +156,8 @@ def main():
     print "Options:"
     print "  -r, --rebuild         run make rebuild for each test"
     print "  -k, --keep            do not run make before tests"
+    print "      --sdkver=VER      use sceKernelSetCompiledSdkVersion(VER)"
+    print "      --sdkver-func=### use sceKernelSetCompiledSdkVersion###(VER)"
     return
 
   for test in tests:
