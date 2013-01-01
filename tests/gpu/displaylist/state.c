@@ -49,23 +49,21 @@ void printListSync() {
 	bpos += sprintf(bpos, "sceGeDrawSync(1): 0x%x (%s)\n", status, status_str(status));
 	for(i = 0; i < dlidcount; i++) {
 		status = sceGeListSync(dlid[i], 1);
-		bpos += sprintf(bpos, "sceGeListSync(dl=%d, 1): 0x%x (%s)\n", i, status, status_str(status));
+		if (dlid[i] < 0 && status == 0x80000100) {
+			bpos += sprintf(bpos, "sceGeListSync(dl=%d, 1): Invalid list - 0x%x\n", i, dlid[i]);
+		} else {
+			bpos += sprintf(bpos, "sceGeListSync(dl=%d, 1): 0x%x (%s)\n", i, status, status_str(status));
+		}
 	}
 }
 
 void ge_signal(int value, void* arg) {
-	u32 addr;
-	int status, i;
-	
-	status = sceGeDrawSync(1);
+	int status = sceGeDrawSync(1);
 	bpos += sprintf(bpos, "signal: sceGeDrawSync: %X %s\n", status, status_str(status));
 }
 
 void ge_finish(int value, void* arg) {
-	u32 addr;
-	int status, i;
-	
-	status = sceGeDrawSync(1);
+	int status = sceGeDrawSync(1);
 	bpos += sprintf(bpos, "signal: sceGeDrawSync: %X %s\n", status, status_str(status));
 }
 
@@ -113,42 +111,46 @@ unsigned int __attribute__((aligned(16))) dlist1[] = {
 };
 
 void testGeCallbacks() {
-	int status, res;
+	int res;
 	dlid[dlidcount++] = sceGeListEnQueue(dlist1, 0, cbid, 0);
 	dlid[dlidcount++] = sceGeListEnQueue(dlist1, dlist1, -1, 0);
 	dlid[dlidcount++] = sceGeListEnQueue(dlist1, dlist1, -1, 0);
 	printListSync();
 	
 	res = sceGeBreak(0, 0);
-	bpos += sprintf(bpos, "sceGeBreak(0, ...): %d\n", res);
+	bpos += sprintf(bpos, "sceGeBreak(0, ...): %d\n", dlid[1] == res);
 	printListSync();
 	
-	sceGeContinue();
-	bpos += sprintf(bpos, "sceGeContinue()\n");
+	res = sceGeBreak(0, 0);
+	bpos += sprintf(bpos, "sceGeBreak(0, ...): 0x%08x\n", res);
+	printListSync();
+
+	res = sceGeContinue();
+	bpos += sprintf(bpos, "sceGeContinue(): %d\n", res);
 	printListSync();
 	
 	dlid[dlidcount++] = sceGeListEnQueueHead(dlist1, 0, -1, 0);
 	bpos += sprintf(bpos, "sceGeListEnQueueHead(...)\n");
 	printListSync();
+
 	sceGeBreak(0, 0);
-	
 	dlid[dlidcount++] = sceGeListEnQueueHead(dlist1, dlist1, -1, 0);
 	dlid[dlidcount++] = sceGeListEnQueueHead(dlist1, 0, -1, 0);
 	bpos += sprintf(bpos, "sceGeBreak(0, 0) then sceGeListEnQueueHead(...)\n");
 	printListSync();
 	
-	sceGeContinue();
-	bpos += sprintf(bpos, "sceGeContinue()\n");
+	res = sceGeContinue();
+	bpos += sprintf(bpos, "sceGeContinue(): %d\n", res);
 	printListSync();
 	
-	sceGeListUpdateStallAddr(dlid[dlidcount - 2], 0);
-	bpos += sprintf(bpos, "sceGeListUpdateStallAddr(%d)\n", dlidcount - 2);
+	res = sceGeListUpdateStallAddr(dlid[dlidcount - 2], 0);
+	bpos += sprintf(bpos, "sceGeListUpdateStallAddr(%d): %d\n", dlidcount - 2, res);
 	printListSync();
 	
 	res = sceGeBreak(1, 0);
-	bpos += sprintf(bpos, "sceGeBreak(1, ...)\n");
+	bpos += sprintf(bpos, "sceGeBreak(1, ...): %d\n", res);
 	printListSync();
-	
+
 	dlidcount = 0;
 	dlid[dlidcount++] = sceGeListEnQueue(dlist1, 0, -1, 0);
 	dlid[dlidcount++] = sceGeListEnQueue(dlist1, 0, -1, 0);
@@ -159,11 +161,14 @@ void testGeCallbacks() {
 	bpos += sprintf(bpos, "After sceGeListSync with wait\n");
 	printListSync();
 	
-	sceGeDrawSync(0);
-	bpos += sprintf(bpos, "sceGeDrawSync(0)\n");
+	res = sceGeDrawSync(0);
+	bpos += sprintf(bpos, "sceGeDrawSync(0): %d\n", res);
 	printListSync();
 	
-	printf("%s\n", buffer);
+	res = sceGeDrawSync(0);
+	bpos += sprintf(bpos, "sceGeDrawSync(0): %d\n", res);
+
+	printf("%s", buffer);
 }
 
 int main(int argc, char *argv[]) {
