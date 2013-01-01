@@ -155,7 +155,7 @@ class Command(object):
       try:
         self.process.terminate()
       except WindowsError:
-	    print "Could not terminate process"
+        print "Could not terminate process"
       thread.join()
 
 def wait_until(predicate, timeout, interval):
@@ -204,7 +204,7 @@ def gen_test(test, args):
 
   if not os.path.exists(prx_path):
     print "You must compile the test into a PRX first (" + prx_path + ")"
-    return
+    return False
 
   # Wait for the PSP to reconnect after a previous test.
   if not pspsh_is_ready():
@@ -216,7 +216,7 @@ def gen_test(test, args):
     if not success:
       print "Please make sure the PSP is connected"
       print "On Windows, the usb driver must be installed"
-      return
+      return False
 
   # Okay, time to run the command.
   c = Command([PSPSH, "-p", str(PORT), "-e", prx_path + " " + " ".join(args)])
@@ -238,6 +238,9 @@ def gen_test(test, args):
     return open(OUTFILE, "rt").read()
   else:
     print "ERROR: No or empty " + OUTFILE + " was written, can't write .expected"
+
+  return False
+
 
 def gen_test_expected(test, args):
   print("Running test " + test + " on the PSP...")
