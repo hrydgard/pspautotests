@@ -44,6 +44,20 @@ __attribute__ ((noinline)) unsigned int fixed_rorv(unsigned int value, int offse
 	return ret;
 }
 
+void test_zr() {
+	int v = 50;
+	int c;
+	asm volatile (
+		"lw $0, 0(%0)\n"
+		: : "r"(&v)
+	);
+	asm volatile (
+		"addu %0, $0, $0\n"
+		: "=r"(c)
+	);
+	printf("%08x\n", c);
+}
+
 void test_mul64() {
 	volatile unsigned long long a = 0x8234567812345678ULL;
 	volatile unsigned long long b = 0x2345678123456783ULL;
@@ -185,6 +199,7 @@ int main(int argc, char *argv[]) {
 	// Other
 	test_mul64();
 	test_div();
+	test_zr();
 
 	return 0;
 }
