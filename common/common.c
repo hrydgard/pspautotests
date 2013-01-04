@@ -16,6 +16,8 @@
 #include <sys/fcntl.h>
 //#include "local.h"
 
+#include "sysmem-imports.h"
+
 /*
 enum PspThreadAttributes
 {
@@ -85,6 +87,57 @@ static int writeStdoutHook(struct _reent *ptr, void *cookie, const char *buf, in
 	}
 }
 
+typedef int (*SdkVerFunc)(u32 ver);
+typedef struct SdkVerFuncTable {
+	u32 id;
+	SdkVerFunc func;
+} SdkVerFuncTable;
+
+static SdkVerFuncTable sdkVerFuncs[] = {
+	{0, sceKernelSetCompiledSdkVersion},
+	{370, sceKernelSetCompiledSdkVersion370},
+	{380, sceKernelSetCompiledSdkVersion380_390},
+	{395, sceKernelSetCompiledSdkVersion395},
+	{401, sceKernelSetCompiledSdkVersion401_402},
+	{500, sceKernelSetCompiledSdkVersion500_505},
+	{507, sceKernelSetCompiledSdkVersion507},
+	{600, sceKernelSetCompiledSdkVersion600_602},
+	{603, sceKernelSetCompiledSdkVersion603_605},
+	{606, sceKernelSetCompiledSdkVersion606},
+};
+
+static void updateSdkVer(int argc, char *argv[]) {
+	int i = 0;
+	u32 ver = 0xFFFFFFFF;
+	u32 funcID = 0;
+	for (i = 1; i < argc; ++i) {
+		if (!strncmp(argv[i], "--sdkver=", strlen("--sdkver="))) {
+			ver = strtoul(argv[i] + strlen("--sdkver="), NULL, 16);
+		}
+		if (!strncmp(argv[i], "--sdkver-func=", strlen("--sdkver-func="))) {
+			funcID = strtol(argv[i] + strlen("--sdkver-func="), NULL, 10);
+		}
+	}
+
+	SdkVerFunc func = NULL;
+	for (i = 0; i < sizeof(sdkVerFuncs) / sizeof(sdkVerFuncs[0]); ++i) {
+		if (sdkVerFuncs[i].id == funcID) {
+			func = sdkVerFuncs[i].func;
+		}
+	}
+
+	if (func == NULL) {
+		fprintf(stderr, "Unknown sdkver-func value.\n");
+		exit(1);
+	}
+
+	if (ver != 0xFFFFFFFF) {
+		if (func(ver) != 0) {
+			printf("WARNING: Setting sdkver returned failure.\n");
+		}
+	}
+}
+
 void test_begin() {
 	if (HAS_DISPLAY) {
 		pspDebugScreenInit();
@@ -118,11 +171,13 @@ void test_end() {
 	fclose(stdout);
 	fclose(stderr);
 
-	FILE *finish = fopen("host0:/__testfinish.txt", "wb");
-	if (finish)
-	{
-		fwrite("1", sizeof(char), 1, finish);
-		fclose(finish);
+	if (!RUNNING_ON_EMULATOR) {
+		FILE *finish = fopen("host0:/__testfinish.txt", "wb");
+		if (finish)
+		{
+			fwrite("1", sizeof(char), 1, finish);
+			fclose(finish);
+		}
 	}
 
   // Disabled the wait, much more convienent when running automated.
@@ -291,6 +346,7 @@ int main(int argc, char *argv[]) {
 	test_begin();
 	{
 		pspDebugScreenPrintf("RUNNING_ON_EMULATOR: %s - %s\n", RUNNING_ON_EMULATOR ? "yes" : "no", argv[0]);
+		updateSdkVer(argc, argv);
 		retval = test_main(argc, argv);
 	}
 	test_end();

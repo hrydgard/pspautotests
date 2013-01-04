@@ -5,21 +5,33 @@
 #include <pspthreadman.h>
 #include <psploadexec.h>
 
+static char schedulingLog[65536];
+static char *schedulingLogPos = schedulingLog;
+
+inline void schedf(const char *format, ...) {
+	va_list args;
+	va_start(args, format);
+	schedulingLogPos += vsprintf(schedulingLogPos, format, args);
+	// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
+	//vprintf(format, args);
+	va_end(args);
+}
+
+inline void flushschedf() {
+	printf("%s", schedulingLog);
+	schedulingLogPos = schedulingLog;
+	schedulingLog[0] = '\0';
+}
+
 SceUID threads[5];
 SceUID sema;
 unsigned int test[5] = {0x0123, 0x4567, 0x89AB, 0xCDEF, 0x12345678};
 
 static int threadFunction(int argSize, void* argPointer) {
-	printf("sceKernelPollSema(0): %08X\n", sceKernelPollSema(sema, 0));
-	printf("sceKernelPollSema(1): %08X\n", sceKernelPollSema(sema, 1));
-	printf("sceKernelPollSema(2): %08X\n", sceKernelPollSema(sema, 2));
-	printf("[1]:%d:%04X\n", argSize, argPointer ? *((unsigned int*)argPointer) : 0);
+	schedf("[1]:%d:%04X\n", argSize, argPointer ? *((unsigned int*)argPointer) : 0);
 	sceKernelWaitSemaCB(sema, 1, NULL);
 
-	printf("sceKernelPollSema(0): %08X\n", sceKernelPollSema(sema, 0));
-	printf("sceKernelPollSema(1): %08X\n", sceKernelPollSema(sema, 1));
-	printf("sceKernelPollSema(2): %08X\n", sceKernelPollSema(sema, 2));
-	printf("[2]:%d:%04X\n", argSize, argPointer ? *((unsigned int*)argPointer) : 0);
+	schedf("[2]:%d:%04X\n", argSize, argPointer ? *((unsigned int*)argPointer) : 0);
 	return 0;
 }
 
@@ -28,14 +40,12 @@ static int threadFunction2(int argSize, void* argPointer) {
 	return 0;
 }
 
-#define PRINT_SEMAPHORE(sema, info) printf("Sema(Id=%d,Size=%d,Name='%s',Attr=%d,init=%d,cur=%d,max=%d,wait=%d)\n", (sema > 0) ? 1 : 0, info.size, info.name, info.attr, info.initCount, info.currentCount, info.maxCount, info.numWaitThreads);
+#define PRINT_SEMAPHORE(sema, info) schedf("Sema(Id=%d,Size=%d,Name='%s',Attr=%d,init=%d,cur=%d,max=%d,wait=%d)\n", (sema > 0) ? 1 : 0, info.size, info.name, info.attr, info.initCount, info.currentCount, info.maxCount, info.numWaitThreads);
 
 int main(int argc, char **argv) {
 	int result;
 	int check_not_update_value = 7;
 	SceKernelSemaInfo info;
-
-	pspDebugScreenInit();
 	
 	sema = sceKernelCreateSema("sema1", 0, 0, 2, NULL);
 	
@@ -48,7 +58,7 @@ int main(int argc, char **argv) {
 	threads[3] = sceKernelCreateThread("Thread-3", (void *)&threadFunction, 0x12, 0x10000, 0, NULL);
 	threads[4] = sceKernelCreateThread("Thread-4", (void *)&threadFunction2, 0x12, 0x10000, 0, NULL);
 	
-	printf("VALUE-INVARIANT:%d\n", check_not_update_value);
+	schedf("VALUE-INVARIANT:%d\n", check_not_update_value);
 	
 	sceKernelStartThread(threads[0], 1, (void*)&test[1]);
 	sceKernelStartThread(threads[1], 2, NULL);
@@ -58,34 +68,35 @@ int main(int argc, char **argv) {
 
 	sceKernelDelayThread(10 * 1000);
 	
-	printf("---\n");
+	schedf("---\n");
 	sceKernelReferSemaStatus(sema, &info);
 	PRINT_SEMAPHORE(sema, info);
-	printf("---\n");
+	schedf("---\n");
 	sceKernelSignalSema(sema, 1);
 	
 	sceKernelDelayThread(10 * 1000);
 
-	printf("---\n");
+	schedf("---\n");
 	sceKernelReferSemaStatus(sema, &info);
 	PRINT_SEMAPHORE(sema, info);
-	printf("---\n");
+	schedf("---\n");
 
 	sceKernelSignalSema(sema, 1);
 	
 	sceKernelDelayThread(10 * 1000);
 
-	printf("---\n");
+	schedf("---\n");
 	sceKernelReferSemaStatus(sema, &info);
 	PRINT_SEMAPHORE(sema, info);
-	printf("---\n");
+	schedf("---\n");
 	
 	result = sceKernelDeleteSema(sema);
-	printf("%08X\n", result);
+	schedf("%08X\n", result);
 	result = sceKernelDeleteSema(sema);
-	printf("%08X\n", result);
+	schedf("%08X\n", result);
 	
-	printf("VALUE-INVARIANT:%d\n", check_not_update_value);
+	schedf("VALUE-INVARIANT:%d\n", check_not_update_value);
+	flushschedf();
 	
 	return 0;
 }

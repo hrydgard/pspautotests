@@ -1,5 +1,5 @@
 TARGET_LIB = libcommon.a
-OBJS = common.o vram.o
+OBJS = common.o vram.o sysmem-imports.o
 
 INCDIR = 
 CFLAGS = -O0 -G 0 -g -Wall
