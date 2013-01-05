@@ -117,7 +117,8 @@ int ge_signal(int value, void* arg) {
 	unsigned int *addr;
     asm("sw $a2, %0" : "=m"(addr));
 
-	unsigned int pos = addr == NULL ? 0 : (unsigned int) (addr - dlist1);
+	sceGeListUpdateStallAddr(dlist2id, 0);
+	unsigned int pos = addr == NULL ? 0xFF : (unsigned int) (addr - dlist1);
 	listInfo((int) arg + 1, "Signal(%x, list+%02X)\n", (unsigned int) value, pos);
 	return 0;
 }
@@ -126,7 +127,7 @@ int ge_finish(int value, void* arg) {
 	unsigned int *addr;
     asm("sw $a2, %0" : "=m"(addr));
 
-	unsigned int pos = addr == NULL ? 0 : (unsigned int) (addr - dlist1);
+	unsigned int pos = addr == NULL ? 0xFF : (unsigned int) (addr - dlist1);
 	listInfo((int) arg + 1, "Finish(%x, list+%02X)\n", (unsigned int) value, pos);
 	return 0;
 }
@@ -182,8 +183,8 @@ void testGeCallbacks(int method) {
 	listsync = sceGeListSync(dlist1id, 1);
 	listInfo(1, "Sync %x %s after continue (%08x)\n", listsync, status_str(listsync), result);
 
-	dlist2id = sceGeListEnQueue(dlist1, TEST_STALL_LATE ? dlist1 + 0x0D : dlist1 + 0x05, cbid2, 0);
-	listInfoNosync(2, "Enqueued with stall...\n");
+	dlist2id = sceGeListEnQueue(dlist1, method & TEST_STALL_LATE ? dlist1 + 0x0D : dlist1 + 0x05, cbid2, 0);
+	listInfoNosync(2, "Enqueued with %s...\n", method & TEST_STALL_LATE ? "late stall" : "stall");
 	listsync = sceGeListSync(dlist2id, 1);
 	listInfo(2, "Sync %x %s\n", listsync, status_str(listsync));
 
