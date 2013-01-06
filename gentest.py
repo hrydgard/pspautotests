@@ -17,7 +17,7 @@ PORT = 3000
 OUTFILE = "__testoutput.txt"
 OUTFILE2 = "__testerror.txt"
 FINISHFILE = "__testfinish.txt"
-TIMEOUT = 6
+TIMEOUT = 10
 RECONNECT_TIMEOUT = 6
 
 
@@ -228,7 +228,7 @@ def gen_test(test, args):
   wait_until(lambda: os.path.exists(FINISHFILE), TIMEOUT, 0.1)
 
   if not os.path.exists(FINISHFILE):
-    print "ERROR: Test timed out after 5 seconds"
+    print "ERROR: Test timed out after %d seconds" % (TIMEOUT)
 
     # Reset the test, it's probably dead.
     os.system("%s -p %i -e reset" % (PSPSH, PORT))
