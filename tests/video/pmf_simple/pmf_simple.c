@@ -14,6 +14,7 @@
 #include <pspgu.h>
 #include <pspctrl.h>
 #include <pspaudio.h>
+#include <psputility.h>
 
 #include <stdio.h>
 #include <malloc.h>
@@ -27,6 +28,22 @@
 int retVal;
 SceMpegAvcMode m_MpegAvcMode;
 
+typedef struct SceMpegRingbuffer2
+{
+	s32 packetsTotal;
+	s32 packetsRead;
+	s32 packetsWritten;
+	s32 packetsAvail;
+	s32 packetSize;
+	void *data;
+	sceMpegRingbufferCB callback;
+	void *callbackArg;
+	void *dataEnd;
+	int unknownValue;
+	SceMpeg mpeg;
+	u32 gp;
+} SceMpegRingbuffer2;
+
 SceUID                              m_FileHandle;
 SceInt32                            m_MpegStreamOffset;
 SceInt32                            m_MpegStreamSize;
@@ -38,7 +55,7 @@ ScePVoid                            m_MpegMemData;
 SceInt32                            m_RingbufferPackets;
 SceInt32                            m_RingbufferSize;
 ScePVoid                            m_RingbufferData;
-SceMpegRingbuffer                   m_Ringbuffer;
+SceMpegRingbuffer2                  m_Ringbuffer;
 
 SceMpegStream*                      m_MpegStreamAVC;
 ScePVoid                            m_pEsBufferAVC;
@@ -175,17 +192,14 @@ void DumpSceMpegAu(SceMpegAu *mpegAu) {
 
 void LoadAndDecode(char * pFileName) {
 	m_RingbufferPackets = 0x3C0;
-	
-	printf("LoadAndDecode\n"); fflush(stdout);
-	printf("0x%08X\n", pspSdkLoadStartModule("flash0:/kd/audiocodec.prx", PSP_MEMORY_PARTITION_KERNEL)); fflush(stdout);
-	printf("0x%08X\n", pspSdkLoadStartModule("flash0:/kd/videocodec.prx", PSP_MEMORY_PARTITION_KERNEL)); fflush(stdout);
-	printf("0x%08X\n", pspSdkLoadStartModule("flash0:/kd/mpegbase.prx", PSP_MEMORY_PARTITION_KERNEL)); fflush(stdout);
-	printf("0x%08X\n", pspSdkLoadStartModule("flash0:/kd/mpeg_vsh.prx", PSP_MEMORY_PARTITION_USER)); fflush(stdout);
-	printf("0x%08X\n", pspSdkLoadStartModule("flash0:/kd/semawm.prx", PSP_MEMORY_PARTITION_KERNEL)); fflush(stdout);
-	printf("0x%08X\n", pspSdkLoadStartModule("flash0:/kd/usbstor.prx", PSP_MEMORY_PARTITION_KERNEL)); fflush(stdout);
-	printf("0x%08X\n", pspSdkLoadStartModule("flash0:/kd/usbstormgr.prx", PSP_MEMORY_PARTITION_KERNEL)); fflush(stdout);
-	printf("0x%08X\n", pspSdkLoadStartModule("flash0:/kd/usbstorms.prx", PSP_MEMORY_PARTITION_KERNEL)); fflush(stdout);
-	printf("0x%08X\n", pspSdkLoadStartModule("flash0:/kd/usbstorboot.prx", PSP_MEMORY_PARTITION_KERNEL)); fflush(stdout);
+
+	int status = 0;
+	status |= sceUtilityLoadModule(PSP_MODULE_AV_AVCODEC);
+	status |= sceUtilityLoadModule(PSP_MODULE_AV_ATRAC3PLUS);
+	status |= sceUtilityLoadModule(PSP_MODULE_AV_MP3);
+	status |= sceUtilityLoadModule(PSP_MODULE_AV_MPEGBASE);
+	status |= sceUtilityLoadModule(PSP_MODULE_AV_VAUDIO);
+	printf("sceUtilityLoadModule         :0x%08x\n", (unsigned int)status);
 	
 	// Init.
 	{
@@ -195,9 +209,9 @@ void LoadAndDecode(char * pFileName) {
 		printf("sceMpegQueryMemSize          :0x%08X\n", (unsigned int)(m_MpegMemSize    = sceMpegQueryMemSize(0)));
 		printf("m_RingbufferData             :0x%08X\n", (unsigned int)(m_RingbufferData = malloc(m_RingbufferSize)));
 		printf("m_MpegMemData                :0x%08X\n", (unsigned int)(m_MpegMemData    = malloc(m_MpegMemSize)));
-		printf("sceMpegRingbufferConstruct   :0x%08X\n", (unsigned int)(sceMpegRingbufferConstruct(&m_Ringbuffer, m_RingbufferPackets, m_RingbufferData, m_RingbufferSize, &RingbufferCallback, &m_FileHandle)));
-		DumpSceMpegRingbuffer(&m_Ringbuffer);
-		printf("sceMpegCreate                :0x%08X\n", (unsigned int)(sceMpegCreate(&m_Mpeg, m_MpegMemData, m_MpegMemSize, &m_Ringbuffer, BUFFER_WIDTH, 0, 0)));
+		printf("sceMpegRingbufferConstruct   :0x%08X\n", (unsigned int)(sceMpegRingbufferConstruct((SceMpegRingbuffer *) &m_Ringbuffer, m_RingbufferPackets, m_RingbufferData, m_RingbufferSize, &RingbufferCallback, &m_FileHandle)));
+		DumpSceMpegRingbuffer((SceMpegRingbuffer *) &m_Ringbuffer);
+		printf("sceMpegCreate                :0x%08X\n", (unsigned int)(sceMpegCreate(&m_Mpeg, m_MpegMemData, m_MpegMemSize, (SceMpegRingbuffer *) &m_Ringbuffer, BUFFER_WIDTH, 0, 0)));
 		printf("    pointer          : '%s'\n"  , (char *)m_Mpeg);
 		printf("    unk_m1           : 0x%08X\n", (unsigned int)((_SceMpeg *)m_Mpeg)->unk_m1);
 		printf("    ringbuffer_start : 0x%08X\n", (unsigned int)((_SceMpeg *)m_Mpeg)->ringbuffer_start);
@@ -251,14 +265,14 @@ void LoadAndDecode(char * pFileName) {
 		memset(m_pAudioBuffer, 0x77, m_MpegAtracOutSize);
 
 		for (n = 0; n < 60; n++) {
-			printf("sceMpegRingbufferAvailableSize: 0x%08X\n", (unsigned int)(iFreePackets = sceMpegRingbufferAvailableSize(&m_Ringbuffer)));
+			printf("sceMpegRingbufferAvailableSize: 0x%08X\n", (unsigned int)(iFreePackets = sceMpegRingbufferAvailableSize((SceMpegRingbuffer *) &m_Ringbuffer)));
 			iReadPackets = iFreePackets;
 			//if (iFreePackets > 0)
 			{
 				printf("sceMpegRingbufferPut...\n");
-				printf("sceMpegRingbufferPut          : 0x%08X\n", (unsigned int)(iPackets = sceMpegRingbufferPut(&m_Ringbuffer, iReadPackets, iFreePackets)));
-				DumpSceMpegRingbuffer(&m_Ringbuffer);
-				printf("sceMpegRingbufferAvailableSize: 0x%08X\n", (unsigned int)(iFreePackets = sceMpegRingbufferAvailableSize(&m_Ringbuffer)));
+				printf("sceMpegRingbufferPut          : 0x%08X\n", (unsigned int)(iPackets = sceMpegRingbufferPut((SceMpegRingbuffer *) &m_Ringbuffer, iReadPackets, iFreePackets)));
+				DumpSceMpegRingbuffer((SceMpegRingbuffer *) &m_Ringbuffer);
+				printf("sceMpegRingbufferAvailableSize: 0x%08X\n", (unsigned int)(iFreePackets = sceMpegRingbufferAvailableSize((SceMpegRingbuffer *) &m_Ringbuffer)));
 			}
 			
 			fflush(stdout);
@@ -276,7 +290,7 @@ void LoadAndDecode(char * pFileName) {
 			printf("sceMpegGetAvcAu               : 0x%08X\n", (unsigned int)(result = sceMpegGetAvcAu (&m_Mpeg, m_MpegStreamAVC, &m_MpegAuAVC, &atrac3PlusPointer)));
 			DumpSceMpegAu(&m_MpegAuAVC);
 			fflush(stdout);
-			printf("sceMpegAvcDecode              : 0x%08X\n", (unsigned int)(result = sceMpegAvcDecode(&m_Mpeg, &m_MpegAuAVC, BUFFER_WIDTH, m_pVideoBuffer, &iVideoStatus)));
+			printf("sceMpegAvcDecode              : 0x%08X\n", (unsigned int)(result = sceMpegAvcDecode(&m_Mpeg, &m_MpegAuAVC, BUFFER_WIDTH, &m_pVideoBuffer, &iVideoStatus)));
 			fflush(stdout);
 			printf("     Init: %d\n", iVideoStatus);
 			printf("     DATA: %02X %02X %02X %02X\n", m_pVideoBuffer[0], m_pVideoBuffer[1], m_pVideoBuffer[2], m_pVideoBuffer[3]);
@@ -284,7 +298,7 @@ void LoadAndDecode(char * pFileName) {
 			fflush(stdout);
 		}
 		
-		printf("sceMpegAvcDecodeStop          : 0x%08X\n", (unsigned int)(result = sceMpegAvcDecodeStop (&m_Mpeg, BUFFER_WIDTH, m_pVideoBuffer, &iVideoStatus)));
+		printf("sceMpegAvcDecodeStop          : 0x%08X\n", (unsigned int)(result = sceMpegAvcDecodeStop (&m_Mpeg, BUFFER_WIDTH, &m_pVideoBuffer, &iVideoStatus)));
 		printf("sceMpegFlushAllStream         : 0x%08X\n", (unsigned int)(result = sceMpegFlushAllStream(&m_Mpeg)));
 	}
 	// Shutdown.
@@ -296,7 +310,7 @@ void LoadAndDecode(char * pFileName) {
 		if (m_FileHandle      > -1   ) sceIoClose(m_FileHandle);
 
 		sceMpegDelete(&m_Mpeg);
-		sceMpegRingbufferDestruct(&m_Ringbuffer);
+		sceMpegRingbufferDestruct((SceMpegRingbuffer *) &m_Ringbuffer);
 		sceMpegFinish();
 
 		if (m_RingbufferData != NULL) free(m_RingbufferData);

@@ -14,6 +14,7 @@
 #include <pspgu.h>
 #include <pspctrl.h>
 #include <pspaudio.h>
+#include <psputility.h>
 
 #include <stdio.h>
 #include <malloc.h>
@@ -242,16 +243,14 @@ typedef struct {
 
 void Init() {
 	m_RingbufferPackets = 0x3C0;
-	
-	pspSdkLoadStartModule("flash0:/kd/audiocodec.prx", PSP_MEMORY_PARTITION_KERNEL);
-	pspSdkLoadStartModule("flash0:/kd/videocodec.prx", PSP_MEMORY_PARTITION_KERNEL);
-	pspSdkLoadStartModule("flash0:/kd/mpegbase.prx", PSP_MEMORY_PARTITION_KERNEL);
-	pspSdkLoadStartModule("flash0:/kd/mpeg_vsh.prx", PSP_MEMORY_PARTITION_USER);
-	pspSdkLoadStartModule("flash0:/kd/semawm.prx", PSP_MEMORY_PARTITION_KERNEL);
-	pspSdkLoadStartModule("flash0:/kd/usbstor.prx", PSP_MEMORY_PARTITION_KERNEL);
-	pspSdkLoadStartModule("flash0:/kd/usbstormgr.prx", PSP_MEMORY_PARTITION_KERNEL);
-	pspSdkLoadStartModule("flash0:/kd/usbstorms.prx", PSP_MEMORY_PARTITION_KERNEL);
-	pspSdkLoadStartModule("flash0:/kd/usbstorboot.prx", PSP_MEMORY_PARTITION_KERNEL);
+
+	int status = 0;
+	status |= sceUtilityLoadModule(PSP_MODULE_AV_AVCODEC);
+	status |= sceUtilityLoadModule(PSP_MODULE_AV_ATRAC3PLUS);
+	status |= sceUtilityLoadModule(PSP_MODULE_AV_MP3);
+	status |= sceUtilityLoadModule(PSP_MODULE_AV_MPEGBASE);
+	status |= sceUtilityLoadModule(PSP_MODULE_AV_VAUDIO);
+	printf("sceUtilityLoadModule         :0x%08x\n", (unsigned int)status);
 	
 	printf("sceMpegInit                  :0x%08X\n", (unsigned int)sceMpegInit());
 	printf("sceMpegRingbufferQueryMemSize:0x%08X\n", (unsigned int)(m_RingbufferSize = sceMpegRingbufferQueryMemSize(m_RingbufferPackets)));
