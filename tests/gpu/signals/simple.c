@@ -117,7 +117,6 @@ int ge_signal(int value, void* arg) {
 	unsigned int *addr;
     asm("sw $a2, %0" : "=m"(addr));
 
-	sceGeListUpdateStallAddr(dlist2id, 0);
 	unsigned int pos = addr == NULL ? 0xFF : (unsigned int) (addr - dlist1);
 	listInfo((int) arg + 1, "Signal(%x, list+%02X)\n", (unsigned int) value, pos);
 	return 0;
