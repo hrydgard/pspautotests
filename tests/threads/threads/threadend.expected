@@ -1,0 +1,29 @@
+Not started: 800201a2, timeout: 500
+* fiveFunc
+Already ended: 00000005, timeout: 500
+Already waited: 00000005, timeout: 500
+* delayFunc
+Terminated thread: 800201ac, timeout: 500
+before start exit=800201a2, status=00000010
+after start exit=800201a4, status=00000004
+* delayFunc
+Short timeout: 800201a8, timeout: 0
+Never wakes: 800201a8, timeout: 0
+* Delete thread: 00000000
+Thread deleted: 800201ac, timeout: -1
+* fiveFunc
+Non-CB: 00000005, timeout: 500
+* cbFunc
+With CB, already ended: 00000005, timeout: 500
+* delayFunc
+* cbFunc
+With CB, short timeout: 800201a8, timeout: 0
+Invalid: 80020198, timeout: 1000
+Zero: 80020197, timeout: 1000
+Self: 80020197, timeout: 1000
+-1: 80020198, timeout: 1000
+Normal: A1B1C2E1D1F2 (thread=800201B5, main=00000005)
+Zero: A1B1C2E1D1F2 (thread=800201B5, main=80020197)
+Terminated/deleted: 80020198, timeout: 1000
+Deleted: 80020198, timeout: 1000
+Exit deleted: 80020198, timeout: 1000
