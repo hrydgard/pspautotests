@@ -51,6 +51,15 @@ int main(int argc, char *argv[]) {
 
 	int status;
 
+	int id = pspSdkLoadStartModule("flash0:/kd/libaudiocodec2.prx", PSP_MEMORY_PARTITION_USER);
+	int id2 = pspSdkLoadStartModule("flash0:/kd/libmp3.prx", PSP_MEMORY_PARTITION_USER);
+
+	if ((id > 0 || (u32) id == 0x80020139UL) && (id2 > 0 || (u32) id2 == 0x80020139UL)) {
+		printf("Audio modules: OK\n");
+	} else {
+		printf("Audio modules: Failed %08x %08x\n", id, id2);
+	}
+
 	file_handle = sceIoOpen( "sample.mp3", PSP_O_RDONLY, 0777 );
 	if(file_handle < 0) {
 		return -1;
