@@ -6,19 +6,6 @@
 #include <psploadexec.h>
 #include <psppower.h>
 
-char schedulingLog[65536];
-char *schedulingLogPos;
-volatile int didPreempt = 0;
-
-void schedf(const char *format, ...) {
-	va_list args;
-	va_start(args, format);
-	schedulingLogPos += vsprintf(schedulingLogPos, format, args);
-	// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
-	//vprintf(format, args);
-	va_end(args);
-}
-
 static uint testResult;
 
 #define TEST_NAMED_RES(name, func, args...) \
@@ -51,8 +38,6 @@ int powerHandler2(int unknown, int powerInfo, void *arg) {
 }
 
 int main(int argc, char **argv) {
-	schedulingLogPos = schedulingLog;
-	
 	int powerCbCallbackId = TEST_NOTZERO(sceKernelCreateCallback, "powerHandler", powerHandler, (void *)0x1234);
 	int powerCbCallbackId2 = TEST_NOTZERO(sceKernelCreateCallback, "powerHandler2", powerHandler2, (void *)0x4567);
 
@@ -74,8 +59,7 @@ int main(int argc, char **argv) {
 	TEST_RES(scePowerUnregisterCallback, powerCbSlot2);
 	TEST_RES(scePowerUnregisterCallback, powerCbSlot3);
 
-	printf("%s\n---\n", schedulingLog);
-	schedulingLogPos = schedulingLog;
+	checkpointNext("---");
 	
 	powerCbSlot1 = TEST_RES(scePowerRegisterCallback, -1, powerCbCallbackId);
 	TEST_RES(sceKernelPowerTick, -1);
@@ -132,8 +116,7 @@ int main(int argc, char **argv) {
 
 	TEST_RES(scePowerUnregisterCallback, powerCbSlot1);
 
-	printf("%s\n---\n", schedulingLog);
-	schedulingLogPos = schedulingLog;
+	checkpointNext("---");
 
 	powerCbSlot1 = TEST_NAMED_RES("scePowerRegisterCallback: Normal", scePowerRegisterCallback, 0, powerCbCallbackId);
 	TEST_NAMED_RES("scePowerRegisterCallback: Invalid CB", scePowerRegisterCallback, 0, 0);
@@ -152,16 +135,14 @@ int main(int argc, char **argv) {
 
 	TEST_RES(sceKernelCheckCallback);
 
-	printf("%s\n---\n", schedulingLog);
-	schedulingLogPos = schedulingLog;
+	checkpointNext("---");
 
 	int i;
 	for (i = 0; i < 17; i++) {
 		TEST_RES(scePowerRegisterCallback, -1, powerCbCallbackId2);
 	}
 
-	printf("%s\n---\n", schedulingLog);
-	schedulingLogPos = schedulingLog;
+	checkpointNext("---");
 
 	return 0;
 }

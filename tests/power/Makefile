@@ -1,25 +1,6 @@
-TARGET = power
-OBJS = power.o
-PSP_EBOOT_TITLE = power test 
+TARGETS = power cpu freq
+EXTRA_OBJS = power-imports.o
+LIBS = -lpspgu -lpsprtc -lpsppower -lpspctrl -lpspmath -lcommon -lc -lm
 
-BUILD_PRX = 1
-PSP_FW_VERSION = 500
-
-PSP_DRIVE = /cygdrive/j
-USE_PSPSDK_LIBC = 1
-
-INCDIR = ../../common
-CFLAGS = -g -G0 -Wall -O0 -fno-strict-aliasing
-CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti 
-ASFLAGS = $(CFLAGS)
-
-LIBDIR = ../../common
-LDFLAGS = -G0
-LIBS= -lpspgu -lpsprtc -lpsppower -lpspctrl -lpspmath -lcommon -lc -lm
-
-EXTRA_TARGETS = EBOOT.PBP
-#PSP_EBOOT_ICON = icon.png
-
-PSPSDK=$(shell psp-config --pspsdk-path)
-include $(PSPSDK)/lib/build.mak
-	
+COMMON_DIR = ../../common
+include $(COMMON_DIR)/common.mk
