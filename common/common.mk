@@ -5,8 +5,6 @@
 # TARGETS=mytest
 # include ../../path/to/common/common.mk
 
-COMMON_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
-
 BUILD_PRX = 1
 USE_PSPSDK_LIBC = 1
 PSP_FW_VERSION = 500
@@ -43,6 +41,9 @@ include $(PSPSDK)/lib/build.mak
 
 %.prx: %.elf
 	psp-prxgen $< $@
+
+%.o: %.S
+	$(AS) $(ASFLAGS) -c -o $@ $<
 
 all: $(TARGETS:=.prx)
 clean: EXTRA_TARGETS:=$(EXTRA_TARGETS) $(TARGETS:=.prx)
