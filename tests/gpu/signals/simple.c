@@ -2,16 +2,15 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <pspge.h>
 #include <pspgu.h>
 #include <pspgum.h>
 
 #include "sysmem-imports.h"
 
-extern int sceGeContinue();
-extern int sceGeBreak(int breakType);
-
 static unsigned int __attribute__((aligned(16))) list[262144];
 
+PspGeBreakParam break_buffer;
 char buffer[65535];
 char *bpos = &buffer[0];
 
@@ -61,7 +60,7 @@ char* status_str(int status) {
 inline void breakInfo(const char *format, ...) {
 	bpos += sprintf(bpos, "  BREAK \t");
 
-	int result = sceGeBreak(1);
+	int result = sceGeBreak(1, &break_buffer);
 	bpos += sprintf(bpos, "  %-8s\t%08x", "", result);
 
 	va_list args;
@@ -115,20 +114,31 @@ inline void listInfoNosync(int n, const char *format, ...) {
 
 int ge_signal(int value, void* arg) {
 	unsigned int *addr;
+	int res, id;
     asm("sw $a2, %0" : "=m"(addr));
+	
+	id = *(int *)arg == dlist1id ? 1 : 2;
 
-	sceGeListUpdateStallAddr(dlist2id, 0);
+	res = sceGeListUpdateStallAddr(dlist2id, 0);
+	if(res < 0)
+		bpos += sprintf(bpos, "  STALL FAILED %08x\n", res);
 	unsigned int pos = addr == NULL ? 0xFF : (unsigned int) (addr - dlist1);
-	listInfo((int) arg + 1, "Signal(%x, list+%02X)\n", (unsigned int) value, pos);
+	res = sceGeListSync(*(int *)arg, 1);
+	
+	listInfo(id, "Signal(%x, dlist%did, list+%02X) Sync %x %s\n", (unsigned int) value, id, pos, res, status_str(res));
 	return 0;
 }
 
 int ge_finish(int value, void* arg) {
 	unsigned int *addr;
+	int res, id;
     asm("sw $a2, %0" : "=m"(addr));
-
+	
+	id = *(int *)arg == dlist1id ? 1 : 2;
+	
 	unsigned int pos = addr == NULL ? 0xFF : (unsigned int) (addr - dlist1);
-	listInfo((int) arg + 1, "Finish(%x, list+%02X)\n", (unsigned int) value, pos);
+	res = sceGeListSync(*(int *)arg, 1);
+	listInfo(id, "Finish(%x, dlist%did, list+%02X) Sync %x %s\n", (unsigned int) value, id, pos, res, status_str(res));
 	return 0;
 }
 
@@ -149,16 +159,16 @@ void init() {
 
 	PspGeCallbackData cbdata;
 	cbdata.signal_func = (PspGeCallback) ge_signal;
-	cbdata.signal_arg  = NULL;
+	cbdata.signal_arg  = &dlist1id;
 	cbdata.finish_func = (PspGeCallback) ge_finish;
-	cbdata.finish_arg  = NULL;
+	cbdata.finish_arg  = &dlist1id;
 	cbid1 = sceGeSetCallback(&cbdata);
 
 	PspGeCallbackData cbdata2;
 	cbdata2.signal_func = (PspGeCallback) ge_signal;
-	cbdata2.signal_arg  = (void*) 1;
+	cbdata2.signal_arg  = &dlist2id;
 	cbdata2.finish_func = (PspGeCallback) ge_finish;
-	cbdata2.finish_arg  = (void*) 1;
+	cbdata2.finish_arg  = &dlist2id;
 	cbid2 = sceGeSetCallback(&cbdata2);
 }
 
@@ -171,11 +181,13 @@ enum {
 void testGeCallbacks(int method) {
 	int listsync, result;
 	sceKernelDcacheWritebackAll();
+	dlist1id = dlist2id = -1;
 
 	bpos += sprintf(bpos, "  LIST #\tDRAWSTATE\tINFO\n");
 
-	dlist1id = sceGeListEnQueue(dlist1, 0, cbid1, 0);
 	listInfoNosync(1, "Enqueued without stall...\n");
+	dlist1id = sceGeListEnQueue(dlist1, dlist1, cbid1, 0);
+	sceGeListUpdateStallAddr(dlist1id, 0);
 	listsync = sceGeListSync(dlist1id, 1);
 	listInfo(1, "Sync %x %s\n", listsync, status_str(listsync));
 
@@ -183,8 +195,10 @@ void testGeCallbacks(int method) {
 	listsync = sceGeListSync(dlist1id, 1);
 	listInfo(1, "Sync %x %s after continue (%08x)\n", listsync, status_str(listsync), result);
 
-	dlist2id = sceGeListEnQueue(dlist1, method & TEST_STALL_LATE ? dlist1 + 0x0D : dlist1 + 0x05, cbid2, 0);
 	listInfoNosync(2, "Enqueued with %s...\n", method & TEST_STALL_LATE ? "late stall" : "stall");
+	dlist2id = sceGeListEnQueue(dlist1, dlist1, cbid2, 0);	
+	sceGeListUpdateStallAddr(dlist2id, method & TEST_STALL_LATE ? dlist1 + 0x0D : dlist1 + 0x05);
+	sceKernelDelayThread(100000);
 	listsync = sceGeListSync(dlist2id, 1);
 	listInfo(2, "Sync %x %s\n", listsync, status_str(listsync));
 
@@ -238,19 +252,21 @@ void testSignalTypes() {
 	dlist1[0x01] = MAKE_GE_SIGNAL(GE_SIG_SUSPEND, 0x1234);
 	dlist1[0x02] = MAKE_GE_END(0, 0);
 	testGeCallbacks(TEST_USE_DRAWSYNC);
-
+	
 	// CONTINUE list keeps getting processed
 	printf("\nSignal handler only (0x%02x):\n", GE_SIG_CONTINUE);
 	dlist1[0x01] = MAKE_GE_SIGNAL(GE_SIG_CONTINUE, 0x1234);
 	dlist1[0x02] = MAKE_GE_END(0, 0);
 	testGeCallbacks(TEST_USE_DRAWSYNC);
-
+		
 	// PAUSE list and call handler at FINISH CMD, but can resume
 	printf("\nSignal handler + pause (0x03):\n");
 	dlist1[0x01] = MAKE_GE_SIGNAL(GE_SIG_PAUSE, 0x1234);
 	dlist1[0x02] = MAKE_GE_END(0, 0);
 	testGeCallbacks(TEST_USE_DRAWSYNC | TEST_STALL_LATE);
-
+		
+	return;
+	
 	// SYNC doesn't call handler but syncs and skips
 	printf("\nSync + continue (0x%02x):\n", GE_SIG_SYNC);
 	dlist1[0x01] = MAKE_GE_SIGNAL(GE_SIG_SYNC, 0x1234);
@@ -283,7 +299,7 @@ int main(int argc, char *argv[]) {
 	testSignalTypes();
 
 	printf("\n\nUsing 6.60 SDK version:\n");
-	sceKernelSetCompiledSdkVersion(0x6060010);
+	sceKernelSetCompiledSdkVersion606(0x6060010);
 	init();
 	testSignalTypes();
 

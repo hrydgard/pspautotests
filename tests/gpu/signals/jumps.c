@@ -2,13 +2,11 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <pspge.h>
 #include <pspgu.h>
 #include <pspgum.h>
 
 #include "sysmem-imports.h"
-
-extern int sceGeContinue();
-extern int sceGeBreak(int breakType);
 
 typedef struct
 {
@@ -23,6 +21,7 @@ typedef struct
     PspGeStack *stacks;
 } PspGeListArgs2;
 
+PspGeBreakParam break_buffer;
 static unsigned int __attribute__((aligned(16))) list[262144];
 
 char buffer[65535];
@@ -108,7 +107,7 @@ char* status_str(int status) {
 inline void breakInfo(const char *format, ...) {
 	bpos += sprintf(bpos, "  BREAK \t");
 
-	int result = sceGeBreak(1);
+	int result = sceGeBreak(1, &break_buffer);
 	bpos += sprintf(bpos, "  %-8s\t%08x", "", result);
 
 	va_list args;

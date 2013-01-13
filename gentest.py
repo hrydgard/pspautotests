@@ -185,7 +185,7 @@ def prepare_test(test, args):
     if "-r" in args or "--rebuild" in args:
       make_target = "rebuild"
 
-    make_result = os.system("%s MAKE=\"%s\" %s" % (MAKE, MAKE, make_target))
+    make_result = os.system("%s MAKE=\"%s\" COMMON_DIR=\"%s/common\" %s" % (MAKE, MAKE, olddir, make_target))
     os.chdir(olddir)
 
     # Don't run the test if make failed, let them fix it.

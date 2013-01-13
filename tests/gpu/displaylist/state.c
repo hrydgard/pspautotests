@@ -102,7 +102,7 @@ void init() {
 }
 
 unsigned int __attribute__((aligned(16))) dlist1[] = {
-	0x00000000, // NOP, geman crashes if signal is first instruction
+	0x00000000, // NOP
 	0x0E010000, // SIGNAL + WAIT
 	0x0C000000, // END
 	0x00000000, // NOP
