@@ -17,6 +17,7 @@ PORT = 3000
 OUTFILE = "__testoutput.txt"
 OUTFILE2 = "__testerror.txt"
 FINISHFILE = "__testfinish.txt"
+SHOTFILE = "__screenshot.bmp"
 TIMEOUT = 10
 RECONNECT_TIMEOUT = 6
 
@@ -199,6 +200,8 @@ def gen_test(test, args):
     os.unlink(OUTFILE2)
   if os.path.exists(FINISHFILE):
     os.unlink(FINISHFILE)
+  if os.path.exists(SHOTFILE):
+    os.unlink(SHOTFILE)
 
   prx_path = TEST_ROOT + test + ".prx"
 
@@ -236,6 +239,9 @@ def gen_test(test, args):
     print "ERROR: Script produced stderr output"
   elif os.path.exists(OUTFILE) and os.path.getsize(OUTFILE) > 0:
     return open(OUTFILE, "rt").read()
+  # It's acceptable to have a graphics-only test.
+  elif os.path.exists(SHOTFILE) and os.path.getsize(SHOTFILE) > 0:
+    return ""
   else:
     print "ERROR: No or empty " + OUTFILE + " was written, can't write .expected"
 
@@ -255,6 +261,11 @@ def gen_test_expected(test, args):
     else:
       shutil.copyfile(OUTFILE, expected_path)
     print "Expected file written: " + expected_path
+
+    if os.path.exists(SHOTFILE) and os.path.getsize(SHOTFILE) > 0:
+      shutil.copyfile(SHOTFILE, expected_path + ".bmp")
+      print "Expected screenshot written: " + expected_path + ".bmp"
+
     return True
 
   return False
