@@ -5,6 +5,10 @@ Invalid: 00000000
 
 sceKernelLibcClock: OK
 
+sceKernelGetSystemTimeWide: OK
+169135380
+2583464172
+
 sce_paf_private_memset:
 2: 512 vs 1024, 1
 255: 255 vs 1024, 1
