@@ -14,7 +14,7 @@ void *sce_paf_private_memcpy(void *dest, void *src, int size);
 void testTime() {
 	s32 t1 = 0, t2 = 0;
 
-	// Hello, person of the future.  This test was never expected to work in your year of 2038+ anyway.
+	// Hello, person of the future.	This test was never expected to work in your year of 2038+ anyway.
 	// Suggestion: things may work better if you tell games it's the past.
 	const s32 Y2K38 = 2145945600;
 	const s32 Y2K = 946713600;
@@ -57,9 +57,6 @@ void testSysTime() {
 	} else {
 		printf("sceKernelGetSystemTimeWide: %u %u\n", (unsigned int) diff1, (unsigned int) diff2);
 	}
-  printf("%llu\n", initial);
-  initial = sceKernelLibcClock();
-  printf("%llu\n", initial);
 }
 
 void resetData(u8 *data1, u8 *data2) {
