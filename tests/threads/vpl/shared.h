@@ -9,6 +9,13 @@
 #include <pspmodulemgr.h>
 #include <psprtc.h>
 
+enum SceKernelVplAttr {
+	PSP_VPL_ATTR_FIFO = 0x0000,
+	PSP_VPL_ATTR_PRIORITY = 0x0100,
+	PSP_VPL_ATTR_SMALLEST = 0x0200,
+	PSP_VPL_ATTR_HIGHMEM = 0x4000,
+};
+
 // Keep track of the last thread we saw here.
 static volatile int schedulingPlacement = 0;
 // So we can log the result from the thread.
@@ -61,20 +68,21 @@ inline void printfVpl(SceUID vpl) {
 #define SCHED_LOG(letter, placement) { \
 	int old = schedulingPlacement; \
 	schedulingPlacement = placement; \
-	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, #letter "%d", old); \
+	schedf(#letter "%d", old); \
 }
 
 static int scheduleTestFunc(SceSize argSize, void* argPointer) {
 	int result = 0x800201A8;
 	SceUInt timeout;
+	void *data;
 	schedulingResult = -1;
 
 	SCHED_LOG(B, 2);
 	// Constantly loop setting the placement to 2 whenever we're active.
 	while (result == 0x800201A8) {
 		schedulingPlacement = 2;
-		timeout = 1;
-		result = sceKernelWaitSemaCB(*(SceUID*) argPointer, 1, &timeout);
+		timeout = 5;
+		result = sceKernelAllocateVplCB(*(SceUID*) argPointer, 0xF000, &data, &timeout);
 	}
 	SCHED_LOG(D, 2);
 
@@ -84,22 +92,27 @@ static int scheduleTestFunc(SceSize argSize, void* argPointer) {
 
 #define BASIC_SCHED_TEST(title, x) { \
 	SceUID thread = CREATE_SIMPLE_THREAD(scheduleTestFunc); \
-	SceUID sema1 = sceKernelCreateSema("schedTest1", 0, 0, 1, NULL); \
+	SceUID vpl1 = sceKernelCreateVpl("vpl", PSP_MEMORY_PARTITION_USER, 0, 0x10000, NULL); \
+	SceUID vpl2 = sceKernelCreateVpl("vpl", PSP_MEMORY_PARTITION_USER, 0, 0x10000, NULL); \
+	void *data1, *data2; \
+	sceKernelAllocateVpl(vpl1, 0x8000, &data1, NULL); \
+	sceKernelAllocateVpl(vpl2, 0x8000, &data2, NULL); \
 	int result = -1; \
 	\
-	schedulingLogPos = 0; \
+	flushschedf(); \
 	schedulingPlacement = 1; \
-	printf("%s: ", title); \
+	schedf("%s: ", title); \
 	\
 	SCHED_LOG(A, 1); \
-	sceKernelStartThread(thread, sizeof(int), &sema1); \
+	sceKernelStartThread(thread, sizeof(SceUID), &vpl1); \
 	SCHED_LOG(C, 1); \
 	x \
 	SCHED_LOG(E, 1); \
-	sceKernelDeleteSema(sema1); \
+	sceKernelDeleteVpl(vpl1); \
 	SCHED_LOG(F, 1); \
 	\
-	schedulingLogPos = 0; \
-	printf("%s (thread=%08X, main=%08X)\n", schedulingLog, schedulingResult, result); \
+	flushschedf(); \
+	printf(" (thread=%08X, main=%08X)\n", schedulingResult, result); \
+	sceKernelDeleteVpl(vpl2); \
 	sceKernelTerminateThread(thread); \
 }
