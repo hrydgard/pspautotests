@@ -47,8 +47,9 @@ One more step:
 
 You are now ready to roll!
 
-In a command prompt in the directory that you want the PSP software to regard as "host0:/" if it tries to read files over the cable (if you want to run PPSSPP tests, this should be your PPSSPP directory), type the following:
+In a command prompt in the directory that you want the PSP software to regard as "host0:/" if it tries to read files over the cable, type the following:
 
+> cd pspautotests<br />
 > usbhostfs_pc -b 3000
 
 Then in another command prompt:
@@ -57,7 +58,9 @@ Then in another command prompt:
 
 If you now don't see a host0:/ prompt, something is wrong. Most likely the driver has not loaded correctly. If the port 3000 happened to be taken (usbhostfs_pc would have complained), try another port number.
 
-Now you have full access to the PSP from this prompt. You can run executables on the PSP that reside on the PC directly from within this shell, just cd to the directory and run ./my_program.prx.
+Now you have full access to the PSP from this prompt. You can use gentest.py to run tests (e.g. `gentest.py misc/test.gp`) and update the .expected files.
+
+You can run executables on the PSP that reside on the PC directly from within this the pspsh shell, just cd to the directory and run ./my_program.prx.
 
 Note that you CAN'T run ELF files on modern firmware, you MUST build as .PRX. To do this, set BUILD_PRX = 1 in your makefile.
 
