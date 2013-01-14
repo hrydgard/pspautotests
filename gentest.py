@@ -9,17 +9,21 @@ import threading
 import shutil
 import time
 import re
+import socket
 
 PSPSH = "pspsh"
+HOSTFS = "usbhostfs_pc"
 MAKE = "make"
 TEST_ROOT = "tests/"
 PORT = 3000
 OUTFILE = "__testoutput.txt"
 OUTFILE2 = "__testerror.txt"
 FINISHFILE = "__testfinish.txt"
+SHOTFILE = "__screenshot.bmp"
 TIMEOUT = 10
 RECONNECT_TIMEOUT = 6
 
+hostfs_command = None
 
 tests_to_generate = [
   "cpu/cpu_alu/cpu_alu",
@@ -140,23 +144,29 @@ class Command(object):
     self.process = None
     self.output = None
     self.timeout = False
+    self.thread = None
 
-  def run(self, timeout):
+  def start(self, capture=True):
     def target():
       self.process = subprocess.Popen(self.cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-      self.output, _ = self.process.communicate()
+      if capture:
+        self.output, _ = self.process.communicate()
 
-    thread = threading.Thread(target=target)
-    thread.start()
+    self.thread = threading.Thread(target=target)
+    self.thread.start()
 
-    thread.join(timeout)
-    if thread.is_alive():
+  def stop(self):
+    if self.thread.is_alive():
       self.timeout = True
       try:
         self.process.terminate()
       except WindowsError:
         print "Could not terminate process"
-      thread.join()
+      self.thread.join()
+
+  def run(self, timeout):
+    self.start()
+    self.thread.join(timeout)
 
 def wait_until(predicate, timeout, interval):
   mustend = time.time() + timeout
@@ -168,7 +178,26 @@ def wait_until(predicate, timeout, interval):
 def pspsh_is_ready():
   c = Command([PSPSH, "-p", str(PORT), "-e", "ls"])
   c.run(0.5)
+  if c.output == None:
+    return False
   return c.output.count("\n") > 2
+
+def hostfs_is_ready():
+  s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  try:
+    s.connect(("127.0.0.1", PORT))
+    s.close()
+    return True
+  except socket.error:
+    return False
+
+def start_hostfs():
+  hostfs_command = Command([HOSTFS, "-b", str(PORT)])
+  hostfs_command.start(capture=False)
+
+def stop_hostfs():
+  if hostfs_command != None:
+    hostfs_command.stop()
 
 def init():
   if not os.path.exists(TEST_ROOT + "../common/libcommon.a"):
@@ -199,12 +228,22 @@ def gen_test(test, args):
     os.unlink(OUTFILE2)
   if os.path.exists(FINISHFILE):
     os.unlink(FINISHFILE)
+  if os.path.exists(SHOTFILE):
+    os.unlink(SHOTFILE)
 
   prx_path = TEST_ROOT + test + ".prx"
 
   if not os.path.exists(prx_path):
     print "You must compile the test into a PRX first (" + prx_path + ")"
     return False
+
+  # Maybe we should start usbhostfs_pc for them?
+  if not hostfs_is_ready():
+    start_hostfs()
+    success = wait_until(hostfs_is_ready, RECONNECT_TIMEOUT, 0.2)
+    if not success:
+      print "Make sure you've installed and run %s" % (HOSTFS)
+      return False
 
   # Wait for the PSP to reconnect after a previous test.
   if not pspsh_is_ready():
@@ -236,6 +275,9 @@ def gen_test(test, args):
     print "ERROR: Script produced stderr output"
   elif os.path.exists(OUTFILE) and os.path.getsize(OUTFILE) > 0:
     return open(OUTFILE, "rt").read()
+  # It's acceptable to have a graphics-only test.
+  elif os.path.exists(SHOTFILE) and os.path.getsize(SHOTFILE) > 0:
+    return ""
   else:
     print "ERROR: No or empty " + OUTFILE + " was written, can't write .expected"
 
@@ -255,6 +297,11 @@ def gen_test_expected(test, args):
     else:
       shutil.copyfile(OUTFILE, expected_path)
     print "Expected file written: " + expected_path
+
+    if os.path.exists(SHOTFILE) and os.path.getsize(SHOTFILE) > 0:
+      shutil.copyfile(SHOTFILE, expected_path + ".bmp")
+      print "Expected screenshot written: " + expected_path + ".bmp"
+
     return True
 
   return False
@@ -313,5 +360,8 @@ def main():
   else:
     for test in tests:
       gen_test_expected(test, args)
+
+  # End usbhostfs_pc if we started it.
+  stop_hostfs()
 
 main()
