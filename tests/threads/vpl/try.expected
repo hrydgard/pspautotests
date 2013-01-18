@@ -38,5 +38,3 @@ Attr 4000:
 Zero: A1B1C2E1D1F2 (thread=800201B5, main=800201B7)
 Alloc same: A1B1C2E1D1F2 (thread=800201B5, main=00000000)
 Alloc other: A1B1C2E1D1F2 (thread=800201B5, main=00000000)
-Alloc same success: A1B1C2E1D1F2 (thread=800201B5, main=00000000)
-Alloc other success: A1B1C2E1D1F2 (thread=800201B5, main=00000000)

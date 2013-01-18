@@ -196,7 +196,7 @@ int main(int argc, char **argv) {
 	sceKernelAllocateVplCB(vpl, 0x10000 - 0x20 - 0x01, &data, &timeout);
 	schedf("\n");
 
-	schedf("Timeouts:\n");
+	/*schedf("Timeouts:\n");
 	unsigned int timeouts[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 30, 100, 210, 211, 215, 216, 217, 218, 219, 220};
 	for (i = 0; i < sizeof(timeouts) / sizeof(timeouts[0]); ++i) {
 		s64 t1 = sceKernelGetSystemTimeWide();
@@ -204,7 +204,7 @@ int main(int argc, char **argv) {
 		sceKernelAllocateVpl(vpl, 0x10000 - 0x20 - 0x01, &data, &timeout);
 		s64 t2 = sceKernelGetSystemTimeWide();
 		schedf("  %d = %lld\n", timeouts[i], t2 - t1);
-	}
+	}*/
 
 	sceKernelDeleteVpl(vpl);
 	sceKernelDeleteCallback(cb);
