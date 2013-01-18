@@ -39,6 +39,10 @@ inline void flushschedf() {
 	schedulingLog[0] = '\0';
 }
 
+inline void schedVplInfo(SceKernelVplInfo *info) {
+	schedf("VPL: OK (size=%d,name=%s,attr=%08X,poolSize=%08X,freeSize=%08X,wait=%d)\n", info->size, info->name, info->attr, info->poolSize, info->freeSize, info->numWaitThreads);
+}
+
 inline void schedfVpl(SceUID vpl) {
 	if (vpl > 0) {
 		SceKernelVplInfo info;
@@ -46,7 +50,7 @@ inline void schedfVpl(SceUID vpl) {
 
 		int result = sceKernelReferVplStatus(vpl, &info);
 		if (result == 0) {
-			schedf("VPL: OK (size=%d,name=%s,attr=%08X,poolSize=%08X,freeSize=%08X,wait=%d)\n", info.size, info.name, info.attr, info.poolSize, info.freeSize, info.numWaitThreads);
+			schedVplInfo(&info);
 		} else {
 			schedf("VPL: Invalid (%08X)\n", result);
 		}
