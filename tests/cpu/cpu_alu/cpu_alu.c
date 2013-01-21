@@ -77,6 +77,26 @@ void test_div() {
 	printf("%08x\n", c / d); 
 }
 
+__attribute__ ((noinline)) unsigned int test_ins(unsigned int value1, unsigned int value2) {
+	int ret;
+	asm volatile (
+		"ins %1, %2, 4, 13\n"
+    "addiu %0, %1, 0\n"
+		: "=r"(ret) : "r"(value1), "r"(value2)
+	);
+	return ret;
+}
+
+__attribute__ ((noinline)) unsigned int test_ext(unsigned int value1, unsigned int value2) {
+	int ret;
+	asm volatile (
+		"ext %1, %2, 6, 17\n"
+    "addu %0, %1, $0\n"
+		: "=r"(ret) : "r"(value1), "r"(value2)
+	);
+	return ret;
+}
+
 // Arithmetic operations.
 //OP_r_rr(add)
 OP_r_rr(addu)
@@ -134,6 +154,12 @@ OP_r_r(wsbw)
 
 
 int main(int argc, char *argv[]) {
+  printf("test_ins: %08x\n", test_ins(0xFFFFFFFF, 0x00000000));
+  printf("test_ins: %08x\n", test_ins(0x12345678, 0xFEDCBA98));
+  printf("test_ins: %08x\n", test_ins(0x0, 0xFFFFFFFF));
+  printf("test_ext: %08x\n", test_ext(0xFFFFFFFF, 0x00000000));
+  printf("test_ext: %08x\n", test_ext(0x12345678, 0xFEDCBA98));
+  printf("test_ext: %08x\n", test_ext(0x0, 0xFFFFFFFF));
 	// Arithmetic operations.
 	//TEST_r_rr_SET(add);
 	TEST_r_rr_SET(addu);
