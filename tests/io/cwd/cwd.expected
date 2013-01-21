@@ -1,11 +1,9 @@
 Working Directory Examples
-Arguments: 1
-Argument[0]: 'ms0:/PSP/GAME/CWD/EBOOT.PBP'
-Initial dir: ms0:/PSP/GAME/CWD
+Initial dir: ms0:/PSP/GAME/__autotest
 
  chdir() attempt --> resulting getcwd()
  --------------- --> ------------------
-                 --> ms0:/PSP/GAME/CWD
+                 --> ms0:/PSP/GAME/__autotest
            hello --> (chdir error)
               .. --> ms0:/PSP/GAME
      ../SAVEDATA --> ms0:/PSP/SAVEDATA
@@ -15,7 +13,6 @@ Initial dir: ms0:/PSP/GAME/CWD
      /PSP/./GAME --> ms0:/PSP/GAME
                / --> ms0:
    ms0:/PSP/GAME --> ms0:/PSP/GAME
-        flash0:/ --> (chdir error)
 ms0:/PSP/../PSP/ --> ms0:/PSP
 
 All done!

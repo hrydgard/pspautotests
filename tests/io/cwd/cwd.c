@@ -22,9 +22,11 @@
 #include <pspiofilemgr.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/unistd.h>
+#include <sys/stat.h>
 
 void try(const char *dest)
 {
@@ -44,10 +46,15 @@ int main(int argc, char *argv[])
 	char buf[MAXPATHLEN];
 	
 	printf("Working Directory Examples\n");
-	printf("Arguments: %d\n", argc);
+	// Don't compare, run on different dir on PSP and PPSSPP
+	/*printf("Arguments: %d\n", argc);
 	for (n = 0; n < argc; n++) {
 		printf("Argument[%d]: '%s'\n", n, argv[n]);
-	}
+	}*/
+	
+	mkdir("ms0:/PSP/GAME/__autotest", 0777);
+	chdir("ms0:/PSP/GAME/__autotest");
+	
 	printf("Initial dir: %s\n\n", getcwd(buf, MAXPATHLEN) ?: "(error)");
 
 	printf("%16s --> %s\n", "chdir() attempt", "resulting getcwd()");
@@ -62,8 +69,10 @@ int main(int argc, char *argv[])
 	try("/PSP/./GAME");	   /* absolute with no drive      */
 	try("/");                  /* root with no drive          */
 	try("ms0:/PSP/GAME");      /* absolute with drive         */
-	try("flash0:/");           /* different drive             */
+	//try("umd0:/");           /* different drive             */
 	try("ms0:/PSP/../PSP/");   /* mixed                       */
+
+	rmdir("ms0:/PSP/GAME/__autotest");
 
 	printf("\nAll done!\n");
 

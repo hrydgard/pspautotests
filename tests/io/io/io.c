@@ -10,15 +10,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <dirent.h>
 #include <sys/types.h>
 #include <sys/unistd.h>
 #include <sys/stat.h>
+#include <dirent.h>
 
 //#include "../common/emits.h"
 
 char buf[MAXPATHLEN] = {0};
 char startPath[MAXPATHLEN] = {0};
+char currentPath[MAXPATHLEN] = {};
+
+static int compare (const void * a, const void * b)
+{
+    /* The pointers point to offsets into "array", so we need to
+       dereference them to get at the strings. */
+    return strcmp (((struct dirent*)a)->d_name, ((struct dirent*)b)->d_name);
+}
+
+static int compare2 (const void * a, const void * b)
+{
+    /* The pointers point to offsets into "array", so we need to
+       dereference them to get at the strings. */
+    return strcmp (((struct SceIoDirent*)a)->d_name, ((struct SceIoDirent*)b)->d_name);
+}
 
 
 /**
@@ -26,7 +41,7 @@ char startPath[MAXPATHLEN] = {0};
  */
 void checkChangePathsTry(const char *name, const char *dest, int offset) {
 	if (chdir(dest) < 0) {
-		printf("%s: (chdir error)\n", name);
+		printf("%s: (chdir error) %08x\n", name, chdir(dest));
 	} else {
 		char *result = getcwd(buf, MAXPATHLEN);
 		int len = strlen(buf);
@@ -35,6 +50,46 @@ void checkChangePathsTry(const char *name, const char *dest, int offset) {
 		} else {
 			printf("%s: %s\n", name, result ? result + offset : "(getcwd error)");
 		}
+	}
+}
+
+void checkChangePathsTryDirect(const char *name, const char *dest, int offset) {
+	int result = sceIoChdir(dest);
+	if (result < 0) {
+		printf("%s: (sceIoChdir error) %08x\n", name, result);
+	} else {
+		printf("%s: %d\n", name, result);
+	}
+}
+
+
+/**
+ * Dump directory listing
+ */
+void dumpDir(const char* fileCheckName) {
+	
+	struct SceIoDirent files[32];
+	int cnt = 0;
+	int i = 0;
+
+	int fd;
+	fd = sceIoDopen(".");
+	while (cnt < 32) {
+		if (sceIoDread(fd, &files[cnt]) <= 0) break;
+		if (fileCheckName != 0 && strcmp(fileCheckName,files[cnt].d_name) != 0) continue;
+		cnt++;
+	}
+	sceIoDclose(fd);
+	
+	if(fileCheckName != 0 && cnt == 0)
+	{
+		printf("%s not found\n",fileCheckName);
+	}
+	
+	qsort (files, cnt, sizeof (struct SceIoDirent), compare2);
+	for(i = 0; i < cnt; i++)
+	{
+		printf("%s\n", files[i].d_name);
 	}
 }
 
@@ -47,11 +102,13 @@ void checkChangePaths() {
 
 	printf("result: %d\n", getcwd(baseDir, MAXPATHLEN) == baseDir);
 	baseDirLen = strlen(baseDir);
+	strcpy(currentPath,baseDir);
 
 	// Setup paths.
 	mkdir("otherdir", 0777);
 	mkdir("testdir", 0777);
 	mkdir("testdir/testdir2", 0777);
+	mkdir("testdir/testdir2/test", 0777);
 
 	checkChangePathsTry("Initial", "testdir/testdir2", baseDirLen);
 	checkChangePathsTry("Empty", "", baseDirLen);
@@ -67,9 +124,49 @@ void checkChangePaths() {
 	checkChangePathsTry("Absolute + drive", "ms0:/PSP/SAVEDATA", 0);
 	checkChangePathsTry("Absolute no drive", "/PSP", 0);
 	checkChangePathsTry("Root", "/", 0);
-	checkChangePathsTry("Flash drive", "flash0:/", 0);
+	//checkChangePathsTry("Flash drive", "flash0:/", 0);
 	checkChangePathsTry("PSP and back again + trailing /", "ms0:/PSP/../PSP/", 0);
-
+	
+	strcat(startPath,"/");
+	chdir(startPath);
+	
+	// Since we can't getcwd when using directly sceIoChdir, dump directory to compare.
+	checkChangePathsTryDirect("Initial", "testdir/testdir2", baseDirLen);
+	dumpDir("test");
+	checkChangePathsTryDirect("Empty", "", baseDirLen);
+	dumpDir("test");
+	checkChangePathsTryDirect("Non-existent", "hello", baseDirLen);
+	dumpDir(0);
+	checkChangePathsTryDirect("Parent", "..", baseDirLen);
+	dumpDir("test");
+	checkChangePathsTryDirect("Parent", "..", baseDirLen);
+	dumpDir("testdir2");
+	checkChangePathsTryDirect("Parent + subdirs", "../testdir/testdir2", baseDirLen);
+	dumpDir(0);
+	checkChangePathsTryDirect("Multiple parents", "../..", baseDirLen);
+	dumpDir("testdir");
+	checkChangePathsTryDirect("Back to testdir", "testdir", baseDirLen);
+	dumpDir("testdir2");
+	checkChangePathsTryDirect("Current dir", ".", baseDirLen);
+	dumpDir("testdir2");
+	checkChangePathsTryDirect("Current + extra slashes", "./././//testdir2", baseDirLen);
+	dumpDir("test");
+	checkChangePathsTryDirect("Switch drive no slash", "ms0:", 0);
+	dumpDir("PSP");
+	checkChangePathsTryDirect("Switch drive + slash", "ms0:/", 0);
+	dumpDir("PSP");
+	checkChangePathsTryDirect("Absolute + drive", "ms0:/PSP/", 0);
+	dumpDir("SAVEDATA");
+	checkChangePathsTryDirect("Absolute no drive", "/PSP", 0);
+	dumpDir("SAVEDATA");
+	checkChangePathsTryDirect("Root", "/", 0);
+	dumpDir("PSP");
+	checkChangePathsTryDirect("Flash drive", "flash0:/", 0);
+	dumpDir(".");
+	checkChangePathsTryDirect("PSP and back again + trailing /", "ms0:/PSP/../PSP/", 0);
+	dumpDir("SAVEDATA");
+	
+	strcat(startPath,"/");
 	chdir(startPath);
 }
 
@@ -88,20 +185,32 @@ void checkFileOpen() {
 	}
 }
 
+
 /**
  * Check listing directories.
  */
 void checkDirectoryList() {
-	DIR *dir;
+	
+	struct dirent dp_found[32];
+	int cnt = 0;
+	int i = 0;
+
 	struct dirent *dp;
+	DIR* dir;
 	dir = opendir(".");
 	if (dir != NULL) {
 		while ((dp = readdir(dir)) != NULL) {
 			if (strncmp("io", dp->d_name, 2) == 0) {
-				printf("%s\n", dp->d_name);
+				memcpy(&dp_found[cnt],dp,sizeof(struct dirent));
+				cnt++;
 			}
 		}
 		closedir(dir);
+	}
+	qsort (dp_found, cnt, sizeof (struct dirent), compare);
+	for(i = 0; i < cnt; i++)
+	{
+		printf("%s\n", dp_found[i].d_name);
 	}
 }
 
@@ -153,7 +262,7 @@ void checkMainArgs(int argc, char** argv) {
 
 int main(int argc, char** argv) {
 	getcwd(startPath, MAXPATHLEN);
-	checkMainArgs(argc, argv);
+	//checkMainArgs(argc, argv);
 	checkChangePaths();
 	checkFileOpen();
 	checkDirectoryList();
