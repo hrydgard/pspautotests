@@ -58,6 +58,56 @@ void test_zr() {
 	printf("%08x\n", c);
 }
 
+__attribute__ ((noinline)) unsigned long long test_madd(int a, int b, int c, int d) {
+	unsigned int ret1, ret2;
+	asm volatile (
+    "mtlo %2\n"
+    "mthi %3\n"
+		"madd %4, %5\n"
+    "mflo %0\n"
+    "mfhi %1\n"
+		: "=r"(ret1), "=r"(ret2) : "r"(a), "r"(b), "r"(c), "r"(d)
+	);
+	return ret1 | ((unsigned long long)(ret2) << 32);
+}
+__attribute__ ((noinline)) unsigned long long test_maddu(int a, int b, int c, int d) {
+	unsigned int ret1, ret2;
+	asm volatile (
+    "mtlo %2\n"
+    "mthi %3\n"
+		"maddu %4, %5\n"
+    "mflo %0\n"
+    "mfhi %1\n"
+		: "=r"(ret1), "=r"(ret2) : "r"(a), "r"(b), "r"(c), "r"(d)
+	);
+	return ret1 | ((unsigned long long)(ret2) << 32);
+}
+__attribute__ ((noinline)) unsigned long long test_msub(int a, int b, int c, int d) {
+	unsigned int ret1, ret2;
+	asm volatile (
+    "mtlo %2\n"
+    "mthi %3\n"
+		"msub %4, %5\n"
+    "mflo %0\n"
+    "mfhi %1\n"
+		: "=r"(ret1), "=r"(ret2) : "r"(a), "r"(b), "r"(c), "r"(d)
+	);
+	return ret1 | ((unsigned long long)(ret2) << 32);
+}
+__attribute__ ((noinline)) unsigned long long test_msubu(int a, int b, int c, int d) {
+	unsigned int ret1, ret2;
+	asm volatile (
+    "mtlo %2\n"
+    "mthi %3\n"
+		"msubu %4, %5\n"
+    "mflo %0\n"
+    "mfhi %1\n"
+		: "=r"(ret1), "=r"(ret2) : "r"(a), "r"(b), "r"(c), "r"(d)
+	);
+	return ret1 | ((unsigned long long)(ret2) << 32);
+}
+
+
 void test_mul64() {
 	volatile unsigned long long a = 0x8234567812345678ULL;
 	volatile unsigned long long b = 0x2345678123456783ULL;
@@ -152,14 +202,39 @@ OP_r_r(clz)
 OP_r_r(wsbh)
 OP_r_r(wsbw)
 
+#define NUMMULTEST 8
+static const int mt[4][NUMMULTEST] = {
+  {1, 2, 3, 4},
+  {-1, -2, -3, -4},
+  {0x80000000, 0x8fffffff, 0x10000000, 0x42385722},
+  {0x10000000, 0x1fffffff, 0x70000000, 0x72233411},
+  {0x12345678, 0x8fffffff, 0x00033333, 0xFFFFFFFF},
+  {0xFFFFFFFF, 0x00fffff0, 0x80000000, 0xFFFFFFFF},
+  {0x0, 0x0, 0x0, 0x1},
+};
 
 int main(int argc, char *argv[]) {
+  int i;
   printf("test_ins: %08x\n", test_ins(0xFFFFFFFF, 0x00000000));
   printf("test_ins: %08x\n", test_ins(0x12345678, 0xFEDCBA98));
   printf("test_ins: %08x\n", test_ins(0x0, 0xFFFFFFFF));
+
   printf("test_ext: %08x\n", test_ext(0xFFFFFFFF, 0x00000000));
   printf("test_ext: %08x\n", test_ext(0x12345678, 0xFEDCBA98));
   printf("test_ext: %08x\n", test_ext(0x0, 0xFFFFFFFF));
+
+  for (i = 0; i < NUMMULTEST; i++) {
+    printf("test_madd: %llu\n", test_madd(mt[i][0], mt[i][1], mt[i][2], mt[i][3]));
+  }
+  for (i = 0; i < NUMMULTEST; i++) {
+    printf("test_maddu: %llu\n", test_maddu(mt[i][0], mt[i][1], mt[i][2], mt[i][3]));
+  }
+  for (i = 0; i < NUMMULTEST; i++) {
+    printf("test_msub: %llu\n", test_msub(mt[i][0], mt[i][1], mt[i][2], mt[i][3]));
+  }
+  for (i = 0; i < NUMMULTEST; i++) {
+    printf("test_msubu: %llu\n", test_msubu(mt[i][0], mt[i][1], mt[i][2], mt[i][3]));
+  }
 	// Arithmetic operations.
 	//TEST_r_rr_SET(add);
 	TEST_r_rr_SET(addu);
@@ -216,11 +291,10 @@ int main(int argc, char *argv[]) {
 	TEST_r_r_SET(wsbw)
 
 	// Must test individually:
-	// ext, ins
 	// movz, movn
 	// mfhi, mflo, mthi, mtlo
 	// div, divu
-	// mult, multu, madd, maddu, msub, msubu
+	// mult, multu
 
 	// Other
 	test_mul64();
