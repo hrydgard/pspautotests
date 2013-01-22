@@ -107,12 +107,35 @@ void checkDayOfWeek() {
 	printf("Checking sceRtcGetDayOfWeek\n");
 	printf("sceRtcGetDayOfWeek:2010, 4, 27\n");
 	printf("%d\n", sceRtcGetDayOfWeek(2010, 4, 27));
-
-	//A game does this: sceRtcGetDayOfWeek(166970016, 1024, 0)
-
 	
+	//A game does this: sceRtcGetDayOfWeek(166970016, 1024, 0)
 	printf("sceRtcGetDayOfWeek:166970016, 1024, 0\n");
 	printf("%d\n", sceRtcGetDayOfWeek(166970016, 1024, 0));
+	
+	// test random no valid date
+	// leap year
+	printf("sceRtcGetDayOfWeek:2000, 0, 0\n");
+	printf("%d\n", sceRtcGetDayOfWeek(2000, 0, 0));
+	printf("sceRtcGetDayOfWeek:2000, 1, 0\n");
+	printf("%d\n", sceRtcGetDayOfWeek(2000, 1, 0));
+	printf("sceRtcGetDayOfWeek:2000, 573, 0\n");
+	printf("%d\n", sceRtcGetDayOfWeek(2000, 573, 0));
+	printf("sceRtcGetDayOfWeek:2000, 1, 2458\n");
+	printf("%d\n", sceRtcGetDayOfWeek(2000, 1, 2458));
+	printf("sceRtcGetDayOfWeek:2000, 4587, 2458\n");
+	printf("%d\n", sceRtcGetDayOfWeek(2000, 4587, 2458));
+	
+	// standard year
+	printf("sceRtcGetDayOfWeek:2001, 0, 0\n");
+	printf("%d\n", sceRtcGetDayOfWeek(2001, 0, 0));
+	printf("sceRtcGetDayOfWeek:2001, 1, 0\n");
+	printf("%d\n", sceRtcGetDayOfWeek(2001, 1, 0));
+	printf("sceRtcGetDayOfWeek:2001, 573, 0\n");
+	printf("%d\n", sceRtcGetDayOfWeek(2001, 573, 0));
+	printf("sceRtcGetDayOfWeek:2001, 1, 2458\n");
+	printf("%d\n", sceRtcGetDayOfWeek(2001, 1, 2458));
+	printf("sceRtcGetDayOfWeek:2001, 4587, 2458\n");
+	printf("%d\n", sceRtcGetDayOfWeek(2001, 4587, 2458));
 }
 
 void checkSetTick()
