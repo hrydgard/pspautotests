@@ -8,6 +8,26 @@ sceRtcGetDayOfWeek:2010, 4, 27
 2
 sceRtcGetDayOfWeek:166970016, 1024, 0
 3
+sceRtcGetDayOfWeek:2000, 0, 0
+1
+sceRtcGetDayOfWeek:2000, 1, 0
+5
+sceRtcGetDayOfWeek:2000, 573, 0
+0
+sceRtcGetDayOfWeek:2000, 1, 2458
+6
+sceRtcGetDayOfWeek:2000, 4587, 2458
+0
+sceRtcGetDayOfWeek:2001, 0, 0
+2
+sceRtcGetDayOfWeek:2001, 1, 0
+0
+sceRtcGetDayOfWeek:2001, 573, 0
+1
+sceRtcGetDayOfWeek:2001, 1, 2458
+1
+sceRtcGetDayOfWeek:2001, 4587, 2458
+1
 Checking sceRtcGetCurrentClock
 -60 TZ: OK
 Year: OK
@@ -85,10 +105,10 @@ Non-Leap Years:
 2097: 00000001
 Checking sceRtcConvertLocalTimeToUTC
 epoch : 62135596800000000
-epoch as UTC: 62135596800000000
+epoch as UTC: 62135589600000000
 Checking checkRtcConvertUtcToLocalTime
 epoch as UTC: 62135596800000000
-epoch as UTC as Local : 62135596800000000
+epoch as UTC as Local : 62135604000000000
 Checking sceRtcCheckValid
 Valid Date:0
 Very invalid Date:-1
@@ -109,14 +129,14 @@ from epoc&0xffffffff:0
 Checking sceRtcGetTime_t
 from epoc:0
 2012, 9, 20, 7, 12, 15, 500
-ticks: 142723284ll
+ticks: 3735928559ll
 Checking sceRtcSetDosTime
 from epoc:0
 2107, 9, 11, 24, 0, 0, 0
 Checking sceRtcGetDosTime
 from epoc:0
 2012, 9, 20, 7, 12, 15, 500
-ticks: 142723284ll
+ticks: 3735928559ll
 Checking sceRtcSetWin32FileTime
 UNTESTED!
 Checking sceRtcGetWin32FileTime
