@@ -191,6 +191,7 @@ void checkGetTick() {
 	pt.seconds = 0;
 	pt.microseconds = 0;
 	printf("Normal: %08x\n", sceRtcGetTick(&pt, &ticks));
+	printf("Ticks : %llu\n",ticks);
 	// TODO: Should ticks match?  Depends on timezone?
 
 	pt.year = 0;
@@ -472,17 +473,35 @@ void checkRtcGetTime_t()
 
 	printf("from epoc:%d\n",sceRtcGetTime_t( &pt, &ticks));
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
-	printf("ticks: %ull\n", ticks);
+	printf("ticks: %llu\n", ticks);
 }
 
 void checkRtcSetDosTime()
 {
+	int i = 0;
 	printf("Checking sceRtcSetDosTime\n");
 
 	pspTime pt;
-
-	printf("from epoc:%d\n",sceRtcSetDosTime(&pt, 62135596800000000ULL));
+	printf("from epoc:%d\n",sceRtcSetDosTime(&pt, 0));
+	printf("0 = %d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+	printf("from epoc:%d\n",sceRtcSetDosTime(&pt, 1));
+	printf("1 = %d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+	printf("from epoc:%d\n",sceRtcSetDosTime(&pt, 10));
+	printf("10 = %d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+	printf("from epoc:%d\n",sceRtcSetDosTime(&pt, 100));
+	printf("100 = %d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+	printf("from epoc:%d\n",sceRtcSetDosTime(&pt, 1000));
+	printf("1000 = %d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+	printf("from epoc:%d\n",sceRtcSetDosTime(&pt, 10000));
+	printf("10000 = %d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+	printf("from epoc:%d\n",sceRtcSetDosTime(&pt, 100000));
+	printf("100000 = %d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+	printf("from epoc:%d\n",sceRtcSetDosTime(&pt, 1000000));
+	printf("1000000 = %d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+	printf("10000000 = from epoc:%d\n",sceRtcSetDosTime(&pt, 10000000));
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
+	printf("from epoc:%d\n",sceRtcSetDosTime(&pt, 62135596800000000ULL));
+	printf("62135596800000000ULL = %d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
 
 
 }
@@ -493,18 +512,24 @@ void checkRtcGetDosTime()
 
 	pspTime pt;
 	u64 ticks=0;
-	pt.year = 2012;
+	pt.year = 2107;
 	pt.month = 9;
-	pt.day = 20;
-	pt.hour = 7;
-	pt.minutes = 12;
-	pt.seconds = 15;
-	pt.microseconds = 500;
+	pt.day = 11;
+	pt.hour = 24;
+	pt.minutes = 0;
+	pt.seconds = 0;
+	pt.microseconds = 0;
 
 
 	printf("from epoc:%d\n",sceRtcGetDosTime( &pt, &ticks));
 	printf("%d, %d, %d, %d, %d, %d, %d\n", pt.year, pt.month, pt.day, pt.hour, pt.minutes, pt.seconds, pt.microseconds);
-	printf("ticks: %ull\n", ticks);
+	printf("ticks: %llu\n", ticks);
+	
+	// false date
+	pt.year = 1979;
+	printf("from epoc:%d\n",sceRtcGetDosTime( &pt, &ticks));
+	pt.year = 2108;
+	printf("from epoc:%d\n",sceRtcGetDosTime( &pt, &ticks));
 
 }
 
