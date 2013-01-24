@@ -49,6 +49,7 @@ Time: OK
 Microseconds: OK
 Checking sceRtcGetTick
 Normal: 00000000
+Ticks : 63483721200000000
 Bad date: 800001fe
 checkSetTick: empty small value: 00000000
 1, 1, 1, 0, 0, 0, 835072
@@ -129,14 +130,34 @@ from epoc&0xffffffff:0
 Checking sceRtcGetTime_t
 from epoc:0
 2012, 9, 20, 7, 12, 15, 500
-ticks: 3735928559ll
+ticks: 1348125135
 Checking sceRtcSetDosTime
 from epoc:0
-2107, 9, 11, 24, 0, 0, 0
+0 = 1980, 0, 0, 0, 0, 0, 0
+from epoc:0
+1 = 1980, 0, 0, 0, 0, 2, 0
+from epoc:0
+10 = 1980, 0, 0, 0, 0, 20, 0
+from epoc:0
+100 = 1980, 0, 0, 0, 3, 8, 0
+from epoc:0
+1000 = 1980, 0, 0, 0, 31, 16, 0
+from epoc:0
+10000 = 1980, 0, 0, 4, 56, 32, 0
+from epoc:0
+100000 = 1980, 0, 1, 16, 53, 0, 0
+from epoc:0
+1000000 = 1980, 0, 15, 8, 18, 0, 0
+10000000 = from epoc:0
+1980, 4, 24, 18, 52, 0, 0
+from epoc:0
+62135596800000000ULL = 2107, 9, 11, 24, 0, 0, 0
 Checking sceRtcGetDosTime
 from epoc:0
-2012, 9, 20, 7, 12, 15, 500
-ticks: 3735928559ll
+2107, 9, 11, 24, 0, 0, 0
+ticks: 4281057280
+from epoc:-1
+from epoc:-1
 Checking sceRtcSetWin32FileTime
 UNTESTED!
 Checking sceRtcGetWin32FileTime
