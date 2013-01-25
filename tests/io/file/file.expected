@@ -20,6 +20,10 @@ sceIoOpen("testfile", PSP_O_RDONLY)
 21 = sceIoLseek(fd,-10, SEEK_CUR)
 15 = sceIoRead(128) = VWXYZ0123456789
 -1 = sceIoLseek(fd,-10, SEEK_SET)
+200 = sceIoLseek(fd,200, SEEK_SET)
+0 = sceIoRead(128) = 
+190 = sceIoLseek(fd,-10, SEEK_CUR)
+0 = sceIoRead(128) = 
 36 = sceIoLseek(fd,0, SEEK_END)
 26 = sceIoLseek32(fd,-10, SEEK_END)
 10 = sceIoRead(128) = 0123456789
