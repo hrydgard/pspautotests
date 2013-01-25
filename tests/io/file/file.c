@@ -153,6 +153,20 @@ int main(int argc, char** argv) {
 		
 		ret = sceIoLseek(fd,-10, SEEK_SET);
 		printf("%d = sceIoLseek(fd,-10, SEEK_SET)\n", ret);
+
+		ret = sceIoLseek(fd,200, SEEK_SET);
+		printf("%d = sceIoLseek(fd,200, SEEK_SET)\n", ret);
+
+		memset(readBuf,0,128);
+		read_num = sceIoRead(fd,&readBuf, 128);
+		printf("%d = sceIoRead(128) = %s\n", read_num, readBuf);
+
+		ret = sceIoLseek(fd,-10, SEEK_CUR);
+		printf("%d = sceIoLseek(fd,-10, SEEK_CUR)\n", ret);
+
+		memset(readBuf,0,128);
+		read_num = sceIoRead(fd,&readBuf, 128);
+		printf("%d = sceIoRead(128) = %s\n", read_num, readBuf);
 		
 		ret = sceIoLseek(fd,0, SEEK_END);
 		printf("%d = sceIoLseek(fd,0, SEEK_END)\n", ret);
