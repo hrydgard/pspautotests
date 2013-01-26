@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <malloc.h>
+#include <psputility.h>
 
 int sceAtracGetSecondBufferInfo(int atracID, u32 *puiPosition, u32 *puiDataByte);
 int sceAtracGetNextDecodePosition(int atracID, u32 *puiSamplePosition);
@@ -46,10 +47,10 @@ int main(int argc, char *argv[]) {
 		fclose(file);
 	}
 
-	int id = pspSdkLoadStartModule("flash0:/kd/libaudiocodec2.prx", PSP_MEMORY_PARTITION_USER);
-	int id2 = pspSdkLoadStartModule("flash0:/kd/libatrac3plus.prx", PSP_MEMORY_PARTITION_USER);
+	int id = sceUtilityLoadModule(PSP_MODULE_AV_AVCODEC);
+	int id2 = sceUtilityLoadModule(PSP_MODULE_AV_ATRAC3PLUS);
 
-	if ((id > 0 || (u32) id == 0x80020139UL) && (id2 > 0 || (u32) id2 == 0x80020139UL)) {
+	if ((id >= 0 || (u32) id == 0x80020139UL) && (id2 >= 0 || (u32) id2 == 0x80020139UL)) {
 		printf("Audio modules: OK\n");
 	} else {
 		printf("Audio modules: Failed %08x %08x\n", id, id2);

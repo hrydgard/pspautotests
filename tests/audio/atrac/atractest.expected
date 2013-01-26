@@ -1,5 +1,5 @@
 Audio modules: OK
-at3: 0A0CDC40, 0000B508
+at3: 08821B40, 0000B508
 Header: RIFF
 sceAtracSetDataAndGetID: OK
 sceAtracSetLoopNum: 80630021
