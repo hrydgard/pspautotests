@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
 		printf("Audio modules: Failed %08x %08x\n", id, id2);
 	}
 
-	printf("at3: %08X, %08X\n", (unsigned int)at3_data, at3_size);
+	printf("at3: %08X, %08X\n", (unsigned int)at3_data != 0, at3_size);
 	printf("Header: %s\n", (char *)at3_data);
 		
 	atracID = sceAtracSetDataAndGetID(at3_data, at3_size);
@@ -67,6 +67,14 @@ int main(int argc, char *argv[]) {
 		printf("sceAtracSetDataAndGetID: OK\n");
 	}
 	
+  u32 bitrate;
+  result = sceAtracGetBitrate(atracID, &bitrate);
+  printf("%i=sceAtracGetBitrate: %i\n", result, bitrate);
+
+  u32 channelNum;
+  result = sceAtracGetChannel(atracID, &channelNum);
+  printf("%i=sceAtracGetChannel: %i\n", result, channelNum);
+
 	result = sceAtracSetLoopNum(atracID, 2);
 	printf("sceAtracSetLoopNum: %08X\n", result);
 
@@ -89,7 +97,7 @@ int main(int argc, char *argv[]) {
 		int nextSample = 0;
 		u32 nextPosition = 0;
 		
-		if (steps < 4) {
+		if (steps < 6) {
 			result = sceAtracGetNextSample(atracID, &nextSample);
 			printf("sceAtracGetNextSample(%d): %d\n", result, nextSample);
 			result = sceAtracGetNextDecodePosition(atracID, &nextPosition);
@@ -98,16 +106,12 @@ int main(int argc, char *argv[]) {
 
 		result = sceAtracDecodeData(atracID, (u16 *)decode_data, &samples, &end, &remainFrame);
 		
-		if (steps < 4) {
-			
-		}
-		
 		sceAudioSetChannelDataLen(channel, samples);
 		sceAudioOutputBlocking(channel, 0x8000, decode_data);
 		
 		result = sceAtracGetRemainFrame(atracID, &remainFrame);
 
-		if (steps < 4) {
+		if (steps < 6) {
 			printf("sceAtracDecodeData: %08X, at3_size: %d, decode_size: %d, samples: %d, end: %d, remainFrame: %d\n\n", result, at3_size, decode_size, samples, end, remainFrame);
 			if (steps == 1) {
 				for (n = 0; n < 32; n++) printf("%04X ", (u16)decode_data[n]);
@@ -116,6 +120,11 @@ int main(int argc, char *argv[]) {
 			printf("sceAtracGetRemainFrame: %08X\n", result);
 		}
 
+    //u32 loopStatus = 0xc0c0c0c0;
+    //result = sceAtracGetLoopStatus(atracID, 0, &loopStatus);
+    //printf("%i=sceAtracGetLoopStatus: %08x\n", result, loopStatus);
+
+    return 0;
 		steps++;
 	}
 	
