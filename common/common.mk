@@ -30,7 +30,7 @@ LIBS = -lpspgu -lpsprtc -lpspctrl -lpspmath -lcommon -lc -lm
 endif
 
 TARGET = $(firstword $(TARGETS))
-OBJS = $(firstword $(TARGETS)).o
+OBJS = $(firstword $(TARGETS)).o $(EXTRA_OBJS)
 
 PSPSDK = $(shell psp-config --pspsdk-path)
 include $(PSPSDK)/lib/build.mak
