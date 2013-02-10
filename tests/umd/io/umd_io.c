@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
 	do {
 		result = sceIoDread(directory, &directoryEntry);
 		printf("%d : '%s'\n", result, directoryEntry.d_name);
-	} while(result);
+	} while(result > 0);
 
 	return 0;
 }
