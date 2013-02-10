@@ -11,6 +11,7 @@ __testoutput.txt
 __testerror.txt
 __testfinish.txt
 __screenshot.bmp
+__testfailure.bmp
 
 # For vcproj
 *.user

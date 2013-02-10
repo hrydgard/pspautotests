@@ -89,7 +89,7 @@ abstract class MSProjectFile
 			$xml = str_replace('><Filter>', '>' . "\n" . '      <Filter>', $xml);
 			$xml = str_replace('</Filter><', '</Filter>' . "\n" . '    <', $xml);
 
-			$xml = str_replace("\n", "\r\n", $xml);
+			$xml = str_replace("\n", "\r\n", str_replace("\r", '', $xml));
 
 			file_put_contents($this->filename, $xml);
 		}
