@@ -1,0 +1,30 @@
+Start:
+i=0    vcount=0    wait=00000000  vblank=1
+i=1    vcount=1    wait=00000000  vblank=1
+i=2    vcount=2    wait=00000000  vblank=1
+i=3    vcount=3    wait=00000000  vblank=1
+StartCB:
+i=0    vcount=0    wait=00000000  vblank=1
+i=1    vcount=1    wait=00000000  vblank=1
+i=2    vcount=2    wait=00000000  vblank=1
+i=3    vcount=3    wait=00000000  vblank=1
+Vblank:
+i=0    vcount=0    wait=00000000  vblank=1
+i=1    vcount=1    wait=00000001  vblank=1
+i=2    vcount=1    wait=00000001  vblank=1
+i=3    vcount=1    wait=00000001  vblank=1
+VblankCB:
+i=0    vcount=0    wait=00000000  vblank=1
+i=1    vcount=1    wait=00000001  vblank=1
+i=2    vcount=1    wait=00000001  vblank=1
+i=3    vcount=1    wait=00000001  vblank=1
+Multi:
+i=0    vcount=0    wait=00000000  vblank=1
+i=1    vcount=3    wait=00000000  vblank=1
+i=2    vcount=6    wait=00000000  vblank=1
+i=3    vcount=9    wait=00000000  vblank=1
+MultiCB:
+i=0    vcount=0    wait=00000000  vblank=1
+i=1    vcount=3    wait=00000000  vblank=1
+i=2    vcount=6    wait=00000000  vblank=1
+i=3    vcount=9    wait=00000000  vblank=1
