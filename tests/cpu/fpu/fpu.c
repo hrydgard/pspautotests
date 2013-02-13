@@ -264,6 +264,10 @@ int main(int argc, char *argv[]) {
 	testCompare(1.0f, 1.0f);
 	testCompare(1.0f, 2.0f);
 	testCompare(1.0f, -2.0f);
+	testCompare(NAN, 1.0f);
+	testCompare(INFINITY, 1.0f);
+	testCompare(1.0f, NAN);
+	testCompare(1.0f, INFINITY);
 
 	return 0;
 }
