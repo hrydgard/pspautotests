@@ -264,13 +264,42 @@ void checkPrefixes() {
 	printf("%f (%s), %f, %f, %f\n", v0.x, signbit(v0.x) ? "-" : "+", v0.y, v0.z, v0.w);
 }
 
-void checkVscl(ScePspFVector4* v0, ScePspFVector4* v1) {
+void checkVScl(ScePspFVector4* v0, ScePspFVector4* v1) {
 	__asm__ volatile (
 		"lv.q   R000, 0x00+%1\n"
-		"vmov.q C100, C100[-1, -2, -0, -3]\n"
+		"vmov.q C100, C100[-1/3, -2, -0, -3]\n"
 		"vmov.q R100, R100[-1/3, -1/2, -1/4, -1/6]\n"
-		"vpfxt  |w|, |y|, |z|, |x|\n"
-		"vscl.q R000, R000[w, z, y, x], S100\n"
+		"vpfxs  w, y, z, x\n"
+		// Seems to do some funky things...
+		"vpfxt  3, -w, -w, -w\n"
+		"vscl.q R000, R000, S100\n"
+		"sv.q   R000, 0x00+%0\n"
+		: "+m" (*v0), "+m" (*v1)
+	);
+}
+
+void checkVMov(ScePspFVector4* v0, ScePspFVector4* v1) {
+	__asm__ volatile (
+		"lv.q   R000, 0x00+%1\n"
+		"vmov.q R100, R100[-1/3, -1/2, -1/4, -1/6]\n"
+		"vpfxt  1/3, |y|, |z|, |x|\n"
+		// Does vmov consume t prefix?
+		"vmov.q C200, C200\n"
+		"vadd.q R000, R000, R100\n"
+		"sv.q   R000, 0x00+%0\n"
+		: "+m" (*v0), "+m" (*v1)
+	);
+}
+
+void checkLVq(ScePspFVector4* v0, ScePspFVector4* v1) {
+	__asm__ volatile (
+		"lv.q   R000, 0x00+%1\n"
+		"vmov.s S100, S100[-1/3]\n"
+		"vpfxs  3, 3, 3, 3\n"
+		"vpfxt  1/3, |y|, |z|, |x|\n"
+		// Does lv.q consume or apply any prefix?
+		"lv.q   R000, 0x00+%1\n"
+		"vadd.q R000, R000, R100\n"
 		"sv.q   R000, 0x00+%0\n"
 		: "+m" (*v0), "+m" (*v1)
 	);
@@ -278,7 +307,11 @@ void checkVscl(ScePspFVector4* v0, ScePspFVector4* v1) {
 
 void checkOps() {
 	v1.x = -NAN; v1.y = -INFINITY; v1.z = -0.0f; v1.w = 3.0f;
-	checkVscl(&v0, &v1);
+	checkVScl(&v0, &v1);
+	printf("%f (%s), %f, %f, %f (%s)\n", v0.x, signbit(v0.x) ? "-" : "+", v0.y, v0.z, v0.w, signbit(v0.w) ? "-" : "+");
+	checkVMov(&v0, &v1);
+	printf("%f (%s), %f, %f, %f\n", v0.x, signbit(v0.x) ? "-" : "+", v0.y, v0.z, v0.w);
+	checkLVq(&v0, &v1);
 	printf("%f (%s), %f, %f, %f\n", v0.x, signbit(v0.x) ? "-" : "+", v0.y, v0.z, v0.w);
 }
 
