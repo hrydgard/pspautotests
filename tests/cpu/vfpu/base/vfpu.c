@@ -53,7 +53,17 @@ void __attribute__((noinline)) vcopy(ScePspFVector4 *v0, ScePspFVector4 *v1) {
 void __attribute__((noinline)) vf2h(ScePspFVector4 *v0, ScePspFVector4 *v1) {
 	asm volatile (
 		"lv.q   C100, %1\n"
-    "vf2h.q C200, C100\n"
+		"vf2h.q C200, C100\n"
+		"sv.q   C200, %0\n"
+
+		: "+m" (*v0) : "m" (*v1)
+	);
+}
+
+void __attribute__((noinline)) vh2f(ScePspFVector4 *v0, ScePspFVector4 *v1) {
+	asm volatile (
+		"lv.q   C100, %1\n"
+		"vh2f.p C200, C100\n"
 		"sv.q   C200, %0\n"
 
 		: "+m" (*v0) : "m" (*v1)
@@ -299,12 +309,7 @@ void checkVF2I() {
 	static __attribute__ ((aligned (16))) ScePspFVector4 vOutF =
 	{0.0f, 0.0f, 0.0f, 0.0f};
 
-  struct {int x,y,z,w;} vOut;
-
-	//vf2h(&vOutF, &vIn1); memcpy(&vOut, &vOutF, 16);
-	//printf("vf2h: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-	//vf2h(&vOutF, &vIn2); memcpy(&vOut, &vOutF, 16);
-	//printf("vf2h: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	struct {int x,y,z,w;} vOut;
 
 	vf2id(&vOutF, &vIn1); memcpy(&vOut, &vOutF, 16);
 	printf("vf2id: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
@@ -352,15 +357,53 @@ void checkVI2F() {
 	static __attribute__ ((aligned (16))) ScePspFVector4 vOut =
 	{0.0f, 0.0f, 0.0f, 0.0f};
 
-	//vf2h(&vOutF, &vIn1); memcpy(&vOut, &vOutF, 16);
-	//printf("vf2h: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-	//vf2h(&vOutF, &vIn2); memcpy(&vOut, &vOutF, 16);
-	//printf("vf2h: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-
 	vi2f(&vOut, vIn1);
 	printf("vi2f: %f,%f,%f,%f\n", vOut.x, vOut.y, vOut.z, vOut.w);
 	vi2f(&vOut, vIn2);
 	printf("vi2f: %f,%f,%f,%f\n", vOut.x, vOut.y, vOut.z, vOut.w);
+}
+
+void checkHalf() {
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn1 =
+	{0.9f, 1.3f, 2.7f, 1000.5f};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn2 =
+	{-0.9f, -1.3f, -2.7f, -1000.5f};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn3 =
+	{1.5f, 2.5f, -3.5f, -4.5f};
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn4 =
+	{3.5f, INFINITY, -INFINITY, NAN};
+
+	static __attribute__ ((aligned (16))) ScePspFVector4 vOutF =
+	{0.0f, 0.0f, 0.0f, 0.0f};
+
+	struct {unsigned int x,y,z,w;} vOut;
+
+	vf2h(&vOutF, &vIn1); memcpy(&vOut, &vOutF, 16);
+	printf("vf2h: %08x,%08x,%08x,%08x\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	vf2h(&vOutF, &vIn2); memcpy(&vOut, &vOutF, 16);
+	printf("vf2h: %08x,%08x,%08x,%08x\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	vf2h(&vOutF, &vIn3); memcpy(&vOut, &vOutF, 16);
+	printf("vf2h: %08x,%08x,%08x,%08x\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	vf2h(&vOutF, &vIn4); memcpy(&vOut, &vOutF, 16);
+	printf("vf2h: %08x,%08x,%08x,%08x\n", vOut.x, vOut.y, vOut.z, vOut.w);
+
+	vh2f(&vOutF, &vIn1); memcpy(&vOut, &vOutF, 16);
+	printf("vh2f: %08x,%08x,%08x,%08x\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	vh2f(&vOutF, &vIn2); memcpy(&vOut, &vOutF, 16);
+	printf("vh2f: %08x,%08x,%08x,%08x\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	vh2f(&vOutF, &vIn3); memcpy(&vOut, &vOutF, 16);
+	printf("vh2f: %08x,%08x,%08x,%08x\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	vh2f(&vOutF, &vIn4); memcpy(&vOut, &vOutF, 16);
+	printf("vh2f: %08x,%08x,%08x,%08x\n", vOut.x, vOut.y, vOut.z, vOut.w);
+
+	vf2h(&vOutF, &vIn1); vh2f(&vOutF, &vOutF);
+	printf("vf2h vh2f: %f,%f,%f,%f\n", vOutF.x, vOutF.y, vOutF.z, vOutF.w);
+	vf2h(&vOutF, &vIn2); vh2f(&vOutF, &vOutF);
+	printf("vf2h vh2f: %f,%f,%f,%f\n", vOutF.x, vOutF.y, vOutF.z, vOutF.w);
+	vf2h(&vOutF, &vIn3); vh2f(&vOutF, &vOutF);
+	printf("vf2h vh2f: %f,%f,%f,%f\n", vOutF.x, vOutF.y, vOutF.z, vOutF.w);
+	vf2h(&vOutF, &vIn4); vh2f(&vOutF, &vOutF);
+	printf("vf2h vh2f: %f,%f,%f,%f\n", vOutF.x, vOutF.y, vOutF.z, vOutF.w);
 }
 
 void checkVadd() {
@@ -1386,8 +1429,9 @@ int main(int argc, char *argv[]) {
 	
 	printf("checkCompare:\n"); checkCompare();
 	printf("checkCompare2:\n"); checkCompare2();
-  printf("checkVF2I:\n"); checkVF2I();
-  printf("checkVI2F:\n"); checkVI2F();
+	printf("checkVF2I:\n"); checkVF2I();
+	printf("checkVI2F:\n"); checkVI2F();
+	printf("checkHalf:\n"); checkHalf();
 	printf("checkCrossProduct:\n"); checkCrossProduct();
 	printf("checkHalfCrossProduct:\n"); checkHalfCrossProduct();
 	printf("checkButterfly1:\n"); checkVbfy1();
