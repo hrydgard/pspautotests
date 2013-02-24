@@ -1419,6 +1419,14 @@ void checkCompare2() {
   _checkCompare2(1.0f, 2.0f);
   _checkCompare2(2.0f, 1.0f);
   _checkCompare2(2.0f, 2.0f);
+  _checkCompare2(INFINITY, INFINITY);
+  _checkCompare2(-INFINITY, 100.0f);
+  _checkCompare2(NAN, 0.0f);
+  _checkCompare2(0.0f, NAN);
+  _checkCompare2(NAN, NAN);
+  _checkCompare2(NAN, -NAN);
+  _checkCompare2(-NAN, -NAN);
+  _checkCompare2(-0.0f, 0.0f);
 }
 
 
