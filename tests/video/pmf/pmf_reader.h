@@ -2,6 +2,7 @@ int T_Reader(SceSize _args, void *_argp)
 {
 	ReaderThreadData* D   = *((ReaderThreadData**)_argp);
 	SceInt32 iFreePackets = 0;
+	SceInt32 iFreeLast    = -1;
 	SceInt32 iReadPackets = 0;
 	SceInt32 iPackets     = 0;
 	
@@ -14,7 +15,11 @@ int T_Reader(SceSize _args, void *_argp)
 		if (D->m_Status == ReaderThreadData__READER_ABORT) break;
 
 		iFreePackets = sceMpegRingbufferAvailableSize(D->m_Ringbuffer);
-		printf("T_Reader.sceMpegRingbufferAvailableSize: %d\n", (int)iFreePackets);
+		if (iFreeLast != iFreePackets)
+		{
+			printf("T_Reader.sceMpegRingbufferAvailableSize: %d\n", (int)iFreePackets);
+			iFreeLast = iFreePackets;
+		}
 
 		if (iFreePackets > 0)
 		{

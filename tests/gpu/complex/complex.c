@@ -70,6 +70,6 @@ int xMain()
 	bg3_draw_tex(logo, 0, 0);
 	xGuFrameEnd();
 
-	sceKernelExitGame();
+	emulatorEmitScreenshot();
     return 0;
 }

@@ -114,8 +114,6 @@ Vertex_Normal __attribute__((aligned(16))) torus_vertices[TORUS_SLICES*TORUS_ROW
 unsigned short __attribute__((aligned(16))) torus_indices[TORUS_SLICES*TORUS_ROWS*6];
 
 
-int SetupCallbacks();
-
 void genTorus( unsigned slices, unsigned rows, float radius, float thickness,
 	Vertex_Normal* dstVertices, unsigned short* dstIndices );
 
@@ -223,8 +221,6 @@ void drawTorus( int val )
 
 int main(int argc, char* argv[])
 {
-	SetupCallbacks();
-
 	// generate geometry
 
 	genTorus( TORUS_ROWS, TORUS_SLICES, TORUS_RADIUS, TORUS_THICKNESS, torus_vertices, torus_indices );		
@@ -332,42 +328,9 @@ int main(int argc, char* argv[])
 
 	sceGuTerm();
 
-	sceKernelExitGame();
-	return 0;
-}
-
-/* Exit callback */
-int exit_callback(int arg1, int arg2, void *common)
-{
-	sceKernelExitGame();
-	return 0;
-}
-
-/* Callback thread */
-int CallbackThread(SceSize args, void *argp)
-{
-	int cbid;
-
-	cbid = sceKernelCreateCallback("Exit Callback", exit_callback, NULL);
-	sceKernelRegisterExitCallback(cbid);
-
-	sceKernelSleepThreadCB();
+	emulatorEmitScreenshot();
 
 	return 0;
-}
-
-/* Sets up the callback thread and returns its thread id */
-int SetupCallbacks(void)
-{
-	int thid = 0;
-
-	thid = sceKernelCreateThread("update_thread", CallbackThread, 0x11, 0xFA0, 0, 0);
-	if(thid >= 0)
-	{
-		sceKernelStartThread(thid, 0, 0);
-	}
-
-	return thid;
 }
 
 /* usefull geometry functions */
