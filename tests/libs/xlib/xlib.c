@@ -92,7 +92,6 @@ int main(int argc, char **argv)
     X_LOG("Logging started.",0);
     xMain();
     X_LOG("Logging finished.",0);
-    sceKernelExitGame();
     return 0;
 }
 #endif
