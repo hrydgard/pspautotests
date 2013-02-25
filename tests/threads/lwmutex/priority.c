@@ -4,9 +4,9 @@ SceLwMutexWorkarea workarea;
 
 static int threadFunction(SceSize argSize, void* argPointer) {
 	int num = argPointer ? *((int*)argPointer) : 0;
-	printf("A%d\n", num);
+	schedf("A%d\n", num);
 	sceKernelLockLwMutexCB(&workarea, 1, NULL);
-	printf("B%d\n", num);
+	schedf("B%d\n", num);
 	sceKernelUnlockLwMutex(&workarea, 1);
 
 	return 0;
@@ -27,23 +27,24 @@ void execPriorityTests(int attr, int deleteInstead) {
 
 	// This one intentionally is an invalid unlock.
 	sceKernelDelayThread(1000);
-	printf("Unlocking...\n");
+	schedf("Unlocking...\n");
 	result = sceKernelUnlockLwMutex(&workarea, 2);
 	sceKernelDelayThread(5000);
-	printf("Unlocked 2? %08X\n", result);
+	schedf("Unlocked 2? %08X\n", result);
 
 	if (!deleteInstead)
 	{
 		sceKernelDelayThread(1000);
-		printf("Unlocking...\n");
+		schedf("Unlocking...\n");
 		result = sceKernelUnlockLwMutex(&workarea, 1);
 		sceKernelDelayThread(5000);
-		printf("Unlocked 1? %08X\n", result);
+		schedf("Unlocked 1? %08X\n", result);
 	}
 
 	sceKernelDelayThread(1000);
-	printf("Delete: %08X\n", sceKernelDeleteLwMutex(&workarea));
-	printf("\n\n");
+	schedf("Delete: %08X\n", sceKernelDeleteLwMutex(&workarea));
+	schedf("\n\n");
+	flushschedf();
 }
 
 int main(int argc, char **argv) {

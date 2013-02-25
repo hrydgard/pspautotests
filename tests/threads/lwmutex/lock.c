@@ -20,11 +20,11 @@
 	} else { \
 		printf("%s: Failed (%X)\n", title, result); \
 	} \
-	printfLwMutexWorkarea(&workarea); \
+	printfLwMutex(&workarea); \
 	sceKernelDeleteLwMutex(&workarea); \
 	FAKE_LWMUTEX(workarea, attr, initial); \
 	LOCK_TEST_SIMPLE(title " (fake)", &workarea, count); \
-	printfLwMutexWorkarea(&workarea); \
+	printfLwMutex(&workarea); \
 }
 
 // Test sceKernelLockLwMutex with a timeout.
@@ -38,7 +38,7 @@
 	} else { \
 		printf("%s: Failed (%X, %dms left)\n", title, result, timeout); \
 	} \
-	printfLwMutexWorkarea(&workarea); \
+	printfLwMutex(&workarea); \
 	sceKernelDeleteLwMutex(&workarea); \
 	FAKE_LWMUTEX(workarea, attr, initial); \
 	timeout = initial_timeout; \
@@ -48,7 +48,7 @@
 	} else { \
 		printf("%s (fake): Failed (%X, %dms left)\n", title, result, timeout); \
 	} \
-	printfLwMutexWorkarea(&workarea); \
+	printfLwMutex(&workarea); \
 }
 
 // Test sceKernelLockLwMutex by locking on a separate thread first.

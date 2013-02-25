@@ -5,7 +5,7 @@
 	int result = sceKernelCreateLwMutex(workarea, name, attr, count, options); \
 	if (result == 0) { \
 		printf("%s: OK ", title); \
-		printfLwMutexWorkarea(workarea); \
+		printfLwMutex(workarea); \
 		sceKernelDeleteLwMutex(workarea); \
 	} else { \
 		printf("%s: Failed (%X)\n", title, result); \

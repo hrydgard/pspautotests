@@ -18,11 +18,11 @@
 	} else { \
 		printf("%s: Failed (%X)\n", title, result); \
 	} \
-	printfLwMutexWorkarea(&workarea); \
+	printfLwMutex(&workarea); \
 	sceKernelDeleteLwMutex(&workarea); \
 	FAKE_LWMUTEX(workarea, attr, initial); \
 	LOCK_TEST_SIMPLE(title " (fake)", &workarea, count); \
-	printfLwMutexWorkarea(&workarea); \
+	printfLwMutex(&workarea); \
 }
 
 #define LOCK_TEST_THREAD(title, attr, initial, count) { \

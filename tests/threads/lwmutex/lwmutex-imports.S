@@ -11,6 +11,7 @@ IMPORT_FUNC	"ThreadManForUser",0x5bf4dd27,sceKernelLockMutexCB
 IMPORT_FUNC	"ThreadManForUser",0x0DDCD2C9,sceKernelTryLockMutex
 IMPORT_FUNC	"ThreadManForUser",0x60107536,sceKernelDeleteLwMutex
 IMPORT_FUNC	"ThreadManForUser",0x19CFF145,sceKernelCreateLwMutex
+IMPORT_FUNC	"ThreadManForUser",0x4C145944,sceKernelReferLwMutexStatusByID
 
 IMPORT_FUNC	"ThreadManForUser",0x6E9EA350,_sceKernelReturnFromCallback
 IMPORT_FUNC	"ThreadManForUser",0x0C106E53,sceKernelRegisterThreadEventHandler
@@ -152,6 +153,7 @@ IMPORT_FUNC "Kernel_Library",0x37431849,sceKernelTryLockLwMutex_600
 IMPORT_FUNC "Kernel_Library",0xbea46419,sceKernelLockLwMutex
 IMPORT_FUNC "Kernel_Library",0x1FC64E09,sceKernelLockLwMutexCB
 IMPORT_FUNC "Kernel_Library",0x15b6446b,sceKernelUnlockLwMutex
+IMPORT_FUNC "Kernel_Library",0xC1734599,sceKernelReferLwMutexStatus
 
 IMPORT_FUNC "Kernel_Library",0x1839852A,sce_paf_private_memcpy
 IMPORT_FUNC "Kernel_Library",0xA089ECA4,sce_paf_private_memset
