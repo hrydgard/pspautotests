@@ -47,17 +47,21 @@ inline void schedf(const char *format, ...) {
 inline void flushschedf() {
 	printf("%s", schedulingLog);
 	schedulingLogPos = 0;
+	schedulingLog[0] = '\0';
+}
+
+inline void schedfMutexInfo(SceKernelMutexInfo *info) {
+	schedf("Mutex: OK (size=%d,name=%s,attr=%08x,init=%d,current=%d,lockThread=%d,waiting=%08x)\n", info->size, info->name, info->attr, info->initCount, info->currentCount, info->lockThread == -1 ? 0 : 1, info->numWaitThreads);
 }
 
 inline void schedfMutex(SceUID mutex) {
 	if (mutex > 0) {
 		SceKernelMutexInfo info;
-		memset(&info, 0xCC, sizeof(info));
 		info.size = sizeof(info);
 
 		int result = sceKernelReferMutexStatus(mutex, &info);
 		if (result == 0) {
-			schedf("Mutex: OK (size=%d,name=%s,attr=%08x,init=%d,current=%d,lockThread=%d,waiting=%08x)\n", info.size, info.name, info.attr, info.initCount, info.currentCount, info.lockThread == -1 ? 0 : 1, info.numWaitThreads);
+			schedfMutexInfo(&info);
 		} else {
 			schedf("Mutex: Invalid (%08X)\n", result);
 		}
@@ -106,7 +110,7 @@ static int scheduleTestFunc(SceSize argSize, void* argPointer) {
 	SceUID mutex2 = sceKernelCreateMutex("schedTest2", 0, init2, NULL); \
 	int result = -1; \
 	\
-	schedulingLogPos = 0; \
+	flushschedf(); \
 	schedulingPlacement = 1; \
 	printf("%s: ", title); \
 	\
@@ -118,9 +122,8 @@ static int scheduleTestFunc(SceSize argSize, void* argPointer) {
 	sceKernelDeleteMutex(mutex1); \
 	SCHED_LOG(F, 1); \
 	\
-	schedulingLog[schedulingLogPos] = 0; \
-	schedulingLogPos = 0; \
-	printf("%s (thread=%08X, main=%08X)\n", schedulingLog, schedulingResult, result); \
+	flushschedf(); \
+	printf(" (thread=%08X, main=%08X)\n", schedulingResult, result); \
 	sceKernelDeleteMutex(mutex2); \
 }
 #define BASIC_SCHED_TEST(title, x) LOCKED_SCHED_TEST(title, 1, 0, x);
