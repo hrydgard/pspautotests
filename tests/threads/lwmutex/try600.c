@@ -1,10 +1,8 @@
-#include "../sub_shared.h"
+#include "shared.h"
 #include <limits.h>
 
-SETUP_SCHED_TEST;
-
 #define LOCK_TEST_SIMPLE(title, workareaPtr, count) { \
-	int result = sceKernelTryLockLwMutex(workareaPtr, count); \
+	int result = sceKernelTryLockLwMutex_600(workareaPtr, count); \
 	if (result == 0) { \
 		printf("%s: OK\n", title); \
 	} else { \
@@ -20,11 +18,11 @@ SETUP_SCHED_TEST;
 	} else { \
 		printf("%s: Failed (%X)\n", title, result); \
 	} \
-	PRINT_LWMUTEX(workarea); \
+	printfLwMutexWorkarea(&workarea); \
 	sceKernelDeleteLwMutex(&workarea); \
 	FAKE_LWMUTEX(workarea, attr, initial); \
 	LOCK_TEST_SIMPLE(title " (fake)", &workarea, count); \
-	PRINT_LWMUTEX(workarea); \
+	printfLwMutexWorkarea(&workarea); \
 }
 
 #define LOCK_TEST_THREAD(title, attr, initial, count) { \
@@ -36,7 +34,7 @@ SETUP_SCHED_TEST;
 	void *workareaPtr = &workarea; \
 	sceKernelStartThread(lockThread, sizeof(void*), &workareaPtr); \
 	sceKernelDelayThread(400); \
-	int result = sceKernelTryLockLwMutex(&workarea, count); \
+	int result = sceKernelTryLockLwMutex_600(&workarea, count); \
 	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, "L2 "); \
 	sceKernelDelayThread(600); \
 	sceKernelDeleteLwMutex(&workarea); \
@@ -56,7 +54,7 @@ SETUP_SCHED_TEST;
 	schedulingResult = -1; \
 	sceKernelStartThread(lockThread, sizeof(void*), &workareaPtr); \
 	sceKernelDelayThread(400); \
-	result = sceKernelTryLockLwMutex(&workarea, count); \
+	result = sceKernelTryLockLwMutex_600(&workarea, count); \
 	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, "L2 "); \
 	sceKernelDelayThread(600); \
 	sceKernelWaitThreadEnd(lockThread, NULL); \
@@ -79,7 +77,7 @@ static int lockFunc(SceSize argSize, void* argPointer) {
 }
 
 static int deleteMeFunc(SceSize argSize, void* argPointer) {
-	int result = sceKernelTryLockLwMutex(*(void**) argPointer, 1);
+	int result = sceKernelTryLockLwMutex_600(*(void**) argPointer, 1);
 	printf("After delete: %08X\n", result);
 	return 0;
 }
@@ -118,13 +116,13 @@ int main(int argc, char **argv) {
 	LOCK_TEST_SIMPLE("Deleted => 1", &workarea, 1);
 	
 	BASIC_SCHED_TEST("Zero",
-		result = sceKernelTryLockLwMutex(&workarea2, 0);
+		result = sceKernelTryLockLwMutex_600(&workarea2, 0);
 	);
 	BASIC_SCHED_TEST("Lock same",
-		result = sceKernelTryLockLwMutex(&workarea1, 1);
+		result = sceKernelTryLockLwMutex_600(&workarea1, 1);
 	);
 	BASIC_SCHED_TEST("Lock other",
-		result = sceKernelTryLockLwMutex(&workarea2, 1);
+		result = sceKernelTryLockLwMutex_600(&workarea2, 1);
 	);
 
 	return 0;

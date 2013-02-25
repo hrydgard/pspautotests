@@ -1,6 +1,4 @@
-#include "../sub_shared.h"
-
-SETUP_SCHED_TEST;
+#include "shared.h"
 
 #define DELETE_TEST(title, workarea) { \
 	int result = sceKernelDeleteLwMutex(workarea); \

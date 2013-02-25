@@ -1,6 +1,4 @@
-#include "../sub_shared.h"
-
-SETUP_SCHED_TEST;
+#include "shared.h"
 
 #define UNLOCK_TEST_SIMPLE(title, workareaPtr, count) { \
 	int result = sceKernelUnlockLwMutex(workareaPtr, count); \
@@ -19,16 +17,16 @@ SETUP_SCHED_TEST;
 	} else { \
 		printf("%s: Failed (%X)\n", title, result); \
 	} \
-	PRINT_LWMUTEX(workarea); \
+	printfLwMutexWorkarea(&workarea); \
 	sceKernelDeleteLwMutex(&workarea); \
 	FAKE_LWMUTEX(workarea, attr, initial); \
 	UNLOCK_TEST_SIMPLE(title " (fake)", &workarea, count); \
-	PRINT_LWMUTEX(workarea); \
+	printfLwMutexWorkarea(&workarea); \
 }
 
 #define UNLOCK_TEST_THREAD(title, attr, initial, count) { \
 	printf("%s: ", title); \
-	schedulingLogPos = 0; \
+	flushschedf(); \
 	schedulingResult = -1; \
 	SceLwMutexWorkarea workarea; \
 	sceKernelCreateLwMutex(&workarea, "lock", attr, initial, NULL); \
@@ -40,18 +38,17 @@ SETUP_SCHED_TEST;
 	sceKernelDelayThread(600); \
 	sceKernelDeleteLwMutex(&workarea); \
 	sceKernelWaitThreadEnd(lockThread, NULL); \
-	schedulingLog[schedulingLogPos] = 0; \
-	schedulingLogPos = 0; \
+	flushschedf(); \
 	if (result == 0) { \
-		printf("%sOK (thread=%08X)\n", schedulingLog, schedulingResult); \
+		printf("OK (thread=%08X)\n", schedulingResult); \
 	} else { \
-		printf("%sFailed (thread=%08X, main=%08X)\n", schedulingLog, schedulingResult, result); \
+		printf("Failed (thread=%08X, main=%08X)\n", schedulingResult, result); \
 	} \
 	sceKernelTerminateThread(lockThread); \
 	\
 	FAKE_LWMUTEX(workarea, attr, initial); \
 	printf("%s (fake): ", title); \
-	schedulingLogPos = 0; \
+	flushschedf(); \
 	schedulingResult = -1; \
 	sceKernelStartThread(lockThread, sizeof(void*), &workareaPtr); \
 	sceKernelDelayThread(400); \
@@ -59,10 +56,11 @@ SETUP_SCHED_TEST;
 	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, "L2 "); \
 	sceKernelDelayThread(600); \
 	sceKernelWaitThreadEnd(lockThread, NULL); \
+	flushschedf(); \
 	if (result == 0) { \
-		printf("%sOK (thread=%08X)\n", schedulingLog, schedulingResult); \
+		printf("OK (thread=%08X)\n", schedulingResult); \
 	} else { \
-		printf("%sFailed (thread=%08X, main=%08X)\n", schedulingLog, schedulingResult, result); \
+		printf("Failed (thread=%08X, main=%08X)\n", schedulingResult, result); \
 	} \
 	sceKernelTerminateThread(lockThread); \
 }

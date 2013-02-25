@@ -1,13 +1,11 @@
-#include "../sub_shared.h"
+#include "shared.h"
 #include <limits.h>
-
-SETUP_SCHED_TEST;
 
 #define CREATE_TEST(title, workarea, name, attr, count, options) { \
 	int result = sceKernelCreateLwMutex(workarea, name, attr, count, options); \
 	if (result == 0) { \
 		printf("%s: OK ", title); \
-		PRINT_LWMUTEX(*workarea); \
+		printfLwMutexWorkarea(workarea); \
 		sceKernelDeleteLwMutex(workarea); \
 	} else { \
 		printf("%s: Failed (%X)\n", title, result); \

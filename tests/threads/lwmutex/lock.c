@@ -1,7 +1,5 @@
-#include "../sub_shared.h"
+#include "shared.h"
 #include <limits.h>
-
-SETUP_SCHED_TEST;
 
 // Test sceKernelLockLwMutex with an exising mutex.
 #define LOCK_TEST_SIMPLE(title, workareaPtr, count) { \
@@ -22,11 +20,11 @@ SETUP_SCHED_TEST;
 	} else { \
 		printf("%s: Failed (%X)\n", title, result); \
 	} \
-	PRINT_LWMUTEX(workarea); \
+	printfLwMutexWorkarea(&workarea); \
 	sceKernelDeleteLwMutex(&workarea); \
 	FAKE_LWMUTEX(workarea, attr, initial); \
 	LOCK_TEST_SIMPLE(title " (fake)", &workarea, count); \
-	PRINT_LWMUTEX(workarea); \
+	printfLwMutexWorkarea(&workarea); \
 }
 
 // Test sceKernelLockLwMutex with a timeout.
@@ -40,7 +38,7 @@ SETUP_SCHED_TEST;
 	} else { \
 		printf("%s: Failed (%X, %dms left)\n", title, result, timeout); \
 	} \
-	PRINT_LWMUTEX(workarea); \
+	printfLwMutexWorkarea(&workarea); \
 	sceKernelDeleteLwMutex(&workarea); \
 	FAKE_LWMUTEX(workarea, attr, initial); \
 	timeout = initial_timeout; \
@@ -50,13 +48,13 @@ SETUP_SCHED_TEST;
 	} else { \
 		printf("%s (fake): Failed (%X, %dms left)\n", title, result, timeout); \
 	} \
-	PRINT_LWMUTEX(workarea); \
+	printfLwMutexWorkarea(&workarea); \
 }
 
 // Test sceKernelLockLwMutex by locking on a separate thread first.
 #define LOCK_TEST_TIMEOUT_THREAD(title, attr, initial, count, initial_timeout) { \
+	flushschedf(); \
 	printf("%s: ", title); \
-	schedulingLogPos = 0; \
 	schedulingResult = -1; \
 	SceLwMutexWorkarea workarea; \
 	sceKernelCreateLwMutex(&workarea, "lock", attr, initial, NULL); \
@@ -69,18 +67,17 @@ SETUP_SCHED_TEST;
 	sceKernelDelayThread(600); \
 	sceKernelDeleteLwMutex(&workarea); \
 	sceKernelWaitThreadEnd(lockThread, NULL); \
-	schedulingLog[schedulingLogPos] = 0; \
-	schedulingLogPos = 0; \
+	flushschedf(); \
 	if (result == 0) { \
-		printf("%sOK (thread=%08X, %dms left)\n", schedulingLog, schedulingResult, timeout); \
+		printf("OK (thread=%08X, %dms left)\n", schedulingResult, timeout); \
 	} else { \
-		printf("%sFailed (thread=%08X, main=%08X, %dms left)\n", schedulingLog, schedulingResult, result, timeout); \
+		printf("Failed (thread=%08X, main=%08X, %dms left)\n", schedulingResult, result, timeout); \
 	} \
 	sceKernelTerminateThread(lockThread); \
 	\
 	FAKE_LWMUTEX(workarea, attr, initial); \
 	printf("%s (fake): ", title); \
-	schedulingLogPos = 0; \
+	flushschedf(); \
 	schedulingResult = -1; \
 	sceKernelStartThread(lockThread, sizeof(void*), &workareaPtr); \
 	sceKernelDelayThread(400); \
@@ -89,10 +86,11 @@ SETUP_SCHED_TEST;
 	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, "L2 "); \
 	sceKernelDelayThread(600); \
 	sceKernelWaitThreadEnd(lockThread, NULL); \
+	flushschedf(); \
 	if (result == 0) { \
-		printf("%sOK (thread=%08X)\n", schedulingLog, schedulingResult); \
+		printf("OK (thread=%08X)\n", schedulingResult); \
 	} else { \
-		printf("%sFailed (thread=%08X, main=%08X)\n", schedulingLog, schedulingResult, result); \
+		printf("Failed (thread=%08X, main=%08X)\n", schedulingResult, result); \
 	} \
 	sceKernelTerminateThread(lockThread); \
 }
