@@ -136,3 +136,4 @@ IMPORT_FUNC	"ThreadManForUser",0x94416130,sceKernelGetThreadmanIdList
 IMPORT_FUNC	"ThreadManForUser",0x57CF62DD,sceKernelGetThreadmanIdType
 IMPORT_FUNC	"ThreadManForUser",0x64D4540E,sceKernelReferThreadProfiler
 IMPORT_FUNC	"ThreadManForUser",0x8218B4DD,sceKernelReferGlobalProfiler
+IMPORT_FUNC	"ThreadManForUser",0xA9C2CB9A,sceKernelReferMutexStatus
