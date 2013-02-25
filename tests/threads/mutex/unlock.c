@@ -1,11 +1,10 @@
 #include "shared.h"
 
-SETUP_SCHED_TEST;
-
 #define UNLOCK_TEST_SIMPLE(title, mutex, count) { \
 	int result = sceKernelUnlockMutex(mutex, count); \
 	if (result == 0) { \
-		printf("%s: OK\n", title); \
+		printf("%s: ", title); \
+		printfMutex(mutex); \
 	} else { \
 		printf("%s: Failed (%X)\n", title, result); \
 	} \

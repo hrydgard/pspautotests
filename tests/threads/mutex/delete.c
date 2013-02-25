@@ -1,23 +1,21 @@
 #include "shared.h"
 
-SETUP_SCHED_TEST;
-
-#define DELETE_TEST(title, mutex) { \
-	int result = sceKernelDeleteMutex(mutex); \
-	if (result == 0) { \
-		printf("%s: OK\n", title); \
-	} else { \
-		printf("%s: Failed (%X)\n", title, result); \
-	} \
+inline void deleteTest(const char *title, SceUID mutex) {
+	int result = sceKernelDeleteMutex(mutex);
+	if (result == 0) {
+		printf("%s: OK\n", title);
+	} else {
+		printf("%s: Failed (%X)\n", title, result);
+	}
 }
 
 int main(int argc, char **argv) {
 	SceUID mutex = sceKernelCreateMutex("delete", 0, 0, NULL);
 
-	DELETE_TEST("Normal", mutex);
-	DELETE_TEST("NULL", 0);
-	DELETE_TEST("Invalid", 0xDEADBEEF);
-	DELETE_TEST("Deleted", mutex);
+	deleteTest("Normal", mutex);
+	deleteTest("NULL", 0);
+	deleteTest("Invalid", 0xDEADBEEF);
+	deleteTest("Deleted", mutex);
 
 	BASIC_SCHED_TEST("Delete other",
 		result = sceKernelDeleteMutex(mutex2);

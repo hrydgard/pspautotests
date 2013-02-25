@@ -1,13 +1,12 @@
 #include "shared.h"
 #include <limits.h>
 
-SETUP_SCHED_TEST;
-
 // Test sceKernelLockMutex with an exising mutex.
 #define LOCK_TEST_SIMPLE(title, mutex, count) { \
 	int result = sceKernelLockMutex(mutex, count, NULL); \
 	if (result == 0) { \
-		printf("%s: OK\n", title); \
+		printf("%s: ", title); \
+		printfMutex(mutex); \
 	} else { \
 		printf("%s: Failed (%X)\n", title, result); \
 	} \
@@ -27,6 +26,7 @@ SETUP_SCHED_TEST;
 	int result = sceKernelLockMutex(mutex, count, &timeout); \
 	if (result == 0) { \
 		printf("%s: OK (%dms left)\n", title, timeout); \
+		printfMutex(mutex); \
 	} else { \
 		printf("%s: Failed (%X, %dms left)\n", title, result, timeout); \
 	} \

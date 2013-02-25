@@ -1,32 +1,31 @@
 #include "shared.h"
 
-SETUP_SCHED_TEST;
-
-#define CREATE_TEST(title, name, attr, count, options) { \
-	mutex = sceKernelCreateMutex(name, attr, count, options); \
-	if (mutex > 0) { \
-		printf("%s: OK\n", title); \
-		sceKernelDeleteMutex(mutex); \
-	} else { \
-		printf("%s: Failed (%X)\n", title, mutex); \
-	} \
+inline void createTest(const char *title, const char *name, u32 attr, int count, void *options) {
+	SceUID mutex = sceKernelCreateMutex(name, attr, count, options);
+	if (mutex > 0) {
+		printf("%s: ", title);
+		printfMutex(mutex);
+		sceKernelDeleteMutex(mutex);
+	} else {
+		printf("%s: Failed (%X)\n", title, mutex);
+	}
 }
 
 int main(int argc, char **argv) {
 	SceUID mutex;
 
-	CREATE_TEST("NULL name", NULL, 0, 0, NULL);
-	CREATE_TEST("Blank name", "", 0, 0, NULL);
-	CREATE_TEST("Long name", "1234567890123456789012345678901234567890123456789012345678901234", 0, 0, NULL);
-	CREATE_TEST("Weird attr", "create", 1, 0, NULL);
-	CREATE_TEST("0x100 attr", "create", 0x100, 0, NULL);
-	CREATE_TEST("0x200 attr", "create", 0x200, 0, NULL);
-	CREATE_TEST("0xB00 attr", "create", 0xB00, 0, NULL);
-	CREATE_TEST("0xBFF attr", "create", 0xBFF, 0, NULL);
-	CREATE_TEST("0xC00 attr", "create", 0xC00, 0, NULL);
-	CREATE_TEST("Negative count", "create", 0, -1, NULL);
-	CREATE_TEST("Positive count", "create", 0, 1, NULL);
-	CREATE_TEST("Large count", "create", 0, 65537, NULL);
+	createTest("NULL name", NULL, 0, 0, NULL);
+	createTest("Blank name", "", 0, 0, NULL);
+	createTest("Long name", "1234567890123456789012345678901234567890123456789012345678901234", 0, 0, NULL);
+	createTest("Weird attr", "create", 1, 0, NULL);
+	createTest("0x100 attr", "create", 0x100, 0, NULL);
+	createTest("0x200 attr", "create", 0x200, 0, NULL);
+	createTest("0xB00 attr", "create", 0xB00, 0, NULL);
+	createTest("0xBFF attr", "create", 0xBFF, 0, NULL);
+	createTest("0xC00 attr", "create", 0xC00, 0, NULL);
+	createTest("Negative count", "create", 0, -1, NULL);
+	createTest("Positive count", "create", 0, 1, NULL);
+	createTest("Large count", "create", 0, 65537, NULL);
 
 	SceUID mutex1 = sceKernelCreateMutex("create", 0, 0, NULL);
 	SceUID mutex2 = sceKernelCreateMutex("create", 0, 0, NULL);
