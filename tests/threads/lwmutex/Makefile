@@ -1,4 +1,4 @@
-TARGETS = create delete lock priority try try600 unlock
+TARGETS = create delete lock priority refer try try600 unlock
 EXTRA_OBJS = lwmutex-imports.o
 
 COMMON_DIR = ../../../common

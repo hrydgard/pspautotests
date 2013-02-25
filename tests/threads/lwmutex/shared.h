@@ -67,13 +67,17 @@ inline void flushschedf() {
 	sceKernelCreateThread(#func, &func, priority, 0x10000, 0, NULL)
 #define CREATE_SIMPLE_THREAD(func) CREATE_PRIORITY_THREAD(func, 0x12)
 
+static inline void schedfLwMutexWorkarea(SceLwMutexWorkarea *workarea) {
+	schedf("LwMutexWorkarea (count=%d, thread=%08X, attr=%03X, waiting=%d, uid=%d, %08X, %08X, %08X)\n", workarea->count, workarea->thread > 0 ? 1 : workarea->thread, workarea->attr, workarea->numWaitThreads, workarea->uid > 0 ? 1 : workarea->uid, workarea->pad[0], workarea->pad[1], workarea->pad[2]);
+}
+
 static inline void printfLwMutexWorkarea(SceLwMutexWorkarea *workarea) {
-	printf("LwMutexWorkarea (count=%d, thread=%08X, attr=%03X, waiting=%d, uid=%d, %08X, %08X, %08X)\n", workarea->count, workarea->thread > 0 ? 1 : workarea->thread, workarea->attr, workarea->numWaitThreads, workarea->uid > 0 ? 1 : workarea->uid, workarea->pad[0], workarea->pad[1], workarea->pad[2]);
+	schedfLwMutexWorkarea(workarea);
 }
 
 inline void schedfLwMutexInfo(SceLwMutexWorkarea *workarea, SceKernelLwMutexInfo *info) {
 	schedf("LwMutex: OK (size=%d,name=%s,attr=%08x,uid=%d,workarea=%d,init=%d,current=%d,lockThread=%d)\n", info->size, info->name, info->attr, info->uid == workarea->uid ? 1 : 0, info->workarea == workarea ? 1 : 0, info->initCount, info->currentCount, info->lockThread == -1 ? 0 : 1);
-	printfLwMutexWorkarea(workarea);
+	schedfLwMutexWorkarea(workarea);
 }
 
 inline void schedfLwMutex(SceLwMutexWorkarea *workarea) {
