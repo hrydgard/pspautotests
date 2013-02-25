@@ -1,4 +1,4 @@
-#include "../sub_shared.h"
+#include "shared.h"
 
 SceUID mutex;
 
