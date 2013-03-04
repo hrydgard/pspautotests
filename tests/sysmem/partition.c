@@ -49,7 +49,7 @@ char *testAllocDiff(const char *title, int partition, const char *name, int type
 		sceKernelFreePartitionMemory(result);
 
 		if ((diffHigh ? diff - addr : addr - diff) == 0x1800) {
-			printf("That's strange: addr: %08x, diff: %08x\n", addr, diff);
+			printf("That's strange: addr: %08x, diff: %08x\n", (unsigned int)addr, (unsigned int)diff);
 		}
 
 		printf("%s: OK (%s, difference %x)\n", title, allocatedPos(addr, size), diffHigh ? diff - addr : addr - diff);
@@ -121,33 +121,49 @@ int main(int argc, char *argv[]) {
 	sceKernelFreePartitionMemory(posPart1);
 
 	printf("\nAlignment:\n");
-	SceUID alignbase[0x1000];
-	int alignbaseCount;
-	for (alignbaseCount = 0; alignbaseCount < 0x1000; ++alignbaseCount) {
-		alignbase[alignbaseCount] = sceKernelAllocPartitionMemory(PSP_MEMORY_PARTITION_USER, "alignbase", 0, 0x1, NULL);
-		char *base = (char *)sceKernelGetBlockHeadAddr(alignbase[alignbaseCount]);
-		if (((u32)base & 0xFFF) == 0xF00)
+	SceUID alignbase[0x2000];
+	int alignbaseCountLow, alignbaseCountHigh;
+	for (alignbaseCountLow = 0; alignbaseCountLow < 0x1000; ++alignbaseCountLow) {
+		alignbase[alignbaseCountLow] = sceKernelAllocPartitionMemory(PSP_MEMORY_PARTITION_USER, "alignbase", 0, 0x1, NULL);
+		char *base = (char *)sceKernelGetBlockHeadAddr(alignbase[alignbaseCountLow]);
+		if (((u32)base & 0xFFFF) == 0xF000)
 			break;
 	}
-	SceUID alignLowID = sceKernelAllocPartitionMemory(PSP_MEMORY_PARTITION_USER, "part1", 3, 0x1000, (void *)0x1000);
-	SceUID alignHighID = sceKernelAllocPartitionMemory(PSP_MEMORY_PARTITION_USER, "part2", 4, 0x1000, (void *)0x1000);
+	for (alignbaseCountHigh = 0; alignbaseCountHigh < 0x1000; ++alignbaseCountHigh) {
+		alignbase[0x1000 + alignbaseCountHigh] = sceKernelAllocPartitionMemory(PSP_MEMORY_PARTITION_USER, "alignbaseTop", 1, 0x1, NULL);
+		char *base = (char *)sceKernelGetBlockHeadAddr(alignbase[0x1000 + alignbaseCountHigh]);
+		if (((u32)base & 0xFFFF) == 0xF000)
+			break;
+	}
+	SceUID alignLowID = sceKernelAllocPartitionMemory(PSP_MEMORY_PARTITION_USER, "alignLow", 3, 0x1000, (void *)0x1000);
+	SceUID alignHighID = sceKernelAllocPartitionMemory(PSP_MEMORY_PARTITION_USER, "alignHigh", 4, 0x1000, (void *)0x1000);
 	char *alignLow = (char *)sceKernelGetBlockHeadAddr(alignLowID);
 	char *alignHigh = (char *)sceKernelGetBlockHeadAddr(alignHighID);
 
 	unsigned int aligns[] = {
 		-5, -1, 0, 1, 2, 3, 4, 7, 8, 0x10, 0x11, 0x20, 0x2F, 0x40, 0x60, 0x80, 0x100,
-		0x1000, 0x2000, 0x1000000, 0x4000000, 0x40000000, 0x80000000,
+		0x1000, 0x2000, 0x4000, 0x1000000, 0x4000000, 0x40000000, 0x80000000,
 	};
 	for (i = 0; i < sizeof(aligns) / sizeof(aligns[0]); ++i) {
+		char *addr;
 		sprintf(temp, "  Align 0x%08X low", aligns[i]);
-		testAllocDiff(temp, PSP_MEMORY_PARTITION_USER, "part2", 3, 0x1000, (char *)aligns[i], 0, alignLow);
+		addr = testAllocDiff(temp, PSP_MEMORY_PARTITION_USER, "part2", 3, 0x1000, (char *)aligns[i], 0, alignLow);
+		if (aligns[i] != 0 && ((u32)addr % aligns[i]) != 0) {
+			printf("    ACK: Not actually aligned: %08x\n", (unsigned int)addr);
+		}
 
 		sprintf(temp, "  Align 0x%08X high", aligns[i]);
-		testAllocDiff(temp, PSP_MEMORY_PARTITION_USER, "part2", 4, 0x1000, (char *)aligns[i], 1, alignHigh);
+		addr = testAllocDiff(temp, PSP_MEMORY_PARTITION_USER, "part2", 4, 0x1000, (char *)aligns[i], 1, alignHigh);
+		if (aligns[i] != 0 && ((u32)addr % aligns[i]) != 0) {
+			printf("%s: not actually aligned, %08x\n", temp, (unsigned int)addr);
+		}
 	}
 	sceKernelFreePartitionMemory(alignLowID);
-	while (alignbaseCount >= 0) {
-		sceKernelFreePartitionMemory(alignbase[alignbaseCount--]);
+	while (alignbaseCountLow >= 0) {
+		sceKernelFreePartitionMemory(alignbase[alignbaseCountLow--]);
+	}
+	while (alignbaseCountHigh >= 0) {
+		sceKernelFreePartitionMemory(alignbase[0x1000 + alignbaseCountHigh--]);
 	}
 	sceKernelFreePartitionMemory(alignHighID);
 
