@@ -27,9 +27,9 @@ hostfs_command = None
 
 tests_to_generate = [
   "cpu/cpu_alu/cpu_alu",
-  "cpu/vfpu/base/vfpu",
+  "cpu/vfpu/base",
   "cpu/vfpu/convert/vfpu_convert",
-  "cpu/vfpu/prefixes/vfpu_prefixes",
+  "cpu/vfpu/prefixes",
   "cpu/vfpu/colors/vfpu_colors",
   "cpu/icache/icache",
   "cpu/lsu/lsu",
