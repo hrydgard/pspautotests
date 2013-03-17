@@ -57,8 +57,13 @@ const ALIGN16 ScePspFVector4 testVectors[8] = {
 	{NAN, -NAN, 90.0f, INFINITY},
 };
 
-#define NUM_TESTVECTORS_NICE 4
+// #define NICE
+
+#ifdef NICE
+#define NUM_TESTVECTORS 4
+#else
 #define NUM_TESTVECTORS 8
+#endif
 
 void NOINLINE vcopy(ScePspFVector4 *v0, ScePspFVector4 *v1) {
 	asm volatile (
@@ -104,56 +109,116 @@ GEN_SV(vavg_p, "vavg.p");
 GEN_SV(vavg_t, "vavg.t");
 GEN_SV(vavg_q, "vavg.q");
 
-void NOINLINE LoadR000(ScePspFVector4* v0) {
+void NOINLINE LoadC000(const ScePspFVector4* v0) {
 	__asm__ volatile (
-		"lv.q   R000, 0x00+%0\n"
+		"lv.q   C000, 0x00+%0\n"
 		: : "m" (*v0)
 	);
 }
 
-#define GEN_V_S(FuncName, Op) \
-void NOINLINE FuncName(ScePspFVector4* v0) { \
-	__asm__ volatile ( \
-	Op "\n" \
-	"sv.q   R000, 0x00+%0\n" \
-	: "+m" (*v0) \
+#define GEN_T(genFun, name) \
+	genFun(name ## _t, #name ".t", "C");
+
+#define GEN_Q(genFun, name) \
+	genFun(name ## _q, #name ".q", "C");
+
+#define GEN_SPTQ(genFun, name) \
+	genFun(name ## _s, #name ".s", "S"); \
+	genFun(name ## _p, #name ".p", "C"); \
+	genFun(name ## _t, #name ".t", "C"); \
+	genFun(name ## _q, #name ".q", "C");
+
+#define TEST_T(testFun, name) \
+	testFun(#name "_t", name ## _t);
+
+#define TEST_Q(testFun, name) \
+	testFun(#name "_q", name ## _q);
+
+#define TEST_SPTQ(testFun, name) \
+	testFun(#name "_s", name ## _s); \
+	testFun(#name "_p", name ## _p); \
+	testFun(#name "_t", name ## _t); \
+	testFun(#name "_q", name ## _q);
+
+//////////////////////////////////////////////////////////////////////////
+// "VVV" functions
+//////////////////////////////////////////////////////////////////////////
+
+#define GEN_VVV(FuncName, Op, PFX) \
+void NOINLINE FuncName(ScePspFVector4 *v0, const ScePspFVector4 *v1, const ScePspFVector4 *v2) { \
+	asm volatile ( \
+	"lv.q   C100, %1\n" \
+	"lv.q   C200, %2\n" \
+	Op " " PFX "000, "PFX"100, "PFX"200\n" \
+	"sv.q   C000, %0\n" \
+	: "+m" (*v0) : "m" (*v1), "m" (*v2) \
 	); \
 }
-#define GEN_V(FuncName, Op) \
+
+void testVVV(const char *desc, void (*vvvxxx)(ScePspFVector4 *v0, const ScePspFVector4 *v1, const ScePspFVector4 *v2)) {
+	int i,j;
+	for (i = 0; i < NUM_TESTVECTORS; i++) {
+		for (j = 0; j < NUM_TESTVECTORS; j++) {
+			LoadC000(&vMinusOne);
+			(*vvvxxx)(&v0, &testVectors[i], &testVectors[j]);
+			printVector(desc, &v0);
+		}
+	}
+}
+
+//////////////////////////////////////////////////////////////////////////
+// "V" functions
+//////////////////////////////////////////////////////////////////////////
+
+#define GEN_V(FuncName, Op, PFX) \
 void NOINLINE FuncName(ScePspFVector4* v0) { \
 	__asm__ volatile ( \
-		Op "\n" \
-		"sv.q   R000, 0x00+%0\n" \
+		Op " "PFX"000\n" \
+		"sv.q   C000, 0x00+%0\n" \
 		: "+m" (*v0) \
 		); \
 }
 
-#define GEN_ALL(name) \
-	GEN_V_S(name ## _s, #name ".s S000"); \
-	GEN_V(name ## _p, #name ".p R000"); \
-	GEN_V(name ## _t, #name ".t R000"); \
-	GEN_V(name ## _q, #name ".q R000");
-
-GEN_ALL(vzero);
-GEN_ALL(vone);
-
 void testV(const char *desc, void (*vxxx)(ScePspFVector4 *v0)) {
-	LoadR000(&vMinusOne);
+	LoadC000(&vMinusOne);
 	(*vxxx)(&v0);
 	printVector(desc, &v0);
 }
 
-#define TEST_V_ALL(name) \
-	testV(#name "_s", name ## _s); \
-	testV(#name "_p", name ## _p); \
-	testV(#name "_t", name ## _t); \
-	testV(#name "_q", name ## _q);
+//////////////////////////////////////////////////////////////////////////
+// OK! Let's run some hard autogen tests!
+//////////////////////////////////////////////////////////////////////////
 
-void checkVZero() {
-	TEST_V_ALL(vzero);
+GEN_SPTQ(GEN_V, vzero);
+GEN_SPTQ(GEN_V, vone);
+void checkV() {
+	TEST_SPTQ(testV, vzero);
+	TEST_SPTQ(testV, vone);
 }
-void checkVOne() {
-	TEST_V_ALL(vone);
+
+GEN_SPTQ(GEN_VVV, vadd);
+GEN_SPTQ(GEN_VVV, vsub);
+GEN_SPTQ(GEN_VVV, vmul);
+GEN_SPTQ(GEN_VVV, vdiv);
+GEN_SPTQ(GEN_VVV, vsge);
+GEN_SPTQ(GEN_VVV, vslt);
+GEN_SPTQ(GEN_VVV, vmin);
+GEN_SPTQ(GEN_VVV, vmax);
+GEN_T(GEN_VVV, vcrs);
+GEN_T(GEN_VVV, vcrsp);
+GEN_Q(GEN_VVV, vqmul);
+void checkVVV() {
+	TEST_SPTQ(testVVV, vadd);
+	TEST_SPTQ(testVVV, vsub);
+	TEST_SPTQ(testVVV, vmul);
+	TEST_SPTQ(testVVV, vdiv);
+	TEST_SPTQ(testVVV, vsge);
+	TEST_SPTQ(testVVV, vslt);
+	TEST_SPTQ(testVVV, vmin);
+	TEST_SPTQ(testVVV, vmax);
+	TEST_T(testVVV, vcrs);
+	TEST_T(testVVV, vcrsp);
+	TEST_Q(testVVV, vqmul);
 }
 
 void NOINLINE vsclq(ScePspFVector4 *v0, ScePspFVector4 *v1, ScePspFVector4 *v2) {
@@ -282,28 +347,6 @@ void NOINLINE vmax(ScePspFVector4 *v0, ScePspFVector4 *v1, ScePspFVector4 *v2) {
 		);
 }
 
-void NOINLINE vsge(ScePspFVector4 *v0, ScePspFVector4 *v1, ScePspFVector4 *v2) {
-	asm volatile (
-		"lv.q   C100, %1\n"
-		"lv.q   C200, %2\n"
-		"vsge.q C300, C200, C100\n"
-		"sv.q   C300, %0\n"
-
-		: "+m" (*v0): "m" (*v1), "m" (*v2)
-		);
-}
-
-void NOINLINE vslt(ScePspFVector4 *v0, ScePspFVector4 *v1, ScePspFVector4 *v2) {
-	asm volatile (
-		"lv.q   C100, %1\n"
-		"lv.q   C200, %2\n"
-		"vslt.q C300, C200, C100\n"
-		"sv.q   C300, %0\n"
-
-		: "+m" (*v0): "m" (*v1), "m" (*v2)
-		);
-}
-
 void NOINLINE vmin(ScePspFVector4 *v0, ScePspFVector4 *v1, ScePspFVector4 *v2) {
 	asm volatile (
 		"lv.q   C100, %1\n"
@@ -312,30 +355,6 @@ void NOINLINE vmin(ScePspFVector4 *v0, ScePspFVector4 *v1, ScePspFVector4 *v2) {
 		"sv.q   C300, %0\n"
 
 		: "+m" (*v0): "m" (*v1), "m" (*v2)
-		);
-}
-
-void NOINLINE vcsrp_t(ScePspFVector4 *vleft, ScePspFVector4 *vright, ScePspFVector4 *vresult) {
-	asm volatile (
-		"lv.q R500, 0x00+%1\n"
-		"lv.q R600, 0x00+%2\n"
-
-		"vcrsp.t R100, R500, R600\n"
-
-		"sv.q    R100, 0x00+%0\n"
-		: "+m" (*vresult) : "m" (*vleft), "m" (*vright)
-		);
-}
-
-void NOINLINE vqmul_q(ScePspFVector4 *vleft, ScePspFVector4 *vright, ScePspFVector4 *vresult) {
-	asm volatile (
-		"lv.q R500, 0x00+%1\n"
-		"lv.q R600, 0x00+%2\n"
-
-		"vqmul.q R100, R500, R600\n"
-
-		"sv.q    R100, 0x00+%0\n"
-		: "+m" (*vresult) : "m" (*vleft), "m" (*vright)
 		);
 }
 
@@ -451,32 +470,6 @@ void checkVmax() {
 
 	vmax(&vOut, &vIn, &vIn2);
 	printf("vmax.q: %f,%f,%f,%f\n", vOut.x, vOut.y, vOut.z, vOut.w);
-}
-
-void checkVsge() {
-	static ALIGN16 ScePspFVector4 vIn =
-	{3.0f, -4.0f, NAN, 86.0f};
-	static ALIGN16 ScePspFVector4 vIn2 =
-	{4.0f, -5.0f, 0.0f, NAN};
-	static ALIGN16 ScePspFVector4 vOut =
-	{0.0f, 0.0f, 0.0f, 0.0f};
-
-	vsge(&vOut, &vIn, &vIn2);
-	printVector("vsge.q", &vOut);
-}
-
-
-
-void checkVslt() {
-	static ALIGN16 ScePspFVector4 vIn =
-	{3.0f, -4.0f, NAN, 86.0f};
-	static ALIGN16 ScePspFVector4 vIn2 =
-	{4.0f, -5.0f, 0.0f, NAN};
-	static ALIGN16 ScePspFVector4 vOut =
-	{0.0f, 0.0f, 0.0f, 0.0f};
-
-	vslt(&vOut, &vIn, &vIn2);
-	printVector("vslt.q", &vOut);
 }
 
 void NOINLINE checkViim() {
@@ -692,36 +685,6 @@ void checkAggregated() {
 	printf("AVG3: %f\n", vOut.x);
 }
 
-void checkCrossProduct() {
-	static ALIGN16 ScePspFVector4 vleft = { -1.0f, -2.0f, 3.0f, 4.0f};
-	static ALIGN16 ScePspFVector4 vright = { -3.0f, 5.0f, 7.0f, -11.0f };
-	static ALIGN16 ScePspFVector4 vout = { 0.0f, 0.0f, 0.0f, 0.0f };
-	vcsrp_t(&vleft, &vright, &vout);
-	printVector("vcrsp_t", &vout);
-	vqmul_q(&vleft, &vright, &vout);
-	printVector("vqmul_q", &vout);
-}
-
-void NOINLINE vcrs_t(ScePspFVector4 *vleft, ScePspFVector4 *vright, ScePspFVector4 *vresult) {
-	asm volatile (
-		"lv.q R500, 0x00+%1\n"
-		"lv.q R600, 0x00+%2\n"
-		
-		"vcrs.t R100, R500, R600\n"
-		
-		"sv.q    R100, 0x00+%0\n"
-		: "+m" (*vresult) : "m" (*vleft), "m" (*vright)
-	);
-}
-
-void checkHalfCrossProduct() {
-	static ALIGN16 ScePspFVector4 vleft = { -1.0f, -2.0f, 3.0f, 4.0f};
-	static ALIGN16 ScePspFVector4 vright = { -3.0f, 5.0f, 7.0f, -11.0f };
-	static ALIGN16 ScePspFVector4 vout = { 0.0f, 0.0f, 0.0f, 0.0f };
-	vcrs_t(&vleft, &vright, &vout);
-	printVector("vcrs_t", &vout);
-}
-
 void NOINLINE _checkCompare(ScePspFVector4 *vleft, ScePspFVector4 *vright, ScePspFVector4 *vresult) {
 	asm volatile (
 		"lv.q R500, 0x00+%1\n"
@@ -849,12 +812,10 @@ int main(int argc, char *argv[]) {
 
 	resetAllMatrices();
 
-	checkVZero();
-	checkVOne();
+	checkV();
+	checkVVV();
 	checkCompare();
 	checkCompare2();
-	checkCrossProduct();
-	checkHalfCrossProduct();
 	checkVbfy1();
 	checkVbfy2();
 	checkAggregated();
