@@ -19,3 +19,5 @@ __testfailure.bmp
 *.ncb
 *.opensdf
 *.suo
+
+io/file/workdir/testfile
