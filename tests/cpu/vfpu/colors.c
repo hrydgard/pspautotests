@@ -16,19 +16,6 @@
 ScePspFVector4 v0, v1, v2;
 ScePspFVector4 matrix[4];
 
-void resetAllMatrices() {
-	asm volatile (
-		"vmzero.q  M000\n"
-		"vmzero.q  M100\n"
-		"vmzero.q  M200\n"
-		"vmzero.q  M300\n"
-		"vmzero.q  M400\n"
-		"vmzero.q  M500\n"
-		"vmzero.q  M600\n"
-		"vmzero.q  M700\n"
-	);
-}
-
 void vfpu_rgba8888to4444(unsigned int* in, unsigned short *out);
 void vfpu_rgba8888to5551(unsigned int* in, unsigned short *out);
 void vfpu_rgba8888to5650(unsigned int* in, unsigned short *out);

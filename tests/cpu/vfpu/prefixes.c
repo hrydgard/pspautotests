@@ -16,19 +16,6 @@
 ScePspFVector4 v0, v1, v2;
 ScePspFVector4 matrix[4];
 
-void resetAllMatrices() {
-	asm volatile (
-		"vmzero.q  M000\n"
-		"vmzero.q  M100\n"
-		"vmzero.q  M200\n"
-		"vmzero.q  M300\n"
-		"vmzero.q  M400\n"
-		"vmzero.q  M500\n"
-		"vmzero.q  M600\n"
-		"vmzero.q  M700\n"
-	);
-}
-
 void _checkPrefixes0(ScePspFVector4* v0) {
 	__asm__ volatile (
 		"vmov.q R000, R000[1, 1, 1, 1]\n"

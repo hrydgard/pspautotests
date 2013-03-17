@@ -1,0 +1,314 @@
+Started
+checkCompare: 1.000000,-0.000000,1.000000,1.000000
+checkCompare2: === Comparing 1.000000, 2.000000 ===
+checkCompare2: 1.000000 2.000000 FL: 00000000
+checkCompare2: 1.000000 2.000000 EQ: 00000000
+checkCompare2: 1.000000 2.000000 LT: 0000003f
+checkCompare2: 1.000000 2.000000 LE: 0000003f
+checkCompare2: 1.000000 2.000000 TR: 0000003f
+checkCompare2: 1.000000 2.000000 NE: 0000003f
+checkCompare2: 1.000000 2.000000 GE: 00000000
+checkCompare2: 1.000000 2.000000 GT: 00000000
+checkCompare2: 1.000000 2.000000 EZ: 00000000
+checkCompare2: 1.000000 2.000000 EN: 00000000
+checkCompare2: 1.000000 2.000000 EI: 00000000
+checkCompare2: 1.000000 2.000000 ES: 00000000
+checkCompare2: 1.000000 2.000000 NZ: 0000003f
+checkCompare2: 1.000000 2.000000 NN: 0000003f
+checkCompare2: 1.000000 2.000000 NI: 0000003f
+checkCompare2: 1.000000 2.000000 NS: 0000003f
+checkCompare2: === Comparing 2.000000, 1.000000 ===
+checkCompare2: 2.000000 1.000000 FL: 00000000
+checkCompare2: 2.000000 1.000000 EQ: 00000000
+checkCompare2: 2.000000 1.000000 LT: 00000000
+checkCompare2: 2.000000 1.000000 LE: 00000000
+checkCompare2: 2.000000 1.000000 TR: 0000003f
+checkCompare2: 2.000000 1.000000 NE: 0000003f
+checkCompare2: 2.000000 1.000000 GE: 0000003f
+checkCompare2: 2.000000 1.000000 GT: 0000003f
+checkCompare2: 2.000000 1.000000 EZ: 00000000
+checkCompare2: 2.000000 1.000000 EN: 00000000
+checkCompare2: 2.000000 1.000000 EI: 00000000
+checkCompare2: 2.000000 1.000000 ES: 00000000
+checkCompare2: 2.000000 1.000000 NZ: 0000003f
+checkCompare2: 2.000000 1.000000 NN: 0000003f
+checkCompare2: 2.000000 1.000000 NI: 0000003f
+checkCompare2: 2.000000 1.000000 NS: 0000003f
+checkCompare2: === Comparing -2.000000, -1.000000 ===
+checkCompare2: -2.000000 -1.000000 FL: 00000000
+checkCompare2: -2.000000 -1.000000 EQ: 00000000
+checkCompare2: -2.000000 -1.000000 LT: 0000003f
+checkCompare2: -2.000000 -1.000000 LE: 0000003f
+checkCompare2: -2.000000 -1.000000 TR: 0000003f
+checkCompare2: -2.000000 -1.000000 NE: 0000003f
+checkCompare2: -2.000000 -1.000000 GE: 00000000
+checkCompare2: -2.000000 -1.000000 GT: 00000000
+checkCompare2: -2.000000 -1.000000 EZ: 00000000
+checkCompare2: -2.000000 -1.000000 EN: 00000000
+checkCompare2: -2.000000 -1.000000 EI: 00000000
+checkCompare2: -2.000000 -1.000000 ES: 00000000
+checkCompare2: -2.000000 -1.000000 NZ: 0000003f
+checkCompare2: -2.000000 -1.000000 NN: 0000003f
+checkCompare2: -2.000000 -1.000000 NI: 0000003f
+checkCompare2: -2.000000 -1.000000 NS: 0000003f
+checkCompare2: === Comparing 2.000000, 2.000000 ===
+checkCompare2: 2.000000 2.000000 FL: 00000000
+checkCompare2: 2.000000 2.000000 EQ: 0000003f
+checkCompare2: 2.000000 2.000000 LT: 00000000
+checkCompare2: 2.000000 2.000000 LE: 0000003f
+checkCompare2: 2.000000 2.000000 TR: 0000003f
+checkCompare2: 2.000000 2.000000 NE: 00000000
+checkCompare2: 2.000000 2.000000 GE: 0000003f
+checkCompare2: 2.000000 2.000000 GT: 00000000
+checkCompare2: 2.000000 2.000000 EZ: 00000000
+checkCompare2: 2.000000 2.000000 EN: 00000000
+checkCompare2: 2.000000 2.000000 EI: 00000000
+checkCompare2: 2.000000 2.000000 ES: 00000000
+checkCompare2: 2.000000 2.000000 NZ: 0000003f
+checkCompare2: 2.000000 2.000000 NN: 0000003f
+checkCompare2: 2.000000 2.000000 NI: 0000003f
+checkCompare2: 2.000000 2.000000 NS: 0000003f
+checkCompare2: === Comparing 0.000000, -0.000000 ===
+checkCompare2: 0.000000 -0.000000 FL: 00000000
+checkCompare2: 0.000000 -0.000000 EQ: 0000003f
+checkCompare2: 0.000000 -0.000000 LT: 00000000
+checkCompare2: 0.000000 -0.000000 LE: 0000003f
+checkCompare2: 0.000000 -0.000000 TR: 0000003f
+checkCompare2: 0.000000 -0.000000 NE: 00000000
+checkCompare2: 0.000000 -0.000000 GE: 0000003f
+checkCompare2: 0.000000 -0.000000 GT: 00000000
+checkCompare2: 0.000000 -0.000000 EZ: 0000003f
+checkCompare2: 0.000000 -0.000000 EN: 00000000
+checkCompare2: 0.000000 -0.000000 EI: 00000000
+checkCompare2: 0.000000 -0.000000 ES: 00000000
+checkCompare2: 0.000000 -0.000000 NZ: 00000000
+checkCompare2: 0.000000 -0.000000 NN: 0000003f
+checkCompare2: 0.000000 -0.000000 NI: 0000003f
+checkCompare2: 0.000000 -0.000000 NS: 0000003f
+checkCompare2: === Comparing inf, inf ===
+checkCompare2: inf inf FL: 00000000
+checkCompare2: inf inf EQ: 0000003f
+checkCompare2: inf inf LT: 00000000
+checkCompare2: inf inf LE: 0000003f
+checkCompare2: inf inf TR: 0000003f
+checkCompare2: inf inf NE: 00000000
+checkCompare2: inf inf GE: 0000003f
+checkCompare2: inf inf GT: 00000000
+checkCompare2: inf inf EZ: 00000000
+checkCompare2: inf inf EN: 00000000
+checkCompare2: inf inf EI: 0000003f
+checkCompare2: inf inf ES: 0000003f
+checkCompare2: inf inf NZ: 0000003f
+checkCompare2: inf inf NN: 0000003f
+checkCompare2: inf inf NI: 00000000
+checkCompare2: inf inf NS: 00000000
+checkCompare2: === Comparing -inf, 100.000000 ===
+checkCompare2: -inf 100.000000 FL: 00000000
+checkCompare2: -inf 100.000000 EQ: 00000000
+checkCompare2: -inf 100.000000 LT: 0000003f
+checkCompare2: -inf 100.000000 LE: 0000003f
+checkCompare2: -inf 100.000000 TR: 0000003f
+checkCompare2: -inf 100.000000 NE: 0000003f
+checkCompare2: -inf 100.000000 GE: 00000000
+checkCompare2: -inf 100.000000 GT: 00000000
+checkCompare2: -inf 100.000000 EZ: 00000000
+checkCompare2: -inf 100.000000 EN: 00000000
+checkCompare2: -inf 100.000000 EI: 0000003f
+checkCompare2: -inf 100.000000 ES: 0000003f
+checkCompare2: -inf 100.000000 NZ: 0000003f
+checkCompare2: -inf 100.000000 NN: 0000003f
+checkCompare2: -inf 100.000000 NI: 00000000
+checkCompare2: -inf 100.000000 NS: 00000000
+checkCompare2: === Comparing nan, 0.000000 ===
+checkCompare2: nan 0.000000 FL: 00000000
+checkCompare2: nan 0.000000 EQ: 00000000
+checkCompare2: nan 0.000000 LT: 00000000
+checkCompare2: nan 0.000000 LE: 00000000
+checkCompare2: nan 0.000000 TR: 0000003f
+checkCompare2: nan 0.000000 NE: 0000003f
+checkCompare2: nan 0.000000 GE: 00000000
+checkCompare2: nan 0.000000 GT: 00000000
+checkCompare2: nan 0.000000 EZ: 00000000
+checkCompare2: nan 0.000000 EN: 0000003f
+checkCompare2: nan 0.000000 EI: 00000000
+checkCompare2: nan 0.000000 ES: 0000003f
+checkCompare2: nan 0.000000 NZ: 0000003f
+checkCompare2: nan 0.000000 NN: 00000000
+checkCompare2: nan 0.000000 NI: 0000003f
+checkCompare2: nan 0.000000 NS: 00000000
+checkCompare2: === Comparing 0.000000, nan ===
+checkCompare2: 0.000000 nan FL: 00000000
+checkCompare2: 0.000000 nan EQ: 00000000
+checkCompare2: 0.000000 nan LT: 00000000
+checkCompare2: 0.000000 nan LE: 00000000
+checkCompare2: 0.000000 nan TR: 0000003f
+checkCompare2: 0.000000 nan NE: 0000003f
+checkCompare2: 0.000000 nan GE: 00000000
+checkCompare2: 0.000000 nan GT: 00000000
+checkCompare2: 0.000000 nan EZ: 0000003f
+checkCompare2: 0.000000 nan EN: 00000000
+checkCompare2: 0.000000 nan EI: 00000000
+checkCompare2: 0.000000 nan ES: 00000000
+checkCompare2: 0.000000 nan NZ: 00000000
+checkCompare2: 0.000000 nan NN: 0000003f
+checkCompare2: 0.000000 nan NI: 0000003f
+checkCompare2: 0.000000 nan NS: 0000003f
+checkCompare2: === Comparing nan, nan ===
+checkCompare2: nan nan FL: 00000000
+checkCompare2: nan nan EQ: 00000000
+checkCompare2: nan nan LT: 00000000
+checkCompare2: nan nan LE: 00000000
+checkCompare2: nan nan TR: 0000003f
+checkCompare2: nan nan NE: 0000003f
+checkCompare2: nan nan GE: 00000000
+checkCompare2: nan nan GT: 00000000
+checkCompare2: nan nan EZ: 00000000
+checkCompare2: nan nan EN: 0000003f
+checkCompare2: nan nan EI: 00000000
+checkCompare2: nan nan ES: 0000003f
+checkCompare2: nan nan NZ: 0000003f
+checkCompare2: nan nan NN: 00000000
+checkCompare2: nan nan NI: 0000003f
+checkCompare2: nan nan NS: 00000000
+checkCompare2: === Comparing nan, nan ===
+checkCompare2: nan nan FL: 00000000
+checkCompare2: nan nan EQ: 00000000
+checkCompare2: nan nan LT: 00000000
+checkCompare2: nan nan LE: 00000000
+checkCompare2: nan nan TR: 0000003f
+checkCompare2: nan nan NE: 0000003f
+checkCompare2: nan nan GE: 00000000
+checkCompare2: nan nan GT: 00000000
+checkCompare2: nan nan EZ: 00000000
+checkCompare2: nan nan EN: 0000003f
+checkCompare2: nan nan EI: 00000000
+checkCompare2: nan nan ES: 0000003f
+checkCompare2: nan nan NZ: 0000003f
+checkCompare2: nan nan NN: 00000000
+checkCompare2: nan nan NI: 0000003f
+checkCompare2: nan nan NS: 00000000
+checkCompare2: === Comparing nan, nan ===
+checkCompare2: nan nan FL: 00000000
+checkCompare2: nan nan EQ: 00000000
+checkCompare2: nan nan LT: 00000000
+checkCompare2: nan nan LE: 00000000
+checkCompare2: nan nan TR: 0000003f
+checkCompare2: nan nan NE: 0000003f
+checkCompare2: nan nan GE: 00000000
+checkCompare2: nan nan GT: 00000000
+checkCompare2: nan nan EZ: 00000000
+checkCompare2: nan nan EN: 0000003f
+checkCompare2: nan nan EI: 00000000
+checkCompare2: nan nan ES: 0000003f
+checkCompare2: nan nan NZ: 0000003f
+checkCompare2: nan nan NN: 00000000
+checkCompare2: nan nan NI: 0000003f
+checkCompare2: nan nan NS: 00000000
+checkCompare2: === Comparing -0.000000, 0.000000 ===
+checkCompare2: -0.000000 0.000000 FL: 00000000
+checkCompare2: -0.000000 0.000000 EQ: 0000003f
+checkCompare2: -0.000000 0.000000 LT: 00000000
+checkCompare2: -0.000000 0.000000 LE: 0000003f
+checkCompare2: -0.000000 0.000000 TR: 0000003f
+checkCompare2: -0.000000 0.000000 NE: 00000000
+checkCompare2: -0.000000 0.000000 GE: 0000003f
+checkCompare2: -0.000000 0.000000 GT: 00000000
+checkCompare2: -0.000000 0.000000 EZ: 0000003f
+checkCompare2: -0.000000 0.000000 EN: 00000000
+checkCompare2: -0.000000 0.000000 EI: 00000000
+checkCompare2: -0.000000 0.000000 ES: 00000000
+checkCompare2: -0.000000 0.000000 NZ: 00000000
+checkCompare2: -0.000000 0.000000 NN: 0000003f
+checkCompare2: -0.000000 0.000000 NI: 0000003f
+checkCompare2: -0.000000 0.000000 NS: 0000003f
+checkCompare2: === Comparing nan, inf ===
+checkCompare2: nan inf FL: 00000000
+checkCompare2: nan inf EQ: 00000000
+checkCompare2: nan inf LT: 00000000
+checkCompare2: nan inf LE: 00000000
+checkCompare2: nan inf TR: 0000003f
+checkCompare2: nan inf NE: 0000003f
+checkCompare2: nan inf GE: 00000000
+checkCompare2: nan inf GT: 00000000
+checkCompare2: nan inf EZ: 00000000
+checkCompare2: nan inf EN: 0000003f
+checkCompare2: nan inf EI: 00000000
+checkCompare2: nan inf ES: 0000003f
+checkCompare2: nan inf NZ: 0000003f
+checkCompare2: nan inf NN: 00000000
+checkCompare2: nan inf NI: 0000003f
+checkCompare2: nan inf NS: 00000000
+checkCompare2: === Comparing inf, nan ===
+checkCompare2: inf nan FL: 00000000
+checkCompare2: inf nan EQ: 00000000
+checkCompare2: inf nan LT: 00000000
+checkCompare2: inf nan LE: 00000000
+checkCompare2: inf nan TR: 0000003f
+checkCompare2: inf nan NE: 0000003f
+checkCompare2: inf nan GE: 00000000
+checkCompare2: inf nan GT: 00000000
+checkCompare2: inf nan EZ: 00000000
+checkCompare2: inf nan EN: 00000000
+checkCompare2: inf nan EI: 0000003f
+checkCompare2: inf nan ES: 0000003f
+checkCompare2: inf nan NZ: 0000003f
+checkCompare2: inf nan NN: 0000003f
+checkCompare2: inf nan NI: 00000000
+checkCompare2: inf nan NS: 00000000
+vcrsp_t: -29.000000,-2.000000,-11.000000,1.000000
+vqmul_q: -30.000000,40.000000,-16.000000,-58.000000
+vcrs_t: -14.000000,-9.000000,-5.000000,-58.000000
+vbfy1.p: 5.000000,15.000000,0.000000,0.000000
+vbfy1.p: -40.000000,52.000000,0.000000,0.000000
+vbfy1.q: 5.000000,15.000000,10.000000,4.000000
+vbfy1.q: -40.000000,52.000000,-inf,inf
+vbfy2.q: 24.000000,8.000000,16.000000,-10.000000
+vbfy2.q: 19.000000,nan,3.000000,nan
+SUM: 110.000000
+AVG: 27.500000
+AVG3: inf
+simpleLoad: 0.300000,0.000000,0.000000,0.000000
+misc: 0.416667,0.011111,0.000000,0.000000
+vmin.q: 3.000000,-5.000000,0.000000,86.000000
+vmax.q: 4.000000,-4.000000,nan,nan
+vsge.q: 1.000000,0.000000,0.000000,0.000000
+vslt.q: 0.000000,1.000000,0.000000,0.000000
+TODO!
+TODO!
+TODO!
+TODO!
+vrcp.q: inf,-0.769231,0.000000,nan
+viim: 0.000000,1.000000,-3.000000,777.000000
+viim: 32767.000000,-8.000000,-3.000000,-1.000000
+viim: -32768.000000,0.000000,0.000000,0.000000
+viim: 0.000000,0.000000,0.000000,0.000000
+vsgn.q: 0.000000,1.000000,-1.000000,1.000000
+vsgn.q: 0.000000,-1.000000,1.000000,-1.000000
+vsat0.q: 0.000000,0.000000,1.000000,nan
+vsat0.q: 1.000000,1.000000,0.000000,nan
+lvl_row: -10.000000,-11.000000,-12.000000,-13.000000
+lvl_row: 0.000000,-22.000000,-23.000000,-24.000000
+lvl_row: 0.000000,-30.000000,-31.000000,-32.000000
+lvl_column: 0.000000,0.000000,-14.000000,-15.000000
+lvl_column: 0.000000,0.000000,-22.000000,-23.000000
+lvl_column: 0.000000,0.000000,-30.000000,-31.000000
+lvr_row: -13.000000,0.000000,0.000000,0.000000
+lvr_row: -24.000000,-25.000000,0.000000,0.000000
+lvr_row: -32.000000,-33.000000,0.000000,0.000000
+lvr_column: -15.000000,-16.000000,-17.000000,0.000000
+lvr_column: -23.000000,-24.000000,-25.000000,0.000000
+lvr_column: -31.000000,-32.000000,-33.000000,0.000000
+moveNormalRegister: -31.000000,-32.000000,-33.000000,0.000000
+vfim: 0.011108,-0.011108,inf,nan
+vcst.s: 340282346638528859811704183484516925440.000000,1.414214,0.707107,1.128379
+vcst.s: 0.636620,0.318310,0.785398,1.570796
+vcst.s: 3.141593,2.718282,1.442695,0.434294
+vcst.s: 0.693147,2.302585,6.283185,0.523599
+vcst.s: 0.301030,3.321928,0.866025,0.000000
+vmov: 17.000000,13.000000,-5.000000,11.000000
+vdot 244.000000
+vsql: 51.000000,39.000000,-15.000000,33.000000
+vrot: 0.453991,0.891006,0.453991,0.891006
+checkVZero: 0.000000,0.000000,0.000000,0.000000
+checkVone: 1.000000,1.000000,1.000000,1.000000
+Ended
