@@ -80,6 +80,12 @@ void NOINLINE LoadC000(const ScePspFVector4* v0) {
 		: : "m" (*v0)
 	);
 }
+void NOINLINE LoadR000(const ScePspFVector4* v0) {
+	__asm__ volatile (
+		"lv.q   R000, 0x00+%0\n"
+		: : "m" (*v0)
+		);
+}
 
 #define GEN_P(genFun, name) \
 	genFun(name ## _p, #name ".p", "C");
@@ -494,17 +500,84 @@ void checkVfim() {
 void NOINLINE vrot(float angle, ScePspFVector4 *v0) {
 	asm volatile (
 		"mtv    %1, s601\n"
-		"vrot.p	r500, s601, [c, s]\n"
-		"vrot.p	r520, s601, [c, s]\n"
-		"sv.q   r500, %0\n"
+		"vrot.q	R000, s601, [c, s, s, s]\n"
+		"vrot.q	R001, s601, [s, c, 0, 0]\n"
+		"vrot.q	R002, s601, [s, 0, c, 0]\n"
+		"vrot.q	R003, s601, [s, 0, 0, c]\n"
+		"vrot.q	R100, s601, [c, s, 0, 0]\n"
+		"vrot.q	R101, s601, [s, c, s, s]\n"
+		"vrot.q	R102, s601, [0, s, c, 0]\n"
+		"vrot.q	R103, s601, [0, s, 0, c]\n"
+		"vrot.q	R200, s601, [c, 0, s, 0]\n"
+		"vrot.q	R201, s601, [0, c, s, 0]\n"
+		"vrot.q	R202, s601, [s, s, c, s]\n"
+		"vrot.q	R203, s601, [0, 0, s, c]\n"
+		"vrot.q	R300, s601, [c, 0, 0, s]\n"
+		"vrot.q	R301, s601, [0, c, 0, s]\n"
+		"vrot.q	R302, s601, [0, 0, c, s]\n"
+		"vrot.q	R303, s601, [-s, -s, -s, c]\n"
+		"vrot.q	R400, s601, [c, -s, -s, -s]\n"
+		"vrot.q	R401, s601, [-s, c, 0, 0]\n"
+		"vrot.q	R402, s601, [-s, 0, c, 0]\n"
+		"vrot.q	R403, s601, [-s, 0, 0, c]\n"
+		"vrot.q	R500, s601, [c, -s, 0, 0]\n"
+		"vrot.q	R501, s601, [-s, c, -s, -s]\n"
+		"vrot.q	R502, s601, [0, -s, c, 0]\n"
+		"vrot.q	R503, s601, [0, -s, 0, c]\n"
+		"mtv    %1, s501\n"
+		"vrot.q	R600, s501, [c, 0, -s, 0]\n"
+		"vrot.q	R601, s501, [0, c, -s, 0]\n"
+		"vrot.q	R602, s501, [-s, -s, c, -s]\n"
+		"vrot.q	R603, s501, [0, 0, -s, c]\n"
+		"vrot.q	R700, s501, [c, 0, 0, -s]\n"
+		"vrot.q	R701, s501, [0, c, 0, -s]\n"
+		"vrot.q	R702, s501, [0, 0, c, -s]\n"
+		"vrot.q	R703, s501, [-s, -s, -s, c]\n"
+		"sv.q   R000, 0x00+%0\n"
+		"sv.q   R001, 0x10+%0\n"
+		"sv.q   R002, 0x20+%0\n"
+		"sv.q   R003, 0x30+%0\n"
+		"sv.q   R100, 0x40+%0\n"
+		"sv.q   R101, 0x50+%0\n"
+		"sv.q   R102, 0x60+%0\n"
+		"sv.q   R103, 0x70+%0\n"
+		"sv.q   R200, 0x80+%0\n"
+		"sv.q   R201, 0x90+%0\n"
+		"sv.q   R202, 0xA0+%0\n"
+		"sv.q   R203, 0xB0+%0\n"
+		"sv.q   R300, 0xC0+%0\n"
+		"sv.q   R301, 0xD0+%0\n"
+		"sv.q   R302, 0xE0+%0\n"
+		"sv.q   R303, 0xF0+%0\n"
+		"sv.q   R400, 0x100+%0\n"
+		"sv.q   R401, 0x110+%0\n"
+		"sv.q   R402, 0x120+%0\n"
+		"sv.q   R403, 0x130+%0\n"
+		"sv.q   R500, 0x140+%0\n"
+		"sv.q   R501, 0x150+%0\n"
+		"sv.q   R502, 0x160+%0\n"
+		"sv.q   R503, 0x170+%0\n"
+		"sv.q   R600, 0x180+%0\n"
+		"sv.q   R601, 0x190+%0\n"
+		"sv.q   R602, 0x1A0+%0\n"
+		"sv.q   R603, 0x1B0+%0\n"
+		"sv.q   R700, 0x1C0+%0\n"
+		"sv.q   R701, 0x1D0+%0\n"
+		"sv.q   R702, 0x1E0+%0\n"
+		"sv.q   R703, 0x1F0+%0\n"
 		: "+m" (*v0) : "r" (angle)
 		);
 }
 
 void checkRotation() {
-	initValues();
-	vrot(0.7, &v0);
-	printVectorLowP("vrot", &v0);
+	static ALIGN16 ScePspFVector4 v[32];
+	int i;
+	vrot(0.7, &v[0]);
+	for (i = 0; i < 32; i++)
+		printVectorLowP("vrot", &v[i]);
+	vrot(-1.1, &v[0]);
+	for (i = 0; i < 32; i++)
+		printVectorLowP("vrot", &v[i]);
 }
 
 void moveNormalRegister() {
@@ -667,8 +740,13 @@ void checkCompare() {
 	static ALIGN16 ScePspFVector4 vleft  = { 1.0f, -1.0f, -1.1f, 2.0f };
 	static ALIGN16 ScePspFVector4 vright = { 1.0f,  1.0f, -1.1f, 2.1f };
 	static ALIGN16 ScePspFVector4 vout = { 0.0f, 0.0f, 0.0f, 0.0f };
-	_checkCompare(&vleft, &vright, &vout);
-	printVector("checkCompare", &vout);
+	int i, j;
+	for (i = 0; i < NUM_TESTVECTORS; i++) {
+		for (j = 0; j < NUM_TESTVECTORS; j++) {
+			_checkCompare(&vleft, &vright, &vout);
+			printVector("checkCompare", &vout);
+		}
+	}
 }
 
 const char *cmpNames[16] = {

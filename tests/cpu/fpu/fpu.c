@@ -31,6 +31,28 @@ int __attribute__((noinline)) cvtws(float x, int rm) {
 	return result;
 }
 
+int __attribute__((noinline)) truncws(float x) {
+	float resultFloat;
+	asm volatile("trunc.w.s %0, %1" : "=f"(resultFloat) : "f"(x));
+	int result = *((int *) &resultFloat);
+	return result;
+}
+
+int __attribute__((noinline)) floorws(float x) {
+	float resultFloat;
+	asm volatile("floor.w.s %0, %1" : "=f"(resultFloat) : "f"(x));
+	int result = *((int *) &resultFloat);
+	return result;
+}
+
+int __attribute__((noinline)) ceilws(float x) {
+	float resultFloat;
+	asm volatile("ceil.w.s %0, %1" : "=f"(resultFloat) : "f"(x));
+	int result = *((int *) &resultFloat);
+	return result;
+}
+
+
 /* these must be VFPU
 const char *cmpNames[16] = {
   "FL",
@@ -207,9 +229,6 @@ inline void runOperand(const char *name, float (*func)(float)) {
 	printf("\n\n");
 }
 
-
-#define CHECK_OP(op, expected) { float f = 0.0; f = op; printf("%s\n%f\n", #op " == " #expected, f);}
-
 #define OUTPUT_2(OP) { runOperands(#OP, op_##OP); }
 #define OUTPUT_1(OP) { runOperand(#OP, op_##OP); }
 
@@ -236,30 +255,26 @@ int main(int argc, char *argv[]) {
 	OUTPUT_1(abs);
 	OUTPUT_1(neg);
 
-	CHECK_OP(cvtws(1.1, RINT_0), 1);
-	CHECK_OP(cvtws(1.1, CAST_1), 1);
-	CHECK_OP(cvtws(1.1, CEIL_2), 2);
-	CHECK_OP(cvtws(1.1, FLOOR_3), 1);
+	const float values[28] = {
+		0.0f, 0.1f, 0.5f, 0.9f, 1.0f, 1.1f, 1.5f, 1.9f, 2.0f, 2.5f, 3.5f, 1000.0f, INFINITY, NAN,
+		-0.0f, -0.1f, 0.5f, 0.9f, 1.0f, 1.1f, 1.5f, 1.9f, 2.0f, 2.5f, 3.5f, 1000.0f, -INFINITY, -NAN,
+	};
 
-	CHECK_OP(cvtws(-1.1, RINT_0), -1);
-	CHECK_OP(cvtws(-1.1, CAST_1), -1);
-	CHECK_OP(cvtws(-1.1, CEIL_2), -1);
-	CHECK_OP(cvtws(-1.1, FLOOR_3), -2);
-
-	CHECK_OP(cvtws(1.9, RINT_0), 2);
-	CHECK_OP(cvtws(1.9, CAST_1), 1);
-	CHECK_OP(cvtws(1.9, CEIL_2), 2);
-	CHECK_OP(cvtws(1.9, FLOOR_3), 1);
-
-	CHECK_OP(cvtws(1.5, RINT_0), 2);
-	CHECK_OP(cvtws(2.5, RINT_0), 2);
-	CHECK_OP(cvtws(3.5, RINT_0), 2);
-	CHECK_OP(cvtws(4.5, RINT_0), 2);
-	CHECK_OP(cvtws(1.5, CAST_1), 1);
-	CHECK_OP(cvtws(2.5, CAST_1), 1);
-	CHECK_OP(cvtws(1.5, CEIL_2), 2);
-	CHECK_OP(cvtws(1.5, FLOOR_3), 1);
-
+#define NUM_VALUES 28
+	{
+		int i, j;
+		for (i = 0; i < NUM_VALUES; i++) {
+			float value = values[i];
+			printf("cvt.w.s %f, RINT_0: %i\n", value, cvtws(value, RINT_0));
+			printf("cvt.w.s %f, CAST_1: %i\n", value, cvtws(value, CAST_1));
+			printf("cvt.w.s %f, CEIL_2: %i\n", value, cvtws(value, CEIL_2));
+			printf("cvt.w.s %f, FLOOR_3: %i\n", value, cvtws(value, FLOOR_3));
+			printf("trunc.w.s %f: %i\n", value, truncws(value));
+			printf("floor.w.s %f: %i\n", value, floorws(value));
+			printf("ceil.w.s %f: %i\n", value, ceilws(value));
+		}
+	}
+	
 	testCompare(0.0f, 0.0f);
 	testCompare(1.0f, 1.0f);
 	testCompare(1.0f, 2.0f);
@@ -268,6 +283,5 @@ int main(int argc, char *argv[]) {
 	testCompare(INFINITY, 1.0f);
 	testCompare(1.0f, NAN);
 	testCompare(1.0f, INFINITY);
-
 	return 0;
 }
