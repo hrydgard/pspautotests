@@ -5,6 +5,10 @@ void printVector(const char *title, ScePspFVector4 *v) {
 	printf("%s: %f,%f,%f,%f\n", title, v->x, v->y, v->z, v->w);
 }
 
+void printVectorLowP(const char *title, ScePspFVector4 *v) {
+	printf("%s: %0.4f,%0.4f,%0.4f,%0.4f\n", title, v->x, v->y, v->z, v->w);
+}
+
 void printMatrix(const char *title, ScePspFMatrix4 *m) {
 	printVector(title, &m->x);
 	printVector(title, &m->y);

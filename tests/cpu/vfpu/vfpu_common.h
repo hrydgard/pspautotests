@@ -8,6 +8,7 @@
 #define ALIGN16  __attribute__((aligned (16))) 
 
 
+void printVectorLowP(const char *title, ScePspFVector4 *v);
 void printVector(const char *title, ScePspFVector4 *v);
 void printMatrix(const char *title, ScePspFMatrix4 *m);
 

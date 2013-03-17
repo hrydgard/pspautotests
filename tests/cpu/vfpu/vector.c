@@ -22,6 +22,9 @@ Modified to perform automated tests.
 
 #include "vfpu_common.h"
 
+const ALIGN16 ScePspFVector4 vZero;
+const ALIGN16 ScePspFVector4 vMinusOne = {-1, -1, -1, -1};
+
 ALIGN16 ScePspFVector4 v0, v1, v2;
 ALIGN16 ScePspFVector4 matrix[4];
 
@@ -54,6 +57,9 @@ const ALIGN16 ScePspFVector4 testVectors[8] = {
 	{NAN, -NAN, 90.0f, INFINITY},
 };
 
+#define NUM_TESTVECTORS_NICE 4
+#define NUM_TESTVECTORS 8
+
 void NOINLINE vcopy(ScePspFVector4 *v0, ScePspFVector4 *v1) {
 	asm volatile (
 		"lv.q   C730, %1\n"
@@ -63,35 +69,91 @@ void NOINLINE vcopy(ScePspFVector4 *v0, ScePspFVector4 *v1) {
 	);
 }
 
-#define VDOT(vdotX, VDOTX) \
-void NOINLINE vdotX(ScePspFVector4 *v0, ScePspFVector4 *v1, ScePspFVector4 *v2) { \
+#define GEN_SVV(FuncName, Op) \
+void NOINLINE FuncName(ScePspFVector4 *v0, ScePspFVector4 *v1, ScePspFVector4 *v2) { \
 	asm volatile ( \
 		"lv.q   C100, %1\n" \
 		"lv.q   C200, %2\n" \
-		VDOTX " S000, C100, C200\n" \
+		Op " S000, C100, C200\n" \
 		"sv.q   C000, %0\n" \
 		: "+m" (*v0) : "m" (*v1), "m" (*v2) \
 	); \
 }
 
-VDOT(vdotp, "vdot.p");
-VDOT(vdott, "vdot.t");
-VDOT(vdotq, "vdot.q");
-
-void NOINLINE vzero_q(ScePspFVector4* v0) {
-	__asm__ volatile (
-		"vzero.q R000\n"
-		"sv.q   R000, 0x00+%0\n"
-		: "+m" (*v0)
-		);
+#define GEN_SV(FuncName, Op) \
+void NOINLINE FuncName(ScePspFVector4 *v0, ScePspFVector4 *v1) { \
+	asm volatile ( \
+		"lv.q   C100, %1\n" \
+		Op " S000, C100\n" \
+		"sv.s   S000, 0x00+%0\n" \
+		: "+m" (*v0) : "m" (*v1) \
+	); \
 }
 
-void NOINLINE vone_q(ScePspFVector4* v0) {
+// SVV = single vector vector   (S000, C000, C100 for example)
+GEN_SVV(vdot_p, "vdot.p");
+GEN_SVV(vdot_t, "vdot.t");
+GEN_SVV(vdot_q, "vdot.q");
+
+// SV = single vector (S000, C000 for example)
+GEN_SV(vfad_p, "vfad.p");
+GEN_SV(vfad_t, "vfad.t");
+GEN_SV(vfad_q, "vfad.q");
+
+GEN_SV(vavg_p, "vavg.p");
+GEN_SV(vavg_t, "vavg.t");
+GEN_SV(vavg_q, "vavg.q");
+
+void NOINLINE LoadR000(ScePspFVector4* v0) {
 	__asm__ volatile (
-		"vone.q R000\n"
-		"sv.q   R000, 0x00+%0\n"
-		: "+m" (*v0)
-		);
+		"lv.q   R000, 0x00+%0\n"
+		: : "m" (*v0)
+	);
+}
+
+#define GEN_V_S(FuncName, Op) \
+void NOINLINE FuncName(ScePspFVector4* v0) { \
+	__asm__ volatile ( \
+	Op "\n" \
+	"sv.q   R000, 0x00+%0\n" \
+	: "+m" (*v0) \
+	); \
+}
+#define GEN_V(FuncName, Op) \
+void NOINLINE FuncName(ScePspFVector4* v0) { \
+	__asm__ volatile ( \
+		Op "\n" \
+		"sv.q   R000, 0x00+%0\n" \
+		: "+m" (*v0) \
+		); \
+}
+
+#define GEN_ALL(name) \
+	GEN_V_S(name ## _s, #name ".s S000"); \
+	GEN_V(name ## _p, #name ".p R000"); \
+	GEN_V(name ## _t, #name ".t R000"); \
+	GEN_V(name ## _q, #name ".q R000");
+
+GEN_ALL(vzero);
+GEN_ALL(vone);
+
+void testV(const char *desc, void (*vxxx)(ScePspFVector4 *v0)) {
+	LoadR000(&vMinusOne);
+	(*vxxx)(&v0);
+	printVector(desc, &v0);
+}
+
+#define TEST_V_ALL(name) \
+	testV(#name "_s", name ## _s); \
+	testV(#name "_p", name ## _p); \
+	testV(#name "_t", name ## _t); \
+	testV(#name "_q", name ## _q);
+
+void checkVZero() {
+	TEST_V_ALL(vzero);
+}
+void checkVOne() {
+	TEST_V_ALL(vone);
 }
 
 void NOINLINE vsclq(ScePspFVector4 *v0, ScePspFVector4 *v1, ScePspFVector4 *v2) {
@@ -277,7 +339,6 @@ void NOINLINE vqmul_q(ScePspFVector4 *vleft, ScePspFVector4 *vright, ScePspFVect
 		);
 }
 
-
 void checkVadd() {
 	printf("TODO!\n");
 }
@@ -459,7 +520,7 @@ void checkVfim() {
 
 void checkDot() {
 	initValues();
-	vdotq(&v0, &v1, &v2);
+	vdot_q(&v0, &v1, &v2);
 	printf("vdot %f\n", v0.x);
 }
 
@@ -482,7 +543,7 @@ void NOINLINE vrot(float angle, ScePspFVector4 *v0) {
 void checkRotation() {
 	initValues();
 	vrot(0.7, &v0);
-	printVector("vrot", &v0);
+	printVectorLowP("vrot", &v0);
 }
 
 void moveNormalRegister() {
@@ -581,18 +642,6 @@ void checkLoadUnaligned() {
 
 }
 
-void checkVzero() {
-	v0.w = v0.z = v0.y = v0.x = -1.0f;
-	vzero_q(&v0);
-	printVector("checkVZero", &v0);
-}
-
-void checkVone() {
-	v0.w = v0.z = v0.y = v0.x = -1.0f;
-	vone_q(&v0);
-	printVector("checkVone", &v0);
-}
-
 void checkMisc() {
 	float fovy = 75.0f;
 	
@@ -631,37 +680,6 @@ void NOINLINE checkSimpleLoad() {
 	printVector("simpleLoad", &vOut);
 }
 
-void NOINLINE vfad_q(ScePspFVector4 *v0, ScePspFVector4 *v1) {
-	
-	asm volatile (
-		"lv.q   C100, %1\n"
-		"vfad.q S000, C100\n"
-		"sv.s   S000, 0x00+%0\n"
-
-		: "+m" (*v0) : "m" (*v1)
-	);
-}
-
-void NOINLINE vavg_q(ScePspFVector4 *v0, ScePspFVector4 *v1) {
-	asm volatile (
-		"lv.q   C100, %1\n"
-		"vavg.q S000, C100\n"
-		"sv.s   S000, 0x00+%0\n"
-
-		: "+m" (*v0) : "m" (*v1)
-	);
-}
-
-void NOINLINE vavg_q3(ScePspFVector4 *v0, ScePspFVector4 *v1) {
-	asm volatile (
-		"lv.q   C100, %1\n"
-		"vavg.t S000, C100\n"
-		"sv.s   S000, 0x00+%0\n"
-
-		: "+m" (*v0) : "m" (*v1)
-	);
-}
-
 void checkAggregated() {
 	static ALIGN16 ScePspFVector4 vIn = {11.0f, 22.0f, 33.0f, 44.0f};
 	static ALIGN16 ScePspFVector4 vIn2 = {11.0f, 22.0f, INFINITY, 44.0f};
@@ -670,7 +688,7 @@ void checkAggregated() {
 	printf("SUM: %f\n", vOut.x);
 	vavg_q(&vOut, &vIn);
 	printf("AVG: %f\n", vOut.x);
-	vavg_q3(&vOut, &vIn2);
+	vavg_t(&vOut, &vIn2);
 	printf("AVG3: %f\n", vOut.x);
 }
 
@@ -830,7 +848,9 @@ int main(int argc, char *argv[]) {
 	printf("Started\n");
 
 	resetAllMatrices();
-	
+
+	checkVZero();
+	checkVOne();
 	checkCompare();
 	checkCompare2();
 	checkCrossProduct();
@@ -860,8 +880,6 @@ int main(int argc, char *argv[]) {
 	checkDot();
 	checkScale();
 	checkRotation();
-	checkVzero();
-	checkVone();
 
 	printf("Ended\n");
 	return 0;
