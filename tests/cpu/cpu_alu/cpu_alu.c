@@ -203,7 +203,7 @@ OP_r_r(wsbh)
 OP_r_r(wsbw)
 
 #define NUMMULTEST 8
-static const int mt[4][NUMMULTEST] = {
+static const int mt[7][NUMMULTEST] = {
   {1, 2, 3, 4},
   {-1, -2, -3, -4},
   {0x80000000, 0x8fffffff, 0x10000000, 0x42385722},

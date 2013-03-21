@@ -44,6 +44,9 @@ void __attribute__((noinline)) vmidt(int size, ScePspFMatrix4 *v0, ScePspFMatrix
 	case 2: asm volatile("vmidt.p M000\nvmidt.p M022\n"); break;
 	case 3: asm volatile("vmidt.t M000\n"); break;
 	case 4: asm volatile("vmidt.q M000\n"); break;
+	case 5: asm volatile("vmone.q M000\n"); break;
+	case 6: asm volatile("vmzero.q M000\n"); break;
+
 	}
 
 	asm volatile (
@@ -58,7 +61,7 @@ void __attribute__((noinline)) vmidt(int size, ScePspFMatrix4 *v0, ScePspFMatrix
 
 void checkMatrixIdentity() {
 	int vsize;
-	for (vsize = 2; vsize <= 4; vsize++) {
+	for (vsize = 2; vsize <= 6; vsize++) {
 		nonsense(&matrix);
 		vmidt(vsize, &matrix2, &matrix);
 		printMatrix("vmidt", &matrix2);
@@ -209,8 +212,10 @@ void _checkMatrixPerVector(ScePspFMatrix4 *m, ScePspFVector4 *vmult, ScePspFVect
 		"lv.q R600, 0x00+%2\n"
 
 		"vtfm3.t R100, M700, R600\n"
+		"vtfm4.q R200, M700, R600\n"
 
 		"sv.q    R100, 0x00+%0\n"
+		"sv.q    R200, 0x10+%0\n"
 		: "+m" (*vresult) : "m" (*m), "m" (*vmult)
 		);
 }
@@ -228,7 +233,7 @@ void _checkHMatrixPerVector(ScePspFMatrix4 *matrix, ScePspFVector4 *vmult, ScePs
 		"vhtfm4.q R200, M700, R600\n"
 
 		"sv.q    R100, 0x00+%0\n"
-		"sv.q    R200, 0x00+%0\n"
+		"sv.q    R200, 0x10+%0\n"
 		: "+m" (*vresult) : "m" (*matrix), "m" (*vmult)
 		);
 }
@@ -241,7 +246,8 @@ void checkMatrixPerVector() {
 	nonsense(&matrix);
 
 	_checkMatrixPerVector(&matrix, &vmult, vout);
-	printVector("vtfm3.t", &vout);
+	printVector("vtfm3.t", &vout[0]);
+	printVector("vtfm4.q", &vout[1]);
 
 	_checkHMatrixPerVector(&matrix, &vmult, vout);
 	printVector("vhtfm3.t", &vout[0]);
@@ -302,7 +308,36 @@ void checkMultiplyFull() {
 		: "+m" (*v0)
 	);
 	
-	printMatrix("vmmul.q", &m3);
+	printMatrix("vmmul.q 1", &m3);
+	nonsense(&m3);
+
+	asm volatile (
+		"vmmul.t   M201, M000, M100\n"
+		"sv.q R200, 0x00+%0\n"
+		"sv.q R201, 0x10+%0\n"
+		"sv.q R202, 0x20+%0\n"
+		"sv.q R203, 0x30+%0\n"
+
+		: "+m" (*v0)
+		);
+
+	printMatrix("vmmul.q 2", &m3);
+	nonsense(&m3);
+
+	asm volatile (
+		"vmmul.p   M200, M000, M100\n"
+		"vmmul.p   M202, M002, M102\n"
+		"vmmul.p   M220, M020, M120\n"
+		"vmmul.p   M222, M022, M122\n"
+		"sv.q R200, 0x00+%0\n"
+		"sv.q R201, 0x10+%0\n"
+		"sv.q R202, 0x20+%0\n"
+		"sv.q R203, 0x30+%0\n"
+
+		: "+m" (*v0)
+		);
+
+	printMatrix("vmmul.q 3", &m3);
 }
 
 int main(int argc, char *argv[]) {

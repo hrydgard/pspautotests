@@ -218,6 +218,30 @@ void testSV(const char *desc, void (*vvvxxx)(ScePspFVector4 *v0, const ScePspFVe
 	}
 }
 
+
+//////////////////////////////////////////////////////////////////////////
+// "DV" functions - destination is double size
+//////////////////////////////////////////////////////////////////////////
+
+#define GEN_DV(FuncName, Op, PFX) \
+	void NOINLINE FuncName(ScePspFVector4 *v0, const ScePspFVector4 *v1) { \
+	asm volatile ( \
+	"lv.q   C100, %1\n" \
+	Op " C000, "PFX"100\n" \
+	"sv.q   C000, %0\n" \
+	: "+m" (*v0) : "m" (*v1) \
+	); \
+}
+
+void testDV(const char *desc, void (*vvvxxx)(ScePspFVector4 *v0, const ScePspFVector4 *v1)) {
+	int i;
+	for (i = 0; i < NUM_TESTVECTORS; i++) {
+		LoadC000(&vMinusOne);
+		(*vvvxxx)(&v0, &testVectors[i]);
+		printVector(desc, &v0);
+	}
+}
+
 //////////////////////////////////////////////////////////////////////////
 // "VVV" functions
 //////////////////////////////////////////////////////////////////////////
@@ -362,6 +386,12 @@ void checkVV() {
 	// TEST_SP(testVV, vsocp);
 }
 
+GEN_SP_D(GEN_DV, vsocp);
+// GEN_PQ(GEN_VV, vsocp); can't get as to recognize
+void checkDV() {
+	TEST_SP(testDV, vsocp);
+}
+
 GEN_PTQ(GEN_SV, vavg);
 GEN_PTQ(GEN_SV, vfad);
 // GEN_PQ(GEN_VV, vsocp); can't get as to recognize
@@ -381,6 +411,7 @@ GEN_SPTQ(GEN_VVV, vmax);
 GEN_T(GEN_VVV, vcrs);
 GEN_T(GEN_VVV, vcrsp);
 GEN_Q(GEN_VVV, vqmul);
+GEN_SPTQ(GEN_VVV, vscmp);
 
 void checkVVV() {
 	TEST_SPTQ(testVVV, vadd);
@@ -394,6 +425,7 @@ void checkVVV() {
 	TEST_T(testVVV, vcrs);
 	TEST_T(testVVV, vcrsp);
 	TEST_Q(testVVV, vqmul);
+	TEST_SPTQ(testVVV, vscmp);
 }
 
 GEN_PTQ(GEN_SVV, vdot);
@@ -823,21 +855,17 @@ void NOINLINE _checkCompare2(float a, float b) {
 }
 
 void checkCompare2() {
-	_checkCompare2(1.0f, 2.0f);
-  _checkCompare2(2.0f, 1.0f);
-	_checkCompare2(-2.0f, -1.0f);
-  _checkCompare2(2.0f, 2.0f);
-	_checkCompare2(0.0f, -0.0f);
-	_checkCompare2(INFINITY, INFINITY);
-  _checkCompare2(-INFINITY, 100.0f);
-  _checkCompare2(NAN, 0.0f);
-  _checkCompare2(0.0f, NAN);
-  _checkCompare2(NAN, NAN);
-  _checkCompare2(NAN, -NAN);
-  _checkCompare2(-NAN, -NAN);
-  _checkCompare2(-0.0f, 0.0f);
-	_checkCompare2(NAN, INFINITY);
-	_checkCompare2(INFINITY, NAN);
+	const float numbers[12] = {
+		0.0f, 1.0f, 1.00000001f, -1.0f,
+		0.5f, 2.0f, -2.0f, 10000.0f,
+		INFINITY, NAN, -INFINITY, -NAN
+	};
+	int i,j;
+	for (i = 0; i < 12; i++) {
+		for (j = 0; j < 12; j++) {
+			_checkCompare2(numbers[i], numbers[j]);
+		}
+	}
 }
 
 

@@ -146,56 +146,33 @@ void checkHalf() {
 
 
 void checkVF2I() {
-	static __attribute__ ((aligned (16))) ScePspFVector4 vIn1 =
-	{0.9f, 1.3f, 2.7f, 1000.5f};
-	static __attribute__ ((aligned (16))) ScePspFVector4 vIn2 =
-	{-0.9f, -1.3f, -2.7f, -1000.5f};
-	static __attribute__ ((aligned (16))) ScePspFVector4 vIn3 =
-	{1.5f, 2.5f, -3.5f, -4.5f};
-	static __attribute__ ((aligned (16))) ScePspFVector4 vIn4 =
-	{3.5f, INFINITY, -INFINITY, NAN};
-
-
+	static __attribute__ ((aligned (16))) ScePspFVector4 vIn[8] =
+	{
+		{0.0f, 0.1f, 0.5f, 0.9f}, 
+		{1.0f, 1.1f, 1.5f, 1.9f},
+		{2.0f, 2.5f, 3.5f, 1000.0f},
+		{INFINITY, NAN, 0.0f, 0.0f},
+		{-0.0f, -0.1f, -0.5f, -0.9f},
+		{-1.0f, -1.1f, -1.5f, -1.9f},
+		{-2.0f, -2.5f, -3.5f, -1000.0f},
+		{-INFINITY, -NAN},
+	};
+	
 	static __attribute__ ((aligned (16))) ScePspFVector4 vOutF =
 	{0.0f, 0.0f, 0.0f, 0.0f};
 
 	struct {int x,y,z,w;} vOut;
-
-	vf2id(&vOutF, &vIn1); memcpy(&vOut, &vOutF, 16);
-	printf("vf2id: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-	vf2id(&vOutF, &vIn2); memcpy(&vOut, &vOutF, 16);
-	printf("vf2id: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-	vf2id(&vOutF, &vIn3); memcpy(&vOut, &vOutF, 16);
-	printf("vf2id: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-	vf2id(&vOutF, &vIn4); memcpy(&vOut, &vOutF, 16);
-	printf("vf2id: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-
-	vf2in(&vOutF, &vIn1); memcpy(&vOut, &vOutF, 16);
-	printf("vf2in: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-	vf2in(&vOutF, &vIn2); memcpy(&vOut, &vOutF, 16);
-	printf("vf2in: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-	vf2in(&vOutF, &vIn3); memcpy(&vOut, &vOutF, 16);
-	printf("vf2in: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-	vf2in(&vOutF, &vIn4); memcpy(&vOut, &vOutF, 16);
-	printf("vf2in: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-
-	vf2iz(&vOutF, &vIn1); memcpy(&vOut, &vOutF, 16);
-	printf("vf2iz: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-	vf2iz(&vOutF, &vIn2); memcpy(&vOut, &vOutF, 16);
-	printf("vf2iz: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-	vf2iz(&vOutF, &vIn3); memcpy(&vOut, &vOutF, 16);
-	printf("vf2iz: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-	vf2iz(&vOutF, &vIn4); memcpy(&vOut, &vOutF, 16);
-	printf("vf2iz: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-
-	vf2iu(&vOutF, &vIn1); memcpy(&vOut, &vOutF, 16);
-	printf("vf2iu: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-	vf2iu(&vOutF, &vIn2); memcpy(&vOut, &vOutF, 16);
-	printf("vf2iu: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-	vf2iu(&vOutF, &vIn3); memcpy(&vOut, &vOutF, 16);
-	printf("vf2iu: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
-	vf2iu(&vOutF, &vIn4); memcpy(&vOut, &vOutF, 16);
-	printf("vf2iu: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	int i;
+	for (i = 0; i < 8; i++) {
+		vf2id(&vOutF, &vIn[i]); memcpy(&vOut, &vOutF, 16);
+		printf("vf2id: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
+		vf2in(&vOutF, &vIn[i]); memcpy(&vOut, &vOutF, 16);
+		printf("vf2in: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
+		vf2iz(&vOutF, &vIn[i]); memcpy(&vOut, &vOutF, 16);
+		printf("vf2iz: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
+		vf2iu(&vOutF, &vIn[i]); memcpy(&vOut, &vOutF, 16);
+		printf("vf2iu: %i,%i,%i,%i\n", vOut.x, vOut.y, vOut.z, vOut.w);
+	}
 }
 
 void checkVI2F() {

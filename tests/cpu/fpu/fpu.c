@@ -52,28 +52,6 @@ int __attribute__((noinline)) ceilws(float x) {
 	return result;
 }
 
-
-/* these must be VFPU
-const char *cmpNames[16] = {
-  "FL",
-  "EQ",
-  "LT",
-  "LE",
-  "TR",
-  "NE",
-  "GE",
-  "GT",
-  "EZ",
-  "EN",
-  "EI", 
-  "ES",
-  "NZ",
-  "NN",
-  "NI",
-  "NS",
-};
-*/
-
 const char *cmpNames[16] = {
   "f",
   "un",
@@ -257,7 +235,7 @@ int main(int argc, char *argv[]) {
 
 	const float values[28] = {
 		0.0f, 0.1f, 0.5f, 0.9f, 1.0f, 1.1f, 1.5f, 1.9f, 2.0f, 2.5f, 3.5f, 1000.0f, INFINITY, NAN,
-		-0.0f, -0.1f, 0.5f, 0.9f, 1.0f, 1.1f, 1.5f, 1.9f, 2.0f, 2.5f, 3.5f, 1000.0f, -INFINITY, -NAN,
+		-0.0f, -0.1f, -0.5f, -0.9f, -1.0f, -1.1f, -1.5f, -1.9f, -2.0f, -2.5f, -3.5f, -1000.0f, -INFINITY, -NAN,
 	};
 
 #define NUM_VALUES 28
