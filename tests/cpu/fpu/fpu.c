@@ -125,7 +125,14 @@ void testCompare(float a, float b) {
   }
 }
 
-float floatRelevantValues[] = {0, 1, -1, 1.5, -1.5, 1.6, -1.6, 1.4, -1.4, 2.0, -2.0, 4.0, INFINITY, -INFINITY, NAN, -NAN };
+float floatRelevantValues[] = {
+	0, 1, -1, 1.5,
+	-1.5, 1.6, -1.6, 1.4,
+	-1.4, 2.0, -2.0, 4.0, 
+	-10000000.4, 20000000.0, -20000.5, 20000.6, 
+	INFINITY, -INFINITY, NAN, -NAN
+};
+
 #define lengthof(v) (sizeof(v) / sizeof((v)[0]))
 
 int isOperandOkay(const char *name, float a1) {

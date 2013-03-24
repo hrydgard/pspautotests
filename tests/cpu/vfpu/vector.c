@@ -194,6 +194,19 @@ void testVVLowP(const char *desc, void (*vvvxxx)(ScePspFVector4 *v0, const ScePs
 	}
 }
 
+void testVVtrig(const char *desc, void (*vvvxxx)(ScePspFVector4 *v0, const ScePspFVector4 *v1)) {
+	int i;
+	for (i = 0; i < 256; i++) {
+		v1.x = (i - 128) / 64.0f;
+		v1.y = (i - 128) / 64.0f;
+		v1.z = (i - 128) / 64.0f;
+		v1.w = (i - 128) / 64.0f;
+		LoadC000(&vMinusOne);
+		(*vvvxxx)(&v0, &v1);
+		printVector(desc, &v0);
+	}
+}
+
 
 //////////////////////////////////////////////////////////////////////////
 // "SV" functions
@@ -356,7 +369,6 @@ GEN_Q(GEN_VV, vsrt1);
 GEN_Q(GEN_VV, vsrt2);
 GEN_Q(GEN_VV, vsrt3);
 GEN_Q(GEN_VV, vsrt4);
-// GEN_SP(GEN_VV, vsocp);
 void checkVV() {
 	TEST_SPTQ(testVV, vmov);
 	TEST_SPTQ(testVV, vabs);
@@ -370,7 +382,7 @@ void checkVV() {
 	TEST_SPTQ(testVV, vexp2);
 	TEST_SPTQ(testVVLowP, vlog2);
 	TEST_SPTQ(testVVLowP, vsqrt);
-	TEST_SPTQ(testVVLowP, vasin);
+	TEST_SPTQ(testVVtrig, vasin);
 	TEST_SPTQ(testVV, vnrcp);
 	TEST_SPTQ(testVVLowP, vnsin);
 	TEST_SPTQ(testVV, vrexp2);
@@ -383,10 +395,9 @@ void checkVV() {
 	TEST_Q(testVV, vsrt2);
 	TEST_Q(testVV, vsrt3);
 	TEST_Q(testVV, vsrt4);
-	// TEST_SP(testVV, vsocp);
 }
 
-GEN_SP_D(GEN_DV, vsocp);
+GEN_SP(GEN_DV, vsocp);
 // GEN_PQ(GEN_VV, vsocp); can't get as to recognize
 void checkDV() {
 	TEST_SP(testDV, vsocp);
