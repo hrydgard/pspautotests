@@ -1,0 +1,162 @@
+[x] Semas without changes:
+[x] sceKernelCreateSema: 00000001
+[x] sceKernelSignalSema: 00000000
+[x] sceKernelWaitSema: 00000000
+[x] sceKernelWaitSema too much: 800201bd
+[x] sceKernelDeleteSema: 00000000
+[x] sceKernelCreateSema: 00000001
+[x] S sceKernelCreateThread: 00000001
+[x] S sceKernelStartThread: 00000000
+[r] sceKernelWaitSema: 800201a8
+[x] T sceKernelWaitSema: 00000000
+[x] sceKernelSignalSema: 00000000
+[r] T sceKernelDelayThread: 00000000
+[x] T sceKernelSignalSema: 00000000
+[r] E sceKernelWaitThreadEnd: 00000000
+[x] E sceKernelTerminateDeleteThread: 00000000
+[x] sceKernelPollSema: 00000000
+[x] sceKernelDeleteSema: 00000000
+
+[x] Semas with short dispatch suspend:
+[x] sceKernelCreateSema: 00000001
+[x] sceKernelSignalSema: 00000000
+[x] sceKernelWaitSema: 00000000
+[x] sceKernelWaitSema too much: 800201bd
+[x] sceKernelDeleteSema: 00000000
+[x] sceKernelCreateSema: 00000001
+[x] S sceKernelCreateThread: 00000001
+[x] S sceKernelStartThread: 00000000
+[?] sceKernelSuspendDispatchThread: 00000001
+[?] sceKernelWaitSema: 800201a7
+[?] sceKernelSignalSema: 00000000
+[?] T sceKernelWaitSema: 00000000
+[?] sceKernelResumeDispatchThread: 00000000
+[r] T sceKernelDelayThread: 00000000
+[x] T sceKernelSignalSema: 00000000
+[r] E sceKernelWaitThreadEnd: 00000000
+[x] E sceKernelTerminateDeleteThread: 00000000
+[x] sceKernelPollSema: 00000000
+[x] sceKernelDeleteSema: 00000000
+
+[x] Semas while dispatch suspended:
+[?] sceKernelSuspendDispatchThread: 00000001
+[?] sceKernelCreateSema: 00000001
+[?] sceKernelSignalSema: 00000000
+[?] sceKernelWaitSema: 800201a7
+[?] sceKernelWaitSema too much: 800201a7
+[?] sceKernelDeleteSema: 00000000
+[?] sceKernelCreateSema: 00000001
+[?] S sceKernelCreateThread: 00000001
+[?] S sceKernelStartThread: 00000000
+[?] sceKernelWaitSema: 800201a8
+[?] T sceKernelWaitSema: 00000000
+[?] sceKernelSignalSema: 00000000
+[?] T sceKernelDelayThread: 00000000
+[?] T sceKernelSignalSema: 00000000
+[?] E sceKernelWaitThreadEnd: 00000000
+[?] E sceKernelTerminateDeleteThread: 00000000
+[?] sceKernelPollSema: 00000000
+[?] sceKernelDeleteSema: 00000000
+[?] sceKernelResumeDispatchThread: 00000000
+
+[x] Semas while intr suspended:
+[x] sceKernelCpuSuspendIntr: 00000001
+[x] sceKernelCreateSema: 00000001
+[x] sceKernelSignalSema: 00000000
+[x] sceKernelWaitSema: 800201a7
+[x] sceKernelWaitSema too much: 800201a7
+[x] sceKernelDeleteSema: 00000000
+[x] sceKernelCreateSema: 00000001
+[x] S sceKernelCreateThread: 00000001
+[x] S sceKernelStartThread: 00000000
+[?] sceKernelSuspendDispatchThread: 80020066
+[?] sceKernelWaitSema: 800201a7
+[?] sceKernelSignalSema: 00000000
+[?] sceKernelResumeDispatchThread: 80020066
+[x] E sceKernelWaitThreadEnd: 800201a7
+[x] E sceKernelTerminateDeleteThread: 00000000
+[x] sceKernelPollSema: 00000000
+[x] sceKernelDeleteSema: 00000000
+[x] sceKernelCpuResumeIntr: 00000000
+
+
+[x] Mutexes without changes:
+[x] sceKernelCreateMutex: 00000001
+[x] sceKernelUnlockMutex: 00000000
+[x] sceKernelLockMutex: 00000000
+[x] sceKernelLockMutex invalid: 800201bd
+[x] sceKernelDeleteMutex: 00000000
+[x] sceKernelCreateMutex: 00000001
+[x] S sceKernelCreateThread: 00000001
+[x] T sceKernelLockMutex: 800201bd
+[x] S sceKernelStartThread: 00000000
+[x] sceKernelLockMutex: 800201c8
+[x] sceKernelUnlockMutex: 00000000
+[r] T sceKernelDelayThread: 00000000
+[x] T sceKernelUnlockMutex: 800201c5
+[r] E sceKernelWaitThreadEnd: 00000000
+[x] E sceKernelTerminateDeleteThread: 00000000
+[x] sceKernelTryLockMutex: 00000000
+[x] sceKernelDeleteMutex: 00000000
+
+[x] Mutexes with short dispatch suspend:
+[x] sceKernelCreateMutex: 00000001
+[x] sceKernelUnlockMutex: 00000000
+[x] sceKernelLockMutex: 00000000
+[x] sceKernelLockMutex invalid: 800201bd
+[x] sceKernelDeleteMutex: 00000000
+[x] sceKernelCreateMutex: 00000001
+[x] S sceKernelCreateThread: 00000001
+[x] T sceKernelLockMutex: 800201bd
+[x] S sceKernelStartThread: 00000000
+[?] sceKernelSuspendDispatchThread: 00000001
+[?] sceKernelLockMutex: 800201a7
+[?] sceKernelUnlockMutex: 00000000
+[?] sceKernelResumeDispatchThread: 00000000
+[r] T sceKernelDelayThread: 00000000
+[x] T sceKernelUnlockMutex: 800201c5
+[r] E sceKernelWaitThreadEnd: 00000000
+[x] E sceKernelTerminateDeleteThread: 00000000
+[x] sceKernelTryLockMutex: 00000000
+[x] sceKernelDeleteMutex: 00000000
+
+[x] Mutexes while dispatch suspended:
+[?] sceKernelSuspendDispatchThread: 00000001
+[?] sceKernelCreateMutex: 00000001
+[?] sceKernelUnlockMutex: 00000000
+[?] sceKernelLockMutex: 800201a7
+[?] sceKernelLockMutex invalid: 800201a7
+[?] sceKernelDeleteMutex: 00000000
+[?] sceKernelCreateMutex: 00000001
+[?] S sceKernelCreateThread: 00000001
+[?] T sceKernelLockMutex: 800201bd
+[?] S sceKernelStartThread: 00000000
+[?] sceKernelLockMutex: 800201c8
+[?] sceKernelUnlockMutex: 00000000
+[?] T sceKernelDelayThread: 00000000
+[?] T sceKernelUnlockMutex: 800201c5
+[?] E sceKernelWaitThreadEnd: 00000000
+[?] E sceKernelTerminateDeleteThread: 00000000
+[?] sceKernelTryLockMutex: 00000000
+[?] sceKernelDeleteMutex: 00000000
+[?] sceKernelResumeDispatchThread: 00000000
+
+[x] Mutexes while intr suspended:
+[x] sceKernelCpuSuspendIntr: 00000001
+[x] sceKernelCreateMutex: 00000001
+[x] sceKernelUnlockMutex: 00000000
+[x] sceKernelLockMutex: 800201a7
+[x] sceKernelLockMutex invalid: 800201a7
+[x] sceKernelDeleteMutex: 00000000
+[x] sceKernelCreateMutex: 00000001
+[x] S sceKernelCreateThread: 00000001
+[x] S sceKernelStartThread: 00000000
+[?] sceKernelSuspendDispatchThread: 80020066
+[?] sceKernelLockMutex: 800201a7
+[?] sceKernelUnlockMutex: 00000000
+[?] sceKernelResumeDispatchThread: 80020066
+[x] E sceKernelWaitThreadEnd: 800201a7
+[x] E sceKernelTerminateDeleteThread: 00000000
+[x] sceKernelTryLockMutex: 00000000
+[x] sceKernelDeleteMutex: 00000000
+[x] sceKernelCpuResumeIntr: 00000000
