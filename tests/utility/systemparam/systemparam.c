@@ -5,7 +5,12 @@
 #include <string.h>
 #include <pspmoduleinfo.h>
 #include <psputility.h>
-void printSystemParam(int id, int iVal, char *sVal) {
+
+#define PSP_SYSTEMPARAM_ID_INT_BUTTON_PREFERENCE 9
+#define PSP_SYSTEMPARAM_ID_INT_LOCK_PARENTAL_LEVEL 10
+
+void printSystemParam(int result, int id, int iVal, char *sVal) {
+	printf("%x (%08x) - ", id, result);
 	switch(id) {
 		case(PSP_SYSTEMPARAM_ID_STRING_NICKNAME):
 			printf("%-17s: %s\n", "Nickname", sVal);
@@ -14,7 +19,7 @@ void printSystemParam(int id, int iVal, char *sVal) {
 			printf("%-17s: %d\n", "AdHoc Channel", iVal);
 			break;
 		case(PSP_SYSTEMPARAM_ID_INT_WLAN_POWERSAVE):
-			printf("%-17s: %s\n", "WLAN Powersave", iVal == 0 ? "off   " : "on");
+			printf("%-17s: %s\n", "WLAN Powersave", iVal == 0 ? "off" : "on");
 			break;
 		case(PSP_SYSTEMPARAM_ID_INT_DATE_FORMAT):
 			switch(iVal) {
@@ -84,15 +89,27 @@ void printSystemParam(int id, int iVal, char *sVal) {
 				case(PSP_SYSTEMPARAM_LANGUAGE_PORTUGUESE):
 					printf("%-17s: Portuguese\n", "Language");
 					break;
+				case(PSP_SYSTEMPARAM_LANGUAGE_RUSSIAN):
+					printf("%-17s: Russian\n", "Language");
+					break;
 				case(PSP_SYSTEMPARAM_LANGUAGE_KOREAN):
 					printf("%-17s: Korean\n", "Language");
+					break;
+				case(PSP_SYSTEMPARAM_LANGUAGE_CHINESE_TRADITIONAL):
+					printf("%-17s: Chinese (Traditional)\n", "Language");
+					break;
+				case(PSP_SYSTEMPARAM_LANGUAGE_CHINESE_SIMPLIFIED):
+					printf("%-17s: Chinese (Simplified)\n", "Language");
 					break;
 				default:
 					printf("%-17s: INVALID\n", "Language");
 			}
 			break;
-		case(PSP_SYSTEMPARAM_ID_INT_UNKNOWN):
-			printf("%-17s: %d \n", "Button Assignment", iVal);
+		case(PSP_SYSTEMPARAM_ID_INT_BUTTON_PREFERENCE):
+			printf("%-17s: %d\n", "Button Assignment", iVal);
+			break;
+		case(PSP_SYSTEMPARAM_ID_INT_LOCK_PARENTAL_LEVEL):
+			printf("%-17s: %d\n", "Parental Level", iVal);
 			break;
 		default:
 			printf("%-17s: int 0x%08X, string '%s'\n", "Unknown", iVal, sVal);
@@ -103,14 +120,27 @@ int main(int argc, char **argv) {
     char sVal[256];
     int iVal;
     int i;
-	for (i = 0; i <= 15; i++) {
+	int result;
+	for (i = -15; i <= 256; i++) {
     	iVal = 0xDEADBEEF;
     	memset(sVal, 0, 256);
-    	if(sceUtilityGetSystemParamInt(i, &iVal) != PSP_SYSTEMPARAM_RETVAL_FAIL)
-    		printSystemParam(i, iVal, sVal);
-    	if(sceUtilityGetSystemParamString(i, sVal, 256) != PSP_SYSTEMPARAM_RETVAL_FAIL)
-    		printSystemParam(i, iVal, sVal);
+		result = sceUtilityGetSystemParamInt(i, &iVal);
+    	if (result != PSP_SYSTEMPARAM_RETVAL_FAIL) {
+    		printSystemParam(result, i, iVal, sVal);
+		}
+		result = sceUtilityGetSystemParamString(i, sVal, 256);
+    	if (result != PSP_SYSTEMPARAM_RETVAL_FAIL) {
+    		printSystemParam(result, i, iVal, sVal);
+		}
     }
 	
+	printf("\nString lengths:\n");
+	static const int lengths[] = {0, 1, 2, 3, 4, 5, 6, 7, 10, 256, -1};
+	for (i = 0; i < sizeof(lengths) / sizeof(lengths[0]); ++i) {
+		memset(sVal, -1, 256);
+		result = sceUtilityGetSystemParamString(PSP_SYSTEMPARAM_ID_STRING_NICKNAME, sVal, lengths[i]);
+		printf("   %d: %08x (%s)\n", lengths[i], result, sVal[0] == -1 ? "" : sVal);
+	}
+
 	return 0;
 }
