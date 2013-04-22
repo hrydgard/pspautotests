@@ -2,7 +2,17 @@
 #define __SASCORE_H
 
 typedef struct {
-	unsigned int data[512];
+	unsigned int data[14];
+} SasData;
+
+// Completely made up based on the way the data looks.
+typedef struct {
+	unsigned int header[5];
+	union {
+		unsigned int data[896];
+		SasData sasdata[64];
+	};
+	unsigned int footer[3];
 } SasCore;
 
 #define PSP_SAS_ERROR_ADDRESS        0x80420005
@@ -63,11 +73,32 @@ typedef struct {
 #define PSP_SAS_OUTPUTMODE_MULTICHANNEL 1
 
 int __sceSasInit(SasCore* sasCore, int grainSamples, int maxVoices, int outMode, int sampleRate);
-int __sceSasSetOutputmode(SasCore* sasCore, int outputMode);
-int __sceSasSetVoice(SasCore* sasCore, int voice, char* vagPointer, int vagSize, int loopCount);
-int __sceSasSetPitch(SasCore* sasCore, int voice, int pitch);
-int __sceSasSetVolume(SasCore* sasCore, int voice, int leftVolume, int rightVolume);
-int __sceSasSetKeyOn(SasCore* sasCore, int voice);
-unsigned int __sceSasCore(SasCore* sasCore, void* SasOut);
+int __sceSasSetADSR(SasCore *sasCore, int voice, int flag, int attack, int decay, int sustain, int release);
+int __sceSasRevParam(SasCore *sasCore, int delay, int feedback);
+int __sceSasGetPauseFlag(SasCore *sasCore);
+int __sceSasRevType(SasCore *sasCore, int type);
+int __sceSasSetVolume(SasCore *sasCore, int voice, int leftVolume, int rightVolume, int effectLeftVolume, int effectRightVolume);
+int __sceSasCoreWithMix(SasCore *sasCore, void *sasInOut, int leftVol, int rightVol);
+int __sceSasSetSL(SasCore *sasCore, int voice, int level);
+int __sceSasGetEndFlag(SasCore *sasCore);
+int __sceSasGetEnvelopeHeight(SasCore *sasCore, int voice);
+int __sceSasSetKeyOn(SasCore *sasCore, int voice);
+int __sceSasSetPause(SasCore *sasCore, int voice_bit, int setPause);
+int __sceSasSetVoice(SasCore *sasCore, int voice, void *vagPointer, int vagSize, int loopCount);
+int __sceSasSetADSRmode(SasCore *sasCore, int voice, int flag, int attackType, int decayType, int sustainType, int releaseType);
+int __sceSasSetKeyOff(SasCore *sasCore, int voice);
+int __sceSasSetTrianglarWave(SasCore *sasCore);
+int __sceSasCore(SasCore *sasCore, void *sasOut);
+int __sceSasSetPitch(SasCore *sasCore, int voice, int pitch);
+int __sceSasSetNoise(SasCore *sasCore, int voice, int freq);
+int __sceSasGetGrain(SasCore *sasCore);
+int __sceSasSetSimpleADSR(SasCore *sasCore, int voice, int ADSREnv1, int ADSREnv2);
+int __sceSasSetGrain(SasCore *sasCore, int grain);
+int __sceSasRevEVOL(SasCore *sasCore, int leftVol, int rightVol);
+int __sceSasSetSteepWave(SasCore *sasCore);
+int __sceSasGetOutputmode(SasCore *sasCore);
+int __sceSasSetOutputmode(SasCore *sasCore, int outputMode);
+int __sceSasRevVON(SasCore *sasCore, int dry, int wet);
+int __sceSasGetAllEnvelopeHeights(SasCore *sasCore, int *heights);
 
 #endif
