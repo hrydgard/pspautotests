@@ -153,8 +153,11 @@ void testSetVolumes(int voice, int l, int r, int el, int er) {
 
 // http://www.psp-programming.com/forums/index.php?action=printpage;topic=4404.0
 int main(int argc, char *argv[]) {
+	reschedThread = sceKernelCreateThread("resched", &reschedFunc, sceKernelGetThreadCurrentPriority(), 0x1000, 0, NULL);
+
 	int i;
 
+	checkpointNext("init");
 	checkpoint("Load avcodec: %08x", sceUtilityLoadModule(PSP_MODULE_AV_AVCODEC));
 	checkpoint("Load sascore: %08x", sceUtilityLoadModule(PSP_MODULE_AV_SASCORE));
 

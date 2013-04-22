@@ -1,5 +1,6 @@
-[x] Load avcodec: 00000000
-[x] Load sascore: 00000000
+[x] init
+[r] Load avcodec: 00000000
+[r] Load sascore: 00000000
 
 [x] sceSasInit:
 [x]   NULL: 80420005
