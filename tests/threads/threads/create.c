@@ -52,6 +52,8 @@ int main(int argc, char **argv) {
 	testCreate("  Null entry", "create", NULL, 0x20, 0x10000, 0, NULL);
 	testCreate("  Invalid entry", "create", (SceKernelThreadEntry) 0xDEADBEEF, 0x20, 0x10000, 0, NULL);
 
+	// TODO: Options?
+
 	checkpointNext(NULL);
 	SceUID thread1 = sceKernelCreateThread("create", &testFunc, 0x20, 0x1000, 0, NULL);
 	SceUID thread2 = sceKernelCreateThread("create", &testFunc, 0x20, 0x1000, 0, NULL);

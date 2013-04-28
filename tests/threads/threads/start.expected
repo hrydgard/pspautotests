@@ -34,3 +34,13 @@
 [r]   priority 0x20: 00000000 (current+0x00, deferred)
 [r]   priority 0x21: 00000000 (current+0x01, deferred)
 [r]   priority 0x40: 00000000 (current+0x20, deferred)
+
+[x] Stack:
+[x]   No arg
+[x]   Odd arg
+[x]   Large arg
+      Low stack: WARNING: stack allocated low.
+[x]   Low stack
+      Low stack without fill: WARNING: stack allocated low.
+      Low stack without fill: WARNING: stack not set to FF, instead: 00000000.
+[x]   Low stack without fill

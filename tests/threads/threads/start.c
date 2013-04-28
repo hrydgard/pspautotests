@@ -9,11 +9,58 @@ int argLengthFunc(SceSize argc, void *argv) {
 }
 
 int testFunc(SceSize argc, void *argv) {
-	schedf("* delayFunc\n");
+	return 0;
+}
 
-	sceKernelDelayThread(500);
+SceKernelThreadInfo stackCheckInfo;
+const char *stackCheckName;
+int stackCheckFunc(SceSize argc, void *argv) {
+	stackCheckInfo.size = sizeof(stackCheckInfo);
+	sceKernelReferThreadStatus(0, &stackCheckInfo);
 
-	return 7;
+	if ((int)argv & 0xf) {
+		schedf("    %s: ERROR: arg pointer not aligned.\n", stackCheckName);
+	}
+
+	u32 *stack = (u32 *) stackCheckInfo.stack;
+	u32 *stackEnd = stack + stackCheckInfo.stackSize / 4;
+
+	if (stack[0] != sceKernelGetThreadId()) {
+		schedf("    %s: ERROR: stack should start with thread ID.\n", stackCheckName);
+	}
+	if (stackEnd[-1] != 0xFFFFFFFF || stackEnd[-2] != 0xFFFFFFFF) {
+		schedf("    %s: WARNING: k0 laid out differently?\n", stackCheckName);
+	}
+	if (stackEnd[-14] != (u32)stack) {
+		schedf("    %s: WARNING: stack pointer not correct in k0.\n", stackCheckName);
+	}
+	if (stackEnd[-16] != sceKernelGetThreadId()) {
+		schedf("    %s: WARNING: thread id not correct in k0.\n", stackCheckName);
+	}
+
+	SceUID uid = sceKernelAllocPartitionMemory(2, "TEST", PSP_SMEM_Low, 0x100, NULL);
+	if (stack < (u32 *)sceKernelGetBlockHeadAddr(uid)) {
+		schedf("    %s: WARNING: stack allocated low.\n", stackCheckName);
+	}
+	sceKernelFreePartitionMemory(uid);
+
+	if (stack[1] != 0xFFFFFFFF) {
+		schedf("    %s: WARNING: stack not set to FF, instead: %08x.\n", stackCheckName, stack[1]);
+	}
+
+	return 0;
+}
+
+void testCheckStackLayout(const char *title, int argSize, u32 attr) {
+	char argLengthTemp[0x1000];
+	memset(argLengthTemp, 0xAB, sizeof(argLengthTemp));
+
+	stackCheckName = title;
+	SceUID stackCheckThread = sceKernelCreateThread("stackCheck", &stackCheckFunc, 0x10, 0x1000, attr, NULL);
+	sceKernelStartThread(stackCheckThread, argSize, argLengthTemp);
+	sceKernelWaitThreadEnd(stackCheckThread, NULL);
+
+	checkpoint("%s", title);
 }
 
 int main(int argc, char *argv[]) {
@@ -100,7 +147,12 @@ int main(int argc, char *argv[]) {
 		checkpoint("  priority 0x%02x: %08x (current%s0x%02x, %s)", priorities[i], result, priorityDiff < 0 ? "-" : "+", priorityDiff < 0 ? -priorityDiff : priorityDiff, afterStart == priorities[i] ? "resched" : (argLengthArgc == priorities[i] ? "deferred" : "never"));
 	}
 
-	// TODO: check initial stack layout?
+	checkpointNext("Stack:");
+	testCheckStackLayout("  No arg", 0, 0);
+	testCheckStackLayout("  Odd arg", 1, 0);
+	testCheckStackLayout("  Large arg", 0x600, 0);
+	testCheckStackLayout("  Low stack", 0, 0x00400000);
+	testCheckStackLayout("  Low stack without fill", 0, 0x00400000 | 0x00100000);
 
 	return 0;
 }
