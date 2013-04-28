@@ -1,0 +1,30 @@
+[x] Thread IDs:
+[x]   Normal: 00000000
+[x]   Twice: 800201a4
+[x]   NULL: 80020197
+[x]   Current: 800201a4
+[x]   Deleted: 80020198
+[x]   Invalid: 80020198
+
+[x] Argument Length:
+[x]   With NULL ptr: 00000000 (0, NULL)
+[x]   -1 arg length: 800200d3 (-1, NULL)
+[x]   0 arg length: 00000000 (0, NULL)
+[x]   1 arg length: 00000000 (1, same ptr)
+[x]   2 arg length: 00000000 (2, same ptr)
+[x]   3 arg length: 00000000 (3, same ptr)
+[x]   4 arg length: 00000000 (4, same ptr)
+[x]   5 arg length: 00000000 (5, same ptr)
+[x]   6 arg length: 00000000 (6, same ptr)
+[x]   7 arg length: 00000000 (7, same ptr)
+[x]   8 arg length: 00000000 (8, same ptr)
+[x]   80 arg length: 00000000 (80, same ptr)
+[x]   90 arg length: 00000000 (90, same ptr)
+[x]   1536 arg length: 00000000 (1536, same ptr)
+
+[x] Priorities:
+[x]   priority 0x08: 00000000 (current-0x18, resched)
+[x]   priority 0x1f: 00000000 (current-0x01, resched)
+[r]   priority 0x20: 00000000 (current+0x00, deferred)
+[r]   priority 0x21: 00000000 (current+0x01, deferred)
+[r]   priority 0x40: 00000000 (current+0x20, deferred)

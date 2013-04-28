@@ -24,6 +24,61 @@ static int schedulingResult = -1;
 	schedf("%s%d", #letter, old); \
 }
 
+struct mem_entry {
+	u32 start;
+	u32 size;
+	const char *name;
+};
+
+static struct mem_entry g_memareas[] = {
+	{0x08800000, (24 * 1024 * 1024), "USER"},
+	{0x48800000, (24 * 1024 * 1024), "USER XC"},
+	{0x88000000, (4 * 1024 * 1024), "KERNEL LOW"},
+	{0xA8000000, (4 * 1024 * 1024), "KERNEL LOW XC"},
+	{0x88400000, (4 * 1024 * 1024), "KERNEL MID"},
+	{0xC8400000, (4 * 1024 * 1024), "KERNEL MID XC"},
+	{0x88800000, (24 * 1024 * 1024), "KERNEL HIGH"},
+	{0xA8800000, (24 * 1024 * 1024), "KERNEL HIGH XC"},
+	{0x04000000, (2 * 1024 * 1024), "VRAM"},
+	{0x44000000, (2 * 1024 * 1024), "VRAM XC"},
+	{0x00010000, (16 * 1024), "SCRATCHPAD"},
+	{0x40010000, (16 * 1024), "SCRATCHPAD XC"},
+	{0xBFC00000, (1 * 1024 * 1024), "INTERNAL"},
+};
+
+const char *ptrDesc(void *ptr) {
+	u32 p = (u32) ptr;
+
+	if (p == 0) {
+		return "NULL";
+	} else if (p == 0xDEADBEEF) {
+		return "DEADBEEF";
+	}
+
+	int i;
+	for (i = 0; i < sizeof(g_memareas) / sizeof(g_memareas[0]); ++i) {
+		if (p >= g_memareas[i].start && p < g_memareas[i].start + g_memareas[i].size) {
+			return g_memareas[i].name;
+		}
+	}
+
+	return "UNKNOWN";
+}
+
+inline void schedfThreadStatus(SceUID thread) {
+	SceKernelThreadInfo info;
+	info.size = sizeof(info);
+
+	int result = sceKernelReferThreadStatus(thread, &info);
+	if (result >= 0) {
+		schedf("OK (size=%d, name=%s, attr=%08x, status=%d, entry=%s, stack=%s, stackSize=%x,\n", info.size, info.name, info.attr, info.status, ptrDesc(info.entry), ptrDesc(info.stack), info.stackSize);
+		schedf("        gpReg=%s, initPrio=%x, currPrio=%x, waitType=%d, waitId=%d, exit=%08X\n", ptrDesc(info.gpReg), info.initPriority, info.currentPriority, info.waitType, info.waitId, info.exitStatus);
+		schedf("        run=%lld, intrPreempt=%u, threadPreempt=%u, release=%u\n", *(u64 *) &info.runClocks, info.intrPreemptCount, info.threadPreemptCount, info.releaseCount);
+	} else {
+		schedf("Invalid (%08X)\n", result);
+	}
+}
+
 static int scheduleTestFunc(SceSize argSize, void* argPointer) {
 	int result = 0x800201A8;
 	SceUInt timeout;
