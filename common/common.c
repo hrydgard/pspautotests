@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdarg.h>
 #include <assert.h>
 #include <pspdebug.h>
 #include <pspthreadman.h>
@@ -14,6 +15,7 @@
 #include <string.h>
 #include <sys/lock.h>
 #include <sys/fcntl.h>
+
 //#include "local.h"
 
 #include "sysmem-imports.h"
@@ -52,6 +54,8 @@ PSP_MAIN_THREAD_ATTR(PSP_THREAD_ATTR_USER | PSP_THREAD_ATTR_VFPU);
 #define EMULATOR_DEVCTL__EMIT_SCREENSHOT 0x00000020
 
 unsigned int RUNNING_ON_EMULATOR = 0;
+unsigned int CHECKPOINT_ENABLE_TIME = 0;
+unsigned int CHECKPOINT_OUTPUT_DIRECT = 0;
 unsigned int HAS_DISPLAY = 1;
 
 // 21 MB to give space for thread stacks and etc.
@@ -61,6 +65,74 @@ extern int test_main(int argc, char *argv[]);
 
 FILE stdout_back = {NULL};
 //int KprintfFd = 0;
+
+char schedfBuffer[65536];
+unsigned int schedfBufferPos = 0;
+
+void schedf(const char *format, ...) {
+	va_list args;
+	va_start(args, format);
+	if (CHECKPOINT_OUTPUT_DIRECT) {
+		// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
+		vprintf(format, args);
+	} else {
+		schedfBufferPos += vsprintf(schedfBuffer + schedfBufferPos, format, args);
+	}
+	va_end(args);
+}
+
+void flushschedf() {
+	printf("%s", schedfBuffer);
+	schedfBuffer[0] = '\0';
+	schedfBufferPos = 0;
+}
+
+SceUID reschedThread;
+volatile int didResched = 0;
+int reschedFunc(SceSize argc, void *argp) {
+	didResched = 1;
+	return 0;
+}
+
+u64 lastCheckpoint = 0;
+void checkpoint(const char *format, ...) {
+	u64 currentCheckpoint = sceKernelGetSystemTimeWide();
+	if (CHECKPOINT_ENABLE_TIME) {
+		schedf("[%s/%lld] ", didResched ? "r" : "x", currentCheckpoint - lastCheckpoint);
+	} else {
+		schedf("[%s] ", didResched ? "r" : "x");
+	}
+
+	sceKernelTerminateThread(reschedThread);
+
+	if (format != NULL) {
+		va_list args;
+		va_start(args, format);
+		schedfBufferPos += vsprintf(schedfBuffer + schedfBufferPos, format, args);
+		// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
+		//vprintf(format, args);
+		va_end(args);
+	}
+
+	didResched = 0;
+	sceKernelStartThread(reschedThread, 0, NULL);
+
+	if (format != NULL) {
+		schedf("\n");
+	}
+	
+	lastCheckpoint = currentCheckpoint;
+}
+
+void checkpointNext(const char *title) {
+	if (schedfBufferPos != 0) {
+		schedf("\n");
+	}
+	flushschedf();
+	didResched = 0;
+	if (title != NULL)
+		checkpoint(title);
+}
 
 static int writeStdoutHook(struct _reent *ptr, void *cookie, const char *buf, int buf_len) {
 	char temp[1024 + 1];
@@ -162,9 +234,13 @@ void test_begin() {
 	setvbuf(stderr, NULL, _IONBF, 0);
 	
 	setbuf(stderr, NULL);
+
+	reschedThread = sceKernelCreateThread("resched", &reschedFunc, sceKernelGetThreadCurrentPriority(), 0x1000, 0, NULL);
 }
 
 void test_end() {
+	flushschedf();
+
 	fflush(stdout);
 	fflush(stderr);
 	
@@ -347,6 +423,7 @@ int main(int argc, char *argv[]) {
 	{
 		pspDebugScreenPrintf("RUNNING_ON_EMULATOR: %s - %s\n", RUNNING_ON_EMULATOR ? "yes" : "no", argv[0]);
 		updateSdkVer(argc, argv);
+
 		retval = test_main(argc, argv);
 	}
 	test_end();
