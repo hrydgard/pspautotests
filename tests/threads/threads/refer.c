@@ -29,70 +29,6 @@ typedef struct SceKernelThreadInfo2 {
 
 int sceKernelReferThreadStatus(SceUID threadID, SceKernelThreadInfo2 *info);
 
-#define ARRAY_SIZE(a) (sizeof((a)) / (sizeof((a)[0])))
-
-static char schedulingLog[65536];
-static volatile int schedulingLogPos = 0;
-
-inline void schedf(const char *format, ...) {
-	va_list args;
-	va_start(args, format);
-	schedulingLogPos += vsprintf(schedulingLog + schedulingLogPos, format, args);
-	// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
-	//vprintf(format, args);
-	va_end(args);
-}
-
-inline void flushschedf() {
-	printf("%s", schedulingLog);
-	schedulingLogPos = 0;
-}
-
-SceUID reschedThread;
-volatile int didResched = 0;
-int reschedFunc(SceSize argc, void *argp) {
-	didResched = 1;
-	return 0;
-}
-
-//#define ENABLE_TIMESTAMP_CHECKPOINTS
-u64 lastCheckpoint = 0;
-void checkpoint(const char *format, ...) {
-#ifdef ENABLE_TIMESTAMP_CHECKPOINTS
-	u32 currentCheckpoint = sceKernelGetSystemTimeWide();
-	schedf("[%s/%lld] ", didResched ? "r" : "x", currentCheckpoint - lastCheckpoint);
-#else
-	schedf("[%s] ", didResched ? "r" : "x");
-#endif
-
-	sceKernelTerminateThread(reschedThread);
-
-	va_list args;
-	va_start(args, format);
-	schedulingLogPos += vsprintf(schedulingLog + schedulingLogPos, format, args);
-	// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
-	//vprintf(format, args);
-	va_end(args);
-
-	didResched = 0;
-	sceKernelStartThread(reschedThread, 0, NULL);
-
-	schedf("\n");
-
-#ifdef ENABLE_TIMESTAMP_CHECKPOINTS
-	lastCheckpoint = currentCheckpoint;
-#endif
-}
-
-void checkpointNext(const char *title) {
-	if (schedulingLogPos != 0) {
-		schedf("\n");
-	}
-	flushschedf();
-	didResched = 0;
-	checkpoint(title);
-}
-
 void schedfThreadInfo(SceKernelThreadInfo2 *info, SceKernelThreadEntry entry) {
 	// TODO: Figure out what unk is.
 	schedf("Thread %s (attr=%08x, status=%d, entry=%d, stack=%d, stacksize=%x, gp=%d, priority init=%x, cur=%x, wait=%d for %d, wakeup=%d, exit=%08x, unk=%08x)\n", info->name, info->attr, info->status, info->entry == entry, info->stack != 0, info->stackSize, info->gpReg != 0, info->initPriority, info->currentPriority, info->waitType, info->waitId, info->wakeupCount, info->exitStatus, info->unk);
@@ -122,9 +58,8 @@ int suicideFunc(SceSize argc, void *argv) {
 void runReferTests() {
 	SceKernelThreadInfo2 info;
 	int i;
-	reschedThread = sceKernelCreateThread("resched", &reschedFunc, sceKernelGetThreadCurrentPriority(), 0x1000, PSP_THREAD_ATTR_VFPU, NULL);
-
-	SceUID deletedThread = sceKernelCreateThread("resched", &reschedFunc, sceKernelGetThreadCurrentPriority(), 0x1000, 0, NULL);
+	SceUID delayThread = sceKernelCreateThread("delay", &delayFunc, sceKernelGetThreadCurrentPriority(), 0x1000, PSP_THREAD_ATTR_VFPU, NULL);
+	SceUID deletedThread = sceKernelCreateThread("deleted", &delayFunc, sceKernelGetThreadCurrentPriority(), 0x1000, 0, NULL);
 	sceKernelDeleteThread(deletedThread);
 
 	info.size = sizeof(info);
@@ -149,9 +84,10 @@ void runReferTests() {
 	}
 
 	info.size = sizeof(info);
-	sceKernelReferThreadStatus(reschedThread, &info);
+	sceKernelStartThread(delayThread, 0, NULL);
+	sceKernelReferThreadStatus(delayThread, &info);
 	checkpointNext("Values:");
-	schedfThreadInfo(&info, &reschedFunc);
+	schedfThreadInfo(&info, &delayFunc);
 
 	SceUID slumberThread = sceKernelCreateThread("slumber", &slumberFunc, sceKernelGetThreadCurrentPriority() - 1, 0x1000, 0, NULL);
 

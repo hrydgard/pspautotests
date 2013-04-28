@@ -25,7 +25,7 @@ Until 2.60:
 [x]   1024: 00000000 => 104 (exit: 800201a4)
 
 [x] Values:
-Thread resched (attr=800040ff, status=2, entry=1, stack=1, stacksize=1000, gp=1, priority init=20, cur=20, wait=0 for 0, wakeup=0, exit=800201a4, unk=ffffffff)
+Thread delay (attr=800040ff, status=2, entry=1, stack=1, stacksize=1000, gp=1, priority init=20, cur=20, wait=0 for 0, wakeup=0, exit=800201a4, unk=ffffffff)
 [x]   slumber before start:
 Thread slumber (attr=800000ff, status=16, entry=1, stack=1, stacksize=1000, gp=1, priority init=1f, cur=1f, wait=0 for 0, wakeup=0, exit=800201a2, unk=ffffffff)
 [x]   started slumber
@@ -71,7 +71,7 @@ After 2.60:
 [x]   1024: 800201bc => 1024 (exit: ffffffff)
 
 [x] Values:
-Thread resched (attr=800040ff, status=2, entry=1, stack=1, stacksize=1000, gp=1, priority init=20, cur=20, wait=0 for 0, wakeup=0, exit=800201a4, unk=00000000)
+Thread delay (attr=800040ff, status=2, entry=1, stack=1, stacksize=1000, gp=1, priority init=20, cur=20, wait=0 for 0, wakeup=0, exit=800201a4, unk=00000000)
 [x]   slumber before start:
 Thread slumber (attr=800000ff, status=16, entry=1, stack=1, stacksize=1000, gp=1, priority init=1f, cur=1f, wait=0 for 0, wakeup=0, exit=800201a2, unk=00000000)
 [x]   started slumber

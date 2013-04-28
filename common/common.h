@@ -30,7 +30,20 @@ void __va_end(va_list);
 #undef main
 #define main test_main
 
-extern int RUNNING_ON_EMULATOR;
+extern unsigned int RUNNING_ON_EMULATOR;
+extern unsigned int CHECKPOINT_ENABLE_TIME;
+// Causes rescheduling (sceIoWrite) but easier to debug in the emulator.
+extern unsigned int CHECKPOINT_OUTPUT_DIRECT;
+extern char schedfBuffer[65536];
+extern unsigned int schedfBufferPos;
+
+void schedf(const char *format, ...);
+void flushschedf();
+int reschedFunc(SceSize argc, void *argp);
+void checkpoint(const char *format, ...);
+void checkpointNext(const char *title);
+
+#define ARRAY_SIZE(a) (sizeof((a)) / (sizeof((a)[0])))
 
 void emulatorEmitScreenshot();
 void emulatorSendSceCtrlData(SceCtrlData* pad_data);
