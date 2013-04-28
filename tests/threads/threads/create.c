@@ -107,7 +107,7 @@ int main(int argc, char **argv) {
 	flushschedf();
 
 	testCreate("Null entry", "create", NULL, 0x20, 0x10000, 0, NULL);
-	testCreate("Invalid entry", "create", (SceKernelThreadEntry *) 0xDEADBEEF, 0x20, 0x10000, 0, NULL);
+	testCreate("Invalid entry", "create", (SceKernelThreadEntry) 0xDEADBEEF, 0x20, 0x10000, 0, NULL);
 
 	flushschedf();
 
