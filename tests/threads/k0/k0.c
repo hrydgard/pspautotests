@@ -11,13 +11,11 @@ typedef struct {
 	// +0000
 	int unk[48];
 	// +00C0
-	void* stackAddr;
+	SceUID threadId;
 	// +00C4
 	uint unk1;
 	// +00C8
-	ushort unk2;
-	// +00CA
-	ushort threadId;
+	void* stackAddr;
 	// +00CC
 	int unk3[11];
 	// +00F8
@@ -63,7 +61,7 @@ void threadFunction(int argSize, void* argPointer)
 	fflush(stdout);
 	printf("ThreadID[1]: %d\n", (uint)(k0->threadId == sceKernelGetThreadId()));
 	fflush(stdout);
-	printf("ThreadID[2]: %d\n", (uint)(*(ushort*)(k0->stackAddr) == sceKernelGetThreadId()));
+	printf("ThreadID[2]: %d\n", (uint)(*(SceUID *)(k0->stackAddr) == sceKernelGetThreadId()));
 	fflush(stdout);
 	printf("%08X\n", (uint)k0->f1);
 	fflush(stdout);
