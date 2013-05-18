@@ -8,6 +8,7 @@
 #define PRINT_SEMAPHORE(sema) { \
 	if (sema > 0) { \
 		SceKernelSemaInfo semainfo; \
+		semainfo.size = sizeof(semainfo); \
 		int result = sceKernelReferSemaStatus(sema, &semainfo); \
 		if (result == 0) { \
 			printf("Sema: OK (size=%d,name='%s',attr=%d,init=%d,cur=%d,max=%d,wait=%d)\n", semainfo.size, semainfo.name, semainfo.attr, semainfo.initCount, semainfo.currentCount, semainfo.maxCount, semainfo.numWaitThreads); \
