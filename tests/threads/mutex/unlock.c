@@ -3,10 +3,10 @@
 #define UNLOCK_TEST_SIMPLE(title, mutex, count) { \
 	int result = sceKernelUnlockMutex(mutex, count); \
 	if (result == 0) { \
-		printf("%s: ", title); \
-		printfMutex(mutex); \
+		schedf("%s: ", title); \
+		schedfMutex(mutex); \
 	} else { \
-		printf("%s: Failed (%X)\n", title, result); \
+		schedf("%s: Failed (%X)\n", title, result); \
 	} \
 }
 
@@ -45,7 +45,7 @@ static int lockFunc(SceSize argSize, void* argPointer) {
 
 static int unlockFunc(SceSize argSize, void* argPointer) {
 	int result = sceKernelUnlockMutex(*(int*) argPointer, 1);
-	printf("After unlock: %08X\n", result);
+	schedf("After unlock: %08X\n", result);
 	return 0;
 }
 

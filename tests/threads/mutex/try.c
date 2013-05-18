@@ -4,10 +4,10 @@
 #define LOCK_TEST_SIMPLE(title, mutex, count) { \
 	int result = sceKernelTryLockMutex(mutex, count); \
 	if (result == 0) { \
-		printf("%s: ", title); \
-		printfMutex(mutex); \
+		schedf("%s: ", title); \
+		schedfMutex(mutex); \
 	} else { \
-		printf("%s: Failed (%X)\n", title, result); \
+		schedf("%s: Failed (%X)\n", title, result); \
 	} \
 }
 
@@ -46,7 +46,7 @@ static int lockFunc(SceSize argSize, void* argPointer) {
 
 static int deleteMeFunc(SceSize argSize, void* argPointer) {
 	int result = sceKernelTryLockMutex(*(int*) argPointer, 1);
-	printf("After delete: %08X\n", result);
+	schedf("After delete: %08X\n", result);
 	return 0;
 }
 

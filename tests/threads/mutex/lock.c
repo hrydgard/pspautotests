@@ -5,10 +5,10 @@
 #define LOCK_TEST_SIMPLE(title, mutex, count) { \
 	int result = sceKernelLockMutex(mutex, count, NULL); \
 	if (result == 0) { \
-		printf("%s: ", title); \
-		printfMutex(mutex); \
+		schedf("%s: ", title); \
+		schedfMutex(mutex); \
 	} else { \
-		printf("%s: Failed (%X)\n", title, result); \
+		schedf("%s: Failed (%X)\n", title, result); \
 	} \
 }
 
@@ -25,10 +25,10 @@
 	SceUInt timeout = initial_timeout; \
 	int result = sceKernelLockMutex(mutex, count, &timeout); \
 	if (result == 0) { \
-		printf("%s: OK (%dms left)\n", title, timeout); \
-		printfMutex(mutex); \
+		schedf("%s: OK (%dms left)\n", title, timeout); \
+		schedfMutex(mutex); \
 	} else { \
-		printf("%s: Failed (%X, %dms left)\n", title, result, timeout); \
+		schedf("%s: Failed (%X, %dms left)\n", title, result, timeout); \
 	} \
 	sceKernelDeleteMutex(mutex); \
 }
@@ -64,13 +64,13 @@ static int lockFunc(SceSize argSize, void* argPointer) {
 
 static int deleteMeFunc(SceSize argSize, void* argPointer) {
 	int result = sceKernelLockMutex(*(int*) argPointer, 1, NULL);
-	printf("After delete: %08X\n", result);
+	schedf("After delete: %08X\n", result);
 	return 0;
 }
 
 static int exitFunc(SceSize argSize, void* argPointer) {
 	int result = sceKernelLockMutex(*(int*) argPointer, 1, NULL);
-	printf("Now exiting: %08X\n", result);
+	schedf("Now exiting: %08X\n", result);
 	return 0;
 }
 
@@ -142,7 +142,7 @@ int main(int argc, char **argv) {
 	sceKernelDelayThread(500);
 	sceKernelLockMutex(mutex, 1, NULL);
 	sceKernelDeleteMutex(mutex);
-	printf("Woke up after other thread exited.\n");
+	schedf("Woke up after other thread exited.\n");
 
 	return 0;
 }
