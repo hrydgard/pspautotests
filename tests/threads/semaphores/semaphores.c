@@ -5,24 +5,6 @@
 #include <pspthreadman.h>
 #include <psploadexec.h>
 
-static char schedulingLog[65536];
-static char *schedulingLogPos = schedulingLog;
-
-inline void schedf(const char *format, ...) {
-	va_list args;
-	va_start(args, format);
-	schedulingLogPos += vsprintf(schedulingLogPos, format, args);
-	// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
-	//vprintf(format, args);
-	va_end(args);
-}
-
-inline void flushschedf() {
-	printf("%s", schedulingLog);
-	schedulingLogPos = schedulingLog;
-	schedulingLog[0] = '\0';
-}
-
 SceUID threads[5];
 SceUID sema;
 unsigned int test[5] = {0x0123, 0x4567, 0x89AB, 0xCDEF, 0x12345678};

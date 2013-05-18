@@ -6,18 +6,23 @@
 #include <psploadexec.h>
 
 #define PRINT_SEMAPHORE(sema) { \
-	if (sema > 0) { \
-		SceKernelSemaInfo semainfo; \
-		semainfo.size = sizeof(semainfo); \
-		int result = sceKernelReferSemaStatus(sema, &semainfo); \
-		if (result == 0) { \
-			printf("Sema: OK (size=%d,name='%s',attr=%d,init=%d,cur=%d,max=%d,wait=%d)\n", semainfo.size, semainfo.name, semainfo.attr, semainfo.initCount, semainfo.currentCount, semainfo.maxCount, semainfo.numWaitThreads); \
-		} else { \
-			printf("Sema: Invalid (%08X)\n", result); \
-		} \
-	} else { \
-		printf("Sema: Failed (%08X)\n", sema); \
-	} \
+	schedfSema(sema); \
+	flushschedf(); \
+}
+
+inline void schedfSema(SceUID sema) {
+	if (sema > 0) {
+		SceKernelSemaInfo semainfo;
+		semainfo.size = sizeof(semainfo);
+		int result = sceKernelReferSemaStatus(sema, &semainfo);
+		if (result == 0) {
+			schedf("Sema: OK (size=%d,name='%s',attr=%d,init=%d,cur=%d,max=%d,wait=%d)\n", semainfo.size, semainfo.name, semainfo.attr, semainfo.initCount, semainfo.currentCount, semainfo.maxCount, semainfo.numWaitThreads);
+		} else {
+			schedf("Sema: Invalid (%08X)\n", result);
+		}
+	} else {
+		schedf("Sema: Failed (%08X)\n", sema);
+	}
 }
 
 #define CREATE_PRIORITY_THREAD(func, priority) \
@@ -28,7 +33,7 @@
 #define SCHED_LOG(letter, placement) { \
 	int old = schedulingPlacement; \
 	schedulingPlacement = placement; \
-	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, #letter "%d", old); \
+	schedf(#letter "%d", old); \
 }
 
 // Avoid linking or other things.
@@ -37,9 +42,6 @@
 	static volatile int schedulingPlacement = 0; \
 	/* So we can log the result from the thread. */ \
 	static int schedulingResult = -1; \
-	/* printf() seems to reschedule, so can't use it. */ \
-	static char schedulingLog[8192]; \
-	static volatile int schedulingLogPos = 0; \
 	\
 	static int scheduleTestFunc(SceSize argSize, void* argPointer) { \
 		int result = 0x800201A8; \
@@ -65,9 +67,8 @@
 	SceUID sema2 = sceKernelCreateSema("schedTest2", 0, init2, 1, NULL); \
 	int result = -1; \
 	\
-	schedulingLogPos = 0; \
 	schedulingPlacement = 1; \
-	printf("%s: ", title); \
+	schedf("%s: ", title); \
 	\
 	SCHED_LOG(A, 1); \
 	sceKernelStartThread(thread, sizeof(int), &sema1); \
@@ -77,11 +78,10 @@
 	y \
 	SCHED_LOG(F, 1); \
 	\
-	schedulingLog[schedulingLogPos] = 0; \
-	schedulingLogPos = 0; \
-	printf("%s (thread=%08X, main=%08X)\n", schedulingLog, schedulingResult, result); \
+	schedf(" (thread=%08X, main=%08X)\n", schedulingResult, result); \
 	sceKernelDeleteSema(sema1); \
 	sceKernelDeleteSema(sema2); \
+	flushschedf(); \
 }
 #define BASIC_SCHED_TEST(title, x) TWO_STEP_SCHED_TEST(title, 0, 1, x, sceKernelDeleteSema(sema1);)
 
