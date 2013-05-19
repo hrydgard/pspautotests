@@ -22,6 +22,7 @@ int sceKernelLockMutexCB(SceUID mutexId, int count, SceUInt *timeout);
 int sceKernelTryLockMutex(SceUID mutexId, int count);
 int sceKernelUnlockMutex(SceUID mutexId, int count);
 int sceKernelReferMutexStatus(SceUID mutexId, SceKernelMutexInfo *status);
+int sceKernelCancelMutex(SceUID mutexId, int count, int *numWaitingThreads);
 
 #define PSP_MUTEX_ATTR_FIFO 0
 #define PSP_MUTEX_ATTR_PRIORITY 0x100
@@ -31,24 +32,6 @@ int sceKernelReferMutexStatus(SceUID mutexId, SceKernelMutexInfo *status);
 static volatile int schedulingPlacement = 0;
 // So we can log the result from the thread.
 static int schedulingResult = -1;
-// printf() seems to reschedule, so can't use it.
-static char schedulingLog[65536];
-static volatile int schedulingLogPos = 0;
-
-inline void schedf(const char *format, ...) {
-	va_list args;
-	va_start(args, format);
-	schedulingLogPos += vsprintf(schedulingLog + schedulingLogPos, format, args);
-	// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
-	//vprintf(format, args);
-	va_end(args);
-}
-
-inline void flushschedf() {
-	printf("%s", schedulingLog);
-	schedulingLogPos = 0;
-	schedulingLog[0] = '\0';
-}
 
 inline void schedfMutexInfo(SceKernelMutexInfo *info) {
 	schedf("Mutex: OK (size=%d,name=%s,attr=%08x,init=%d,current=%d,lockThread=%d,waiting=%08x)\n", info->size, info->name, info->attr, info->initCount, info->currentCount, info->lockThread == -1 ? 0 : 1, info->numWaitThreads);
@@ -83,7 +66,7 @@ inline void printfMutex(SceUID mutex) {
 #define SCHED_LOG(letter, placement) { \
 	int old = schedulingPlacement; \
 	schedulingPlacement = placement; \
-	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, #letter "%d", old); \
+	schedf(#letter "%d", old); \
 }
 
 static int scheduleTestFunc(SceSize argSize, void* argPointer) {

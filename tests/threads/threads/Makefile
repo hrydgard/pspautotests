@@ -1,4 +1,5 @@
-TARGETS = threads create threadend release rotate refer start
-COMMON_DIR = ../../../common
+TARGETS = threads create extend threadend release rotate refer start
+EXTRA_OBJS = thread-imports.o
 
+COMMON_DIR = ../../../common
 include ../../../common/common.mk

@@ -5,9 +5,9 @@
 #define LOCK_TEST_SIMPLE(title, workareaPtr, count) { \
 	int result = sceKernelLockLwMutex(workareaPtr, count, NULL); \
 	if (result == 0) { \
-		printf("%s: OK\n", title); \
+		schedf("%s: OK\n", title); \
 	} else { \
-		printf("%s: Failed (%X)\n", title, result); \
+		schedf("%s: Failed (%X)\n", title, result); \
 	} \
 }
 
@@ -18,13 +18,13 @@
 	if (result == 0) { \
 		LOCK_TEST_SIMPLE(title, &workarea, count); \
 	} else { \
-		printf("%s: Failed (%X)\n", title, result); \
+		schedf("%s: Failed (%X)\n", title, result); \
 	} \
-	printfLwMutex(&workarea); \
+	schedfLwMutex(&workarea); \
 	sceKernelDeleteLwMutex(&workarea); \
 	FAKE_LWMUTEX(workarea, attr, initial); \
 	LOCK_TEST_SIMPLE(title " (fake)", &workarea, count); \
-	printfLwMutex(&workarea); \
+	schedfLwMutex(&workarea); \
 }
 
 // Test sceKernelLockLwMutex with a timeout.
@@ -34,27 +34,27 @@
 	SceUInt timeout = initial_timeout; \
 	int result = sceKernelLockLwMutex(&workarea, count, &timeout); \
 	if (result == 0) { \
-		printf("%s: OK (%dms left)\n", title, timeout); \
+		schedf("%s: OK (%dms left)\n", title, timeout); \
 	} else { \
-		printf("%s: Failed (%X, %dms left)\n", title, result, timeout); \
+		schedf("%s: Failed (%X, %dms left)\n", title, result, timeout); \
 	} \
-	printfLwMutex(&workarea); \
+	schedfLwMutex(&workarea); \
 	sceKernelDeleteLwMutex(&workarea); \
 	FAKE_LWMUTEX(workarea, attr, initial); \
 	timeout = initial_timeout; \
 	result = sceKernelLockLwMutex(&workarea, count, &timeout); \
 	if (result == 0) { \
-		printf("%s (fake): OK (%dms left)\n", title, timeout); \
+		schedf("%s (fake): OK (%dms left)\n", title, timeout); \
 	} else { \
-		printf("%s (fake): Failed (%X, %dms left)\n", title, result, timeout); \
+		schedf("%s (fake): Failed (%X, %dms left)\n", title, result, timeout); \
 	} \
-	printfLwMutex(&workarea); \
+	schedfLwMutex(&workarea); \
 }
 
 // Test sceKernelLockLwMutex by locking on a separate thread first.
 #define LOCK_TEST_TIMEOUT_THREAD(title, attr, initial, count, initial_timeout) { \
 	flushschedf(); \
-	printf("%s: ", title); \
+	schedf("%s: ", title); \
 	schedulingResult = -1; \
 	SceLwMutexWorkarea workarea; \
 	sceKernelCreateLwMutex(&workarea, "lock", attr, initial, NULL); \
@@ -63,34 +63,34 @@
 	sceKernelDelayThread(400); \
 	SceUInt timeout = initial_timeout; \
 	int result = sceKernelLockLwMutex(&workarea, count, &timeout); \
-	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, "L2 "); \
+	schedf("L2 "); \
 	sceKernelDelayThread(600); \
 	sceKernelDeleteLwMutex(&workarea); \
 	sceKernelWaitThreadEnd(lockThread, NULL); \
 	flushschedf(); \
 	if (result == 0) { \
-		printf("OK (thread=%08X, %dms left)\n", schedulingResult, timeout); \
+		schedf("OK (thread=%08X, %dms left)\n", schedulingResult, timeout); \
 	} else { \
-		printf("Failed (thread=%08X, main=%08X, %dms left)\n", schedulingResult, result, timeout); \
+		schedf("Failed (thread=%08X, main=%08X, %dms left)\n", schedulingResult, result, timeout); \
 	} \
 	sceKernelTerminateThread(lockThread); \
 	\
 	FAKE_LWMUTEX(workarea, attr, initial); \
-	printf("%s (fake): ", title); \
+	schedf("%s (fake): ", title); \
 	flushschedf(); \
 	schedulingResult = -1; \
 	sceKernelStartThread(lockThread, sizeof(void*), &workareaPtr); \
 	sceKernelDelayThread(400); \
 	timeout = initial_timeout; \
 	result = sceKernelLockLwMutex(&workarea, count, &timeout); \
-	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, "L2 "); \
+	schedf("L2 "); \
 	sceKernelDelayThread(600); \
 	sceKernelWaitThreadEnd(lockThread, NULL); \
 	flushschedf(); \
 	if (result == 0) { \
-		printf("OK (thread=%08X)\n", schedulingResult); \
+		schedf("OK (thread=%08X)\n", schedulingResult); \
 	} else { \
-		printf("Failed (thread=%08X, main=%08X)\n", schedulingResult, result); \
+		schedf("Failed (thread=%08X, main=%08X)\n", schedulingResult, result); \
 	} \
 	sceKernelTerminateThread(lockThread); \
 }
@@ -98,7 +98,7 @@
 static int lockFunc(SceSize argSize, void* argPointer) {
 	SceUInt timeout = 1000;
 	schedulingResult = sceKernelLockLwMutex(*(void**) argPointer, 1, &timeout);
-	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, "L1 "); \
+	schedf("L1 "); \
 	sceKernelDelayThread(1000);
 	if (schedulingResult == 0)
 		sceKernelUnlockLwMutex(*(void**) argPointer, 1);
@@ -107,13 +107,13 @@ static int lockFunc(SceSize argSize, void* argPointer) {
 
 static int deleteMeFunc(SceSize argSize, void* argPointer) {
 	int result = sceKernelLockLwMutex(*(void**) argPointer, 1, NULL);
-	printf("After delete: %08X\n", result);
+	schedf("After delete: %08X\n", result);
 	return 0;
 }
 
 static int exitFunc(SceSize argSize, void* argPointer) {
 	int result = sceKernelLockLwMutex(*(void**) argPointer, 1, NULL);
-	printf("Now exiting: %08X\n", result);
+	schedf("Now exiting: %08X\n", result);
 	return 0;
 }
 
@@ -129,6 +129,7 @@ int main(int argc, char **argv) {
 	LOCK_TEST("Lock 1 => INT_MAX - 1 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 1, INT_MAX - 1);
 	LOCK_TEST("Lock 1 => INT_MAX (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 1, INT_MAX);
 	LOCK_TEST("Lock INT_MAX => INT_MAX (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, INT_MAX, INT_MAX);
+	flushschedf();
 
 	LOCK_TEST_TIMEOUT("Lock 0 => 0", PSP_MUTEX_ATTR_FIFO, 0, 0, 500);
 	LOCK_TEST_TIMEOUT("Lock 0 => 1", PSP_MUTEX_ATTR_FIFO, 0, 1, 500);
@@ -139,6 +140,7 @@ int main(int argc, char **argv) {
 	LOCK_TEST_TIMEOUT("Lock 0 => -1 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 0, -1, 500);
 	LOCK_TEST_TIMEOUT("Lock 1 => 1 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 1, 1, 500);
 	LOCK_TEST_TIMEOUT("Zero timeout", PSP_MUTEX_ATTR_FIFO, 0, 1, 0);
+	flushschedf();
 
 	SceUID lockThread = CREATE_SIMPLE_THREAD(lockFunc);
 	LOCK_TEST_TIMEOUT_THREAD("Locked 1 => 1", PSP_MUTEX_ATTR_FIFO, 1, 1, 500);
@@ -146,6 +148,7 @@ int main(int argc, char **argv) {
 	LOCK_TEST_TIMEOUT_THREAD("Locked 1 => 1 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 1, 1, 500);
 	LOCK_TEST_TIMEOUT_THREAD("Locked 0 => 1 (recursive)", PSP_MUTEX_ATTR_ALLOW_RECURSIVE, 0, 1, 500);
 	LOCK_TEST_TIMEOUT_THREAD("Locked zero timeout", PSP_MUTEX_ATTR_FIFO, 0, 1, 0);
+	flushschedf();
 
 	SceUID deleteThread = CREATE_SIMPLE_THREAD(deleteMeFunc);
 	SceLwMutexWorkarea workarea;
@@ -154,6 +157,7 @@ int main(int argc, char **argv) {
 	sceKernelStartThread(deleteThread, sizeof(void*), &workareaPtr);
 	sceKernelDelayThread(500);
 	sceKernelDeleteLwMutex(&workarea);
+	flushschedf();
 
 	// Crash.
 	//LOCK_TEST_SIMPLE("NULL => 0", 0, 0);
@@ -194,9 +198,9 @@ int main(int argc, char **argv) {
 	sceKernelLockLwMutex(&workarea, 1, &timeout);
 	sceKernelDeleteLwMutex(&workarea);
 	if (timeout == 0)
-		printf("Did not wake on thread exit: OK\n");
+		schedf("Did not wake on thread exit: OK\n");
 	else
-		printf("Did not wake on thread exit: Failed\n");
+		schedf("Did not wake on thread exit: Failed\n");
 
 	return 0;
 }

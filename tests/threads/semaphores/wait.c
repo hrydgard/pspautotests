@@ -1,4 +1,4 @@
-#include "../sub_shared.h"
+#include "shared.h"
 
 SETUP_SCHED_TEST;
 
@@ -33,7 +33,7 @@ static int waitTestFunc(SceSize argSize, void* argPointer) {
 
 static int deleteMeFunc(SceSize argSize, void* argPointer) {
 	int result = sceKernelWaitSema(*(int*) argPointer, 1, NULL);
-	printf("After delete: %08X\n", result);
+	schedf("After delete: %08X\n", result);
 	return 0;
 }
 
@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
 	WAIT_TEST_SIMPLE_TIMEOUT("Zero timeout", sema, 1, 0);
 	
 	// Signaled off thread.
-	schedulingLogPos = 0;
+	printf("Wait timeout: ");
 	schedulingPlacement = 1;
 	SCHED_LOG(A, 1);
 	SceUInt timeout = 5000;
@@ -62,7 +62,8 @@ int main(int argc, char **argv) {
 	SCHED_LOG(B, 1);
 	int result = sceKernelWaitSema(sema, 1, &timeout);
 	SCHED_LOG(E, 1);
-	printf("Wait timeout: %s (thread=%08X, main=%08X, remaining=%d)\n", schedulingLog, schedulingResult, result, timeout / 1000);
+	schedf(" (thread=%08X, main=%08X, remaining=%d)\n", schedulingResult, result, timeout / 1000);
+	flushschedf();
 
 	sceKernelDeleteSema(sema);
 
@@ -71,6 +72,7 @@ int main(int argc, char **argv) {
 	sceKernelStartThread(deleteThread, sizeof(int), &sema);
 	sceKernelDelayThread(500);
 	sceKernelDeleteSema(sema);
+	flushschedf();
 
 	WAIT_TEST_SIMPLE("NULL", 0, 1);
 	WAIT_TEST_SIMPLE("Invalid", 0xDEADBEEF, 1);

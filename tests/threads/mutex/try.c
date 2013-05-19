@@ -4,10 +4,10 @@
 #define LOCK_TEST_SIMPLE(title, mutex, count) { \
 	int result = sceKernelTryLockMutex(mutex, count); \
 	if (result == 0) { \
-		printf("%s: ", title); \
-		printfMutex(mutex); \
+		schedf("%s: ", title); \
+		schedfMutex(mutex); \
 	} else { \
-		printf("%s: Failed (%X)\n", title, result); \
+		schedf("%s: Failed (%X)\n", title, result); \
 	} \
 }
 
@@ -18,23 +18,20 @@
 }
 
 #define LOCK_TEST_THREAD(title, attr, initial, count) { \
-	printf("%s: ", title); \
-	schedulingLogPos = 0; \
+	schedf("%s: ", title); \
 	schedulingResult = -1; \
 	SceUID mutex = sceKernelCreateMutex("lock", attr, initial, NULL); \
 	sceKernelStartThread(lockThread, sizeof(int), &mutex); \
 	sceKernelDelayThread(500); \
 	int result = sceKernelTryLockMutex(mutex, count); \
-	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, "L2 "); \
+	schedf("L2 "); \
 	sceKernelDelayThread(500); \
 	sceKernelDeleteMutex(mutex); \
 	sceKernelWaitThreadEnd(lockThread, NULL); \
-	schedulingLog[schedulingLogPos] = 0; \
-	schedulingLogPos = 0; \
 	if (result == 0) { \
-		printf("%sOK (thread=%08X)\n", schedulingLog, schedulingResult); \
+		schedf("OK (thread=%08X)\n", schedulingResult); \
 	} else { \
-		printf("%sFailed (thread=%08X, main=%08X)\n", schedulingLog, schedulingResult, result); \
+		schedf("Failed (thread=%08X, main=%08X)\n", schedulingResult, result); \
 	} \
 	sceKernelTerminateThread(lockThread); \
 }
@@ -42,14 +39,14 @@
 static int lockFunc(SceSize argSize, void* argPointer) {
 	SceUInt timeout = 1000;
 	schedulingResult = sceKernelLockMutex(*(int*) argPointer, 1, &timeout);
-	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, "L1 ");
+	schedf("L1 ");
 	sceKernelDelayThread(1000);
 	return 0;
 }
 
 static int deleteMeFunc(SceSize argSize, void* argPointer) {
 	int result = sceKernelTryLockMutex(*(int*) argPointer, 1);
-	printf("After delete: %08X\n", result);
+	schedf("After delete: %08X\n", result);
 	return 0;
 }
 
