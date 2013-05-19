@@ -333,6 +333,7 @@ void testVVS(const char *desc, void (*vvvxxx)(ScePspFVector4 *v0, const ScePspFV
 	}
 }
 
+
 //////////////////////////////////////////////////////////////////////////
 // OK! Let's run some hard autogen tests!
 //////////////////////////////////////////////////////////////////////////
@@ -464,6 +465,7 @@ void NOINLINE vfim(ScePspFVector4 *v0) {
 		: "+m" (*v0)
 	);
 }
+
 
 void checkConstants() {
 	static ALIGN16 ScePspFVector4 v[5];
@@ -779,6 +781,54 @@ void NOINLINE _checkCompare(ScePspFVector4 *vleft, ScePspFVector4 *vright, ScePs
 	);
 }
 
+void NOINLINE _checkVwbn1(ScePspFVector4 *v0, ScePspFVector4 *vec) {
+    __asm__ volatile (
+        "lv.q C000, %1\n"
+        "vwbn.s S000, S000, 0\n"
+        "vwbn.s S001, S000, 8\n"
+        "vwbn.s S002, S000, 16\n"
+        "vwbn.s S003, S000, 32\n"
+        "vwbn.s S010, S000, 64\n"
+        "vwbn.s S011, S000, 128\n"
+        "vwbn.s S012, S000, 144\n"
+        "vwbn.s S013, S000, 192\n"
+        "vwbn.s S020, S000, 125\n"
+        "vwbn.s S021, S000, 126\n"
+        "vwbn.s S022, S000, 127\n"
+        "vwbn.s S023, S000, 128\n"
+        "vwbn.s S030, S000, 130\n"
+        "vwbn.s S031, S000, 144\n"
+        "vwbn.s S032, S000, 192\n"
+        "vwbn.s S033, S000, 255\n"
+        "sv.q C000, 0x00+%0\n"
+        "sv.q C010, 0x10+%0\n"
+        "sv.q C020, 0x20+%0\n"
+        "sv.q C030, 0x30+%0\n"
+        : "+m" (*v0) : "m" (*vec)
+    );
+}
+
+void checkVwbn() {
+    static ALIGN16 ScePspFVector4 vin = { 1.0f, 0.0f, 0.0f, 0.0f };
+    static ALIGN16 ScePspFVector4 vout[4] = { {0.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 0.0f} };
+    int i;
+    const float testValues[16] = {
+        1E-20f, 1, 100, 100000000,
+        2, 3, 4, 5,
+        100, 102, 104, 109,
+        -100, -10000000, -0.001, -1
+    };
+
+    for (i = 0; i < 16; i++) {
+        vin.x = testValues[i];
+        _checkVwbn1(&vout, &vin);
+        printVector("checkVwbn 0", &vout[0]);
+        printVector("checkVwbn 1", &vout[1]);
+        printVector("checkVwbn 2", &vout[2]);
+        printVector("checkVwbn 3", &vout[3]);
+    }
+}
+
 void checkCompare() {
 	static ALIGN16 ScePspFVector4 vleft  = { 1.0f, -1.0f, -1.1f, 2.0f };
 	static ALIGN16 ScePspFVector4 vright = { 1.0f,  1.0f, -1.1f, 2.1f };
@@ -903,6 +953,7 @@ int main(int argc, char *argv[]) {
 	checkConstants();
 	checkVectorCopy();
 	checkRotation();
+    checkVwbn();
 
 	printf("Ended\n");
 	return 0;
