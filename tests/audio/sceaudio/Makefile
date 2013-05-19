@@ -1,5 +1,5 @@
-TARGETS = reserve
-LIBS = -lpspaudio -lpspatrac3 -lpspsnd -lpspgu -lpsprtc -lpspctrl -lpspmath -lcommon -lc -lm
+TARGETS = output reserve
+EXTRA_OBJS = audio-imports.o
 
 COMMON_DIR = ../../../common
 include $(COMMON_DIR)/common.mk
