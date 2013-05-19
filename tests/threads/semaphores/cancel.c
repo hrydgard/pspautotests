@@ -1,13 +1,13 @@
-#include "../sub_shared.h"
+#include "shared.h"
 
 SETUP_SCHED_TEST;
 
 #define CANCEL_TEST(title, sema, count) { \
 	int result = sceKernelCancelSema(sema, count, NULL); \
 	if (result == 0) { \
-		printf("%s: OK\n", title); \
+		schedf("%s: OK\n", title); \
 	} else { \
-		printf("%s: Failed (%X)\n", title, result); \
+		schedf("%s: Failed (%X)\n", title, result); \
 	} \
 	PRINT_SEMAPHORE(sema); \
 }
@@ -16,9 +16,9 @@ SETUP_SCHED_TEST;
 	int waitThreads = 99; \
 	int result = sceKernelCancelSema(sema, count, &waitThreads); \
 	if (result == 0) { \
-		printf("%s: OK (%d waiting)\n", title, waitThreads); \
+		schedf("%s: OK (%d waiting)\n", title, waitThreads); \
 	} else { \
-		printf("%s: Failed (%X, %d waiting)\n", title, result, waitThreads); \
+		schedf("%s: Failed (%X, %d waiting)\n", title, result, waitThreads); \
 	} \
 	PRINT_SEMAPHORE(sema); \
 }

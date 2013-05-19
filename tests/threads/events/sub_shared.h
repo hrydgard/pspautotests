@@ -8,6 +8,7 @@
 #define PRINT_FLAG(flag) { \
 	if (flag > 0) { \
 		SceKernelEventFlagInfo flaginfo; \
+		flaginfo.size = sizeof(flaginfo); \
 		int result = sceKernelReferEventFlagStatus(flag, &flaginfo); \
 		if (result == 0) { \
 			printf("Event flag: OK (size=%d,name='%s',attr=%d,init=%08X,cur=%08X,wait=%d)\n", flaginfo.size, flaginfo.name, flaginfo.attr, flaginfo.initPattern, flaginfo.currentPattern, flaginfo.numWaitThreads); \

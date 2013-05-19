@@ -44,24 +44,6 @@ int sceKernelReferLwMutexStatusByID(SceUID mutexID, SceKernelLwMutexInfo *status
 static volatile int schedulingPlacement = 0;
 // So we can log the result from the thread.
 static int schedulingResult = -1;
-// printf() seems to reschedule, so can't use it.
-static char schedulingLog[65536];
-static volatile int schedulingLogPos = 0;
-
-inline void schedf(const char *format, ...) {
-	va_list args;
-	va_start(args, format);
-	schedulingLogPos += vsprintf(schedulingLog + schedulingLogPos, format, args);
-	// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
-	//vprintf(format, args);
-	va_end(args);
-}
-
-inline void flushschedf() {
-	printf("%s", schedulingLog);
-	schedulingLogPos = 0;
-	schedulingLog[0] = '\0';
-}
 
 #define CREATE_PRIORITY_THREAD(func, priority) \
 	sceKernelCreateThread(#func, &func, priority, 0x10000, 0, NULL)
@@ -115,7 +97,7 @@ inline void printfLwMutex(SceLwMutexWorkarea *workarea) {
 #define SCHED_LOG(letter, placement) { \
 	int old = schedulingPlacement; \
 	schedulingPlacement = placement; \
-	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, #letter "%d", old); \
+	schedf(#letter "%d", old); \
 }
 
 static int scheduleTestFunc(SceSize argSize, void* argPointer) {
@@ -147,7 +129,7 @@ static int scheduleTestFunc(SceSize argSize, void* argPointer) {
 	\
 	flushschedf(); \
 	schedulingPlacement = 1; \
-	printf("%s: ", title); \
+	schedf("%s: ", title); \
 	\
 	SCHED_LOG(A, 1); \
 	void *workarea1Ptr = &workarea1; \
@@ -159,7 +141,7 @@ static int scheduleTestFunc(SceSize argSize, void* argPointer) {
 	SCHED_LOG(F, 1); \
 	\
 	flushschedf(); \
-	printf(" (thread=%08X, main=%08X)\n", schedulingResult, result); \
+	schedf(" (thread=%08X, main=%08X)\n", schedulingResult, result); \
 	sceKernelDeleteLwMutex(&workarea2); \
 }
 #define BASIC_SCHED_TEST(title, x) LOCKED_SCHED_TEST(title, 1, 0, x);
