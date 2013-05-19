@@ -109,4 +109,6 @@ int main(int argc, char *argv[]) {
 		checkpoint("  %d: %08x", channelCounts[i], sceAudioSRCChReserve(1024, 48000, channelCounts[i]));
 		sceAudioSRCChRelease();
 	}
+
+	return 0;
 }
