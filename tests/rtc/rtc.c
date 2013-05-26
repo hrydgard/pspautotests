@@ -1,8 +1,13 @@
 #include <common.h>
 
+#define sceRtcSetWin32FileTime sceRtcSetWin32FileTime_WRONG
+
 #include <pspkernel.h>
 #include <psprtc.h>
 #include <limits.h>
+
+#undef sceRtcSetWin32FileTime
+int sceRtcSetWin32FileTime(pspTime *date, u64 filetime);
 
 void DumpPSPTime(const char* name, const pspTime* pt)
 {
@@ -655,16 +660,75 @@ void checkRtcParseDateTime()
 	printf("UNTESTED!\n");
 }
 
+
+
 void checkRtcSetWin32FileTime()
 {
+	pspTime pt;
+	u64 ft;
+	int result;
+	memset(&pt, 0, sizeof(pt));
+
 	printf("Checking sceRtcSetWin32FileTime\n");
-	printf("UNTESTED!\n");
+	// Crash.
+	//printf("  NULL args: %08x\n", sceRtcSetWin32FileTime(NULL, NULL));
+	ft = 0;
+	result = sceRtcSetWin32FileTime(&pt, ft);
+	printf("  Zero time (1601 January 01): (%08x)", result);
+	DumpPSPTime("", &pt);
+	ft = 127779156600000010ULL;
+	result = sceRtcSetWin32FileTime(&pt, ft);
+	printf("  Arbitrary date/time: (%08x)", result);
+	DumpPSPTime("", &pt);
+
+	// This gives weird results.  Games unlikely to call it, so let's ignore for now.
+	//ft = -(365ULL * 86400ULL * 10000000ULL);
+	//result = sceRtcSetWin32FileTime(&pt, ft);
+	//printf("  Before 1601 January 01: (%08x)", result);
+	//DumpPSPTime("", &pt);
+	printf("\n");
 }
 
 void checkRtcGetWin32FileTime()
 {
+	pspTime pt;
+	u64 ft = -1337;
+	int result;
+
 	printf("Checking sceRtcGetWin32FileTime\n");
-	printf("UNTESTED!\n");
+
+	// It's not clear, but it seems like sceRtcGetWin32FileTime() fails to return error messages
+	// properly if it hasn't processed at least one error properly.
+	// Trying to emulate this isn't necessarily a bad idea, but it's hard to determine its rules...
+	FillPSPTime(&pt, 1600, 1, 1, 0, 0, 0, 0);
+	sceRtcGetWin32FileTime(&pt, &ft);
+
+	// Crash.
+	//printf("  NULL args: %08x\n", sceRtcGetWin32FileTime(NULL, NULL));
+	ft = -1337;
+	result = sceRtcGetWin32FileTime(&pt, NULL);
+	printf("  NULL filetime: %lld (%08x)\n", ft, result);
+	memset(&pt, 0, sizeof(pt));
+	ft = -1337;
+	result = sceRtcGetWin32FileTime(&pt, &ft);
+	printf("  Zeroed time: %lld (%08x)\n", ft, result);
+	FillPSPTime(&pt, 2005, 11, 31, 13, 01, 00, 1);
+	ft = -1337;
+	result = sceRtcGetWin32FileTime(&pt, &ft);
+	printf("  Arbitrary date/time: %lld (%08x)\n", ft, result);
+	FillPSPTime(&pt, 1601, 1, 1, 0, 0, 0, 0);
+	ft = -1337;
+	result = sceRtcGetWin32FileTime(&pt, &ft);
+	printf("  1601 January 01: %lld (%08x)\n", ft, result);
+	FillPSPTime(&pt, 1600, 1, 1, 0, 0, 0, 0);
+	ft = -1337;
+	result = sceRtcGetWin32FileTime(&pt, &ft);
+	printf("  1600 January 01: %lld (%08x)\n", ft, result);
+	FillPSPTime(&pt, 0, 1, 1, 0, 0, 0, 0);
+	ft = -1337;
+	result = sceRtcGetWin32FileTime(&pt, &ft);
+	printf("  1 January 01: %lld (%08x)\n", ft, result);
+	printf("\n");
 }
 
 int main(int argc, char **argv) {
