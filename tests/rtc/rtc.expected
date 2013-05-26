@@ -143,10 +143,10 @@ Non-Leap Years:
 2097: 00000000
 Checking sceRtcConvertLocalTimeToUTC
 epoch : 62135596800000000
-epoch as UTC: 62135593200000000
+epoch as UTC: 62135622000000000
 Checking checkRtcConvertUtcToLocalTime
 epoch as UTC: 62135596800000000
-epoch as UTC as Local : 62135600400000000
+epoch as UTC as Local : 62135571600000000
 Checking sceRtcCheckValid
 Valid Date:0
 Very invalid Date:-1
@@ -206,9 +206,17 @@ ticks: 4281057280
 from epoc:-1
 from epoc:-1
 Checking sceRtcSetWin32FileTime
-UNTESTED!
+  Zero time (1601 January 01): (00000000) 1601, 1, 1, 0, 0, 0, 0
+  Arbitrary date/time: (00000000) 2005, 12, 1, 13, 1, 0, 1
+
 Checking sceRtcGetWin32FileTime
-UNTESTED!
+  NULL filetime: -1337 (800001fe)
+  Zeroed time: 0 (800001fe)
+  Arbitrary date/time: 127779156600000010 (00000000)
+  1601 January 01: 0 (00000000)
+  1600 January 01: 0 (800001fe)
+  1 January 01: 0 (800001fe)
+
 Checking sceRtcCompareTick
 big small :1
 big big :0
