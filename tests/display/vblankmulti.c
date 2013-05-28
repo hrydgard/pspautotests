@@ -8,65 +8,53 @@ int sceDisplayWaitVblankStartMultiCB(int vblanks);
 int sceDisplayIsVblank();
 int sceDisplayIsVsync();
 
-static char schedulingLog[65536];
-static volatile int schedulingLogPos = 0;
-
-inline void schedf(const char *format, ...) {
-	va_list args;
-	va_start(args, format);
-	schedulingLogPos += vsprintf(schedulingLog + schedulingLogPos, format, args);
-	// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
-	//vprintf(format, args);
-	va_end(args);
-}
-
-inline void flushschedf() {
-	printf("%s", schedulingLog);
-	schedulingLogPos = 0;
-	schedulingLog[0] = '\0';
-}
-
 void testWait(const char *title, int (*wait)()) {
 	// Wait until just a bit after a vblank.
 	sceDisplayWaitVblankStart();
 	sceKernelDelayThread(750);
 	int vbase = sceDisplayGetVcount();
-
-	schedf("%s:\n", title);
+	
+	checkpointNext(title);
 	int i;
+	char temp[256];
 	for (i = 0; i < 4; ++i) {
-		schedf("i=%-4d vcount=%-4d ", i, sceDisplayGetVcount() - vbase);
+		sprintf(temp, "i=%-4d vcount=%-4d ", i, sceDisplayGetVcount() - vbase);
 
 		int result = wait();
-		schedf("wait=%08x  vblank=%d\n", result, sceDisplayIsVblank());
+		checkpoint("%swait=%08x  vblank=%d", temp, result, sceDisplayIsVblank());
 	}
-	flushschedf();
 }
 
-void testWaitMulti(const char *title, int (*multi)(int)) {
+void testWaitMulti(const char *title, int (*multi)(int), int vblanks) {
 	// Wait until just a bit after a vblank.
 	sceDisplayWaitVblankStart();
 	sceKernelDelayThread(750);
 	int vbase = sceDisplayGetVcount();
 
-	schedf("%s:\n", title);
+	checkpointNext(title);
 	int i;
+	char temp[256];
 	for (i = 0; i < 4; ++i) {
-		schedf("i=%-4d vcount=%-4d ", i, sceDisplayGetVcount() - vbase);
+		sprintf(temp, "i=%-4d vcount=%-4d ", i, sceDisplayGetVcount() - vbase);
 
-		int result = multi(3);
-		schedf("wait=%08x  vblank=%d\n", result, sceDisplayIsVblank());
+		int result = multi(vblanks);
+		checkpoint("%swait=%08x  vblank=%d", temp, result, sceDisplayIsVblank());
 	}
-	flushschedf();
 }
 
 int main(int argc, char *argv[]) {
-	testWait("Start", &sceDisplayWaitVblankStart);
-	testWait("StartCB", &sceDisplayWaitVblankStartCB);
-	testWait("Vblank", &sceDisplayWaitVblank);
-	testWait("VblankCB", &sceDisplayWaitVblankCB);
-	testWaitMulti("Multi", &sceDisplayWaitVblankStartMultiCB);
-	testWaitMulti("MultiCB", &sceDisplayWaitVblankStartMulti);
+	testWait("Start:", &sceDisplayWaitVblankStart);
+	testWait("StartCB:", &sceDisplayWaitVblankStartCB);
+	testWait("Vblank:", &sceDisplayWaitVblank);
+	testWait("VblankCB:", &sceDisplayWaitVblankCB);
+	testWaitMulti("Multi:", &sceDisplayWaitVblankStartMultiCB, 3);
+	testWaitMulti("MultiCB:", &sceDisplayWaitVblankStartMulti, 3);
+	testWaitMulti("Multi:", &sceDisplayWaitVblankStartMultiCB, 0);
+	testWaitMulti("MultiCB:", &sceDisplayWaitVblankStartMulti, 0);
+	testWaitMulti("Multi:", &sceDisplayWaitVblankStartMultiCB, -1);
+	testWaitMulti("MultiCB:", &sceDisplayWaitVblankStartMulti, -1);
+	testWaitMulti("Multi:", &sceDisplayWaitVblankStartMultiCB, 0x80000000);
+	testWaitMulti("MultiCB:", &sceDisplayWaitVblankStartMulti, 0x80000000);
 
 	return 0;
 }
