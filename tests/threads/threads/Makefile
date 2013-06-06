@@ -1,4 +1,4 @@
-TARGETS = threads create extend threadend release rotate refer start suspend
+TARGETS = threads create change extend threadend release rotate refer start suspend
 EXTRA_OBJS = thread-imports.o
 
 COMMON_DIR = ../../../common
