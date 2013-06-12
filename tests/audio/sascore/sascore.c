@@ -11,71 +11,6 @@
 //PSP_MODULE_INFO("sascore test", 0, 1, 1);
 //PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER);
 
-#define ARRAY_SIZE(a) (sizeof((a)) / (sizeof((a)[0])))
-
-static char schedulingLog[65536];
-static volatile int schedulingLogPos = 0;
-
-inline void schedf(const char *format, ...) {
-	va_list args;
-	va_start(args, format);
-	schedulingLogPos += vsprintf(schedulingLog + schedulingLogPos, format, args);
-	// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
-	//vprintf(format, args);
-	va_end(args);
-}
-
-inline void flushschedf() {
-	printf("%s", schedulingLog);
-	schedulingLogPos = 0;
-}
-
-SceUID reschedThread;
-volatile int didResched = 0;
-int reschedFunc(SceSize argc, void *argp) {
-	didResched = 1;
-	return 0;
-}
-
-//#define ENABLE_TIMESTAMP_CHECKPOINTS
-u64 lastCheckpoint = 0;
-void checkpoint(const char *format, ...) {
-#ifdef ENABLE_TIMESTAMP_CHECKPOINTS
-	u32 currentCheckpoint = sceKernelGetSystemTimeWide();
-	schedf("[%s/%lld] ", didResched ? "r" : "x", currentCheckpoint - lastCheckpoint);
-#else
-	schedf("[%s] ", didResched ? "r" : "x");
-#endif
-
-	sceKernelTerminateThread(reschedThread);
-
-	va_list args;
-	va_start(args, format);
-	schedulingLogPos += vsprintf(schedulingLog + schedulingLogPos, format, args);
-	// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
-	//vprintf(format, args);
-	va_end(args);
-
-	didResched = 0;
-	sceKernelStartThread(reschedThread, 0, NULL);
-
-	schedf("\n");
-
-#ifdef ENABLE_TIMESTAMP_CHECKPOINTS
-	lastCheckpoint = currentCheckpoint;
-#endif
-}
-
-void checkpointNext(const char *title) {
-	if (schedulingLogPos != 0) {
-		schedf("\n");
-	}
-	flushschedf();
-	didResched = 0;
-	checkpoint(title);
-}
-
-
 typedef struct {
 	unsigned char* pointer;
 	int length;
@@ -153,8 +88,6 @@ void testSetVolumes(int voice, int l, int r, int el, int er) {
 
 // http://www.psp-programming.com/forums/index.php?action=printpage;topic=4404.0
 int main(int argc, char *argv[]) {
-	reschedThread = sceKernelCreateThread("resched", &reschedFunc, sceKernelGetThreadCurrentPriority(), 0x1000, 0, NULL);
-
 	int i;
 
 	checkpointNext("init");
