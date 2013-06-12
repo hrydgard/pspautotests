@@ -100,5 +100,11 @@ int __sceSasGetOutputmode(SasCore *sasCore);
 int __sceSasSetOutputmode(SasCore *sasCore, int outputMode);
 int __sceSasRevVON(SasCore *sasCore, int dry, int wet);
 int __sceSasGetAllEnvelopeHeights(SasCore *sasCore, int *heights);
+int __sceSasSetVoicePCM(SasCore *sasCore, int voice, void *pcm, int size, int loop);
+
+// TODO: Context struct
+int __sceSasSetVoiceATRAC3(SasCore *sasCore, int voice, void *atrac3Context);
+int __sceSasConcatenateATRAC3(SasCore *sasCore, int voice, void *data, int size);
+int __sceSasUnsetATRAC3(SasCore *sasCore, int voice);
 
 #endif

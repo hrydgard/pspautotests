@@ -24,7 +24,7 @@ IMPORT_FUNC  "sceSasCore",0x33D4AB37,__sceSasRevType
 IMPORT_FUNC  "sceSasCore",0x267A6DD2,__sceSasRevParam
 IMPORT_FUNC  "sceSasCore",0x2C8E6AB3,__sceSasGetPauseFlag
 IMPORT_FUNC  "sceSasCore",0x787D04D5,__sceSasSetPause
-IMPORT_FUNC  "sceSasCore",0xA232CBE6,__sceSasSetTriangularWave
+IMPORT_FUNC  "sceSasCore",0xA232CBE6,__sceSasSetTrianglarWave
 IMPORT_FUNC  "sceSasCore",0xD5EBBBCD,__sceSasSetSteepWave
 IMPORT_FUNC  "sceSasCore",0xBD11B7C2,__sceSasGetGrain
 IMPORT_FUNC  "sceSasCore",0xD1E0A01E,__sceSasSetGrain

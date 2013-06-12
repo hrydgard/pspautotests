@@ -28,6 +28,9 @@ endif
 ifndef LIBS
 LIBS = -lpspgu -lpsprtc -lpspctrl -lpspmath -lcommon -lc -lm
 endif
+ifdef EXTRA_LIBS
+LIBS := $(LIBS) $(EXTRA_LIBS)
+endif
 
 TARGET = $(firstword $(TARGETS))
 OBJS = $(firstword $(TARGETS)).o $(EXTRA_OBJS)
