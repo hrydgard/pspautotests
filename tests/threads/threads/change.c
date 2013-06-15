@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
 	checkpoint("  Ready: %08x", sceKernelChangeThreadPriority(readyThread, 0x20));
 	checkpoint("  Finished: %08x", sceKernelChangeThreadPriority(finishedThread, 0x20));
 	checkpoint("  Deleted: %08x", sceKernelChangeThreadPriority(deletedThread, 0x20));
-	checkpoint("  Suspended: %08x", sceKernelChangeThreadPriority(readyThread, 0x20));
+	checkpoint("  Suspended: %08x", sceKernelChangeThreadPriority(suspendedThread, 0x20));
 	checkpoint("  Waiting: %08x", sceKernelChangeThreadPriority(waitingThread, 0x20));
 	checkpoint("  Current: %08x", sceKernelChangeThreadPriority(sceKernelGetThreadId(), 0x20));
 	checkpoint("  Current: %08x", sceKernelChangeThreadPriority(sceKernelGetThreadId(), 0x20));
