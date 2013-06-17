@@ -1,12 +1,37 @@
 #include <common.h>
 #include <pspaudio.h>
 #include <psputility.h>
+#include <pspaudiolib.h>
+
+typedef enum PspVaudioSFXType
+{
+	PSP_VAUDIO_FX_TYPE_THRU = 0,
+	PSP_VAUDIO_FX_TYPE_HEAVY = 1,
+	PSP_VAUDIO_FX_TYPE_POPS = 2,
+	PSP_VAUDIO_FX_TYPE_JAZZ = 3,
+	PSP_VAUDIO_FX_TYPE_UNIQUE = 4,
+} PspVaudioSFXType;
+
+typedef enum PspVaudioAlcMode
+{
+	PSP_VAUDIO_ALC_OFF = 0,
+	PSP_VAUDIO_ALC_MODE1 = 1
+} PspVaudioAlcMode;
+
+// Not at all sure about params.
+int sceVaudioOutputBlocking(int vol, void *buf);
+int sceVaudioChReserve(int sampleCount, int freq, int channels);
+int sceVaudioChRelease();
+int sceVaudioSetEffectType(PspVaudioSFXType type, int vol);
+int sceVaudioSetAlcMode(PspVaudioAlcMode mode);
 
 int main(int argc, char *argv[]) {
 	int i;
 
+	sceUtilityLoadModule(PSP_MODULE_AV_VAUDIO);
+
 	checkpointNext("sceAudioChReserve:");
-	sceAudioChReserve(7, 1024, 0);
+	checkpoint("Normal: %08x", sceAudioChReserve(7, 1024, 0));
 	checkpoint("Same channel twice: %08x", sceAudioChReserve(7, 1024, 0));
 	sceAudioChRelease(7);
 
@@ -25,7 +50,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	checkpointNext("Sample counts:");
-	const static int sampleCounts[] = {-64, -2, -1, 0, 1, 2, 3, 16, 17, 18, 32, 64, 96, 4110, 4111, 4112, 65472, 65504, 65536};
+	const static int sampleCounts[] = {-64, -2, -1, 0, 1, 2, 3, 16, 17, 18, 32, 64, 96, 128, 256, 1024, 2048, 2049, 4096, 4110, 4111, 4112, 65472, 65504, 65536};
 	for (i = 0; i < ARRAY_SIZE(sampleCounts); ++i) {
 		int ch = sceAudioChReserve(0, sampleCounts[i], 0);
 		int ch2 = sceAudioChReserve(1, sampleCounts[i], 0x10);
@@ -47,7 +72,7 @@ int main(int argc, char *argv[]) {
 
 	checkpointNext("sceAudioOutput2Reserve:");
 
-	sceAudioOutput2Reserve(1024);
+	checkpoint("Normal: %08x", sceAudioOutput2Reserve(1024));
 	checkpoint("Twice: %08x", sceAudioOutput2Reserve(1024));
 	sceAudioOutput2Release();
 
@@ -70,7 +95,7 @@ int main(int argc, char *argv[]) {
 
 	checkpointNext("sceAudioSRCChReserve:");
 
-	sceAudioSRCChReserve(1024, 48000, 2);
+	checkpoint("Normal: %08x", sceAudioSRCChReserve(1024, 48000, 2));
 	checkpoint("Twice: %08x", sceAudioSRCChReserve(1024, 48000, 2));
 	sceAudioSRCChRelease();
 
@@ -108,6 +133,53 @@ int main(int argc, char *argv[]) {
 	for (i = 0; i < ARRAY_SIZE(channelCounts); ++i) {
 		checkpoint("  %d: %08x", channelCounts[i], sceAudioSRCChReserve(1024, 48000, channelCounts[i]));
 		sceAudioSRCChRelease();
+	}
+
+	checkpointNext("sceVaudioChReserve:");
+
+	checkpoint("Normal: %08x", sceVaudioChReserve(256, 48000, 2));
+	checkpoint("Twice: %08x", sceVaudioChReserve(256, 48000, 2));
+	sceVaudioChRelease();
+
+	for (i = 0; i < 8; ++i)
+		sceAudioChReserve(i, 1024, 0);
+	checkpoint("No channels left: %08x", sceVaudioChReserve(256, 48000, 2));
+	sceVaudioChRelease();
+	for (i = 0; i < 8; ++i)
+		sceAudioChRelease(i);
+
+	sceAudioOutput2Reserve(1024);
+	checkpoint("Output2 channel taken: %08x", sceVaudioChReserve(256, 48000, 2));
+	sceAudioOutput2Release();
+
+	sceAudioOutput2Reserve(1024);
+	sceVaudioChRelease();
+	checkpoint("Output2 channel taken (wrong release): %08x", sceVaudioChReserve(256, 48000, 2));
+	sceVaudioChRelease();
+
+	// 257, 384, 2047, etc. make the thread never wake.
+	checkpointNext("Sample counts:");
+	for (i = 0; i < ARRAY_SIZE(sampleCounts); ++i) {
+		checkpoint("  %d: %08x", sampleCounts[i], sceVaudioChReserve(sampleCounts[i], 48000, 2));
+		sceVaudioChRelease();
+	}
+
+	// 4 makes the thread never wake.
+	checkpointNext("Channel counts:");
+	for (i = 0; i < ARRAY_SIZE(channelCounts); ++i) {
+		if (channelCounts[i] != 4) {
+			checkpoint("  %d: %08x", channelCounts[i], sceVaudioChReserve(256, 48000, channelCounts[i]));
+			sceVaudioChRelease();
+		}
+	}
+
+	// Wrong frequencies ruin it for life (well, until unload at least.)
+	// It will only return busy after that.
+	checkpointNext("Frequencies:");
+	const static int vfrequencies[] = {0, 8000, 11025, 12000, 16000, 22050, 24000, 32000, 48000, 64000};
+	for (i = 0; i < ARRAY_SIZE(vfrequencies); ++i) {
+		checkpoint("  %d: %08x", vfrequencies[i], sceVaudioChReserve(256, vfrequencies[i], 2));
+		sceVaudioChRelease();
 	}
 
 	return 0;
