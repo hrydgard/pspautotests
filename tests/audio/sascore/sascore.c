@@ -86,6 +86,16 @@ void testSetVolumes(int voice, int l, int r, int el, int er) {
 	}
 }
 
+void dumpSasCore(SasCore *sas) {
+	schedf("  H: unk1End=%08x, revType=%d, unk=%02x", sas->header.unk1End, sas->header.revType, sas->header.unk);
+	schedf(", revDelay=%d, revFeedback=%d, grainFactor=%02x", sas->header.revDelay, sas->header.revFeedback, sas->header.grainFactor);
+	schedf(", outMode=%d, dry=%d, wet=%d", sas->header.outMode, sas->header.dryWet & 1, sas->header.dryWet & 2);
+	schedf(", unkOrPad=%d, revVolLeft=%d, revVolRight=%d", sas->header.unkOrPad, sas->header.revVolLeft, sas->header.revVolRight);
+	schedf(", unk2=%08x\n", sas->header.unk2);
+
+	// TODO: Voices and footer.
+}
+
 // http://www.psp-programming.com/forums/index.php?action=printpage;topic=4404.0
 int main(int argc, char *argv[]) {
 	int i;
@@ -124,31 +134,6 @@ int main(int argc, char *argv[]) {
 	for (i = 0; i < ARRAY_SIZE(sampleRates); ++i) {
 		checkpoint("    %d: %08x", sampleRates[i], __sceSasInit(&sasCore, 1024, 32, 0, sampleRates[i]));
 	}
-	
-#if 0
-	checkpointNext("Internal structure:");
-	memset(&sasCore, 0xcc, sizeof(sasCore));
-	__sceSasInit(&sasCore, 0x40, 1, 1, 44100);
-	schedf("  H:", i);
-	for (i = 0; i < ARRAY_SIZE(sasCore.header); i++) {
-		schedf(" %x", sasCore.header[i]);
-	}
-	schedf("\n");
-
-	for (i = 0; i < ARRAY_SIZE(sasCore.data); i += 14) {
-		int j;
-		schedf("%3d:", i);
-		for (j = 0; j < 14; ++j)
-			schedf(" %x", sasCore.data[i + j]);
-		schedf("\n");
-	}
-
-	schedf("  F:", i);
-	for (i = 0; i < ARRAY_SIZE(sasCore.footer); i++) {
-		schedf(" %x", sasCore.footer[i]);
-	}
-	schedf("\n");
-#endif
 
 	checkpointNext("sceSasSetVolume:");
 	testSetVolumes(0, 1, 0, 0, 0);
