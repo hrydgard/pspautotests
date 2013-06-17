@@ -32,3 +32,14 @@ IMPORT_FUNC  "sceAudio",0x647CEF33,sceAudioOutput2GetRestSample
 IMPORT_FUNC  "sceAudio",0xA2BEAA6C,sceAudioSetFrequency
 IMPORT_FUNC  "sceAudio",0x927AC32B,sceAudioSetVolumeOffset
 IMPORT_FUNC  "sceAudio",0xB61595C0,sceAudioLoopbackTest
+
+IMPORT_START "sceVaudio",0x40090000
+IMPORT_FUNC  "sceVaudio",0x8986295E,sceVaudioOutputBlocking
+IMPORT_FUNC  "sceVaudio",0x03B6807D,sceVaudioChReserve
+IMPORT_FUNC  "sceVaudio",0x67585DFD,sceVaudioChRelease
+IMPORT_FUNC  "sceVaudio",0x346fbe94,sceVaudioSetEffectType
+IMPORT_FUNC  "sceVaudio",0xcbd4ac51,sceVaudioSetAlcMode
+IMPORT_FUNC  "sceVaudio",0x504E4745,sceVaudio_504E4745
+IMPORT_FUNC  "sceVaudio",0xE8E78DC8,sceVaudio_E8E78DC8
+IMPORT_FUNC  "sceVaudio",0x27ACC20B,sceVaudio_27ACC20B
+

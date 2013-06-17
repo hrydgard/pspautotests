@@ -7,6 +7,10 @@ int doAudioOutputBlocking(int vol, void *buf) {
 	return sceAudioOutputBlocking(channel, vol, buf);
 }
 
+int doAudioOutputPannedBlocking(int vol, void *buf) {
+	return sceAudioOutputPannedBlocking(channel, vol, vol, buf);
+}
+
 int doAudioRest() {
 	return sceAudioGetChannelRestLength(channel);
 }
@@ -68,6 +72,20 @@ void testBlocking() {
 
 	checkpointNext("sceAudioOutputBlocking:");
 	testBlockingType(&doAudioOutputBlocking, &doAudioRest, -1, data);
+
+	checkpointNext("sceAudioOutputPannedBlocking:");
+	testBlockingType(&doAudioOutputPannedBlocking, &doAudioRest, 0x8000, data);
+	sceAudioChRelease(channel);
+
+	channel = sceAudioChReserve(0, 4096 + 64, PSP_AUDIO_FORMAT_STEREO);
+	sceAudioSetChannelDataLen(channel, 4096 + 64);
+	sceAudioChangeChannelVolume(channel, 0x8000, 0x8000);
+
+	checkpointNext("sceAudioOutputBlocking channel 0:");
+	testBlockingType(&doAudioOutputBlocking, &doAudioRest, -1, data);
+
+	checkpointNext("sceAudioOutputPannedBlocking channel 0:");
+	testBlockingType(&doAudioOutputPannedBlocking, &doAudioRest, 0x8000, data);
 	sceAudioChRelease(channel);
 
 	checkpointNext("sceAudioOutput2OutputBlocking:");
@@ -96,6 +114,7 @@ int main(int argc, char *argv[]) {
 	checkpoint("Twice: %08x", sceAudioOutput(channel, 0x8000, data));
 	checkpoint("Blocking: %08x", sceAudioOutputBlocking(channel, 0x8000, data));
 	checkpoint("Bad channel (blocking): %08x", sceAudioOutputBlocking(-1, 0x8000, data));
+	checkpoint("Unreserved channel (blocking): %08x", sceAudioOutputBlocking(5, 0x8000, data));
 	checkpoint("NULL data (blocking): %08x", sceAudioOutputBlocking(channel, 0x8000, NULL));
 	checkpoint("NULL data (non blocking): %08x", sceAudioOutput(channel, 0x8000, NULL));
 
@@ -103,8 +122,18 @@ int main(int argc, char *argv[]) {
 	checkpointNext("Volumes:");
 	const static int volumes[] = {-0x100, -2, -1, 0, 1, 2, 0x100, 0xFFFE, 0xFFFF, 0x10000, 0x10001, 0xFFFFE, 0xFFFFF, 0x100000, 0x100001, 0x80000000, 0x7FFFFFFF};
 	for (i = 0; i < ARRAY_SIZE(volumes); ++i) {
-		result = sceAudioOutputBlocking(channel, volumes[i], data);
-		checkpoint("  %d: %08x", volumes[i], result);
+		result = sceAudioOutput(channel, volumes[i], NULL);
+		checkpoint("  Non-blocking %d: %08x", volumes[i], result);
+		result = sceAudioOutputBlocking(channel, volumes[i], NULL);
+		checkpoint("  Blocking %d: %08x", volumes[i], result);
+	}
+
+	checkpointNext("Panned volumes:");
+	for (i = 0; i < ARRAY_SIZE(volumes); ++i) {
+		result = sceAudioOutputPanned(channel, volumes[i], volumes[i], NULL);
+		checkpoint("  Non-blocking %d: %08x", volumes[i], result);
+		result = sceAudioOutputPannedBlocking(channel, volumes[i], volumes[i], NULL);
+		checkpoint("  Blocking %d: %08x", volumes[i], result);
 	}
 
 	sceAudioChRelease(channel);

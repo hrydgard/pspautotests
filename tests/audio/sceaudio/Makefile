@@ -1,4 +1,4 @@
-TARGETS = output reserve
+TARGETS = datalen output reserve
 EXTRA_OBJS = audio-imports.o
 
 COMMON_DIR = ../../../common
