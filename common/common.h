@@ -26,6 +26,7 @@ void __va_end(va_list);
 #include <math.h>
 #include <string.h>
 #include <pspctrl.h>
+#include <pspkerneltypes.h>
 
 #undef main
 #define main test_main

@@ -21,3 +21,6 @@ __testfailure.bmp
 *.suo
 
 io/file/workdir/testfile
+
+libpsmfplayer.prx
+psmf.prx
