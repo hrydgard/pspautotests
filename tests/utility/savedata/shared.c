@@ -8,6 +8,10 @@ SceUtilitySavedataMsDataInfo lastMsData;
 SceUtilitySavedataUsedDataInfo lastUtilityData;
 SceUtilitySavedataIdListInfo lastIdList;
 SceUtilitySavedataIdListEntry lastIdListEntries[100];
+SceUtilitySavedataFileListInfo lastFileList;
+SceUtilitySavedataFileListEntry lastFileListNormal[100];
+SceUtilitySavedataFileListEntry lastFileListSecure[100];
+SceUtilitySavedataFileListEntry lastFileListSystem[100];
 
 void setLastSaveParam(SceUtilitySavedataParam2 *param) {
 	memcpy(&lastParam, param, sizeof(lastParam));
@@ -26,8 +30,20 @@ void setLastSaveParam(SceUtilitySavedataParam2 *param) {
 			memcpy(&lastIdListEntries, param->idList->entries, sizeof(lastIdListEntries));
 		}
 	}
+	if (param->fileList != NULL) {
+		memcpy(&lastFileList, param->fileList, sizeof(lastFileList));
+		if (param->fileList->normalEntries != NULL) {
+			memcpy(&lastFileListNormal, param->fileList->normalEntries, sizeof(lastFileListNormal));
+		}
+		if (param->fileList->secureEntries != NULL) {
+			memcpy(&lastFileListSecure, param->fileList->secureEntries, sizeof(lastFileListSecure));
+		}
+		if (param->fileList->systemEntries != NULL) {
+			memcpy(&lastFileListSystem, param->fileList->systemEntries, sizeof(lastFileListSystem));
+		}
+	}
 
-	// TODO: Need to copy other ptr data, fileList, etc.
+	// TODO: Need to copy other ptr data...
 }
 
 void printSaveParamChanges(SceUtilitySavedataParam2 *param) {
@@ -184,8 +200,30 @@ void printSaveParamChanges(SceUtilitySavedataParam2 *param) {
 			CHECK_CHANGE_STRN_PTR(idList->entries, lastIdListEntries[0], name, 20);
 		}
 	}
-	// TODO
-	CHECK_CHANGE_U32(fileList);
+	if (param->fileList != NULL) {
+		CHECK_CHANGE_U32_PTR(fileList, lastFileList, maxSecureEntries);
+		CHECK_CHANGE_U32_PTR(fileList, lastFileList, maxNormalEntries);
+		CHECK_CHANGE_U32_PTR(fileList, lastFileList, maxSystemEntries);
+		CHECK_CHANGE_U32_PTR(fileList, lastFileList, resultNumSecureEntries);
+		CHECK_CHANGE_U32_PTR(fileList, lastFileList, resultNumNormalEntries);
+		CHECK_CHANGE_U32_PTR(fileList, lastFileList, resultNumSystemEntries);
+
+		if (param->fileList->secureEntries != NULL) {
+			CHECK_CHANGE_U32_PTR(fileList->secureEntries, lastFileListSecure[0], st_mode);
+			// TODO: st_ctime, etc.?
+			CHECK_CHANGE_STRN_PTR(fileList->secureEntries, lastFileListSecure[0], name, 16);
+		}
+		if (param->fileList->normalEntries != NULL) {
+			CHECK_CHANGE_U32_PTR(fileList->normalEntries, lastFileListNormal[0], st_mode);
+			// TODO: st_ctime, etc.?
+			CHECK_CHANGE_STRN_PTR(fileList->normalEntries, lastFileListNormal[0], name, 16);
+		}
+		if (param->fileList->systemEntries != NULL) {
+			CHECK_CHANGE_U32_PTR(fileList->systemEntries, lastFileListSystem[0], st_mode);
+			// TODO: st_ctime, etc.?
+			CHECK_CHANGE_STRN_PTR(fileList->systemEntries, lastFileListSystem[0], name, 16);
+		}
+	}
 	// TODO
 	CHECK_CHANGE_U32(sizeInfo);
 }

@@ -1,4 +1,4 @@
-TARGETS = autosave idlist makedata sizes
+TARGETS = autosave filelist idlist makedata sizes
 EXTRA_OBJS = shared.o
 
 COMMON_DIR = ../../../common
