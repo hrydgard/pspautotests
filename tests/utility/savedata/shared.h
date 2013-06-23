@@ -86,11 +86,16 @@ typedef struct SceUtilitySavedataFileListInfo {
 	SceUtilitySavedataFileListEntry *systemEntries;
 } SceUtilitySavedataFileListInfo;
 
+typedef struct SceUtilitySavedataSizeEntry {
+	u64 size;
+	char name[16];
+} SceUtilitySavedataSizeEntry;
+
 typedef struct SceUtilitySavedataSizeInfo {
-	int secureNumEntries;
-	int numEntries;
-	u32 secureEntriesPtr;
-	u32 entriesPtr;
+	int numSecureEntries;
+	int numNormalEntries;
+	SceUtilitySavedataSizeEntry *secureEntries;
+	SceUtilitySavedataSizeEntry *normalEntries;
 	int sectorSize;
 	int freeSectors;
 	int freeKB;

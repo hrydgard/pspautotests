@@ -12,6 +12,9 @@ SceUtilitySavedataFileListInfo lastFileList;
 SceUtilitySavedataFileListEntry lastFileListNormal[100];
 SceUtilitySavedataFileListEntry lastFileListSecure[100];
 SceUtilitySavedataFileListEntry lastFileListSystem[100];
+SceUtilitySavedataSizeInfo lastSizeInfo;
+SceUtilitySavedataSizeEntry lastSizeInfoNormal[100];
+SceUtilitySavedataSizeEntry lastSizeInfoSecure[100];
 
 void setLastSaveParam(SceUtilitySavedataParam2 *param) {
 	memcpy(&lastParam, param, sizeof(lastParam));
@@ -40,6 +43,15 @@ void setLastSaveParam(SceUtilitySavedataParam2 *param) {
 		}
 		if (param->fileList->systemEntries != NULL) {
 			memcpy(&lastFileListSystem, param->fileList->systemEntries, sizeof(lastFileListSystem));
+		}
+	}
+	if (param->sizeInfo != NULL) {
+		memcpy(&lastSizeInfo, param->sizeInfo, sizeof(lastSizeInfo));
+		if (param->sizeInfo->normalEntries != NULL) {
+			memcpy(&lastSizeInfoNormal, param->sizeInfo->normalEntries, sizeof(lastSizeInfoNormal));
+		}
+		if (param->sizeInfo->secureEntries != NULL) {
+			memcpy(&lastSizeInfoSecure, param->sizeInfo->secureEntries, sizeof(lastSizeInfoSecure));
 		}
 	}
 
@@ -223,6 +235,28 @@ void printSaveParamChanges(SceUtilitySavedataParam2 *param) {
 			// TODO: st_ctime, etc.?
 			CHECK_CHANGE_STRN_PTR(fileList->systemEntries, lastFileListSystem[0], name, 16);
 		}
+	}
+	if (param->sizeInfo != NULL) {
+		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, numSecureEntries);
+		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, numNormalEntries);
+
+		if (param->sizeInfo->secureEntries != NULL) {
+			CHECK_CHANGE_U64_PTR(sizeInfo->secureEntries, lastSizeInfoSecure[0], size);
+			CHECK_CHANGE_STRN_PTR(sizeInfo->secureEntries, lastSizeInfoSecure[0], name, 16);
+		}
+		if (param->sizeInfo->normalEntries != NULL) {
+			CHECK_CHANGE_U64_PTR(sizeInfo->normalEntries, lastSizeInfoNormal[0], size);
+			CHECK_CHANGE_STRN_PTR(sizeInfo->normalEntries, lastSizeInfoNormal[0], name, 16);
+		}
+
+		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, sectorSize);
+		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, freeSectors);
+		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, freeKB);
+		CHECK_CHANGE_STRN_PTR(sizeInfo, lastSizeInfo, freeString, 8);
+		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, neededKB);
+		CHECK_CHANGE_STRN_PTR(sizeInfo, lastSizeInfo, neededString, 8);
+		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, overwriteKB);
+		CHECK_CHANGE_STRN_PTR(sizeInfo, lastSizeInfo, overwriteString, 8);
 	}
 	// TODO
 	CHECK_CHANGE_U32(sizeInfo);
