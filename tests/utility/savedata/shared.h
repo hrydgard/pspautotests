@@ -22,6 +22,8 @@ extern int sceUtilitySavedataUpdate(int animSpeed);
 #define SCR_WIDTH 480
 #define SCR_HEIGHT 272
 
+typedef char SceUtilitySavedataSaveName[20];
+
 typedef struct SceUtilitySavedataMsFreeInfo {
 	int clusterSize;
 	int freeClusters;
@@ -42,12 +44,19 @@ typedef struct SceUtilitySavedataUsedDataInfo {
 	int unknownSafetyPad2;
 } SceUtilitySavedataUsedDataInfo;
 
+typedef struct SceUtilitySavedataMsDataInfo {
+	char gameName[13];
+	char pad[3];
+	SceUtilitySavedataSaveName saveName;
+	SceUtilitySavedataUsedDataInfo info;
+} SceUtilitySavedataMsDataInfo;
+
 typedef struct SceUtilitySavedataIdListEntry {
 	int st_mode;
 	ScePspDateTime st_ctime;
 	ScePspDateTime st_atime;
 	ScePspDateTime st_mtime;
-	char name[20];
+	SceUtilitySavedataSaveName name;
 } SceUtilitySavedataIdListEntry;
 
 typedef struct SceUtilitySavedataIdListInfo {
@@ -77,7 +86,25 @@ typedef struct SceUtilitySavedataFileListInfo {
 	SceUtilitySavedataFileListEntry *systemEntries;
 } SceUtilitySavedataFileListInfo;
 
-typedef char SceUtilitySavedataSaveName[20];
+typedef struct SceUtilitySavedataSizeEntry {
+	u64 size;
+	char name[16];
+} SceUtilitySavedataSizeEntry;
+
+typedef struct SceUtilitySavedataSizeInfo {
+	int numSecureEntries;
+	int numNormalEntries;
+	SceUtilitySavedataSizeEntry *secureEntries;
+	SceUtilitySavedataSizeEntry *normalEntries;
+	int sectorSize;
+	int freeSectors;
+	int freeKB;
+	char freeString[8];
+	int neededKB;
+	char neededString[8];
+	int overwriteKB;
+	char overwriteString[8];
+} SceUtilitySavedataSizeInfo;
 
 typedef struct SceUtilitySavedataParam2 {
 	pspUtilityDialogCommon base;
@@ -102,7 +129,7 @@ typedef struct SceUtilitySavedataParam2 {
 	PspUtilitySavedataFocus focus;
 	int abortStatus;
 	SceUtilitySavedataMsFreeInfo *msFree;
-	SceUtilitySavedataUsedDataInfo *msData;
+	SceUtilitySavedataMsDataInfo *msData;
 	SceUtilitySavedataUsedDataInfo *utilityData;
 	char key[16];
 
@@ -110,8 +137,7 @@ typedef struct SceUtilitySavedataParam2 {
 	int multiStatus;
 	SceUtilitySavedataIdListInfo *idList;
 	SceUtilitySavedataFileListInfo *fileList;
-	// TODO
-	void *sizeInfo;
+	SceUtilitySavedataSizeInfo *sizeInfo;
 } SceUtilitySavedataParam2;
 
 typedef enum PspUtilitySavedataMode2 {
@@ -144,7 +170,7 @@ void setLastSaveParam(SceUtilitySavedataParam2 *param);
 void printSaveParamChanges(SceUtilitySavedataParam2 *param);
 int checkpointStatusChange();
 void checkpointResetForSavedata();
-void checkpointExists(SceUtilitySavedataParam2 *param);
+void checkpointExists(const SceUtilitySavedataParam2 *param);
 
 // By default: TEST99901ABC/DATA.BIN.
 void initStandardSavedataParams(SceUtilitySavedataParam2 *param);
