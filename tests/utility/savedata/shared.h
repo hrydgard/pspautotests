@@ -56,7 +56,7 @@ typedef struct SceUtilitySavedataIdListEntry {
 	ScePspDateTime st_ctime;
 	ScePspDateTime st_atime;
 	ScePspDateTime st_mtime;
-	char name[20];
+	SceUtilitySavedataSaveName name;
 } SceUtilitySavedataIdListEntry;
 
 typedef struct SceUtilitySavedataIdListInfo {

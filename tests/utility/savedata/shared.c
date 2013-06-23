@@ -179,9 +179,9 @@ void printSaveParamChanges(SceUtilitySavedataParam2 *param) {
 		CHECK_CHANGE_U32_PTR(idList, lastIdList, resultCount);
 
 		if (param->idList->entries != NULL) {
-			CHECK_CHANGE_U32_PTR(idList->entries, lastIdList.entries[0], st_mode);
+			CHECK_CHANGE_U32_PTR(idList->entries, lastIdListEntries[0], st_mode);
 			// TODO: st_ctime, etc.?
-			CHECK_CHANGE_STRN_PTR(idList->entries, lastIdList.entries[0], name, 20);
+			CHECK_CHANGE_STRN_PTR(idList->entries, lastIdListEntries[0], name, 20);
 		}
 	}
 	// TODO

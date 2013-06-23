@@ -41,26 +41,20 @@ int main(int argc, char **argv) {
 	runStandardSavedataLoop(&param);
 
 	// Now the actual sizes call.
-	param.mode = (PspUtilitySavedataMode) SCE_UTILITY_SAVEDATA_TYPE_SIZES;
+	param.mode = (PspUtilitySavedataMode) SCE_UTILITY_SAVEDATA_TYPE_LIST;
 	param.saveNameList = saveNameList;
-	// NEW / OTHER same?
-	strcpy(param.fileName, "NEW.BIN");
-	// Ignored for sizes?
-	strcpy(param.saveName, "ASDF");
+	// Filename appears to be ignored.
+	strcpy(param.fileName, "ASDASD.BIN");
+	// Try: ABC, ABC2, "", <>, * (wildcards, work, <> not?)
+	strcpy(param.saveName, "A?C");
 
-	SceUtilitySavedataMsFreeInfo freeInfo;
-	memset(&freeInfo, 0, sizeof(freeInfo));
-	SceUtilitySavedataMsDataInfo msInfo;
-	memset(&msInfo, 0, sizeof(msInfo));
-	SceUtilitySavedataUsedDataInfo utilityInfo;
-	memset(&utilityInfo, 0, sizeof(utilityInfo));
-	param.msFree = &freeInfo;
-	param.msData = &msInfo;
-	param.utilityData = &utilityInfo;
-
-	memcpy(msInfo.gameName, param.gameName, sizeof(param.gameName));
-	// Try: ABC, ABC2, <>, "", *
-	strcpy(msInfo.saveName, "ABC");
+	SceUtilitySavedataIdListInfo idList;
+	SceUtilitySavedataIdListEntry idEntries[10];
+	memset(idEntries, 0, sizeof(idEntries));
+	idList.maxCount = 10;
+	idList.resultCount = -1;
+	idList.entries = idEntries;
+	param.idList = &idList;
 
 	param.dataBuf = savedata;
 	param.dataBufSize = sizeof(savedata);
@@ -70,6 +64,8 @@ int main(int argc, char **argv) {
 	runStandardSavedataLoop(&param);
 
 	checkpoint("Result: %08x", param.base.result);
+
+checkpoint("%s", idEntries[0].name);
 
 	checkpointExists(&param);
 
