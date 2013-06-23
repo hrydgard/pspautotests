@@ -4,19 +4,58 @@ unsigned int __attribute__((aligned(16))) list[262144];
 
 static SceUtilitySavedataParam2 lastParam;
 SceUtilitySavedataMsFreeInfo lastMsFree;
-SceUtilitySavedataUsedDataInfo lastMsData;
+SceUtilitySavedataMsDataInfo lastMsData;
 SceUtilitySavedataUsedDataInfo lastUtilityData;
+SceUtilitySavedataIdListInfo lastIdList;
+SceUtilitySavedataIdListEntry lastIdListEntries[100];
+SceUtilitySavedataFileListInfo lastFileList;
+SceUtilitySavedataFileListEntry lastFileListNormal[100];
+SceUtilitySavedataFileListEntry lastFileListSecure[100];
+SceUtilitySavedataFileListEntry lastFileListSystem[100];
+SceUtilitySavedataSizeInfo lastSizeInfo;
+SceUtilitySavedataSizeEntry lastSizeInfoNormal[100];
+SceUtilitySavedataSizeEntry lastSizeInfoSecure[100];
 
 void setLastSaveParam(SceUtilitySavedataParam2 *param) {
 	memcpy(&lastParam, param, sizeof(lastParam));
-	if (param->msFree != NULL)
+	if (param->msFree != NULL) {
 		memcpy(&lastMsFree, param->msFree, sizeof(lastMsFree));
-	if (param->msData != NULL)
+	}
+	if (param->msData != NULL) {
 		memcpy(&lastMsData, param->msData, sizeof(lastMsData));
-	if (param->utilityData != NULL)
+	}
+	if (param->utilityData != NULL) {
 		memcpy(&lastUtilityData, param->utilityData, sizeof(lastUtilityData));
+	}
+	if (param->idList != NULL) {
+		memcpy(&lastIdList, param->idList, sizeof(lastIdList));
+		if (param->idList->entries != NULL) {
+			memcpy(&lastIdListEntries, param->idList->entries, sizeof(lastIdListEntries));
+		}
+	}
+	if (param->fileList != NULL) {
+		memcpy(&lastFileList, param->fileList, sizeof(lastFileList));
+		if (param->fileList->normalEntries != NULL) {
+			memcpy(&lastFileListNormal, param->fileList->normalEntries, sizeof(lastFileListNormal));
+		}
+		if (param->fileList->secureEntries != NULL) {
+			memcpy(&lastFileListSecure, param->fileList->secureEntries, sizeof(lastFileListSecure));
+		}
+		if (param->fileList->systemEntries != NULL) {
+			memcpy(&lastFileListSystem, param->fileList->systemEntries, sizeof(lastFileListSystem));
+		}
+	}
+	if (param->sizeInfo != NULL) {
+		memcpy(&lastSizeInfo, param->sizeInfo, sizeof(lastSizeInfo));
+		if (param->sizeInfo->normalEntries != NULL) {
+			memcpy(&lastSizeInfoNormal, param->sizeInfo->normalEntries, sizeof(lastSizeInfoNormal));
+		}
+		if (param->sizeInfo->secureEntries != NULL) {
+			memcpy(&lastSizeInfoSecure, param->sizeInfo->secureEntries, sizeof(lastSizeInfoSecure));
+		}
+	}
 
-	// TODO: Need to copy other ptr data, fileList, etc.
+	// TODO: Need to copy other ptr data...
 }
 
 void printSaveParamChanges(SceUtilitySavedataParam2 *param) {
@@ -42,6 +81,30 @@ void printSaveParamChanges(SceUtilitySavedataParam2 *param) {
 	if (strcmp((char *) param->var, (char *) lastParam.var)) { \
 		schedf("CHANGE: %s: %.*s => %.*s\n", #var, n, (char *) lastParam.var, n, (char *) param->var); \
 		strncpy((char *) &lastParam.var, (char *) &param->var, n); \
+	}
+
+#define CHECK_CHANGE_U32_PTR(ptr, lastPtr, var) \
+	if (param->ptr->var != lastPtr.var) { \
+		schedf("CHANGE: %s: %08x => %08x\n", #var, (unsigned int) lastPtr.var, (unsigned int) param->ptr->var); \
+		lastPtr.var = param->ptr->var; \
+	}
+
+#define CHECK_CHANGE_U64_PTR(ptr, lastPtr, var) \
+	if (param->ptr->var != lastPtr.var) { \
+		schedf("CHANGE: %s: %016llx => %016llx\n", #var, (unsigned long long) lastPtr.var, (unsigned long long) param->ptr->var); \
+		lastPtr.var = param->ptr->var; \
+	}
+
+#define CHECK_CHANGE_STR_PTR(ptr, lastPtr, var) \
+	if (strcmp((char *) param->ptr->var, (char *) lastPtr.var)) { \
+		schedf("CHANGE: %s: %s => %s\n", #var, (char *) lastPtr.var, (char *) param->ptr->var); \
+		strcpy((char *) &lastPtr.var, (char *) &param->ptr->var); \
+	}
+
+#define CHECK_CHANGE_STRN_PTR(ptr, lastPtr, var, n) \
+	if (strcmp((char *) param->ptr->var, (char *) lastPtr.var)) { \
+		schedf("CHANGE: %s: %.*s => %.*s\n", #var, n, (char *) lastPtr.var, n, (char *) param->ptr->var); \
+		strncpy((char *) &lastPtr.var, (char *) &param->ptr->var, n); \
 	}
 
 #define CHECK_CHANGE_FILEDATA(var) \
@@ -101,35 +164,37 @@ void printSaveParamChanges(SceUtilitySavedataParam2 *param) {
 	CHECK_CHANGE_U32(focus);
 	CHECK_CHANGE_U32(abortStatus);
 	if (param->msFree != NULL) {
-		CHECK_CHANGE_U32(msFree->clusterSize);
-		CHECK_CHANGE_U32(msFree->freeClusters);
-		CHECK_CHANGE_U32(msFree->freeSpaceKB);
-		CHECK_CHANGE_STRN(msFree->freeSpaceStr, 8);
-		CHECK_CHANGE_U32(msFree->unknownSafetyPad);
+		CHECK_CHANGE_U32_PTR(msFree, lastMsFree, clusterSize);
+		CHECK_CHANGE_U32_PTR(msFree, lastMsFree, freeClusters);
+		CHECK_CHANGE_U32_PTR(msFree, lastMsFree, freeSpaceKB);
+		CHECK_CHANGE_STRN_PTR(msFree, lastMsFree, freeSpaceStr, 8);
+		CHECK_CHANGE_U32_PTR(msFree, lastMsFree, unknownSafetyPad);
 	}
 	if (param->msData != NULL) {
-		CHECK_CHANGE_U32(msData->usedClusters);
-		CHECK_CHANGE_U32(msData->usedSpaceKB);
-		CHECK_CHANGE_STRN(msData->usedSpaceStr, 8);
-		CHECK_CHANGE_U32(msData->usedSpace32KB);
-		CHECK_CHANGE_STRN(msData->usedSpace32Str, 8);
-		CHECK_CHANGE_U64(msData->unknownSafetyPad[0]);
-		CHECK_CHANGE_U64(msData->unknownSafetyPad[1]);
-		CHECK_CHANGE_U64(msData->unknownSafetyPad[2]);
-		CHECK_CHANGE_U64(msData->unknownSafetyPad[3]);
-		CHECK_CHANGE_U64(msData->unknownSafetyPad2);
+		CHECK_CHANGE_STRN_PTR(msData, lastMsData, gameName, 16);
+		CHECK_CHANGE_STRN_PTR(msData, lastMsData, saveName, 20);
+		CHECK_CHANGE_U32_PTR(msData, lastMsData, info.usedClusters);
+		CHECK_CHANGE_U32_PTR(msData, lastMsData, info.usedSpaceKB);
+		CHECK_CHANGE_STRN_PTR(msData, lastMsData, info.usedSpaceStr, 8);
+		CHECK_CHANGE_U32_PTR(msData, lastMsData, info.usedSpace32KB);
+		CHECK_CHANGE_STRN_PTR(msData, lastMsData, info.usedSpace32Str, 8);
+		CHECK_CHANGE_U64_PTR(msData, lastMsData, info.unknownSafetyPad[0]);
+		CHECK_CHANGE_U64_PTR(msData, lastMsData, info.unknownSafetyPad[1]);
+		CHECK_CHANGE_U64_PTR(msData, lastMsData, info.unknownSafetyPad[2]);
+		CHECK_CHANGE_U64_PTR(msData, lastMsData, info.unknownSafetyPad[3]);
+		CHECK_CHANGE_U64_PTR(msData, lastMsData, info.unknownSafetyPad2);
 	}
 	if (param->utilityData != NULL) {
-		CHECK_CHANGE_U32(utilityData->usedClusters);
-		CHECK_CHANGE_U32(utilityData->usedSpaceKB);
-		CHECK_CHANGE_STRN(utilityData->usedSpaceStr, 8);
-		CHECK_CHANGE_U32(utilityData->usedSpace32KB);
-		CHECK_CHANGE_STRN(utilityData->usedSpace32Str, 8);
-		CHECK_CHANGE_U64(utilityData->unknownSafetyPad[0]);
-		CHECK_CHANGE_U64(utilityData->unknownSafetyPad[1]);
-		CHECK_CHANGE_U64(utilityData->unknownSafetyPad[2]);
-		CHECK_CHANGE_U64(utilityData->unknownSafetyPad[3]);
-		CHECK_CHANGE_U64(utilityData->unknownSafetyPad2);
+		CHECK_CHANGE_U32_PTR(utilityData, lastUtilityData, usedClusters);
+		CHECK_CHANGE_U32_PTR(utilityData, lastUtilityData, usedSpaceKB);
+		CHECK_CHANGE_STRN_PTR(utilityData, lastUtilityData, usedSpaceStr, 8);
+		CHECK_CHANGE_U32_PTR(utilityData, lastUtilityData, usedSpace32KB);
+		CHECK_CHANGE_STRN_PTR(utilityData, lastUtilityData, usedSpace32Str, 8);
+		CHECK_CHANGE_U64_PTR(utilityData, lastUtilityData, unknownSafetyPad[0]);
+		CHECK_CHANGE_U64_PTR(utilityData, lastUtilityData, unknownSafetyPad[1]);
+		CHECK_CHANGE_U64_PTR(utilityData, lastUtilityData, unknownSafetyPad[2]);
+		CHECK_CHANGE_U64_PTR(utilityData, lastUtilityData, unknownSafetyPad[3]);
+		CHECK_CHANGE_U64_PTR(utilityData, lastUtilityData, unknownSafetyPad2);
 	}
 
 	// TODO: key
@@ -138,17 +203,61 @@ void printSaveParamChanges(SceUtilitySavedataParam2 *param) {
 	CHECK_CHANGE_U32(multiStatus);
 
 	if (param->idList != NULL) {
-		CHECK_CHANGE_U32(idList->maxCount);
-		CHECK_CHANGE_U32(idList->resultCount);
+		CHECK_CHANGE_U32_PTR(idList, lastIdList, maxCount);
+		CHECK_CHANGE_U32_PTR(idList, lastIdList, resultCount);
 
 		if (param->idList->entries != NULL) {
-			CHECK_CHANGE_U32(idList->entries->st_mode);
+			CHECK_CHANGE_U32_PTR(idList->entries, lastIdListEntries[0], st_mode);
 			// TODO: st_ctime, etc.?
-			CHECK_CHANGE_STR(idList->entries->name);
+			CHECK_CHANGE_STRN_PTR(idList->entries, lastIdListEntries[0], name, 20);
 		}
 	}
-	// TODO
-	CHECK_CHANGE_U32(fileList);
+	if (param->fileList != NULL) {
+		CHECK_CHANGE_U32_PTR(fileList, lastFileList, maxSecureEntries);
+		CHECK_CHANGE_U32_PTR(fileList, lastFileList, maxNormalEntries);
+		CHECK_CHANGE_U32_PTR(fileList, lastFileList, maxSystemEntries);
+		CHECK_CHANGE_U32_PTR(fileList, lastFileList, resultNumSecureEntries);
+		CHECK_CHANGE_U32_PTR(fileList, lastFileList, resultNumNormalEntries);
+		CHECK_CHANGE_U32_PTR(fileList, lastFileList, resultNumSystemEntries);
+
+		if (param->fileList->secureEntries != NULL) {
+			CHECK_CHANGE_U32_PTR(fileList->secureEntries, lastFileListSecure[0], st_mode);
+			// TODO: st_ctime, etc.?
+			CHECK_CHANGE_STRN_PTR(fileList->secureEntries, lastFileListSecure[0], name, 16);
+		}
+		if (param->fileList->normalEntries != NULL) {
+			CHECK_CHANGE_U32_PTR(fileList->normalEntries, lastFileListNormal[0], st_mode);
+			// TODO: st_ctime, etc.?
+			CHECK_CHANGE_STRN_PTR(fileList->normalEntries, lastFileListNormal[0], name, 16);
+		}
+		if (param->fileList->systemEntries != NULL) {
+			CHECK_CHANGE_U32_PTR(fileList->systemEntries, lastFileListSystem[0], st_mode);
+			// TODO: st_ctime, etc.?
+			CHECK_CHANGE_STRN_PTR(fileList->systemEntries, lastFileListSystem[0], name, 16);
+		}
+	}
+	if (param->sizeInfo != NULL) {
+		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, numSecureEntries);
+		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, numNormalEntries);
+
+		if (param->sizeInfo->secureEntries != NULL) {
+			CHECK_CHANGE_U64_PTR(sizeInfo->secureEntries, lastSizeInfoSecure[0], size);
+			CHECK_CHANGE_STRN_PTR(sizeInfo->secureEntries, lastSizeInfoSecure[0], name, 16);
+		}
+		if (param->sizeInfo->normalEntries != NULL) {
+			CHECK_CHANGE_U64_PTR(sizeInfo->normalEntries, lastSizeInfoNormal[0], size);
+			CHECK_CHANGE_STRN_PTR(sizeInfo->normalEntries, lastSizeInfoNormal[0], name, 16);
+		}
+
+		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, sectorSize);
+		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, freeSectors);
+		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, freeKB);
+		CHECK_CHANGE_STRN_PTR(sizeInfo, lastSizeInfo, freeString, 8);
+		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, neededKB);
+		CHECK_CHANGE_STRN_PTR(sizeInfo, lastSizeInfo, neededString, 8);
+		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, overwriteKB);
+		CHECK_CHANGE_STRN_PTR(sizeInfo, lastSizeInfo, overwriteString, 8);
+	}
 	// TODO
 	CHECK_CHANGE_U32(sizeInfo);
 }
@@ -205,7 +314,7 @@ void initStandardSavedataParams(SceUtilitySavedataParam2 *param) {
 	memcpy(&param->key[0], &temp_key[0], sizeof(param->key));
 }
 
-void checkpointExistsSaveName(SceUtilitySavedataParam2 *param, const char *saveName) {
+void checkpointExistsSaveName(const SceUtilitySavedataParam2 *param, const char *saveName) {
 	char temp[512];
 	snprintf(temp, sizeof(temp), "ms0:/PSP/SAVEDATA/%s%s/%s", param->gameName, saveName, param->fileName);
 
@@ -217,8 +326,9 @@ void checkpointExistsSaveName(SceUtilitySavedataParam2 *param, const char *saveN
 	}
 }
 
-void checkpointExists(SceUtilitySavedataParam2 *param) {
+void checkpointExists(const SceUtilitySavedataParam2 *param) {
 	checkpointNext("Checking for files:");
+	checkpointExistsSaveName(param, "");
 	checkpointExistsSaveName(param, param->saveName);
 
 	if (param->saveNameList != NULL) {
