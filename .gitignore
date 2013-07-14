@@ -13,6 +13,18 @@ __testfinish.txt
 __screenshot.bmp
 __testfailure.bmp
 
+# For emulators that outputs to elf's folder
+*.lastdebug
+*.lastoutput
+
+# For IDA
+*.idb
+*.id0
+*.id1
+*.log
+*.nam
+*.til
+
 # For vcproj
 *.user
 *.sdf
