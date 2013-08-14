@@ -16,6 +16,7 @@ __testfailure.bmp
 # For emulators that outputs to elf's folder
 *.lastdebug*
 *.lastoutput*
+*.lastdiff
 
 # For IDA
 *.idb
