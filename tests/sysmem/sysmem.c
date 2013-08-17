@@ -4,25 +4,6 @@
 #include <pspsysmem.h>
 #include <pspthreadman.h>
 
-// printf() seems to reschedule, so can't use it.
-static char schedulingLog[65536];
-static volatile int schedulingLogPos = 0;
-
-inline void schedf(const char *format, ...) {
-	va_list args;
-	va_start(args, format);
-	schedulingLogPos += vsprintf(schedulingLog + schedulingLogPos, format, args);
-	// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
-	//vprintf(format, args);
-	va_end(args);
-}
-
-inline void flushschedf() {
-	printf("%s", schedulingLog);
-	schedulingLogPos = 0;
-	schedulingLog[0] = '\0';
-}
-
 int testThreadStackFillsWith_0xFF_AndIsAlignedTo_0x10__thread(SceSize arglen, void *argp) {
 	sceKernelSleepThread();
 
