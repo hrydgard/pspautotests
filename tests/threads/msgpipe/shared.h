@@ -29,25 +29,17 @@ static inline void schedfMsgPipe(SceUID msgpipe) {
 	}
 }
 
-template <void (*Wait)(const char *name, SceUID uid, SceUInt timeout)>
 struct KernelObjectWaitThread {
 	KernelObjectWaitThread(const char *name, SceUID uid, SceUInt timeout, int prio = 0x60)
 		: name_(name), object_(uid), timeout_(timeout) {
 		thread_ = sceKernelCreateThread(name, &run, prio, 0x1000, 0, NULL);
+	}
+
+	void start() {
 		const void *arg[1] = { (void *)this };
 		sceKernelStartThread(thread_, sizeof(arg), arg);
 		sceKernelDelayThread(1000);
 		checkpoint("  ** started %s", name_);
-	}
-
-	static int run(SceSize args, void *argp) {
-		KernelObjectWaitThread<Wait> **o = (KernelObjectWaitThread<Wait> **) argp;
-		return (*o)->wait();
-	}
-
-	int wait() {
-		Wait(name_, object_, timeout_);
-		return 0;
 	}
 
 	void stop() {
@@ -63,6 +55,16 @@ struct KernelObjectWaitThread {
 		thread_ = 0;
 	}
 
+	static int run(SceSize args, void *argp) {
+		KernelObjectWaitThread *o = *(KernelObjectWaitThread **)argp;
+		return o->wait();
+	}
+
+	virtual int wait() {
+		checkpoint("ERROR: base wait() called.");
+		return 1;
+	}
+
 	~KernelObjectWaitThread() {
 		stop();
 	}
@@ -73,29 +75,47 @@ struct KernelObjectWaitThread {
 	SceUInt timeout_;
 };
 
-void MsgPipeReceiveDoWait(const char *name, SceUID uid, SceUInt timeout) {
-	char msg[256];
-	int received = 0x1337;
-	if (timeout == NO_TIMEOUT) {
-		int result = sceKernelReceiveMsgPipe(uid, msg, sizeof(msg), 0, &received, NULL);
-		checkpoint("  ** %s got result: %08x, received = %08x", name, result, received);
-	} else {
-		int result = sceKernelReceiveMsgPipe(uid, msg, sizeof(msg), 0, &received, &timeout);
-		checkpoint("  ** %s got result: %08x, received = %08x, timeout = %dms remaining", name, result, received, timeout / 1000);
+struct MsgPipeReceiveWaitThread : public KernelObjectWaitThread {
+	MsgPipeReceiveWaitThread(const char *name, SceUID uid, SceUInt timeout, u32 size = 256, int prio = 0x60)
+		: KernelObjectWaitThread(name, uid, timeout, prio), size_(size) {
+		start();
 	}
-}
 
-void MsgPipeSendDoWait(const char *name, SceUID uid, SceUInt timeout) {
-	char msg[256];
-	int sent = 0x1337;
-	if (timeout == NO_TIMEOUT) {
-		int result = sceKernelSendMsgPipe(uid, msg, sizeof(msg), 0, &sent, NULL);
-		checkpoint("  ** %s got result: %08x, sent = %08x", name, result, sent);
-	} else {
-		int result = sceKernelSendMsgPipe(uid, msg, sizeof(msg), 0, &sent, &timeout);
-		checkpoint("  ** %s got result: %08x, sent = %08x, timeout = %dms remaining", name, result, sent, timeout / 1000);
+	virtual int wait() {
+		char msg[256];
+		int received = 0x1337;
+			checkpoint("size=%d", size_);
+		if (timeout_ == NO_TIMEOUT) {
+			int result = sceKernelReceiveMsgPipe(object_, msg, size_, 0, &received, NULL);
+			checkpoint("  ** %s got result: %08x, received = %08x", name_, result, received);
+		} else {
+			int result = sceKernelReceiveMsgPipe(object_, msg, size_, 0, &received, &timeout_);
+			checkpoint("  ** %s got result: %08x, received = %08x, timeout = %dms remaining", name_, result, received, timeout_ / 1000);
+		}
+		return 0;
 	}
-}
 
-typedef KernelObjectWaitThread<MsgPipeReceiveDoWait> MsgPipeReceiveWaitThread;
-typedef KernelObjectWaitThread<MsgPipeSendDoWait> MsgPipeSendWaitThread;
+	u32 size_;
+};
+
+struct MsgPipeSendWaitThread : public KernelObjectWaitThread {
+	MsgPipeSendWaitThread(const char *name, SceUID uid, SceUInt timeout, u32 size = 256, int prio = 0x60)
+		: KernelObjectWaitThread(name, uid, timeout, prio), size_(size) {
+		start();
+	}
+
+	virtual int wait() {
+		char msg[256];
+		int sent = 0x1337;
+		if (timeout_ == NO_TIMEOUT) {
+			int result = sceKernelSendMsgPipe(object_, msg, size_, 0, &sent, NULL);
+			checkpoint("  ** %s got result: %08x, sent = %08x", name_, result, sent);
+		} else {
+			int result = sceKernelSendMsgPipe(object_, msg, size_, 0, &sent, &timeout_);
+			checkpoint("  ** %s got result: %08x, sent = %08x, timeout = %dms remaining", name_, result, sent, timeout_ / 1000);
+		}
+		return 0;
+	}
+
+	u32 size_;
+};
