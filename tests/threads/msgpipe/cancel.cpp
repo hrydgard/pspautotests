@@ -33,8 +33,9 @@ extern "C" int main(int argc, char *argv[]) {
 	checkpointNext("Waits:");
 	{
 		msgpipe = sceKernelCreateMsgPipe("Cancel", PSP_MEMORY_PARTITION_USER, 0, 0x100, NULL);
-		MsgPipeReceiveWaitThread wait_r("receiving thread", msgpipe);
-		testCancel("  With receiving thread", msgpipe);
+		MsgPipeReceiveWaitThread wait_r1("receiving thread 1", msgpipe, NO_TIMEOUT);
+		MsgPipeReceiveWaitThread wait_r2("receiving thread 2", msgpipe, 10000);
+		testCancel("  With receiving threads", msgpipe);
 		sceKernelDeleteMsgPipe(msgpipe);
 	}
 
@@ -43,8 +44,9 @@ extern "C" int main(int argc, char *argv[]) {
 		// Send something to fill it up.
 		char msg[256];
 		sceKernelSendMsgPipe(msgpipe, msg, sizeof(msg), 0, NULL, NULL);
-		MsgPipeSendWaitThread wait_s("sending thread", msgpipe);
-		testCancel("  With sending thread", msgpipe);
+		MsgPipeSendWaitThread wait_s1("sending thread 1", msgpipe, NO_TIMEOUT);
+		MsgPipeSendWaitThread wait_s2("sending thread 2", msgpipe, 10000);
+		testCancel("  With sending threads", msgpipe);
 		sceKernelDeleteMsgPipe(msgpipe);
 	}
 
