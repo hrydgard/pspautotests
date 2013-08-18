@@ -22,23 +22,23 @@ void testMsgPipeSimple1() {
 
 	msgpipe = sceKernelCreateMsgPipe("MSGPIPE", 2, 0, (void *)(sizeof(Message) * msgpipe_capacity), /*NULL*/0);
 	//msgpipe = sceKernelCreateMsgPipe("MSGPIPE", 2, 0, 1, NULL);
-	printf("CREATE:%08X\n", msgpipe > 0 ? 1 : msgpipe);
+	schedf("CREATE:%08X\n", msgpipe > 0 ? 1 : msgpipe);
 	for (n = 0; n < msgpipe_trycount; n++)
 	{
 		int resultSize;
 		send_message1.index = n;
 		result = sceKernelTrySendMsgPipe(msgpipe, &send_message1, sizeof(Message), 0, &resultSize);
-		printf("SEND[%d]:%08X, %08X, %d, %d, %d\n", n, result, resultSize, send_message1.value1, send_message1.value2, send_message1.index);
+		schedf("SEND[%d]:%08X, %08X, %d, %d, %d\n", n, result, resultSize, send_message1.value1, send_message1.value2, send_message1.index);
 	}
 	for (n = 0; n < msgpipe_trycount; n++)
 	{
 		memset(&recv_message1, 0, sizeof(Message));
 		int resultSize;
 		result = sceKernelTryReceiveMsgPipe(msgpipe, &recv_message1, sizeof(Message), 0, &resultSize);
-		printf("RECV[%d]:%08X, %08X, %d, %d, %d\n", n, result, resultSize, recv_message1.value1, recv_message1.value2, recv_message1.index);
+		schedf("RECV[%d]:%08X, %08X, %d, %d, %d\n", n, result, resultSize, recv_message1.value1, recv_message1.value2, recv_message1.index);
 	}
-	printf("DELETE:%08X\n", sceKernelDeleteMsgPipe(msgpipe));
-	printf("DELETE2:%08X\n", sceKernelDeleteMsgPipe(msgpipe));
+	schedf("DELETE:%08X\n", sceKernelDeleteMsgPipe(msgpipe));
+	schedf("DELETE2:%08X\n", sceKernelDeleteMsgPipe(msgpipe));
 }
 
 int msgpipe;
@@ -62,7 +62,7 @@ void testMsgPipeWithThreads_thread(int argc, void* argv) {
 	int result;
 	for (n = 0; n < msgpipe_readcount; n++) {
 		result = sceKernelReceiveMsgPipe(msgpipe, &message, sizeof(Message), 0, &message_size, NULL);
-		printf("RECV_THREAD[%d][%d] : %08X, %d, %d, %d\n", thread_id, n, result, message.value1, message.value2, message.index);
+		schedf("RECV_THREAD[%d][%d] : %08X, %d, %d, %d\n", thread_id, n, result, message.value1, message.value2, message.index);
 	}
 }
 
@@ -83,7 +83,7 @@ void testMsgPipeWithThreads() {
 		for (n = 0; n < msgpipe_writecount; n++) {
 			message.index = n;
 			result = sceKernelSendMsgPipe(msgpipe, &message, sizeof(Message), 0, &messageSize, NULL);
-			printf("SEND[%d] : %08X, %d, %d, %d\n", n, result, message.value1, message.value2, message.index);
+			schedf("SEND[%d] : %08X, %d, %d, %d\n", n, result, message.value1, message.value2, message.index);
 		}
 	}
 	sceKernelDeleteMsgPipe(msgpipe);
