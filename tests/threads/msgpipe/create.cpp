@@ -1,7 +1,7 @@
 #include "shared.h"
 
 void testCreate(const char *title, const char *name, int part, u32 attr, SceSize size, void *opt) {
-	SceUID result = sceKernelCreateMsgPipe(name, part, attr, (void *)size, opt);
+	SceUID result = sceKernelCreateMsgPipe(name, part, attr, size, opt);
 	if (result >= 0) {
 		checkpoint(NULL);
 		schedf("%s: OK ", title);
@@ -21,7 +21,7 @@ extern "C" int main(int argc, char *argv[]) {
 	testCreate("  Blank name", "", PSP_MEMORY_PARTITION_USER, 0, 0x100, NULL);
 	testCreate("  Long name", "1234567890123456789012345678901234567890123456789012345678901234", PSP_MEMORY_PARTITION_USER, 0, 0x100, NULL);
 
-	SceUID dup = sceKernelCreateMsgPipe("create", PSP_MEMORY_PARTITION_USER, 0, (void *)0x100, NULL);
+	SceUID dup = sceKernelCreateMsgPipe("create", PSP_MEMORY_PARTITION_USER, 0, 0x100, NULL);
 	testCreate("  Two with same name", "test", PSP_MEMORY_PARTITION_USER, 0, 0x100, NULL);
 	sceKernelDeleteMsgPipe(dup);
 
@@ -64,7 +64,7 @@ extern "C" int main(int argc, char *argv[]) {
 	int i;
 	for (i = 0; i < 1024; i++)
 	{
-		result = sceKernelCreateMsgPipe("create", PSP_MEMORY_PARTITION_USER, 0, (void *)0x100, NULL);
+		result = sceKernelCreateMsgPipe("create", PSP_MEMORY_PARTITION_USER, 0, 0x100, NULL);
 		msgpipes[i] = result;
 		if (msgpipes[i] < 0)
 			break;

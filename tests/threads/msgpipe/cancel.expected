@@ -1,0 +1,21 @@
+[x] Objects:
+[x]   Normal: OK (sending=0, receiving=0) Msgpipe: OK (size=56, name=cancel, attr=00000000, buffer=100, free=100, sending=0, receiving=0)
+[x]   NULL: Failed (8002019e, sending=1337, receiving=1337)
+[x]   Invalid: Failed (8002019e, sending=1337, receiving=1337)
+[x]   Already canceled: OK (sending=0, receiving=0) Msgpipe: OK (size=56, name=cancel, attr=00000000, buffer=100, free=100, sending=0, receiving=0)
+[x]   Deleted: Failed (8002019e, sending=1337, receiving=1337)
+
+[x] Counts:
+[x]   No send: OK (sending=1337, receiving=0) Msgpipe: OK (size=56, name=cancel, attr=00000000, buffer=100, free=100, sending=0, receiving=0)
+[x]   No receive: OK (sending=0, receiving=1337) Msgpipe: OK (size=56, name=cancel, attr=00000000, buffer=100, free=100, sending=0, receiving=0)
+[x]   Neither: OK (sending=1337, receiving=1337) Msgpipe: OK (size=56, name=cancel, attr=00000000, buffer=100, free=100, sending=0, receiving=0)
+
+[x] Waits:
+[r]   ** started receiving thread
+[x]   With receiving thread: OK (sending=0, receiving=1) Msgpipe: OK (size=56, name=Cancel, attr=00000000, buffer=100, free=100, sending=0, receiving=0)
+[r]   ** receiving thread got result: 800201a9, received = 00000000
+[r]   ** stopped receiving thread
+[r]   ** started sending thread
+[x]   With sending thread: OK (sending=1, receiving=0) Msgpipe: OK (size=56, name=delete, attr=00000000, buffer=100, free=100, sending=0, receiving=0)
+[r]   ** sending thread got result: 800201a9, sent = 00000000
+[r]   ** stopped sending thread

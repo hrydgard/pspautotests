@@ -1,0 +1,12 @@
+[x] Normal: OK
+[x] NULL: Failed (8002019e)
+[x] Invalid: Failed (8002019e)
+[x] Deleted: Failed (8002019e)
+[r]   ** started receiving thread
+[x] With receiving thread: 00000000
+[r]   ** receiving thread got result: 800201b5, received = 00000000
+[r]   ** stopped receiving thread
+[r]   ** started sending thread
+[x] With sending thread: 00000000
+[r]   ** sending thread got result: 800201b5, sent = 00000000
+[r]   ** stopped sending thread
