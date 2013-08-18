@@ -1,6 +1,9 @@
 #include <common.h>
 
-static inline void schedfMsgPipeInfo(SceKernelMppInfo *info) {
+#include <pspthreadman.h>
+#include <pspmodulemgr.h>
+
+static inline void schedfMsgPipe(SceKernelMppInfo *info) {
 	schedf("Msgpipe: OK (size=%d, name=%s, attr=%08x, buffer=%x, free=%x, sending=%d, receiving=%d)\n", info->size, info->name, info->attr, info->bufSize, info->freeSize, info->numSendWaitThreads, info->numReceiveWaitThreads);
 }
 
@@ -11,7 +14,7 @@ static inline void schedfMsgPipe(SceUID msgpipe) {
 
 		int result = sceKernelReferMsgPipeStatus(msgpipe, &info);
 		if (result == 0) {
-			schedfMsgPipeInfo(&info);
+			schedfMsgPipe(&info);
 		} else {
 			schedf("Msgpipe: Invalid (%08x)\n", result);
 		}
