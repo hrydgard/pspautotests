@@ -100,6 +100,17 @@ extern "C" int main(int argc, char *argv[]) {
 		sceKernelDeleteMsgPipe(msgpipe);
 	}
 
+	checkpointNext("Without a buffer:");
+	{
+		msgpipe = sceKernelCreateMsgPipe("msgpipe", PSP_MEMORY_PARTITION_USER, 0, 0, NULL);
+		MsgPipeReceiveWaitThread wait_r1("receiving thread 1", msgpipe, 10000);
+		MsgPipeReceiveWaitThread wait_r2("receiving thread 2", msgpipe, 10000);
+		schedfMsgPipe(msgpipe);
+		testSend("  Partial packet", msgpipe, temp, 0x080, 0);
+		testSend("  Complete packet", msgpipe, temp, 0x100, 0);
+		sceKernelDeleteMsgPipe(msgpipe);
+	}
+
 	delete [] temp;
 	return 0;
 }

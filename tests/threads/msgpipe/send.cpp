@@ -8,7 +8,9 @@ inline void testSend(const char *title, SceUID msgpipe, void *buf, SceSize bufsi
 		schedf("%s: OK (bytes=%d, timeout=%dms) ", title, doBytes ? bytes : -1, timeout == NO_TIMEOUT ? 0 : timeout / 1000);
 		schedfMsgPipe(msgpipe);
 	} else {
-		checkpoint("%s: Failed (%08x, bytes=%d, timeout=%dms)", title, result, doBytes ? bytes : -1, timeout == NO_TIMEOUT ? 0 : timeout / 1000);
+		checkpoint(NULL);
+		schedf("%s: Failed (%08x, bytes=%d, timeout=%dms) ", title, result, doBytes ? bytes : -1, timeout == NO_TIMEOUT ? 0 : timeout / 1000);
+		schedfMsgPipe(msgpipe);
 	}
 }
 
@@ -96,6 +98,7 @@ extern "C" int main(int argc, char *argv[]) {
 	{
 		msgpipe = sceKernelCreateMsgPipe("msgpipe", PSP_MEMORY_PARTITION_USER, 0, 0x100, NULL);
 		MsgPipeReceiveWaitThread wait_r("receiving thread", msgpipe, 10000);
+		schedfMsgPipe(msgpipe);
 		testSend("  With receiving thread", msgpipe, temp, 0x100, 0);
 		sceKernelDeleteMsgPipe(msgpipe);
 	}
@@ -105,6 +108,7 @@ extern "C" int main(int argc, char *argv[]) {
 		msgpipe = sceKernelCreateMsgPipe("msgpipe", PSP_MEMORY_PARTITION_USER, 0, 0x100, NULL);
 		MsgPipeReceiveWaitThread wait_r1("receiving thread 1", msgpipe, 10000, 0x080);
 		MsgPipeReceiveWaitThread wait_r2("receiving thread 2", msgpipe, 10000, 0x100);
+		schedfMsgPipe(msgpipe);
 		testSend("  With receiving threads", msgpipe, temp, 0x100, 0);
 		sceKernelDelayThread(10000);
 		sceKernelDeleteMsgPipe(msgpipe);
@@ -116,8 +120,21 @@ extern "C" int main(int argc, char *argv[]) {
 		MsgPipeSendWaitThread wait_s1("sending thread 1", msgpipe, 10000, 0x080);
 		MsgPipeSendWaitThread wait_s2("sending thread 2", msgpipe, 10000, 0x100);
 		MsgPipeSendWaitThread wait_s3("sending thread 3", msgpipe, 10000, 0x080);
-		checkpoint("  Receive with three sending: %08x", sceKernelReceiveMsgPipe(msgpipe, temp, 0x100, 0, NULL, NULL));
+		SceUInt timeout = 5000;
+		schedfMsgPipe(msgpipe);
+		checkpoint("  Receive with three sending: %08x", sceKernelReceiveMsgPipe(msgpipe, temp, 0x100, 0, NULL, &timeout));
 		sceKernelDelayThread(10000);
+		sceKernelDeleteMsgPipe(msgpipe);
+	}
+
+	checkpointNext("Without a buffer:");
+	{
+		msgpipe = sceKernelCreateMsgPipe("msgpipe", PSP_MEMORY_PARTITION_USER, 0, 0, NULL);
+		MsgPipeReceiveWaitThread wait_r1("receiving thread 1", msgpipe, 10000);
+		MsgPipeReceiveWaitThread wait_r2("receiving thread 2", msgpipe, 10000);
+		schedfMsgPipe(msgpipe);
+		testSend("  Partial packet", msgpipe, temp, 0x080, 0);
+		testSend("  Complete packet", msgpipe, temp, 0x100, 0);
 		sceKernelDeleteMsgPipe(msgpipe);
 	}
 

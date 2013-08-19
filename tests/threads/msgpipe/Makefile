@@ -1,4 +1,4 @@
-TARGETS = msgpipe cancel create delete send trysend
+TARGETS = msgpipe cancel create delete receive send tryreceive trysend
 
 COMMON_DIR = ../../../common
 include $(COMMON_DIR)/common.mk

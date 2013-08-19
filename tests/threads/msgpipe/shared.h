@@ -84,7 +84,6 @@ struct MsgPipeReceiveWaitThread : public KernelObjectWaitThread {
 	virtual int wait() {
 		char msg[256];
 		int received = 0x1337;
-			checkpoint("size=%d", size_);
 		if (timeout_ == NO_TIMEOUT) {
 			int result = sceKernelReceiveMsgPipe(object_, msg, size_, 0, &received, NULL);
 			checkpoint("  ** %s got result: %08x, received = %08x", name_, result, received);
