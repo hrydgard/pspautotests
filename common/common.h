@@ -1,6 +1,10 @@
 #ifndef _COMMON_H
 #define _COMMON_H 1
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // Just to make IntelliSense happy, not attempting to compile.
 #ifdef _MSC_VER
 #define __builtin_va_list int
@@ -58,5 +62,9 @@ void emitMemoryBlock(void *address, unsigned int size);
 void emitHex(void *address, unsigned int size);
 #define emitStringf(format, ...) { char temp[1024]; sprintf(temp, format, __VA_ARGS__); emitString(temp); }
 */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
