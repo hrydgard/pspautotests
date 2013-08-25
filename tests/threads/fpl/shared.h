@@ -5,8 +5,12 @@
 
 const static SceUInt NO_TIMEOUT = (SceUInt)-1337;
 
-enum SceKernelFplAttr
-{
+struct SceKernelFplOptParam2 {
+	SceSize size;
+	u32 alignment;
+};
+
+enum SceKernelFplAttr {
 	PSP_FPL_ATTR_FIFO = 0x0000,
 	PSP_FPL_ATTR_PRIORITY = 0x0100,
 	PSP_FPL_ATTR_HIGHMEM = 0x4000,

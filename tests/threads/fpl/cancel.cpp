@@ -34,8 +34,8 @@ extern "C" int main(int argc, char *argv[]) {
 		void *allocated = NULL;
 		// Make sure there's nothing free so the threads wait.
 		sceKernelAllocateFpl(fpl, &allocated, NULL);
-		FplWaitThread wait_r1("waiting thread 1", fpl, NO_TIMEOUT);
-		FplWaitThread wait_r2("waiting thread 2", fpl, 10000);
+		FplWaitThread wait1("waiting thread 1", fpl, NO_TIMEOUT);
+		FplWaitThread wait2("waiting thread 2", fpl, 10000);
 		testCancel("  With waiting threads", fpl);
 		sceKernelDeleteFpl(fpl);
 	}
