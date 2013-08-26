@@ -1,6 +1,6 @@
-TARGETS = power cpu freq
-EXTRA_OBJS = power-imports.o
+TARGETS = lock trylock unlock
+EXTRA_OBJS = ../power-imports.o
 LIBS = -lpspgu -lpsprtc -lpsppower -lpspctrl -lpspmath -lcommon -lc -lm
 
-COMMON_DIR = ../../common
+COMMON_DIR = ../../../common
 include $(COMMON_DIR)/common.mk
