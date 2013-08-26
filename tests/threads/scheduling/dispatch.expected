@@ -340,7 +340,7 @@
 [x/y] sceIoWaitAsync: 8002032a / 0000000000000001
 [x/y] sceIoWaitAsync: 8002032a / 0000000000000001
 [r/y] sceIoRead: 00000080
-[r/y] sceIoWrite: 00000007
+[x/y] sceIoWrite: 00000007
 [x/y] sceIoCloseAsync: 00000000
 [r/y] sceIoWaitAsync: 00000000 / 0000000000000000
 
