@@ -25,6 +25,7 @@ IMPORT_FUNC "scePower",0x8EFB3FA2,scePowerGetBatteryLifeTime
 IMPORT_FUNC "scePower",0x28E12023,scePowerGetBatteryTemp
 IMPORT_FUNC "scePower",0x862AE1A6,scePowerGetBatteryElec
 IMPORT_FUNC "scePower",0x483CE86B,scePowerGetBatteryVolt
+IMPORT_FUNC "scePower",0xcb49f5ce,scePowerGetBatteryChargeCycle
 IMPORT_FUNC "scePower",0x23436A4A,scePowerGetInnerTemp
 IMPORT_FUNC "scePower",0x0CD21B1F,scePowerSetPowerSwMode
 IMPORT_FUNC "scePower",0x165CE085,scePowerGetPowerSwMode
@@ -53,4 +54,21 @@ IMPORT_FUNC "scePower",0x34F9C463,scePowerGetPllClockFrequencyInt
 IMPORT_FUNC "scePower",0xEA382A27,scePowerGetPllClockFrequencyFloat
 IMPORT_FUNC "scePower",0xEBD177D6,scePower_EBD177D6
 IMPORT_FUNC "scePower",0x469989AD,scePower_469989AD
+IMPORT_FUNC "scePower",0x545A7F3C,scePower_545A7F3C
+IMPORT_FUNC "scePower",0xA4E93389,scePower_A4E93389
 IMPORT_FUNC "scePower",0xA85880D0,scePower_A85880D0
+IMPORT_FUNC "scePower",0x3951af53,scePowerWaitRequestCompletion
+IMPORT_FUNC "scePower",0x0442d852,scePowerRequestColdReset
+IMPORT_FUNC "scePower",0xbafa3df0,scePowerGetCallbackMode
+IMPORT_FUNC "scePower",0xa9d22232,scePowerSetCallbackMode
+IMPORT_FUNC "scePower",0x23c31ffe,scePowerVolatileMemLock
+IMPORT_FUNC "scePower",0xfa97a599,scePowerVolatileMemTryLock
+IMPORT_FUNC "scePower",0xb3edd801,scePowerVolatileMemUnlock
+
+IMPORT_START "sceSuspendForUser",0x40000000
+IMPORT_FUNC "sceSuspendForUser",0xEADB1BD7,sceKernelPowerLock
+IMPORT_FUNC "sceSuspendForUser",0x3AEE7261,sceKernelPowerUnlock
+IMPORT_FUNC "sceSuspendForUser",0x090CCB3F,sceKernelPowerTick
+IMPORT_FUNC "sceSuspendForUser",0x3E0271D3,sceKernelVolatileMemLock
+IMPORT_FUNC "sceSuspendForUser",0xA14F40B2,sceKernelVolatileMemTryLock
+IMPORT_FUNC "sceSuspendForUser",0xA569E425,sceKernelVolatileMemUnlock
