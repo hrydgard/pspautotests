@@ -15,7 +15,7 @@ scePowerUnregisterCallback too high (32): 80000102
 scePowerUnregisterCallback: 00000000
 scePowerUnregisterCallback: 00000000
 
----
+[x] ---
 scePowerRegisterCallback: 00000000
 sceKernelPowerTick: 00000000
 powerHandler called: 00000001, 00000080, 00001234
@@ -52,7 +52,7 @@ scePowerSetCpuClockFrequency to 222: 00000000
 sceKernelCheckCallback: 00000000
 scePowerUnregisterCallback: 00000000
 
----
+[x] ---
 scePowerRegisterCallback: Normal: 00000000
 scePowerRegisterCallback: Invalid CB: 80000100
 scePowerRegisterCallback: Too low slot: 80000102
@@ -68,7 +68,7 @@ scePowerUnregisterCallback: 00000000
 sceKernelDeleteCallback: 00000000
 sceKernelCheckCallback: 00000000
 
----
+[x] ---
 scePowerRegisterCallback: 00000000
 scePowerRegisterCallback: 00000001
 scePowerRegisterCallback: 00000002
@@ -87,4 +87,4 @@ scePowerRegisterCallback: 0000000E
 scePowerRegisterCallback: 0000000F
 scePowerRegisterCallback: 80000022
 
----
+[x] ---
