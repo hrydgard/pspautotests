@@ -1,0 +1,67 @@
+[x] sceKernelDelayThread:
+[x]   Interrupts disabled: 800201a7
+[x]   Dispatch disabled: 800201a7
+
+[x] sceKernelDelayThreadCB:
+[x]   Interrupts disabled: 800201a7
+[x]   Dispatch disabled: 800201a7
+
+[x] sceKernelSleepThread:
+[x]   Interrupts disabled: 800201a7
+[x]   Dispatch disabled: 800201a7
+
+[x] sceKernelSleepThreadCB:
+[x]   Interrupts disabled: 800201a7
+[x]   Dispatch disabled: 800201a7
+
+[x] sceDisplayWaitVblank:
+[x]   Interrupts disabled: 800201a7
+[x]   Dispatch disabled: 800201a7
+
+[x] sceDisplayWaitVblankCB:
+[x]   Interrupts disabled: 800201a7
+[x]   Dispatch disabled: 800201a7
+
+[x] sceDisplayWaitVblankStart:
+[x]   Interrupts disabled: 800201a7
+[x]   Dispatch disabled: 800201a7
+
+[x] sceDisplayWaitVblankStartCB:
+[x]   Interrupts disabled: 800201a7
+[x]   Dispatch disabled: 800201a7
+
+[x] sceKernelWaitSema:
+[x]   Bad sema - interrupts disabled: 800201a7
+[x]   Bad sema - dispatch disabled: 800201a7
+[x]   Invalid count - interrupts disabled: 800201a7
+[x]   Invalid count - dispatch disabled: 800201a7
+[x]   Valid sema - interrupts disabled: 800201a7
+[x]   Valid sema - dispatch disabled: 800201a7
+
+[x] sceKernelWaitSemaCB:
+[x]   Bad sema - interrupts disabled: 800201a7
+[x]   Bad sema - dispatch disabled: 800201a7
+[x]   Invalid count - interrupts disabled: 800201a7
+[x]   Invalid count - dispatch disabled: 800201a7
+[x]   Valid sema - interrupts disabled: 800201a7
+[x]   Valid sema - dispatch disabled: 800201a7
+
+[x] sceKernelWaitEventFlag:
+[x]   Bad flag - interrupts disabled: 800201a7
+[x]   Bad flag - dispatch disabled: 800201a7
+[x]   Invalid mode - interrupts disabled: 80020195
+[x]   Invalid mode - dispatch disabled: 80020195
+[x]   Valid sema - interrupts disabled: 800201a7
+[x]   Valid sema - dispatch disabled: 800201a7
+[x]   Already set - interrupts disabled: 800201a7
+[x]   Already set - dispatch disabled: 800201a7
+
+[x] sceKernelWaitEventFlagCB:
+[x]   Bad flag - interrupts disabled: 800201a7
+[x]   Bad flag - dispatch disabled: 800201a7
+[x]   Invalid mode - interrupts disabled: 80020195
+[x]   Invalid mode - dispatch disabled: 80020195
+[x]   Valid sema - interrupts disabled: 800201a7
+[x]   Valid sema - dispatch disabled: 800201a7
+[x]   Already set - interrupts disabled: 800201a7
+[x]   Already set - dispatch disabled: 800201a7
