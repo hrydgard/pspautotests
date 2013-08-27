@@ -52,27 +52,31 @@ void vblank_counter(int no, int* counter) {
 }
 
 void suspendUsage() {
+	checkpointNext("sceKernelCpuSuspendIntr usage:");
 	int counter;
-	sceKernelRegisterSubIntrHandler(PSP_VBLANK_INT, 0, vblank_counter, &counter);
+	checkpoint("sceKernelRegisterSubIntrHandler 1: %08x", sceKernelRegisterSubIntrHandler(PSP_VBLANK_INT, 1, vblank_counter, &counter));
 
 	counter = 0;
-	sceKernelEnableSubIntr(PSP_VBLANK_INT, 0);
 	int flag = sceKernelCpuSuspendIntr();
-	sceKernelDelayThread(300000);
+	checkpoint("sceKernelEnableSubIntr: %08x", sceKernelEnableSubIntr(PSP_VBLANK_INT, 1));
+	checkpoint("sceKernelDelayThread: %08x", sceKernelDelayThread(300000));
+	checkpoint("sceKernelDisableSubIntr: %08x", sceKernelDisableSubIntr(PSP_VBLANK_INT, 1));
 	sceKernelCpuResumeIntr(flag);
-	sceKernelDisableSubIntr(PSP_VBLANK_INT, 0);
 
-	printf("Interrupts suspended: %d\n", counter);
+	checkpoint("sceKernelDelayThread: %08x", sceKernelDelayThread(300000));
+	checkpoint("Interrupts suspended: %d", counter);
 
 	counter = 0;
-	sceKernelRegisterSubIntrHandler(PSP_VBLANK_INT, 0, vblank_counter, &counter);
-	sceKernelEnableSubIntr(PSP_VBLANK_INT, 0);
-	sceKernelDelayThread(300000);
-	sceKernelDisableSubIntr(PSP_VBLANK_INT, 0);
+	checkpoint("sceKernelRegisterSubIntrHandler 2: %08x", sceKernelRegisterSubIntrHandler(PSP_VBLANK_INT, 2, vblank_counter, &counter));
+	checkpoint("sceKernelEnableSubIntr: %08x", sceKernelEnableSubIntr(PSP_VBLANK_INT, 2));
+	checkpoint("sceKernelDelayThread: %08x", sceKernelDelayThread(300000));
+	checkpoint("sceKernelDisableSubIntr: %08x", sceKernelDisableSubIntr(PSP_VBLANK_INT, 2));
 
-	sceKernelReleaseSubIntrHandler(PSP_VBLANK_INT, 0);
+	checkpoint("sceKernelDelayThread: %08x", sceKernelDelayThread(300000));
+	checkpoint("Interrupts resumed: %d", counter);
 
-	printf("Interrupts resumed: %d\n", counter);
+	sceKernelReleaseSubIntrHandler(PSP_VBLANK_INT, 1);
+	sceKernelReleaseSubIntrHandler(PSP_VBLANK_INT, 2);
 }
 
 int main(int argc, char** argv) {
