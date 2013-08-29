@@ -4,6 +4,11 @@
 #include <pspintrman.h>
 #include <pspdisplay.h>
 #include <pspmodulemgr.h>
+#include <pspaudio.h>
+#include <pspge.h>
+#include <pspiofilemgr.h>
+#include <pspsuspend.h>
+#include <pspumd.h>
 #include <stdarg.h>
 
 typedef struct SceKernelTlsOptParam {
@@ -37,6 +42,17 @@ int sceDisplayWaitVblankStartMulti(int vblanks);
 int sceDisplayWaitVblankStartMultiCB(int vblanks);
 }
 
+unsigned int __attribute__((aligned(16))) dlist[] = {
+	0x00000000, // 0x00 NOP
+	0x0F000000, // 0x0A FINISH
+	0x0C000000, // 0x0B END
+	0x00000000, // 0x00 NOP
+	0x00000000, // 0x00 NOP
+	0x0F000000, // 0x0E FINISH
+	0x0C000000, // 0x0F END
+	0x00000000, // 0x00 NOP
+};
+
 int sceKernelAllocateTlsHelper(SceUID uid) {
 	int result = sceKernelAllocateTls(uid);
 	if (result > 0) {
@@ -51,7 +67,7 @@ extern volatile int didResched;
 extern u64 lastCheckpoint;
 void safeCheckpoint(const char *format, ...) {
 	int state = sceKernelSuspendDispatchThread();
-	int result = sceKernelResumeDispatchThread(state);
+	sceKernelResumeDispatchThread(state);
 
 	const char *reschedState = didResched ? "?" : "x";
 	if (didResched == 1) {
@@ -95,9 +111,16 @@ void safeCheckpoint(const char *format, ...) {
 	{ \
 		state = sceKernelCpuSuspendIntr(); \
 		safeCheckpoint("  Interrupts disabled: %08x", expr); \
+		if (sceKernelIsCpuIntrEnable()) { \
+			safeCheckpoint("  Interrupts were re-enabled?"); \
+		} \
 		sceKernelCpuResumeIntr(state); \
 		state = sceKernelSuspendDispatchThread(); \
 		safeCheckpoint("  Dispatch disabled: %08x", expr); \
+		int state2 = sceKernelSuspendDispatchThread(); \
+		if (state2 == state) { \
+			safeCheckpoint("  Dispatch was re-enabled?"); \
+		} \
 		sceKernelResumeDispatchThread(state); \
 	}
 
@@ -105,17 +128,38 @@ void safeCheckpoint(const char *format, ...) {
 	{ \
 		state = sceKernelCpuSuspendIntr(); \
 		safeCheckpoint("  %s - interrupts disabled: %08x", title, expr); \
+		if (sceKernelIsCpuIntrEnable()) { \
+			safeCheckpoint("  Interrupts were re-enabled?"); \
+		} \
 		sceKernelCpuResumeIntr(state); \
 		state = sceKernelSuspendDispatchThread(); \
 		safeCheckpoint("  %s - dispatch disabled: %08x", title, expr); \
+		int state2 = sceKernelSuspendDispatchThread(); \
+		if (state2 == state) { \
+			safeCheckpoint("  Dispatch was re-enabled?"); \
+		} \
 		sceKernelResumeDispatchThread(state); \
 	}
 
 bool intrRan = false;
 SceUID intrSema;
 SceUID intrFlag;
+SceUID intrMbx;
+SceUID intrFpl;
+SceUID intrVpl;
+SceUID intrTls;
+SceUID intrMsgPipe;
+SceUID intrMutex;
+char intrLwMutex[256];
+SceUID intrModule;
+SceUID intrThread;
+int intrDlist;
+int intrFd;
 
 extern "C" void interruptFunc(int no, void *arg) {
+	void *ptr;
+	char buf[1024];
+
 	if (intrRan) {
 		return;
 	}
@@ -152,6 +196,109 @@ extern "C" void interruptFunc(int no, void *arg) {
 	safeCheckpoint("  sceKernelWaitEventFlagCB - bad flag: %08x", sceKernelWaitEventFlagCB(0, 1, PSP_EVENT_WAITAND, NULL, NULL));
 	safeCheckpoint("  sceKernelWaitEventFlagCB - invalid mode: %08x", sceKernelWaitEventFlagCB(intrFlag, 1, 0xFF, NULL, NULL));
 	safeCheckpoint("  sceKernelWaitEventFlagCB - valid flag: %08x", sceKernelWaitEventFlagCB(intrFlag, 1, PSP_EVENT_WAITAND, NULL, NULL));
+
+	safeCheckpoint("  sceKernelReceiveMbx - bad mbx: %08x", sceKernelReceiveMbx(0, &ptr, NULL));
+	safeCheckpoint("  sceKernelReceiveMbx - valid mbx: %08x", sceKernelReceiveMbx(intrMbx, &ptr, NULL));
+	safeCheckpoint("  sceKernelReceiveMbxCB - bad mbx: %08x", sceKernelReceiveMbxCB(0, &ptr, NULL));
+	safeCheckpoint("  sceKernelReceiveMbxCB - valid mbx: %08x", sceKernelReceiveMbxCB(intrMbx, &ptr, NULL));
+
+	safeCheckpoint("  sceKernelAllocateFpl - bad fpl: %08x", sceKernelAllocateFpl(0, &ptr, NULL));
+	safeCheckpoint("  sceKernelAllocateFpl - valid fpl: %08x", sceKernelAllocateFpl(intrFpl, &ptr, NULL));
+	safeCheckpoint("  sceKernelAllocateFplCB - bad fpl: %08x", sceKernelAllocateFplCB(0, &ptr, NULL));
+	safeCheckpoint("  sceKernelAllocateFplCB - valid fpl: %08x", sceKernelAllocateFplCB(intrFpl, &ptr, NULL));
+
+	safeCheckpoint("  sceKernelAllocateVpl - bad vpl: %08x", sceKernelAllocateVpl(0, 0x10, &ptr, NULL));
+	safeCheckpoint("  sceKernelAllocateVpl - bad size: %08x", sceKernelAllocateVpl(intrVpl, 0, &ptr, NULL));
+	safeCheckpoint("  sceKernelAllocateVpl - valid vpl: %08x", sceKernelAllocateVpl(intrVpl, 0x10, &ptr, NULL));
+	safeCheckpoint("  sceKernelAllocateVplCB - bad vpl: %08x", sceKernelAllocateVplCB(0, 0x10, &ptr, NULL));
+	safeCheckpoint("  sceKernelAllocateVplCB - bad size: %08x", sceKernelAllocateVplCB(intrVpl, 0, &ptr, NULL));
+	safeCheckpoint("  sceKernelAllocateVplCB - valid vpl: %08x", sceKernelAllocateVplCB(intrVpl, 0x10, &ptr, NULL));
+
+	safeCheckpoint("  sceKernelAllocateTls - bad tls: %08x", sceKernelAllocateTlsHelper(0));
+	safeCheckpoint("  sceKernelAllocateTls - valid tls: %08x", sceKernelAllocateTlsHelper(intrTls));
+
+	safeCheckpoint("  sceKernelReceiveMsgPipe - bad msgpipe: %08x", sceKernelReceiveMsgPipe(0, buf, 256, 0, NULL, NULL));
+	safeCheckpoint("  sceKernelReceiveMsgPipe - bad size: %08x", sceKernelReceiveMsgPipe(intrMsgPipe, buf, -1, 0, NULL, NULL));
+	safeCheckpoint("  sceKernelReceiveMsgPipe - valid msgpipe: %08x", sceKernelReceiveMsgPipe(intrMsgPipe, buf, 256, 0, NULL, NULL));
+	safeCheckpoint("  sceKernelReceiveMsgPipeCB - bad msgpipe: %08x", sceKernelReceiveMsgPipeCB(0, buf, 256, 0, NULL, NULL));
+	safeCheckpoint("  sceKernelReceiveMsgPipeCB - bad size: %08x", sceKernelReceiveMsgPipeCB(intrMsgPipe, buf, -1, 0, NULL, NULL));
+	safeCheckpoint("  sceKernelReceiveMsgPipeCB - valid msgpipe: %08x", sceKernelReceiveMsgPipeCB(intrMsgPipe, buf, 256, 0, NULL, NULL));
+	safeCheckpoint("  sceKernelSendMsgPipe - bad msgpipe: %08x", sceKernelSendMsgPipe(0, buf, 256, 0, NULL, NULL));
+	safeCheckpoint("  sceKernelSendMsgPipe - bad size: %08x", sceKernelSendMsgPipe(intrMsgPipe, buf, -1, 0, NULL, NULL));
+	safeCheckpoint("  sceKernelSendMsgPipe - valid msgpipe: %08x", sceKernelSendMsgPipe(intrMsgPipe, buf, 256, 0, NULL, NULL));
+	safeCheckpoint("  sceKernelSendMsgPipeCB - bad msgpipe: %08x", sceKernelSendMsgPipeCB(0, buf, 256, 0, NULL, NULL));
+	safeCheckpoint("  sceKernelSendMsgPipeCB - bad size: %08x", sceKernelSendMsgPipeCB(intrMsgPipe, buf, -1, 0, NULL, NULL));
+	safeCheckpoint("  sceKernelSendMsgPipeCB - valid msgpipe: %08x", sceKernelSendMsgPipeCB(intrMsgPipe, buf, 256, 0, NULL, NULL));
+
+	safeCheckpoint("  sceKernelLockMutex - bad mutex: %08x", sceKernelLockMutex(0, 1, NULL));
+	safeCheckpoint("  sceKernelLockMutex - bad count: %08x", sceKernelLockMutex(intrMutex, 9, NULL));
+	safeCheckpoint("  sceKernelLockMutex - valid mutex: %08x", sceKernelLockMutex(intrMutex, 1, NULL));
+	safeCheckpoint("  sceKernelLockMutexCB - bad mutex: %08x", sceKernelLockMutexCB(0, 1, NULL));
+	safeCheckpoint("  sceKernelLockMutexCB - bad count: %08x", sceKernelLockMutexCB(intrMutex, 9, NULL));
+	safeCheckpoint("  sceKernelLockMutexCB - valid mutex: %08x", sceKernelLockMutexCB(intrMutex, 1, NULL));
+
+	safeCheckpoint("  sceKernelLockLwMutex - bad count: %08x", sceKernelLockLwMutex(intrLwMutex, 9, NULL));
+	safeCheckpoint("  sceKernelLockLwMutex - valid mutex: %08x", sceKernelLockLwMutex(intrLwMutex, 1, NULL));
+	safeCheckpoint("  sceKernelLockLwMutexCB - bad count: %08x", sceKernelLockLwMutexCB(intrLwMutex, 9, NULL));
+	safeCheckpoint("  sceKernelLockLwMutexCB - valid mutex: %08x", sceKernelLockLwMutexCB(intrLwMutex, 1, NULL));
+
+	safeCheckpoint("  sceKernelStartModule: %08x", sceKernelStartModule(sceKernelGetModuleId(), 0, NULL, NULL, NULL));
+	safeCheckpoint("  sceKernelStopModule: %08x", sceKernelStopModule(sceKernelGetModuleId(), 0, NULL, NULL, NULL));
+
+	safeCheckpoint("  sceKernelWaitThreadEnd - bad thread: %08x", sceKernelWaitThreadEnd(0, NULL));
+	safeCheckpoint("  sceKernelWaitThreadEnd - not running: %08x", sceKernelWaitThreadEnd(intrThread, NULL));
+	safeCheckpoint("  sceKernelWaitThreadEnd - running: %08x", sceKernelWaitThreadEnd(reschedThread, NULL));
+	safeCheckpoint("  sceKernelWaitThreadEndCB - bad thread: %08x", sceKernelWaitThreadEndCB(0, NULL));
+	safeCheckpoint("  sceKernelWaitThreadEndCB - not running: %08x", sceKernelWaitThreadEndCB(intrThread, NULL));
+	safeCheckpoint("  sceKernelWaitThreadEndCB - running: %08x", sceKernelWaitThreadEndCB(reschedThread, NULL));
+
+	SceCtrlData pad[64];
+	sceCtrlReadBufferPositive(pad, 64);
+	safeCheckpoint("  sceCtrlReadBufferPositive - bad count: %08x", sceCtrlReadBufferPositive(pad, 256));
+	safeCheckpoint("  sceCtrlReadBufferPositive - valid: %08x", sceCtrlReadBufferPositive(pad, 64));
+
+	safeCheckpoint("  sceAudioOutputBlocking - invalid channel: %08x", sceAudioOutputBlocking(1, 0, buf));
+	safeCheckpoint("  sceAudioOutputBlocking - valid channel - 64: %08x", sceAudioOutputBlocking(0, 0, buf));
+	safeCheckpoint("  sceAudioSRCOutputBlocking - valid channel - 64: %08x", sceAudioSRCOutputBlocking(0, buf));
+
+	safeCheckpoint("  sceGeListSync - invalid list: %08x", sceGeListSync(9999, 0));
+	safeCheckpoint("  sceGeListSync - mode 0: %08x", sceGeListSync(intrDlist, 0));
+	safeCheckpoint("  sceGeListSync - mode 1: %08x", sceGeListSync(intrDlist, 1));
+	safeCheckpoint("  sceGeListSync - mode 2: %08x", sceGeListSync(intrDlist, 2));
+
+	safeCheckpoint("  sceGeDrawSync - mode 0: %08x", sceGeDrawSync(0));
+	safeCheckpoint("  sceGeDrawSync - mode 1: %08x", sceGeDrawSync(1));
+	safeCheckpoint("  sceGeDrawSync - mode 2: %08x", sceGeDrawSync(2));
+
+	s64 iores;
+	safeCheckpoint("  sceIoRead - bad file: %08x", sceIoRead(63, buf, 1));
+	safeCheckpoint("  sceIoRead - valid: %08x", sceIoRead(intrFd, buf, 1));
+	safeCheckpoint("  sceIoWrite - bad file: %08x", sceIoWrite(63, buf, 1));
+	safeCheckpoint("  sceIoWrite - valid: %08x", sceIoWrite(intrFd, buf, 1));
+	sceIoLseekAsync(intrFd, 0, PSP_SEEK_SET);
+	safeCheckpoint("  sceIoWaitAsync - bad file: %08x", sceIoWaitAsync(63, &iores));
+	sceIoLseekAsync(intrFd, 0, PSP_SEEK_SET);
+	safeCheckpoint("  sceIoWaitAsync - valid: %08x", sceIoWaitAsync(intrFd, &iores));
+	sceIoLseekAsync(intrFd, 0, PSP_SEEK_SET);
+	safeCheckpoint("  sceIoWaitAsyncCB - bad file: %08x", sceIoWaitAsyncCB(63, &iores));
+	sceIoLseekAsync(intrFd, 0, PSP_SEEK_SET);
+	safeCheckpoint("  sceIoWaitAsyncCB - valid: %08x", sceIoWaitAsyncCB(intrFd, &iores));
+	sceIoLseekAsync(intrFd, 0, PSP_SEEK_SET);
+	safeCheckpoint("  sceIoGetAsyncStat - bad file: %08x", sceIoGetAsyncStat(63, 0, &iores));
+	sceIoLseekAsync(intrFd, 0, PSP_SEEK_SET);
+	safeCheckpoint("  sceIoGetAsyncStat - peek: %08x", sceIoGetAsyncStat(intrFd, 1, &iores));
+	sceIoLseekAsync(intrFd, 0, PSP_SEEK_SET);
+	safeCheckpoint("  sceIoGetAsyncStat - valid: %08x", sceIoGetAsyncStat(intrFd, 0, &iores));
+
+	safeCheckpoint("  sceKernelVolatileMemLock: %08x", sceKernelVolatileMemLock(0, NULL, NULL));
+	sceKernelVolatileMemUnlock(0);
+
+	safeCheckpoint("  sceUmdWaitDriveStat - invalid type: %08x", sceUmdWaitDriveStat(0));
+	safeCheckpoint("  sceUmdWaitDriveStat - valid type: %08x", sceUmdWaitDriveStat(0x20));
+	safeCheckpoint("  sceUmdWaitDriveStatWithTimer - invalid type: %08x", sceUmdWaitDriveStatWithTimer(0, 100));
+	safeCheckpoint("  sceUmdWaitDriveStatWithTimer - valid type: %08x", sceUmdWaitDriveStatWithTimer(0x20, 100));
+	safeCheckpoint("  sceUmdWaitDriveStatCB - invalid type: %08x", sceUmdWaitDriveStatCB(0, 100));
+	safeCheckpoint("  sceUmdWaitDriveStatCB - valid type: %08x", sceUmdWaitDriveStatCB(0x20, 100));
 }
 
 extern "C" int dummyThread(SceSize argc, void *argp) {
@@ -161,7 +308,7 @@ extern "C" int dummyThread(SceSize argc, void *argp) {
 extern "C" int main(int argc, char *argv[]) {
 	int state;
 	void *ptr;
-	char buf[256];
+	char buf[1024];
 
 	SceKernelSysClock clock = {200};
 	checkpointNext("sceKernelDelayThread:");
@@ -219,8 +366,6 @@ extern "C" int main(int argc, char *argv[]) {
 	sceKernelSetEventFlag(flag, 1);
 	INTR_DISPATCH_TITLE("Already set", sceKernelWaitEventFlagCB(flag, 1, PSP_EVENT_WAITAND, NULL, NULL));
 	sceKernelDeleteEventFlag(flag);
-
-	// TODO: Need to test below here inside the interrupt.
 
 	SceUID mbx = sceKernelCreateMbx("mbx", 0, NULL);
 	checkpointNext("sceKernelReceiveMbx:");
@@ -294,7 +439,7 @@ extern "C" int main(int argc, char *argv[]) {
 	checkpointNext("sceKernelLockLwMutexCB:");
 	INTR_DISPATCH_TITLE("Bad count", sceKernelLockLwMutexCB(buf, 9, NULL));
 	INTR_DISPATCH_TITLE("Valid mutex", sceKernelLockLwMutexCB(buf, 1, NULL));
-	sceKernelDeleteMutex(mutex);
+	sceKernelDeleteLwMutex(buf);
 
 	checkpointNext("sceKernelStartModule:");
 	INTR_DISPATCH(sceKernelStartModule(sceKernelGetModuleId(), 0, NULL, NULL, NULL));
@@ -318,23 +463,118 @@ extern "C" int main(int argc, char *argv[]) {
 	INTR_DISPATCH_TITLE("Bad count", sceCtrlReadBufferPositive(pad, 256));
 	INTR_DISPATCH_TITLE("Valid", sceCtrlReadBufferPositive(pad, 64));
 
-	// TODO:
-	// sceAudioOutputBlocking / sceAudioOutput / sceAudioSRCOutputBlocking
-	// sceGeListSync/sceGeDrawSync
-	// sceIoRead/sceIoWrite/sceIoWaitAsync/sceIoGetAsyncStat
-	// sceKernelVolatileMemLock
-	// sceUmdWaitDriveStat / sceUmdWaitDriveStatWithTimer / sceUmdWaitDriveStatCB
+	sceAudioChReserve(0, 64, PSP_AUDIO_FORMAT_STEREO);
+	checkpointNext("sceAudioOutputBlocking:");
+	INTR_DISPATCH_TITLE("Invalid channel", sceAudioOutputBlocking(1, 0, buf));
+	INTR_DISPATCH_TITLE("Valid channel - 64", sceAudioOutputBlocking(0, 0, buf));
+	sceAudioSetChannelDataLen(0, 128);
+	INTR_DISPATCH_TITLE("Valid channel - 128", sceAudioOutputBlocking(0, 0, buf));
+	sceAudioChRelease(0);
+
+	sceAudioSRCChReserve(64, 44100, 2);
+	checkpointNext("sceAudioSRCOutputBlocking:");
+	INTR_DISPATCH_TITLE("Valid channel - 64", sceAudioSRCOutputBlocking(0, buf));
+	sceAudioSRCOutputBlocking(0, NULL);
+	sceAudioSRCChRelease();
+	sceAudioSRCChReserve(128, 44100, 2);
+	INTR_DISPATCH_TITLE("Valid channel - 128", sceAudioSRCOutputBlocking(0, buf));
+	sceAudioSRCChRelease();
+
+	int dl = sceGeListEnQueue(dlist, NULL, -1, NULL);
+	checkpointNext("sceGeListSync:");
+	INTR_DISPATCH_TITLE("Invalid list", sceGeListSync(9999, 0));
+	INTR_DISPATCH_TITLE("Mode 0", sceGeListSync(dl, 0));
+	INTR_DISPATCH_TITLE("Mode 1", sceGeListSync(dl, 1));
+	INTR_DISPATCH_TITLE("Mode 2", sceGeListSync(dl, 2));
+	sceGeListDeQueue(dl);
+
+	checkpointNext("sceGeDrawSync:");
+	INTR_DISPATCH_TITLE("Mode 0", sceGeDrawSync(0));
+	INTR_DISPATCH_TITLE("Mode 1", sceGeDrawSync(1));
+	INTR_DISPATCH_TITLE("Mode 2", sceGeDrawSync(2));
+
+	int fd = sceIoOpen("ms0:/_intr_waits_test.txt", PSP_O_CREAT | PSP_O_RDWR, 0777);
+	s64 iores;
+	checkpointNext("sceIoRead:");
+	INTR_DISPATCH_TITLE("Bad file", sceIoRead(63, buf, 1));
+	INTR_DISPATCH_TITLE("Valid", sceIoRead(fd, buf, 1));
+	checkpointNext("sceIoWrite:");
+	INTR_DISPATCH_TITLE("Bad file", sceIoWrite(63, buf, 1));
+	INTR_DISPATCH_TITLE("Valid", sceIoWrite(fd, buf, 1));
+	checkpointNext("sceIoWaitAsync:");
+	sceIoLseekAsync(fd, 0, PSP_SEEK_SET);
+	INTR_DISPATCH_TITLE("Bad file", sceIoWaitAsync(63, &iores));
+	sceIoLseekAsync(fd, 1, PSP_SEEK_SET);
+	INTR_DISPATCH_TITLE("Valid", sceIoWaitAsync(fd, &iores));
+	checkpointNext("sceIoWaitAsyncCB:");
+	sceIoLseekAsync(fd, 2, PSP_SEEK_SET);
+	INTR_DISPATCH_TITLE("Bad file", sceIoWaitAsyncCB(63, &iores));
+	sceIoLseekAsync(fd, 3, PSP_SEEK_SET);
+	INTR_DISPATCH_TITLE("Valid", sceIoWaitAsyncCB(fd, &iores));
+	checkpointNext("sceIoGetAsyncStat:");
+	sceIoLseekAsync(fd, 4, PSP_SEEK_SET);
+	INTR_DISPATCH_TITLE("Bad file", sceIoGetAsyncStat(63, 0, &iores));
+	sceIoLseekAsync(fd, 5, PSP_SEEK_SET);
+	INTR_DISPATCH_TITLE("Peek", sceIoGetAsyncStat(fd, 1, &iores));
+	sceIoLseekAsync(fd, 6, PSP_SEEK_SET);
+	INTR_DISPATCH_TITLE("Valid", sceIoGetAsyncStat(fd, 0, &iores));
+	sceIoClose(fd);
+	sceIoRemove("ms0:/_intr_waits_test.txt");
+
+	checkpointNext("sceKernelVolatileMemLock:");
+	INTR_DISPATCH_TITLE("While not locked", sceKernelVolatileMemLock(0, NULL, NULL));
+	INTR_DISPATCH_TITLE("While locked", sceKernelVolatileMemLock(0, NULL, NULL));
+	sceKernelVolatileMemUnlock(0);
+
+	checkpointNext("sceUmdWaitDriveStat:");
+	INTR_DISPATCH_TITLE("Invalid type", sceUmdWaitDriveStat(0));
+	INTR_DISPATCH_TITLE("Valid type", sceUmdWaitDriveStat(0x20));
+
+	checkpointNext("sceUmdWaitDriveStatWithTimer:");
+	INTR_DISPATCH_TITLE("Invalid type", sceUmdWaitDriveStatWithTimer(0, 100));
+	INTR_DISPATCH_TITLE("Valid type", sceUmdWaitDriveStatWithTimer(0x20, 100));
+
+	checkpointNext("sceUmdWaitDriveStatCB:");
+	INTR_DISPATCH_TITLE("Invalid type", sceUmdWaitDriveStatCB(0, 100));
+	INTR_DISPATCH_TITLE("Valid type", sceUmdWaitDriveStatCB(0x20, 100));
 
 	intrSema = sceKernelCreateSema("sema", 0, 0, 1, NULL);
 	intrFlag = sceKernelCreateEventFlag("flag", 0, 0, NULL);
+	intrMbx = sceKernelCreateMbx("mbx", 0, NULL);
+	intrFpl = sceKernelCreateFpl("fpl", PSP_MEMORY_PARTITION_USER, 0, 0x100, 0x10, NULL);
+	intrVpl = sceKernelCreateVpl("vpl", PSP_MEMORY_PARTITION_USER, 0, 0x100, NULL);
+	intrTls = sceKernelCreateTls("tls", PSP_MEMORY_PARTITION_USER, 0, 0x100, 0x10, NULL);
+	intrMsgPipe = sceKernelCreateMsgPipe("msgpipe", PSP_MEMORY_PARTITION_USER, 0, (void *)0, NULL);
+	intrMutex = sceKernelCreateMutex("mutex", 0, 0, NULL);
+	sceKernelCreateLwMutex(intrLwMutex, "lwmutex", 0, 0, NULL);
+	intrThread = sceKernelCreateThread("notRunning", &dummyThread, 0x20, 0x1000, 0, NULL);
+	sceAudioChReserve(0, 64, PSP_AUDIO_FORMAT_STEREO);
+	sceAudioSRCChReserve(64, 44100, 2);
+	intrDlist = sceGeListEnQueue(dlist, NULL, -1, NULL);
+	intrFd = sceIoOpen("ms0:/_intr_waits_test.txt", PSP_O_CREAT | PSP_O_RDWR, 0777);
+
 	checkpointNext("Inside interrupt:");
 	checkpoint("sceKernelRegisterSubIntrHandler 1: %08x", sceKernelRegisterSubIntrHandler(PSP_VBLANK_INT, 1, (void *)interruptFunc, NULL));
 	checkpoint("sceKernelEnableSubIntr: %08x", sceKernelEnableSubIntr(PSP_VBLANK_INT, 1));
 	checkpoint("sceKernelDelayThread: %08x", sceKernelDelayThread(30000));
 	checkpoint("sceKernelDisableSubIntr: %08x", sceKernelDisableSubIntr(PSP_VBLANK_INT, 1));
 	checkpoint("sceKernelReleaseSubIntrHandler: %08x", sceKernelReleaseSubIntrHandler(PSP_VBLANK_INT, 1));
-	sceKernelDeleteEventFlag(intrFlag);
+
 	sceKernelDeleteSema(intrSema);
+	sceKernelDeleteEventFlag(intrFlag);
+	sceKernelDeleteMbx(mbx);
+	sceKernelDeleteFpl(fpl);
+	sceKernelDeleteVpl(vpl);
+	sceKernelDeleteTls(tls);
+	sceKernelDeleteMsgPipe(intrMsgPipe);
+	sceKernelDeleteMutex(mutex);
+	sceKernelDeleteLwMutex(intrLwMutex);
+	sceKernelDeleteThread(intrThread);
+	sceAudioChRelease(0);
+	sceAudioSRCChRelease();
+	sceGeListDeQueue(intrDlist);
+	sceIoClose(fd);
+	sceIoRemove("ms0:/_intr_waits_test.txt");
 
 	return 0;
 }

@@ -222,6 +222,94 @@
 [?]   Valid - interrupts disabled: 800201a7
 [?]   Valid - dispatch disabled: 800201a7
 
+[x] sceAudioOutputBlocking:
+[x]   Invalid channel - interrupts disabled: 80260001
+[?]   Invalid channel - dispatch disabled: 80260001
+[?]   Valid channel - 64 - interrupts disabled: 00000040
+[?]   Valid channel - 64 - dispatch disabled: 00000040
+[?]   Valid channel - 128 - interrupts disabled: 800201a7
+[?]   Valid channel - 128 - dispatch disabled: 80260002
+
+[x] sceAudioSRCOutputBlocking:
+[x]   Valid channel - 64 - interrupts disabled: 800201a7
+[?]   Valid channel - 64 - dispatch disabled: 800201a7
+[?]   Valid channel - 128 - interrupts disabled: 80260002
+[?]   Valid channel - 128 - dispatch disabled: 80260002
+
+[x] sceGeListSync:
+[x]   Invalid list - interrupts disabled: 80000100
+[?]   Invalid list - dispatch disabled: 80000100
+[?]   Mode 0 - interrupts disabled: 800201a7
+[?]   Mode 0 - dispatch disabled: 800201a7
+[?]   Mode 1 - interrupts disabled: 00000000
+[?]   Mode 1 - dispatch disabled: 00000000
+[?]   Mode 2 - interrupts disabled: 80000107
+[?]   Mode 2 - dispatch disabled: 80000107
+
+[x] sceGeDrawSync:
+[x]   Mode 0 - interrupts disabled: 800201a7
+[?]   Mode 0 - dispatch disabled: 800201a7
+[?]   Mode 1 - interrupts disabled: 00000000
+[?]   Mode 1 - dispatch disabled: 00000000
+[?]   Mode 2 - interrupts disabled: 80000107
+[?]   Mode 2 - dispatch disabled: 80000107
+
+[x] sceIoRead:
+[x]   Bad file - interrupts disabled: 80020323
+[?]   Bad file - dispatch disabled: 80020323
+[?]   Valid - interrupts disabled: 800201a7
+[?]   Valid - dispatch disabled: 800201a7
+
+[x] sceIoWrite:
+[x]   Bad file - interrupts disabled: 80020323
+[?]   Bad file - dispatch disabled: 80020323
+[?]   Valid - interrupts disabled: 800201a7
+[?]   Valid - dispatch disabled: 800201a7
+
+[x] sceIoWaitAsync:
+[x]   Bad file - interrupts disabled: 80020323
+[?]   Bad file - dispatch disabled: 80020323
+[?]   Valid - interrupts disabled: 800201a7
+[?]   Valid - dispatch disabled: 800201a7
+
+[x] sceIoWaitAsyncCB:
+[x]   Bad file - interrupts disabled: 80020323
+[?]   Bad file - dispatch disabled: 80020323
+[?]   Valid - interrupts disabled: 00000000
+[?]   Valid - dispatch disabled: 8002032a
+
+[x] sceIoGetAsyncStat:
+[x]   Bad file - interrupts disabled: 80020323
+[?]   Bad file - dispatch disabled: 80020323
+[?]   Peek - interrupts disabled: 00000001
+[?]   Peek - dispatch disabled: 00000001
+[?]   Valid - interrupts disabled: 800201a7
+[?]   Valid - dispatch disabled: 800201a7
+
+[x] sceKernelVolatileMemLock:
+[x]   While not locked - interrupts disabled: 800201a7
+[?]   While not locked - dispatch disabled: 800201a7
+[?]   While locked - interrupts disabled: 800201a7
+[?]   While locked - dispatch disabled: 800201a7
+
+[x] sceUmdWaitDriveStat:
+[x]   Invalid type - interrupts disabled: 80010016
+[?]   Invalid type - dispatch disabled: 80010016
+[?]   Valid type - interrupts disabled: 800201a7
+[?]   Valid type - dispatch disabled: 800201a7
+
+[x] sceUmdWaitDriveStatWithTimer:
+[x]   Invalid type - interrupts disabled: 80010016
+[?]   Invalid type - dispatch disabled: 80010016
+[?]   Valid type - interrupts disabled: 800201a7
+[?]   Valid type - dispatch disabled: 800201a7
+
+[x] sceUmdWaitDriveStatCB:
+[x]   Invalid type - interrupts disabled: 80010016
+[?]   Invalid type - dispatch disabled: 80010016
+[?]   Valid type - interrupts disabled: 800201a7
+[?]   Valid type - dispatch disabled: 800201a7
+
 [x] Inside interrupt:
 [x] sceKernelRegisterSubIntrHandler 1: 00000000
 [x] sceKernelEnableSubIntr: 00000000
@@ -252,6 +340,82 @@
 [?]   sceKernelWaitEventFlagCB - bad flag: 80020064
 [?]   sceKernelWaitEventFlagCB - invalid mode: 80020064
 [?]   sceKernelWaitEventFlagCB - valid flag: 80020064
+[?]   sceKernelReceiveMbx - bad mbx: 80020064
+[?]   sceKernelReceiveMbx - valid mbx: 80020064
+[?]   sceKernelReceiveMbxCB - bad mbx: 80020064
+[?]   sceKernelReceiveMbxCB - valid mbx: 80020064
+[?]   sceKernelAllocateFpl - bad fpl: 80020064
+[?]   sceKernelAllocateFpl - valid fpl: 80020064
+[?]   sceKernelAllocateFplCB - bad fpl: 80020064
+[?]   sceKernelAllocateFplCB - valid fpl: 80020064
+[?]   sceKernelAllocateVpl - bad vpl: 80020064
+[?]   sceKernelAllocateVpl - bad size: 80020064
+[?]   sceKernelAllocateVpl - valid vpl: 80020064
+[?]   sceKernelAllocateVplCB - bad vpl: 80020064
+[?]   sceKernelAllocateVplCB - bad size: 80020064
+[?]   sceKernelAllocateVplCB - valid vpl: 80020064
+[?]   sceKernelAllocateTls - bad tls: 00000000
+[?]   sceKernelAllocateTls - valid tls: 00000000
+[?]   sceKernelReceiveMsgPipe - bad msgpipe: 80020064
+[?]   sceKernelReceiveMsgPipe - bad size: 800200d3
+[?]   sceKernelReceiveMsgPipe - valid msgpipe: 80020064
+[?]   sceKernelReceiveMsgPipeCB - bad msgpipe: 80020064
+[?]   sceKernelReceiveMsgPipeCB - bad size: 800200d3
+[?]   sceKernelReceiveMsgPipeCB - valid msgpipe: 80020064
+[?]   sceKernelSendMsgPipe - bad msgpipe: 80020064
+[?]   sceKernelSendMsgPipe - bad size: 800200d3
+[?]   sceKernelSendMsgPipe - valid msgpipe: 80020064
+[?]   sceKernelSendMsgPipeCB - bad msgpipe: 80020064
+[?]   sceKernelSendMsgPipeCB - bad size: 800200d3
+[?]   sceKernelSendMsgPipeCB - valid msgpipe: 80020064
+[?]   sceKernelLockMutex - bad mutex: 80020064
+[?]   sceKernelLockMutex - bad count: 80020064
+[?]   sceKernelLockMutex - valid mutex: 80020064
+[?]   sceKernelLockMutexCB - bad mutex: 80020064
+[?]   sceKernelLockMutexCB - bad count: 80020064
+[?]   sceKernelLockMutexCB - valid mutex: 80020064
+[?]   sceKernelLockLwMutex - bad count: 80020064
+[?]   sceKernelLockLwMutex - valid mutex: 80020064
+[?]   sceKernelLockLwMutexCB - bad count: 80020064
+[?]   sceKernelLockLwMutexCB - valid mutex: 80020064
+[?]   sceKernelStartModule: 80020064
+[?]   sceKernelStopModule: 80020064
+[?]   sceKernelWaitThreadEnd - bad thread: 80020197
+[?]   sceKernelWaitThreadEnd - not running: 80020064
+[?]   sceKernelWaitThreadEnd - running: 80020064
+[?]   sceKernelWaitThreadEndCB - bad thread: 80020197
+[?]   sceKernelWaitThreadEndCB - not running: 80020064
+[?]   sceKernelWaitThreadEndCB - running: 80020064
+[?]   sceCtrlReadBufferPositive - bad count: 80000104
+[?]   sceCtrlReadBufferPositive - valid: 80020064
+[?]   sceAudioOutputBlocking - invalid channel: 80260001
+[?]   sceAudioOutputBlocking - valid channel - 64: 00000080
+[?]   sceAudioSRCOutputBlocking - valid channel - 64: 80020064
+[?]   sceGeListSync - invalid list: 80000100
+[?]   sceGeListSync - mode 0: 80020064
+[?]   sceGeListSync - mode 1: 00000000
+[?]   sceGeListSync - mode 2: 80000107
+[?]   sceGeDrawSync - mode 0: 80020064
+[?]   sceGeDrawSync - mode 1: 00000000
+[?]   sceGeDrawSync - mode 2: 80000107
+[?]   sceIoRead - bad file: 80020323
+[?]   sceIoRead - valid: 80020064
+[?]   sceIoWrite - bad file: 80020323
+[?]   sceIoWrite - valid: 80020064
+[?]   sceIoWaitAsync - bad file: 80020323
+[?]   sceIoWaitAsync - valid: 80020064
+[?]   sceIoWaitAsyncCB - bad file: 80020323
+[?]   sceIoWaitAsyncCB - valid: 80020064
+[?]   sceIoGetAsyncStat - bad file: 80020323
+[?]   sceIoGetAsyncStat - peek: 80020064
+[?]   sceIoGetAsyncStat - valid: 80020064
+[?]   sceKernelVolatileMemLock: 80020064
+[?]   sceUmdWaitDriveStat - invalid type: 80010016
+[?]   sceUmdWaitDriveStat - valid type: 80020064
+[?]   sceUmdWaitDriveStatWithTimer - invalid type: 80010016
+[?]   sceUmdWaitDriveStatWithTimer - valid type: 80020064
+[?]   sceUmdWaitDriveStatCB - invalid type: 80010016
+[?]   sceUmdWaitDriveStatCB - valid type: 80020064
 [r] sceKernelDelayThread: 00000000
 [x] sceKernelDisableSubIntr: 00000000
 [x] sceKernelReleaseSubIntrHandler: 00000000
