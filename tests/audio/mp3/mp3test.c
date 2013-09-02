@@ -9,6 +9,9 @@
 #include <string.h>
 #include <malloc.h>
 
+#include <psputility.h>
+#include <psputility_avmodules.h>
+
 static char	mp3Buf[128*1024]  __attribute__((aligned(64)));
 static short pcmBuf[128*(1152/2)]  __attribute__((aligned(64)));
 
@@ -51,8 +54,8 @@ int main(int argc, char *argv[]) {
 
 	int status;
 
-	int id = pspSdkLoadStartModule("flash0:/kd/libaudiocodec2.prx", PSP_MEMORY_PARTITION_USER);
-	int id2 = pspSdkLoadStartModule("flash0:/kd/libmp3.prx", PSP_MEMORY_PARTITION_USER);
+	int id = sceUtilityLoadModule(PSP_MODULE_AV_AVCODEC);
+	int id2 = sceUtilityLoadModule(PSP_MODULE_AV_MP3);
 
 	if ((id > 0 || (u32) id == 0x80020139UL) && (id2 > 0 || (u32) id2 == 0x80020139UL)) {
 		printf("Audio modules: OK\n");
@@ -110,9 +113,9 @@ int main(int argc, char *argv[]) {
 	printf(" %s\n", numChannels==2?"Stereo":"Mono");
 
 
-	int running = 1;
+	int running = 200;
 
-	while(running) {
+	while(--running > 0) {
 		 // Check if we need to fill our stream buffer
 		if (sceMp3CheckStreamDataNeeded( mp3_handle ) > 0)
 			fillStreamBuffer(file_handle, mp3_handle);
