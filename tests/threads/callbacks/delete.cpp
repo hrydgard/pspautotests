@@ -28,14 +28,14 @@ struct CallbackDeleter : public BasicThread {
 	SceUID cb_;
 };
 
-struct CallbackWaiter : public BasicThread {
-	CallbackWaiter(const char *name, int prio = 0x60)
+struct CallbackSleeper : public BasicThread {
+	CallbackSleeper(const char *name, int prio = 0x60)
 		: BasicThread(name, prio) {
 		start();
 	}
 
 	static int callback(int arg1, int arg2, void *arg) {
-		CallbackWaiter *me = (CallbackWaiter *)arg;
+		CallbackSleeper *me = (CallbackSleeper *)arg;
 		return me->hit(arg1, arg2);
 	}
 
@@ -45,7 +45,7 @@ struct CallbackWaiter : public BasicThread {
 	}
 
 	virtual int execute() {
-		cb_ = sceKernelCreateCallback(name_, &CallbackWaiter::callback, (void *)this);
+		cb_ = sceKernelCreateCallback(name_, &CallbackSleeper::callback, (void *)this);
 		checkpoint("  Beginning sleep on %s", name_);
 		checkpoint("  Woke from sleep: %08x", sceKernelSleepThreadCB());
 		return 0;
@@ -53,6 +53,10 @@ struct CallbackWaiter : public BasicThread {
 
 	SceUID callbackID() {
 		return cb_;
+	}
+
+	void wakeup() {
+		sceKernelWakeupThread(thread_);
 	}
 
 	SceUID cb_;
@@ -76,11 +80,22 @@ extern "C" int main(int argc, char *argv[]) {
 
 	checkpointNext("Deleting during wait:");
 	{
-		CallbackWaiter waiter1("better priority sleeping thread", 0x10);
-		CallbackWaiter waiter2("worse priority sleeping thread", 0x30);
+		CallbackSleeper waiter1("better priority sleeping thread", 0x10);
+		CallbackSleeper waiter2("worse priority sleeping thread", 0x30);
 		sceKernelDelayThread(4000);
 		testDelete("  Delete better priority cb", waiter1.callbackID());
 		testDelete("  Delete worse priority cb", waiter2.callbackID());
+		sceKernelDelayThread(4000);
+	}
+
+	checkpointNext("Deleting from deleted thread:");
+	{
+		CallbackSleeper waiter("sleeping thread");
+		sceKernelDelayThread(4000);
+		waiter.wakeup();
+		waiter.stop();
+
+		testDelete("  Delete after thread delete", waiter.callbackID());
 		sceKernelDelayThread(4000);
 	}
 

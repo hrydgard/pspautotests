@@ -18,6 +18,14 @@
 [r]   ** stopped worse priority sleeping thread
 [r]   ** stopped better priority sleeping thread
 
+[x] Deleting from deleted thread:
+[r]   Beginning sleep on sleeping thread
+[r]   ** started sleeping thread
+[r]   Woke from sleep: 00000000
+[r]   ** stopped sleeping thread
+[x]   Delete after thread delete: Failed (800201a1)
+[r]   ** stopped sleeping thread
+
 [x] Delete while notified:
 [x]   Notify: 00000000
 [x]   Delete: OK
