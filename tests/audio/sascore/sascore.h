@@ -17,10 +17,26 @@ struct SasHeader
 	int unk2; // default = -1
 };
 
+typedef enum
+{
+	SAS_VOICE_TYPE_NONE = 0x00,
+	SAS_VOICE_TYPE_VAG = 0x01,
+	SAS_VOICE_TYPE_NOISE = 0x02,
+	SAS_VOICE_TYPE_TRIANGLE = 0x03,
+	SAS_VOICE_TYPE_STEEP = 0x04,
+	SAS_VOICE_TYPE_PCM = 0x05,
+	// TODO: Not sure.
+	SAS_VOICE_TYPE_MASK = 0x0F,
+
+	SAS_VOICE_FLAG_PAUSED = 0x10,
+	SAS_VOICE_FLAG_LOOP = 0x100,
+} SasVoiceFlags;
+
 struct SasVoice
 {
 	union // default 0x00000000 0x00000000
 	{
+		u32 unkNone[2];
 		struct
 		{
 			void *vag;

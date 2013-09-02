@@ -6,10 +6,8 @@
 #include <stdarg.h>
 #include <pspsdk.h>
 #include <psputility.h>
+#include <malloc.h>
 #include "sascore.h"
-
-//PSP_MODULE_INFO("sascore test", 0, 1, 1);
-//PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER);
 
 typedef struct {
 	unsigned char* pointer;
@@ -86,6 +84,41 @@ void testSetVolumes(int voice, int l, int r, int el, int er) {
 	}
 }
 
+void dumpSasVoice(int i, struct SasVoice *v) {
+	schedf("  V%02d: ", i);
+
+	SasVoiceFlags type = (SasVoiceFlags) (v->flags & SAS_VOICE_TYPE_MASK);
+	switch (type) {
+	case SAS_VOICE_TYPE_NONE:
+		schedf("NONE     %08x %08x", v->unkNone[0], v->unkNone[1]);
+		break;
+	case SAS_VOICE_TYPE_VAG:
+		schedf("VAG      %08x %08x", v->vag, v->vagLength);
+		break;
+	case SAS_VOICE_TYPE_NOISE:
+		schedf("NOISE    %08x %08x", v->unkNoise[0], v->unkNoise[1]);
+		break;
+	case SAS_VOICE_TYPE_TRIANGLE:
+		schedf("TRIANGLE %04x %04x %04x %04x", v->triangleOrSteep, v->unkTriangle[0], v->unkTriangle[1], v->unkTriangle[2]);
+		break;
+	case SAS_VOICE_TYPE_STEEP:
+		schedf("STEEP    %04x %04x %04x %04x", v->triangleOrSteep, v->unkTriangle[0], v->unkTriangle[1], v->unkTriangle[2]);
+		break;
+	case SAS_VOICE_TYPE_PCM:
+		schedf("PCM      %08x %04x %04x", v->pcm, v->pcmLength, v->pcmLoops);
+		break;
+	default:
+		schedf("UNK %02d  %08x %08x", type, v->unkNone[0], v->unkNone[1]);
+		break;
+	}
+
+	schedf(", flags=%04x, pitch=%04x, leftVol=%04x, rightVol=%04x", v->flags, v->pitch, v->leftVolume, v->rightVolume);
+	schedf(", effectLeftVol=%04x, effectRightVol=%04x, unk1=%04x\n", v->effectLeftVolume, v->effectRightVolume, v->unk1);
+	schedf("       rates: A=%08x, D=%08x, S=%08x, R=%08x  Slvl=%08x\n", v->attackRate, v->decayRate, v->sustainRate, v->releaseRate, v->sustainLevel);
+	schedf("       types: A=%02x, D=%02x, S=%02x, R=%02x", v->attackType, v->decayType, v->sustainType, v->releaseType);
+	schedf(", unk2=%04x, unk3=%04x, unk4=%08x\n", v->unk2, v->unk3, v->unk4);
+}
+
 void dumpSasCore(SasCore *sas) {
 	schedf("  H: unk1End=%08x, revType=%d, unk=%02x", sas->header.unk1End, sas->header.revType, sas->header.unk);
 	schedf(", revDelay=%d, revFeedback=%d, grainFactor=%02x", sas->header.revDelay, sas->header.revFeedback, sas->header.grainFactor);
@@ -93,7 +126,12 @@ void dumpSasCore(SasCore *sas) {
 	schedf(", unkOrPad=%d, revVolLeft=%d, revVolRight=%d", sas->header.unkOrPad, sas->header.revVolLeft, sas->header.revVolRight);
 	schedf(", unk2=%08x\n", sas->header.unk2);
 
-	// TODO: Voices and footer.
+	int i;
+	for (i = 0; i < ARRAY_SIZE(sas->voices); ++i) {
+		dumpSasVoice(i, &sas->voices[i]);
+	}
+
+	schedf("  F: unk1=%08x, unk2=%08x, unk3=%08x\n", sas->footer.unk1, sas->footer.unk2, sas->footer.unk3);
 }
 
 // http://www.psp-programming.com/forums/index.php?action=printpage;topic=4404.0
@@ -148,6 +186,5 @@ int main(int argc, char *argv[]) {
 
 	// TODO: data = loadData();
 
-	flushschedf();
 	return 0;
 }
