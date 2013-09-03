@@ -1,4 +1,4 @@
-TARGETS = display vblankmulti
+TARGETS = display hcount vblankmulti
 EXTRA_OBJS = display-imports.o
 
 COMMON_DIR = ../../common
