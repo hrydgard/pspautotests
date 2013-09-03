@@ -34,14 +34,13 @@ struct BasicThread {
 	void start() {
 		const void *arg[1] = { (void *)this };
 		sceKernelStartThread(thread_, sizeof(arg), arg);
-		sceKernelDelayThread(1000);
 		checkpoint("  ** started %s", name_);
 	}
 
 	void stop() {
 		if (thread_ >= 0) {
 			if (sceKernelGetThreadExitStatus(thread_) != 0) {
-				sceKernelDelayThread(1000);
+				sceKernelDelayThread(500);
 				sceKernelTerminateDeleteThread(thread_);
 				checkpoint("  ** stopped %s", name_);
 			} else {

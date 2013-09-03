@@ -82,21 +82,22 @@ extern "C" int main(int argc, char *argv[]) {
 	{
 		CallbackSleeper waiter1("better priority sleeping thread", 0x10);
 		CallbackSleeper waiter2("worse priority sleeping thread", 0x30);
-		sceKernelDelayThread(4000);
+		sceKernelDelayThread(1000);
 		testDelete("  Delete better priority cb", waiter1.callbackID());
 		testDelete("  Delete worse priority cb", waiter2.callbackID());
-		sceKernelDelayThread(4000);
+		sceKernelDelayThread(1000);
 	}
 
-	checkpointNext("Deleting from deleted thread:");
+	checkpointNext("Associated with a deleted thread:");
 	{
 		CallbackSleeper waiter("sleeping thread");
-		sceKernelDelayThread(4000);
+		sceKernelDelayThread(1000);
 		waiter.wakeup();
 		waiter.stop();
 
+		sceKernelDelayThread(1000);
 		testDelete("  Delete after thread delete", waiter.callbackID());
-		sceKernelDelayThread(4000);
+		sceKernelDelayThread(1000);
 	}
 
 	cb = sceKernelCreateCallback("delete", &cbFunc, NULL);
@@ -105,7 +106,7 @@ extern "C" int main(int argc, char *argv[]) {
 	testDelete("  Delete", cb);
 
 	// And now just to double check - we don't get called, right?
-	sceKernelDelayThreadCB(10000);
+	sceKernelDelayThreadCB(5000);
 
 	return 0;
 }
