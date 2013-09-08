@@ -1,5 +1,5 @@
-TARGETS = atractest ids
-EXTRA_OBJS = atrac-imports.o
+TARGETS = atractest decode ids setdata
+EXTRA_OBJS = atrac-imports.o ../sascore/sascore-imports.o shared.o
 EXTRA_LIBS = -lpspaudio
 
 COMMON_DIR = ../../../common
