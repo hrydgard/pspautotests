@@ -108,9 +108,12 @@ void checkpoint(const char *format, ...) {
 	if (format != NULL) {
 		va_list args;
 		va_start(args, format);
-		schedfBufferPos += vsprintf(schedfBuffer + schedfBufferPos, format, args);
-		// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
-		//vprintf(format, args);
+		if (CHECKPOINT_OUTPUT_DIRECT) {
+			// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
+			vprintf(format, args);
+		} else {
+			schedfBufferPos += vsprintf(schedfBuffer + schedfBufferPos, format, args);
+		}
 		va_end(args);
 	}
 

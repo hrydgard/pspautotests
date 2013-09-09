@@ -3,7 +3,7 @@
 [x]   Normal name: OK FPL: OK (size=56,name=test,attr=00000000,blockSize=00000100,numBlocks=00000010,freeBlocks=00000010,wait=0)
 [x]   Blank name: OK FPL: OK (size=56,name=,attr=00000000,blockSize=00000100,numBlocks=00000010,freeBlocks=00000010,wait=0)
 [x]   Long name: OK FPL: OK (size=56,name=1234567890123456789012345678901,attr=00000000,blockSize=00000100,numBlocks=00000010,freeBlocks=00000010,wait=0)
-[x]   Two with same name: OK FPL: OK (size=56,name=test,attr=00000000,blockSize=00000100,numBlocks=00000010,freeBlocks=00000010,wait=0)
+[x]   Two with same name: OK FPL: OK (size=56,name=create,attr=00000000,blockSize=00000100,numBlocks=00000010,freeBlocks=00000010,wait=0)
 
 [x] Partitions:
 [x]   Partition -5: Failed (800200d2)

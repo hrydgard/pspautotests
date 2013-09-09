@@ -7,20 +7,8 @@
 #include <psploadexec.h>
 #include <pspumd.h>
 
-char schedulingLog[65536];
-char *schedulingLogPos;
-
 int cb1, cb2, cb3;
 int thread1, thread2, thread3;
-
-void schedf(const char *format, ...) {
-	va_list args;
-	va_start(args, format);
-	schedulingLogPos += vsprintf(schedulingLogPos, format, args);
-	// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
-	//vprintf(format, args);
-	va_end(args);
-}
 
 int cbHandler(int unknown, int info, void *arg) {
 	int thread = -1;
@@ -31,7 +19,7 @@ int cbHandler(int unknown, int info, void *arg) {
 	else if (sceKernelGetThreadId() == thread3)
 		thread = 3;
 
-	schedf("cbHandler called: %08X, %08X, %08X on thread %d\n", (uint)unknown, (uint)info, (uint)arg, thread);
+	schedf("thread%d   cbHandler called: %08X, %08X, %08X\n", thread, (uint)unknown, (uint)info, (uint)arg);
 
 	return 0;
 }
@@ -42,7 +30,7 @@ int sleeperFunc(SceSize argc, void* argv) {
 	sceKernelNotifyCallback(cb2, 0x22);
 	sceKernelCheckCallback();
 	sceKernelSleepThreadCB();
-	schedf("thread2 awake\n");
+	schedf("thread2   -> awake\n");
 
 	return 0;
 }
@@ -53,8 +41,8 @@ int sleeperFunc3(SceSize argc, void* argv) {
 	// Intentionally notifies cb2.
 	sceKernelNotifyCallback(cb2, 0x23);
 	sceKernelCheckCallback();
-	sceKernelDelayThreadCB(1000000);
-	schedf("thread3 awake\n");
+	sceKernelDelayThreadCB(100000);
+	schedf("thread3   -> awake\n");
 
 	return 0;
 }
@@ -70,7 +58,6 @@ void attempt_sceKernelLockMutexCB(const char *name, SceUID mutex, int n, SceUInt
 }
 
 int main(int argc, char **argv) {
-	schedulingLogPos = schedulingLog;
 	thread1 = sceKernelGetThreadId();
 
 	SceUID sleeperThread = sceKernelCreateThread("sleeperFunc", sleeperFunc, 0x20, 0x1000, 0, 0);
@@ -81,28 +68,31 @@ int main(int argc, char **argv) {
 	sceKernelStartThread(sleeperThread3, 0, 0);
 	sceKernelDelayThread(10000);
 
-	schedf("thread1 awake\n");
+	schedf("thread1   -> awake\n");
 
 	SceUID mutex = sceKernelCreateMutex("lock", 0, 0, 0);
 	cb1 = sceKernelCreateCallback("cbHandler1", cbHandler, (void *)0x1234);
 
-	attempt_sceKernelLockMutexCB("Lock 0 => 5", mutex, 5, NULL);
-	attempt_sceKernelLockMutexCB("Lock 0 => 1", mutex, 1, NULL);
-	attempt_sceKernelLockMutexCB("Lock 1 => 1", mutex, 1, NULL);
+	attempt_sceKernelLockMutexCB("thread1   Lock 0 => 5", mutex, 5, NULL);
+	attempt_sceKernelLockMutexCB("thread1   Lock 0 => 1", mutex, 1, NULL);
+	attempt_sceKernelLockMutexCB("thread1   Lock 1 => 1", mutex, 1, NULL);
 
-	schedf("Forcing a resched...\n");
+	schedf("thread1   Forcing a resched...\n");
 	sceKernelNotifyCallback(cb2, 0x21);
 	sceKernelDelayThread(10);
-	schedf("Forcing a CB resched...\n");
+	schedf("thread1   Forcing a CB resched...\n");
 	sceKernelDelayThreadCB(10);
 
 	sceKernelNotifyCallback(cb2, 0x21);
-	schedf("Check callbacks on thread1 with pending on thread2...\n");
+	schedf("thread1   Check callbacks on thread1 with pending on thread2...\n");
 	sceKernelCheckCallback();
-	schedf("Forcing a CB resched...\n");
+	schedf("thread1   Forcing a CB resched...\n");
 	sceKernelDelayThreadCB(10);
 
-	printf("%s", schedulingLog);
+	SceUInt timeout = 1000000;
+	sceKernelWakeupThread(sleeperThread);
+	sceKernelWaitThreadEnd(sleeperThread, &timeout);
+	sceKernelWaitThreadEnd(sleeperThread3, &timeout);
 
 	return 0;
 }
