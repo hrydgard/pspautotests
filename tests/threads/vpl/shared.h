@@ -20,24 +20,6 @@ enum SceKernelVplAttr {
 static volatile int schedulingPlacement = 0;
 // So we can log the result from the thread.
 static int schedulingResult = -1;
-// printf() seems to reschedule, so can't use it.
-static char schedulingLog[65536];
-static volatile int schedulingLogPos = 0;
-
-inline void schedf(const char *format, ...) {
-	va_list args;
-	va_start(args, format);
-	schedulingLogPos += vsprintf(schedulingLog + schedulingLogPos, format, args);
-	// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
-	//vprintf(format, args);
-	va_end(args);
-}
-
-inline void flushschedf() {
-	printf("%s", schedulingLog);
-	schedulingLogPos = 0;
-	schedulingLog[0] = '\0';
-}
 
 inline void schedVplInfo(SceKernelVplInfo *info) {
 	schedf("VPL: OK (size=%d,name=%s,attr=%08X,poolSize=%08X,freeSize=%08X,wait=%d)\n", info->size, info->name, info->attr, info->poolSize, info->freeSize, info->numWaitThreads);
@@ -103,7 +85,6 @@ static int scheduleTestFunc(SceSize argSize, void* argPointer) {
 	sceKernelAllocateVpl(vpl2, 0x8000, &data2, NULL); \
 	int result = -1; \
 	\
-	flushschedf(); \
 	schedulingPlacement = 1; \
 	schedf("%s: ", title); \
 	\
@@ -115,8 +96,7 @@ static int scheduleTestFunc(SceSize argSize, void* argPointer) {
 	sceKernelDeleteVpl(vpl1); \
 	SCHED_LOG(F, 1); \
 	\
-	flushschedf(); \
-	printf(" (thread=%08X, main=%08X)\n", schedulingResult, result); \
+	schedf(" (thread=%08X, main=%08X)\n", schedulingResult, result); \
 	sceKernelDeleteVpl(vpl2); \
 	sceKernelTerminateThread(thread); \
 }
