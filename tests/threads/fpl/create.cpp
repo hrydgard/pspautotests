@@ -22,7 +22,7 @@ extern "C" int main(int argc, char **argv) {
 	testCreate("  Long name", "1234567890123456789012345678901234567890123456789012345678901234", PSP_MEMORY_PARTITION_USER, 0, 0x100, 0x10, NULL);
 
 	SceUID dup = sceKernelCreateFpl("create", PSP_MEMORY_PARTITION_USER, 0, 0x100, 0x10, NULL);
-	testCreate("  Two with same name", "test", PSP_MEMORY_PARTITION_USER, 0, 0x100, 0x10, NULL);
+	testCreate("  Two with same name", "create", PSP_MEMORY_PARTITION_USER, 0, 0x100, 0x10, NULL);
 	sceKernelDeleteFpl(dup);
 
 	checkpointNext("Partitions:");
