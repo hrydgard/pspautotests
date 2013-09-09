@@ -46,3 +46,12 @@
 [x]   Manual notify: OK
 [x]  * cbFunc hit: 00000002, 00001337, 00000000
 [r]   sceKernelDelayThreadCB: 00000000
+
+[x] Order:
+[x]   Notify cb #2: OK
+[x]   Notify cb #1: OK
+[x]   Notify cb #3: OK
+[x]  * cbFunc hit: 00000001, def00002, abc00001
+[x]  * cbFunc hit: 00000001, def00001, abc00002
+[x]  * cbFunc hit: 00000001, def00003, abc00003
+[x]   sceKernelCheckCallback: 00000001

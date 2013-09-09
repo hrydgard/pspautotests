@@ -1,5 +1,6 @@
 #include "shared.h"
 
+#include <assert.h>
 #include <psppower.h>
 
 int cbFunc(int arg1, int arg2, void *arg) {
@@ -76,17 +77,55 @@ struct SelfNotifier : public CallbackSleeper {
 	bool done_;
 };
 
+struct Callback {
+	template <typename T>
+	Callback(const char *name, SceKernelCallbackFunction func, T arg) : uid_(-1) {
+		Create(name, func, arg);
+	}
+
+	~Callback() {
+		if (uid_ >= 0) {
+			Delete();
+		}
+	}
+
+	int Delete() {
+		int result = sceKernelDeleteCallback(uid_);
+		uid_ = -1;
+		return result;
+	}
+
+	template <typename T>
+	int Create(const char *name, SceKernelCallbackFunction func, T arg) {
+		assert(sizeof(arg) == 4);
+		if (uid_ >= 0) {
+			Delete();
+		}
+		uid_ = sceKernelCreateCallback(name, func, (void *)arg);
+		if (uid_ < 0) {
+			return uid_;
+		}
+		return 0;
+	}
+
+	operator SceUID() {
+		return uid_;
+	}
+
+	SceUID uid_;
+};
+
 extern "C" int main(int argc, char *argv[]) {
-	SceUID cb = sceKernelCreateCallback("notify", &cbFunc, NULL);
+	Callback cb("notify", &cbFunc, NULL);
 
 	checkpointNext("Objects:");
 	testNotify("  Normal", cb, 0x1337);
 	testNotify("  NULL", 0, 0x1337);
 	testNotify("  Invalid", 0xDEADBEEF, 0x1337);
-	sceKernelDeleteCallback(cb);
+	cb.Delete();
 	testNotify("  Deleted", cb, 0x1337);
 
-	cb = sceKernelCreateCallback("notify", &cbFunc, NULL);
+	cb.Create("notify", &cbFunc, NULL);
 	checkpointNext("Values:");
 	testNotify("  Zero", cb, 0);
 	testNotify("  DEADBEEF", cb, 0xDEADBEEF);
@@ -139,6 +178,15 @@ extern "C" int main(int argc, char *argv[]) {
 	checkpoint("  scePowerRegisterCallback (causes notify): %08x", scePowerRegisterCallback(0, cb));
 	testNotify("  Manual notify", cb, 0x1337);
 	checkpoint("  sceKernelDelayThreadCB: %08x", sceKernelDelayThreadCB(1000));
+
+	checkpointNext("Order:");
+	Callback cb1("notify1", &cbFunc, (void *)0xABC00001);
+	Callback cb2("notify2", &cbFunc, (void *)0xABC00002);
+	Callback cb3("notify3", &cbFunc, (void *)0xABC00003);
+	testNotify("  Notify cb #2", cb2, 0xDEF00001);
+	testNotify("  Notify cb #1", cb1, 0xDEF00002);
+	testNotify("  Notify cb #3", cb3, 0xDEF00003);
+	checkpoint("  sceKernelCheckCallback: %08x", sceKernelCheckCallback());
 
 	return 0;
 }
