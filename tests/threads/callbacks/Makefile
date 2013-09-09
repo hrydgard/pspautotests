@@ -1,4 +1,4 @@
-TARGETS = callbacks create delete notify refer
+TARGETS = callbacks cancel check count create delete notify refer
 EXTRA_OBJS = ../mutex/mutex-imports.o
 EXTRA_LIBS = -lpsppower
 

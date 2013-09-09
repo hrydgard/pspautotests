@@ -18,8 +18,8 @@
 [x]   ** started better priority sleeping thread
 [x]   ** started worse priority sleeping thread
 [r]   Beginning sleep on worse priority sleeping thread
-[r]   Callback hit 00000001, 00001337, returning 00000000
-[r]   Callback hit 00000001, 00001337, returning 00000000
+[r]   Callback hit on better priority sleeping thread: 00000001, 00001337, returning 00000000
+[r]   Callback hit on worse priority sleeping thread: 00000001, 00001337, returning 00000000
 [r]   ** stopped worse priority sleeping thread
 [r]   ** stopped better priority sleeping thread
 
@@ -27,7 +27,7 @@
 [x]   ** started sleeping thread
 [r]   Beginning sleep on sleeping thread
 [r]   Notify #1: OK
-[r]   Callback hit 00000001, 00001337, returning 00001337
+[r]   Callback hit on sleeping thread: 00000001, 00001337, returning 00001337
 [r]   Notify #2: Failed (800201a1)
 [r]   ** stopped sleeping thread
 

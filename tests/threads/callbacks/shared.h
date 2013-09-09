@@ -3,6 +3,8 @@
 #include <pspthreadman.h>
 #include <pspmodulemgr.h>
 
+#include <assert.h>
+
 const static SceUInt NO_TIMEOUT = (SceUInt)-1337;
 
 inline void schedfCallback(SceKernelCallbackInfo &info) {
@@ -24,6 +26,44 @@ inline void schedfCallback(SceUID cb) {
 		schedf("Callback: Failed (%08x)\n", cb);
 	}
 }
+
+struct Callback {
+	template <typename T>
+	Callback(const char *name, SceKernelCallbackFunction func, T arg) : uid_(-1) {
+		Create(name, func, arg);
+	}
+
+	~Callback() {
+		if (uid_ >= 0) {
+			Delete();
+		}
+	}
+
+	int Delete() {
+		int result = sceKernelDeleteCallback(uid_);
+		uid_ = -1;
+		return result;
+	}
+
+	template <typename T>
+	int Create(const char *name, SceKernelCallbackFunction func, T arg) {
+		assert(sizeof(arg) == 4);
+		if (uid_ >= 0) {
+			Delete();
+		}
+		uid_ = sceKernelCreateCallback(name, func, (void *)arg);
+		if (uid_ < 0) {
+			return uid_;
+		}
+		return 0;
+	}
+
+	operator SceUID() {
+		return uid_;
+	}
+
+	SceUID uid_;
+};
 
 struct BasicThread {
 	BasicThread(const char *name, int prio = 0x60)
@@ -63,4 +103,45 @@ struct BasicThread {
 
 	const char *name_;
 	SceUID thread_;
+};
+
+struct CallbackSleeper : public BasicThread {
+	CallbackSleeper(const char *name, int prio = 0x60, bool doStart = true)
+		: BasicThread(name, prio), ret_(0) {
+		if (doStart) {
+			start();
+		}
+	}
+
+	static int callback(int arg1, int arg2, void *arg) {
+		CallbackSleeper *me = (CallbackSleeper *)arg;
+		return me->hit(arg1, arg2);
+	}
+
+	virtual int hit(int arg1, int arg2) {
+		checkpoint("  Callback hit on %s: %08x, %08x, returning %08x", name_, arg1, arg2, ret_);
+		return ret_;
+	}
+
+	virtual int execute() {
+		cb_ = sceKernelCreateCallback(name_, &CallbackSleeper::callback, (void *)this);
+		checkpoint("  Beginning sleep on %s", name_);
+		checkpoint("  Woke from sleep: %08x", sceKernelSleepThreadCB());
+		return 0;
+	}
+
+	SceUID callbackID() {
+		return cb_;
+	}
+
+	void wakeup() {
+		sceKernelWakeupThread(thread_);
+	}
+
+	void setReturn(int ret) {
+		ret_ = ret;
+	}
+
+	int ret_;
+	SceUID cb_;
 };
