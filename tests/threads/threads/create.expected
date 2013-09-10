@@ -21,21 +21,60 @@
         gpReg=USER, initPrio=20, currPrio=20, waitType=0, waitId=0, exit=800201A2
         run=0, intrPreempt=0, threadPreempt=0, release=0
 [x]   0x100 attr: Failed (80020191)
+[x]   0x200 attr: Failed (80020191)
+[x]   0x400 attr: Failed (80020191)
 [x]   0x600 attr: Failed (80020191)
+[x]   0x800 attr: Failed (80020191)
 [x]   0xf00 attr: Failed (80020191)
 [x]   0x1000 attr: Failed (80020191)
+[x]   0x2000 attr: OK (size=104, name=create, attr=800020ff, status=16, entry=USER, stack=UNKNOWN, stackSize=10000,
+        gpReg=USER, initPrio=20, currPrio=20, waitType=0, waitId=0, exit=800201A2
+        run=0, intrPreempt=0, threadPreempt=0, release=0
+[x]   0x4000 attr: OK (size=104, name=create, attr=800040ff, status=16, entry=USER, stack=UNKNOWN, stackSize=10000,
+        gpReg=USER, initPrio=20, currPrio=20, waitType=0, waitId=0, exit=800201A2
+        run=0, intrPreempt=0, threadPreempt=0, release=0
+[x]   0x8000 attr: Failed (80020191)
 [x]   0x6000 attr: OK (size=104, name=create, attr=800060ff, status=16, entry=USER, stack=UNKNOWN, stackSize=10000,
         gpReg=USER, initPrio=20, currPrio=20, waitType=0, waitId=0, exit=800201A2
         run=0, intrPreempt=0, threadPreempt=0, release=0
 [x]   0xf000 attr: Failed (80020191)
 [x]   0x10000 attr: Failed (80020191)
+[x]   0x20000 attr: Failed (80020191)
+[x]   0x40000 attr: Failed (80020191)
+[x]   0x80000 attr: Failed (80020191)
 [x]   0xf0000 attr: Failed (80020191)
+[x]   0x100000 attr: OK (size=104, name=create, attr=801000ff, status=16, entry=USER, stack=UNKNOWN, stackSize=10000,
+        gpReg=USER, initPrio=20, currPrio=20, waitType=0, waitId=0, exit=800201A2
+        run=0, intrPreempt=0, threadPreempt=0, release=0
+[x]   0x200000 attr: OK (size=104, name=create, attr=802000ff, status=16, entry=USER, stack=UNKNOWN, stackSize=10000,
+        gpReg=USER, initPrio=20, currPrio=20, waitType=0, waitId=0, exit=800201A2
+        run=0, intrPreempt=0, threadPreempt=0, release=0
+[x]   0x400000 attr: OK (size=104, name=create, attr=804000ff, status=16, entry=USER, stack=USER, stackSize=10000,
+        gpReg=USER, initPrio=20, currPrio=20, waitType=0, waitId=0, exit=800201A2
+        run=0, intrPreempt=0, threadPreempt=0, release=0
+[x]   0x800000 attr: OK (size=104, name=create, attr=800000ff, status=16, entry=USER, stack=UNKNOWN, stackSize=10000,
+        gpReg=USER, initPrio=20, currPrio=20, waitType=0, waitId=0, exit=800201A2
+        run=0, intrPreempt=0, threadPreempt=0, release=0
 [x]   0xf00000 attr: OK (size=104, name=create, attr=807000ff, status=16, entry=USER, stack=USER, stackSize=10000,
         gpReg=USER, initPrio=20, currPrio=20, waitType=0, waitId=0, exit=800201A2
         run=0, intrPreempt=0, threadPreempt=0, release=0
 [x]   0x1000000 attr: Failed (80020191)
+[x]   0x2000000 attr: Failed (80020191)
+[x]   0x4000000 attr: Failed (80020191)
+[x]   0x8000000 attr: OK (size=104, name=create, attr=800000ff, status=16, entry=USER, stack=UNKNOWN, stackSize=10000,
+        gpReg=USER, initPrio=20, currPrio=20, waitType=0, waitId=0, exit=800201A2
+        run=0, intrPreempt=0, threadPreempt=0, release=0
 [x]   0xf000000 attr: Failed (80020191)
 [x]   0x10000000 attr: OK (size=104, name=create, attr=800000ff, status=16, entry=USER, stack=UNKNOWN, stackSize=10000,
+        gpReg=USER, initPrio=20, currPrio=20, waitType=0, waitId=0, exit=800201A2
+        run=0, intrPreempt=0, threadPreempt=0, release=0
+[x]   0x20000000 attr: OK (size=104, name=create, attr=800000ff, status=16, entry=USER, stack=UNKNOWN, stackSize=10000,
+        gpReg=USER, initPrio=20, currPrio=20, waitType=0, waitId=0, exit=800201A2
+        run=0, intrPreempt=0, threadPreempt=0, release=0
+[x]   0x40000000 attr: OK (size=104, name=create, attr=800000ff, status=16, entry=USER, stack=UNKNOWN, stackSize=10000,
+        gpReg=USER, initPrio=20, currPrio=20, waitType=0, waitId=0, exit=800201A2
+        run=0, intrPreempt=0, threadPreempt=0, release=0
+[x]   0x80000000 attr: OK (size=104, name=create, attr=800000ff, status=16, entry=USER, stack=UNKNOWN, stackSize=10000,
         gpReg=USER, initPrio=20, currPrio=20, waitType=0, waitId=0, exit=800201A2
         run=0, intrPreempt=0, threadPreempt=0, release=0
 [x]   0xf0000000 attr: OK (size=104, name=create, attr=800000ff, status=16, entry=USER, stack=UNKNOWN, stackSize=10000,
@@ -88,6 +127,6 @@
 [x] Two with same name: OK
 
 NULL name: A1B1C2E1D1F2 (thread=800201B5, main=80020001)
-Priority 0x70: A1B1C2E1D2F2 (thread=800201B5, main=00000001)
+Priority 0x70: A1B1C2E2D1F2 (thread=800201B5, main=00000001)
 Priority 0x08: A1B1C2E2D1F2 (thread=800201B5, main=00000001)
 Create 1024: Failed at 29 (80020190)
