@@ -29,3 +29,7 @@
 [x]   Mode 256 (scePower): 80000107
 [x]   Mode 4096 (scePower): 80000107
 [x]   Mode 2147483647 (scePower): 80000107
+
+[x] While not locked:
+[x]   Kernel: 800201ae
+[x]   Power: 800201ae
