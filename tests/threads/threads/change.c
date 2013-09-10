@@ -90,12 +90,15 @@ int main(int argc, char *argv[]) {
 	checkpointNext("sceKernelChangeThreadPriority restarted priorities:");
 	sceKernelTerminateThread(readyThread);
 	sceKernelStartThread(readyThread, 0, NULL);
+	schedfCurrentPriority("  Before", readyThread);
 	for (i = 0; i < sizeof(prios) / sizeof(prios[0]); ++i) {
 		int result = sceKernelChangeThreadPriority(readyThread, prios[i]);
 		checkpoint("  0x%02x priority: %08x", prios[i], result);
 		if (result == 0) {
 			sceKernelStartThread(readyThread, 0, NULL);
 			schedfCurrentPriority("    After restart", readyThread);
+		} else {
+			schedfCurrentPriority("    After error", readyThread);
 		}
 	}
 
