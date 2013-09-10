@@ -57,3 +57,27 @@
 [r]   * waiting thread 1: 00000000 (0x8400000, 00400000)
 [r]   * waiting thread 2: 00000000 (0x8400000, 00400000)
 [r]   * waiting thread 3: 00000000 (0x8400000, 00400000)
+
+[x] Interrupts disabled:
+[x]   While dispatch disabled: 800201a7 (0x8400000, 00400000)
+[x]   While dispatch disabled (again): 800201a7 (0x8400000, 00400000)
+[x]   While dispatch disabled (scePower): 800201a7 (0x8400000, 00400000)
+[x]   Unlock (outside): 800201ae
+
+[x] Interrupts disabled (while locked):
+[x]   While dispatch disabled: 800201a7 (0x8400000, 00400000)
+[x]   While dispatch disabled (again): 800201a7 (0x8400000, 00400000)
+[x]   While dispatch disabled (scePower): 800201a7 (0x8400000, 00400000)
+[x]   Unlock (outside): 00000000
+
+[x] Inside interrupt:
+[r]   While dispatch disabled: 80020064 (0x8400000, 00400000)
+[x]   While dispatch disabled (again): 80020064 (0x8400000, 00400000)
+[x]   While dispatch disabled (scePower): 80020064 (0x8400000, 00400000)
+[x]   Unlock (outside): 800201ae
+
+[x] Inside interrupt (while locked):
+[r]   While dispatch disabled: 80020064 (0x8400000, 00400000)
+[x]   While dispatch disabled (again): 80020064 (0x8400000, 00400000)
+[x]   While dispatch disabled (scePower): 80020064 (0x8400000, 00400000)
+[x]   Unlock (outside): 00000000

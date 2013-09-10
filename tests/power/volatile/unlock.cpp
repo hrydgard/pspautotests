@@ -51,5 +51,9 @@ extern "C" int main(int argc, char *argv[]) {
 		testPowerUnlock(temp, modes[i]);
 	}
 
+	checkpointNext("While not locked:");
+	checkpoint("  Kernel: %08x", sceKernelVolatileMemUnlock(0));
+	checkpoint("  Power: %08x", sceKernelVolatileMemUnlock(0));
+
 	return 0;
 }
