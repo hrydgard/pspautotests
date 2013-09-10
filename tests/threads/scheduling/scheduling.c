@@ -9,31 +9,41 @@
 SceUID threads[4];
 SceUID sema;
 
-int testSimpleScheduling_Thread(SceSize args, void *argp) {
-	unsigned int thread_n = *(unsigned int *)argp;
+int testSimpleScheduling_Thread(SceSize argc, void *argp) {
+	unsigned int *args = (unsigned int *)argp;
+	unsigned int thread_n = args[0];
+	unsigned int delay = args[1];
 	int count = 4;
 	while (count--) {
-		printf("%08X\n", thread_n);
-		sceKernelDelayThread(1);
+		checkpoint("  * %08X @%d", thread_n, count);
+		sceKernelDelayThread(delay);
 	}
 	sceKernelSignalSema(sema, 1);
 	
 	return 0;
 }
 
-void testSimpleScheduling() {
+void testSimpleScheduling(int delay) {
 	unsigned int n;
 	
-	printf("testSimpleScheduling:\n");
+	char temp[256];
+	snprintf(temp, sizeof(temp), "testSimpleScheduling (%d):", delay);
+	checkpointNext(temp);
 	
 	sema = sceKernelCreateSema("EndSema", 0, 0, 4, NULL);
 	
+	unsigned int args[2];
 	for (n = 0; n < 3; n++) {
 		threads[n] = sceKernelCreateThread("Thread-N", testSimpleScheduling_Thread, 0x18, 0x10000, 0, NULL);
-		sceKernelStartThread(threads[n], 1, &n);
+		args[0] = n;
+		args[1] = delay;
+		sceKernelStartThread(threads[n], sizeof(args), args);
+		checkpoint("  Started thread %d", n);
 	}
 	
+	checkpoint("  Waiting");
 	sceKernelWaitSemaCB(sema, 3, NULL);
+	checkpoint("  Finished");
 
 	for (n = 0; n < 3; n++) {
 		sceKernelDeleteThread(threads[n]);
@@ -46,7 +56,7 @@ int testSimpleVblankScheduling_Thread(SceSize args, void *argp) {
 	unsigned int thread_n = *(unsigned int *)argp;
 	int count = 4;
 	while (count--) {
-		printf("%08X\n", thread_n);
+		checkpoint("  %08X @%d", thread_n, count);
 		sceDisplayWaitVblankStart();
 	}
 	sceKernelSignalSema(sema, 1);
@@ -58,7 +68,7 @@ int testSimpleVblankScheduling_Thread(SceSize args, void *argp) {
 void testSimpleVblankScheduling() {
 	unsigned int n;
 	
-	printf("testSimpleVblankScheduling:\n");
+	checkpointNext("testSimpleVblankScheduling:");
 	
 	sema = sceKernelCreateSema("EndSema", 0, 0, 4, NULL);
 	
@@ -66,8 +76,10 @@ void testSimpleVblankScheduling() {
 		threads[n] = sceKernelCreateThread("Thread-N", testSimpleVblankScheduling_Thread, 0x18, 0x10000, 0, NULL);
 		sceKernelStartThread(threads[n], 1, &n);
 	}
-	
+
+	checkpoint("  Waiting");
 	sceKernelWaitSemaCB(sema, 3, NULL);
+	checkpoint("  Finished");
 	
 	for (n = 0; n < 3; n++) {
 		sceKernelDeleteThread(threads[n]);
@@ -80,8 +92,9 @@ char buffer[10000];
 char *msg;
 
 int testNoThreadSwitchingWhenSuspendedInterrupts_sleepingThread(SceSize args, void *argp) {
+	checkpoint("  Sleeping Thread: going to sleep");
 	sceKernelSleepThread();
-	strcat(msg, "Sleeping Thread\n");
+	checkpoint("  Sleeping Thread: that was a nice nap");
 	return 0;
 }
 
@@ -90,7 +103,7 @@ void testNoThreadSwitchingWhenSuspendedInterrupts() {
 	msg = buffer;
 	strcpy(msg, "");
 	
-	printf("testNoThreadSwitchingWhenSuspendedInterrupts:\n");
+	checkpointNext("testNoThreadSwitchingWhenSuspendedInterrupts:");
 	
 	SceUID sleepingThid = sceKernelCreateThread(
 		"Sleeping Thread",
@@ -103,18 +116,19 @@ void testNoThreadSwitchingWhenSuspendedInterrupts() {
 	sceKernelStartThread(sleepingThid, 0, 0);
 	sceKernelDelayThread(100000);
 	int intr = sceKernelCpuSuspendIntr();
-	sceKernelWakeupThread(sleepingThid);
-	strcat(msg, "Main Thread with disabled interrupts\n");
+	checkpoint("  sceKernelWakeupThread: %08x", sceKernelWakeupThread(sleepingThid));
+	checkpoint("  Main Thread with disabled interrupts");
 	sceKernelCpuResumeIntr(intr);
-	strcat(msg, "Main Thread with enabled interrupts\n");
-	printf("%s", msg);
+	checkpoint("  Main Thread with enabled interrupts");
+	schedf("%s", msg);
 
 	sceKernelDeleteThread(sleepingThid);
 }
 
 int main(int argc, char **argv) {
 	testNoThreadSwitchingWhenSuspendedInterrupts();
-	testSimpleScheduling();
+	testSimpleScheduling(1);
+	testSimpleScheduling(500);
 	testSimpleVblankScheduling();
 
 	return 0;
