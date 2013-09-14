@@ -1,36 +1,18 @@
-80010002
-'.': size : 4096
-'.': attr : 16
-'.': mode : 4605
-'.': creation date : 2012-12-8-23-6-1-0
-'.': modif date : 2012-12-8-23-6-1-0
+sceIoDopen: 80010002
 '..': size : 4096
 '..': attr : 16
-'..': mode : 4605
-'..': creation date : 2013-1-21-0-12-37-0
-'..': modif date : 2013-1-21-0-12-37-0
 '1.txt': size : 5
 '1.txt': attr : 32
-'1.txt': mode : 8628
-'1.txt': creation date : 2013-1-20-18-7-28-0
-'1.txt': modif date : 2012-12-8-23-6-1-0
 '2.txt': size : 6
 '2.txt': attr : 32
-'2.txt': mode : 8628
-'2.txt': creation date : 2012-12-8-23-6-1-0
-'2.txt': modif date : 2012-12-8-23-6-1-0
-'largefile.bin': size : 209895
+'largefile.bin': size : 211894
 'largefile.bin': attr : 32
-'largefile.bin': mode : 8628
-'largefile.bin': creation date : 2012-12-8-23-6-1-0
-'largefile.bin': modif date : 2012-12-8-23-6-1-0
-'subfolder': size : 4096
+'subfolder': size : 0
 'subfolder': attr : 16
-'subfolder': mode : 4605
-'subfolder': creation date : 2012-12-8-23-6-1-0
-'subfolder': modif date : 2012-12-8-23-6-1-0
 'test.txt': size : 15
 'test.txt': attr : 32
-'test.txt': mode : 8628
-'test.txt': creation date : 2012-12-8-23-6-1-0
-'test.txt': modif date : 2012-12-8-23-6-1-0
+'SAVEDATA': size : 0
+'SAVEDATA': attr : 16
+'SAVEDATA': mode : fmt=dir, user=rwx, group=rwx, other=rwx
+sceIoDread bad fd: 80020323
+sceIoDclose bad fd: 80020323
