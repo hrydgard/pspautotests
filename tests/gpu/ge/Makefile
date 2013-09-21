@@ -1,4 +1,4 @@
-TARGETS = context edram get
+TARGETS = context edram get queue
 EXTRA_LIBS = ge-imports.S
 
 COMMON_DIR = ../../../common
