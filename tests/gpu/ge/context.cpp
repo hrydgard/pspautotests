@@ -12,7 +12,7 @@ extern "C" int main(int argc, char *argv[]) {
 	memset(&context, 0xCC, sizeof(context));
 
 	memset(&list, 0, sizeof(list));
-	list[1] = GE_CMD_NOP << 24;
+	list[0] = GE_CMD_NOP << 24;
 	list[1] = GE_CMD_FINISH << 24;
 	list[2] = GE_CMD_END << 24;
 
