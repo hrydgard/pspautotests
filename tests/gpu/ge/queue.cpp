@@ -121,6 +121,7 @@ int makeCompletedList() {
 	list[0] = GE_CMD_NOP << 24;
 	list[1] = GE_CMD_FINISH << 24;
 	list[2] = GE_CMD_END << 24;
+	sceKernelDcacheWritebackRange(list, sizeof(list));
 
 	sceGeBreak(1, NULL);
 	int listID = sceGeListEnQueueHead(list, list + 10, -1, NULL);
