@@ -15,9 +15,6 @@ int testFunc(SceSize argc, void *argv) {
 SceKernelThreadInfo stackCheckInfo;
 const char *stackCheckName;
 int stackCheckFunc(SceSize argc, void *argv) {
-	stackCheckInfo.size = sizeof(stackCheckInfo);
-	sceKernelReferThreadStatus(0, &stackCheckInfo);
-
 	if ((int)argv & 0xf) {
 		schedf("    %s: ERROR: arg pointer not aligned.\n", stackCheckName);
 	}
@@ -55,10 +52,26 @@ void testCheckStackLayout(const char *title, int argSize, u32 attr) {
 	char argLengthTemp[0x1000];
 	memset(argLengthTemp, 0xAB, sizeof(argLengthTemp));
 
-	stackCheckName = title;
+	// First create the thread to wipe the stack area, that way we can see what it'd look like clean.
 	SceUID stackCheckThread = sceKernelCreateThread("stackCheck", &stackCheckFunc, 0x10, 0x1000, attr, NULL);
+	stackCheckInfo.size = sizeof(stackCheckInfo);
+	sceKernelReferThreadStatus(stackCheckThread, &stackCheckInfo);
+	sceKernelTerminateDeleteThread(stackCheckThread);
+	memset(stackCheckInfo.stack, 0xCC, stackCheckInfo.stackSize);
+
+	stackCheckName = title;
+	stackCheckThread = sceKernelCreateThread("stackCheck", &stackCheckFunc, 0x10, 0x1000, attr, NULL);
 	sceKernelStartThread(stackCheckThread, argSize, argLengthTemp);
 	sceKernelWaitThreadEnd(stackCheckThread, NULL);
+
+	u32 *stack = (u32 *) stackCheckInfo.stack;
+	stack[1] = 0xFF1337FF;
+
+	sceKernelTerminateDeleteThread(stackCheckThread);
+
+	if (stack[1] != 0xFF1337FF) {
+		schedf("    %s: WARNING: stack cleared to something after delete: %08x.\n", stackCheckName, stack[1]);
+	}
 
 	checkpoint("%s", title);
 }
@@ -152,7 +165,8 @@ int main(int argc, char *argv[]) {
 	testCheckStackLayout("  Odd arg", 1, 0);
 	testCheckStackLayout("  Large arg", 0x600, 0);
 	testCheckStackLayout("  Low stack", 0, 0x00400000);
-	testCheckStackLayout("  Low stack without fill", 0, 0x00400000 | 0x00100000);
+	testCheckStackLayout("  Without fill", 0, 0x00100000);
+	testCheckStackLayout("  Clear stack", 0, 0x00200000);
 
 	return 0;
 }
