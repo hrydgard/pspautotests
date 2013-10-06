@@ -41,6 +41,7 @@
 [x]   Large arg
       Low stack: WARNING: stack allocated low.
 [x]   Low stack
-      Low stack without fill: WARNING: stack allocated low.
-      Low stack without fill: WARNING: stack not set to FF, instead: 00000000.
-[x]   Low stack without fill
+      Without fill: WARNING: stack not set to FF, instead: cccccccc.
+[x]   Without fill
+      Clear stack: WARNING: stack cleared to something after delete: 00000000.
+[x]   Clear stack
