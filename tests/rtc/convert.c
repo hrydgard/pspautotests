@@ -230,42 +230,75 @@ void checkGetTick() {
 
 void checkRFC2822() {
 	pspTime pt;
+	u64 ticks;
 	char buffer[256];
 
 	FillPSPTime(&pt,2012,1,30,2,12,15,900);
+	sceRtcGetTick(&pt, &ticks);
 	printf("Normal:\n");
 	DumpPSPTime("",&pt);
-	sceRtcFormatRFC2822(&pt, buffer, sizeof(buffer));
+	sceRtcFormatRFC2822(buffer, &ticks, 0);
 	printf("RFC 2822: %s\n", buffer);
 
 	FillPSPTime(&pt,2010,9,20,7,12,15,500);
+	sceRtcGetTick(&pt, &ticks);
 	printf("Normal:\n");
 	DumpPSPTime("",&pt);
-	sceRtcFormatRFC2822(&pt, buffer, sizeof(buffer));
+	sceRtcFormatRFC2822(buffer, &ticks, 0);
 	printf("RFC 2822: %s\n", buffer);
 }
 
 void checkRFC3339() {
 	pspTime pt;
+	u64 ticks;
 	char buffer[256];
 
 	FillPSPTime(&pt,2012,1,30,2,12,15,900);
+	sceRtcGetTick(&pt, &ticks);
 	printf("Normal:\n");
 	DumpPSPTime("",&pt);
-	sceRtcFormatRFC3339(&pt, buffer, sizeof(buffer));
+	sceRtcFormatRFC3339(buffer, &ticks, 0);
 	printf("RFC 3339: %s\n", buffer);
 
 	FillPSPTime(&pt,2010,9,20,7,12,15,500);
+	sceRtcGetTick(&pt, &ticks);
 	printf("Normal:\n");
 	DumpPSPTime("",&pt);
-	sceRtcFormatRFC3339(&pt, buffer, sizeof(buffer));
+	sceRtcFormatRFC3339(buffer, &ticks, 0);
 	printf("RFC 3339: %s\n", buffer);
 }
 
-void checkRtcParseDateTime()
-{
-	printf("Checking sceRtcParseDateTime\n");
-	printf("UNTESTED!\n");
+void testParse(const char *title, const char *dateString) {
+	u64 ticks = 0;
+	int result = sceRtcParseDateTime(&ticks, dateString);
+
+	char buffer[256] = {0};
+	sceRtcFormatRFC3339(buffer, &ticks, 0);
+	printf("  %s: %08x: %s -> %s\n", title, result, dateString, buffer);
+}
+
+void checkRtcParseDateTime() {
+	u64 ticks;
+	char buffer[256];
+
+	printf("\nsceRtcParseDateTime:\n");
+
+	testParse("From RFC3339 (Z)", "2010-09-20T07:12:15.00Z");
+	testParse("From RFC3339 (offset)", "2010-09-20T07:12:15.00+01:00");
+	testParse("From RFC3339 (no ms)", "2010-09-20T07:12:15Z");
+	testParse("Bad RFC3339 (missing TZ)", "2010-09-20T07:12:15");
+	testParse("Space separator", "2010-09-20 07:12:15Z");
+	testParse("Human speak", "today");
+	testParse("Time only", "07:12:15");
+	testParse("Date only", "2010-09-20");
+	testParse("From RFC2822", "Mon, 30 Jan 2012 02:12:15 +0000");
+	testParse("From RFC2822 date", "Mon, 30 Jan 2012");
+	testParse("From RFC2822 full weekday", "Monday, 30 Jan 2012 02:12:15 +0000");
+	testParse("From RFC2822 no weekday", "30 Jan 2012 02:12:15 +0000");
+	testParse("From RFC2822 + spaces", "Mon,  30  Jan  2012  02:12:15  +0000");
+	testParse("Blank", "");
+	// Crashes.
+	//testParse("NULL", NULL);
 }
 
 int main(int argc, char **argv) {
