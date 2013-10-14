@@ -46,9 +46,9 @@
 [x] sceUtilitySavedataGetStatus: 00000001 (duplicates skipped)
 [x] sceUtilitySavedataGetStatus: 00000002 (duplicates skipped)
 [r] sceUtilitySavedataUpdate: 00000000 (duplicates skipped)
+CHANGE: resultCount: ffffffff => 00000001
 CHANGE: st_mode: 00000000 => 000011ff
 CHANGE: name:  => ABC
-CHANGE: resultCount: ffffffff => 00000001
 [x] sceUtilitySavedataGetStatus: 00000003 (duplicates skipped)
 [x] sceUtilitySavedataShutdownStart: 00000000
 [x] sceUtilitySavedataGetStatus: 00000004 (duplicates skipped)
