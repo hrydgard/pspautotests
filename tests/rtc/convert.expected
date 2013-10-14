@@ -86,15 +86,29 @@ checkSetTick: not empty:00000000
  2012, 9, 20, 7, 12, 15, 500
 Normal:
  2012, 1, 30, 2, 12, 15, 900
-RFC 2822:  04:16:00 +0416
+RFC 2822: Mon, 30 Jan 2012 02:12:15 +0000
 Normal:
  2010, 9, 20, 7, 12, 15, 500
-RFC 2822:  14:48:07 +0416
+RFC 2822: Mon, 20 Sep 2010 07:12:15 +0000
 Normal:
  2012, 1, 30, 2, 12, 15, 900
-RFC 3339: :15.71+04:16
+RFC 3339: 2012-01-30T02:12:15.00Z
 Normal:
  2010, 9, 20, 7, 12, 15, 500
-RFC 3339: :07.29+04:16
-Checking sceRtcParseDateTime
-UNTESTED!
+RFC 3339: 2010-09-20T07:12:15.00Z
+
+sceRtcParseDateTime:
+  From RFC3339 (Z): 00000000: 2010-09-20T07:12:15.00Z -> 2010-09-20T07:12:15.00Z
+  From RFC3339 (offset): 00000000: 2010-09-20T07:12:15.00+01:00 -> 2010-09-20T06:12:15.00Z
+  From RFC3339 (no ms): 00000000: 2010-09-20T07:12:15Z -> 2010-09-20T07:12:15.00Z
+  Bad RFC3339 (missing TZ): ffffffff: 2010-09-20T07:12:15 -> 0001-01-01T00:00:00.00Z
+  Space separator: ffffffff: 2010-09-20 07:12:15Z -> 0001-01-01T00:00:00.00Z
+  Human speak: ffffffff: today -> 0001-01-01T00:00:00.00Z
+  Time only: ffffffff: 07:12:15 -> 0001-01-01T00:00:00.00Z
+  Date only: ffffffff: 2010-09-20 -> 0001-01-01T00:00:00.00Z
+  From RFC2822: 00000000: Mon, 30 Jan 2012 02:12:15 +0000 -> 2012-01-30T02:12:15.00Z
+  From RFC2822 date: ffffffff: Mon, 30 Jan 2012 -> 0001-01-01T00:00:00.00Z
+  From RFC2822 full weekday: 00000000: Monday, 30 Jan 2012 02:12:15 +0000 -> 2012-01-30T02:12:15.00Z
+  From RFC2822 no weekday: ffffffff: 30 Jan 2012 02:12:15 +0000 -> 0001-01-01T00:00:00.00Z
+  From RFC2822 + spaces: ffffffff: Mon,  30  Jan  2012  02:12:15  +0000 -> 0001-01-01T00:00:00.00Z
+  Blank: ffffffff:  -> 0001-01-01T00:00:00.00Z

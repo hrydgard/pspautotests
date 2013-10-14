@@ -13,14 +13,13 @@ int sceRtcSetWin32FileTime(pspTime *date, u64 filetime);
 
 #include <inttypes.h>
 // These are not in the pspsdk
-int sceRtcSetTime64_t(pspTime* date, const uint64_t*time);
-int sceRtcGetTime64_t(const pspTime* date, uint64_t*time);
+int sceRtcSetTime64_t(pspTime *date, uint64_t time);
+int sceRtcGetTime64_t(const pspTime *date, uint64_t *time);
 
-// Pure guess
-int sceRtcFormatRFC2822(pspTime *date, const char *ptr, int bufsize);
-int sceRtcFormatRFC2822LocalTime(const char *ptr, int bufsize);
-int sceRtcFormatRFC3339(pspTime *date, const char *ptr, int bufsize);
-int sceRtcFormatRFC3339LocalTime(const char *ptr, int bufsize);
+int sceRtcFormatRFC2822(char *str, const u64 *utcTicks, int tz);
+int sceRtcFormatRFC2822LocalTime(char *str, int tz);
+int sceRtcFormatRFC3339(char *str, const u64 *utcTicks, int tz);
+int sceRtcFormatRFC3339LocalTime(char *str, int tz);
 
 static void DumpPSPTime(const char* name, const pspTime* pt)
 {
