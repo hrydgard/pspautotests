@@ -1,6 +1,6 @@
 #include "shared.h"
 
-inline void createTest(const char *title, const char *name, u32 *options) {
+inline void createTest(const char *title, const char *name, SceKernelVTimerOptParam *options) {
 	SceUID vtimer = sceKernelCreateVTimer(name, options);
 	if (vtimer > 0) {
 		checkpoint(NULL);
@@ -12,7 +12,7 @@ inline void createTest(const char *title, const char *name, u32 *options) {
 	}
 }
 
-int main(int argc, char *argv[]) {
+extern "C" int main(int argc, char *argv[]) {
 	checkpointNext("Names:");
 	createTest("  NULL", NULL, NULL);
 	createTest("  Blank", "", NULL);
@@ -32,17 +32,17 @@ int main(int argc, char *argv[]) {
 	u32 options[1024];
 	memset(options, 0, sizeof(options));
 	int sizes[] = {-1, 0, 1, 4, 7, 8, 12, 4096, 0x7FFFFFFF};
-	int i;
-	for (i = 0; i < ARRAY_SIZE(sizes); ++i) {
+	for (size_t i = 0; i < ARRAY_SIZE(sizes); ++i) {
 		char temp[32];
 		sprintf(temp, "  %d", sizes[i]);
 		options[0] = sizes[i];
-		createTest(temp, "test", options);
+		createTest(temp, "test", (SceKernelVTimerOptParam *)options);
 	}
 
 	checkpointNext("Create 1024");
 	SceUID vtimers[1024];
 	int result = 0;
+	int i;
 	for (i = 0; i < 1024; i++)
 	{
 		vtimers[i] = sceKernelCreateVTimer("create", NULL);

@@ -6,8 +6,9 @@
 #include <psploadexec.h>
 
 inline void schedfVTimer(SceUID vtimer) {
-	SceKernelVTimerInfo info;
+	SceKernelVTimerInfo info = {0};
 	if (vtimer >= 0) {
+		info.size = sizeof(info);
 		int result = sceKernelReferVTimerStatus(vtimer, &info);
 		if (result >= 0) {
 			u64 base = *(u64 *)&info.base;

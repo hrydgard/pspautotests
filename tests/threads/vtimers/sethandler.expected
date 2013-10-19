@@ -23,30 +23,6 @@
 [x]   With handler: 00000000 - VTimer: (size=72,name=test,active=0,handler=1,common=deadbeef,base=0,current=0,schedule=0)
 [x]   Without handler: 00000000 - VTimer: (size=72,name=test,active=0,handler=0,common=deadbeef,base=0,current=0,schedule=0)
 
-[x] While started:
-[x]   With handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=1,common=deadc0de,base=N,current=+120,schedule=+400)
-[r] ** normalHandler: 00001337, ..., deadc0de
-[x] 400, 414
-[x] 08802b68, 08802bb0, 08802bb8
-[x] ** normalHandler: 00001337, ..., deadc0de
-[x] 500, 757
-[x] 08802b68, 08802bb0, 08802bb8
-[x]   With handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=1,common=deadc0de,base=N,current=+968,schedule=+400)
-[r] ** normalHandler: 00001337, ..., deadc0de
-[x] 400, 1247
-[x] 08802b68, 08802bb0, 08802bb8
-[x] ** normalHandler: 00001337, ..., deadc0de
-[x] 500, 1583
-[x] 08802b68, 08802bb0, 08802bb8
-[x]   Without handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=0,common=deadc0de,base=N,current=+1758,schedule=+600)
-[r]   With handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=1,common=deadc0de,base=N,current=+2447,schedule=0)
-[r] ** normalHandler: 00001337, ..., deadc0de
-[x] 0, 2723
-[x] 08802b68, 08802bb0, 08802bb8
-[x] ** normalHandler: 00001337, ..., deadc0de
-[x] 100, 3059
-[x] 08802b68, 08802bb0, 08802bb8
-
 [x] sceKernelSetVTimerHandlerWide:
 
 [x] UIDs:
@@ -71,27 +47,3 @@
 [x] Common:
 [x]   With handler: 00000000 - VTimer: (size=72,name=test,active=0,handler=1,common=deadbeef,base=0,current=0,schedule=0)
 [x]   Without handler: 00000000 - VTimer: (size=72,name=test,active=0,handler=0,common=deadbeef,base=0,current=0,schedule=0)
-
-[x] While started:
-[x]   With handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=1,common=deadc0de,base=N,current=+71,schedule=+400)
-[r] ** normalHandler: 00001337, ..., deadc0de
-[x] 400, 414
-[x] 08802b68, 08802bb0, 08802bb8
-[x] ** normalHandler: 00001337, ..., deadc0de
-[x] 500, 757
-[x] 08802b68, 08802bb0, 08802bb8
-[x]   With handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=1,common=deadc0de,base=N,current=+934,schedule=+400)
-[r] ** normalHandler: 00001337, ..., deadc0de
-[x] 400, 1213
-[x] 08802b68, 08802bb0, 08802bb8
-[x] ** normalHandler: 00001337, ..., deadc0de
-[x] 500, 1546
-[x] 08802b68, 08802bb0, 08802bb8
-[x]   Without handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=0,common=deadc0de,base=N,current=+1720,schedule=+600)
-[r]   With handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=1,common=deadc0de,base=N,current=+2791,schedule=0)
-[r] ** normalHandler: 00001337, ..., deadc0de
-[x] 0, 3131
-[x] 08802b68, 08802bb0, 08802bb8
-[x] ** normalHandler: 00001337, ..., deadc0de
-[x] 100, 3471
-[x] 08802b68, 08802bb0, 08802bb8

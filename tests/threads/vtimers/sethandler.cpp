@@ -3,11 +3,17 @@
 SceUID vtimer;
 
 SceUInt normalHandler(SceUID uid, SceKernelSysClock *scheduled, SceKernelSysClock *actual, void *common) {
-	int arg;
-	checkpoint("** normalHandler: %08x, ..., %08x", vtimer == uid ? 0x1337 : uid, common);
-	checkpoint("%lld, %lld", *(SceInt64 *)scheduled, *(SceInt64 *)actual);
-	checkpoint("%08x, %08x, %08x", &arg, scheduled, actual);
-	return 10;
+	const SceInt64 sched = *(const SceInt64 *)scheduled;
+	const SceInt64 act = *(const SceInt64 *)actual;
+
+	if (act < sched) {
+		checkpoint("** normalHandler: %08x - called BEFORE schedule, sched=%lld, act=%lld", vtimer == uid ? 0x1337 : uid, sched, act);
+		return 1000;
+	}
+
+	int late = (act - sched) / 1000;
+	checkpoint("** normalHandler: %08x, %lld, +%dms, %08x", vtimer == uid ? 0x1337 : uid, sched, late, common);
+	return 1000;
 }
 
 const SceInt64 TIME_SEND_NULL = -1337;
@@ -61,7 +67,7 @@ void runTests(const char *heading, VTimerTestFunc func) {
 	runTest("  With handler: %08x", func(vtimer, 0, 1, (void *)0xDEADBEEF));
 	runTest("  Without handler: %08x", func(vtimer, 0, 0, (void *)0x12345678));
 
-	checkpointNext("While started:");
+	/*checkpointNext("While started:");
 	sceKernelStartVTimer(vtimer);
 	runTest("  With handler: %08x", func(vtimer, 400, 1, (void *)0xDEADC0DE));
 	sceKernelDelayThread(500);
@@ -71,12 +77,12 @@ void runTests(const char *heading, VTimerTestFunc func) {
 	sceKernelDelayThread(500);
 	runTest("  With handler: %08x", func(vtimer, 0, 1, (void *)0xDEADC0DE));
 	sceKernelDelayThread(500);
-	sceKernelStopVTimer(vtimer);
+	sceKernelStopVTimer(vtimer);*/
 
 	sceKernelDeleteVTimer(vtimer);
 }
 
-int main(int argc, char *argv[]) {
+extern "C" int main(int argc, char *argv[]) {
 	runTests("sceKernelSetVTimerHandler:", &do_sceKernelSetVTimerHandler);
 	runTests("sceKernelSetVTimerHandlerWide:", &do_sceKernelSetVTimerHandlerWide);
 
