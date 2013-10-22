@@ -16,5 +16,5 @@ sceKernelStartVTimer:00000000
 sceKernelSetVTimerHandler:0x00000000
 sceKernelStopVTimer:0x00000001
 sceKernelCancelVTimerHandler:0x00000000
-testVTimerHandler_TimerHandler: 1: 00000000000003E8, 0000000000000560, 00000000
+testVTimerHandler_TimerHandler: 1: 00000000000003E8, 00000000
 End

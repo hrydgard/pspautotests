@@ -1,4 +1,4 @@
-TARGETS = testgp dcache libc
+TARGETS = testgp dcache libc timeconv
 EXTRA_OBJS = kernel-imports.o
 
 COMMON_DIR = ../../common
