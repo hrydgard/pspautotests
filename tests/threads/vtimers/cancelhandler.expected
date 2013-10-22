@@ -3,10 +3,10 @@
 [x] NULL: Failed (800201bf) VTimer: Invalid (800201be)
 [x] Invalid: Failed (800201be) VTimer: Failed (deadbeef)
 [x] Deleted: Failed (800201be) VTimer: Invalid (800201be)
-[x] Started: OK VTimer: (size=72,name=delete,active=1,handler=0,common=00000000,base=N,current=+58,schedule=0)
-[x] With handler: OK VTimer: (size=72,name=delete,active=1,handler=0,common=0436b253,base=N,current=+171,schedule=+1)
+[x] Started: OK VTimer: (size=72,name=delete,active=1,handler=0,common=00000000,base=N,current=N,schedule=0)
+[x] With handler: OK VTimer: (size=72,name=delete,active=1,handler=0,common=abcd1337,base=N,current=N,schedule=+1)
 [r] Inside handler, cancel timer: 800201bf
 [x] Inside handler, cancel NULL: 800201be
-[x] After cancel handler: OK VTimer: (size=72,name=delete,active=1,handler=0,common=0436b253,base=N,current=+1346,schedule=+1)
-VTimer: (size=72,name=delete,active=1,handler=0,common=0436b253,base=N,current=+2450,schedule=+1)
-[r] After return zero handler: OK VTimer: (size=72,name=delete,active=1,handler=0,common=0436b253,base=N,current=+2562,schedule=+1)
+[x] After cancel handler: OK VTimer: (size=72,name=delete,active=1,handler=0,common=abcd1337,base=N,current=N,schedule=+1)
+VTimer: (size=72,name=delete,active=1,handler=0,common=abcd1337,base=N,current=N,schedule=+1)
+[r] After return zero handler: OK VTimer: (size=72,name=delete,active=1,handler=0,common=abcd1337,base=N,current=N,schedule=+1)

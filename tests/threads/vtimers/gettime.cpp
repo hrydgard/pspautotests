@@ -1,23 +1,23 @@
 #include "shared.h"
 
-inline void testBase(const char *title, SceUID vtimer, s64 expect) {
+inline void testTime(const char *title, SceUID vtimer, s64 expect) {
 	s64 t = 0x1337;
-	int result = sceKernelGetVTimerBase(vtimer, (SceKernelSysClock *)&t);
+	int result = sceKernelGetVTimerTime(vtimer, (SceKernelSysClock *)&t);
 	if (result == 0) {
 		s64 t_1000 = t / 1000;
 		s64 e_1000 = expect / 1000;
 		if (t >= 0 && (t_1000 == e_1000 || t_1000 == e_1000 - 1 || t_1000 == e_1000 + 1)) {
 			checkpoint("%s: OK", title, t);
 		} else {
-			checkpoint("%s: Wrong value - %016llx", title, t);
+			checkpoint("%s: Wrong value - %016x", title, t);
 		}
 	} else {
 		checkpoint("%s: Failed (%08x) %016llx", title, result, t);
 	}
 }
 
-inline void testBaseWide(const char *title, SceUID vtimer, s64 expect) {
-	s64 t = sceKernelGetVTimerBaseWide(vtimer);
+inline void testTimeWide(const char *title, SceUID vtimer, s64 expect) {
+	s64 t = sceKernelGetVTimerTimeWide(vtimer);
 	s64 t_1000 = t / 1000;
 	s64 e_1000 = expect / 1000;
 	if (t >= 0 && (t_1000 == e_1000 || t_1000 == e_1000 - 1 || t_1000 == e_1000 + 1)) {
@@ -29,42 +29,40 @@ inline void testBaseWide(const char *title, SceUID vtimer, s64 expect) {
 
 extern "C" int main(int argc, char *argv[]) {
 	SceUID vtimer = sceKernelCreateVTimer("test", NULL);
-	s64 t;
 
 	// Crashes.
-	//sceKernelGetVTimerBase(vtimer, NULL);
+	//sceKernelGetVTimerTime(vtimer, NULL);
 
 	checkpointNext("Objects");
-	testBase("  Normal", vtimer, 0);
-	testBase("  NULL", 0, 0);
-	testBase("  Invalid", 0xDEADBEEF, 0);
+	testTime("  Normal", vtimer, 0);
+	testTime("  NULL", 0, 0);
+	testTime("  Invalid", 0xDEADBEEF, 0);
 	sceKernelDeleteVTimer(vtimer);
-	testBase("  Deleted", vtimer, 0);
+	testTime("  Deleted", vtimer, 0);
 
 	vtimer = sceKernelCreateVTimer("test", NULL);
-	sceKernelStartVTimer(vtimer);
-	t = sceKernelGetSystemTimeWide();
-
 	checkpointNext("Running");
-	testBase("  After start", vtimer, t);
+	sceKernelStartVTimer(vtimer);
+	sceKernelDelayThread(5000);
+	testTime("  After start", vtimer, 5000);
 	sceKernelStopVTimer(vtimer);
-	testBase("  After stop", vtimer, 0);
+	testTime("  After stop", vtimer, 5000);
 
+	sceKernelSetVTimerTimeWide(vtimer, 0);
 	checkpointNext("Objects (wide)");
-	testBaseWide("  Normal", vtimer, 0);
-	testBaseWide("  NULL", 0, 0);
-	testBaseWide("  Invalid", 0xDEADBEEF, 0);
+	testTimeWide("  Normal", vtimer, 0);
+	testTimeWide("  NULL", 0, 0);
+	testTimeWide("  Invalid", 0xDEADBEEF, 0);
 	sceKernelDeleteVTimer(vtimer);
-	testBaseWide("  Deleted", vtimer, 0);
+	testTimeWide("  Deleted", vtimer, 0);
 
 	vtimer = sceKernelCreateVTimer("test", NULL);
-	sceKernelStartVTimer(vtimer);
-	t = sceKernelGetSystemTimeWide();
-
 	checkpointNext("Running (wide)");
-	testBaseWide("  After start", vtimer, t);
+	sceKernelStartVTimer(vtimer);
+	sceKernelDelayThread(5000);
+	testTimeWide("  After start", vtimer, 5000);
 	sceKernelStopVTimer(vtimer);
-	testBaseWide("  After stop", vtimer, 0);
+	testTimeWide("  After stop", vtimer, 5000);
 
 	sceKernelDeleteVTimer(vtimer);
 	return 0;

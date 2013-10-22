@@ -1,6 +1,12 @@
 #include "shared.h"
 
 SceUID vtimer;
+int countHits;
+
+SceUInt countHandler(SceUID uid, SceKernelSysClock *scheduled, SceKernelSysClock *actual, void *common) {
+	++countHits;
+	return 1000;
+}
 
 SceUInt normalHandler(SceUID uid, SceKernelSysClock *scheduled, SceKernelSysClock *actual, void *common) {
 	const SceInt64 sched = *(const SceInt64 *)scheduled;
@@ -18,13 +24,26 @@ SceUInt normalHandler(SceUID uid, SceKernelSysClock *scheduled, SceKernelSysCloc
 
 const SceInt64 TIME_SEND_NULL = -1337;
 
+SceKernelVTimerHandler getHandler(int which) {
+	switch (which) {
+	case 0:
+		return NULL;
+	case 1:
+		return normalHandler;
+	case 2:
+		return countHandler;
+	default:
+		return NULL;
+	}
+}
+
 int do_sceKernelSetVTimerHandler(SceUID uid, SceInt64 time, int handler, void *common) {
-	return sceKernelSetVTimerHandler(uid, time == TIME_SEND_NULL ? NULL : (SceKernelSysClock *)&time, handler ? normalHandler : NULL, common);
+	return sceKernelSetVTimerHandler(uid, time == TIME_SEND_NULL ? NULL : (SceKernelSysClock *)&time, getHandler(handler), common);
 }
 
 int do_sceKernelSetVTimerHandlerWide(SceUID uid, SceInt64 time, int handler, void *common) {
 	// pspsdk is wrong, they are the same handler.
-	return sceKernelSetVTimerHandlerWide(uid, time, handler ? (SceKernelVTimerHandlerWide)normalHandler : NULL, common);
+	return sceKernelSetVTimerHandlerWide(uid, time, (SceKernelVTimerHandlerWide)getHandler(handler), common);
 }
 
 typedef int (*VTimerTestFunc)(SceUID uid, SceInt64 time, int handler, void *common);
@@ -67,17 +86,32 @@ void runTests(const char *heading, VTimerTestFunc func) {
 	runTest("  With handler: %08x", func(vtimer, 0, 1, (void *)0xDEADBEEF));
 	runTest("  Without handler: %08x", func(vtimer, 0, 0, (void *)0x12345678));
 
-	/*checkpointNext("While started:");
+	SceKernelVTimerInfo info;
+	info.size = sizeof(info);
+	sceKernelReferVTimerStatus(vtimer, &info);
+	checkpoint("Result t = %llx", *(u64 *)&info.schedule.low);
+
+	checkpointNext("While started:");
 	sceKernelStartVTimer(vtimer);
 	runTest("  With handler: %08x", func(vtimer, 400, 1, (void *)0xDEADC0DE));
-	sceKernelDelayThread(500);
+	sceKernelDelayThread(1000);
+	sceKernelSetVTimerTimeWide(vtimer, 0);
 	runTest("  With handler: %08x", func(vtimer, 400, 1, (void *)0xDEADC0DE));
-	sceKernelDelayThread(500);
+	sceKernelDelayThread(1000);
+	sceKernelSetVTimerTimeWide(vtimer, 0);
 	runTest("  Without handler: %08x", func(vtimer, 400, 0, (void *)0xDEADC0DE));
-	sceKernelDelayThread(500);
+	sceKernelDelayThread(1000);
+	sceKernelSetVTimerTimeWide(vtimer, 0);
 	runTest("  With handler: %08x", func(vtimer, 0, 1, (void *)0xDEADC0DE));
-	sceKernelDelayThread(500);
-	sceKernelStopVTimer(vtimer);*/
+	sceKernelDelayThread(1000);
+	sceKernelStopVTimer(vtimer);
+
+	sceKernelSetVTimerTimeWide(vtimer, 10000);
+	sceKernelStartVTimer(vtimer);
+	runTest("  Passed handler: %08x", func(vtimer, 9000, 2, (void *)0xDEADC0DE));
+	sceKernelDelayThread(1000);
+	sceKernelStopVTimer(vtimer);
+	checkpoint("After passed: %d hits", countHits);
 
 	sceKernelDeleteVTimer(vtimer);
 }
@@ -85,8 +119,6 @@ void runTests(const char *heading, VTimerTestFunc func) {
 extern "C" int main(int argc, char *argv[]) {
 	runTests("sceKernelSetVTimerHandler:", &do_sceKernelSetVTimerHandler);
 	runTests("sceKernelSetVTimerHandlerWide:", &do_sceKernelSetVTimerHandlerWide);
-
-	// TODO: Both at once?
 
 	return 0;
 }

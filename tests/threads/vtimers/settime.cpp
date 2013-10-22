@@ -19,6 +19,12 @@ inline void testSetWide(const char *title, SceUID vtimer, s64 t) {
 	schedfVTimer(vtimer);
 }
 
+int countHits = 0;
+SceUInt countHandler(SceUID uid, SceKernelSysClock *scheduled, SceKernelSysClock *actual, void *common) {
+	++countHits;
+	return 100000;
+}
+
 extern "C" int main(int argc, char *argv[]) {
 	SceUID vtimer = sceKernelCreateVTimer("test", NULL);
 
@@ -53,5 +59,24 @@ extern "C" int main(int argc, char *argv[]) {
 	testSetWide("  -1", vtimer, -1);
 	testSetWide("  0", vtimer, 0);
 
+	checkpointNext("While scheduled");
+	sceKernelSetVTimerTimeWide(vtimer, 0);
+	SceKernelSysClock t = {20000, 0};
+	sceKernelSetVTimerHandler(vtimer, &t, &countHandler, (void *)0x00001337);
+	sceKernelStartVTimer(vtimer);
+	sceKernelDelayThread(1000);
+	checkpoint("  After start: %d", countHits);
+	sceKernelSetVTimerTimeWide(vtimer, 20000);
+	checkpoint("  After set: %d", countHits);
+	sceKernelDelayThread(1000);
+	sceKernelStopVTimer(vtimer);
+	checkpoint("  After set and delay: %d", countHits);
+
+	SceKernelVTimerInfo info;
+	info.size = sizeof(info);
+	sceKernelReferVTimerStatus(vtimer, &info);
+	checkpoint("%lld", *(u64 *)&info.schedule.low);
+
+	sceKernelDeleteVTimer(vtimer);
 	return 0;
 }

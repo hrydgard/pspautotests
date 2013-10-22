@@ -40,11 +40,11 @@ char msg[4096];
 
 SceUInt testVTimerHandler_TimerHandler(SceUID uid, SceKernelSysClock *elapsedScheduled, SceKernelSysClock *elapsedReal, void *common) {
 	// Crash if printf (write to file) within timer.
+	// elapsedReal varies, so don't output it.
 	sprintf(msg,
-		"testVTimerHandler_TimerHandler: %d: %08X%08X, %08X%08X, %08X\n",
+		"testVTimerHandler_TimerHandler: %d: %08X%08X, %08X\n",
 		(vtimer == uid) ? 1 : 0,
 		(uint)elapsedScheduled->hi, (uint)elapsedScheduled->low,
-		(uint)elapsedReal->hi, (uint)elapsedReal->low,
 		(uint)common
 	);
 

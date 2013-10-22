@@ -18,10 +18,8 @@ inline void schedfVTimer(SceUID vtimer) {
 			char current_s[32], schedule_s[32];
 			if (current == 0) {
 				sprintf(current_s, "0");
-			} else if (base == 0) {
-				sprintf(current_s, "N");
 			} else {
-				sprintf(current_s, "+%lld", current);
+				sprintf(current_s, "N");
 			}
 			if (schedule == 0) {
 				sprintf(schedule_s, "0");

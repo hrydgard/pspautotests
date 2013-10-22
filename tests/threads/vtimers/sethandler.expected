@@ -22,6 +22,19 @@
 [x] Common:
 [x]   With handler: 00000000 - VTimer: (size=72,name=test,active=0,handler=1,common=deadbeef,base=0,current=0,schedule=0)
 [x]   Without handler: 00000000 - VTimer: (size=72,name=test,active=0,handler=0,common=deadbeef,base=0,current=0,schedule=0)
+[x] Result t = 0
+
+[x] While started:
+[x]   With handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=1,common=deadc0de,base=N,current=N,schedule=+400)
+[r] ** normalHandler: 00001337, 400, +0ms, deadc0de
+[x]   With handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=1,common=deadc0de,base=N,current=N,schedule=+400)
+[r] ** normalHandler: 00001337, 400, +0ms, deadc0de
+[x]   Without handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=0,common=deadc0de,base=N,current=N,schedule=+1400)
+[r]   With handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=1,common=deadc0de,base=N,current=N,schedule=0)
+[r] ** normalHandler: 00001337, 0, +0ms, deadc0de
+[x] ** normalHandler: 00001337, 1000, +0ms, deadc0de
+[x]   Passed handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=1,common=deadc0de,base=N,current=N,schedule=+9000)
+[r] After passed: 3 hits
 
 [x] sceKernelSetVTimerHandlerWide:
 
@@ -47,3 +60,16 @@
 [x] Common:
 [x]   With handler: 00000000 - VTimer: (size=72,name=test,active=0,handler=1,common=deadbeef,base=0,current=0,schedule=0)
 [x]   Without handler: 00000000 - VTimer: (size=72,name=test,active=0,handler=0,common=deadbeef,base=0,current=0,schedule=0)
+[x] Result t = 0
+
+[x] While started:
+[x]   With handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=1,common=deadc0de,base=N,current=N,schedule=+400)
+[r] ** normalHandler: 00001337, 400, +0ms, deadc0de
+[x]   With handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=1,common=deadc0de,base=N,current=N,schedule=+400)
+[r] ** normalHandler: 00001337, 400, +0ms, deadc0de
+[x]   Without handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=0,common=deadc0de,base=N,current=N,schedule=+1400)
+[r]   With handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=1,common=deadc0de,base=N,current=N,schedule=0)
+[r] ** normalHandler: 00001337, 0, +0ms, deadc0de
+[x] ** normalHandler: 00001337, 1000, +0ms, deadc0de
+[x]   Passed handler: 00000000 - VTimer: (size=72,name=test,active=1,handler=1,common=deadc0de,base=N,current=N,schedule=+9000)
+[r] After passed: 6 hits

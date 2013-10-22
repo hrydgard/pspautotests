@@ -5,7 +5,7 @@
 [x]   Deleted: Failed (800201be) 0000000000001337
 
 [x] Running
-[x]   After start: OK
+[r]   After start: OK
 [x]   After stop: OK
 
 [x] Objects (wide)
@@ -15,5 +15,5 @@
 [x]   Deleted: Wrong value - ffffffffffffffff
 
 [x] Running (wide)
-[x]   After start: OK
+[r]   After start: OK
 [x]   After stop: OK
