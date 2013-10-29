@@ -44,6 +44,7 @@ inline void getRegs() {
 		"la $v0, %0\n"
 		// regs[1] -> regs[0]...
 		"addiu $v0, $v0, -4\n"
+		// This is actually $at.
 		"sw $v1, 0x04($v0)\n"
 		"sw $a0, 0x10($v0)\n"
 		"sw $a1, 0x14($v0)\n"
@@ -86,6 +87,37 @@ inline void dumpRegs() {
 	schedf("\n");
 }
 
+inline void getRegs_v0v1() {
+	register u32 v0;
+	register u32 v1;
+	asm volatile (
+		"addiu %0, $v0, 0\n"
+		"addiu %1, $v1, 0\n"
+		: "=r"(v0), "=r"(v1)
+	);
+	
+	regs[2] = v0;
+	regs[3] = v1;
+}
+
+inline void dumpRegs_v0v1() {
+	getRegs_v0v1();
+
+	checkpoint(NULL);
+	schedf("v0=%08x, v1=%08x", regs[2], regs[3]);
+	schedf("\n");
+}
+
+int threadFunc(SceSize argc, void *argp) {
+	dumpRegs();
+	return 0;
+}
+
+int threadFunc2(SceSize argc, void *argp) {
+	dumpRegs_v0v1();
+	return 0;
+}
+
 extern "C" int main(int argc, char *argv[]) {
 	checkpointNext("Reset regs:");
 	fillRegs();
@@ -102,6 +134,18 @@ extern "C" int main(int argc, char *argv[]) {
 		continue;
 	}
 	dumpRegs();
+
+	checkpointNext("New thread (initial regs):");
+	SceUID threadID = sceKernelCreateThread("test", &threadFunc, 0x20, 0x1000, 0, NULL);
+	sceKernelStartThread(threadID, 0, (void *)0x13370000);
+	sceKernelWaitThreadEnd(threadID, NULL);
+	sceKernelDeleteThread(threadID);
+
+	checkpointNext("New thread (v0/v1):");
+	threadID = sceKernelCreateThread("test", &threadFunc2, 0x20, 0x1000, 0, NULL);
+	sceKernelStartThread(threadID, 0, (void *)0x13370000);
+	sceKernelWaitThreadEnd(threadID, NULL);
+	sceKernelDeleteThread(threadID);
 
 	return 0;
 }

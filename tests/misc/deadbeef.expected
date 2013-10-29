@@ -6,3 +6,9 @@
 
 [x] Really long loop (interrupt):
 [x] at=13370000, a0=13370000, a1=13370000, a2=13370000, a3=13370000, t0=13370000, t1=13370000, t2=13370000, t3=13370000, t4=13370000, t5=13370000, t6=13370000, t7=13370000, s0=13370000, s1=13370000, s2=13370000, s3=13370000, s4=13370000, s5=13370000, s6=13370000, s7=13370000, t8=13370000, t9=13370000
+
+[x] New thread (initial regs):
+[r] at=deadbeef, a0=00000000, a1=00000000, a2=deadbeef, a3=deadbeef, t0=deadbeef, t1=deadbeef, t2=deadbeef, t3=deadbeef, t4=deadbeef, t5=deadbeef, t6=deadbeef, t7=deadbeef, s0=deadbeef, s1=deadbeef, s2=deadbeef, s3=deadbeef, s4=deadbeef, s5=deadbeef, s6=deadbeef, s7=deadbeef, t8=deadbeef, t9=deadbeef
+
+[x] New thread (v0/v1):
+[r] v0=deadbeef, v1=deadbeef
