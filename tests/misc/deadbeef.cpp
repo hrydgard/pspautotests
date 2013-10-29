@@ -1,7 +1,8 @@
 #include <common.h>
 #include <pspthreadman.h>
 
-static u32 regs[64];
+// 32 gprs + 32 fprs + hi/lo
+static u32 __attribute__((aligned(16))) regs[32 + 32 + 2];
 
 inline void fillRegs() {
 	asm volatile (
@@ -60,6 +61,9 @@ inline void fillRegs() {
 		"mtc1 $t0, $f29\n"
 		"mtc1 $t0, $f30\n"
 		"mtc1 $t0, $f31\n"
+
+		"mtlo $t0\n"
+		"mthi $t0\n"
 	);
 
 	asm volatile (
@@ -135,6 +139,11 @@ inline void getRegs() {
 		"swc1 $f29, 0xF4($v0)\n"
 		"swc1 $f30, 0xF8($v0)\n"
 		"swc1 $f31, 0xFC($v0)\n"
+
+		"mflo $v1\n"
+		"sw $v1, 0x100($v0)\n"
+		"mfhi $v1\n"
+		"sw $v1, 0x104($v0)\n"
 		// For some reason, regs[0] fails, regs[1] is OK.
 		: "=m"(regs[1])
 	);
@@ -157,6 +166,10 @@ inline void dumpRegs() {
 	for (int i = 32; i < 64; ++i) {
 		schedf("f%d=%08x%s", i, regs[i], i >= 63 ? "" : ", ");
 	}
+	schedf("\n");
+	
+	checkpoint(NULL);
+	schedf("lo=%08x, hi=%08x", regs[64], regs[65]);
 	schedf("\n");
 }
 
@@ -215,7 +228,7 @@ extern "C" int main(int argc, char *argv[]) {
 	sceKernelDeleteThread(threadID);
 
 	checkpointNext("New thread (v0/v1):");
-	threadID = sceKernelCreateThread("test", &threadFunc2, 0x20, 0x1000, 0, NULL);
+	threadID = sceKernelCreateThread("test", &threadFunc2, 0x20, 0x1000, PSP_THREAD_ATTR_VFPU, NULL);
 	sceKernelStartThread(threadID, 0, (void *)0x13370000);
 	sceKernelWaitThreadEnd(threadID, NULL);
 	sceKernelDeleteThread(threadID);
