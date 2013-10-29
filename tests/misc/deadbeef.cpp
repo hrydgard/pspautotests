@@ -1,7 +1,7 @@
 #include <common.h>
 #include <pspthreadman.h>
 
-static u32 regs[32];
+static u32 regs[64];
 
 inline void fillRegs() {
 	asm volatile (
@@ -27,6 +27,39 @@ inline void fillRegs() {
 		"lui $s7, 0x1337\n"
 		"lui $t8, 0x1337\n"
 		"lui $t9, 0x1337\n"
+
+		"mtc1 $t0, $f0\n"
+		"mtc1 $t0, $f1\n"
+		"mtc1 $t0, $f2\n"
+		"mtc1 $t0, $f3\n"
+		"mtc1 $t0, $f4\n"
+		"mtc1 $t0, $f5\n"
+		"mtc1 $t0, $f6\n"
+		"mtc1 $t0, $f7\n"
+		"mtc1 $t0, $f8\n"
+		"mtc1 $t0, $f9\n"
+		"mtc1 $t0, $f10\n"
+		"mtc1 $t0, $f11\n"
+		"mtc1 $t0, $f12\n"
+		"mtc1 $t0, $f13\n"
+		"mtc1 $t0, $f14\n"
+		"mtc1 $t0, $f15\n"
+		"mtc1 $t0, $f16\n"
+		"mtc1 $t0, $f17\n"
+		"mtc1 $t0, $f18\n"
+		"mtc1 $t0, $f19\n"
+		"mtc1 $t0, $f20\n"
+		"mtc1 $t0, $f21\n"
+		"mtc1 $t0, $f22\n"
+		"mtc1 $t0, $f23\n"
+		"mtc1 $t0, $f24\n"
+		"mtc1 $t0, $f25\n"
+		"mtc1 $t0, $f26\n"
+		"mtc1 $t0, $f27\n"
+		"mtc1 $t0, $f28\n"
+		"mtc1 $t0, $f29\n"
+		"mtc1 $t0, $f30\n"
+		"mtc1 $t0, $f31\n"
 	);
 
 	asm volatile (
@@ -68,6 +101,40 @@ inline void getRegs() {
 		"sw $s7, 0x5C($v0)\n"
 		"sw $t8, 0x60($v0)\n"
 		"sw $t9, 0x64($v0)\n"
+		"sw $t9, 0x64($v0)\n"
+
+		"swc1 $f0, 0x80($v0)\n"
+		"swc1 $f1, 0x84($v0)\n"
+		"swc1 $f2, 0x88($v0)\n"
+		"swc1 $f3, 0x8C($v0)\n"
+		"swc1 $f4, 0x90($v0)\n"
+		"swc1 $f5, 0x94($v0)\n"
+		"swc1 $f6, 0x98($v0)\n"
+		"swc1 $f7, 0x9C($v0)\n"
+		"swc1 $f8, 0xA0($v0)\n"
+		"swc1 $f9, 0xA4($v0)\n"
+		"swc1 $f10, 0xA8($v0)\n"
+		"swc1 $f11, 0xAC($v0)\n"
+		"swc1 $f12, 0xB0($v0)\n"
+		"swc1 $f13, 0xB4($v0)\n"
+		"swc1 $f14, 0xB8($v0)\n"
+		"swc1 $f15, 0xBC($v0)\n"
+		"swc1 $f16, 0xC0($v0)\n"
+		"swc1 $f17, 0xC4($v0)\n"
+		"swc1 $f18, 0xC8($v0)\n"
+		"swc1 $f19, 0xCC($v0)\n"
+		"swc1 $f20, 0xD0($v0)\n"
+		"swc1 $f21, 0xD4($v0)\n"
+		"swc1 $f22, 0xD8($v0)\n"
+		"swc1 $f23, 0xDC($v0)\n"
+		"swc1 $f24, 0xE0($v0)\n"
+		"swc1 $f25, 0xE4($v0)\n"
+		"swc1 $f26, 0xE8($v0)\n"
+		"swc1 $f27, 0xEC($v0)\n"
+		"swc1 $f28, 0xF0($v0)\n"
+		"swc1 $f29, 0xF4($v0)\n"
+		"swc1 $f30, 0xF8($v0)\n"
+		"swc1 $f31, 0xFC($v0)\n"
 		// For some reason, regs[0] fails, regs[1] is OK.
 		: "=m"(regs[1])
 	);
@@ -84,6 +151,12 @@ inline void dumpRegs() {
 	schedf("s0=%08x, s1=%08x, s2=%08x, s3=%08x, ", regs[16], regs[17], regs[18], regs[19]);
 	schedf("s4=%08x, s5=%08x, s6=%08x, s7=%08x, ", regs[20], regs[21], regs[22], regs[23]);
 	schedf("t8=%08x, t9=%08x", regs[24], regs[25]);
+	schedf("\n");
+	
+	checkpoint(NULL);
+	for (int i = 32; i < 64; ++i) {
+		schedf("f%d=%08x%s", i, regs[i], i >= 63 ? "" : ", ");
+	}
 	schedf("\n");
 }
 
