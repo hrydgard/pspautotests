@@ -1,4 +1,4 @@
-TARGETS = intr waits
+TARGETS = intr waits suspended
 EXTRA_OBJS = ../threads/lwmutex/lwmutex-imports.o ../display/display-imports.o ../audio/sceaudio/audio-imports.o
 EXTRA_LIBS = -lpspumd
 
