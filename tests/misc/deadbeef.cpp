@@ -1,8 +1,8 @@
 #include <common.h>
 #include <pspthreadman.h>
 
-// 32 gprs + 32 fprs + hi/lo
-static u32 __attribute__((aligned(16))) regs[32 + 32 + 2];
+// 32 gprs + 32 fprs + hi/lo + fcr31
+static u32 __attribute__((aligned(16))) regs[32 + 32 + 2 + 1];
 
 inline void fillRegs() {
 	asm volatile (
@@ -64,6 +64,9 @@ inline void fillRegs() {
 
 		"mtlo $t0\n"
 		"mthi $t0\n"
+
+		"li $v0, 3\n"
+		"ctc1 $v0, $31\n"
 	);
 
 	asm volatile (
@@ -105,7 +108,6 @@ inline void getRegs() {
 		"sw $s7, 0x5C($v0)\n"
 		"sw $t8, 0x60($v0)\n"
 		"sw $t9, 0x64($v0)\n"
-		"sw $t9, 0x64($v0)\n"
 
 		"swc1 $f0, 0x80($v0)\n"
 		"swc1 $f1, 0x84($v0)\n"
@@ -144,6 +146,9 @@ inline void getRegs() {
 		"sw $v1, 0x100($v0)\n"
 		"mfhi $v1\n"
 		"sw $v1, 0x104($v0)\n"
+
+		"cfc1 $v1, $31\n"
+		"sw $v1, 0x108($v0)\n"
 		// For some reason, regs[0] fails, regs[1] is OK.
 		: "=m"(regs[1])
 	);
@@ -169,7 +174,7 @@ inline void dumpRegs() {
 	schedf("\n");
 	
 	checkpoint(NULL);
-	schedf("lo=%08x, hi=%08x", regs[64], regs[65]);
+	schedf("lo=%08x, hi=%08x, fcr31=%08x", regs[64], regs[65], regs[66]);
 	schedf("\n");
 }
 
