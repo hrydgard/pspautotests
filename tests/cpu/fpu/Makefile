@@ -1,4 +1,4 @@
-TARGETS = fpu
+TARGETS = fpu fcr
 LIBS = -lpsprtc -lpspgum -lpspmath -lcommon -lc -lm
 
 COMMON_DIR = ../../../common
