@@ -118,13 +118,32 @@ void test_mul64() {
 	printf("%llu\n", (c * d) >> 7);
 }
 
-void test_div() {
-	volatile int a = 1 << 31; 
-	volatile int b = -1;
-	volatile int c = 100;
-	volatile int d = 3;
-	printf("%08x\n", a / b);
-	printf("%08x\n", c / d); 
+__attribute__ ((noinline)) u64 test_div(int value1, int value2) {
+	int ret1;
+	int ret2;
+	asm volatile (
+		"div %2, %3\n"
+		"nop\n"
+		"mflo %0\n"
+		"mfhi %1\n"
+		: "=r"(ret1), "=r"(ret2)
+		: "r"(value1), "r"(value2)
+	);
+	return (u64)ret1 | ((u64)ret2 << 32);
+}
+
+__attribute__ ((noinline)) u64 test_divu(unsigned int value1, unsigned int value2) {
+	unsigned int ret1;
+	unsigned int ret2;
+	asm volatile (
+		"divu %2, %3\n"
+		"nop\n"
+		"mflo %0\n"
+		"mfhi %1\n"
+		: "=r"(ret1), "=r"(ret2)
+		: "r"(value1), "r"(value2)
+	);
+	return (u64)ret1 | ((u64)ret2 << 32);
 }
 
 __attribute__ ((noinline)) unsigned int test_ins(unsigned int value1, unsigned int value2) {
@@ -298,7 +317,20 @@ int main(int argc, char *argv[]) {
 
 	// Other
 	test_mul64();
-	test_div();
+
+	// Crashes.
+	//printf("test_div: %016llx\n", test_div(1 << 31, -1));
+	printf("test_div: %016llx\n", test_div(1, -1));
+	printf("test_div: %016llx\n", test_div(1 << 31, 0xFFFFFFFE));
+	printf("test_div: %016llx\n", test_div(1 << 31, 0xC0000000));
+	printf("test_div: %016llx\n", test_div(100, 3));
+	printf("test_div: %016llx\n", test_div(17, 992234));
+	printf("test_divu: %016llx\n", test_divu(1 << 31, -1));
+	printf("test_divu: %016llx\n", test_divu(1, -1));
+	printf("test_divu: %016llx\n", test_divu(1 << 31, 0xC0000000));
+	printf("test_divu: %016llx\n", test_divu(100, 3));
+	printf("test_divu: %016llx\n", test_divu(17, 992234));
+
 	test_zr();
 
 	return 0;
