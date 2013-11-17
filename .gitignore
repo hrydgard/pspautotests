@@ -33,7 +33,8 @@ __testfailure.bmp
 *.opensdf
 *.suo
 
-io/file/workdir/testfile
+/tests/gpu/complex/xlog.txt
+/tests/io/file/workdir/
 
 libpsmfplayer.prx
 psmf.prx
