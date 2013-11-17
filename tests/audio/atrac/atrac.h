@@ -15,10 +15,10 @@ extern "C" {
 
 	int sceAtracGetSecondBufferInfo(int atracID, u32 *puiPosition, u32 *puiDataByte);
 	int sceAtracGetNextDecodePosition(int atracID, u32 *puiSamplePosition);
-	int sceAtracGetAtracID(int codecType);
+	int sceAtracGetAtracID(uint codecType);
 	int sceAtracReinit(int at3origCount, int at3plusCount);
-	int sceAtracSetData(int atracID, void *buf, SceSize bufSize);
-	int sceAtracResetPlayPosition(int atracID, int sampleCount, int bytesWrittenFirstBuf, int bytesWrittenSecondBuf);
+	int sceAtracSetData(int atracID, u8 *buf, u32 bufSize);
+	int sceAtracResetPlayPosition(int atracID, u32 sampleCount, u32 bytesWrittenFirstBuf, u32 bytesWrittenSecondBuf);
 	int sceAtracGetBufferInfoForResetting(int atracID, int position, AtracResetBufferInfo *bufferInfo);
-	int sceAtracSetHalfwayBufferAndGetID(void *buf, int bufSize, int readBytes);
+	int sceAtracSetHalfwayBufferAndGetID(u8 *buf, u32 bufSize, u32 readBytes);
 }

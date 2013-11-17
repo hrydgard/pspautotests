@@ -8,19 +8,19 @@ extern "C" int main(int argc, char *argv[]) {
 	int atracPlusID = sceAtracGetAtracID(0x1000);
 
 	checkpointNext("IDs:");
-	checkpoint("  ATRAC3: %08x", sceAtracSetData(atracID, at3.Data(), at3.Size()));
-	checkpoint("  ATRAC3+: %08x", sceAtracSetData(atracPlusID, at3.Data(), at3.Size()));
-	checkpoint("  Unallocated (1): %08x", sceAtracSetData(1, at3.Data(), at3.Size()));
-	checkpoint("  Unallocated (4): %08x", sceAtracSetData(4, at3.Data(), at3.Size()));
-	checkpoint("  -1: %08x", sceAtracSetData(-1, at3.Data(), at3.Size()));
+	checkpoint("  ATRAC3: %08x", sceAtracSetData(atracID, (u8 *)at3.Data(), at3.Size()));
+	checkpoint("  ATRAC3+: %08x", sceAtracSetData(atracPlusID, (u8 *)at3.Data(), at3.Size()));
+	checkpoint("  Unallocated (1): %08x", sceAtracSetData(1, (u8 *)at3.Data(), at3.Size()));
+	checkpoint("  Unallocated (4): %08x", sceAtracSetData(4, (u8 *)at3.Data(), at3.Size()));
+	checkpoint("  -1: %08x", sceAtracSetData(-1, (u8 *)at3.Data(), at3.Size()));
 
 	checkpointNext("Buffer:");
 	// Crashes.
 	//checkpoint("  NULL: %08x", sceAtracSetData(atracID, NULL, at3.Size()));
-	checkpoint("  Zero length: %08x", sceAtracSetData(atracPlusID, at3.Data(), 0));
+	checkpoint("  Zero length: %08x", sceAtracSetData(atracPlusID, (u8 *)at3.Data(), 0));
 
 	memset(at3.Data(), 0, at3.Size());
-	checkpoint("  Zeroed data: %08x", sceAtracSetData(atracPlusID, at3.Data(), at3.Size()));
+	checkpoint("  Zeroed data: %08x", sceAtracSetData(atracPlusID, (u8 *)at3.Data(), at3.Size()));
 
 	checkpointNext("sceAtracSetDataAndGetID:");
 	int result = sceAtracSetDataAndGetID(at3.Data(), at3.Size());

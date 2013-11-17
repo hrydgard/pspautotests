@@ -10,7 +10,7 @@ extern "C" int main(int argc, char *argv[]) {
 	int atracID;
 	u16 data[16384];
 	
-	atracID = sceAtracSetHalfwayBufferAndGetID(at3.Data(), at3.Size() / 2, at3.Size() / 2);
+	atracID = sceAtracSetHalfwayBufferAndGetID((u8 *)at3.Data(), at3.Size() / 2, at3.Size() / 2);
 	memset(&info, 0xCC, sizeof(info));
 	checkpointNext("IDs:");
 	checkpoint("  Unallocated: %08x", sceAtracGetBufferInfoForResetting(4, 0, &info));
@@ -49,7 +49,7 @@ extern "C" int main(int argc, char *argv[]) {
 
 	sceAtracReleaseAtracID(atracID);
 	at3.Reload("sample.at3");
-	atracID = sceAtracSetHalfwayBufferAndGetID(at3.Data(), at3.Size() / 2, at3.Size() / 2);
+	atracID = sceAtracSetHalfwayBufferAndGetID((u8 *)at3.Data(), at3.Size() / 2, at3.Size() / 2);
 	checkpointNext("Half buffer:");
 	checkpoint("  At start -> 0: %08x", sceAtracGetBufferInfoForResetting(atracID, 0, &info));
 	schedfResetBuffer(info, at3.Data());
