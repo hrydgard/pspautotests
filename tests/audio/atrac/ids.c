@@ -4,7 +4,7 @@
 #include <pspatrac3.h>
 #include <psputility.h>
 
-extern int sceAtracGetAtracID(int codecType);
+extern int sceAtracGetAtracID(uint codecType);
 extern int sceAtracReinit(int at3origCount, int at3plusCount);
 
 static int ids[64];
