@@ -16,14 +16,14 @@ int sceRtcSetWin32FileTime(pspTime *date, u64 filetime);
 int sceRtcSetTime64_t(pspTime *date, uint64_t time);
 int sceRtcGetTime64_t(const pspTime *date, uint64_t *time);
 
-int sceRtcFormatRFC2822(char *str, const u64 *utcTicks, int tz);
-int sceRtcFormatRFC2822LocalTime(char *str, int tz);
-int sceRtcFormatRFC3339(char *str, const u64 *utcTicks, int tz);
-int sceRtcFormatRFC3339LocalTime(char *str, int tz);
+static void DumpPSPTimeOnly(const pspTime *pt) {
+	printf("%d, %d, %d, %d, %d, %d, %d", pt->year, pt->month, pt->day, pt->hour, pt->minutes, pt->seconds, (int)pt->microseconds);
+}
 
-static void DumpPSPTime(const char* name, const pspTime* pt)
-{
-	printf("%s %d, %d, %d, %d, %d, %d, %d\n", name, pt->year, pt->month, pt->day, pt->hour, pt->minutes, pt->seconds, (int)pt->microseconds);
+static void DumpPSPTime(const char *name, const pspTime *pt) {
+	printf("%s ", name);
+	DumpPSPTimeOnly(pt);
+	printf("\n");
 }
 
 static void DumpTick(const char* name, u64 ticks)
