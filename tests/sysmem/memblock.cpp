@@ -69,5 +69,9 @@ extern "C" int main(int argc, char *argv[]) {
 	checkpoint("  sceKernelGetMemoryBlockPtr: %08x", sceKernelGetMemoryBlockPtr(uid, &ptr));
 	checkpoint("  sceKernelFreeMemoryBlock: %08x", sceKernelFreeMemoryBlock(uid));
 
+	checkpointNext("Invalid uids:");
+	checkpoint("  Free: %08x", sceKernelFreeMemoryBlock(uid));
+	checkpoint("  BlockPtr: %08x", sceKernelGetMemoryBlockPtr(uid, &ptr));
+
 	return 0;
 }

@@ -53,3 +53,7 @@
 [x]   sceKernelFreePartitionMemory: 00000000
 [x]   sceKernelGetMemoryBlockPtr: 00000000
 [x]   sceKernelFreeMemoryBlock: 00000000
+
+[x] Invalid uids:
+[x]   Free: 800200cb
+[x]   BlockPtr: 00000000
