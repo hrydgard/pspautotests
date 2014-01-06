@@ -106,12 +106,17 @@ void deleteTestMpeg() {
 	if (g_mpegData != NULL) {
 		sceMpegDelete(&g_mpeg);
 		free(g_mpegData);
+		g_mpegData = NULL;
 	}
 	if (g_ringbufferData != NULL) {
 		sceMpegRingbufferDestruct((SceMpegRingbuffer *) &g_ringbuffer);
 		free(g_ringbufferData);
+		g_ringbufferData = NULL;
 	}
-	free(g_atracData);
+	if (g_atracData != NULL) {
+		free(g_atracData);
+		g_atracData = NULL;
+	}
 	sceIoClose(g_mpegFile);
 }
 
@@ -169,4 +174,10 @@ void schedfAu(SceMpegAu *au) {
 	} else {
 		checkpoint("    Au (interesting): presented=%d/%d, decoded=%d/%d, es=%s, size=%d", simpler->presentedTimeHigh, simpler->presentedTimeLow, simpler->decodeTimeHigh, simpler->decodeTimeLow, esName, simpler->auSize);
 	}
+}
+
+void schedfRingbuffer(SceMpegRingbuffer2 *ringbuffer, void *data) {
+	u32 gp;
+	asm("sw $gp, %0" : "=m"(gp));
+	schedf("Ringbuffer: OK (packets=%d,r=%d/w=%d/f=%d,data=%d,cb=%d,arg=%08x,end=%d,sema?=%08x,mpeg=%d,gp=%d)\n", ringbuffer->packetsTotal, ringbuffer->packetsRead, ringbuffer->packetsWritten, ringbuffer->packetsAvail, ringbuffer->data == data, ringbuffer->callback != NULL, (unsigned int) ringbuffer->callbackArg, (unsigned int) ringbuffer->dataEnd - (unsigned int) ringbuffer->data, (unsigned int) ringbuffer->unknownValue, ringbuffer->mpeg, ringbuffer->gp == gp);
 }
