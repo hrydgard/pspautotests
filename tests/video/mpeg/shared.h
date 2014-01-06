@@ -22,6 +22,10 @@
 #include <pspmpeg.h>
 #include <psputility.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #undef sceMpegFinish
 #undef sceMpegRingbufferDestruct
 #undef sceMpegDelete
@@ -119,3 +123,8 @@ extern void deleteTestMpeg();
 extern void registMpegStreams(int vid, int aud);
 extern void loadMpegFile(const char *filename);
 extern void schedfAu(SceMpegAu *au);
+extern void schedfRingbuffer(SceMpegRingbuffer2 *ringbuffer, void *data);
+
+#ifdef __cplusplus
+}
+#endif
