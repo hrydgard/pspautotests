@@ -12,8 +12,7 @@
 #define SCE_UTILITY_MSGDIALOG_SIZE_V2					580
 #define SCE_UTILITY_MSGDIALOG_SIZE_V3					708
 
-typedef struct
-{
+typedef struct {
 	pspUtilityDialogCommon base;
 	int result;
 	int mode;
