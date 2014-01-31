@@ -11,3 +11,5 @@
 [x]   ShutdownStart: 00000000
 [x]   During shutdown: 80110001
 [x]   After shutdown: 80110001
+[r]   GetStatus: 00000000
+[x]   After reset: 80110001

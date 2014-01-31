@@ -103,6 +103,8 @@ extern "C" int main(int argc, char *argv[]) {
 	}
 	checkpoint("  After shutdown: %08x", sceUtilityMsgDialogAbort());
 	sceKernelDelayThread(500000);
+	checkpoint("  GetStatus: %08x", sceUtilityMsgDialogGetStatus());
+	checkpoint("  After reset: %08x", sceUtilityMsgDialogAbort());
 
 	return 0;
 }
