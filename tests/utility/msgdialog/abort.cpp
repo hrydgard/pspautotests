@@ -91,6 +91,7 @@ extern "C" int main(int argc, char *argv[]) {
 			checkpoint("  Twice: %08x", sceUtilityMsgDialogAbort());
 			checkpoint("  GetStatus: %08x", sceUtilityMsgDialogGetStatus());
 			checkpoint("  Update: %08x", sceUtilityMsgDialogUpdate(1));
+			checkpoint("  GetStatus: %08x", sceUtilityMsgDialogGetStatus());
 			checkpoint("  Third abort: %08x", sceUtilityMsgDialogAbort());
 		}
 	}
