@@ -11,9 +11,9 @@ struct SasHeader
 	char grainFactor; // 0x40=0x2 - 0x800=0x40
 	char outMode; // stereo/mono
 	char dryWet; // 1 = dry, 2 = wet, 3 = both, 0 = neither, default = 1
-	char unkOrPad; // default = 0
-	short revVolLeft; // default = 0
-	short revVolRight; // default = 0
+	char busyFlag; // default = 0
+	u16 revVolLeft; // default = 0
+	u16 revVolRight; // default = 0
 	int unk2; // default = -1
 };
 
@@ -29,7 +29,6 @@ typedef enum
 	SAS_VOICE_TYPE_MASK = 0x0F,
 
 	SAS_VOICE_FLAG_PAUSED = 0x10,
-	SAS_VOICE_FLAG_LOOP = 0x100,
 } SasVoiceFlags;
 
 struct SasVoice
@@ -56,7 +55,8 @@ struct SasVoice
 		};
 		// TODO: atrac3+...
 	};
-	u16 flags; // 0x10 == pause, 0x100 = loop, 0x1 = vag, 0x2 = noise, 0x3 = trangle, 0x4 = steep, 0x5 = pcm, default 0
+	u8 type; // 0x10 == pause, 0x1 = vag, 0x2 = noise, 0x3 = trangle, 0x4 = steep, 0x5 = pcm, default 0
+	u8 loop; // 1 = loop
 	short pitch; // default = 0x1000
 	short leftVolume; // default = 0x1000
 	short rightVolume; // default = 0x1000
@@ -73,15 +73,17 @@ struct SasVoice
 	char sustainType; // default 0
 	char releaseType; // default 1
 	u16 unk2; // ?? default=0707, likely ADSR related?
-	u16 unk3; // more flags? fe00 when voice on?  but 0400 when voice off?
-	int unk4; // could be padding, always 0 so far...
+	char unk3; // more flags? 00?
+	char phase; // -1 default, -2 to set voice on, 0=attack, 1=decay
+	int height;
 };
 
 struct SasFooter
 {
 	int unk1; // default = -1
 	int unk2; // default 0, changes to 1 after first sceSasCore().
-	int unk3; // default 0
+	short unk3; // default 0
+	short unk4; // default 0
 };
 
 typedef struct {
@@ -147,6 +149,10 @@ typedef struct {
 #define PSP_SAS_OUTPUTMODE_STEREO       0
 #define PSP_SAS_OUTPUTMODE_MULTICHANNEL 1
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 int __sceSasInit(SasCore* sasCore, int grainSamples, int maxVoices, int outMode, int sampleRate);
 int __sceSasSetADSR(SasCore *sasCore, int voice, int flag, int attack, int decay, int sustain, int release);
 int __sceSasRevParam(SasCore *sasCore, int delay, int feedback);
@@ -181,5 +187,9 @@ int __sceSasSetVoicePCM(SasCore *sasCore, int voice, void *pcm, int size, int lo
 int __sceSasSetVoiceATRAC3(SasCore *sasCore, int voice, void *atrac3Context);
 int __sceSasConcatenateATRAC3(SasCore *sasCore, int voice, void *data, int size);
 int __sceSasUnsetATRAC3(SasCore *sasCore, int voice);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
