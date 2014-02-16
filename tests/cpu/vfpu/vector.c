@@ -821,11 +821,53 @@ void checkVwbn() {
 
     for (i = 0; i < 16; i++) {
         vin.x = testValues[i];
-        _checkVwbn1(&vout, &vin);
+        _checkVwbn1(&vout[0], &vin);
         printVector("checkVwbn 0", &vout[0]);
         printVector("checkVwbn 1", &vout[1]);
         printVector("checkVwbn 2", &vout[2]);
         printVector("checkVwbn 3", &vout[3]);
+    }
+}
+
+void NOINLINE _checkVsbn1(ScePspFVector4 *v0, ScePspFVector4 *vec) {
+	static ALIGN16 ScePspIVector4 vconst1 = {0, 8, 16, 32};
+	static ALIGN16 ScePspIVector4 vconst2 = {-127, -128, 128, 129};
+
+    __asm__ volatile (
+        "lv.q C000, %1\n"
+		"lv.q C100, %2\n"
+		"lv.q C110, %3\n"
+        "vsbn.s S010, S000, S100\n"
+        "vsbn.s S011, S000, S101\n"
+        "vsbn.s S012, S000, S102\n"
+        "vsbn.s S013, S000, S103\n"
+        "vsbn.s S020, S000, S110\n"
+        "vsbn.s S021, S000, S111\n"
+        "vsbn.s S022, S000, S112\n"
+        "vsbn.s S023, S000, S113\n"
+        "sv.q C010, 0x00+%0\n"
+        "sv.q C020, 0x10+%0\n"
+        : "+m" (*v0) : "m" (*vec), "m" (vconst1), "m" (vconst2)
+    );
+}
+
+void checkVsbn() {
+    static ALIGN16 ScePspVector4 vin = { 1.0f, 0.0f, 0.0f, 0.0f };
+	static ALIGN16 ScePspVector4 vout[2] = {{0.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 0.0f}};
+    int i;
+    const float testValues[] = {
+        1E-20f, 1, 100, 100000000,
+        2, 3, 4, 5,
+        100, 102, 104, 109,
+        -100, -10000000, -0.001, -1,
+		INFINITY, -INFINITY, -0.0,
+    };
+
+    for (i = 0; i < ARRAY_SIZE(testValues); i++) {
+        vin.f[0] = testValues[i];
+        _checkVsbn1(&vout[0].fv, &vin.fv);
+		printf("checkVsbn %08x 0: %08x %08x %08x %08x\n", vin.i[0], vout[0].i[0], vout[0].i[1], vout[0].i[2], vout[0].i[3]);
+		printf("checkVsbn %08x 1: %08x %08x %08x %08x\n", vin.i[0], vout[1].i[0], vout[1].i[1], vout[1].i[2], vout[1].i[3]);
     }
 }
 
@@ -954,6 +996,7 @@ int main(int argc, char *argv[]) {
 	checkVectorCopy();
 	checkRotation();
     checkVwbn();
+	checkVsbn();
 
 	printf("Ended\n");
 	return 0;
