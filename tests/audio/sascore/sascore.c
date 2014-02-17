@@ -87,7 +87,7 @@ void testSetVolumes(int voice, int l, int r, int el, int er) {
 void dumpSasVoice(int i, struct SasVoice *v) {
 	schedf("  V%02d: ", i);
 
-	SasVoiceFlags type = (SasVoiceFlags) (v->flags & SAS_VOICE_TYPE_MASK);
+	SasVoiceFlags type = (SasVoiceFlags) (v->type & SAS_VOICE_TYPE_MASK);
 	switch (type) {
 	case SAS_VOICE_TYPE_NONE:
 		schedf("NONE     %08x %08x", v->unkNone[0], v->unkNone[1]);
@@ -112,18 +112,18 @@ void dumpSasVoice(int i, struct SasVoice *v) {
 		break;
 	}
 
-	schedf(", flags=%04x, pitch=%04x, leftVol=%04x, rightVol=%04x", v->flags, v->pitch, v->leftVolume, v->rightVolume);
+	schedf(", type=%04x, pitch=%04x, leftVol=%04x, rightVol=%04x", v->type, v->pitch, v->leftVolume, v->rightVolume);
 	schedf(", effectLeftVol=%04x, effectRightVol=%04x, unk1=%04x\n", v->effectLeftVolume, v->effectRightVolume, v->unk1);
 	schedf("       rates: A=%08x, D=%08x, S=%08x, R=%08x  Slvl=%08x\n", v->attackRate, v->decayRate, v->sustainRate, v->releaseRate, v->sustainLevel);
 	schedf("       types: A=%02x, D=%02x, S=%02x, R=%02x", v->attackType, v->decayType, v->sustainType, v->releaseType);
-	schedf(", unk2=%04x, unk3=%04x, unk4=%08x\n", v->unk2, v->unk3, v->unk4);
+	schedf(", unk2=%04x, phase=%d, unk3=%04x, height=%08x\n", v->unk2, v->phase, v->unk3, v->height);
 }
 
 void dumpSasCore(SasCore *sas) {
 	schedf("  H: unk1End=%08x, revType=%d, unk=%02x", sas->header.unk1End, sas->header.revType, sas->header.unk);
 	schedf(", revDelay=%d, revFeedback=%d, grainFactor=%02x", sas->header.revDelay, sas->header.revFeedback, sas->header.grainFactor);
 	schedf(", outMode=%d, dry=%d, wet=%d", sas->header.outMode, sas->header.dryWet & 1, sas->header.dryWet & 2);
-	schedf(", unkOrPad=%d, revVolLeft=%d, revVolRight=%d", sas->header.unkOrPad, sas->header.revVolLeft, sas->header.revVolRight);
+	schedf(", busyFlag=%d, revVolLeft=%d, revVolRight=%d", sas->header.busyFlag, sas->header.revVolLeft, sas->header.revVolRight);
 	schedf(", unk2=%08x\n", sas->header.unk2);
 
 	int i;

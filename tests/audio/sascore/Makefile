@@ -1,4 +1,5 @@
-TARGETS = sascore
+TARGETS = sascore adsrcurve getheight keyon keyoff noise pcm setadsr
+EXTRA_LIBS = -lpspaudio -lpspsnd
 EXTRA_OBJS = sascore-imports.o
 
 COMMON_DIR = ../../../common
