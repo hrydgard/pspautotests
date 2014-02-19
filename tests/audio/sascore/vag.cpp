@@ -1,13 +1,15 @@
 #include <common.h>
 #include <psputility.h>
+#include <pspiofilemgr.h>
 #include "sascore.h"
 
 __attribute__((aligned(64))) SasCore sasCore;
 __attribute__((aligned(64))) short pcm[256 * 2 * 16] = {0};
 __attribute__((aligned(64))) short samples[4096 * 2 * 16] = {0};
+u8 *vag;
 
-void testSetVoicePCM(SasCore *sasCore, int v, void *addr, int size, int loop, const char *title) {
-	int result = __sceSasSetVoicePCM(sasCore, v, addr, size, loop);
+void testSetVoice(SasCore *sasCore, int v, void *addr, int size, int loop, const char *title) {
+	int result = __sceSasSetVoice(sasCore, v, addr, size, loop);
 	if (result < 0) {
 		checkpoint("%s: Failed (%08x)", title, result);
 	} else {
@@ -19,7 +21,7 @@ void printSample(int i) {
 	schedf("  [%03x] %04x %04x\n", i, (u16)samples[i * 2 + 0], (u16)samples[i * 2 + 1]);
 }
 
-void testPCMOutput(int loopPos) {
+void testVAGOutput(int loop) {
 	memset(samples, 0xdd, sizeof(samples));
 
 	__sceSasSetKeyOff(&sasCore, 0);
@@ -27,11 +29,11 @@ void testPCMOutput(int loopPos) {
 	__sceSasSetADSR(&sasCore, 0, 15, 0x40000000, 0x40000000, 0x40000000, 0x40000000);
 
 	char temp[64];
-	snprintf(temp, sizeof(temp), "Output with loop at %d:", loopPos);
+	snprintf(temp, sizeof(temp), "Output with loop %04x:", loop);
 	checkpointNext(temp);
 	__sceSasSetGrain(&sasCore, 512);
 	__sceSasSetOutputmode(&sasCore, 0);
-	__sceSasSetVoicePCM(&sasCore, 0, pcm, 256, loopPos);
+	__sceSasSetVoice(&sasCore, 0, vag, 1024, loop);
 	__sceSasSetKeyOn(&sasCore, 0);
 	memset(samples, 0xdd, sizeof(samples));
 	__sceSasCore(&sasCore, samples);
@@ -45,6 +47,13 @@ extern "C" int main(int argc, char *argv[]) {
 	sceUtilityLoadModule(PSP_MODULE_AV_AVCODEC);
 	sceUtilityLoadModule(PSP_MODULE_AV_SASCORE);
 
+	int fd = sceIoOpen("music.vag", PSP_O_RDONLY, 0);
+	int sz = sceIoLseek32(fd, 0, PSP_SEEK_END);
+	sceIoLseek32(fd, 0, SEEK_SET);
+	vag = new u8[sz];
+	sceIoRead(fd, vag, sz);
+	sceIoClose(fd);
+
 	__sceSasInit(&sasCore, 128, 32, 1, 44100);
 
 	for (int i = 0; i < ARRAY_SIZE(pcm); ++i) {
@@ -52,20 +61,20 @@ extern "C" int main(int argc, char *argv[]) {
 	}
 
 	checkpointNext("Voices:");
-	testSetVoicePCM(&sasCore, 0, pcm, 0x100, 0, "Normal");
-	testSetVoicePCM(&sasCore, -1, pcm, 0x100, 0, "Voice -1");
-	testSetVoicePCM(&sasCore, 32, pcm, 0x100, 0, "Voice 32");
+	testSetVoice(&sasCore, 0, vag, 0x100, 0, "  Normal");
+	testSetVoice(&sasCore, -1, vag, 0x100, 0, "  Voice -1");
+	testSetVoice(&sasCore, 32, vag, 0x100, 0, "  Voice 32");
 
 	checkpointNext("Addresses:");
-	testSetVoicePCM(&sasCore, 0, 0, 0x100, 0, "Zero");
-	testSetVoicePCM(&sasCore, 0, pcm, 0x100, 0, "Valid");
-
+	testSetVoice(&sasCore, 0, 0, 0x100, 0, "Zero");
+	testSetVoice(&sasCore, 0, vag, 0x100, 0, "Valid");
+	
 	checkpointNext("Sizes:");
-	static const int sizes[] = {-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 255, 256, 257, 0x10000, 0x10001, 0x20000, 0x40000};
+	static const int sizes[] = {-1, 0, 1, 2, 3, 4, 5, 8, 12, 15, 16, 32, 48, 64, 128, 255, 256, 257, 1024, 1025, 0x10000, 0x10001, 0x20000, 0x10000000, 0x80000000};
 	for (int i = 0; i < ARRAY_SIZE(sizes); ++i) {
 		char temp[64];
-		snprintf(temp, sizeof(temp), "  Size %d", sizes[i]);
-		testSetVoicePCM(&sasCore, 0, pcm, sizes[i], 0, temp);
+		snprintf(temp, sizeof(temp), "  Size %x", sizes[i]);
+		testSetVoice(&sasCore, 0, vag, sizes[i], 0, temp);
 	}
 
 	checkpointNext("Loop start pos:");
@@ -73,12 +82,12 @@ extern "C" int main(int argc, char *argv[]) {
 	for (int i = 0; i < ARRAY_SIZE(loops); ++i) {
 		char temp[64];
 		snprintf(temp, sizeof(temp), "  Loop pos %d / 256", loops[i]);
-		testSetVoicePCM(&sasCore, 0, pcm, 0x100, loops[i], temp);
+		testSetVoice(&sasCore, 0, vag, 0x100, loops[i], temp);
 	}
-	testSetVoicePCM(&sasCore, 0, pcm, 1, 1, "  Loop pos 1 / 1");
-	testSetVoicePCM(&sasCore, 0, pcm, 1, 2, "  Loop pos 2 / 1");
-	testSetVoicePCM(&sasCore, 0, pcm, 0x10000, 0xFFFF, "  Loop pos 0xFFFF / 0x10000");
-	testSetVoicePCM(&sasCore, 0, pcm, 0x10000, 0x10000, "  Loop pos 0x10000 / 0x10000");
+	testSetVoice(&sasCore, 0, vag, 1, 1, "  Loop pos 1 / 1");
+	testSetVoice(&sasCore, 0, vag, 1, 2, "  Loop pos 2 / 1");
+	testSetVoice(&sasCore, 0, vag, 0x10000, 0xFFFF, "  Loop pos 0xFFFF / 0x10000");
+	testSetVoice(&sasCore, 0, vag, 0x10000, 0x10000, "  Loop pos 0x10000 / 0x10000");
 
 	__sceSasSetKeyOff(&sasCore, 0);
 	__sceSasSetVoicePCM(&sasCore, 0, pcm, 256, 0);
@@ -87,10 +96,10 @@ extern "C" int main(int argc, char *argv[]) {
 	__sceSasSetADSR(&sasCore, 0, 15, 0x1000, 0x1000, 0x1000, 0x1000);
 
 	checkpointNext("After voice setup:");
-	testSetVoicePCM(&sasCore, 0, pcm, 0x100, 1, "  Normal");
+	testSetVoice(&sasCore, 0, vag, 0x10000, 0, "  Normal");
 	__sceSasSetKeyOff(&sasCore, 0);
 	__sceSasSetPause(&sasCore, -1, 1);
-	testSetVoicePCM(&sasCore, 0, pcm, 0x100, 1, "  While paused");
+	testSetVoice(&sasCore, 0, vag, 0x10000, 0, "  While paused");
 	checkpoint("  Still paused: %08x", __sceSasGetPauseFlag(&sasCore));
 	__sceSasSetPause(&sasCore, -1, 0);
 	
@@ -100,13 +109,14 @@ extern "C" int main(int argc, char *argv[]) {
 	for (int i = 0; i < 4; ++i) {
 		checkpoint("  Core: %08x", __sceSasCore(&sasCore, samples));
 	}
-	testSetVoicePCM(&sasCore, 0, pcm, 0x100, 1, "  After processing");
+	testSetVoice(&sasCore, 0, vag, 0x10000, 0, "  After processing");
 	checkpoint("  Still playing: %08x", __sceSasGetEndFlag(&sasCore));
-	
+
 	// TODO: Do we want to emulate the resampling exactly?
-	testPCMOutput(0);
-	testPCMOutput(254);
-	testPCMOutput(-1);
+	testVAGOutput(0);
+	testVAGOutput(1);
+
+	delete [] vag;
 
 	return 0;
 }

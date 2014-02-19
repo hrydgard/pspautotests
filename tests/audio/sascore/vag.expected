@@ -1,0 +1,85 @@
+[x] Voices:
+[x]   Normal: OK (00000000)
+[x]   Voice -1: Failed (80420010)
+[x]   Voice 32: Failed (80420010)
+
+[x] Addresses:
+[x] Zero: OK (00000000)
+[x] Valid: OK (00000000)
+
+[x] Sizes:
+[x]   Size ffffffff: Failed (80420014)
+[x]   Size 0: Failed (80420014)
+[x]   Size 1: Failed (80420014)
+[x]   Size 2: Failed (80420014)
+[x]   Size 3: Failed (80420014)
+[x]   Size 4: Failed (80420014)
+[x]   Size 5: Failed (80420014)
+[x]   Size 8: Failed (80420014)
+[x]   Size c: Failed (80420014)
+[x]   Size f: Failed (80420014)
+[x]   Size 10: OK (00000000)
+[x]   Size 20: OK (00000000)
+[x]   Size 30: OK (00000000)
+[x]   Size 40: OK (00000000)
+[x]   Size 80: OK (00000000)
+[x]   Size ff: Failed (80420014)
+[x]   Size 100: OK (00000000)
+[x]   Size 101: Failed (80420014)
+[x]   Size 400: OK (00000000)
+[x]   Size 401: Failed (80420014)
+[x]   Size 10000: OK (00000000)
+[x]   Size 10001: Failed (80420014)
+[x]   Size 20000: OK (00000000)
+[x]   Size 10000000: OK (00000000)
+[x]   Size 80000000: OK (00000000)
+
+[x] Loop start pos:
+[x]   Loop pos -1 / 256: Failed (80420015)
+[x]   Loop pos 0 / 256: OK (00000000)
+[x]   Loop pos 1 / 256: OK (00000000)
+[x]   Loop pos 2 / 256: Failed (80420015)
+[x]   Loop pos 3 / 256: Failed (80420015)
+[x]   Loop pos 4 / 256: Failed (80420015)
+[x]   Loop pos 5 / 256: Failed (80420015)
+[x]   Loop pos 6 / 256: Failed (80420015)
+[x]   Loop pos 7 / 256: Failed (80420015)
+[x]   Loop pos 8 / 256: Failed (80420015)
+[x]   Loop pos 255 / 256: Failed (80420015)
+[x]   Loop pos 256 / 256: Failed (80420015)
+[x]   Loop pos 257 / 256: Failed (80420015)
+[x]   Loop pos 65536 / 256: Failed (80420015)
+[x]   Loop pos 65537 / 256: Failed (80420015)
+[x]   Loop pos 268435456 / 256: Failed (80420015)
+[x]   Loop pos 1073741825 / 256: Failed (80420015)
+[x]   Loop pos -2147483647 / 256: Failed (80420015)
+[x]   Loop pos 1 / 1: Failed (80420014)
+[x]   Loop pos 2 / 1: Failed (80420014)
+[x]   Loop pos 0xFFFF / 0x10000: Failed (80420015)
+[x]   Loop pos 0x10000 / 0x10000: Failed (80420015)
+
+[x] After voice setup:
+[x]   Normal: OK (00000000)
+[x]   While paused: OK (00000000)
+[x]   Still paused: ffffffff
+
+[x] With core:
+[x]   Key on: 00000000
+[r]   Core: 00000000
+[r]   Core: 00000000
+[r]   Core: 00000000
+[r]   Core: 00000000
+[x]   After processing: OK (00000000)
+[x]   Still playing: fffffffe
+
+[x] Output with loop 0000:
+  [020] 0000 0000
+  [11e] 2d4b 2d4b
+  [120] 2cb4 2cb4
+[r]   Ended: fffffffe
+
+[x] Output with loop 0001:
+  [020] 0000 0000
+  [11e] 2d4b 2d4b
+  [120] 2cb4 2cb4
+[r]   Ended: fffffffe
