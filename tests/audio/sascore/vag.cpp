@@ -43,6 +43,37 @@ void testVAGOutput(int loop) {
 	checkpoint("  Ended: %08x", __sceSasGetEndFlag(&sasCore));
 }
 
+void testVAGData(int predict_nr, int flagsAfter0) {
+	u8 data[0x100];
+
+	// Each block is 16 bytes, predict_nr, flags, data.
+	for (int i = 0; i < 0x100; i += 0x10) {
+		data[i + 0] = (predict_nr << 4) | (i >> 4);
+		data[i + 1] = i == 0 ? 0 : flagsAfter0;
+		for (int j = 0x02; j < 0x10; ++j) {
+			data[i + j] = (j << 4) | 3;
+		}
+	}
+
+	__sceSasSetKeyOff(&sasCore, 0);
+	__sceSasSetADSRmode(&sasCore, 0, 15, PSP_SAS_ADSR_CURVE_MODE_LINEAR_INCREASE, PSP_SAS_ADSR_CURVE_MODE_DIRECT, PSP_SAS_ADSR_CURVE_MODE_DIRECT, PSP_SAS_ADSR_CURVE_MODE_DIRECT);
+	__sceSasSetADSR(&sasCore, 0, 15, 0x40000000, 0x40000000, 0x40000000, 0x40000000);
+
+	char temp[64];
+	snprintf(temp, sizeof(temp), "VAG data (predict_nr=%x, flagsAfter0=%02x):", predict_nr, flagsAfter0);
+	checkpointNext(temp);
+	__sceSasSetGrain(&sasCore, 512);
+	__sceSasSetOutputmode(&sasCore, 0);
+	__sceSasSetVoice(&sasCore, 0, data, 0x100, 1);
+	__sceSasSetKeyOn(&sasCore, 0);
+	memset(samples, 0xdd, sizeof(samples));
+	__sceSasCore(&sasCore, samples);
+	for (int i = 32; i < 40; ++i) {
+		printSample(i);
+	}
+	checkpoint("  Ended: %08x", __sceSasGetEndFlag(&sasCore));
+}
+
 extern "C" int main(int argc, char *argv[]) {
 	sceUtilityLoadModule(PSP_MODULE_AV_AVCODEC);
 	sceUtilityLoadModule(PSP_MODULE_AV_SASCORE);
@@ -117,6 +148,15 @@ extern "C" int main(int argc, char *argv[]) {
 	testVAGOutput(1);
 
 	delete [] vag;
+
+	for (int i = 0; i < 0x10; ++i) {
+		testVAGData(i, 0);
+	}
+	testVAGData(0x0, 0x03);
+	testVAGData(0x0, 0x07);
+	testVAGData(0x0, 0x41);
+	testVAGData(0x0, 0x01);
+	testVAGData(0x0, 0x87);
 
 	return 0;
 }

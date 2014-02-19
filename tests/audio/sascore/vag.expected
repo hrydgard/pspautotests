@@ -83,3 +83,234 @@
   [11e] 2d4b 2d4b
   [120] 2cb4 2cb4
 [r]   Ended: fffffffe
+
+[x] VAG data (predict_nr=0, flagsAfter0=00):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 2000 2000
+  [023] 3000 3000
+  [024] 3000 3000
+  [025] 3000 3000
+  [026] 4000 4000
+  [027] 3000 3000
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=1, flagsAfter0=00):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 4d00 4d00
+  [023] 7830 7830
+  [024] 7fff 7fff
+  [025] 7fff 7fff
+  [026] 7fff 7fff
+  [027] 7fff 7fff
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=2, flagsAfter0=00):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 7640 7640
+  [023] 7fff 7fff
+  [024] 7fff 7fff
+  [025] 7fff 7fff
+  [026] 7fff 7fff
+  [027] 7fff 7fff
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=3, flagsAfter0=00):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 6980 6980
+  [023] 7fff 7fff
+  [024] 7fff 7fff
+  [025] 7fff 7fff
+  [026] 7fff 7fff
+  [027] 7fff 7fff
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=4, flagsAfter0=00):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 7b80 7b80
+  [023] 7fff 7fff
+  [024] 7fff 7fff
+  [025] 7fff 7fff
+  [026] 7fff 7fff
+  [027] 7fff 7fff
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=5, flagsAfter0=00):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 2000 2000
+  [023] 3000 3000
+  [024] 3000 3000
+  [025] 3000 3000
+  [026] 4000 4000
+  [027] 3000 3000
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=6, flagsAfter0=00):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 2000 2000
+  [023] 3000 3000
+  [024] 3000 3000
+  [025] 3000 3000
+  [026] 4000 4000
+  [027] 3000 3000
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=7, flagsAfter0=00):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 4700 4700
+  [023] 69b0 69b0
+  [024] 7fff 7fff
+  [025] 7fff 7fff
+  [026] 7fff 7fff
+  [027] 7fff 7fff
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=8, flagsAfter0=00):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 4940 4940
+  [023] 6d73 6d73
+  [024] 7fff 7fff
+  [025] 7fff 7fff
+  [026] 7fff 7fff
+  [027] 7fff 7fff
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=9, flagsAfter0=00):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 4d00 4d00
+  [023] 1a70 1a70
+  [024] b265 b265
+  [025] b39b b39b
+  [026] 7fff 7fff
+  [027] 7fff 7fff
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=a, flagsAfter0=00):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 2000 2000
+  [023] 3000 3000
+  [024] 3000 3000
+  [025] 3000 3000
+  [026] 4000 4000
+  [027] 3000 3000
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=b, flagsAfter0=00):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 2000 2000
+  [023] ebc0 ebc0
+  [024] 0280 0280
+  [025] 4ccb 4ccb
+  [026] 3c72 3c72
+  [027] c2cf c2cf
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=c, flagsAfter0=00):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 2000 2000
+  [023] 3000 3000
+  [024] 3000 3000
+  [025] 3000 3000
+  [026] 4000 4000
+  [027] 3000 3000
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=d, flagsAfter0=00):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 2180 2180
+  [023] 8f0c 8f0c
+  [024] bb68 bb68
+  [025] 7fff 7fff
+  [026] 7fff 7fff
+  [027] 8000 8000
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=e, flagsAfter0=00):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 7dc0 7dc0
+  [023] 7fff 7fff
+  [024] 7fff 7fff
+  [025] 7fff 7fff
+  [026] 7fff 7fff
+  [027] 7fff 7fff
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=f, flagsAfter0=00):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 2000 2000
+  [023] bec0 bec0
+  [024] e480 e480
+  [025] 7fff 7fff
+  [026] 7fff 7fff
+  [027] 8000 8000
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=0, flagsAfter0=03):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 2000 2000
+  [023] 3000 3000
+  [024] 3000 3000
+  [025] 3000 3000
+  [026] 4000 4000
+  [027] 3000 3000
+[r]   Ended: fffffffe
+
+[x] VAG data (predict_nr=0, flagsAfter0=07):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 2000 2000
+  [023] 3000 3000
+  [024] 3000 3000
+  [025] 3000 3000
+  [026] 4000 4000
+  [027] 3000 3000
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=0, flagsAfter0=41):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 2000 2000
+  [023] 3000 3000
+  [024] 3000 3000
+  [025] 3000 3000
+  [026] 4000 4000
+  [027] 3000 3000
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=0, flagsAfter0=01):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 2000 2000
+  [023] 3000 3000
+  [024] 3000 3000
+  [025] 3000 3000
+  [026] 4000 4000
+  [027] 3000 3000
+[r]   Ended: ffffffff
+
+[x] VAG data (predict_nr=0, flagsAfter0=87):
+  [020] 0000 0000
+  [021] 3000 3000
+  [022] 2000 2000
+  [023] 3000 3000
+  [024] 3000 3000
+  [025] 3000 3000
+  [026] 4000 4000
+  [027] 3000 3000
+[r]   Ended: ffffffff
