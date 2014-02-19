@@ -1,4 +1,4 @@
-TARGETS = sascore adsrcurve getheight keyon keyoff noise pcm setadsr
+TARGETS = sascore adsrcurve getheight keyon keyoff noise pcm pitch setadsr vag
 EXTRA_LIBS = -lpspaudio -lpspsnd
 EXTRA_OBJS = sascore-imports.o
 
