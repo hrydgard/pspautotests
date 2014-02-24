@@ -1,8 +1,12 @@
 #ifndef __LIBFONT_H
 	#define __LIBFONT_H
 
-	typedef void *(*FontAllocFunc)(void *, u32);
-	typedef void (*FontFreeFunc)(void *, void *);
+	typedef void *(*FontAllocFunc)(void *arg, u32 size);
+	typedef void (*FontFreeFunc)(void *arg, void *ptr);
+	typedef u32 (*FontOpenFunc)(void *arg, const char *filename, int *errorCode);
+	typedef int (*FontCloseFunc)(void *arg, u32 handle);
+	typedef u32 (*FontReadFunc)(void *arg, int handle, void *ptr, u32 size, u32 count, int *errorCode);
+	typedef int (*FontSeekFunc)(void *arg, int handle, u32 pos);
 
 	typedef struct {
 		u32* userDataAddr;
@@ -12,10 +16,10 @@
 		// Driver callbacks.
 		FontAllocFunc allocFuncAddr;
 		FontFreeFunc freeFuncAddr;
-		u32* openFuncAddr;
-		u32* closeFuncAddr;
-		u32* readFuncAddr;
-		u32* seekFuncAddr;
+		FontOpenFunc openFuncAddr;
+		FontCloseFunc closeFuncAddr;
+		FontReadFunc readFuncAddr;
+		FontSeekFunc seekFuncAddr;
 		u32* errorFuncAddr;
 		u32* ioFinishFuncAddr;
 	} FontNewLibParams;
