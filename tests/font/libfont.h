@@ -189,7 +189,7 @@
 	 *
 	 * @return FontHandle
 	 */
-	FontHandle sceFontOpenUserMemory(FontLibraryHandle libHandle, void *memoryFontAddr, int memoryFontLength, uint *errorCode);
+	FontHandle sceFontOpenUserMemory(FontLibraryHandle libHandle, const void *memoryFontAddr, int memoryFontLength, uint *errorCode);
 	
 	/**
 	 * Opens a new font from a file.

@@ -1,4 +1,4 @@
-TARGETS = fonttest newlib open openfile
+TARGETS = fonttest newlib open openfile openmem
 EXTRA_OBJS = libfont-imports.o
 
 COMMON_DIR = ../../common
