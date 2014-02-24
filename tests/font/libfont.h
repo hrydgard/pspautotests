@@ -60,6 +60,14 @@
 		FONT_LANGUAGE_KOREAN   = 3,
 	} Language;
 	
+	typedef enum {
+		PSP_FONT_PIXELFORMAT_4 = 0, // 2 pixels packed in 1 byte (natural order)
+		PSP_FONT_PIXELFORMAT_4_REV = 1, // 2 pixels packed in 1 byte (reversed order)
+		PSP_FONT_PIXELFORMAT_8 = 2, // 1 pixel in 1 byte
+		PSP_FONT_PIXELFORMAT_24 = 3, // 1 pixel in 3 bytes (RGB)
+		PSP_FONT_PIXELFORMAT_32 = 4, // 1 pixel in 4 bytes (RGBA)
+	} FontPixelFormat;
+
 	typedef struct {
 		int pixelFormat;
 		int positionX_F26_6;
