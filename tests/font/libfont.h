@@ -1,8 +1,12 @@
 #ifndef __LIBFONT_H
 	#define __LIBFONT_H
 
-	typedef u32 FontLibraryHandle;
-	typedef u32 FontHandle;
+	typedef void *(*FontAllocFunc)(void *arg, u32 size);
+	typedef void (*FontFreeFunc)(void *arg, void *ptr);
+	typedef u32 (*FontOpenFunc)(void *arg, const char *filename, int *errorCode);
+	typedef int (*FontCloseFunc)(void *arg, u32 handle);
+	typedef u32 (*FontReadFunc)(void *arg, int handle, void *ptr, u32 size, u32 count, int *errorCode);
+	typedef int (*FontSeekFunc)(void *arg, int handle, u32 pos);
 
 	typedef struct {
 		u32* userDataAddr;
@@ -10,15 +14,32 @@
 		u32* cacheDataAddr;
 
 		// Driver callbacks.
-		void *(*allocFuncAddr)(void *, u32);
-		void  (*freeFuncAddr )(void *, void *);
-		u32* openFuncAddr;
-		u32* closeFuncAddr;
-		u32* readFuncAddr;
-		u32* seekFuncAddr;
+		FontAllocFunc allocFuncAddr;
+		FontFreeFunc freeFuncAddr;
+		FontOpenFunc openFuncAddr;
+		FontCloseFunc closeFuncAddr;
+		FontReadFunc readFuncAddr;
+		FontSeekFunc seekFuncAddr;
 		u32* errorFuncAddr;
 		u32* ioFinishFuncAddr;
 	} FontNewLibParams;
+
+	typedef struct {
+		FontNewLibParams params;
+		void *fontInfo1; // 2c
+		void *fontInfo2;
+		u16 unk1;
+		u16 unk2;
+		float hRes; // 38
+		float vRes;
+		int internalFontCount;
+		void *internalFontInfo;
+		u16 unk4; // 48
+		u16 unk5; // 50
+	} FontLibrary;
+
+	typedef FontLibrary *FontLibraryHandle;
+	typedef u32 FontHandle;
 
 	typedef enum {
 		FONT_FAMILY_SANS_SERIF = 1,
@@ -39,6 +60,14 @@
 		FONT_LANGUAGE_KOREAN   = 3,
 	} Language;
 	
+	typedef enum {
+		PSP_FONT_PIXELFORMAT_4 = 0, // 2 pixels packed in 1 byte (natural order)
+		PSP_FONT_PIXELFORMAT_4_REV = 1, // 2 pixels packed in 1 byte (reversed order)
+		PSP_FONT_PIXELFORMAT_8 = 2, // 1 pixel in 1 byte
+		PSP_FONT_PIXELFORMAT_24 = 3, // 1 pixel in 3 bytes (RGB)
+		PSP_FONT_PIXELFORMAT_32 = 4, // 1 pixel in 4 bytes (RGBA)
+	} FontPixelFormat;
+
 	typedef struct {
 		int pixelFormat;
 		int positionX_F26_6;
@@ -107,6 +136,26 @@
 		u8 pad[3];
 	} FontInfo;
 	
+	typedef struct {
+		u32 bitmapWidth;
+		u32 bitmapHeight;
+		u32 bitmapLeft;
+		u32 bitmapTop;
+		// Glyph metrics (in 26.6 signed fixed-point).
+		u32 sfp26Width;
+		u32 sfp26Height;
+		int sfp26Ascender;
+		int sfp26Descender;
+		int sfp26BearingHX;
+		int sfp26BearingHY;
+		int sfp26BearingVX;
+		int sfp26BearingVY;
+		int sfp26AdvanceH;
+		int sfp26AdvanceV;
+		short shadowFlags;
+		short shadowId;
+	} FontCharInfo;
+
 	/**
 	 * Creates a new font library.
 	 *
@@ -148,7 +197,7 @@
 	 *
 	 * @return FontHandle
 	 */
-	FontHandle sceFontOpenUserMemory(FontLibraryHandle libHandle, void *memoryFontAddr, int memoryFontLength, uint *errorCode);
+	FontHandle sceFontOpenUserMemory(FontLibraryHandle libHandle, const void *memoryFontAddr, int memoryFontLength, uint *errorCode);
 	
 	/**
 	 * Opens a new font from a file.
@@ -160,7 +209,7 @@
 	 *
 	 * @return FontHandle
 	 */
-	FontHandle sceFontOpenUserFile(FontLibraryHandle libHandle, char *fileName, int mode, uint *errorCode);
+	FontHandle sceFontOpenUserFile(FontLibraryHandle libHandle, const char *fileName, int mode, uint *errorCode);
 
 	/**
 	 * Closes the specified font file.
@@ -227,4 +276,8 @@
 
 	int sceFontGetFontList(FontLibraryHandle libHandle, FontStyle *fontStyleList, int numFonts);
 	int sceFontGetCharGlyphImage(FontHandle FontHandle, ushort CharCode, GlyphImage* GlyphImagePointer);
+	int sceFontGetCharGlyphImage_Clip(FontHandle FontHandle, ushort CharCode, GlyphImage* GlyphImagePointer, int clipXPos, int clipYPos, int clipWidth, int clipHeight);
+	int sceFontGetCharInfo(FontHandle FontHandle, ushort charCode, FontCharInfo *charInfo);
+	int sceFontSetAltCharacterCode(FontLibraryHandle libHandle, int charCode);
+	int sceFontSetResolution(FontLibraryHandle libHandle, float hRes, float vRes);
 #endif

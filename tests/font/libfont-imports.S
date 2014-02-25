@@ -2,7 +2,7 @@
 
 #include "pspimport.s"
 
-IMPORT_START "sceLibFont",0x40010000
+IMPORT_START "sceLibFont",0x00090011
 IMPORT_FUNC	 "sceLibFont",0x67F17ED7,sceFontNewLib
 IMPORT_FUNC	 "sceLibFont",0x574B6FBC,sceFontDoneLib
 IMPORT_FUNC	 "sceLibFont",0xA834319D,sceFontOpen
