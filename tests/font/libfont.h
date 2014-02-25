@@ -279,4 +279,5 @@
 	int sceFontGetCharGlyphImage_Clip(FontHandle FontHandle, ushort CharCode, GlyphImage* GlyphImagePointer, int clipXPos, int clipYPos, int clipWidth, int clipHeight);
 	int sceFontGetCharInfo(FontHandle FontHandle, ushort charCode, FontCharInfo *charInfo);
 	int sceFontSetAltCharacterCode(FontLibraryHandle libHandle, int charCode);
+	int sceFontSetResolution(FontLibraryHandle libHandle, float hRes, float vRes);
 #endif
