@@ -272,12 +272,11 @@
 	 *
 	 * @param  libHandle  Handle of the library.
 	 * @param  fontInfo   Pointer to a FontInfo structure that will hold the information.
-	 * @param  unknown    ???
 	 * @param  fontIndex  Index of the font to get the information from.
 	 *
 	 * @return 0 on success
 	 */
-	int sceFontGetFontInfoByIndexNumber(FontLibraryHandle libHandle, FontInfo *fontInfo, int unknown, int fontIndex);
+	int sceFontGetFontInfoByIndexNumber(FontLibraryHandle libHandle, FontStyle *fontStyle, int fontIndex);
 
 	int sceFontGetFontList(FontLibraryHandle libHandle, FontStyle *fontStyleList, int numFonts);
 	int sceFontGetCharImageRect(FontHandle FontHandle, ushort CharCode, FontImageRect *rect);
