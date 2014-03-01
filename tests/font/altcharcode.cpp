@@ -86,6 +86,10 @@ void testFallback() {
 	result = sceFontGetCharInfo(font, 0xFFFF, &charInfo);
 	checkpoint("  sceFontGetCharInfo 0xFFFF (0x005F): %08x, %d", result, charInfo.bitmapHeight);
 
+	sceFontSetAltCharacterCode(fontLib, 0xFFFF);
+	result = sceFontGetCharInfo(font, 0xFFFF, &charInfo);
+	checkpoint("  sceFontGetCharInfo 0xFFFF (0xFFFF): %08x, %d", result, charInfo.bitmapHeight);
+
 	sceFontClose(font);
 }
 

@@ -156,6 +156,11 @@
 		short shadowId;
 	} FontCharInfo;
 
+	typedef struct {
+		short width;
+		short height;
+	} FontImageRect;
+
 	/**
 	 * Creates a new font library.
 	 *
@@ -275,11 +280,13 @@
 	int sceFontGetFontInfoByIndexNumber(FontLibraryHandle libHandle, FontInfo *fontInfo, int unknown, int fontIndex);
 
 	int sceFontGetFontList(FontLibraryHandle libHandle, FontStyle *fontStyleList, int numFonts);
+	int sceFontGetCharImageRect(FontHandle FontHandle, ushort CharCode, FontImageRect *rect);
 	int sceFontGetCharGlyphImage(FontHandle FontHandle, ushort CharCode, GlyphImage *GlyphImagePointer);
 	int sceFontGetCharGlyphImage_Clip(FontHandle FontHandle, ushort CharCode, GlyphImage *GlyphImagePointer, int clipXPos, int clipYPos, int clipWidth, int clipHeight);
 	int sceFontGetCharInfo(FontHandle FontHandle, ushort charCode, FontCharInfo *charInfo);
 	int sceFontSetAltCharacterCode(FontLibraryHandle libHandle, int charCode);
 	int sceFontSetResolution(FontLibraryHandle libHandle, float hRes, float vRes);
+	int sceFontGetShadowImageRect(FontHandle FontHandle, ushort CharCode, FontImageRect *rect);
 	int sceFontGetShadowGlyphImage(FontHandle FontHandle, ushort CharCode, GlyphImage *GlyphImagePointer);
 	int sceFontGetShadowGlyphImage_Clip(FontHandle FontHandle, ushort CharCode, GlyphImage *GlyphImagePointer, int clipXPos, int clipYPos, int clipWidth, int clipHeight);
 

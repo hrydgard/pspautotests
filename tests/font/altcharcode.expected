@@ -15,3 +15,4 @@
 [x] Fallbacks:
 [x]   sceFontGetCharInfo 0xFFFF (0x0000): 00000000, 0
 [x]   sceFontGetCharInfo 0xFFFF (0x005F): 00000000, 2
+[x]   sceFontGetCharInfo 0xFFFF (0xFFFF): 00000000, 0
