@@ -34,7 +34,7 @@
 		float vRes;
 		int internalFontCount;
 		void *internalFontInfo;
-		u16 unk4; // 48
+		u16 altCharCode; // 48
 		u16 unk5; // 50
 	} FontLibrary;
 

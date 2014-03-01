@@ -26,4 +26,4 @@
 
 [x] FontLib data layout
 [r]   Params: 0
-[x]   unk1=0000, unk2=0000 hRes=128.000000, vRes=128.000000, internal count=18, unk4=005f, unk5=0000
+[x]   unk1=0000, unk2=0000 hRes=128.000000, vRes=128.000000, internal count=18, altCharCode=005f, unk5=0000
