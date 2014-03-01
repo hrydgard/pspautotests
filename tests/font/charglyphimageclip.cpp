@@ -62,12 +62,12 @@ bool loadFontHandles() {
 	return true;
 }
 
-void testCharGlyphImage(const char *title, FontHandle f, u16 charCode, GlyphImage *glyph, bool show) {
+void testCharGlyphImage(const char *title, FontHandle f, u16 charCode, GlyphImage *glyph, bool show, int x = 0, int y = 0, int w = 20, int h = 20) {
 	if (show) {
 		memset(glyph->buffer, 0, 80 * 20);
 	}
 
-	int result = sceFontGetCharGlyphImage(f, charCode, glyph);
+	int result = sceFontGetCharGlyphImage_Clip(f, charCode, glyph, x, y, w, h);
 	if (result == 0) {
 		checkpoint("%s: OK", title);
 		if (show) {
@@ -177,6 +177,42 @@ void testGlyphParams() {
 	delete [] buf;
 }
 
+void testClipping() {
+	GlyphImage glyph;
+	u8 *buf = new u8[80 * 20];
+	glyph.buffer = buf;
+	glyph.bufferWidth = 20;
+	glyph.bufferHeight = 20;
+	glyph.bytesPerLine = 20;
+	glyph.pixelFormat = PSP_FONT_PIXELFORMAT_8;
+	glyph.positionX_F26_6 = 0;
+	glyph.positionY_F26_6 = 0;
+
+	checkpointNext("Clip x:");
+	testCharGlyphImage("  -1", font, 'A', &glyph, true, -1);
+	testCharGlyphImage("  5", font, 'A', &glyph, true, 5);
+
+	checkpointNext("Clip y:");
+	testCharGlyphImage("  -1", font, 'A', &glyph, true, 0, -1);
+	testCharGlyphImage("  5", font, 'A', &glyph, true, 0, 5);
+
+	checkpointNext("Clip width:");
+	testCharGlyphImage("  -2", font, 'A', &glyph, true, 0, 0, -2);
+	testCharGlyphImage("  -1", font, 'A', &glyph, true, 0, 0, -1);
+	testCharGlyphImage("  0", font, 'A', &glyph, true, 0, 0, 0);
+	testCharGlyphImage("  5", font, 'A', &glyph, true, 0, 0, 5);
+	testCharGlyphImage("  5 + 5", font, 'A', &glyph, true, 5, 0, 5);
+
+	checkpointNext("Clip height:");
+	testCharGlyphImage("  -2", font, 'A', &glyph, true, 0, 0, 20, -2);
+	testCharGlyphImage("  -1", font, 'A', &glyph, true, 0, 0, 20, -1);
+	testCharGlyphImage("  0", font, 'A', &glyph, true, 0, 0, 20, 0);
+	testCharGlyphImage("  5", font, 'A', &glyph, true, 0, 0, 20, 5);
+	testCharGlyphImage("  5 + 5", font, 'A', &glyph, true, 0, 5, 20, 5);
+
+	delete [] buf;
+}
+
 extern "C" int main(int argc, char *argv[]) {
 	if (!loadFontModule()) {
 		return 1;
@@ -186,6 +222,7 @@ extern "C" int main(int argc, char *argv[]) {
 	}
 
 	testGlyphParams();
+	testClipping();
 
 	sceFontClose(font);
 	sceFontDoneLib(fontLib);

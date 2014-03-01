@@ -275,9 +275,11 @@
 	int sceFontGetFontInfoByIndexNumber(FontLibraryHandle libHandle, FontInfo *fontInfo, int unknown, int fontIndex);
 
 	int sceFontGetFontList(FontLibraryHandle libHandle, FontStyle *fontStyleList, int numFonts);
-	int sceFontGetCharGlyphImage(FontHandle FontHandle, ushort CharCode, GlyphImage* GlyphImagePointer);
-	int sceFontGetCharGlyphImage_Clip(FontHandle FontHandle, ushort CharCode, GlyphImage* GlyphImagePointer, int clipXPos, int clipYPos, int clipWidth, int clipHeight);
+	int sceFontGetCharGlyphImage(FontHandle FontHandle, ushort CharCode, GlyphImage *GlyphImagePointer);
+	int sceFontGetCharGlyphImage_Clip(FontHandle FontHandle, ushort CharCode, GlyphImage *GlyphImagePointer, int clipXPos, int clipYPos, int clipWidth, int clipHeight);
 	int sceFontGetCharInfo(FontHandle FontHandle, ushort charCode, FontCharInfo *charInfo);
 	int sceFontSetAltCharacterCode(FontLibraryHandle libHandle, int charCode);
 	int sceFontSetResolution(FontLibraryHandle libHandle, float hRes, float vRes);
+	int sceFontGetShadowGlyphImage(FontHandle FontHandle, ushort CharCode, GlyphImage *GlyphImagePointer);
+	int sceFontGetShadowGlyphImage_Clip(FontHandle FontHandle, ushort CharCode, GlyphImage *GlyphImagePointer, int clipXPos, int clipYPos, int clipWidth, int clipHeight);
 #endif
