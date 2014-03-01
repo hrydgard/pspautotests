@@ -1,7 +1,7 @@
 TARGETS = fonttest \
 	altcharcode find newlib open openfile openmem optimum resolution \
-	charglyphimage charglyphimageclip charimagerect \
-	shadowglyphimage shadowglyphimageclip shadowimagerect
+	charglyphimage charglyphimageclip charimagerect charinfo \
+	shadowglyphimage shadowglyphimageclip shadowimagerect shadowinfo
 EXTRA_OBJS = libfont-imports.o
 
 COMMON_DIR = ../../common

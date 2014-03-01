@@ -289,6 +289,7 @@
 	int sceFontGetShadowImageRect(FontHandle FontHandle, ushort CharCode, FontImageRect *rect);
 	int sceFontGetShadowGlyphImage(FontHandle FontHandle, ushort CharCode, GlyphImage *GlyphImagePointer);
 	int sceFontGetShadowGlyphImage_Clip(FontHandle FontHandle, ushort CharCode, GlyphImage *GlyphImagePointer, int clipXPos, int clipYPos, int clipWidth, int clipHeight);
+	int sceFontGetShadowInfo(FontHandle FontHandle, ushort charCode, FontCharInfo *charInfo);
 
 	float sceFontPixelToPointH(FontLibraryHandle fontLibHandle, float fontPixelsH, uint *errorCode);
 	float sceFontPixelToPointV(FontLibraryHandle fontLibHandle, float fontPixelsH, uint *errorCode);
