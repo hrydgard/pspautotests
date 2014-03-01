@@ -282,4 +282,9 @@
 	int sceFontSetResolution(FontLibraryHandle libHandle, float hRes, float vRes);
 	int sceFontGetShadowGlyphImage(FontHandle FontHandle, ushort CharCode, GlyphImage *GlyphImagePointer);
 	int sceFontGetShadowGlyphImage_Clip(FontHandle FontHandle, ushort CharCode, GlyphImage *GlyphImagePointer, int clipXPos, int clipYPos, int clipWidth, int clipHeight);
+
+	float sceFontPixelToPointH(FontLibraryHandle fontLibHandle, float fontPixelsH, uint *errorCode);
+	float sceFontPixelToPointV(FontLibraryHandle fontLibHandle, float fontPixelsH, uint *errorCode);
+	float sceFontPointToPixelH(FontLibraryHandle fontLibHandle, float fontPixelsH, uint *errorCode);
+	float sceFontPointToPixelV(FontLibraryHandle fontLibHandle, float fontPixelsH, uint *errorCode);
 #endif
