@@ -78,3 +78,6 @@
 [x] Filename match:
 [x]   Exact: OK - 1 (allocated 0)
 [x]   Partial: OK - 0 (allocated 0)
+
+[x] Common combinations:
+[x]   10.0f with family/style/lang: OK - 6 (allocated 0)

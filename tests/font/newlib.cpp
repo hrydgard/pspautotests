@@ -134,7 +134,7 @@ void testDataLayout() {
 	FontLibraryHandle libID = sceFontNewLib(&libParams, &error);
 
 	checkpoint("  Params: %d", memcmp(&libParams, &libID->params, sizeof(libParams)));
-	checkpoint("  unk1=%04x, unk2=%04x hRes=%f, vRes=%f, internal count=%d, unk4=%04x, unk5=%04x", libID->unk1, libID->unk2, libID->hRes, libID->vRes, libID->internalFontCount, libID->unk4, libID->unk5);
+	checkpoint("  unk1=%04x, unk2=%04x hRes=%f, vRes=%f, internal count=%d, altCharCode=%04x, unk5=%04x", libID->unk1, libID->unk2, libID->hRes, libID->vRes, libID->internalFontCount, libID->altCharCode, libID->unk5);
 
 	sceFontDoneLib(libID);
 }

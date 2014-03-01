@@ -34,7 +34,7 @@
 		float vRes;
 		int internalFontCount;
 		void *internalFontInfo;
-		u16 unk4; // 48
+		u16 altCharCode; // 48
 		u16 unk5; // 50
 	} FontLibrary;
 
@@ -156,6 +156,11 @@
 		short shadowId;
 	} FontCharInfo;
 
+	typedef struct {
+		short width;
+		short height;
+	} FontImageRect;
+
 	/**
 	 * Creates a new font library.
 	 *
@@ -267,17 +272,26 @@
 	 *
 	 * @param  libHandle  Handle of the library.
 	 * @param  fontInfo   Pointer to a FontInfo structure that will hold the information.
-	 * @param  unknown    ???
 	 * @param  fontIndex  Index of the font to get the information from.
 	 *
 	 * @return 0 on success
 	 */
-	int sceFontGetFontInfoByIndexNumber(FontLibraryHandle libHandle, FontInfo *fontInfo, int unknown, int fontIndex);
+	int sceFontGetFontInfoByIndexNumber(FontLibraryHandle libHandle, FontStyle *fontStyle, int fontIndex);
 
 	int sceFontGetFontList(FontLibraryHandle libHandle, FontStyle *fontStyleList, int numFonts);
-	int sceFontGetCharGlyphImage(FontHandle FontHandle, ushort CharCode, GlyphImage* GlyphImagePointer);
-	int sceFontGetCharGlyphImage_Clip(FontHandle FontHandle, ushort CharCode, GlyphImage* GlyphImagePointer, int clipXPos, int clipYPos, int clipWidth, int clipHeight);
+	int sceFontGetCharImageRect(FontHandle FontHandle, ushort CharCode, FontImageRect *rect);
+	int sceFontGetCharGlyphImage(FontHandle FontHandle, ushort CharCode, GlyphImage *GlyphImagePointer);
+	int sceFontGetCharGlyphImage_Clip(FontHandle FontHandle, ushort CharCode, GlyphImage *GlyphImagePointer, int clipXPos, int clipYPos, int clipWidth, int clipHeight);
 	int sceFontGetCharInfo(FontHandle FontHandle, ushort charCode, FontCharInfo *charInfo);
 	int sceFontSetAltCharacterCode(FontLibraryHandle libHandle, int charCode);
 	int sceFontSetResolution(FontLibraryHandle libHandle, float hRes, float vRes);
+	int sceFontGetShadowImageRect(FontHandle FontHandle, ushort CharCode, FontImageRect *rect);
+	int sceFontGetShadowGlyphImage(FontHandle FontHandle, ushort CharCode, GlyphImage *GlyphImagePointer);
+	int sceFontGetShadowGlyphImage_Clip(FontHandle FontHandle, ushort CharCode, GlyphImage *GlyphImagePointer, int clipXPos, int clipYPos, int clipWidth, int clipHeight);
+	int sceFontGetShadowInfo(FontHandle FontHandle, ushort charCode, FontCharInfo *charInfo);
+
+	float sceFontPixelToPointH(FontLibraryHandle fontLibHandle, float fontPixelsH, uint *errorCode);
+	float sceFontPixelToPointV(FontLibraryHandle fontLibHandle, float fontPixelsH, uint *errorCode);
+	float sceFontPointToPixelH(FontLibraryHandle fontLibHandle, float fontPixelsH, uint *errorCode);
+	float sceFontPointToPixelV(FontLibraryHandle fontLibHandle, float fontPixelsH, uint *errorCode);
 #endif

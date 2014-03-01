@@ -161,6 +161,19 @@ void testFilenameMatches() {
 	testFilenameMatch("  Partial", "ltn0.pg");
 }
 
+void testCommon() {
+	checkpointNext("Common combinations:");
+
+	FontStyle style;
+	memset(&style, 0, sizeof(style));
+	style.fontH = 10.0f;
+	style.fontFamily = 2;
+	style.fontStyle = 5;
+	style.fontLanguage = 2;
+
+	testFindOptimum("  10.0f with family/style/lang", fontLib, &style);
+}
+
 extern "C" int main(int argc, char *argv[]) {
 	if (!loadFontModule()) {
 		return 1;
@@ -181,6 +194,7 @@ extern "C" int main(int argc, char *argv[]) {
 	testSizeMatches();
 	testBasicMatches();
 	testFilenameMatches();
+	testCommon();
 
 	sceFontDoneLib(fontLib);
 

@@ -62,12 +62,12 @@ bool loadFontHandles() {
 	return true;
 }
 
-void testCharGlyphImage(const char *title, FontHandle f, u16 charCode, GlyphImage *glyph, bool show) {
+void testShadowGlyphImage(const char *title, FontHandle f, u16 charCode, GlyphImage *glyph, bool show) {
 	if (show) {
 		memset(glyph->buffer, 0, 80 * 20);
 	}
 
-	int result = sceFontGetCharGlyphImage(f, charCode, glyph);
+	int result = sceFontGetShadowGlyphImage(f, charCode, glyph);
 	if (result == 0) {
 		checkpoint("%s: OK", title);
 		if (show) {
@@ -101,76 +101,79 @@ void testGlyphParams() {
 	glyph.positionY_F26_6 = 0;
 
 	checkpointNext("Fonts:");
-	testCharGlyphImage("  Normal", font, 'A', &glyph, true);
-	testCharGlyphImage("  NULL", 0, 'A', &glyph, true);
-	testCharGlyphImage("  Closed", fontClosed, 'A', &glyph, true);
+	testShadowGlyphImage("  Normal", font, 'A', &glyph, true);
+	testShadowGlyphImage("  NULL", 0, 'A', &glyph, true);
+	testShadowGlyphImage("  Closed", fontClosed, 'A', &glyph, true);
 
 	checkpointNext("Characters:");
-	testCharGlyphImage("  NUL", font, 0, &glyph, true);
-	testCharGlyphImage("  SOH", font, 1, &glyph, true);
-	testCharGlyphImage("  BEL", font, 7, &glyph, true);
-	testCharGlyphImage("  0xD7FF", font, 0xD7FF, &glyph, true);
-	testCharGlyphImage("  0xFFFE", font, 0xFFFE, &glyph, true);
-	testCharGlyphImage("  0xFFFF", font, 0xFFFF, &glyph, true);
+	testShadowGlyphImage("  NUL", font, 0, &glyph, true);
+	testShadowGlyphImage("  SOH", font, 1, &glyph, true);
+	testShadowGlyphImage("  BEL", font, 7, &glyph, true);
+	testShadowGlyphImage("  0xD7FF", font, 0xD7FF, &glyph, true);
+	testShadowGlyphImage("  0xFFFE", font, 0xFFFE, &glyph, true);
+	testShadowGlyphImage("  0xFFFF", font, 0xFFFF, &glyph, true);
+	testShadowGlyphImage("  A", font, 'A', &glyph, true);
+	testShadowGlyphImage("  B", font, 'B', &glyph, true);
+	testShadowGlyphImage("  C", font, 'C', &glyph, true);
 
 	checkpointNext("Glyph info:");
-	testCharGlyphImage("  Missing", font, 'A', NULL, false);
+	testShadowGlyphImage("  Missing", font, 'A', NULL, false);
 	// Crashes.
 	//glyph.buffer = NULL;
-	//testCharGlyphImage("  No buffer", font, 'A', &glyph, false);
+	//testShadowGlyphImage("  No buffer", font, 'A', &glyph, false);
 	//glyph.buffer = buf;
 	glyph.bufferWidth = 0;
-	testCharGlyphImage("  Width = 0", font, 'A', &glyph, true);
+	testShadowGlyphImage("  Width = 0", font, 'A', &glyph, true);
 	glyph.bufferWidth = -1;
-	testCharGlyphImage("  Width = -1", font, 'A', &glyph, true);
+	testShadowGlyphImage("  Width = -1", font, 'A', &glyph, true);
 	glyph.bufferWidth = 20;
 	glyph.bufferHeight = 0;
-	testCharGlyphImage("  Height = 0", font, 'A', &glyph, true);
+	testShadowGlyphImage("  Height = 0", font, 'A', &glyph, true);
 	glyph.bufferHeight = -1;
-	testCharGlyphImage("  Height = -1", font, 'A', &glyph, true);
+	testShadowGlyphImage("  Height = -1", font, 'A', &glyph, true);
 	glyph.bufferHeight = 20;
 	glyph.bytesPerLine = 0;
-	testCharGlyphImage("  Linesize = 0", font, 'A', &glyph, true);
+	testShadowGlyphImage("  Linesize = 0", font, 'A', &glyph, true);
 	glyph.bytesPerLine = 1;
-	testCharGlyphImage("  Linesize = 1", font, 'A', &glyph, true);
+	testShadowGlyphImage("  Linesize = 1", font, 'A', &glyph, true);
 	glyph.bytesPerLine = 20;
 
 	checkpointNext("Glyph position:");
 	glyph.positionX_F26_6 = -10 << 6;
-	testCharGlyphImage("  X = -10", font, 'A', &glyph, true);
+	testShadowGlyphImage("  X = -10", font, 'A', &glyph, true);
 	glyph.positionX_F26_6 = 10 << 6;
-	testCharGlyphImage("  X = 10", font, 'A', &glyph, true);
+	testShadowGlyphImage("  X = 10", font, 'A', &glyph, true);
 	glyph.positionX_F26_6 = (10 << 6) + (1 << 5);
-	testCharGlyphImage("  X = 10 100000", font, 'A', &glyph, true);
+	testShadowGlyphImage("  X = 10 100000", font, 'A', &glyph, true);
 	glyph.positionX_F26_6 = (10 << 6) + 0x3F;
-	testCharGlyphImage("  X = 10 111111", font, 'A', &glyph, true);
+	testShadowGlyphImage("  X = 10 111111", font, 'A', &glyph, true);
 	glyph.positionX_F26_6 = 0;
 	glyph.positionY_F26_6 = -10 << 6;
-	testCharGlyphImage("  Y = -10", font, 'A', &glyph, true);
+	testShadowGlyphImage("  Y = -10", font, 'A', &glyph, true);
 	glyph.positionY_F26_6 = 10 << 6;
-	testCharGlyphImage("  Y = 10", font, 'A', &glyph, true);
+	testShadowGlyphImage("  Y = 10", font, 'A', &glyph, true);
 	glyph.positionY_F26_6 = (10 << 6) + (1 << 5);
-	testCharGlyphImage("  Y = 10 100000", font, 'A', &glyph, true);
+	testShadowGlyphImage("  Y = 10 100000", font, 'A', &glyph, true);
 	glyph.positionY_F26_6 = (10 << 6) + 0x3F;
-	testCharGlyphImage("  Y = 10 111111", font, 'A', &glyph, true);
+	testShadowGlyphImage("  Y = 10 111111", font, 'A', &glyph, true);
 	glyph.positionY_F26_6 = 0;
 
 	checkpointNext("Pixel formats:");
 	glyph.pixelFormat = PSP_FONT_PIXELFORMAT_8;
-	testCharGlyphImage("  8 bpp", font, 'A', &glyph, true);
+	testShadowGlyphImage("  8 bpp", font, 'A', &glyph, true);
 	glyph.pixelFormat = PSP_FONT_PIXELFORMAT_4;
-	testCharGlyphImage("  4 bpp", font, 'A', &glyph, true);
+	testShadowGlyphImage("  4 bpp", font, 'A', &glyph, true);
 	// TODO: Not sure how to make these produce an image.
 	//glyph.pixelFormat = PSP_FONT_PIXELFORMAT_4_REV;
-	//testCharGlyphImage("  4 bpp reversed", font, 'A', &glyph, true);
+	//testShadowGlyphImage("  4 bpp reversed", font, 'A', &glyph, true);
 	//glyph.bytesPerLine = 60;
 	//glyph.pixelFormat = PSP_FONT_PIXELFORMAT_24;
-	//testCharGlyphImage("  24 bpp", font, 'A', &glyph, true);
+	//testShadowGlyphImage("  24 bpp", font, 'A', &glyph, true);
 	//glyph.bytesPerLine = 80;
 	//glyph.pixelFormat = PSP_FONT_PIXELFORMAT_32;
-	//testCharGlyphImage("  32 bpp", font, 'A', &glyph, true);
+	//testShadowGlyphImage("  32 bpp", font, 'A', &glyph, true);
 	glyph.pixelFormat = -1;
-	testCharGlyphImage("  Invalid", font, 'A', &glyph, true);
+	testShadowGlyphImage("  Invalid", font, 'A', &glyph, true);
 	glyph.pixelFormat = PSP_FONT_PIXELFORMAT_8;
 	glyph.bytesPerLine = 20;
 
