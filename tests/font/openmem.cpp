@@ -73,6 +73,9 @@ static int ioFinishFunc(void *arg, u32 b, u32 c, u32 d, u32 e, u32 f, u32 g, u32
 
 bool loadFontModule() {
 	checkpointNext("Init");
+	if (RUNNING_ON_EMULATOR) {
+		return true;
+	}
 	SceUID fontModule = sceKernelLoadModule("libfont.prx", 0, NULL);
 	if (fontModule <= 0) {
 		printf("TEST ERROR: Unable to load libfont.prx\n");
