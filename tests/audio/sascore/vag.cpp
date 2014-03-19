@@ -101,7 +101,7 @@ extern "C" int main(int argc, char *argv[]) {
 	testSetVoice(&sasCore, 0, vag, 0x100, 0, "Valid");
 	
 	checkpointNext("Sizes:");
-	static const int sizes[] = {-1, 0, 1, 2, 3, 4, 5, 8, 12, 15, 16, 32, 48, 64, 128, 255, 256, 257, 1024, 1025, 0x10000, 0x10001, 0x20000, 0x10000000, 0x80000000};
+	static const int sizes[] = {-500000, -64, -48, -47, -1, 0, 1, 2, 3, 4, 5, 8, 12, 15, 16, 32, 48, 64, 128, 255, 256, 257, 1024, 1025, 0x10000, 0x10001, 0x20000, 0x10000000, 0x80000000};
 	for (int i = 0; i < ARRAY_SIZE(sizes); ++i) {
 		char temp[64];
 		snprintf(temp, sizeof(temp), "  Size %x", sizes[i]);

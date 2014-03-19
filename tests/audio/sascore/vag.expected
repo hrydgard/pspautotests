@@ -8,6 +8,10 @@
 [x] Valid: OK (00000000)
 
 [x] Sizes:
+[x]   Size fff85ee0: OK (00000000)
+[x]   Size ffffffc0: OK (00000000)
+[x]   Size ffffffd0: OK (00000000)
+[x]   Size ffffffd1: Failed (80420014)
 [x]   Size ffffffff: Failed (80420014)
 [x]   Size 0: Failed (80420014)
 [x]   Size 1: Failed (80420014)
