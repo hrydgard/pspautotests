@@ -5,15 +5,7 @@
 #include <pspgu.h>
 #include <pspgum.h>
 
-#include "sysmem-imports.h"
-
-extern int sceGeContinue();
-extern int sceGeBreak(int breakType);
-
 static unsigned int __attribute__((aligned(16))) list[262144];
-
-char buffer[65535];
-char *bpos = &buffer[0];
 
 #define BUF_WIDTH (512)
 #define SCR_WIDTH (480)
@@ -58,59 +50,71 @@ char* status_str(int status) {
 	return str[status];
 }
 
-inline void breakInfo(const char *format, ...) {
-	bpos += sprintf(bpos, "  BREAK \t");
+extern char schedfBuffer[65536];
+extern unsigned int schedfBufferPos;
 
-	int result = sceGeBreak(1);
-	bpos += sprintf(bpos, "  %-8s\t%08x", "", result);
+inline void breakInfo(const char *format, ...) {
+	int result = sceGeBreak(1, NULL);
+	int flags = sceKernelCpuSuspendIntr();
+
+	schedf("  BREAK \t");
+	schedf("  %-8s\t%08x", "", result);
 
 	va_list args;
 	va_start(args, format);
-	bpos += vsprintf(bpos, format, args);
+	schedfBufferPos += vsprintf(schedfBuffer + schedfBufferPos, format, args);
 	va_end(args);
+	sceKernelCpuResumeIntr(flags);
 }
 
 inline void syncInfo(const char *format, ...) {
-	bpos += sprintf(bpos, "  WAIT  \t");
-
 	int drawsync = sceGeDrawSync(0);
-	bpos += sprintf(bpos, "%x %-8s\t", drawsync, status_str(drawsync));
+
+	int flags = sceKernelCpuSuspendIntr();
+	schedf("  WAIT  \t");
+	schedf("%x %-8s\t", drawsync, status_str(drawsync));
 
 	va_list args;
 	va_start(args, format);
-	bpos += vsprintf(bpos, format, args);
+	schedfBufferPos += vsprintf(schedfBuffer + schedfBufferPos, format, args);
 	va_end(args);
+	sceKernelCpuResumeIntr(flags);
 }
 
 inline void listInfo(int n, const char *format, ...) {
+	int drawsync = sceGeDrawSync(1);
+	int flags = sceKernelCpuSuspendIntr();
+
 	if (n != 0) {
-		bpos += sprintf(bpos, "  List %d\t", n);
+		schedf("  List %d\t", n);
 	} else {
-		bpos += sprintf(bpos, "        \t");
+		schedf("        \t");
 	}
 
-	int drawsync = sceGeDrawSync(1);
-	bpos += sprintf(bpos, "%x %-8s\t", drawsync, status_str(drawsync));
+	schedf("%x %-8s\t", drawsync, status_str(drawsync));
 
 	va_list args;
 	va_start(args, format);
-	bpos += vsprintf(bpos, format, args);
+	schedfBufferPos += vsprintf(schedfBuffer + schedfBufferPos, format, args);
 	va_end(args);
+	sceKernelCpuResumeIntr(flags);
 }
 
 inline void listInfoNosync(int n, const char *format, ...) {
+	int flags = sceKernelCpuSuspendIntr();
 	if (n != 0) {
-		bpos += sprintf(bpos, "  List %d\t", n);
+		schedf("  List %d\t", n);
 	} else {
-		bpos += sprintf(bpos, "        \t");
+		schedf("        \t");
 	}
 
-	bpos += sprintf(bpos, "  %-8s\t", "");
+	schedf("  %-8s\t", "");
 
 	va_list args;
 	va_start(args, format);
-	bpos += vsprintf(bpos, format, args);
+	schedfBufferPos += vsprintf(schedfBuffer + schedfBufferPos, format, args);
 	va_end(args);
+	sceKernelCpuResumeIntr(flags);
 }
 
 int ge_signal(int value, void* arg) {
@@ -172,7 +176,7 @@ void testGeCallbacks(int method) {
 	int listsync, result;
 	sceKernelDcacheWritebackAll();
 
-	bpos += sprintf(bpos, "  LIST #\tDRAWSTATE\tINFO\n");
+	schedf("  LIST #\tDRAWSTATE\tINFO\n");
 
 	dlist1id = sceGeListEnQueue(dlist1, 0, cbid1, 0);
 	listInfoNosync(1, "Enqueued without stall...\n");
@@ -196,9 +200,7 @@ void testGeCallbacks(int method) {
 	listsync = sceGeListSync(dlist2id, 1);
 	listInfo(2, "Sync %x %s after unstall (%08x)\n", listsync, status_str(listsync), result);
 
-	printf("%s", buffer);
-	bpos = buffer;
-	bpos[0] = '\0';
+	flushschedf();
 
 	if (method & TEST_USE_BREAK) {
 		breakInfo("\n");
@@ -206,9 +208,7 @@ void testGeCallbacks(int method) {
 		syncInfo("\n");
 	}
 
-	printf("%s", buffer);
-	bpos = buffer;
-	bpos[0] = '\0';
+	flushschedf();
 }
 
 enum

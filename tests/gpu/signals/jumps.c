@@ -5,11 +5,6 @@
 #include <pspgu.h>
 #include <pspgum.h>
 
-#include "sysmem-imports.h"
-
-extern int sceGeContinue();
-extern int sceGeBreak(int breakType);
-
 typedef struct
 {
     unsigned int stack[8];
@@ -108,7 +103,7 @@ char* status_str(int status) {
 inline void breakInfo(const char *format, ...) {
 	bpos += sprintf(bpos, "  BREAK \t");
 
-	int result = sceGeBreak(1);
+	int result = sceGeBreak(1, NULL);
 	bpos += sprintf(bpos, "  %-8s\t%08x", "", result);
 
 	va_list args;
