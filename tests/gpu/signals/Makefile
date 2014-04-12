@@ -1,4 +1,4 @@
-TARGETS = simple jumps
-COMMON_DIR = ../../../common
+TARGETS = continue jumps pause simple suspend sync
 
-include ../../../common/common.mk
+COMMON_DIR = ../../../common
+include $(COMMON_DIR)/common.mk
