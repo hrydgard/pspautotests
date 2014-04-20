@@ -4,9 +4,16 @@
 #include <psputility_modules.h>
 #include <pspmodulemgr.h>
 
-static unsigned int __attribute__((aligned(16))) list[262144];
+static unsigned int __attribute__((aligned(16))) list[65536];
 static SceUID psmfModule;
 static SceUID psmfPlayerModule;
+
+static const int MAIN_BUF_SIZE = 0x00300000;
+static const char *const PSMF_FILENAME = "host0:/tests/video/psmfplayer/test.pmf";
+
+static void *mainBuf = NULL;
+static void *displayBuf = NULL;
+static SceUID activePsmfPlayer = 0;
 
 int initVideo() {
 	sceKernelDcacheWritebackAll();
@@ -48,7 +55,77 @@ int loadPsmfPlayer() {
 	}
 }
 
+SceUID *createPsmfPlayerInitial() {
+	if (activePsmfPlayer != 0) {
+		scePsmfPlayerBreak(&activePsmfPlayer);
+		scePsmfPlayerStop(&activePsmfPlayer);
+		scePsmfPlayerBreak(&activePsmfPlayer);
+		scePsmfPlayerDelete(&activePsmfPlayer);
+	}
+
+	if (!mainBuf) {
+		mainBuf = memalign(MAIN_BUF_SIZE, 64);
+	}
+
+	PsmfPlayerCreateData createData = {mainBuf, MAIN_BUF_SIZE, 0x17};
+	scePsmfPlayerCreate(&activePsmfPlayer, &createData);
+	return &activePsmfPlayer;
+}
+
+SceUID *createPsmfPlayerDeleted() {
+	if (activePsmfPlayer == 0) {
+		createPsmfPlayerInitial();
+	}
+	scePsmfPlayerBreak(&activePsmfPlayer);
+	scePsmfPlayerStop(&activePsmfPlayer);
+	scePsmfPlayerBreak(&activePsmfPlayer);
+	scePsmfPlayerDelete(&activePsmfPlayer);
+	return &activePsmfPlayer;
+}
+
+SceUID *createPsmfPlayerStandby(const char *filename) {
+	createPsmfPlayerInitial();
+
+	if (filename == NULL) {
+		filename = PSMF_FILENAME;
+	}
+
+	scePsmfPlayerSetPsmfCB(&activePsmfPlayer, filename);
+	return &activePsmfPlayer;
+}
+
+SceUID *createPsmfPlayerPlaying(const char *filename) {
+	createPsmfPlayerStandby(filename);
+
+	PsmfPlayerData data = {
+		0x0000000e, 0x00000000, 0x0000000f, 0x00000000, 0x00000000, 0x00000001,
+	};
+	scePsmfPlayerStart(&activePsmfPlayer, &data, 0);
+	return &activePsmfPlayer;
+}
+
+SceUID *createPsmfPlayerFinished(const char *filename) {
+	createPsmfPlayerPlaying(filename);
+
+	if (!displayBuf) {
+		displayBuf = memalign(512 *  272 * 4, 64);
+	}
+
+	int cooldown = 0;
+	for (int i = 0; i < 500; i++) {
+		scePsmfPlayerUpdate(&activePsmfPlayer);
+		if (scePsmfPlayerGetCurrentStatus(&activePsmfPlayer) != 4)
+			break;
+		PsmfVideoData videoData = {512, displayBuf};
+		scePsmfPlayerGetVideoData(&activePsmfPlayer, &videoData);
+	}
+
+	return &activePsmfPlayer;
+}
+
 void unloadPsmfPlayer() {
+	createPsmfPlayerDeleted();
+
 	sceKernelStopModule(psmfPlayerModule, 0, NULL, NULL, NULL);
 	sceKernelUnloadModule(psmfPlayerModule);
 	sceKernelStopModule(psmfModule, 0, NULL, NULL, NULL);

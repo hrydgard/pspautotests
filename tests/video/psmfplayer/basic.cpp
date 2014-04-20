@@ -22,8 +22,8 @@ extern "C" int main(int argc, char *argv[]) {
 		buf1, MAIN_BUF_SIZE, 0x00000017,
 	};
 
-	u32 info[0x100];
-	memset(info, 0xFF, 0x100);
+	PsmfInfo info;
+	memset(&info, 0xFF, sizeof(PsmfInfo));
 
 	PsmfPlayerData data = {
 		0x0000000e, 0x00000000, 0x0000000f, 0x00000000, 0x00000000, 0x00000001,
@@ -45,7 +45,7 @@ extern "C" int main(int argc, char *argv[]) {
 	result = scePsmfPlayerSetPsmfCB(&psmf, filename);
 	checkpoint("  scePsmfPlayerSetPsmfCB: %08x", result);
 	result = scePsmfPlayerGetPsmfInfo(&psmf, &info);
-	checkpoint("  scePsmfPlayerGetPsmfInfo: %08x (info: %08x %08x %08x %08x %08x %08x %08x)", result, info[0], info[1], info[2], info[3], info[4], info[5], info[6]);
+	checkpoint("  scePsmfPlayerGetPsmfInfo: %08x (info: %08x %08x %08x %08x %08x)", result, info.lengthTS, info.numVideoStreams, info.numAudioStreams, info.numPCMStreams, info.playerVersion);
 	result = scePsmfPlayerStart(&psmf, &data, 0);
 	checkpoint("  scePsmfPlayerStart: %08x", result);
 	result = scePsmfPlayerGetCurrentStatus(&psmf);

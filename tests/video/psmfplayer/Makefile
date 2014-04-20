@@ -1,4 +1,4 @@
-TARGETS = basic create setpsmf setpsmfoffset settempbuf
+TARGETS = basic create getpsmfinfo setpsmf setpsmfoffset settempbuf
 EXTRA_OBJS = psmf-imports.o mpeg-imports.o shared.o
 
 COMMON_DIR = ../../../common

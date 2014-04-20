@@ -42,13 +42,21 @@ extern "C" {
 		int unk4;
 	} PsmfVideoData;
 
+	typedef struct PsmfInfo {
+		u32 lengthTS;
+		int numVideoStreams;
+		int numAudioStreams;
+		int numPCMStreams;
+		int playerVersion;
+	} PsmfInfo;
+
 	int scePsmfPlayerCreate(SceUID *psmf, PsmfPlayerCreateData *data);
 	int scePsmfPlayerGetAudioOutSize(SceUID *psmf);
 	int scePsmfPlayerSetPsmf(SceUID *psmf, const char *filename);
 	int scePsmfPlayerSetPsmfCB(SceUID *psmf, const char *filename);
 	int scePsmfPlayerSetPsmfOffset(SceUID *psmf, const char *filename, int offset);
 	int scePsmfPlayerSetPsmfOffsetCB(SceUID *psmf, const char *filename, int offset);
-	int scePsmfPlayerGetPsmfInfo(SceUID *psmf, void *info);
+	int scePsmfPlayerGetPsmfInfo(SceUID *psmf, PsmfInfo *info);
 	int scePsmfPlayerStart(SceUID *psmf, PsmfPlayerData *data, int initPts);
 	int scePsmfPlayerGetVideoData(SceUID *psmf, PsmfVideoData *videoData);
 	int scePsmfPlayerGetCurrentStatus(SceUID *psmf);
@@ -68,3 +76,9 @@ extern "C" {
 int initVideo();
 int loadPsmfPlayer();
 void unloadPsmfPlayer();
+
+SceUID *createPsmfPlayerInitial();
+SceUID *createPsmfPlayerDeleted();
+SceUID *createPsmfPlayerStandby(const char *filename = NULL);
+SceUID *createPsmfPlayerPlaying(const char *filename = NULL);
+SceUID *createPsmfPlayerFinished(const char *filename = NULL);
