@@ -1,7 +1,7 @@
 [x] Init
 
 [x] Setup psmfplayer:
-[r]   scePsmfPlayerCreate: 00000000 (psmf=09e90bb0 *psmf=09e909a0, **psmf=00000000)
+[r]   scePsmfPlayerCreate: 00000000 (psmf=09e90db0 *psmf=09e90ba0, **psmf=00000000)
 [x]   scePsmfPlayerSetTempBuf: 00000000
 [x]   scePsmfPlayerGetAudioOutSize: 00002000
 [x]   scePsmfPlayerGetCurrentStatus: 00000001

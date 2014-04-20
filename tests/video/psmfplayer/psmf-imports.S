@@ -9,6 +9,8 @@ IMPORT_FUNC  "scePsmfPlayer",0x235d8787,scePsmfPlayerCreate
 IMPORT_FUNC  "scePsmfPlayer",0x3ea82a4b,scePsmfPlayerGetAudioOutSize
 IMPORT_FUNC  "scePsmfPlayer",0x3d6d25a9,scePsmfPlayerSetPsmf
 IMPORT_FUNC  "scePsmfPlayer",0x58B83577,scePsmfPlayerSetPsmfCB
+IMPORT_FUNC  "scePsmfPlayer",0x76C0F4AE,scePsmfPlayerSetPsmfOffset
+IMPORT_FUNC  "scePsmfPlayer",0xA72DB4F9,scePsmfPlayerSetPsmfOffsetCB
 IMPORT_FUNC  "scePsmfPlayer",0xdf089680,scePsmfPlayerGetPsmfInfo
 IMPORT_FUNC  "scePsmfPlayer",0x95a84ee5,scePsmfPlayerStart
 IMPORT_FUNC  "scePsmfPlayer",0x46f61f8b,scePsmfPlayerGetVideoData
@@ -24,5 +26,16 @@ IMPORT_FUNC  "scePsmfPlayer",0x2beb1569,scePsmfPlayerBreak
 
 
 IMPORT_START "scePsmf",0x40090011
+IMPORT_FUNC  "scePsmf",0xc22c8327,scePsmfSetPsmf
+IMPORT_FUNC  "scePsmf",0x2673646B,scePsmfVerifyPsmf
 IMPORT_FUNC  "scePsmf",0x5b70fcc1,scePsmfQueryStreamOffset
 IMPORT_FUNC  "scePsmf",0x9553cc91,scePsmfQueryStreamSize
+IMPORT_FUNC  "scePsmf",0xE1283895,scePsmfGetPsmfVersion
+IMPORT_FUNC  "scePsmf",0xB78EB9E9,scePsmfGetHeaderSize
+IMPORT_FUNC  "scePsmf",0xA5EBFE81,scePsmfGetStreamSize
+IMPORT_FUNC  "scePsmf",0x76D3AEBA,scePsmfGetPresentationStartTime
+IMPORT_FUNC  "scePsmf",0xBD8AE0D8,scePsmfGetPresentationEndTime
+IMPORT_FUNC  "scePsmf",0x971A3A90,scePsmfCheckEPMap
+IMPORT_FUNC  "scePsmf",0x4E624A34,scePsmfGetEPWithId
+IMPORT_FUNC  "scePsmf",0x7C0E7AC3,scePsmfGetEPWithTimestamp
+IMPORT_FUNC  "scePsmf",0x5F457515,scePsmfGetEPidWithTimestamp
