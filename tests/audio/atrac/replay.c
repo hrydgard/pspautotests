@@ -43,21 +43,19 @@ int main(int argc, char *argv[]) {
 	u32 availableBytes;
 	u32 readOffset;
 	
-	if ((file = fopen("tit_01.at3", "rb")) != NULL) {
+	if ((file = fopen("sample.at3", "rb")) != NULL) {
 		fseek(file, 0, SEEK_SET);
 		u32 header[2];
 		fread(&header, 4, 2, file);
 		file_size = header[1];
 		printf("filesize = 0x%08x\n", file_size);
+		blk_size = file_size / 2;
 
 		fseek(file, 0, SEEK_END);
 		at3_size = ftell(file);
 		printf("at3size = 0x%08x\n", at3_size);
 
-		// tit01.at3 end sample: 0x262500
-
 		fseek(file, 0, SEEK_SET);
-		
 		at3_data = malloc(blk_size);
 		decode_data = malloc(decode_size = 512 * 1024);
 		memset(at3_data, 0, blk_size);
@@ -79,13 +77,13 @@ int main(int argc, char *argv[]) {
 	printf("Header: %s\n", (char *)at3_data);
 
 		
-	// set a block of data
+	// set first block of data
 	atracID = sceAtracSetDataAndGetID(at3_data, blk_size);
 	if (atracID < 0) {
 		printf("sceAtracSetDataAndGetID: Failed %08x\n", atracID);
 		return 1;
 	} else {
-		printf("sceAtracSetDataAndGetID: OK, addr=%08x, size=%08x\n", (unsigned int)at3_data, blk_size);
+		printf("sceAtracSetDataAndGetID: OK, size=%08x\n", blk_size);
 		at3_size -= blk_size;
 	}
 
@@ -122,14 +120,13 @@ int main(int argc, char *argv[]) {
 		u32 nextSample;
 		sceAtracGetNextSample(atracID, &nextSample);
 		sampleCnt += nextSample;
-		printf("nextSample: %08x\n", sampleCnt);
 
 		// decode
 		result = sceAtracDecodeData(atracID, (u16 *)decode_data, &samples, &end, &remainFrame);
 		if (result) {
-			printf("sceAtracDecodeData error: %08X, samples: %08x, end: %08x, remainFrame: %d\n",
+			printf("%i=sceAtracDecodeData error: samples: %08x, end: %08x, remainFrame: %d\n",
 				result, samples, end, remainFrame);
-			return 0;
+			return -1;
 		}
 		printf("%i=sceAtracDecodeData: samples: %08x, end: %08x, remainFrame: %d\n",
 			result, samples, end, remainFrame);
@@ -139,18 +136,17 @@ int main(int argc, char *argv[]) {
 		printf("sceAudioOutputBlocking\n\n");
 		result = sceAtracGetRemainFrame(atracID, &remainFrame);
 
-		// Here 170 is for emulating Lego Harry Potter Years 5-7
+		// Here 170 is a guess frame threshold
 		if (remainFrame < 170) {
 			u32 addtoBytes = min(at3_size, min(0xffc0, availableBytes));
 			if (availableBytes >= addtoBytes) {
-				printf("addtoBytes = %08x\n", addtoBytes);
 				fread((u8*)writePtr, addtoBytes, 1, file);
 				result = sceAtracAddStreamData(atracID, addtoBytes);
 				if (result) {
-					printf("sceAtracAddStreamData error: %08x\n", addtoBytes);
-				} else {
-					printf("%i=sceAtracAddStreamData: %08x\n", result, addtoBytes);
+					printf("%i=sceAtracAddStreamData error: %08x\n", result, addtoBytes);
+					return 1;
 				}
+				printf("%i=sceAtracAddStreamData: %08x\n", result, addtoBytes);
 
 				at3_size -= addtoBytes;
 			}
