@@ -104,22 +104,28 @@ SceUID *createPsmfPlayerPlaying(const char *filename) {
 	return &activePsmfPlayer;
 }
 
-SceUID *createPsmfPlayerFinished(const char *filename) {
-	createPsmfPlayerPlaying(filename);
-
+void *getPsmfPlayerDisplayBuf() {
 	if (!displayBuf) {
 		displayBuf = memalign(512 *  272 * 4, 64);
 	}
+	return displayBuf;
+}
 
-	int cooldown = 0;
-	for (int i = 0; i < 500; i++) {
-		scePsmfPlayerUpdate(&activePsmfPlayer);
-		if (scePsmfPlayerGetCurrentStatus(&activePsmfPlayer) != 4)
+void playPsmfPlayerUntilEnd(SceUID *player, int maxFrames) {
+	getPsmfPlayerDisplayBuf();
+
+	for (int i = 0; i < maxFrames; i++) {
+		scePsmfPlayerUpdate(player);
+		if (scePsmfPlayerGetCurrentStatus(player) != 4)
 			break;
 		PsmfVideoData videoData = {512, displayBuf};
-		scePsmfPlayerGetVideoData(&activePsmfPlayer, &videoData);
+		scePsmfPlayerGetVideoData(player, &videoData);
 	}
+}
 
+SceUID *createPsmfPlayerFinished(const char *filename) {
+	createPsmfPlayerPlaying(filename);
+	playPsmfPlayerUntilEnd(&activePsmfPlayer, 500);
 	return &activePsmfPlayer;
 }
 

@@ -68,6 +68,13 @@ extern "C" {
 	int scePsmfPlayerReleasePsmf(SceUID *psmf);
 	int scePsmfPlayerDelete(SceUID *psmf);
 	int scePsmfPlayerBreak(SceUID *psmf);
+	int scePsmfPlayerConfigPlayer(SceUID *psmf, int key, int val);
+	int scePsmfPlayerGetCurrentAudioStream(SceUID *psmf, int *codec, int *streamNumber);
+	int scePsmfPlayerGetCurrentVideoStream(SceUID *psmf, int *codec, int *streamNumber);
+	int scePsmfPlayerSelectVideo(SceUID *psmf);
+	int scePsmfPlayerSelectAudio(SceUID *psmf);
+	int scePsmfPlayerSelectSpecificVideo(SceUID *psmf, int codec, int streamNumber);
+	int scePsmfPlayerSelectSpecificAudio(SceUID *psmf, int codec, int streamNumber);
 
 	int scePsmfQueryStreamOffset(void *buffer, u32 *offset);
 	int scePsmfQueryStreamSize(void *buffer, u32 *size);
@@ -82,3 +89,5 @@ SceUID *createPsmfPlayerDeleted();
 SceUID *createPsmfPlayerStandby(const char *filename = NULL);
 SceUID *createPsmfPlayerPlaying(const char *filename = NULL);
 SceUID *createPsmfPlayerFinished(const char *filename = NULL);
+void *getPsmfPlayerDisplayBuf();
+void playPsmfPlayerUntilEnd(SceUID *player, int maxFrames);

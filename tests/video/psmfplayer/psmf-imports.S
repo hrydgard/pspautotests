@@ -23,6 +23,13 @@ IMPORT_FUNC  "scePsmfPlayer",0x1078c008,scePsmfPlayerStop
 IMPORT_FUNC  "scePsmfPlayer",0xe792cd94,scePsmfPlayerReleasePsmf
 IMPORT_FUNC  "scePsmfPlayer",0x9b71a274,scePsmfPlayerDelete
 IMPORT_FUNC  "scePsmfPlayer",0x2beb1569,scePsmfPlayerBreak
+IMPORT_FUNC  "scePsmfPlayer",0x1e57a8e7,scePsmfPlayerConfigPlayer
+IMPORT_FUNC  "scePsmfPlayer",0x68f07175,scePsmfPlayerGetCurrentAudioStream
+IMPORT_FUNC  "scePsmfPlayer",0x9ff2b2e7,scePsmfPlayerGetCurrentVideoStream
+IMPORT_FUNC  "scePsmfPlayer",0x75f03fa2,scePsmfPlayerSelectSpecificVideo
+IMPORT_FUNC  "scePsmfPlayer",0x85461eff,scePsmfPlayerSelectSpecificAudio
+IMPORT_FUNC  "scePsmfPlayer",0x8a9ebdcd,scePsmfPlayerSelectVideo
+IMPORT_FUNC  "scePsmfPlayer",0xb8d10c56,scePsmfPlayerSelectAudio
 
 
 IMPORT_START "scePsmf",0x40090011
