@@ -30,6 +30,8 @@ IMPORT_FUNC  "scePsmfPlayer",0x75f03fa2,scePsmfPlayerSelectSpecificVideo
 IMPORT_FUNC  "scePsmfPlayer",0x85461eff,scePsmfPlayerSelectSpecificAudio
 IMPORT_FUNC  "scePsmfPlayer",0x8a9ebdcd,scePsmfPlayerSelectVideo
 IMPORT_FUNC  "scePsmfPlayer",0xb8d10c56,scePsmfPlayerSelectAudio
+IMPORT_FUNC  "scePsmfPlayer",0xa3d81169,scePsmfPlayerChangePlayMode
+IMPORT_FUNC  "scePsmfPlayer",0xf3efaa91,scePsmfPlayerGetCurrentPlayMode
 
 
 IMPORT_START "scePsmf",0x40090011

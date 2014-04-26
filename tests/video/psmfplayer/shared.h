@@ -34,12 +34,7 @@ extern "C" {
 	typedef struct PsmfVideoData {
 		int frameWidth;
 		void *displaybuf;
-		u64 displaypts;
-		// TODO: Probably don't exist.
-		int unk1;
-		int unk2;
-		int unk3;
-		int unk4;
+		u32 displaypts;
 	} PsmfVideoData;
 
 	typedef struct PsmfInfo {
@@ -75,6 +70,8 @@ extern "C" {
 	int scePsmfPlayerSelectAudio(SceUID *psmf);
 	int scePsmfPlayerSelectSpecificVideo(SceUID *psmf, int codec, int streamNumber);
 	int scePsmfPlayerSelectSpecificAudio(SceUID *psmf, int codec, int streamNumber);
+	int scePsmfPlayerGetCurrentPlayMode(SceUID *psmf, int *mode, int *speed);
+	int scePsmfPlayerChangePlayMode(SceUID *psmf, int mode, int speed);
 
 	int scePsmfQueryStreamOffset(void *buffer, u32 *offset);
 	int scePsmfQueryStreamSize(void *buffer, u32 *size);
