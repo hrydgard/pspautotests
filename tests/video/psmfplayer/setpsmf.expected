@@ -1,25 +1,25 @@
 [x] Init
 
 [x] Players:
-[r]   Normal: OK (status=2)
-[r]   Deleted: Failed: 80616001
-[r]   Already set: Failed: 80616001
+[r] [r]   Normal: OK (status=2)
+[r] [x]   Deleted: Failed: 80616001
+[r] [x]   Already set: Failed: 80616001
 
 [x] Filenames:
-[r]   NULL: Failed: 80616008
-[r]   Non existent: Failed: 800200d2
-[r]   Directory: Failed: 800200d2
-[r]   Invalid data: Failed: 800200d2
+[r] [x]   NULL: Failed: 80616008
+[r] [r]   Non existent: Failed: 800200d2
+[r] [r]   Directory: Failed: 800200d2
+[r] [r]   Invalid data: Failed: 800200d2
 
 [x] scePsmfPlayerSetPsmfCB:
 
 [x] Players:
-[r]   Normal: OK (status=2)
-[r]   Deleted: Failed: 80616001
-[r]   Already set: Failed: 80616001
+[r] [r]   Normal: OK (status=2)
+[r] [x]   Deleted: Failed: 80616001
+[r] [x]   Already set: Failed: 80616001
 
 [x] Filenames:
-[r]   NULL: Failed: 80616008
-[r]   Non existent: Failed: 800200d2
-[r]   Directory: Failed: 800200d2
-[r]   Invalid data: Failed: 800200d2
+[r] [x]   NULL: Failed: 80616008
+[r] [r]   Non existent: Failed: 800200d2
+[r] [r]   Directory: Failed: 800200d2
+[r] [r]   Invalid data: Failed: 800200d2
