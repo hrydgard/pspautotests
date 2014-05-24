@@ -1,6 +1,7 @@
 TARGETS = basic \
 	create setpsmf setpsmfoffset settempbuf start \
 	getaudiodata getvideodata update \
+	break delete releasepsmf stop \
 	configplayer playmode selectspecific selectstream \
 	getcurrentpts getcurrentstatus getcurrentstream getpsmfinfo
 EXTRA_OBJS = psmf-imports.o mpeg-imports.o shared.o
