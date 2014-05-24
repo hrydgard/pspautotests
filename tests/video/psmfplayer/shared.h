@@ -81,10 +81,10 @@ int initVideo();
 int loadPsmfPlayer();
 void unloadPsmfPlayer();
 
-SceUID *createPsmfPlayerInitial();
+SceUID *createPsmfPlayerInitial(int prio = 0x17);
 SceUID *createPsmfPlayerDeleted();
-SceUID *createPsmfPlayerStandby(const char *filename = NULL);
-SceUID *createPsmfPlayerPlaying(const char *filename = NULL);
-SceUID *createPsmfPlayerFinished(const char *filename = NULL);
+SceUID *createPsmfPlayerStandby(const char *filename = NULL, int prio = 0x17);
+SceUID *createPsmfPlayerPlaying(const char *filename = NULL, int prio = 0x17);
+SceUID *createPsmfPlayerFinished(const char *filename = NULL, int prio = 0x17);
 void *getPsmfPlayerDisplayBuf();
 void playPsmfPlayerUntilEnd(SceUID *player, int maxFrames);
