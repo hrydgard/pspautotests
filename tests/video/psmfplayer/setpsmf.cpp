@@ -1,4 +1,5 @@
 #include "shared.h"
+#include <pspkernel.h>
 
 bool useCB = false;
 const int MAIN_BUF_SIZE = 0x00300000;
@@ -15,6 +16,10 @@ void testSetPsmf(const char *title, SceUID *psmf, const char *filename) {
 		PsmfPlayerCreateData createData = {buf1, MAIN_BUF_SIZE, 0x17};
 		scePsmfPlayerCreate(psmf, &createData);
 	}
+
+	// Clear the checkpoint here because create/delete will set resched.
+	checkpoint(NULL);
+
 	if (useCB) {
 		result = scePsmfPlayerSetPsmfCB(psmf, filename);
 	} else {

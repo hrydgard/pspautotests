@@ -83,7 +83,7 @@ extern "C" int main(int argc, char *argv[]) {
 		PsmfVideoData videoData = {512};
 		videoData.displaybuf = dbuf;
 		result = scePsmfPlayerGetVideoData(&psmf, &videoData);
-		checkpoint("  scePsmfPlayerGetVideoData: %08x (%08x, %08x/%08x, %lld, %08x, %08x, %08x, %08x)", result, videoData.frameWidth, videoData.displaybuf, dbuf, videoData.displaypts, videoData.unk1, videoData.unk2, videoData.unk3, videoData.unk4);
+		checkpoint("  scePsmfPlayerGetVideoData: %08x (%08x, %08x/%08x, %d)", result, videoData.frameWidth, videoData.displaybuf, dbuf, videoData.displaypts);
 		result = scePsmfPlayerGetCurrentStatus(&psmf);
 		checkpoint("  scePsmfPlayerGetCurrentStatus: %08x", result);
 

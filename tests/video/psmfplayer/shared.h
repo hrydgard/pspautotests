@@ -34,12 +34,7 @@ extern "C" {
 	typedef struct PsmfVideoData {
 		int frameWidth;
 		void *displaybuf;
-		u64 displaypts;
-		// TODO: Probably don't exist.
-		int unk1;
-		int unk2;
-		int unk3;
-		int unk4;
+		u32 displaypts;
 	} PsmfVideoData;
 
 	typedef struct PsmfInfo {
@@ -68,6 +63,15 @@ extern "C" {
 	int scePsmfPlayerReleasePsmf(SceUID *psmf);
 	int scePsmfPlayerDelete(SceUID *psmf);
 	int scePsmfPlayerBreak(SceUID *psmf);
+	int scePsmfPlayerConfigPlayer(SceUID *psmf, int key, int val);
+	int scePsmfPlayerGetCurrentAudioStream(SceUID *psmf, int *codec, int *streamNumber);
+	int scePsmfPlayerGetCurrentVideoStream(SceUID *psmf, int *codec, int *streamNumber);
+	int scePsmfPlayerSelectVideo(SceUID *psmf);
+	int scePsmfPlayerSelectAudio(SceUID *psmf);
+	int scePsmfPlayerSelectSpecificVideo(SceUID *psmf, int codec, int streamNumber);
+	int scePsmfPlayerSelectSpecificAudio(SceUID *psmf, int codec, int streamNumber);
+	int scePsmfPlayerGetCurrentPlayMode(SceUID *psmf, int *mode, int *speed);
+	int scePsmfPlayerChangePlayMode(SceUID *psmf, int mode, int speed);
 
 	int scePsmfQueryStreamOffset(void *buffer, u32 *offset);
 	int scePsmfQueryStreamSize(void *buffer, u32 *size);
@@ -77,8 +81,10 @@ int initVideo();
 int loadPsmfPlayer();
 void unloadPsmfPlayer();
 
-SceUID *createPsmfPlayerInitial();
+SceUID *createPsmfPlayerInitial(int prio = 0x17);
 SceUID *createPsmfPlayerDeleted();
-SceUID *createPsmfPlayerStandby(const char *filename = NULL);
-SceUID *createPsmfPlayerPlaying(const char *filename = NULL);
-SceUID *createPsmfPlayerFinished(const char *filename = NULL);
+SceUID *createPsmfPlayerStandby(const char *filename = NULL, int prio = 0x17);
+SceUID *createPsmfPlayerPlaying(const char *filename = NULL, int prio = 0x17);
+SceUID *createPsmfPlayerFinished(const char *filename = NULL, int prio = 0x17);
+void *getPsmfPlayerDisplayBuf();
+void playPsmfPlayerUntilEnd(SceUID *player, int maxFrames);

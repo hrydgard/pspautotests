@@ -55,7 +55,7 @@ int loadPsmfPlayer() {
 	}
 }
 
-SceUID *createPsmfPlayerInitial() {
+SceUID *createPsmfPlayerInitial(int prio) {
 	if (activePsmfPlayer != 0) {
 		scePsmfPlayerBreak(&activePsmfPlayer);
 		scePsmfPlayerStop(&activePsmfPlayer);
@@ -67,7 +67,7 @@ SceUID *createPsmfPlayerInitial() {
 		mainBuf = memalign(MAIN_BUF_SIZE, 64);
 	}
 
-	PsmfPlayerCreateData createData = {mainBuf, MAIN_BUF_SIZE, 0x17};
+	PsmfPlayerCreateData createData = {mainBuf, MAIN_BUF_SIZE, prio};
 	scePsmfPlayerCreate(&activePsmfPlayer, &createData);
 	return &activePsmfPlayer;
 }
@@ -83,19 +83,19 @@ SceUID *createPsmfPlayerDeleted() {
 	return &activePsmfPlayer;
 }
 
-SceUID *createPsmfPlayerStandby(const char *filename) {
-	createPsmfPlayerInitial();
+SceUID *createPsmfPlayerStandby(const char *filename, int prio) {
+	createPsmfPlayerInitial(prio);
 
 	if (filename == NULL) {
 		filename = PSMF_FILENAME;
 	}
 
-	scePsmfPlayerSetPsmfCB(&activePsmfPlayer, filename);
+	scePsmfPlayerSetPsmf(&activePsmfPlayer, filename);
 	return &activePsmfPlayer;
 }
 
-SceUID *createPsmfPlayerPlaying(const char *filename) {
-	createPsmfPlayerStandby(filename);
+SceUID *createPsmfPlayerPlaying(const char *filename, int prio) {
+	createPsmfPlayerStandby(filename, prio);
 
 	PsmfPlayerData data = {
 		0x0000000e, 0x00000000, 0x0000000f, 0x00000000, 0x00000000, 0x00000001,
@@ -104,22 +104,28 @@ SceUID *createPsmfPlayerPlaying(const char *filename) {
 	return &activePsmfPlayer;
 }
 
-SceUID *createPsmfPlayerFinished(const char *filename) {
-	createPsmfPlayerPlaying(filename);
-
+void *getPsmfPlayerDisplayBuf() {
 	if (!displayBuf) {
 		displayBuf = memalign(512 *  272 * 4, 64);
 	}
+	return displayBuf;
+}
 
-	int cooldown = 0;
-	for (int i = 0; i < 500; i++) {
-		scePsmfPlayerUpdate(&activePsmfPlayer);
-		if (scePsmfPlayerGetCurrentStatus(&activePsmfPlayer) != 4)
+void playPsmfPlayerUntilEnd(SceUID *player, int maxFrames) {
+	getPsmfPlayerDisplayBuf();
+
+	for (int i = 0; i < maxFrames; i++) {
+		scePsmfPlayerUpdate(player);
+		if (scePsmfPlayerGetCurrentStatus(player) != 4)
 			break;
 		PsmfVideoData videoData = {512, displayBuf};
-		scePsmfPlayerGetVideoData(&activePsmfPlayer, &videoData);
+		scePsmfPlayerGetVideoData(player, &videoData);
 	}
+}
 
+SceUID *createPsmfPlayerFinished(const char *filename, int prio) {
+	createPsmfPlayerPlaying(filename, prio);
+	playPsmfPlayerUntilEnd(&activePsmfPlayer, 500);
 	return &activePsmfPlayer;
 }
 

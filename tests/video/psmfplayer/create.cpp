@@ -62,6 +62,8 @@ extern "C" int main(int argc, char *argv[]) {
 
 	checkpointNext("Buffer sizes:");
 	testCreatePlayer("  0", buf1, 0, 0x17);
+	testCreatePlayer("  0x002857FF", buf1, 0x002857FF, 0x17);
+	testCreatePlayer("  0x00285800", buf1, 0x00285800, 0x17);
 	testCreatePlayer("  0x002FFFFF", buf1, 0x002FFFFF, 0x17);
 	testCreatePlayer("  0x00300000", buf1, 0x00300000, 0x17);
 	testCreatePlayer("  0x80000000", buf1, 0x80000000, 0x17);
