@@ -1,6 +1,6 @@
 TARGETS = basic \
 	create setpsmf setpsmfoffset settempbuf start \
-	getaudiodata getvideodata update \
+	getaudiodata getaudiooutsize getvideodata update \
 	break delete releasepsmf stop \
 	configplayer playmode selectspecific selectstream \
 	getcurrentpts getcurrentstatus getcurrentstream getpsmfinfo
