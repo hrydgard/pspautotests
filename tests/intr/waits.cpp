@@ -11,17 +11,17 @@
 #include <pspumd.h>
 #include <stdarg.h>
 
-typedef struct SceKernelTlsOptParam {
+typedef struct SceKernelTlsplOptParam {
 	SceSize size;
 	u32 alignment;
-} SceKernelTlsOptParam;
+} SceKernelTlsplOptParam;
 
 extern "C" {
-SceUID sceKernelCreateTls(const char *name, u32 partitionid, u32 attr, u32 blockSize, u32 count, SceKernelTlsOptParam *options);
-int sceKernelDeleteTls(SceUID uid);
-int sceKernelAllocateTls(SceUID uid);
-int sceKernelFreeTls(SceUID uid);
-int sceKernelReferTlsStatus(SceUID uid, void *info);
+SceUID sceKernelCreateTlspl(const char *name, u32 partitionid, u32 attr, u32 blockSize, u32 count, SceKernelTlsplOptParam *options);
+int sceKernelDeleteTlspl(SceUID uid);
+int sceKernelAllocateTlspl(SceUID uid);
+int sceKernelFreeTlspl(SceUID uid);
+int sceKernelReferTlsplStatus(SceUID uid, void *info);
 
 SceUID sceKernelCreateMutex(const char *name, uint attributes, int initial_count, void *options);
 int sceKernelDeleteMutex(SceUID mutexId);
@@ -53,8 +53,8 @@ unsigned int __attribute__((aligned(16))) dlist[] = {
 	0x00000000, // 0x00 NOP
 };
 
-int sceKernelAllocateTlsHelper(SceUID uid) {
-	int result = sceKernelAllocateTls(uid);
+int sceKernelAllocateTlsplHelper(SceUID uid) {
+	int result = sceKernelAllocateTlspl(uid);
 	if (result > 0) {
 		return 0x1337;
 	}
@@ -214,8 +214,8 @@ extern "C" void interruptFunc(int no, void *arg) {
 	safeCheckpoint("  sceKernelAllocateVplCB - bad size: %08x", sceKernelAllocateVplCB(intrVpl, 0, &ptr, NULL));
 	safeCheckpoint("  sceKernelAllocateVplCB - valid vpl: %08x", sceKernelAllocateVplCB(intrVpl, 0x10, &ptr, NULL));
 
-	safeCheckpoint("  sceKernelAllocateTls - bad tls: %08x", sceKernelAllocateTlsHelper(0));
-	safeCheckpoint("  sceKernelAllocateTls - valid tls: %08x", sceKernelAllocateTlsHelper(intrTls));
+	safeCheckpoint("  sceKernelAllocateTlspl - bad tls: %08x", sceKernelAllocateTlsplHelper(0));
+	safeCheckpoint("  sceKernelAllocateTlspl - valid tls: %08x", sceKernelAllocateTlsplHelper(intrTls));
 
 	safeCheckpoint("  sceKernelReceiveMsgPipe - bad msgpipe: %08x", sceKernelReceiveMsgPipe(0, buf, 256, 0, NULL, NULL));
 	safeCheckpoint("  sceKernelReceiveMsgPipe - bad size: %08x", sceKernelReceiveMsgPipe(intrMsgPipe, buf, -1, 0, NULL, NULL));
@@ -396,11 +396,11 @@ extern "C" int main(int argc, char *argv[]) {
 	INTR_DISPATCH_TITLE("Valid vpl", sceKernelAllocateVplCB(vpl, 0x10, &ptr, NULL));
 	sceKernelDeleteVpl(vpl);
 
-	SceUID tls = sceKernelCreateTls("tls", PSP_MEMORY_PARTITION_USER, 0, 0x100, 0x10, NULL);
-	checkpointNext("sceKernelAllocateTls:");
-	INTR_DISPATCH_TITLE("Bad tls", sceKernelAllocateTlsHelper(0));
-	INTR_DISPATCH_TITLE("Valid tls", sceKernelAllocateTlsHelper(tls));
-	sceKernelDeleteTls(tls);
+	SceUID tls = sceKernelCreateTlspl("tls", PSP_MEMORY_PARTITION_USER, 0, 0x100, 0x10, NULL);
+	checkpointNext("sceKernelAllocateTlspl:");
+	INTR_DISPATCH_TITLE("Bad tls", sceKernelAllocateTlsplHelper(0));
+	INTR_DISPATCH_TITLE("Valid tls", sceKernelAllocateTlsplHelper(tls));
+	sceKernelDeleteTlspl(tls);
 
 	SceUID msgpipe = sceKernelCreateMsgPipe("msgpipe", PSP_MEMORY_PARTITION_USER, 0, (void *)0, NULL);
 	checkpointNext("sceKernelReceiveMsgPipe:");
@@ -543,7 +543,7 @@ extern "C" int main(int argc, char *argv[]) {
 	intrMbx = sceKernelCreateMbx("mbx", 0, NULL);
 	intrFpl = sceKernelCreateFpl("fpl", PSP_MEMORY_PARTITION_USER, 0, 0x100, 0x10, NULL);
 	intrVpl = sceKernelCreateVpl("vpl", PSP_MEMORY_PARTITION_USER, 0, 0x100, NULL);
-	intrTls = sceKernelCreateTls("tls", PSP_MEMORY_PARTITION_USER, 0, 0x100, 0x10, NULL);
+	intrTls = sceKernelCreateTlspl("tls", PSP_MEMORY_PARTITION_USER, 0, 0x100, 0x10, NULL);
 	intrMsgPipe = sceKernelCreateMsgPipe("msgpipe", PSP_MEMORY_PARTITION_USER, 0, (void *)0, NULL);
 	intrMutex = sceKernelCreateMutex("mutex", 0, 0, NULL);
 	sceKernelCreateLwMutex(intrLwMutex, "lwmutex", 0, 0, NULL);
@@ -565,7 +565,7 @@ extern "C" int main(int argc, char *argv[]) {
 	sceKernelDeleteMbx(mbx);
 	sceKernelDeleteFpl(fpl);
 	sceKernelDeleteVpl(vpl);
-	sceKernelDeleteTls(tls);
+	sceKernelDeleteTlspl(tls);
 	sceKernelDeleteMsgPipe(intrMsgPipe);
 	sceKernelDeleteMutex(mutex);
 	sceKernelDeleteLwMutex(intrLwMutex);

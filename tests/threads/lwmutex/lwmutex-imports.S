@@ -165,11 +165,11 @@ IMPORT_FUNC	"ThreadManForUser",0x57CF62DD,sceKernelGetThreadmanIdType
 IMPORT_FUNC	"ThreadManForUser",0x64D4540E,sceKernelReferThreadProfiler
 IMPORT_FUNC	"ThreadManForUser",0x8218B4DD,sceKernelReferGlobalProfiler
 
-IMPORT_FUNC "ThreadManForUser",0x32BF938E,sceKernelDeleteTls
-IMPORT_FUNC "ThreadManForUser",0x721067F3,sceKernelReferTlsStatus
-IMPORT_FUNC "ThreadManForUser",0x8daff657,sceKernelCreateTls
-IMPORT_FUNC "ThreadManForUser",0x4A719FB2,sceKernelFreeTls
-IMPORT_FUNC "ThreadManForUser",0x65F54FFB,_sceKernelAllocateTls
+IMPORT_FUNC "ThreadManForUser",0x32BF938E,sceKernelDeleteTlspl
+IMPORT_FUNC "ThreadManForUser",0x721067F3,sceKernelReferTlsplStatus
+IMPORT_FUNC "ThreadManForUser",0x8daff657,sceKernelCreateTlspl
+IMPORT_FUNC "ThreadManForUser",0x4A719FB2,sceKernelFreeTlspl
+IMPORT_FUNC "ThreadManForUser",0x65F54FFB,_sceKernelAllocateTlspl
 
 IMPORT_FUNC "ThreadManForUser",0xBC80EC7C,sceKernelExtendThreadStack
 
@@ -194,7 +194,7 @@ IMPORT_FUNC "Kernel_Library",0xC1734599,sceKernelReferLwMutexStatus
 IMPORT_FUNC "Kernel_Library",0x293b45b8,KL_sceKernelGetThreadId
 IMPORT_FUNC "Kernel_Library",0xD13BDE95,KL_sceKernelCheckThreadStack
 
-IMPORT_FUNC "Kernel_Library",0xfa835cde,sceKernelAllocateTls
+IMPORT_FUNC "Kernel_Library",0xfa835cde,sceKernelAllocateTlspl
 
 IMPORT_FUNC "Kernel_Library",0x1839852A,sceKernelMemcpy
 IMPORT_FUNC "Kernel_Library",0xA089ECA4,sceKernelMemset
