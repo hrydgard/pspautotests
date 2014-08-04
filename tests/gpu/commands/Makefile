@@ -1,4 +1,4 @@
-TARGETS = basic blocktransfer material
+TARGETS = basic blend blocktransfer material
 EXTRA_LIBS = -lpspgum -lm
 
 COMMON_DIR = ../../../common
