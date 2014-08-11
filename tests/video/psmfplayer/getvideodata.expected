@@ -10,7 +10,8 @@
 [r]   Finished: OK (status=200)  pts=567567
 
 [x] Params:
-[x]   Missing displaybuf: Failed: 80000103 / 1337c0de
+[x]   Missing displaybuf: Failed: 8061600c / 1337c0de
+[r]   Missing displaybuf (warmed up): Failed: 80000103 / 1337c0de
 
 [x] Buffer widths:
 [x]   Width -1: Failed: 80000023 / 1337c0de
