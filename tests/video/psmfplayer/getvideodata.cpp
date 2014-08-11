@@ -153,12 +153,13 @@ extern "C" int main(int argc, char *argv[]) {
 	testGetVideoData("  Finished", createPsmfPlayerFinished());
 
 	psmfPlaying = createPsmfPlayerPlaying();
-	warmUpVideo(psmfPlaying);
 
 	checkpointNext("Params:");
 	// Crashes.
 	//testGetVideoData("  Missing videoData", psmfPlaying, false);
 	testGetVideoData("  Missing displaybuf", psmfPlaying, true, 512, NULL);
+	warmUpVideo(psmfPlaying);
+	testGetVideoData("  Missing displaybuf (warmed up)", psmfPlaying, true, 512, NULL);
 
 	checkpointNext("Buffer widths:");
 	static const int widths[] = {-1, 0, 1, 128, 143, 144, 160, 192, 256, 510, 511, 512, 513};
