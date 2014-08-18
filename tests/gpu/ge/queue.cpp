@@ -137,6 +137,7 @@ void testSameStackAddr() {
 	int listID2 = sceGeListEnQueue(list, list + 1, -1, &args);
 	checkpoint("  Enqueued 1: %08x", listID1 >= 0 ? 0x1337 : listID1);
 	checkpoint("  Enqueued 2: %08x", listID2 >= 0 ? 0x1337 : listID2);
+	sceGeBreak(1, NULL);
 }
 
 extern "C" int main(int argc, char *argv[]) {
