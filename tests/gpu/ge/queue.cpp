@@ -9,10 +9,6 @@ extern "C" {
 #include "sysmem-imports.h"
 }
 
-// No idea what the second param could be?  Was getting errors until passing NULL.
-extern "C" int sceGeBreak(int mode, void *unk1);
-extern "C" int sceGeContinue();
-
 static u32 __attribute__((aligned(16))) list[262144];
 
 struct SimpleIDMap {
@@ -129,6 +125,21 @@ int makeCompletedList() {
 	return listID;
 }
 
+void testSameStackAddr() {
+	PspGeListArgs args = {0};
+	PspGeContext ctx;
+	SceGeStack stack;
+	args.size = sizeof(args);
+	args.context = &ctx;
+	args.numStacks = 1;
+	args.stacks = &stack;
+	int listID1 = sceGeListEnQueue(list, list + 1, -1, &args);
+	int listID2 = sceGeListEnQueue(list, list + 1, -1, &args);
+	checkpoint("  Enqueued 1: %08x", listID1 >= 0 ? 0x1337 : listID1);
+	checkpoint("  Enqueued 2: %08x", listID2 >= 0 ? 0x1337 : listID2);
+	sceGeBreak(1, NULL);
+}
+
 extern "C" int main(int argc, char *argv[]) {
 	memset(list, 0, sizeof(list));
 	sceKernelDcacheWritebackRange(list, sizeof(list));
@@ -154,7 +165,7 @@ extern "C" int main(int argc, char *argv[]) {
 	checkpoint("  Completed: %08x", sceGeListDeQueue(makeCompletedList()));
 	sceGeBreak(1, NULL);
 
-	PspGeListArgs args;
+	PspGeListArgs args = {0};
 	PspGeContext ctx;
 	args.size = sizeof(args);
 	args.context = &ctx;
@@ -173,5 +184,10 @@ extern "C" int main(int argc, char *argv[]) {
 	checkpoint("  Completed: %08x", sceGeListUpdateStallAddr(makeCompletedList(), list + 10));
 	sceGeBreak(1, NULL);
 
+	checkpointNext("Same stackAddr:");
+	sceKernelSetCompiledSdkVersion(0x1000010);
+	testSameStackAddr();
+	sceKernelSetCompiledSdkVersion(0x2000010);
+	testSameStackAddr();
 	return 0;
 }
