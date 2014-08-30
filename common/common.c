@@ -336,8 +336,84 @@ unsigned char bmpHeader[54] = {
 };
 
 
-uint extractBits(uint value, int offset, int size) {
+static inline uint extractBits(uint value, int offset, int size) {
 	return (value >> offset) & ((1 << size) - 1);
+}
+
+static inline uint extractExpand1Bits(uint value, int offset) {
+	uint extracted = (value >> offset) & 1;
+	return extracted ? 0xFF : 0;
+}
+
+static inline uint extractExpand4Bits(uint value, int offset) {
+	uint extracted = (value >> offset) & ((1 << 4) - 1);
+	return (extracted << 4) | (extracted >> 0);
+}
+
+static inline uint extractExpand5Bits(uint value, int offset) {
+	uint extracted = (value >> offset) & ((1 << 5) - 1);
+	return (extracted << 3) | (extracted >> 2);
+}
+
+static inline uint extractExpand6Bits(uint value, int offset) {
+	uint extracted = (value >> offset) & ((1 << 6) - 1);
+	return (extracted << 2) | (extracted >> 4);
+}
+
+static void rgab8888_to_bgra8888(uint *dst, const uint *src, int num) {
+	int i;
+	uint c;
+	uint r, g, b, a;
+	for (i = 0; i < num; i++) {
+		c = src[i];
+		r = extractBits(c,  0, 8);
+		g = extractBits(c,  8, 8);
+		b = extractBits(c, 16, 8);
+		a = extractBits(c, 24, 8);
+		dst[i] = (b << 0) | (g << 8) | (r << 16) | (a << 24);
+	}
+}
+
+static void rgab4444_to_bgra8888(uint *dst, const ushort *src, int num) {
+	int i;
+	uint c;
+	uint r, g, b, a;
+	for (i = 0; i < num; i++) {
+		c = src[i];
+		r = extractExpand4Bits(c,  0);
+		g = extractExpand4Bits(c,  4);
+		b = extractExpand4Bits(c,  8);
+		a = extractExpand4Bits(c, 12);
+		dst[i] = (b << 0) | (g << 8) | (r << 16) | (a << 24);
+	}
+}
+
+static void rgab5551_to_bgra8888(uint *dst, const ushort *src, int num) {
+	int i;
+	uint c;
+	uint r, g, b, a;
+	for (i = 0; i < num; i++) {
+		c = src[i];
+		r = extractExpand5Bits(c,  0);
+		g = extractExpand5Bits(c,  5);
+		b = extractExpand5Bits(c, 10);
+		a = extractExpand1Bits(c, 15);
+		dst[i] = (b << 0) | (g << 8) | (r << 16) | (a << 24);
+	}
+}
+
+static void rgab565_to_bgra8888(uint *dst, const ushort *src, int num) {
+	int i;
+	uint c;
+	uint r, g, b, a;
+	for (i = 0; i < num; i++) {
+		c = src[i];
+		r = extractExpand5Bits(c,  0);
+		g = extractExpand6Bits(c,  5);
+		b = extractExpand5Bits(c, 11);
+		a = 0xFF;
+		dst[i] = (b << 0) | (g << 8) | (r << 16) | (a << 24);
+	}
 }
 
 void emulatorEmitScreenshot() {
@@ -361,29 +437,23 @@ void emulatorEmitScreenshot() {
         }
 	
 		if ((file = sceIoOpen("host0:/__screenshot.bmp", PSP_O_CREAT | PSP_O_WRONLY | PSP_O_TRUNC, 0777)) >= 0) {
-			int y, x;
-			uint c;
+			int y;
 			uint* vram_row;
 			uint* row_buf = (uint *)malloc(512 * 4);
+			uint row_bytes = (pixelformat == PSP_DISPLAY_PIXEL_FORMAT_8888 ? 4 : 2) * bufferwidth;
 			sceIoWrite(file, &bmpHeader, sizeof(bmpHeader));
 			for (y = 0; y < 272; y++) {
-				vram_row = (uint *)(topaddr + 512 * 4 * (271 - y));
-				for (x = 0; x < 512; x++) {
-					c = vram_row[x];
-					/*
-					row_buf[x] = (
-						((extractBits(c,  0, 8)) <<  0) |
-						((extractBits(c,  8, 8)) <<  8) |
-						((extractBits(c, 16, 8)) << 16) |
-						((                0x00 ) << 24) |
-					0);
-					*/
-					row_buf[x] = (
-						((extractBits(c, 16, 8)) <<  0) |
-						((extractBits(c,  8, 8)) <<  8) |
-						((extractBits(c,  0, 8)) << 16) |
-						((                0x00 ) << 24) |
-					0);
+				vram_row = (uint *)(topaddr + row_bytes * (271 - y));
+				if (pixelformat == PSP_DISPLAY_PIXEL_FORMAT_8888) {
+					rgab8888_to_bgra8888(row_buf, vram_row, 512);
+				} else if (pixelformat == PSP_DISPLAY_PIXEL_FORMAT_4444) {
+					rgab4444_to_bgra8888(row_buf, (const ushort *)vram_row, 512);
+				} else if (pixelformat == PSP_DISPLAY_PIXEL_FORMAT_5551) {
+					rgab5551_to_bgra8888(row_buf, (const ushort *)vram_row, 512);
+				} else if (pixelformat == PSP_DISPLAY_PIXEL_FORMAT_565) {
+					rgab565_to_bgra8888(row_buf, (const ushort *)vram_row, 512);
+				} else {
+					printf("ERROR: Invalid format %d", pixelformat);
 				}
 				sceIoWrite(file, row_buf, 512 * 4);
 			}
