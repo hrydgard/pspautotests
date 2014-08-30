@@ -1,3 +1,4 @@
+#include <malloc.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -43,9 +44,13 @@ enum PspModuleInfoAttr
 };
 */
 
+#ifdef COMMON_KERNEL
+PSP_MODULE_INFO("TESTMODULE", PSP_MODULE_KERNEL, 1, 0);
+PSP_MAIN_THREAD_ATTR(PSP_THREAD_ATTR_VFPU);
+#else
 PSP_MODULE_INFO("TESTMODULE", PSP_MODULE_USER, 1, 0);
 PSP_MAIN_THREAD_ATTR(PSP_THREAD_ATTR_USER | PSP_THREAD_ATTR_VFPU);
-//PSP_MAIN_THREAD_ATTR(PSP_THREAD_ATTR_USER);
+#endif
 
 #define EMULATOR_DEVCTL__GET_HAS_DISPLAY 0x00000001
 #define EMULATOR_DEVCTL__SEND_OUTPUT     0x00000002
@@ -162,7 +167,7 @@ static int writeStdoutHook(struct _reent *ptr, void *cookie, const char *buf, in
 	}
 }
 
-typedef int (*SdkVerFunc)(u32 ver);
+typedef int (*SdkVerFunc)(int ver);
 typedef struct SdkVerFuncTable {
 	u32 id;
 	SdkVerFunc func;

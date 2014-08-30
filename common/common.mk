@@ -26,7 +26,11 @@ LDFLAGS = -G0
 endif
 
 ifndef LIBS
+ifdef COMMON_KERNEL
+LIBS = -lpspgu -lpsprtc -lpspctrl -lpspmath -lcommon_kernel -lc -lm
+else
 LIBS = -lpspgu -lpsprtc -lpspctrl -lpspmath -lcommon -lc -lm
+endif
 endif
 ifdef EXTRA_LIBS
 LIBS := $(LIBS) $(EXTRA_LIBS)
