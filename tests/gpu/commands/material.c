@@ -61,6 +61,10 @@ void nextBox(int *x, int *y)
 	sceGuTexImage(0, 4, 4, 16, imageData);
 
 	sceGuDrawArray(GU_SPRITES, GU_TEXTURE_16BIT | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 2, NULL, vertices);
+	sceGuFinish();
+	sceGuSync(GU_SYNC_LIST, GU_SYNC_WHAT_DONE);
+	sceGuSync(0, 0);
+	sceGuStart(GU_DIRECT, list);
 }
 
 typedef enum HasColorMode
@@ -92,6 +96,10 @@ void nextBoxHasColor(int *x, int *y, HasColorMode mode)
 	sceGuTexImage(0, 4, 4, 16, imageData);
 
 	sceGuDrawArray(GU_SPRITES, GU_COLOR_8888 | GU_TEXTURE_16BIT | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 2, NULL, sendVertices);
+	sceGuFinish();
+	sceGuSync(GU_SYNC_LIST, GU_SYNC_WHAT_DONE);
+	sceGuSync(0, 0);
+	sceGuStart(GU_DIRECT, list);
 }
 
 void drawBG()
