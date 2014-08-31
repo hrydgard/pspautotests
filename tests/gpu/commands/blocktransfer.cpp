@@ -1,6 +1,8 @@
 #include <common.h>
+#include <malloc.h>
 #include <pspge.h>
 #include <psputils.h>
+#include <pspthreadman.h>
 #include "commands.h"
 
 unsigned int __attribute__((aligned(16))) dlist1[] = {
@@ -16,8 +18,9 @@ unsigned int __attribute__((aligned(16))) dlist1[] = {
 	0x0C000000, // 0x09 END
 };
 
-unsigned int __attribute__((aligned(16))) mem1[16384];
-unsigned int __attribute__((aligned(16))) mem2[16384];
+static const int memsz = 16384 * 32 * sizeof(unsigned int);
+unsigned int *mem1;
+unsigned int *mem2;
 
 int sameCount(const void *p1, const void *p2) {
 	const u8 *b1 = (const u8 *)p1;
@@ -31,7 +34,7 @@ int sameCount(const void *p1, const void *p2) {
 }
 
 u32 transferCoords(int cmd, int x, int y) {
-	return (cmd << 24) | (y << 10) | x;
+	return (cmd << 24) | ((y << 10) & 0x000FFC00) | (x & 0x3FF);
 }
 
 u32 transferAddr1(int cmd, void *p) {
@@ -43,8 +46,8 @@ u32 transferAddr2w(int cmd, void *p, int w) {
 }
 
 void testTransferSize(const char *title, int srcStride, int dstStride, int w, int h, int bpp) {
-	memset(mem1, 0xAA, sizeof(mem1));
-	memset(mem2, 0xBB, sizeof(mem2));
+	memset(mem1, 0xAA, memsz);
+	memset(mem2, 0xBB, memsz);
 
 	dlist1[0] = transferAddr1(GE_CMD_TRANSFERSRC, mem1);
 	dlist1[1] = transferAddr2w(GE_CMD_TRANSFERSRCW, mem1, srcStride);
@@ -63,6 +66,9 @@ void testTransferSize(const char *title, int srcStride, int dstStride, int w, in
 }
 
 extern "C" int main(int argc, char *argv[]) {
+	mem1 = (unsigned int *)memalign(16, memsz);
+	mem2 = (unsigned int *)memalign(16, memsz);
+
 	checkpointNext("Block transfers - 16 bit:");
 	testTransferSize("0 stride", 0, 0, 1024, 4, 16);
 	testTransferSize("0x100 stride", 0x100, 0x100, 1024, 4, 16);
@@ -82,6 +88,18 @@ extern "C" int main(int argc, char *argv[]) {
 	testTransferSize("0x408 stride", 0x408, 0x408, 1024, 4, 32);
 	testTransferSize("0x7FF stride", 0x7FF, 0x7FF, 1024, 4, 32);
 	testTransferSize("0xFC00 stride", 0xFC00, 0xFC00, 1024, 4, 32);
+	
+	checkpointNext("Sizes:");
+	testTransferSize("1024x512", 0x200, 0x200, 1024, 512, 16);
+	testTransferSize("1024x256", 0x200, 0x200, 1024, 256, 16);
+	testTransferSize("1024x128", 0x200, 0x200, 1024, 128, 16);
+	testTransferSize("1024x64", 0x200, 0x200, 1024, 64, 16);
+	testTransferSize("1024x4", 0x200, 0x200, 1024, 4, 16);
+	testTransferSize("1024x1", 0x200, 0x200, 1024, 1, 16);
+	testTransferSize("1x1", 0x200, 0x200, 1, 1, 16);
+
+	free(mem1);
+	free(mem2);
 
 	return 0;
 }
