@@ -52,6 +52,14 @@ int __attribute__((noinline)) ceilws(float x) {
 	return result;
 }
 
+void testRoundingMul(const char *title, float a1, float a2, int rm) {
+	float result;
+	asm volatile("ctc1 %0, $31" : : "r"(rm));
+	asm volatile("mul.s %0, %1, %2" : "=f"(result) : "f"(a1), "f"(a2));
+
+	printf("mul.s %f * %f, %s = %f\n", a1, a2, title, result);
+}
+
 const char *cmpNames[16] = {
   "f",
   "un",
@@ -259,7 +267,14 @@ int main(int argc, char *argv[]) {
 			printf("ceil.w.s %f: %i\n", value, ceilws(value));
 		}
 	}
-	
+
+	printf("\n\nRounding modes with multiply:\n");
+	testRoundingMul("RINT_0", 0.2965576648712158203125f, 62.0f, RINT_0);
+	testRoundingMul("CAST_1", 0.2965576648712158203125f, 62.0f, CAST_1);
+	testRoundingMul("CEIL_2", 0.2965576648712158203125f, 62.0f, CEIL_2);
+	testRoundingMul("FLOOR_3", 0.2965576648712158203125f, 62.0f, FLOOR_3);
+	printf("\n");
+
 	testCompare(0.0f, 0.0f);
 	testCompare(1.0f, 1.0f);
 	testCompare(1.0f, 2.0f);
