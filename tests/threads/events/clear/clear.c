@@ -2,21 +2,14 @@
 
 SETUP_SCHED_TEST;
 
-#define SET_TEST(title, flag, bits) { \
-	int result = sceKernelClearEventFlag(flag, bits); \
-	if (result == 0) { \
-		printf("%s: OK\n", title); \
-	} else { \
-		printf("%s: Failed (%X)\n", title, result); \
-	} \
-	PRINT_FLAG(flag); \
-}
-
-void schedf(const char *format, ...) {
-	va_list args;
-	va_start(args, format);
-	schedulingLogPos += vsprintf(schedulingLog + schedulingLogPos, format, args);
-	va_end(args);
+static void testClear(const char *title, SceUID flag, u32 bits) {
+	int result = sceKernelClearEventFlag(flag, bits);
+	if (result == 0) {
+		printf("%s: OK\n", title);
+	} else {
+		printf("%s: Failed (%X)\n", title, result);
+	}
+	PRINT_FLAG(flag);
 }
 
 static int scheduleTestFunc1(SceSize argSize, void* argPointer) {
@@ -37,7 +30,7 @@ static int scheduleTestFunc2(SceSize argSize, void* argPointer) {
 
 	schedf("T2B");
 	while (result == 0x800201A8) {
-		timeout = 1;
+		timeout = 5;
 		result = sceKernelWaitEventFlagCB(*(int*) argPointer, 0xFF00, PSP_EVENT_WAITOR | PSP_EVENT_WAITCLEAR, &bits, &timeout);
 	}
 	schedf("T2D (result=%08x, bits=%08x) ", result, (uint) bits);
@@ -52,7 +45,7 @@ static int scheduleTestFunc3(SceSize argSize, void* argPointer) {
 
 	schedf("T3B");
 	while (result == 0x800201A8) {
-		timeout = 1;
+		timeout = 5;
 		result = sceKernelWaitEventFlagCB(*(int*) argPointer, 0xFFFF, PSP_EVENT_WAITOR | PSP_EVENT_WAITCLEAR, &bits, &timeout);
 	}
 	schedf("T3D (result=%08x, bits=%08x) ", result, (uint) bits);
@@ -64,22 +57,22 @@ int main(int argc, char **argv) {
 	SceUID flag = sceKernelCreateEventFlag("set", 0, 0, NULL);
 	PRINT_FLAG(flag);
 
-	SET_TEST("Basic 0x2", flag, 0x2);
-	SET_TEST("Basic 0x1", flag, 0x1);
-	SET_TEST("Basic 0x1", flag, 0x1);
-	SET_TEST("Basic 0xF000", flag, 0xF000);
-	SET_TEST("Zero", flag, 0);
+	testClear("Basic 0x2", flag, 0x2);
+	testClear("Basic 0x1", flag, 0x1);
+	testClear("Basic 0x1", flag, 0x1);
+	testClear("Basic 0xF000", flag, 0xF000);
+	testClear("Zero", flag, 0);
 
 	sceKernelDeleteEventFlag(flag);
 
 	flag = sceKernelCreateEventFlag("signal", 0, 0xFFFFFFFE, NULL);
 	PRINT_FLAG(flag);
-	SET_TEST("All but 0x1 + 0x1", flag, 0x1);
+	testClear("All but 0x1 + 0x1", flag, 0x1);
 	sceKernelDeleteEventFlag(flag);
 
-	SET_TEST("NULL", 0, 1);
-	SET_TEST("Invalid", 0xDEADBEEF, 1);
-	SET_TEST("Deleted", flag, 1);
+	testClear("NULL", 0, 1);
+	testClear("Invalid", 0xDEADBEEF, 1);
+	testClear("Deleted", flag, 1);
 
 	BASIC_SCHED_TEST("NULL",
 		result = sceKernelClearEventFlag(0, 0);
@@ -102,7 +95,7 @@ int main(int argc, char **argv) {
 	);
 
 	flag = sceKernelCreateEventFlag("set", 0x200, 0, NULL);
-	schedulingLogPos = 0;
+	schedf("Set with multi and clear: ");
 	schedf("A");
 	SceUID thread1 = CREATE_SIMPLE_THREAD(scheduleTestFunc1);
 	SceUID thread2 = CREATE_SIMPLE_THREAD(scheduleTestFunc2);
@@ -116,7 +109,7 @@ int main(int argc, char **argv) {
 	sceKernelDeleteEventFlag(flag);
 	schedf("F");
 
-	printf("Set with multi and clear: %s(main=%08X)\n", schedulingLog, result);
+	schedf("(main=%08X)\n", result);
 
 	return 0;
 }
