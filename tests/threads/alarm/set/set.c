@@ -10,13 +10,11 @@ void testSetAlarm(const char *title, SceUInt clock, SceKernelAlarmHandler handle
 	SceUID alarm = sceKernelSetAlarm(clock, handler, common);
 	int hits = alarmHandlerHits;
 
+	schedf("%s (hits=%d): ", title, hits);
 	schedfAlarm(alarm, currentTime);
 	if (alarm > 0) {
 		sceKernelCancelAlarm(alarm);
 	}
-
-	printf("%s (hits=%d): ", title, hits);
-	flushschedf();
 }
 
 void testSetClockAlarm(const char *title, u64 clock, SceKernelAlarmHandler handler, void *common) {
@@ -29,13 +27,11 @@ void testSetClockAlarm(const char *title, u64 clock, SceKernelAlarmHandler handl
 	SceUID alarm = sceKernelSetSysClockAlarm(&sysclock, handler, common);
 	int hits = alarmHandlerHits;
 
+	schedf("%s (hits=%d): ", title, hits);
 	schedfAlarm(alarm, currentTime);
 	if (alarm > 0) {
 		sceKernelCancelAlarm(alarm);
 	}
-
-	printf("%s (hits=%d): ", title, hits);
-	flushschedf();
 }
 
 static SceUInt alarmHandler(void *common) {
@@ -56,13 +52,11 @@ void checkAlarmFrequency() {
 	sceKernelDelayThread(1000 * 10 + 200);
 	int hits = alarmHandlerHits;
 
+	schedf("Frequency: %d hits, ", hits);
 	schedfAlarm(alarm, currentTime);
 	if (alarm > 0) {
 		sceKernelCancelAlarm(alarm);
 	}
-
-	printf("Frequency: %d hits, ", hits);
-	flushschedf();
 }
 
 void checkAlarmSysFrequency() {
@@ -75,13 +69,11 @@ void checkAlarmSysFrequency() {
 	sceKernelDelayThread(1000 * 10 + 200);
 	int hits = alarmHandlerHits;
 
+	schedf("SysClock frequency: %d hits, ", hits);
 	schedfAlarm(alarm, currentTime);
 	if (alarm > 0) {
 		sceKernelCancelAlarm(alarm);
 	}
-
-	printf("SysClock frequency: %d hits, ", hits);
-	flushschedf();
 }
 
 void checkMaxAlarms() {
@@ -102,24 +94,28 @@ void checkMaxAlarms() {
 	if (i == 1024) {
 		schedf("Created 1024 alarms: OK\n");
 	}
-	flushschedf();
 }
 
 int main(int argc, char **argv) {
+	checkpointNext("sceKernelSetAlarm:");
 	testSetAlarm("Zero timer", 0, alarmHandler, NULL);
 	testSetAlarm("100 timer", 100, alarmHandler, NULL);
 	testSetAlarm("INT_MAX timer", INT_MAX, alarmHandler, NULL);
 	testSetAlarm("NULL handler", 100, NULL, NULL);
 
+	checkpointNext("sceKernelSetSysClockAlarm:");
 	testSetClockAlarm("Zero sys timer", 0, alarmHandler, NULL);
 	testSetClockAlarm("100 sys timer", 100, alarmHandler, NULL);
 	testSetClockAlarm("INT_MAX sys timer", INT_MAX, alarmHandler, NULL);
+	testSetClockAlarm("LONG_LONG_MAX sys timer", LONG_LONG_MAX, alarmHandler, NULL);
+	testSetClockAlarm("LONG_LONG_MAX * 2 sys timer", LONG_LONG_MAX * 2, alarmHandler, NULL);
 	testSetClockAlarm("NULL handler sys", 100, NULL, NULL);
 
 	// Crashes.
 	//int result = sceKernelSetSysClockAlarm(NULL, alarmHandler, NULL);
 	//printf("sceKernelSetSysClockAlarm NULL clocks: %08X\n", result);
 
+	checkpointNext("Other:");
 	checkAlarmFrequency();
 	checkAlarmSysFrequency();
 	checkMaxAlarms();

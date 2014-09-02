@@ -11,19 +11,7 @@
 
 int sceKernelCancelSema(SceUID uid, int count, int *numWaitingThreads);
 
-char schedulingLog[65536];
-char *schedulingLogPos;
-
 int thread1, thread2;
-
-void schedf(const char *format, ...) {
-	va_list args;
-	va_start(args, format);
-	schedulingLogPos += vsprintf(schedulingLogPos, format, args);
-	// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
-	//vprintf(format, args);
-	va_end(args);
-}
 
 inline int whichThread() {
 	if (sceKernelGetThreadId() == thread1) {
@@ -65,8 +53,6 @@ int thread2Func(SceSize argc, void* argv) {
 }
 
 int main(int argc, char **argv) {
-	schedulingLogPos = schedulingLog;
-
 	SceUID otherThread = sceKernelCreateThread("thread2", thread2Func, 0x1F, 0x1000, 0, 0);
 	sceKernelStartThread(otherThread, 0, 0);
 
@@ -107,8 +93,7 @@ int main(int argc, char **argv) {
 	schedf("thread2: %d\n", thread2DidRun);
 	sceKernelTerminateDeleteThread(otherThread);
 
-	printf("%s", schedulingLog);
-	schedulingLogPos = schedulingLog;
+	flushschedf();
 
 	return 0;
 }

@@ -12,23 +12,6 @@
 static volatile int schedulingPlacement = 0;
 // So we can log the result from the thread.
 static int schedulingResult = -1;
-// printf() seems to reschedule, so can't use it.
-static char schedulingLog[65536];
-static volatile int schedulingLogPos = 0;
-
-inline void schedf(const char *format, ...) {
-	va_list args;
-	va_start(args, format);
-	schedulingLogPos += vsprintf(schedulingLog + schedulingLogPos, format, args);
-	// This is easier to debug in the emulator, but printf() reschedules on the real PSP.
-	//vprintf(format, args);
-	va_end(args);
-}
-
-inline void flushschedf() {
-	printf("%s", schedulingLog);
-	schedulingLogPos = 0;
-}
 
 inline void schedfAlarm(SceUID alarm, s64 currentTime) {
 	if (alarm > 0) {
@@ -59,7 +42,7 @@ inline void printfAlarm(SceUID alarm, s64 currentTime) {
 #define SCHED_LOG(letter, placement) { \
 	int old = schedulingPlacement; \
 	schedulingPlacement = placement; \
-	schedulingLogPos += sprintf(schedulingLog + schedulingLogPos, #letter "%d", old); \
+	schedf(#letter "%d", old); \
 }
 
 static int scheduleTestFunc(SceSize argSize, void* argPointer) {
@@ -85,9 +68,8 @@ static int scheduleTestFunc(SceSize argSize, void* argPointer) {
 	SceUID sema1 = sceKernelCreateSema("schedTest1", 0, 0, 1, NULL); \
 	int result = -1; \
 	\
-	schedulingLogPos = 0; \
 	schedulingPlacement = 1; \
-	printf("%s: ", title); \
+	schedf("%s: ", title); \
 	\
 	SCHED_LOG(A, 1); \
 	sceKernelStartThread(thread, sizeof(int), &sema1); \
@@ -97,7 +79,6 @@ static int scheduleTestFunc(SceSize argSize, void* argPointer) {
 	sceKernelDeleteSema(sema1); \
 	SCHED_LOG(F, 1); \
 	\
-	schedulingLogPos = 0; \
-	printf("%s (thread=%08X, main=%08X)\n", schedulingLog, schedulingResult, result); \
+	schedf(" (thread=%08X, main=%08X)\n", schedulingResult, result); \
 	sceKernelTerminateThread(thread); \
 }
