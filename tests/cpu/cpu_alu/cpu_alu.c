@@ -4,6 +4,8 @@
 
 #define lengthof(vector) (sizeof((vector)) / sizeof((vector)[0]))
 
+#define OP_r_i_x(TYPE, KEY, VALUE) int __attribute__((noinline)) op_##TYPE##KEY() { int result; asm volatile(#TYPE " %0, " #VALUE : "=r"(result) : ); return result; }
+#define OP_r_i(TYPE)  OP_r_i_x(TYPE, 0, 0) OP_r_i_x(TYPE, 1, 1) OP_r_i_x(TYPE, 2, 2) OP_r_i_x(TYPE, 3, 3) OP_r_i_x(TYPE, 4, 65533) OP_r_i_x(TYPE, 5, 65534) OP_r_i_x(TYPE, 6, 32768) OP_r_i_x(TYPE, 7, 65535) OP_r_i_x(TYPE, 8, 11123)
 #define OP_r_r(TYPE)  int __attribute__((noinline)) op_##TYPE(int x       ) { int result; asm volatile(#TYPE " %0, %1" : "=r"(result) : "r"(x)); return result; }
 #define OP_r_rr(TYPE) int __attribute__((noinline)) op_##TYPE(int x, int y) { int result; asm volatile(#TYPE " %0, %1, %2" : "=r"(result) : "r"(x), "r"(y)); return result; }
 
@@ -15,6 +17,8 @@
 #define TEST_START(TYPE) printf("%-8s: ", #TYPE);
 #define TEST_END(TYPE) printf("\n");
 
+#define TEST_r_i_x(TYPE, KEY   ) printf("0x%08X, ", op_##TYPE##KEY());
+#define TEST_r_i(TYPE      ) { TEST_r_i_x(TYPE, 0) TEST_r_i_x(TYPE, 1) TEST_r_i_x(TYPE, 2) TEST_r_i_x(TYPE, 3) TEST_r_i_x(TYPE, 4) TEST_r_i_x(TYPE, 5) TEST_r_i_x(TYPE, 6) TEST_r_i_x(TYPE, 7) TEST_r_i_x(TYPE, 8) }
 #define TEST_r_r(TYPE, x    ) printf("0x%08X, ", op_##TYPE(x));
 #define TEST_r_rr(TYPE, x, y) printf("0x%08X, ", op_##TYPE(x, y));
 #define TEST_r_ri_x(TYPE, KEY, x   ) printf("0x%08X, ", op_##TYPE##KEY(x));
@@ -23,6 +27,7 @@
 const int arithmeticValues[] = { 0, 1, 2, 0x81, 0x7f, 0x8123, 0x7fff, 2147483647, -1, -2, -2147483648 };
 #define TEST_r_rr_SET(TYPE) { TEST_START(TYPE); int x, y; for (x = 0; x < lengthof(arithmeticValues); x++) for (y = 0; y < lengthof(arithmeticValues); y++) TEST_r_rr(TYPE, arithmeticValues[x], arithmeticValues[y]); TEST_END(TYPE); }
 #define TEST_r_r_SET(TYPE) { TEST_START(TYPE); int x; for (x = 0; x < lengthof(arithmeticValues); x++) TEST_r_r(TYPE, arithmeticValues[x]); TEST_END(TYPE); }
+#define TEST_r_i_SET(TYPE) { TEST_START(TYPE); TEST_r_i(TYPE); TEST_END(TYPE); }
 #define TEST_r_ri_SET(TYPE) { TEST_START(TYPE); int x; for (x = 0; x < lengthof(arithmeticValues); x++) TEST_r_ri(TYPE, arithmeticValues[x]); TEST_END(TYPE); }
 #define TEST_r_rp_SET TEST_r_ri_SET
 
@@ -197,10 +202,10 @@ OP_r_rr(rotrv);
 OP_r_rr(slt);
 OP_r_rr(sltu);
 OP_r_ri(slti);
-OP_r_ri_u(sltu);
+OP_r_ri_u(sltiu);
 
 // Load Upper Immediate.
-OP_r_r(lui)
+OP_r_i(lui)
 
 // Sign Extend Byte/Half word.
 OP_r_r(seb)
@@ -285,10 +290,10 @@ int main(int argc, char *argv[]) {
 	TEST_r_rr_SET(slt);
 	TEST_r_rr_SET(sltu);
 	TEST_r_ri_SET(slti);
-	TEST_r_ri_SET(sltu);
+	TEST_r_ri_SET(sltiu);
 
 	// Load Upper Immediate.
-	TEST_r_r_SET(lui)
+	TEST_r_i_SET(lui)
 	
 	// Sign Extend Byte/Half word.
 	TEST_r_r_SET(seb)
