@@ -197,7 +197,7 @@ OP_r_rr(rotrv);
 OP_r_rr(slt);
 OP_r_rr(sltu);
 OP_r_ri(slti);
-OP_r_ri_u(sltu);
+OP_r_ri_u(sltiu);
 
 // Load Upper Immediate.
 OP_r_r(lui)
@@ -285,7 +285,7 @@ int main(int argc, char *argv[]) {
 	TEST_r_rr_SET(slt);
 	TEST_r_rr_SET(sltu);
 	TEST_r_ri_SET(slti);
-	TEST_r_ri_SET(sltu);
+	TEST_r_ri_SET(sltiu);
 
 	// Load Upper Immediate.
 	TEST_r_r_SET(lui)
