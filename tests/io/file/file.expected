@@ -1,3 +1,4 @@
+0x80010002 = sceIoOpen("workdir", PSP_O_RDONLY)
 0x80010002 = sceIoGetstat("nofile")
 0x80010002 = sceIoOpen("nofile", PSP_O_RDONLY)
 0x80020323 = sceIoClose(9999)

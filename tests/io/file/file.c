@@ -70,6 +70,10 @@ int main(int argc, char** argv) {
 	char readBuf[128];
 
 	sceIoMkdir("workdir", 0777);
+
+	SceUID fd = sceIoOpen("workdir", PSP_O_RDONLY, 0777);
+	printf("0x%08x = sceIoOpen(\"workdir\", PSP_O_RDONLY)\n",fd);
+
 	sceIoChdir("workdir");
 	
 	//sceIoGetstat+
@@ -89,8 +93,8 @@ int main(int argc, char** argv) {
 	int ret = sceIoGetstat("nofile",&stat);
 	printf("0x%08x = sceIoGetstat(\"nofile\")\n",ret);
 	
-	SceUID fd = sceIoOpen("nofile", PSP_O_RDONLY, 0777);
-	printf("0x%08x = sceIoOpen(\"nofile\", PSP_O_RDONLY)\n",ret);
+	fd = sceIoOpen("nofile", PSP_O_RDONLY, 0777);
+	printf("0x%08x = sceIoOpen(\"nofile\", PSP_O_RDONLY)\n",fd);
 	
 	ret = sceIoClose(9999);
 	printf("0x%08x = sceIoClose(9999)\n",ret);
