@@ -5,7 +5,7 @@ volatile int alarmHandlerHits = 0;
 
 void testCancel(const char *title, SceUID alarm) {
 	int result = sceKernelCancelAlarm(alarm);
-	printf("%s: %08X\n", title, result);
+	schedf("%s: %08X\n", title, result);
 }
 
 static SceUInt alarmHandler(void *common) {

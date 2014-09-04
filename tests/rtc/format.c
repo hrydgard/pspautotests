@@ -17,8 +17,8 @@ void checkGetCurrentClock() {
 	// Rollover is annoying.  We could test in a more complicated way, I guess.
 	while (pt_baseline.minutes == 59 && pt_baseline.seconds == 59);
 
-	if (pt.hour != pt_baseline.hour - 1 && !(pt.hour == 12 && pt_baseline.hour == 1))
-		printf("-60 TZ: Failed, got time different by %d hours.\n", (pt_baseline.hour - pt.hour) % 12);
+	if (pt.hour != pt_baseline.hour - 1 && !(pt.hour == 23 && pt_baseline.hour == 0))
+		printf("-60 TZ: Failed, got time different by %d hours.\n", (pt_baseline.hour - pt.hour) % 24);
 	else
 		printf("-60 TZ: OK\n");
 
