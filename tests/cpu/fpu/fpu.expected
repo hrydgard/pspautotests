@@ -2019,3 +2019,8 @@ inf 1.000000 ngt: F
 1.000000 inf nge: T
 1.000000 inf le: T
 1.000000 inf ngt: T
+
+
+Flush-to-zero mode (FCR31.FS):
+mul.s 1.1754944e-38, 0.5 (FS=1) => 0
+mul.s 1.1754944e-38, 0.5 (FS=0) => 5.87747e-39

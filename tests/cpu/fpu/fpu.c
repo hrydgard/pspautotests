@@ -239,6 +239,15 @@ DEFINE_OP1(sqrt)
 DEFINE_OP1(abs)
 DEFINE_OP1(neg)
 
+void testFlushToZero(int enable) {
+	asm volatile("ctc1 %0, $31" : : "r"(enable << 24));
+	union {uint32_t i; float f;} small = {.i = 0x00800000};
+	float result;
+	asm volatile("mul.s %0, %1, %2" : "=f"(result) : "f"(small.f), "f"(0.5f));
+	printf("mul.s 1.1754944e-38, 0.5 (FS=%d) => %g\n", enable, result);
+	asm volatile("ctc1 $0, $31");
+}
+
 int main(int argc, char *argv[]) {
 	OUTPUT_2(add);
 	OUTPUT_2(sub);
@@ -283,5 +292,10 @@ int main(int argc, char *argv[]) {
 	testCompare(INFINITY, 1.0f);
 	testCompare(1.0f, NAN);
 	testCompare(1.0f, INFINITY);
+
+	printf("\n\nFlush-to-zero mode (FCR31.FS):\n");
+	testFlushToZero(1);
+	testFlushToZero(0);
+
 	return 0;
 }
