@@ -17,6 +17,26 @@ static void Font_Free(void *data, void *p){
 	free(p);
 }
 
+int loadFontModule() {
+	checkpointNext("Init");
+	if (RUNNING_ON_EMULATOR) {
+		return 1;
+	}
+	SceUID fontModule = sceKernelLoadModule("libfont.prx", 0, NULL);
+	if (fontModule <= 0) {
+		printf("TEST ERROR: Unable to load libfont.prx\n");
+		return 0;
+	}
+
+	int status = -1;
+	int result = sceKernelStartModule(fontModule, 0, NULL, &status, NULL);
+	if (result != fontModule || status != 0) {
+		printf("TEST ERROR: libfont.prx startup failed (%08x, %08x)\n", result, status);
+		return 0;
+	}
+	return 1;
+}
+
 int main(int argc, char *argv[]) {
 	FontLibraryHandle libHandle;
 	FontHandle        fontHandle;
@@ -27,10 +47,12 @@ int main(int argc, char *argv[]) {
 	int result;
 	int n;
 	int x, y;
-	uint errorCode;
+	uint errorCode = 0x1337;
 	FontNewLibParams params = { NULL, 4, NULL, Font_Alloc, Font_Free, NULL, NULL, NULL, NULL, NULL, NULL };
 	
-	pspSdkLoadStartModule("flash0:/kd/libfont.prx", PSP_MEMORY_PARTITION_KERNEL);
+	if (!loadFontModule()) {
+		return 1;
+	}
 
 	//pspDebugScreenInit();
 	
@@ -40,7 +62,7 @@ int main(int argc, char *argv[]) {
 	printf("sceFontNewLib: %d, %08X\n", libHandle != 0, errorCode);
 	{
 		result = sceFontGetNumFontList(libHandle, &errorCode);
-		printf("sceFontGetNumFontList: %d, 0x%08X\n", result, errorCode);
+		printf("sceFontGetNumFontList: %08x, 0x%08X\n", result, errorCode);
 		count = 32;
 		result = sceFontGetFontList(libHandle, fontStyles, count);
 		printf("sceFontGetFontList: %d\n", result);
@@ -63,19 +85,19 @@ int main(int argc, char *argv[]) {
 			printf("Font.maxGlyphTopYF: %f\n", fontInfo.maxGlyphTopYF);
 			printf("Font.maxGlyphAdvanceXYF: %f, %f\n", fontInfo.maxGlyphAdvanceXF, fontInfo.maxGlyphAdvanceXF);
 
-			glyphImage.pixelFormat = GU_PSM_8888;
+			glyphImage.pixelFormat = PSP_FONT_PIXELFORMAT_8;
 			glyphImage.positionX_F26_6 = 0 << 6;
 			glyphImage.positionY_F26_6 = 0 << 6;
 			glyphImage.bufferWidth = 32;
 			glyphImage.bufferHeight = 32;
-			glyphImage.bytesPerLine = 32 * 4;
-			glyphImage.buffer = malloc(32 * 32 * sizeof(uint));
+			glyphImage.bytesPerLine = 32;
+			glyphImage.buffer = malloc(32 * 32 * sizeof(u8));
 
 			printf("sceFontGetCharGlyphImage: %d\n", sceFontGetCharGlyphImage(fontHandle, 'H', &glyphImage));
-			for (y = 0, n= 0; y < 32; y++) {
+			for (y = 0, n = 0; y < 32; y++) {
 				printf("%08X: ", n);
 				for (x = 0; x < 32; x++, n++) {
-					uint v = ((uint*)glyphImage.buffer)[n];
+					uint v = ((u8 *)glyphImage.buffer)[n];
 					printf("%01X", v & 0x7);
 				}
 				printf("\n");
