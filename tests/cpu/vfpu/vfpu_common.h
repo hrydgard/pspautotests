@@ -7,6 +7,9 @@
 #define NOINLINE __attribute__((noinline))
 #define ALIGN16  __attribute__((aligned (16))) 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 void printVectorLowP(const char *title, ScePspFVector4 *v);
 void printVector(const char *title, ScePspFVector4 *v);
@@ -15,3 +18,7 @@ void printMatrix(const char *title, ScePspFMatrix4 *m);
 void nonsense(ScePspFMatrix4 *m);
 
 void resetAllMatrices();
+
+#ifdef __cplusplus
+}
+#endif
