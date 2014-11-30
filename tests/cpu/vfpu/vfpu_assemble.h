@@ -67,6 +67,7 @@
 #define MIPS_OP_JR_RA                   (MIPS_SPECIAL(0x08) | MIPS_RS(31))
 #define MIPS_OP_VMOV                    (MIPS_VFPU4_11(0x00))
 #define MIPS_OP_VADD                    (MIPS_VFPU0(0x00))
+#define MIPS_OP_VSCL                    (MIPS_VFPU1(2))
 #define MIPS_OP_VIIM_S                  (MIPS_VFPU5(6) | VSIZE_S)
 #define MIPS_OP_VFIM_S                  (MIPS_VFPU5(7) | VSIZE_S)
 #define MIPS_OP_VPFXS                   MIPS_VFPU5(0)
