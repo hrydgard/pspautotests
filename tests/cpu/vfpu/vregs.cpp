@@ -184,6 +184,7 @@ void TestUpgrade() {
 	FillNormNumbers();
 
 	// So, here we will test using different sizes of the same row/col.
+	// The goal is to make sure simd slots upgrade cleanly.
 	for (int m = 0; m < 8; ++m) {
 		code[codepos++] = MIPS_OP_VADD | VSIZE_S | VD(VREGS_S(m, 0, 0)) | VS(VREGS_S(m, 1, 0)) | VT(VREGS_S(m, 1, 0));
 		code[codepos++] = MIPS_OP_VADD | VSIZE_T | VD(VREGT_R(m, 0, 0)) | VS(VREGT_R(m, 0, 0)) | VT(VREGT_R(m, 1, 0));
@@ -199,9 +200,9 @@ void TestUpgrade() {
 void TestCombine() {
 	FillNormNumbers();
 
-	// So, here we will test using different sizes of the same row/col.
 	for (int m = 0; m < 8; ++m) {
 		// Let's "grab" a few regs by doubling them.  This is for jit regcache testing.
+		// We're making sure the regs combine back properly.
 		code[codepos++] = MIPS_OP_VADD | VSIZE_S | VDST(VREGS_S(m, 0, 0));
 		code[codepos++] = MIPS_OP_VADD | VSIZE_S | VDST(VREGS_S(m, 3, 1));
 		code[codepos++] = MIPS_OP_VADD | VSIZE_S | VDST(VREGS_S(m, 1, 2));
@@ -225,9 +226,8 @@ void TestCombine() {
 void TestVscl() {
 	FillNormNumbers();
 
-	// So, here we will test using different sizes of the same row/col.
 	for (int m = 0; m < 8; ++m) {
-		// Let's "grab" a few regs by doubling them.  This is for jit regcache testing.
+		// Here we're making sure the mixed args (s etc.) work cleanly.
 		code[codepos++] = MIPS_OP_VADD | VSIZE_S | VDST(VREGS_S(m, 0, 0));
 		code[codepos++] = MIPS_OP_VADD | VSIZE_S | VDST(VREGS_S(m, 3, 1));
 		code[codepos++] = MIPS_OP_VADD | VSIZE_S | VDST(VREGS_S(m, 1, 2));
@@ -248,6 +248,24 @@ void TestVscl() {
 	PrintAllMatrices("vscl");
 }
 
+void TestReuse() {
+	FillNormNumbers();
+
+	// This tests reusing the same regs different ways as different args.
+	// Hopefully catching dirting and spill locking issues.
+	for (int m = 0; m < 8; ++m) {
+		code[codepos++] = MIPS_OP_VADD | VSIZE_S | VD(VREGS_S(m, 0, 0)) | VS(VREGS_S(m, 1, 0)) | VT(VREGS_S(0, 2, 0));
+		code[codepos++] = MIPS_OP_VADD | VSIZE_S | VD(VREGS_S(m, 3, 0)) | VS(VREGS_S(m, 1, 0)) | VT(VREGS_S(0, 1, 0));
+		code[codepos++] = MIPS_OP_VADD | VSIZE_S | VD(VREGS_S(m, 2, 0)) | VS(VREGS_S(m, 3, 0)) | VT(VREGS_S(0, 1, 0));
+		code[codepos++] = MIPS_OP_VADD | VSIZE_S | VD(VREGS_S(m, 3, 0)) | VS(VREGS_S(m, 3, 0)) | VT(VREGS_S(0, 3, 0));
+		code[codepos++] = MIPS_OP_VADD | VSIZE_S | VD(VREGS_S(m, 0, 0)) | VS(VREGS_S(m, 0, 0)) | VT(VREGS_S(0, 2, 0));
+		code[codepos++] = MIPS_OP_VADD | VSIZE_S | VD(VREGS_S(m, 3, 0)) | VS(VREGS_S(m, 1, 0)) | VT(VREGS_S(0, 1, 0));
+	}
+
+	ExecCode();
+	PrintAllMatrices("Reuse");
+}
+
 extern "C" int main(int argc, char *argv[]) {
 	// Let's start by filling all the regs with something other than NAN.
 	FillAllVectorRegs();
@@ -257,6 +275,7 @@ extern "C" int main(int argc, char *argv[]) {
 	TestUpgrade();
 	TestCombine();
 	TestVscl();
+	TestReuse();
 
 	return 0;
 }
