@@ -1,4 +1,4 @@
-TARGETS = vector matrix prefixes colors convert gum
+TARGETS = vector matrix prefixes colors convert gum vregs
 EXTRA_OBJS = colors_asm.S convert_asm.S vfpu_common.c
 LIBS = -lGLUT -lGL -lpspvfpu -lpspgu -lpsprtc -lpspgum -lpspmath -lcommon -lc -lm
 

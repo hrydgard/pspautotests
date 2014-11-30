@@ -193,10 +193,18 @@ void checkVI2F() {
 void vfpu_vc2i_s(int* in, int *out);
 void vfpu_vuc2i_s(int* in, int *out);
 void vfpu_vs2i_s(int* in, int *out);
+void vfpu_vus2i_s(int* in, int *out);
 void vfpu_vs2i_p(int* in, int *out);
+void vfpu_vus2i_p(int* in, int *out);
+void vfpu_vi2c_q(int* in, int *out);
+void vfpu_vi2uc_q(int* in, int *out);
+void vfpu_vi2s_p(int* in, int *out);
+void vfpu_vi2us_p(int* in, int *out);
+void vfpu_vi2s_q(int* in, int *out);
+void vfpu_vi2us_q(int* in, int *out);
 void vfpu_vi2f_q(int* in, float *out);
 
-void test_vc2i() {
+void test_vx2i(const char *name, void (*func)(int *, int*)) {
 	int in_i[4];
 	int out_i[4];
 	resetAllMatrices();
@@ -206,45 +214,122 @@ void test_vc2i() {
 	in_i[2] = 0x01234567;
 	in_i[3] = 0x89ABCDEF;
 
-	memset(out_i, 0, sizeof(out_i)); vfpu_vc2i_s(in_i, out_i); printf("vfpu_vc2i_s: %08X, %08X, %08X, %08X\n", out_i[0], out_i[1], out_i[2], out_i[3]);
-}
-
-void test_vuc2i() {
-	int in_i[4];
-	int out_i[4];
-	resetAllMatrices();
-	
-	in_i[0] = 0x01234567;
-	in_i[1] = 0x89ABCDEF;
-	in_i[2] = 0x01234567;
-	in_i[3] = 0x89ABCDEF;
-
-	memset(out_i, 0, sizeof(out_i)); vfpu_vuc2i_s(in_i, out_i); printf("vfpu_vuc2i_s: %08X, %08X, %08X, %08X\n", out_i[0], out_i[1], out_i[2], out_i[3]);
+	memset(out_i, 0xCC, sizeof(out_i));
+	func(in_i, out_i);
+	printf("%s pattern 1: %08X, %08X, %08X, %08X\n", name, out_i[0], out_i[1], out_i[2], out_i[3]);
 
 	in_i[0] = 0xFEDCBA89;
 	in_i[1] = 0x00000000;
 	in_i[2] = 0x00000000;
 	in_i[3] = 0x00000000;
 
-	memset(out_i, 0, sizeof(out_i)); vfpu_vuc2i_s(in_i, out_i); printf("vfpu_vuc2i_s: %08X, %08X, %08X, %08X\n", out_i[0], out_i[1], out_i[2], out_i[3]);
+	memset(out_i, 0xCC, sizeof(out_i));
+	func(in_i, out_i);
+	printf("%s pattern 2: %08X, %08X, %08X, %08X\n", name, out_i[0], out_i[1], out_i[2], out_i[3]);
+
+	in_i[0] = 0xFCCF00FF;
+	in_i[1] = 0x1100FF11;
+	in_i[2] = 0xFFFFFFFF;
+	in_i[3] = 0x7F7F7F7F;
+
+	memset(out_i, 0xCC, sizeof(out_i));
+	func(in_i, out_i);
+	printf("%s pattern 3: %08X, %08X, %08X, %08X\n", name, out_i[0], out_i[1], out_i[2], out_i[3]);
+
+	in_i[0] = 0xFFFFFFFF;
+	in_i[1] = 0x7F7F7F7F;
+	in_i[2] = 0xFFFFFFFF;
+	in_i[3] = 0x7F7F7F7F;
+
+	memset(out_i, 0xCC, sizeof(out_i));
+	func(in_i, out_i);
+	printf("%s pattern 4: %08X, %08X, %08X, %08X\n", name, out_i[0], out_i[1], out_i[2], out_i[3]);
 }
 
-void test_vs2i() {
+void test_vi2x(const char *name, void (*func)(int *, int*)) {
 	int in_i[4];
 	int out_i[4];
 	resetAllMatrices();
 	
 	in_i[0] = 0x01234567;
 	in_i[1] = 0x89ABCDEF;
+	in_i[2] = 0x01234567;
+	in_i[3] = 0x89ABCDEF;
 
-	memset(out_i, 0, sizeof(out_i)); vfpu_vs2i_s(in_i, out_i); printf("vfpu_vs2i_s: %08X, %08X, %08X, %08X\n", out_i[0], out_i[1], out_i[2], out_i[3]);
-	memset(out_i, 0, sizeof(out_i)); vfpu_vs2i_p(in_i, out_i); printf("vfpu_vs2i_p: %08X, %08X, %08X, %08X\n", out_i[0], out_i[1], out_i[2], out_i[3]);
+	memset(out_i, 0xCC, sizeof(out_i));
+	func(in_i, out_i);
+	printf("%s pattern 1: %08X, %08X, %08X, %08X\n", name, out_i[0], out_i[1], out_i[2], out_i[3]);
 
-  in_i[0] = 0xFCCF00FF;
+	in_i[0] = 0xFEDCBA89;
+	in_i[1] = 0x00000000;
+	in_i[2] = 0x00000000;
+	in_i[3] = 0x00000000;
+
+	memset(out_i, 0xCC, sizeof(out_i));
+	func(in_i, out_i);
+	printf("%s pattern 2: %08X, %08X, %08X, %08X\n", name, out_i[0], out_i[1], out_i[2], out_i[3]);
+
+	in_i[0] = 0xFCCF00FF;
 	in_i[1] = 0x1100FF11;
+	in_i[2] = 0xFFFFFFFF;
+	in_i[3] = 0x7F7F7F7F;
 
-	memset(out_i, 0, sizeof(out_i)); vfpu_vs2i_s(in_i, out_i); printf("vfpu_vs2i_s: %08X, %08X, %08X, %08X\n", out_i[0], out_i[1], out_i[2], out_i[3]);
-	memset(out_i, 0, sizeof(out_i)); vfpu_vs2i_p(in_i, out_i); printf("vfpu_vs2i_p: %08X, %08X, %08X, %08X\n", out_i[0], out_i[1], out_i[2], out_i[3]);
+	memset(out_i, 0xCC, sizeof(out_i));
+	func(in_i, out_i);
+	printf("%s pattern 3: %08X, %08X, %08X, %08X\n", name, out_i[0], out_i[1], out_i[2], out_i[3]);
+
+	in_i[0] = 0xFFFFFFFF;
+	in_i[1] = 0x7F7F7F7F;
+	in_i[2] = 0xFFFFFFFF;
+	in_i[3] = 0x7F7F7F7F;
+
+	memset(out_i, 0xCC, sizeof(out_i));
+	func(in_i, out_i);
+	printf("%s pattern 4: %08X, %08X, %08X, %08X\n", name, out_i[0], out_i[1], out_i[2], out_i[3]);
+}
+
+void test_vc2i() {
+	test_vx2i("vc2i.s", &vfpu_vc2i_s);
+	printf("\n");
+}
+
+void test_vuc2i() {
+	test_vx2i("vuc2i.s", &vfpu_vuc2i_s);
+	printf("\n");
+}
+
+void test_vs2i() {
+	test_vx2i("vs2i.s", &vfpu_vs2i_s);
+	test_vx2i("vs2i.p", &vfpu_vs2i_p);
+	printf("\n");
+}
+
+void test_vus2i() {
+	test_vx2i("vus2i.s", &vfpu_vus2i_s);
+	test_vx2i("vus2i.p", &vfpu_vus2i_p);
+	printf("\n");
+}
+
+void test_vi2c() {
+	test_vi2x("vi2c.q", &vfpu_vi2c_q);
+	printf("\n");
+}
+
+void test_vi2uc() {
+	test_vi2x("vi2uc.q", &vfpu_vi2uc_q);
+	printf("\n");
+}
+
+void test_vi2s() {
+	test_vi2x("vi2s.p", &vfpu_vi2s_p);
+	test_vi2x("vi2s.q", &vfpu_vi2s_q);
+	printf("\n");
+}
+
+void test_vi2us() {
+	test_vi2x("vi2us.p", &vfpu_vi2us_p);
+	test_vi2x("vi2us.q", &vfpu_vi2us_q);
+	printf("\n");
 }
 
 void test_vi2f() {
@@ -266,6 +351,11 @@ int main(int argc, char *argv[]) {
 		test_vc2i();
 		test_vuc2i();
 		test_vs2i();
+		test_vus2i();
+		test_vi2c();
+		test_vi2uc();
+		test_vi2s();
+		test_vi2us();
 		test_vi2f();
 
 		printf("checkVF2I:\n"); checkVF2I();
