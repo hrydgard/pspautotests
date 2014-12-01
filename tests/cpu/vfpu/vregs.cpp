@@ -266,6 +266,17 @@ void TestReuse() {
 	PrintAllMatrices("Reuse");
 }
 
+void TestSwizzle2() {
+	FillNormNumbers();
+	ExecCode();
+
+	asm volatile (
+		"vdot.t	S001, C000, C000\n"
+		"vsub.q	C000, C000[0,y,0,0], C000[y,0,0,0]\n"
+	);
+	PrintAllMatrices("TestSwizzle2");
+}
+
 extern "C" int main(int argc, char *argv[]) {
 	// Let's start by filling all the regs with something other than NAN.
 	FillAllVectorRegs();
@@ -276,6 +287,7 @@ extern "C" int main(int argc, char *argv[]) {
 	TestCombine();
 	TestVscl();
 	TestReuse();
+	TestSwizzle2();
 
 	return 0;
 }
