@@ -1,25 +1,6 @@
-TARGET = rendertarget
-OBJS = rendertarget.o
-PSP_EBOOT_TITLE = rendertarget test 
+TARGETS = rendertarget depal
+EXTRA_OBJS = ../../dmac/dmac-imports.o
+EXTRA_LIBS = -lpspgum -lm
 
-BUILD_PRX = 1
-PSP_FW_VERSION = 500
-
-PSP_DRIVE = /cygdrive/j
-USE_PSPSDK_LIBC = 1
-
-INCDIR = ../../../common
-CFLAGS = -g -G0 -Wall -O0 -fno-strict-aliasing
-CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti 
-ASFLAGS = $(CFLAGS)
-
-LIBDIR = ../../../common
-LDFLAGS = -G0
-LIBS= -lpspgum -lpspgu -lpsprtc -lpspctrl -lpspmath -lcommon -lc -lm
-
-EXTRA_TARGETS = EBOOT.PBP
-#PSP_EBOOT_ICON = icon.png
-
-PSPSDK=$(shell psp-config --pspsdk-path)
-include $(PSPSDK)/lib/build.mak
-	
+COMMON_DIR = ../../../common
+include ../../../common/common.mk
