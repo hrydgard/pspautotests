@@ -1,4 +1,4 @@
-TARGETS = rendertarget depal
+TARGETS = rendertarget copy depal
 EXTRA_OBJS = ../../dmac/dmac-imports.o
 EXTRA_LIBS = -lpspgum -lm
 
