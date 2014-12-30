@@ -13,14 +13,17 @@ extern "C" int sceDmacMemcpy(void *dest, const void *source, unsigned int size);
 unsigned int __attribute__((aligned(16))) list[262144];
 unsigned int __attribute__((aligned(16))) clutAddOne[] = { 0x00000001, 0x00000002, 0x00000003, 0x00000004, 0x00000005, 0x00000006, 0x00000007, 0x00000008, };
 unsigned int __attribute__((aligned(16))) clutAddThree[] = { 0x00000003, 0x00000004, 0x00000005, 0x00000006, 0x00000007, 0x00000008, 0x00000009, 0x0000000A, };
-unsigned char __attribute__((aligned(16))) imageData[16] = {0};
+unsigned char __attribute__((aligned(16))) imageData[32] = {
+	1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+};
 
 typedef struct {
 	unsigned short u, v;
 	unsigned short x, y, z;
 } Vertex;
 
-Vertex vertices1[2] = { {0, 0, 10, 10, 0}, {1, 1, 470, 262, 0} };
+Vertex vertices1[2] = { {0, 0, 10, 10, 0}, {2, 2, 470, 262, 0} };
 Vertex vertices2[2] = { {0, 0, 0, 0, 0}, {480, 272, 480, 272, 0} };
 
 static u32 copybuf[512 * 272];
@@ -95,18 +98,13 @@ void drawTexFlush(int width, int height, int stride, int texfmt, const void *tex
 void drawInterTransfer() {
 	sceDisplaySetMode(0, SCR_WIDTH, SCR_HEIGHT);
 
-	sceGuStart(GU_DIRECT, list);
-	sceGuTexFilter(GU_NEAREST, GU_NEAREST);
-	sceGuFinish();
-	sceGuSync(0, 0);
-
 	// First draw a texture to buffer 1.  We'll use a clut here from memory.
 	switchBuf(0, GU_PSM_8888);
-	drawTexFlush(1, 1, 16, GU_PSM_T8, imageData, clutAddOne, vertices1);
+	drawTexFlush(2, 2, 16, GU_PSM_T8, imageData, clutAddOne, vertices1);
 
 	// Second, another texture to buffer 2.  With a different clut so that they are visibly different.
 	switchBuf(1, GU_PSM_8888);
-	drawTexFlush(1, 1, 16, GU_PSM_T8, imageData, clutAddThree, vertices1);
+	drawTexFlush(2, 2, 16, GU_PSM_T8, imageData, clutAddThree, vertices1);
 
 	sceDisplayWaitVblank();
 
@@ -126,13 +124,13 @@ void drawIntraTransfer() {
 	sceDisplaySetMode(0, SCR_WIDTH, SCR_HEIGHT);
 
 	sceGuStart(GU_DIRECT, list);
-	sceGuTexFilter(GU_NEAREST, GU_NEAREST);
+	sceGuTexFilter(GU_LINEAR, GU_LINEAR);
 	sceGuFinish();
 	sceGuSync(0, 0);
 
 	// This time, we only need one buffer.
 	switchBuf(0, GU_PSM_8888);
-	drawTexFlush(1, 1, 16, GU_PSM_T8, imageData, clutAddOne, vertices1);
+	drawTexFlush(2, 2, 16, GU_PSM_T8, imageData, clutAddOne, vertices1);
 
 	sceDisplayWaitVblank();
 
@@ -149,13 +147,13 @@ void drawUploadTransfer() {
 	sceDisplaySetMode(0, SCR_WIDTH, SCR_HEIGHT);
 
 	sceGuStart(GU_DIRECT, list);
-	sceGuTexFilter(GU_NEAREST, GU_NEAREST);
+	sceGuTexFilter(GU_LINEAR, GU_LINEAR);
 	sceGuFinish();
 	sceGuSync(0, 0);
 
 	// This time, we only need one buffer.
 	switchBuf(0, GU_PSM_8888);
-	drawTexFlush(1, 1, 16, GU_PSM_T8, imageData, clutAddOne, vertices1);
+	drawTexFlush(2, 2, 16, GU_PSM_T8, imageData, clutAddOne, vertices1);
 
 	sceDisplayWaitVblank();
 
@@ -195,7 +193,47 @@ void init() {
 
 extern "C" int main(int argc, char *argv[]) {
 	init();
+
+	checkpointNext("Nearest, clamp:");
+
+	sceGuStart(GU_DIRECT, list);
+	sceGuTexFilter(GU_NEAREST, GU_NEAREST);
+	sceGuTexWrap(GU_CLAMP, GU_CLAMP);
+	sceGuFinish();
+	sceGuSync(0, 0);
+
 	drawInterTransfer();
+
+	checkpointNext("Linear, clamp:");
+
+	sceGuStart(GU_DIRECT, list);
+	sceGuTexFilter(GU_LINEAR, GU_LINEAR);
+	sceGuTexWrap(GU_CLAMP, GU_CLAMP);
+	sceGuFinish();
+	sceGuSync(0, 0);
+
+	drawInterTransfer();
+
+	checkpointNext("Nearest, wrap:");
+
+	sceGuStart(GU_DIRECT, list);
+	sceGuTexFilter(GU_NEAREST, GU_NEAREST);
+	sceGuTexWrap(GU_REPEAT, GU_REPEAT);
+	sceGuFinish();
+	sceGuSync(0, 0);
+
+	drawInterTransfer();
+
+	checkpointNext("Linear, wrap:");
+
+	sceGuStart(GU_DIRECT, list);
+	sceGuTexFilter(GU_LINEAR, GU_LINEAR);
+	sceGuTexWrap(GU_REPEAT, GU_REPEAT);
+	sceGuFinish();
+	sceGuSync(0, 0);
+
+	drawInterTransfer();
+
 	drawIntraTransfer();
 	drawUploadTransfer();
 	sceGuTerm();
