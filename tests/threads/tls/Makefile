@@ -1,4 +1,4 @@
-TARGETS = create delete
+TARGETS = create delete refer
 EXTRA_OBJS = ../lwmutex/lwmutex-imports.o
 
 COMMON_DIR = ../../../common
