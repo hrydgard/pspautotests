@@ -112,6 +112,7 @@
 [x]   Aligned to 0xFFFFFFFF: (allocated 0 bytes) Tlspl: Failed (800200D2)
 [x]   Aligned to 0x00000000: (allocated 256 bytes) Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000001,totalBlocks=00000004,freeBlocks=00000004,wait=0)
 [x]   Aligned to 0x00000001: (allocated 256 bytes) Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000001,totalBlocks=00000004,freeBlocks=00000004,wait=0)
+[x]   Aligned to 0x00000003: (allocated 0 bytes) Tlspl: Failed (800200D2)
 [x]   Aligned to 0x00000010: (allocated 256 bytes) Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000001,totalBlocks=00000004,freeBlocks=00000004,wait=0)
 [x]   Aligned to 0x00000020: (allocated 256 bytes) Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000001,totalBlocks=00000004,freeBlocks=00000004,wait=0)
 [x]   Aligned to 0x0000002F: (allocated 0 bytes) Tlspl: Failed (800200D2)
