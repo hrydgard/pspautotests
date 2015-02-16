@@ -126,7 +126,7 @@
 [?]   Valid vpl - interrupts disabled: 800201a7
 [?]   Valid vpl - dispatch disabled: 800201a7
 
-[x] sceKernelAllocateTlspl:
+[x] sceKernelGetTlsAddr:
 [x]   Bad tls - interrupts disabled: 00000000
 [?]   Bad tls - dispatch disabled: 00000000
 [?]   Valid tls - interrupts disabled: 00000000
@@ -354,8 +354,8 @@
 [?]   sceKernelAllocateVplCB - bad vpl: 80020064
 [?]   sceKernelAllocateVplCB - bad size: 80020064
 [?]   sceKernelAllocateVplCB - valid vpl: 80020064
-[?]   sceKernelAllocateTlspl - bad tls: 00000000
-[?]   sceKernelAllocateTlspl - valid tls: 00000000
+[?]   sceKernelGetTlsAddr - bad tls: 00000000
+[?]   sceKernelGetTlsAddr - valid tls: 00000000
 [?]   sceKernelReceiveMsgPipe - bad msgpipe: 80020064
 [?]   sceKernelReceiveMsgPipe - bad size: 800200d3
 [?]   sceKernelReceiveMsgPipe - valid msgpipe: 80020064

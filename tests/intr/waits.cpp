@@ -19,7 +19,7 @@ typedef struct SceKernelTlsplOptParam {
 extern "C" {
 SceUID sceKernelCreateTlspl(const char *name, u32 partitionid, u32 attr, u32 blockSize, u32 count, SceKernelTlsplOptParam *options);
 int sceKernelDeleteTlspl(SceUID uid);
-int sceKernelAllocateTlspl(SceUID uid);
+int sceKernelGetTlsAddr(SceUID uid);
 int sceKernelFreeTlspl(SceUID uid);
 int sceKernelReferTlsplStatus(SceUID uid, void *info);
 
@@ -53,8 +53,8 @@ unsigned int __attribute__((aligned(16))) dlist[] = {
 	0x00000000, // 0x00 NOP
 };
 
-int sceKernelAllocateTlsplHelper(SceUID uid) {
-	int result = sceKernelAllocateTlspl(uid);
+int sceKernelGetTlsAddrHelper(SceUID uid) {
+	int result = sceKernelGetTlsAddr(uid);
 	if (result > 0) {
 		return 0x1337;
 	}
@@ -214,8 +214,8 @@ extern "C" void interruptFunc(int no, void *arg) {
 	safeCheckpoint("  sceKernelAllocateVplCB - bad size: %08x", sceKernelAllocateVplCB(intrVpl, 0, &ptr, NULL));
 	safeCheckpoint("  sceKernelAllocateVplCB - valid vpl: %08x", sceKernelAllocateVplCB(intrVpl, 0x10, &ptr, NULL));
 
-	safeCheckpoint("  sceKernelAllocateTlspl - bad tls: %08x", sceKernelAllocateTlsplHelper(0));
-	safeCheckpoint("  sceKernelAllocateTlspl - valid tls: %08x", sceKernelAllocateTlsplHelper(intrTls));
+	safeCheckpoint("  sceKernelGetTlsAddr - bad tls: %08x", sceKernelGetTlsAddrHelper(0));
+	safeCheckpoint("  sceKernelGetTlsAddr - valid tls: %08x", sceKernelGetTlsAddrHelper(intrTls));
 
 	safeCheckpoint("  sceKernelReceiveMsgPipe - bad msgpipe: %08x", sceKernelReceiveMsgPipe(0, buf, 256, 0, NULL, NULL));
 	safeCheckpoint("  sceKernelReceiveMsgPipe - bad size: %08x", sceKernelReceiveMsgPipe(intrMsgPipe, buf, -1, 0, NULL, NULL));
@@ -397,9 +397,9 @@ extern "C" int main(int argc, char *argv[]) {
 	sceKernelDeleteVpl(vpl);
 
 	SceUID tls = sceKernelCreateTlspl("tls", PSP_MEMORY_PARTITION_USER, 0, 0x100, 0x10, NULL);
-	checkpointNext("sceKernelAllocateTlspl:");
-	INTR_DISPATCH_TITLE("Bad tls", sceKernelAllocateTlsplHelper(0));
-	INTR_DISPATCH_TITLE("Valid tls", sceKernelAllocateTlsplHelper(tls));
+	checkpointNext("sceKernelGetTlsAddr:");
+	INTR_DISPATCH_TITLE("Bad tls", sceKernelGetTlsAddrHelper(0));
+	INTR_DISPATCH_TITLE("Valid tls", sceKernelGetTlsAddrHelper(tls));
 	sceKernelDeleteTlspl(tls);
 
 	SceUID msgpipe = sceKernelCreateMsgPipe("msgpipe", PSP_MEMORY_PARTITION_USER, 0, (void *)0, NULL);
