@@ -35,7 +35,7 @@ void Atrac3File::Reload(const char *filename) {
 	if (file != NULL) {
 		fseek(file, 0, SEEK_END);
 		size_ = ftell(file);
-		data_ = new char[size_];
+		data_ = new u8[size_];
 		memset(data_, 0, size_);
 
 		fseek(file, 0, SEEK_SET);
