@@ -193,6 +193,14 @@ void setFlippedMatrix(int mtx) {
 	sceGuSync(0, 0);
 }
 
+void setFlippedViewport(bool flip) {
+	sceGuStart(GU_DIRECT, list);
+	sceGuViewport(2048, 2048, 480, flip ? -272 : 272);
+
+	sceGuFinish();
+	sceGuSync(0, 0);
+}
+
 extern "C" int main(int argc, char *argv[]) {
 	init();
 
@@ -213,9 +221,10 @@ extern "C" int main(int argc, char *argv[]) {
 	testUVRotation("Full transform (flipped view)", false, true);
 	setFlippedMatrix(GU_PROJECTION);
 	testUVRotation("Full transform (flipped proj)", false, true);
-
-	sceGuFinish();
-	sceGuSync(0, 0);
+	setFlippedMatrix(-1);
+	setFlippedViewport(true);
+	testUVRotation("Full transform (flipped viewport)", false, true);
+	setFlippedViewport(false);
 
 	sceGuTerm();
 
