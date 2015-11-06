@@ -1,7 +1,14 @@
 #include "shared.h"
 
-extern "C" int main(int argc, char *argv[]) {
+void testBufferInfo(const char *title, int atracID, int sample, bool withInfo, u8 *basePtr) {
 	AtracResetBufferInfo info;
+	memset(&info, 0xCC, sizeof(info));
+
+	checkpoint("%s: %08x", title, sceAtracGetBufferInfoForResetting(atracID, sample, withInfo ? &info : NULL));
+	schedfResetBuffer(info, basePtr);
+}
+
+extern "C" int main(int argc, char *argv[]) {
 	Atrac3File at3("sample.at3");
 	at3.Require();
 	LoadAtrac();
@@ -11,59 +18,70 @@ extern "C" int main(int argc, char *argv[]) {
 	u16 data[16384];
 	
 	atracID = sceAtracSetHalfwayBufferAndGetID((u8 *)at3.Data(), at3.Size() / 2, at3.Size() / 2);
-	memset(&info, 0xCC, sizeof(info));
 	checkpointNext("IDs:");
-	checkpoint("  Unallocated: %08x", sceAtracGetBufferInfoForResetting(4, 0, &info));
-	schedfResetBuffer(info, at3.Data());
-	checkpoint("  Invalid: %08x", sceAtracGetBufferInfoForResetting(-1, 0, &info));
-	schedfResetBuffer(info, at3.Data());
-	checkpoint("  Valid: %08x", sceAtracGetBufferInfoForResetting(atracID, 0, &info));
-	schedfResetBuffer(info, at3.Data());
+	testBufferInfo("  Unallocated", 4, 0, true, at3.Data());
+	testBufferInfo("  Invalid", -1, 0, true, at3.Data());
+	testBufferInfo("  Valid", atracID, 0, true, at3.Data());
 	
 	checkpointNext("Sample values:");
-	const static int samples[] = {0, 0x1000, 0x10000, 0x100000, 0x1000000, 0x7FFFFFFF, -1};
+	const static int samples[] = {0, 2046, 2047, 0x1000, 0x47ff, 0x10000, 247499, 247500, 247501, 0x100000, 0x1000000, 0x7FFFFFFF, -1, -2, -2048, -4096};
 	for (size_t i = 0; i < ARRAY_SIZE(samples); ++i) {
-		checkpoint("  %08x: %08x", samples[i], sceAtracGetBufferInfoForResetting(atracID, samples[i], &info));
-		schedfResetBuffer(info, at3.Data());
+		char temp[128];
+		snprintf(temp, 128, "  %08x", samples[i]);
+		testBufferInfo(temp, atracID, samples[i], true, at3.Data());
 	}
 
 	// Crashes.
 	//checkpointNext("Buffer:");
-	//checkpoint("  NULL: %08x", sceAtracGetBufferInfoForResetting(atracID, 0, NULL));
+	//testBufferInfo("  NULL", atracID, 0, false, at3.Data());
 
 	sceAtracReleaseAtracID(atracID);
 	at3.Reload("sample.at3");
 	atracID = sceAtracSetDataAndGetID(at3.Data(), at3.Size());
 	checkpointNext("Entire buffer:");
-	checkpoint("  At start -> 0: %08x", sceAtracGetBufferInfoForResetting(atracID, 0, &info));
-	schedfResetBuffer(info, at3.Data());
+	testBufferInfo("  At start -> 0", atracID, 0, true, at3.Data());
 	checkpoint("  Decode: %08x", sceAtracDecodeData(atracID, data, &ignore, &ignore, &ignore));
-	checkpoint("  After decode -> 0: %08x", sceAtracGetBufferInfoForResetting(atracID, 0, &info));
-	schedfResetBuffer(info, at3.Data());
+	testBufferInfo("  After decode 1 -> 0", atracID, 0, true, at3.Data());
 
-	checkpoint("  At start -> 2048: %08x", sceAtracGetBufferInfoForResetting(atracID, 65536, &info));
-	schedfResetBuffer(info, at3.Data());
+	testBufferInfo("  After decode 1 -> 65536", atracID, 65536, true, at3.Data());
 	checkpoint("  Decode: %08x", sceAtracDecodeData(atracID, data, &ignore, &ignore, &ignore));
-	checkpoint("  After decode -> 2048: %08x", sceAtracGetBufferInfoForResetting(atracID, 65536, &info));
-	schedfResetBuffer(info, at3.Data());
+	testBufferInfo("  After decode 2 -> 65536", atracID, 65536, true, at3.Data());
+
+	testBufferInfo("  After decode 2 -> 196608", atracID, 196608, true, at3.Data());
+	checkpoint("  Decode: %08x", sceAtracDecodeData(atracID, data, &ignore, &ignore, &ignore));
+	testBufferInfo("  After decode 3 -> 196608", atracID, 196608, true, at3.Data());
+
+	sceAtracReleaseAtracID(atracID);
+	at3.Reload("sample.at3");
+	atracID = sceAtracSetHalfwayBufferAndGetID((u8 *)at3.Data(), at3.Size() / 2, at3.Size());
+	checkpointNext("Half buffer:");
+	testBufferInfo("  At start -> 0", atracID, 0, true, at3.Data());
+	checkpoint("  Decode: %08x", sceAtracDecodeData(atracID, data, &ignore, &ignore, &ignore));
+	testBufferInfo("  After decode 1 -> 0", atracID, 0, true, at3.Data());
+
+	testBufferInfo("  After decode 1 -> 65536", atracID, 65536, true, at3.Data());
+	checkpoint("  Decode: %08x", sceAtracDecodeData(atracID, data, &ignore, &ignore, &ignore));
+	testBufferInfo("  After decode 2 -> 65536", atracID, 65536, true, at3.Data());
+
+	testBufferInfo("  After decode 2 -> 196608", atracID, 196608, true, at3.Data());
+	checkpoint("  Decode: %08x", sceAtracDecodeData(atracID, data, &ignore, &ignore, &ignore));
+	testBufferInfo("  After decode 3 -> 196608", atracID, 196608, true, at3.Data());
 
 	sceAtracReleaseAtracID(atracID);
 	at3.Reload("sample.at3");
 	atracID = sceAtracSetHalfwayBufferAndGetID((u8 *)at3.Data(), at3.Size() / 2, at3.Size() / 2);
-	checkpointNext("Half buffer:");
-	checkpoint("  At start -> 0: %08x", sceAtracGetBufferInfoForResetting(atracID, 0, &info));
-	schedfResetBuffer(info, at3.Data());
+	checkpointNext("Streamed buffer:");
+	testBufferInfo("  At start -> 0", atracID, 0, true, at3.Data());
 	checkpoint("  Decode: %08x", sceAtracDecodeData(atracID, data, &ignore, &ignore, &ignore));
-	checkpoint("  After decode -> 0: %08x", sceAtracGetBufferInfoForResetting(atracID, 0, &info));
-	schedfResetBuffer(info, at3.Data());
+	testBufferInfo("  After decode 1 -> 0", atracID, 0, true, at3.Data());
 
-	checkpoint("  At start -> 2048: %08x", sceAtracGetBufferInfoForResetting(atracID, 65536, &info));
-	schedfResetBuffer(info, at3.Data());
+	testBufferInfo("  After decode 1 -> 65536", atracID, 65536, true, at3.Data());
 	checkpoint("  Decode: %08x", sceAtracDecodeData(atracID, data, &ignore, &ignore, &ignore));
-	checkpoint("  After decode -> 2048: %08x", sceAtracGetBufferInfoForResetting(atracID, 65536, &info));
-	schedfResetBuffer(info, at3.Data());
+	testBufferInfo("  After decode 2 -> 65536", atracID, 65536, true, at3.Data());
 
-	sceAtracReleaseAtracID(atracID);
+	testBufferInfo("  After decode 2 -> 196608", atracID, 196608, true, at3.Data());
+	checkpoint("  Decode: %08x", sceAtracDecodeData(atracID, data, &ignore, &ignore, &ignore));
+	testBufferInfo("  After decode 3 -> 196608", atracID, 196608, true, at3.Data());
 
 	return 0;
 }
