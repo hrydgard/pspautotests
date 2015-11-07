@@ -13,6 +13,15 @@
 [x]   00000000: 00000000
    #1: write=p+0x0, writable=00005998, min=000002f0, file=00000060
    #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
+[x]   00000001: 00000000
+   #1: write=p+0x0, writable=00005998, min=000002f0, file=00000060
+   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
+[x]   0000068f: 00000000
+   #1: write=p+0x0, writable=00005998, min=000002f0, file=00000060
+   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
+[x]   00000690: 00000000
+   #1: write=p+0x0, writable=00005998, min=00000468, file=00000060
+   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   000007fe: 00000000
    #1: write=p+0x0, writable=00005998, min=00000468, file=00000060
    #2: write=p+0x0, writable=00000000, min=00000000, file=00000000

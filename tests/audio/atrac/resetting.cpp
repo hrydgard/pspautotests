@@ -24,7 +24,7 @@ extern "C" int main(int argc, char *argv[]) {
 	testBufferInfo("  Valid", atracID, 0, true, at3.Data());
 	
 	checkpointNext("Sample values:");
-	const static int samples[] = {0, 2046, 2047, 0x1000, 0x47ff, 0x10000, 247499, 247500, 247501, 0x100000, 0x1000000, 0x7FFFFFFF, -1, -2, -2048, -4096};
+	const static int samples[] = {0, 1, 1679, 1680, 2046, 2047, 0x1000, 0x47ff, 0x10000, 247499, 247500, 247501, 0x100000, 0x1000000, 0x7FFFFFFF, -1, -2, -2048, -4096};
 	for (size_t i = 0; i < ARRAY_SIZE(samples); ++i) {
 		char temp[128];
 		snprintf(temp, 128, "  %08x", samples[i]);
