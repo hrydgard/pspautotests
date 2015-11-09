@@ -47,10 +47,20 @@ void UnloadAtrac();
 
 struct Atrac3File {
 	Atrac3File(const char *filename);
+	Atrac3File(size_t size) {
+		data_ = new u8[size];
+		size_ = size;
+	}
 	~Atrac3File();
 
 	void Reload(const char *filename);
 	void Require();
+
+	void Reset(size_t size) {
+		delete [] data_;
+		data_ = new u8[size];
+		size_ = size;
+	}
 
 	bool IsValid() {
 		return data_ != NULL;
@@ -66,3 +76,5 @@ private:
 	size_t size_;
 	u8 *data_;
 };
+
+void CreateLoopedAtracFrom(Atrac3File &at3, Atrac3File &updated, u32 loopStart, u32 loopEnd);

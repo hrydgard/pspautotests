@@ -86,5 +86,7 @@ extern "C" int main(int argc, char *argv[]) {
 		testDirectResetPlayPos(temp, atracID, 0, 0, bytes[i]);
 	}
 
+	delete [] input;
+
 	return 0;
 }
