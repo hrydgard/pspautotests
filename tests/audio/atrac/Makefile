@@ -1,4 +1,4 @@
-TARGETS = atractest decode ids resetpos resetting setdata replay
+TARGETS = atractest decode getsoundsample getremainframe ids resetpos resetting setdata replay
 EXTRA_OBJS = atrac-imports.o ../sascore/sascore-imports.o shared.o
 EXTRA_LIBS = -lpspaudio
 

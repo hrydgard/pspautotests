@@ -51,3 +51,41 @@ void Atrac3File::Require() {
 		exit(1);
 	}
 }
+
+void CreateLoopedAtracFrom(Atrac3File &at3, Atrac3File &updated, u32 loopStart, u32 loopEnd) {
+	// We need a bit of extra space to fake loop information.
+	const u32 extraLoopInfoSize = 44 + 24;
+	updated.Reset(at3.Size() + extraLoopInfoSize);
+	u32 *data32 = (u32 *)updated.Data();
+
+	// Tricksy stuff happening here.  Adding loop information.
+	const u32 initialDataStart = 88;
+	const u32 MAGIC_LOWER_SMPL = 0x6C706D73;
+	memcpy(updated.Data(), at3.Data(), initialDataStart);
+	// We need to add a sample chunk, and it's this long.
+	data32[1] += 44 + 24;
+	// Skip to where the sample chunk is going.
+	data32 = (u32 *)(updated.Data() + initialDataStart);
+	// Loop header.
+	*data32++ = MAGIC_LOWER_SMPL;
+	*data32++ = 36 + 24;
+	*data32++ = 0; // manufacturer
+	*data32++ = 0; // product
+	*data32++ = 22676; // sample period
+	*data32++ = 60; // midi unity note
+	*data32++ = 0; // midi semi tone
+	*data32++ = 0; // SMPTE offset format
+	*data32++ = 0; // SMPTE offset
+	*data32++ = 1; // num loops
+	*data32++ = 0x18; // extra smpl bytes at end (seems incorrect, but found in data.)
+					  // Loop info itself.
+	*data32++ = 0; // ident
+	*data32++ = 0; // loop type
+				   // Note: This can be zero, but it won't loop.  Interesting.
+	*data32++ = loopStart; // start
+	*data32++ = loopEnd; // end
+	*data32++ = 0; // fraction tuning
+	*data32++ = 0; // num loops - ignored?
+
+	memcpy(updated.Data() + initialDataStart + extraLoopInfoSize, at3.Data() + initialDataStart, at3.Size() - initialDataStart);
+}
