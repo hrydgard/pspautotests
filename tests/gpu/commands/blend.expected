@@ -8,16 +8,34 @@ dispmode: 00000000
 [r]   Alpha + Inverse alpha: COLOR=aad2c2b2
 
 [x] Doubling:
-[r]   Double source alpha + Zero: COLOR=aa808080
-[r]   Double source alpha + Zero: COLOR=aa909090
-[r]   Double source alpha + Zero: COLOR=aa909090
-[r]   Inverse double source alpha + Zero: COLOR=aa000000
-[r]   Inverse double source alpha + Zero: COLOR=aa000000
-[r]   Inverse double source alpha + Zero: COLOR=aa000000
-[r]   Inverse double source alpha + Zero: COLOR=aa3f3f3f
-[r]   Double dest alpha + Zero: COLOR=aa404040
-[r]   Double dest alpha + Zero: COLOR=aa909090
-[r]   Double dest alpha + Zero: COLOR=aa484848
+[r]   Double source alpha + Zero 0x80808080: COLOR=aa808080
+[r]   Double source alpha + Zero 0x80909090: COLOR=aa909090
+[r]   Double source alpha + Zero 0x90808080: COLOR=aa909090
+[r]   Double source alpha + Zero 0xFF707070: COLOR=aae0e0e0
+[r]   Double source alpha + Zero 0xFF909090: COLOR=aaffffff
+[r]   Double source alpha + Zero 0x7FFFFFFF: COLOR=aafefefe
+[r]   Double source alpha + Zero 0xFF7F7F7F: COLOR=aafefefe
+[r]   Inverse double source alpha + Zero 0x80808080: COLOR=aa000000
+[r]   Inverse double source alpha + Zero 0x80909090: COLOR=aa000000
+[r]   Inverse double source alpha + Zero 0x90808080: COLOR=aa000000
+[r]   Inverse double source alpha + Zero 0x40808080: COLOR=aa3f3f3f
+[r]   Inverse double source alpha + Zero 0xFF1188FF: COLOR=aa000000
+[r]   Inverse double source alpha + Zero 0x7FFFFFFF: COLOR=aa010101
+[r]   Inverse double source alpha + Zero 0xFF7F7F7F: COLOR=aa000000
+[r]   Double dest alpha + Zero 0x40 + 0x80808080: COLOR=aa404040
+[r]   Double dest alpha + Zero 0x90 + 0x80808080: COLOR=aa909090
+[r]   Double dest alpha + Zero 0x40 + 0x80909090: COLOR=aa484848
+[r]   Double dest alpha + Zero 0xFF + 0x70707070: COLOR=aae0e0e0
+[r]   Double dest alpha + Zero 0xFF + 0x90909090: COLOR=aaffffff
+[r]   Double dest alpha + Zero 0x7F + 0xFFFFFFFF: COLOR=aafefefe
+[r]   Double dest alpha + Zero 0xFF + 0x7F7F7F7F: COLOR=aafefefe
+[r]   Inverse double dest alpha + Zero 0x40 + 0x80808080: COLOR=aa3f3f3f
+[r]   Inverse double dest alpha + Zero 0x90 + 0x80909090: COLOR=aa000000
+[r]   Inverse double dest alpha + Zero 0x40 + 0x80808080: COLOR=aa3f3f3f
+[r]   Inverse double dest alpha + Zero 0xFF + 0x80808080: COLOR=aa000000
+[r]   Inverse double dest alpha + Zero 0xFF + 0xFF1188FF: COLOR=aa000000
+[r]   Inverse double dest alpha + Zero 0x7F + 0xFFFFFFFF: COLOR=aa010101
+[r]   Inverse double dest alpha + Zero 0xFF + 0x7F7F7F7F: COLOR=aa000000
 
 [x] Factors:
 [r]   Dest color + Zero: COLOR=aa202020
