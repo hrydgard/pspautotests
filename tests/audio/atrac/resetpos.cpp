@@ -39,9 +39,19 @@ extern "C" int main(int argc, char *argv[]) {
 		testSimpleResetPlayPos(temp, atracID, samples[i], input, at3);
 	}
 
+	checkpointNext("Other states:");
+	int withoutDataID = sceAtracGetAtracID(0x1000);
+	testSimpleResetPlayPos("  No data", withoutDataID, 0, input, at3);
+	sceAtracReleaseAtracID(withoutDataID);
+	forceAtracState(atracID, 8);
+	testSimpleResetPlayPos("  State 8", atracID, 0, input, at3);
+	forceAtracState(atracID, 16);
+	testSimpleResetPlayPos("  State 16", atracID, 0, input, at3);
+	forceAtracState(atracID, 1);
+	sceAtracReleaseAtracID(atracID);
+
 	const static int bytes[] = { -1, 0, 0x100, 0x1000, 0x100000 };
 
-	sceAtracReleaseAtracID(atracID);
 	memcpy(input, at3.Data(), at3.Size());
 	atracID = sceAtracSetDataAndGetID(input, at3.Size());
 	checkpointNext("Entire buffer:");

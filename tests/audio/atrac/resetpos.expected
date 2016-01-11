@@ -22,6 +22,11 @@
 [r]   fffff800: 80630002
 [x]   fffff000: 80630015
 
+[x] Other states:
+[x]   No data: 80630010
+[x]   State 8: 80630031
+[x]   State 16: 80630040
+
 [x] Entire buffer:
 [r]   Sample = 0: 00000000
 [r]   Sample = 65536: 00000000
