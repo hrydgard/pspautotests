@@ -31,11 +31,21 @@ extern "C" int main(int argc, char *argv[]) {
 		testBufferInfo(temp, atracID, samples[i], true, at3.Data());
 	}
 
+	checkpointNext("Other states:");
+	int withoutDataID = sceAtracGetAtracID(0x1000);
+	testBufferInfo("  No data", withoutDataID, 0, true, at3.Data());
+	sceAtracReleaseAtracID(withoutDataID);
+	forceAtracState(atracID, 8);
+	testBufferInfo("  State 8", atracID, 0, true, at3.Data());
+	forceAtracState(atracID, 16);
+	testBufferInfo("  State 16", atracID, 0, true, at3.Data());
+	forceAtracState(atracID, 1);
+	sceAtracReleaseAtracID(atracID);
+
 	// Crashes.
 	//checkpointNext("Buffer:");
 	//testBufferInfo("  NULL", atracID, 0, false, at3.Data());
 
-	sceAtracReleaseAtracID(atracID);
 	at3.Reload("sample.at3");
 	atracID = sceAtracSetDataAndGetID(at3.Data(), at3.Size());
 	checkpointNext("Entire buffer:");
