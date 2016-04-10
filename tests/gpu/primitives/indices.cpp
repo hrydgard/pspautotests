@@ -44,9 +44,18 @@ Vertex_C8888_P16 vertices6[4] = {
 	{0xFFFFFF00, 260, 50, 0},
 };
 
-Vertex_C8888_P16 vertices7[2] = {
+Vertex_C8888_P16 vertices7[4] = {
 	{0xFFFFFFFF, 310, 10, 0},
-	{0xFFFFFFFF, 350, 50, 0},
+	{0xFF0000FF, 320, 20, 0},
+	{0xFF0000FF, 320, 20, 0},
+	{0xFF0000FF, 320, 20, 0},
+};
+
+Vertex_C8888_P32 vertices8[4] = {
+	{0xFF0000FF, 320.0f, 20.0f, 0.0f},
+	{0xFFFFFFFF, 350.0f, 10.0f, 0.0f},
+	{0xFF777777, 350.0f, 50.0f, 0.0f},
+	{0xFF777777, 310.0f, 50.0f, 0.0f},
 };
 
 Vertex_C8888_P16 vertices_big[257] = {};
@@ -85,6 +94,11 @@ void draw() {
 	// And also that the index pointer is increased.
 	sceGuDrawArray(GU_LINES, GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 2, NULL, NULL);
 	sceGuDrawArray(GU_LINES, GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 2, NULL, NULL);
+
+	// What happens when we mix index types using GU_CONTINUE?
+	sceGuDrawArray(GU_LINES, GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 1, indices8, vertices7);
+	sceGuDrawArray(GU_CONTINUE, GU_COLOR_8888 | GU_VERTEX_32BITF | GU_TRANSFORM_2D | GU_INDEX_16BIT, 2, indices16 + 1, vertices8);
+	sceGuDrawArray(GU_CONTINUE, GU_COLOR_8888 | GU_VERTEX_32BITF | GU_TRANSFORM_2D | GU_INDEX_BITS, 1, indices32 + 3, vertices8);
 
 	endFrame();
 }
