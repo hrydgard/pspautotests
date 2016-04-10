@@ -89,6 +89,19 @@ Vertex_C8888_P16 vertices7x[2] = {
 	{0xFFFFFFFF, norm16x(350), norm16y(100), 0},
 };
 
+Vertex_C8888_P16 vertices8[4] = {
+	{0xFF777777, 360, 10, 0},
+	{0xFF777777, 400, 10, 0},
+	{0xFF777777, 400, 50, 0},
+	{0xFF777777, 360, 50, 0},
+};
+Vertex_C8888_P16 vertices8x[4] = {
+	{0xFF777777, norm16x(360), norm16y(60), 0},
+	{0xFF777777, norm16x(400), norm16y(60), 0},
+	{0xFF777777, norm16x(400), norm16y(100), 0},
+	{0xFF777777, norm16x(360), norm16y(100), 0},
+};
+
 void draw() {
 	startFrame();
 	sceGuDisable(GU_TEXTURE);
@@ -127,6 +140,12 @@ void draw() {
 	sceGuDrawArray(GU_CONTINUE, GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 1, NULL, vertices7 + 1);
 	sceGuDrawArray(GU_SPRITES, GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_3D, 1, NULL, vertices7x);
 	sceGuDrawArray(GU_CONTINUE, GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_3D, 1, NULL, vertices7x + 1);
+
+	// Verify that it also works when auto-increasing the vertex pointer.
+	sceGuDrawArray(GU_TRIANGLE_FAN, GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 1, NULL, vertices8);
+	sceGuDrawArray(GU_CONTINUE, GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 3, NULL, NULL);
+	sceGuDrawArray(GU_TRIANGLE_FAN, GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_3D, 1, NULL, vertices8x);
+	sceGuDrawArray(GU_CONTINUE, GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_3D, 3, NULL, NULL);
 
 	endFrame();
 }
