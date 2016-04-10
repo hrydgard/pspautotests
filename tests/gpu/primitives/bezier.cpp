@@ -317,6 +317,65 @@ u32 indices17_inds32[16] = {
 	2, 2, 3, 3,
 };
 
+Vertex_C8888_P16 vertices18_19_inc[32] = {
+	{0xFF0000FF, 250, 50, 0},
+	{0xFF0000FF, 260, 50, 0},
+	{0xFF0000FF, 270, 50, 0},
+	{0xFF0000FF, 280, 50, 0},
+	{0xFF000077, 250, 60, 0},
+	{0xFF000077, 260, 60, 0},
+	{0xFF000077, 270, 60, 0},
+	{0xFF000077, 280, 60, 0},
+	{0xFF000077, 250, 70, 0},
+	{0xFF000077, 260, 70, 0},
+	{0xFF000077, 270, 70, 0},
+	{0xFF000077, 280, 70, 0},
+	{0xFF000077, 250, 80, 0},
+	{0xFF000077, 260, 80, 0},
+	{0xFF000077, 270, 80, 0},
+	{0xFF000077, 280, 80, 0},
+	
+	{0xFF0000FF, 290, 50, 0},
+	{0xFF0000FF, 300, 50, 0},
+	{0xFF0000FF, 310, 50, 0},
+	{0xFF0000FF, 320, 50, 0},
+	{0xFF007700, 290, 60, 0},
+	{0xFF007700, 300, 60, 0},
+	{0xFF007700, 310, 60, 0},
+	{0xFF007700, 320, 60, 0},
+	{0xFF007700, 290, 70, 0},
+	{0xFF007700, 300, 70, 0},
+	{0xFF007700, 310, 70, 0},
+	{0xFF007700, 320, 70, 0},
+	{0xFF007700, 290, 80, 0},
+	{0xFF007700, 300, 80, 0},
+	{0xFF007700, 310, 80, 0},
+	{0xFF007700, 320, 80, 0},
+};
+
+Vertex_C8888_P16 vertices20_21_ind_inc[8] = {
+	{0xFFFF0000, 330, 50, 0}, // TL
+	{0xFFFF0000, 360, 50, 0}, // TR
+	{0xFF770000, 330, 80, 0}, // BL
+	{0xFF770000, 360, 80, 0}, // BR
+
+	{0xFFFF0000, 370, 50, 0}, // TL
+	{0xFFFF0000, 400, 50, 0}, // TR
+	{0xFF777700, 370, 80, 0}, // BL
+	{0xFF777700, 400, 80, 0}, // BR
+};
+u8 indices20_21_ind_inc[32] = {
+	0, 0, 1, 1,
+	0, 0, 1, 1,
+	2, 2, 3, 3,
+	2, 2, 3, 3,
+
+	4, 4, 5, 5,
+	4, 4, 5, 5,
+	6, 6, 7, 7,
+	6, 6, 7, 7,
+};
+
 u32 __attribute__((aligned(16))) clutRGBY[] = { 0xFF0000FF, 0xFF00FF00, 0xFFFF0000, 0xFF00FFFF };
 
 u8 __attribute__((aligned(16))) imageDataPatch[4][16] = {
@@ -387,6 +446,13 @@ void draw() {
 	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 4, 4, indices15_inds8, vertices15_inds8);
 	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_16BIT, 4, 4, indices16_inds16, vertices16_inds16);
 	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_BITS, 4, 4, indices17_inds32, vertices17_inds32);
+
+	// Does the vertex pointer increment?
+	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, NULL, vertices18_19_inc);
+	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, NULL, NULL);
+	// And indices?
+	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 4, 4, indices20_21_ind_inc, vertices20_21_ind_inc);
+	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 4, 4, NULL, NULL);
 
 	endFrame();
 }
