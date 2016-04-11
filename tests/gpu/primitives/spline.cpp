@@ -395,6 +395,51 @@ Vertex_C8888_P16 vertices22_div0[16] = {
 	{0xFF007777, 440, 80, 0},
 };
 
+Vertex_C8888_P16 vertices23_utype0[4] = {
+	{0xFFFFFFFF, 10, 90, 0}, // TL
+	{0xFFFFFFFF, 40, 90, 0}, // TR
+	{0xFF9999FF, 10, 120, 0}, // BL
+	{0xFF9999FF, 40, 120, 0}, // BR
+};
+Vertex_C8888_P16 vertices24_utype1[4] = {
+	{0xFFFFFFFF, 50, 90, 0}, // TL
+	{0xFFFFFFFF, 80, 90, 0}, // TR
+	{0xFF993366, 50, 120, 0}, // BL
+	{0xFF993366, 80, 120, 0}, // BR
+};
+Vertex_C8888_P16 vertices25_utype2[4] = {
+	{0xFFFFFFFF, 90, 90, 0}, // TL
+	{0xFFFFFFFF, 120, 90, 0}, // TR
+	{0xFFFFFFCC, 90, 120, 0}, // BL
+	{0xFFFFFFCC, 120, 120, 0}, // BR
+};
+
+Vertex_C8888_P16 vertices26_vtype0[4] = {
+	{0xFFFFFFFF, 130, 90, 0}, // TL
+	{0xFFFFFFFF, 160, 90, 0}, // TR
+	{0xFF660066, 130, 120, 0}, // BL
+	{0xFF660066, 160, 120, 0}, // BR
+};
+Vertex_C8888_P16 vertices27_vtype1[4] = {
+	{0xFFFFFFFF, 170, 90, 0}, // TL
+	{0xFFFFFFFF, 200, 90, 0}, // TR
+	{0xFFFF8080, 170, 120, 0}, // BL
+	{0xFFFF8080, 200, 120, 0}, // BR
+};
+Vertex_C8888_P16 vertices28_vtype2[4] = {
+	{0xFFFFFFFF, 210, 90, 0}, // TL
+	{0xFFFFFFFF, 240, 90, 0}, // TR
+	{0xFF0066CC, 210, 120, 0}, // BL
+	{0xFF0066CC, 240, 120, 0}, // BR
+};
+
+u8 indices_uvtypes[16] = {
+	0, 0, 1, 1,
+	0, 0, 1, 1,
+	2, 2, 3, 3,
+	2, 2, 3, 3,
+};
+
 u32 __attribute__((aligned(16))) clutRGBY[] = { 0xFF0000FF, 0xFF00FF00, 0xFFFF0000, 0xFF00FFFF };
 
 u8 __attribute__((aligned(16))) imageDataPatch[4][16] = {
@@ -420,63 +465,72 @@ void draw() {
 	sceGuPatchFrontFace(GU_CW);
 
 	sceGuDisable(GU_TEXTURE_2D);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, NULL, vertices1_simple);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, 3, 3, NULL, vertices1_simple);
 
 	// Let's see how UVs are interpolated.  Simple bilinear will fail here.
 	sceGuEnable(GU_TEXTURE_2D);
-	sceGuDrawBezier(GU_TEXTURE_16BIT | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, NULL, vertices2_uvs);
+	sceGuDrawSpline(GU_TEXTURE_16BIT | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, 3, 3, NULL, vertices2_uvs);
 
 	sceGuDisable(GU_TEXTURE_2D);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, NULL, vertices3_colors);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, NULL, vertices4_pos);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, 3, 3, NULL, vertices3_colors);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, 3, 3, NULL, vertices4_pos);
 
 	// Other primitive types.
 	sceGuSendCommandi(55, 1);
 	sceGuPatchDivide(4, 4);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, NULL, vertices5_lines);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, 3, 3, NULL, vertices5_lines);
 
 	sceGuSendCommandi(55, 2);
 	sceGuPatchDivide(4, 4);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, NULL, vertices6_points);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, 3, 3, NULL, vertices6_points);
 
 	sceGuSendCommandi(55, 3);
 	sceGuPatchDivide(4, 4);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, NULL, vertices7_prim3);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, 3, 3, NULL, vertices7_prim3);
 
 	sceGuSendCommandi(55, 4);
 	sceGuPatchDivide(4, 4);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, NULL, vertices8_prim4);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, 3, 3, NULL, vertices8_prim4);
 
 	sceGuPatchPrim(GU_TRIANGLE_STRIP);
 	sceGuShadeModel(GU_FLAT);
 	sceGuPatchDivide(1, 1);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, NULL, vertices9_div1);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, 3, 3, NULL, vertices9_div1);
 	sceGuPatchDivide(1, 2);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, NULL, vertices10_div1_2);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, 3, 3, NULL, vertices10_div1_2);
 	sceGuPatchDivide(2, 2);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, NULL, vertices11_div2);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, 3, 3, NULL, vertices11_div2);
 
 	sceGuPatchDivide(4, 4);
 	sceGuShadeModel(GU_SMOOTH);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 2, NULL, vertices12_4x2);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 5, NULL, vertices13_4x5);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 8, NULL, vertices14_4x8);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 2, 3, 3, NULL, vertices12_4x2);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 5, 3, 3, NULL, vertices13_4x5);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 8, 3, 3, NULL, vertices14_4x8);
 
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 4, 4, indices15_inds8, vertices15_inds8);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_16BIT, 4, 4, indices16_inds16, vertices16_inds16);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_BITS, 4, 4, indices17_inds32, vertices17_inds32);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 4, 4, 3, 3, indices15_inds8, vertices15_inds8);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_16BIT, 4, 4, 3, 3, indices16_inds16, vertices16_inds16);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_BITS, 4, 4, 3, 3, indices17_inds32, vertices17_inds32);
 
 	// Does the vertex pointer increment?
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, NULL, vertices18_19_inc);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, NULL, NULL);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, 3, 3, NULL, vertices18_19_inc);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, 3, 3, NULL, NULL);
 	// And indices?
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 4, 4, indices20_21_ind_inc, vertices20_21_ind_inc);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 4, 4, NULL, NULL);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 4, 4, 3, 3, indices20_21_ind_inc, vertices20_21_ind_inc);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 4, 4, 3, 3, NULL, NULL);
 
 	// What happens with division set to 0?
 	sceGuShadeModel(GU_FLAT);
 	sceGuPatchDivide(0, 0);
-	sceGuDrawBezier(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, NULL, vertices22_div0);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 4, 4, 3, 3, NULL, vertices22_div0);
+
+	sceGuShadeModel(GU_SMOOTH);
+	sceGuPatchDivide(0, 0);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 4, 4, 0, 3, indices_uvtypes, vertices23_utype0);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 4, 4, 1, 3, indices_uvtypes, vertices24_utype1);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 4, 4, 2, 3, indices_uvtypes, vertices25_utype2);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 4, 4, 3, 0, indices_uvtypes, vertices26_vtype0);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 4, 4, 3, 1, indices_uvtypes, vertices27_vtype1);
+	sceGuDrawSpline(GU_COLOR_8888 | GU_VERTEX_16BIT | GU_TRANSFORM_2D | GU_INDEX_8BIT, 4, 4, 3, 2, indices_uvtypes, vertices28_vtype2);
 
 	endFrame();
 }
