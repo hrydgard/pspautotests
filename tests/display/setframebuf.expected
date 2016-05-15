@@ -1,0 +1,74 @@
+[x] Sync modes:
+[x]   Immediate: OK (00000000), addr=04000000, bufw=512, fmt=3
+[x]   Latched: OK (00000000), addr=04000000, bufw=512, fmt=3
+[x]   -1: Failed (80000107), addr=04000000, bufw=512, fmt=3
+[x]   2: Failed (80000107), addr=04000000, bufw=512, fmt=3
+
+[x] Format:
+[x]   Immediate -> 565: Failed (80000107), addr=04000000, bufw=512, fmt=3
+[x]   Latched -> 565: OK (00000000), addr=04000000, bufw=512, fmt=0
+[x]   Immediate -> 565 after latch: OK (00000000), addr=04000000, bufw=512, fmt=0
+[x]   Latched -> invalid 4: Failed (80000108), addr=04000000, bufw=512, fmt=0
+[x]   Latched -> invalid -1: Failed (80000108), addr=04000000, bufw=512, fmt=0
+
+[x] Stride:
+[x]   Immediate -> 256: Failed (80000107), addr=04000000, bufw=512, fmt=3
+[x]   Latched -> 256: OK (00000000), addr=04000000, bufw=256, fmt=3
+[x]   Immediate -> 256 after latch: OK (00000000), addr=04000000, bufw=256, fmt=3
+[x]   Latched -> -64: OK (00000000), addr=04000000, bufw=-64, fmt=0
+[x]   Latched -> -1: Failed (80000104), addr=04000000, bufw=-64, fmt=0
+[x]   Latched -> 0: Failed (80000104), addr=04000000, bufw=-64, fmt=0
+[x]   Latched -> 1: Failed (80000104), addr=04000000, bufw=-64, fmt=0
+[x]   Latched -> 16: Failed (80000104), addr=04000000, bufw=-64, fmt=0
+[x]   Latched -> 32: Failed (80000104), addr=04000000, bufw=-64, fmt=0
+[x]   Latched -> 64: OK (00000000), addr=04000000, bufw=64, fmt=0
+[x]   Latched -> 96: Failed (80000104), addr=04000000, bufw=64, fmt=0
+[x]   Latched -> 128: OK (00000000), addr=04000000, bufw=128, fmt=0
+[x]   Latched -> 448: OK (00000000), addr=04000000, bufw=448, fmt=0
+[x]   Latched -> 480: Failed (80000104), addr=04000000, bufw=448, fmt=0
+[x]   Latched -> 512: OK (00000000), addr=04000000, bufw=512, fmt=0
+[x]   Latched -> 768: OK (00000000), addr=04000000, bufw=768, fmt=0
+[x]   Latched -> 1024: OK (00000000), addr=04000000, bufw=1024, fmt=0
+[x]   Latched -> 2048: OK (00000000), addr=04000000, bufw=2048, fmt=0
+[x]   Latched -> 4096: OK (00000000), addr=04000000, bufw=4096, fmt=0
+[x]   Latched -> 32768: OK (00000000), addr=04000000, bufw=32768, fmt=0
+[x]   Latched -> 16777216: OK (00000000), addr=04000000, bufw=16777216, fmt=0
+
+[x] Address:
+[x]   Immediate -> vbuf2: OK (00000000), addr=04088000, bufw=512, fmt=3
+[x]   Latched -> vbuf2: OK (00000000), addr=04088000, bufw=512, fmt=3
+[x]   Immediate -> vbuf2 after latch: OK (00000000), addr=04088000, bufw=512, fmt=3
+[x]   Immediate -> misaligned: Failed (80000103), addr=04088000, bufw=512, fmt=3
+[x]   Immediate -> vbuf1+16: OK (00000000), addr=04088010, bufw=512, fmt=3
+[x]   Immediate -> uncached: OK (00000000), addr=44088000, bufw=512, fmt=3
+[x]   Immediate -> ram: OK (00000000), addr=08800000, bufw=512, fmt=3
+[x]   Immediate -> scratchpad: Failed (80000103), addr=08800000, bufw=512, fmt=3
+[x]   Immediate -> invalid: Failed (80000103), addr=08800000, bufw=512, fmt=3
+
+[x] Address off:
+[x]   Immediate -> OFF: OK (00000000), addr=00000000, bufw=512, fmt=3
+[x]   Latched -> OFF: OK (00000000), addr=00000000, bufw=512, fmt=3
+[x]   Immediate -> stride 0 (with format): Failed (80000107), addr=04000000, bufw=512, fmt=3
+[x]   Latched -> stride 0 (with format): OK (00000000), addr=00000000, bufw=0, fmt=3
+[x]   Immediate -> all 0s: Failed (80000107), addr=04000000, bufw=512, fmt=3
+[x]   Latched -> all 0s: OK (00000000), addr=00000000, bufw=0, fmt=0
+
+[x] Latch behavior (format/stride):
+[x]   Before latch (latched): addr=04000000, bufw=512, fmt=3
+[x]   Before latch (immediate): addr=04000000, bufw=512, fmt=3
+[x]   Latched set with format/stride: OK (00000000), addr=04000000, bufw=256, fmt=1
+[x]   After latch (latched): addr=04000000, bufw=256, fmt=1
+[x]   After latch (immediate): addr=04000000, bufw=256, fmt=1
+
+[x] Latch behavior (address):
+[x]   Before latch (latched): addr=04000000, bufw=512, fmt=3
+[x]   Before latch (immediate): addr=04000000, bufw=512, fmt=3
+[x]   Latched set with address only: OK (00000000), addr=04088000, bufw=512, fmt=3
+[x]   After latch (latched): addr=04088000, bufw=512, fmt=3
+[x]   After latch (immediate): addr=04000000, bufw=512, fmt=3
+[r]   After vblank start (latched): addr=04088000, bufw=512, fmt=3
+[x]   After vblank start (immediate): addr=04088000, bufw=512, fmt=3
+
+[x] While off:
+[x]   Immediate -> format change: Failed (80000107), addr=00000000, bufw=512, fmt=3
+[x]   Immediate -> address only: OK (00000000), addr=04000000, bufw=512, fmt=3
