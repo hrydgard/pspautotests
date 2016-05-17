@@ -1,4 +1,4 @@
-TARGETS = display hcount isstate setframebuf vblankmulti
+TARGETS = display hcount isstate setframebuf setmode vblankmulti
 EXTRA_OBJS = display-imports.o
 
 COMMON_DIR = ../../common

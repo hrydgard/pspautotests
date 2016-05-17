@@ -1,0 +1,20 @@
+[x] Resolutions:
+[x]   Zero: Failed (80000104), mode=0, 480x272
+[r]   Normal: OK (00000000), mode=0, 480x272
+[x]   512: Failed (80000104), mode=0, 480x272
+[r]   Twice: OK (00000000), mode=0, 480x272
+[x]   Large: Failed (80000104), mode=0, 480x272
+[x]   Small: Failed (80000104), mode=0, 480x272
+
+[x] Modes:
+[x]   Mode -1: Failed (80000107), mode=0, 480x272
+[x]   Mode 1: Failed (80000107), mode=0, 480x272
+[x]   Mode 2: Failed (80000107), mode=0, 480x272
+[x]   Mode 3: Failed (80000107), mode=0, 480x272
+[x]   Component 720x480: Failed (80000107), mode=0, 480x272
+[x]   Composite 720x503: Failed (80000107), mode=0, 480x272
+
+[x] Wait behavior:
+[x]   Vblank before set: 0
+[r]   Set mode: OK (00000000), mode=0, 480x272
+[x]   Vblank after set: 1
