@@ -1,0 +1,14 @@
+[x] While off:
+[r]   After start: foreground=0, vsync=0, vblank=1
+[r]   After vblank end: foreground=0, vsync=0, vblank=0
+[r]   During vsync: foreground=0, vsync=1, vblank=1
+[x]   Vblank timing checked out
+
+[x] While on:
+[r]   After start: foreground=1, vsync=0, vblank=1
+[r]   After vblank end: foreground=1, vsync=0, vblank=0
+[r]   During vsync: foreground=1, vsync=1, vblank=1
+[x]   Vblank timing checked out
+
+[x] Latched off
+[x]   Latched off: foreground=1, vsync=0, vblank=0
