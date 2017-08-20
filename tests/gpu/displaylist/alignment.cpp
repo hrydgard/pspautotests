@@ -212,40 +212,40 @@ extern "C" int main(int argc, char *argv[]) {
 	checkpointNext("Jump");
 	checkpoint("  Aligned: %x", runJumpList(0));
 	checkpoint("  Offset + 1: %x", runJumpList(1));
-	checkpoint("  Offset + 1: %x", runJumpList(2));
-	checkpoint("  Offset + 1: %x", runJumpList(3));
+	checkpoint("  Offset + 2: %x", runJumpList(2));
+	checkpoint("  Offset + 3: %x", runJumpList(3));
 	checkpoint("  Offset + 4: %x", runJumpList(4));
 	checkpoint("  Offset + 8: %x", runJumpList(8));
 
 	checkpointNext("BJump");
 	checkpoint("  Aligned: %x", runBJumpList(0));
 	checkpoint("  Offset + 1: %x", runBJumpList(1));
-	checkpoint("  Offset + 1: %x", runBJumpList(2));
-	checkpoint("  Offset + 1: %x", runBJumpList(3));
+	checkpoint("  Offset + 2: %x", runBJumpList(2));
+	checkpoint("  Offset + 3: %x", runBJumpList(3));
 	checkpoint("  Offset + 4: %x", runBJumpList(4));
 	checkpoint("  Offset + 8: %x", runBJumpList(8));
 
 	checkpointNext("Call");
 	checkpoint("  Aligned: %x", runCallList(0));
 	checkpoint("  Offset + 1: %x", runCallList(1));
-	checkpoint("  Offset + 1: %x", runCallList(2));
-	checkpoint("  Offset + 1: %x", runCallList(3));
+	checkpoint("  Offset + 2: %x", runCallList(2));
+	checkpoint("  Offset + 3: %x", runCallList(3));
 	checkpoint("  Offset + 4: %x", runCallList(4));
 	checkpoint("  Offset + 8: %x", runCallList(8));
 
 	checkpointNext("Signal Jump");
 	checkpoint("  Aligned: %x", runSignalJumpList(0));
 	checkpoint("  Offset + 1: %x", runSignalJumpList(1));
-	checkpoint("  Offset + 1: %x", runSignalJumpList(2));
-	checkpoint("  Offset + 1: %x", runSignalJumpList(3));
+	checkpoint("  Offset + 2: %x", runSignalJumpList(2));
+	checkpoint("  Offset + 3: %x", runSignalJumpList(3));
 	checkpoint("  Offset + 4: %x", runSignalJumpList(4));
 	checkpoint("  Offset + 8: %x", runSignalJumpList(8));
 
 	checkpointNext("Signal Call");
 	checkpoint("  Aligned: %x", runSignalCallList(0));
 	checkpoint("  Offset + 1: %x", runSignalCallList(1));
-	checkpoint("  Offset + 1: %x", runSignalCallList(2));
-	checkpoint("  Offset + 1: %x", runSignalCallList(3));
+	checkpoint("  Offset + 2: %x", runSignalCallList(2));
+	checkpoint("  Offset + 3: %x", runSignalCallList(3));
 	checkpoint("  Offset + 4: %x", runSignalCallList(4));
 	checkpoint("  Offset + 8: %x", runSignalCallList(8));
 
