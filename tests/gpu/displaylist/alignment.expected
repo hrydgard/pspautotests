@@ -1,0 +1,55 @@
+[x] Enqueue
+[r]   Aligned: 5c000001
+[r]   Offset + 1: 80000103
+[r]   Offset + 2: 80000103
+[r]   Offset + 3: 80000103
+[r]   Offset + 4: 5c000001
+[r]   Offset + 8: 5c000000
+
+[x] EnqueueHead
+[r]   Aligned: 5c000001
+[r]   Offset + 1: 80000103
+[r]   Offset + 2: 80000103
+[r]   Offset + 3: 80000103
+[r]   Offset + 4: 5c000001
+[r]   Offset + 8: 5c000000
+
+[x] Jump
+[r]   Aligned: 5c000002
+[r]   Offset + 1: 5c000002
+[r]   Offset + 2: 5c000002
+[r]   Offset + 3: 5c000002
+[r]   Offset + 4: 5c000002
+[r]   Offset + 8: 5c000000
+
+[x] BJump
+[r]   Aligned: 5c000003
+[r]   Offset + 1: 5c000003
+[r]   Offset + 2: 5c000003
+[r]   Offset + 3: 5c000003
+[r]   Offset + 4: 5c000003
+[r]   Offset + 8: 5c000000
+
+[x] Call
+[r]   Aligned: 5c000004
+[r]   Offset + 1: 5c000004
+[r]   Offset + 2: 5c000004
+[r]   Offset + 3: 5c000004
+[r]   Offset + 4: 5c000004
+[r]   Offset + 8: 5c000000
+
+[x] Signal Jump
+[r]   Aligned: 5c000005
+[r]   Offset + 1: 5c000005
+[r]   Offset + 2: 5c000005
+[r]   Offset + 3: 5c000005
+[r]   Offset + 4: 5c000005
+[r]   Offset + 8: 5c000000
+
+[x] Signal Call
+[r]   Aligned: 5c000006
+[r]   Offset + 1: 5c000006
+[r]   Offset + 2: 5c000006
+[r]   Offset + 3: 5c000006
+[r]   Offset + 4: 5c000006
+[r]   Offset + 8: 5c000000
