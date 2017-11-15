@@ -1,0 +1,395 @@
+[x] Typical mips (AUTO) +00:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 101010
+[r]   Minify 4x W: 202020
+[r]   Minify 4x H: 202020
+[r]   Minify 64x: 606060
+[r]   Minify 256x: 707070
+
+[x] Typical mips (AUTO) +07:
+[r]   1:1: 070707
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 171717
+[r]   Minify 4x W: 272727
+[r]   Minify 4x H: 272727
+[r]   Minify 64x: 676767
+[r]   Minify 256x: 707070
+
+[x] Typical mips (AUTO) +08:
+[r]   1:1: 080808
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 181818
+[r]   Minify 4x W: 282828
+[r]   Minify 4x H: 282828
+[r]   Minify 64x: 686868
+[r]   Minify 256x: 707070
+
+[x] Typical mips (AUTO) +10:
+[r]   1:1: 101010
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 202020
+[r]   Minify 4x W: 303030
+[r]   Minify 4x H: 303030
+[r]   Minify 64x: 707070
+[r]   Minify 256x: 707070
+
+[x] Typical mips (AUTO) +70:
+[r]   1:1: 707070
+[r]   Magnify: 505050
+[r]   Minify 2x WH: 707070
+[r]   Minify 4x W: 707070
+[r]   Minify 4x H: 707070
+[r]   Minify 64x: 707070
+[r]   Minify 256x: 707070
+
+[x] Typical mips (AUTO) +77:
+[r]   1:1: 707070
+[r]   Magnify: 575757
+[r]   Minify 2x WH: 707070
+[r]   Minify 4x W: 707070
+[r]   Minify 4x H: 707070
+[r]   Minify 64x: 707070
+[r]   Minify 256x: 707070
+
+[x] Typical mips (AUTO) +78:
+[r]   1:1: 707070
+[r]   Magnify: 585858
+[r]   Minify 2x WH: 707070
+[r]   Minify 4x W: 707070
+[r]   Minify 4x H: 707070
+[r]   Minify 64x: 707070
+[r]   Minify 256x: 707070
+
+[x] Typical mips (AUTO) +80:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 000000
+[r]   Minify 4x W: 000000
+[r]   Minify 4x H: 000000
+[r]   Minify 64x: 000000
+[r]   Minify 256x: 000000
+
+[x] Typical mips (AUTO) +87:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 000000
+[r]   Minify 4x W: 000000
+[r]   Minify 4x H: 000000
+[r]   Minify 64x: 000000
+[r]   Minify 256x: 070707
+
+[x] Typical mips (AUTO) +88:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 000000
+[r]   Minify 4x W: 000000
+[r]   Minify 4x H: 000000
+[r]   Minify 64x: 000000
+[r]   Minify 256x: 080808
+
+[x] Typical mips (AUTO) +f0:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 000000
+[r]   Minify 4x W: 101010
+[r]   Minify 4x H: 101010
+[r]   Minify 64x: 505050
+[r]   Minify 256x: 707070
+
+[x] Typical mips (CONST) +00:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 000000
+[r]   Minify 4x W: 000000
+[r]   Minify 4x H: 000000
+[r]   Minify 64x: 000000
+[r]   Minify 256x: 000000
+
+[x] Typical mips (CONST) +07:
+[r]   1:1: 070707
+[r]   Magnify: 070707
+[r]   Minify 2x WH: 070707
+[r]   Minify 4x W: 070707
+[r]   Minify 4x H: 070707
+[r]   Minify 64x: 070707
+[r]   Minify 256x: 070707
+
+[x] Typical mips (CONST) +08:
+[r]   1:1: 080808
+[r]   Magnify: 080808
+[r]   Minify 2x WH: 080808
+[r]   Minify 4x W: 080808
+[r]   Minify 4x H: 080808
+[r]   Minify 64x: 080808
+[r]   Minify 256x: 080808
+
+[x] Typical mips (CONST) +10:
+[r]   1:1: 101010
+[r]   Magnify: 101010
+[r]   Minify 2x WH: 101010
+[r]   Minify 4x W: 101010
+[r]   Minify 4x H: 101010
+[r]   Minify 64x: 101010
+[r]   Minify 256x: 101010
+
+[x] Typical mips (CONST) +70:
+[r]   1:1: 707070
+[r]   Magnify: 707070
+[r]   Minify 2x WH: 707070
+[r]   Minify 4x W: 707070
+[r]   Minify 4x H: 707070
+[r]   Minify 64x: 707070
+[r]   Minify 256x: 707070
+
+[x] Typical mips (CONST) +77:
+[r]   1:1: 707070
+[r]   Magnify: 707070
+[r]   Minify 2x WH: 707070
+[r]   Minify 4x W: 707070
+[r]   Minify 4x H: 707070
+[r]   Minify 64x: 707070
+[r]   Minify 256x: 707070
+
+[x] Typical mips (CONST) +78:
+[r]   1:1: 707070
+[r]   Magnify: 707070
+[r]   Minify 2x WH: 707070
+[r]   Minify 4x W: 707070
+[r]   Minify 4x H: 707070
+[r]   Minify 64x: 707070
+[r]   Minify 256x: 707070
+
+[x] Typical mips (CONST) +80:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 000000
+[r]   Minify 4x W: 000000
+[r]   Minify 4x H: 000000
+[r]   Minify 64x: 000000
+[r]   Minify 256x: 000000
+
+[x] Typical mips (CONST) +87:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 000000
+[r]   Minify 4x W: 000000
+[r]   Minify 4x H: 000000
+[r]   Minify 64x: 000000
+[r]   Minify 256x: 000000
+
+[x] Typical mips (CONST) +88:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 000000
+[r]   Minify 4x W: 000000
+[r]   Minify 4x H: 000000
+[r]   Minify 64x: 000000
+[r]   Minify 256x: 000000
+
+[x] Typical mips (CONST) +f0:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 000000
+[r]   Minify 4x W: 000000
+[r]   Minify 4x H: 000000
+[r]   Minify 64x: 000000
+[r]   Minify 256x: 000000
+
+[x] Typical mips (SLOPE) +00:
+[r]   1:1: 202020
+[r]   Magnify: 202020
+[r]   Minify 2x WH: 202020
+[r]   Minify 4x W: 202020
+[r]   Minify 4x H: 202020
+[r]   Minify 64x: 202020
+[r]   Minify 256x: 202020
+
+[x] Typical mips (SLOPE) +07:
+[r]   1:1: 272727
+[r]   Magnify: 272727
+[r]   Minify 2x WH: 272727
+[r]   Minify 4x W: 272727
+[r]   Minify 4x H: 272727
+[r]   Minify 64x: 272727
+[r]   Minify 256x: 272727
+
+[x] Typical mips (SLOPE) +08:
+[r]   1:1: 282828
+[r]   Magnify: 282828
+[r]   Minify 2x WH: 282828
+[r]   Minify 4x W: 282828
+[r]   Minify 4x H: 282828
+[r]   Minify 64x: 282828
+[r]   Minify 256x: 282828
+
+[x] Typical mips (SLOPE) +10:
+[r]   1:1: 303030
+[r]   Magnify: 303030
+[r]   Minify 2x WH: 303030
+[r]   Minify 4x W: 303030
+[r]   Minify 4x H: 303030
+[r]   Minify 64x: 303030
+[r]   Minify 256x: 303030
+
+[x] Typical mips (SLOPE) +70:
+[r]   1:1: 707070
+[r]   Magnify: 707070
+[r]   Minify 2x WH: 707070
+[r]   Minify 4x W: 707070
+[r]   Minify 4x H: 707070
+[r]   Minify 64x: 707070
+[r]   Minify 256x: 707070
+
+[x] Typical mips (SLOPE) +77:
+[r]   1:1: 707070
+[r]   Magnify: 707070
+[r]   Minify 2x WH: 707070
+[r]   Minify 4x W: 707070
+[r]   Minify 4x H: 707070
+[r]   Minify 64x: 707070
+[r]   Minify 256x: 707070
+
+[x] Typical mips (SLOPE) +78:
+[r]   1:1: 707070
+[r]   Magnify: 707070
+[r]   Minify 2x WH: 707070
+[r]   Minify 4x W: 707070
+[r]   Minify 4x H: 707070
+[r]   Minify 64x: 707070
+[r]   Minify 256x: 707070
+
+[x] Typical mips (SLOPE) +80:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 000000
+[r]   Minify 4x W: 000000
+[r]   Minify 4x H: 000000
+[r]   Minify 64x: 000000
+[r]   Minify 256x: 000000
+
+[x] Typical mips (SLOPE) +87:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 000000
+[r]   Minify 4x W: 000000
+[r]   Minify 4x H: 000000
+[r]   Minify 64x: 000000
+[r]   Minify 256x: 000000
+
+[x] Typical mips (SLOPE) +88:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 000000
+[r]   Minify 4x W: 000000
+[r]   Minify 4x H: 000000
+[r]   Minify 64x: 000000
+[r]   Minify 256x: 000000
+
+[x] Typical mips (SLOPE) +f0:
+[r]   1:1: 101010
+[r]   Magnify: 101010
+[r]   Minify 2x WH: 101010
+[r]   Minify 4x W: 101010
+[r]   Minify 4x H: 101010
+[r]   Minify 64x: 101010
+[r]   Minify 256x: 101010
+
+[x] Typical mips (3) +00:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 000000
+[r]   Minify 4x W: 000000
+[r]   Minify 4x H: 000000
+[r]   Minify 64x: 000000
+[r]   Minify 256x: 000000
+
+[x] Typical mips (3) +07:
+[r]   1:1: 070707
+[r]   Magnify: 070707
+[r]   Minify 2x WH: 070707
+[r]   Minify 4x W: 070707
+[r]   Minify 4x H: 070707
+[r]   Minify 64x: 070707
+[r]   Minify 256x: 070707
+
+[x] Typical mips (3) +08:
+[r]   1:1: 080808
+[r]   Magnify: 080808
+[r]   Minify 2x WH: 080808
+[r]   Minify 4x W: 080808
+[r]   Minify 4x H: 080808
+[r]   Minify 64x: 080808
+[r]   Minify 256x: 080808
+
+[x] Typical mips (3) +10:
+[r]   1:1: 101010
+[r]   Magnify: 101010
+[r]   Minify 2x WH: 101010
+[r]   Minify 4x W: 101010
+[r]   Minify 4x H: 101010
+[r]   Minify 64x: 101010
+[r]   Minify 256x: 101010
+
+[x] Typical mips (3) +70:
+[r]   1:1: 707070
+[r]   Magnify: 707070
+[r]   Minify 2x WH: 707070
+[r]   Minify 4x W: 707070
+[r]   Minify 4x H: 707070
+[r]   Minify 64x: 707070
+[r]   Minify 256x: 707070
+
+[x] Typical mips (3) +77:
+[r]   1:1: 707070
+[r]   Magnify: 707070
+[r]   Minify 2x WH: 707070
+[r]   Minify 4x W: 707070
+[r]   Minify 4x H: 707070
+[r]   Minify 64x: 707070
+[r]   Minify 256x: 707070
+
+[x] Typical mips (3) +78:
+[r]   1:1: 707070
+[r]   Magnify: 707070
+[r]   Minify 2x WH: 707070
+[r]   Minify 4x W: 707070
+[r]   Minify 4x H: 707070
+[r]   Minify 64x: 707070
+[r]   Minify 256x: 707070
+
+[x] Typical mips (3) +80:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 000000
+[r]   Minify 4x W: 000000
+[r]   Minify 4x H: 000000
+[r]   Minify 64x: 000000
+[r]   Minify 256x: 000000
+
+[x] Typical mips (3) +87:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 000000
+[r]   Minify 4x W: 000000
+[r]   Minify 4x H: 000000
+[r]   Minify 64x: 000000
+[r]   Minify 256x: 000000
+
+[x] Typical mips (3) +88:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 000000
+[r]   Minify 4x W: 000000
+[r]   Minify 4x H: 000000
+[r]   Minify 64x: 000000
+[r]   Minify 256x: 000000
+
+[x] Typical mips (3) +f0:
+[r]   1:1: 000000
+[r]   Magnify: 000000
+[r]   Minify 2x WH: 000000
+[r]   Minify 4x W: 000000
+[r]   Minify 4x H: 000000
+[r]   Minify 64x: 000000
+[r]   Minify 256x: 000000
