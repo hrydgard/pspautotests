@@ -1,4 +1,4 @@
-TARGETS = rotate
+TARGETS = mipmap rotate
 EXTRA_OBJS = ../../dmac/dmac-imports.o
 
 COMMON_DIR = ../../../common
