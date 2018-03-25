@@ -13,6 +13,7 @@ typedef struct {
 } VertexColorF32;
 
 enum TriangleType {
+	TRIANGLE_ALL = -1,
 	TRIANGLE_NORMAL = 0,
 	TRIANGLE_AT_EDGE = 1,
 
@@ -128,7 +129,11 @@ void displayBuffer(const char *reason) {
 void drawBoxCommands(TriangleType tri) {
 	// Clearing cache is fun.  Let's do it all the time.
 	sceKernelDcacheWritebackInvalidateAll();
-	sceGuDrawArray(GU_TRIANGLES, GU_COLOR_8888 | GU_VERTEX_32BITF | GU_TRANSFORM_3D, 3, NULL, triangles[tri]);
+	if (tri >= 0) {
+		sceGuDrawArray(GU_TRIANGLES, GU_COLOR_8888 | GU_VERTEX_32BITF | GU_TRANSFORM_3D, 3, NULL, triangles[tri]);
+	} else {
+		sceGuDrawArray(GU_TRIANGLES, GU_COLOR_8888 | GU_VERTEX_32BITF | GU_TRANSFORM_3D, sizeof(triangles) / sizeof(triangles[0][0]), NULL, triangles[0]);
+	}
 	sceDisplaySetFrameBuf(sceGeEdramGetAddr(), 512, GU_PSM_8888, PSP_DISPLAY_SETBUF_IMMEDIATE);
 }
 
@@ -237,6 +242,10 @@ extern "C" int main(int argc, char *argv[]) {
 	testTriangle("  Flat out positive Y, unclipped", TRIANGLE_OUT_POS_Y, false);
 	testTriangle("  Flat out positive Z, clipped", TRIANGLE_OUT_POS_Z, true);
 	testTriangle("  Flat out positive Z, unclipped", TRIANGLE_OUT_POS_Z, false);
+
+	checkpointNext("All (entire draw?)");
+	testTriangle("  All, clipped", TRIANGLE_ALL, true);
+	testTriangle("  All, unclipped", TRIANGLE_ALL, false);
 
 	sceGuTerm();
 

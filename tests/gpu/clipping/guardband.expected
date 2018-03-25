@@ -19,3 +19,7 @@
 [r]   Flat out positive Y, unclipped: DRAW=0
 [r]   Flat out positive Z, clipped: DRAW=0
 [r]   Flat out positive Z, unclipped: DRAW=1
+
+[x] All (entire draw?)
+[r]   All, clipped: DRAW=1
+[r]   All, unclipped: DRAW=1
