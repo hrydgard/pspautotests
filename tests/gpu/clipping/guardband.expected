@@ -1,0 +1,21 @@
+[x] Initial: DRAW=0
+[r]   Normal, clipped: DRAW=1
+[r]   Normal, unclipped: DRAW=1
+[r]   Flat at edge, clipped: DRAW=1
+[r]   Flat at edge, unclipped: DRAW=1
+
+[x] Flat out negative
+[r]   Flat out negative X, clipped: DRAW=0
+[r]   Flat out negative X, unclipped: DRAW=0
+[r]   Flat out negative Y, clipped: DRAW=0
+[r]   Flat out negative Y, unclipped: DRAW=0
+[r]   Flat out negative Z, clipped: DRAW=0
+[r]   Flat out negative Z, unclipped: DRAW=1
+
+[x] Flat out positive
+[r]   Flat out positive X, clipped: DRAW=0
+[r]   Flat out positive X, unclipped: DRAW=0
+[r]   Flat out positive Y, clipped: DRAW=0
+[r]   Flat out positive Y, unclipped: DRAW=0
+[r]   Flat out positive Z, clipped: DRAW=0
+[r]   Flat out positive Z, unclipped: DRAW=1
