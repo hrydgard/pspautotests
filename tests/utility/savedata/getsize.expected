@@ -46,10 +46,10 @@
 [x] sceUtilitySavedataGetStatus: 00000001 (duplicates skipped)
 [x] sceUtilitySavedataGetStatus: 00000002 (duplicates skipped)
 [r] sceUtilitySavedataUpdate: 00000000 (duplicates skipped)
-CHANGE: sectorSize: 00000000 => 00008000
-CHANGE: freeSectors: 00000000 => 00008000
-CHANGE: freeKB: 00000000 => 00100000
-CHANGE: freeString:  => 1 GB
+CHANGE: sizeInfo.sectorSize: 00000000 => 00008000
+CHANGE: sizeInfo.freeSectors: 00000000 => 00008000
+CHANGE: sizeInfo.freeKB: 00000000 => 00100000
+CHANGE: sizeInfo.freeString:  => 1 GB
 [x] sceUtilitySavedataGetStatus: 00000003 (duplicates skipped)
 [x] sceUtilitySavedataShutdownStart: 00000000
 [x] sceUtilitySavedataGetStatus: 00000004 (duplicates skipped)

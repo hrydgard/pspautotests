@@ -85,25 +85,25 @@ void printSaveParamChanges(SceUtilitySavedataParam2 *param) {
 
 #define CHECK_CHANGE_U32_PTR(ptr, lastPtr, var) \
 	if (param->ptr->var != lastPtr.var) { \
-		schedf("CHANGE: %s: %08x => %08x\n", #var, (unsigned int) lastPtr.var, (unsigned int) param->ptr->var); \
+		schedf("CHANGE: %s.%s: %08x => %08x\n", #ptr, #var, (unsigned int) lastPtr.var, (unsigned int) param->ptr->var); \
 		lastPtr.var = param->ptr->var; \
 	}
 
 #define CHECK_CHANGE_U64_PTR(ptr, lastPtr, var) \
 	if (param->ptr->var != lastPtr.var) { \
-		schedf("CHANGE: %s: %016llx => %016llx\n", #var, (unsigned long long) lastPtr.var, (unsigned long long) param->ptr->var); \
+		schedf("CHANGE: %s.%s: %016llx => %016llx\n", #ptr, #var, (unsigned long long) lastPtr.var, (unsigned long long) param->ptr->var); \
 		lastPtr.var = param->ptr->var; \
 	}
 
 #define CHECK_CHANGE_STR_PTR(ptr, lastPtr, var) \
 	if (strcmp((char *) param->ptr->var, (char *) lastPtr.var)) { \
-		schedf("CHANGE: %s: %s => %s\n", #var, (char *) lastPtr.var, (char *) param->ptr->var); \
+		schedf("CHANGE: %s.%s: %s => %s\n", #ptr, #var, (char *) lastPtr.var, (char *) param->ptr->var); \
 		strcpy((char *) &lastPtr.var, (char *) &param->ptr->var); \
 	}
 
 #define CHECK_CHANGE_STRN_PTR(ptr, lastPtr, var, n) \
 	if (strcmp((char *) param->ptr->var, (char *) lastPtr.var)) { \
-		schedf("CHANGE: %s: %.*s => %.*s\n", #var, n, (char *) lastPtr.var, n, (char *) param->ptr->var); \
+		schedf("CHANGE: %s.%s: %.*s => %.*s\n", #ptr, #var, n, (char *) lastPtr.var, n, (char *) param->ptr->var); \
 		strncpy((char *) &lastPtr.var, (char *) &param->ptr->var, n); \
 	}
 
@@ -178,11 +178,6 @@ void printSaveParamChanges(SceUtilitySavedataParam2 *param) {
 		CHECK_CHANGE_STRN_PTR(msData, lastMsData, info.usedSpaceStr, 8);
 		CHECK_CHANGE_U32_PTR(msData, lastMsData, info.usedSpace32KB);
 		CHECK_CHANGE_STRN_PTR(msData, lastMsData, info.usedSpace32Str, 8);
-		CHECK_CHANGE_U64_PTR(msData, lastMsData, info.unknownSafetyPad[0]);
-		CHECK_CHANGE_U64_PTR(msData, lastMsData, info.unknownSafetyPad[1]);
-		CHECK_CHANGE_U64_PTR(msData, lastMsData, info.unknownSafetyPad[2]);
-		CHECK_CHANGE_U64_PTR(msData, lastMsData, info.unknownSafetyPad[3]);
-		CHECK_CHANGE_U64_PTR(msData, lastMsData, info.unknownSafetyPad2);
 	}
 	if (param->utilityData != NULL) {
 		CHECK_CHANGE_U32_PTR(utilityData, lastUtilityData, usedClusters);
@@ -190,11 +185,6 @@ void printSaveParamChanges(SceUtilitySavedataParam2 *param) {
 		CHECK_CHANGE_STRN_PTR(utilityData, lastUtilityData, usedSpaceStr, 8);
 		CHECK_CHANGE_U32_PTR(utilityData, lastUtilityData, usedSpace32KB);
 		CHECK_CHANGE_STRN_PTR(utilityData, lastUtilityData, usedSpace32Str, 8);
-		CHECK_CHANGE_U64_PTR(utilityData, lastUtilityData, unknownSafetyPad[0]);
-		CHECK_CHANGE_U64_PTR(utilityData, lastUtilityData, unknownSafetyPad[1]);
-		CHECK_CHANGE_U64_PTR(utilityData, lastUtilityData, unknownSafetyPad[2]);
-		CHECK_CHANGE_U64_PTR(utilityData, lastUtilityData, unknownSafetyPad[3]);
-		CHECK_CHANGE_U64_PTR(utilityData, lastUtilityData, unknownSafetyPad2);
 	}
 
 	// TODO: key
@@ -222,16 +212,19 @@ void printSaveParamChanges(SceUtilitySavedataParam2 *param) {
 
 		if (param->fileList->secureEntries != NULL) {
 			CHECK_CHANGE_U32_PTR(fileList->secureEntries, lastFileListSecure[0], st_mode);
+			CHECK_CHANGE_U32_PTR(fileList->secureEntries, lastFileListSecure[0], st_attr);
 			// TODO: st_ctime, etc.?
 			CHECK_CHANGE_STRN_PTR(fileList->secureEntries, lastFileListSecure[0], name, 16);
 		}
 		if (param->fileList->normalEntries != NULL) {
 			CHECK_CHANGE_U32_PTR(fileList->normalEntries, lastFileListNormal[0], st_mode);
+			CHECK_CHANGE_U32_PTR(fileList->secureEntries, lastFileListNormal[0], st_attr);
 			// TODO: st_ctime, etc.?
 			CHECK_CHANGE_STRN_PTR(fileList->normalEntries, lastFileListNormal[0], name, 16);
 		}
 		if (param->fileList->systemEntries != NULL) {
 			CHECK_CHANGE_U32_PTR(fileList->systemEntries, lastFileListSystem[0], st_mode);
+			CHECK_CHANGE_U32_PTR(fileList->secureEntries, lastFileListSystem[0], st_attr);
 			// TODO: st_ctime, etc.?
 			CHECK_CHANGE_STRN_PTR(fileList->systemEntries, lastFileListSystem[0], name, 16);
 		}
@@ -356,8 +349,15 @@ void runStandardSavedataLoop(SceUtilitySavedataParam2 *param) {
 
 	checkpointNext("Init");
 
-	checkpoint("sceUtilitySavedataInitStart: %08x", sceUtilitySavedataInitStart((SceUtilitySavedataParam *) param));
+	int result = sceUtilitySavedataInitStart((SceUtilitySavedataParam *) param);
+	checkpoint("sceUtilitySavedataInitStart: %08x", result);
+
 	printSaveParamChanges(param);
+
+	if (result != 0) {
+		checkpointStatusChange();
+		return;
+	}
 
 	int i;
 	int first = 1;

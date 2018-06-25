@@ -47,15 +47,15 @@
 [x] sceUtilitySavedataGetStatus: 00000002 (duplicates skipped)
 [r] sceUtilitySavedataUpdate: 00000000 (duplicates skipped)
 CHANGE: bind: 00000000 => 000003fd
-CHANGE: resultNumSecureEntries: 00000000 => 00000001
-CHANGE: resultNumNormalEntries: 00000000 => 00000001
-CHANGE: resultNumSystemEntries: 00000000 => 00000001
-CHANGE: st_mode: 00000000 => 000021ff
-CHANGE: name:  => DATA.BIN
-CHANGE: st_mode: 00000000 => 000021ff
-CHANGE: name:  => OTHER.BIN
-CHANGE: st_mode: 00000000 => 000021ff
-CHANGE: name:  => PARAM.SFO
+CHANGE: fileList.resultNumSecureEntries: 00000000 => 00000001
+CHANGE: fileList.resultNumNormalEntries: 00000000 => 00000001
+CHANGE: fileList.resultNumSystemEntries: 00000000 => 00000001
+CHANGE: fileList->secureEntries.st_mode: 00001337 => 000021ff
+CHANGE: fileList->secureEntries.name:  => DATA.BIN
+CHANGE: fileList->normalEntries.st_mode: 00001337 => 000021ff
+CHANGE: fileList->normalEntries.name:  => OTHER.BIN
+CHANGE: fileList->systemEntries.st_mode: 00001337 => 000021ff
+CHANGE: fileList->systemEntries.name:  => PARAM.SFO
 [x] sceUtilitySavedataGetStatus: 00000003 (duplicates skipped)
 [x] sceUtilitySavedataShutdownStart: 00000000
 [x] sceUtilitySavedataGetStatus: 00000004 (duplicates skipped)

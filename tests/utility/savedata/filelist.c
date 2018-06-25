@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
 	checkpointExists(&param);
 	runStandardSavedataLoop(&param);
 
-	// Now the actual sizes call.
+	// Now the actual filelist call.
 	param.mode = (PspUtilitySavedataMode) SCE_UTILITY_SAVEDATA_TYPE_FILES;
 	param.saveNameList = saveNameList;
 	// NEW / OTHER same?
@@ -51,10 +51,16 @@ int main(int argc, char **argv) {
 	memset(&fileList, 0, sizeof(fileList));
 	SceUtilitySavedataFileListEntry fileListNormal[10];
 	memset(fileListNormal, 0, sizeof(fileListNormal));
+	fileListNormal[0].st_mode = 0x1337;
+	fileListNormal[0].st_attr = 0x1337;
 	SceUtilitySavedataFileListEntry fileListSecure[10];
 	memset(fileListSecure, 0, sizeof(fileListSecure));
+	fileListSecure[0].st_mode = 0x1337;
+	fileListSecure[0].st_attr = 0x1337;
 	SceUtilitySavedataFileListEntry fileListSystem[10];
 	memset(fileListSystem, 0, sizeof(fileListSystem));
+	fileListSystem[0].st_mode = 0x1337;
+	fileListSystem[0].st_attr = 0x1337;
 	fileList.maxNormalEntries = 10;
 	fileList.maxSecureEntries = 10;
 	fileList.maxSystemEntries = 10;
