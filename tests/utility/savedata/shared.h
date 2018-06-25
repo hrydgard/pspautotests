@@ -39,14 +39,10 @@ typedef struct SceUtilitySavedataUsedDataInfo {
 	char usedSpaceStr[8];
 	int usedSpace32KB;
 	char usedSpace32Str[8];
-	// TODO
-	u64 unknownSafetyPad[4];
-	int unknownSafetyPad2;
 } SceUtilitySavedataUsedDataInfo;
 
 typedef struct SceUtilitySavedataMsDataInfo {
-	char gameName[13];
-	char pad[3];
+	char gameName[16];
 	SceUtilitySavedataSaveName saveName;
 	SceUtilitySavedataUsedDataInfo info;
 } SceUtilitySavedataMsDataInfo;
@@ -67,6 +63,7 @@ typedef struct SceUtilitySavedataIdListInfo {
 
 typedef struct SceUtilitySavedataFileListEntry {
 	int st_mode;
+	int st_attr;
 	u64 st_size;
 	ScePspDateTime st_ctime;
 	ScePspDateTime st_atime;
