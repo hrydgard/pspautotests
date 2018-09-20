@@ -1,3 +1,5 @@
+# pspautotests
+
   * Original and outdated svn repository: http://code.google.com/p/pspautotests/
   * New and updated git repository: https://github.com/hrydgard/pspautotests
 
@@ -8,57 +10,72 @@ A repository of PSP programs performing several tests on the PSP platform.
 
 The main idea behind this is having several files per test unit:
   * _file_*.expected* - File with the expected Kprintf's output, preferably from a real PSP
-  * _file_*.elf* - The program that will call Kprintf syscall in order to generate an output
+  * _file_*.prx* - The program that will call Kprintf syscall in order to generate an output
   * _file_*.input* - Optional file specifying automated actions that should simulate user interaction: pressing a key, releasing a key, selecting a file on the save selector, waiting for a function (for example a vsync) to call before continuing...
-
 
 
 How to build and use
 --------------------
 
-If you just want to run the tests, you just need to run your emulator on the PRX-es and compare with the .expected
+If you just want to run the tests, you just need to run your emulator on the PRX files and compare with the .expected
 files. PPSSPP has a convenient script for this called test.py.
 
-If you want to change tests, you'll need to read the rest. This tutorial is for Windows but can probably be used on Linux and Mac too, you just don't need to install the driver there.
+If you want to change tests, you'll need to read the rest. This tutorial is focused on Windows but can probably be used on Linux and Mac too, you just don't need to install the driver there.
 
-* Prerequisites:
+### Prerequisites:
   - A PSP with custom firmware installed (6.60 recommended)
   - A USB cable to use between your PC and PSP
-  - PSPSDK installed (on Windows I'd recommend MinPSPW, http://www.jetdrone.com/minpspw. )
+  - PSPSDK installed (on Windows I'd recommend MinPSPW, https://sourceforge.net/projects/minpspw/.)
 
 The rest of this tutorial will assume that you installed the PSPSDK in C:\pspsdk.
 
-Step 1: Install PSPLink on your PSP
-  - Copy the OE version of PSPLink (C:\pspsdk\psplink\psp\oe\psplink) to PSP/GAME on the PSP, and run it on your PSP from the game menu.
+### Step 1: Install PSPLink on your PSP
+  - Copy the OE version of PSPLink (C:\pspsdk\psplink\psp\oe\psplink) to PSP/GAME on the PSP.
+  - Run it on your PSP from the game menu.
 
-Step 2: Prepare the PC.
-I had a lot of trouble connecting to PSPLink on Windows 7 x64 and with modern FW, but I figured it out. Here's what you have to do:
-- Disconnect the PSP from your PC.
-- IMPORTANT on x64: Boot Windows using F8 at bootup to get the boot menu, and select "Disable driver signing verification". You will always need to do this when you want to use PSPLink.
-- Connect your PSP running PSPLink to the PC using the USB cable.
+### Step 2: Prepare the PC
 
-Windows will now ask you for a driver for this new device. If it doesn't, go into Device Manager, 
-find the PSP in the list, and rightclick it, go into properties and choose Update Driver. In the resulting dialog, coose things like "Don't look for a driver on Windows Update" and "I have my own driver".
+Tip: If you see PSP Type A, you've connected the PSP in "USB mode".  Disconnect, and run the PSPLINK game instead.
 
-The driver you want exists in either C:\pspsdk\bin\driver or C:\pspsdk\bin\driver_x64, depending on your Windows version. Windows should accept and install your driver.
+#### Windows 7 and later
+ - Plug the PSP into your PC via USB while PSPLINK is running.
+ - Use [Zadig](https://zadig.akeo.ie/) to install the libusb-win32 driver.
+ - Make sure it says PSP Type B in Zadig and click Install Driver.
 
-One more step:
-- Add C:\pspsdk\bin to your PATH if you haven't already got it.
+#### Windows XP / Vista / etc.
+ - If you are on Vista x64, you may need to press F8 during boot up and select "Disable driver signing verification".  You'll have to do this each boot on Vista x64.
+ - After boot, plug the PSP into your PC via USB while PSPLINK is running.
+ - Go into Device Manager and select the PSP Type B device in the list.
+ - Right click on "PSP Type B" -> Properties.
+ - Select Update Driver and select "I have my own driver".
+ - For the path, use C:\pspsdk\bin\driver or C:\pspsdk\bin\driver_x64 depending on your OS install.
+
+#### Mac OS X
+ - Use `brew install libusb-compat` to install libusb.
+ - See here for pspsdk instructions: https://github.com/krzkaczor/psp-developer-guide/blob/master/pspsdk-installation.md
+
+#### Linux
+ - Install libusb and pspsdk: https://github.com/krzkaczor/psp-developer-guide/blob/master/pspsdk-installation.md
+
+### Step 3: Add pspsdk to PATH
+ - Add C:\pspsdk\bin (or equivalent) to your PATH if you haven't already got it.
 
 You are now ready to roll!
 
-In a command prompt in the directory that you want the PSP software to regard as "host0:/" if it tries to read files over the cable, type the following:
+### Running tests
+
+In a command prompt in the directory that you want the PSP software to regard as "host0:/" (normally pspautotests/) if it tries to read files over the cable, type the following:
 
 > cd pspautotests<br />
 > usbhostfs_pc -b 3000
 
-Then in another command prompt:
+Then in a separate command prompt:
 
 > pspsh -p 3000
 
 If you now don't see a host0:/ prompt, something is wrong. Most likely the driver has not loaded correctly. If the port 3000 happened to be taken (usbhostfs_pc would have complained), try another port number.
 
-Now you have full access to the PSP from this prompt. You can use gentest.py to run tests (e.g. `gentest.py misc/test.gp`) and update the .expected files.
+Now you have full access to the PSP from this prompt. You can use gentest.py to run tests (e.g. `gentest.py misc/testgp`) and update the .expected files.
 
 You can run executables on the PSP that reside on the PC directly from within this the pspsh shell, just cd to the directory and run ./my_program.prx.
 
@@ -71,13 +88,9 @@ unsigned int sce_newlib_heap_kb_size = -1;
 For some probably historical reason, by default PSPSDK assumes that you want a 64k heap when you build a PRX.
 
 
-
-
-
-
-
-
-@TODO: Maybe join .expected and .input file in a single .test file?
+TODO
+----
+Maybe join .expected and .input file in a single .test file?
 
 Random Ideas for .test file:
 ```
