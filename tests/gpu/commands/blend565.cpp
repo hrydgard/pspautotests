@@ -15,12 +15,12 @@ typedef struct {
 	float x, y, z;
 } VertexColorF32;
 
-u8 *fbp0 = 0;
-u8 *dbp0 = fbp0 + 512 * 272 * sizeof(u32);
+static u8 *fbp0 = 0;
+static u8 *dbp0 = fbp0 + 512 * 272 * sizeof(u32);
 
 static u16 copybuf[512 * 272];
-unsigned int __attribute__((aligned(16))) list[262144];
-__attribute__((aligned(16))) VertexColorF32 vertices_f32[256];
+static unsigned int __attribute__((aligned(16))) list[262144];
+static __attribute__((aligned(16))) VertexColorF32 vertices_f32[256];
 
 inline VertexColorF32 makeVertex32(u32 c, float x, float y, float z) {
 	VertexColorF32 v;
@@ -187,6 +187,14 @@ extern "C" int main(int argc, char *argv[]) {
 	testBlendFunc("  Zero + Inverse double src alpha", 0x5444, 0x90808080, GU_ADD, GU_FIX, GU_ONE_MINUS_DOUBLE_SRC_ALPHA, 0x00000000, 0x00000000);
 	testBlendFunc("  Zero + Double dest alpha", 0x5444, 0x90808080, GU_ADD, GU_FIX, GU_DOUBLE_DST_ALPHA, 0x00000000, 0x00000000);
 	testBlendFunc("  Zero + Inverse double dest alpha", 0x5444, 0x90808080, GU_ADD, GU_FIX, GU_ONE_MINUS_DOUBLE_DST_ALPHA, 0x00000000, 0x00000000);
+
+	checkpointNext("Error factors:");
+	testBlendFunc("  Fixed + Zero", 0x5444, 0x90808080, GU_ADD, GU_FIX, GU_FIX, 0x12345678, 0x00000000);
+	testBlendFunc("  Factor 11 + Zero", 0x5444, 0x90808080, GU_ADD, 11, GU_FIX, 0x12345678, 0x00000000);
+	testBlendFunc("  Factor 12 + Zero", 0x5444, 0x90808080, GU_ADD, 12, GU_FIX, 0x12345678, 0x00000000);
+	testBlendFunc("  Factor 13 + Zero", 0x5444, 0x90808080, GU_ADD, 13, GU_FIX, 0x12345678, 0x00000000);
+	testBlendFunc("  Factor 14 + Zero", 0x5444, 0x90808080, GU_ADD, 14, GU_FIX, 0x12345678, 0x00000000);
+	testBlendFunc("  Factor 15 + Zero", 0x5444, 0x90808080, GU_ADD, 15, GU_FIX, 0x12345678, 0x00000000);
 
 	checkpointNext("Add:");
 	testBlendFunc("  F0 + 0F", 0xFFFF, 0xFFFFFFFF, GU_ADD, GU_FIX, GU_FIX, 0xF0F0F0F0, 0x0F0F0F0F);
