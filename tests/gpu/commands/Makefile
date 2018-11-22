@@ -1,6 +1,6 @@
-TARGETS = basic blend blend565 blocktransfer material
-EXTRA_OBJS = ../../dmac/dmac-imports.o
-EXTRA_LIBS = -lpspgum -lm
+TARGETS = basic blend blend565 blocktransfer material light
+EXTRA_OBJS = ../../dmac/dmac-imports.o shared.o
+EXTRA_LIBS = -lpspgum -lm -lstdc++ -lc
 
 COMMON_DIR = ../../../common
 include ../../../common/common.mk

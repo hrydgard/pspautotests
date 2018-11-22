@@ -60,6 +60,14 @@ dispmode: 00000000
 [r]   Zero + Double dest alpha: COLOR=0000
 [r]   Zero + Inverse double dest alpha: COLOR=5444
 
+[x] Error factors:
+[r]   Fixed + Zero: COLOR=1947
+[r]   Factor 11 + Zero: COLOR=1947
+[r]   Factor 12 + Zero: COLOR=1947
+[r]   Factor 13 + Zero: COLOR=1947
+[r]   Factor 14 + Zero: COLOR=1947
+[r]   Factor 15 + Zero: COLOR=1947
+
 [x] Add:
 [r]   F0 + 0F: COLOR=ffff
 [r]   0F + F0: COLOR=ffff
