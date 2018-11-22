@@ -1,0 +1,220 @@
+[x] Diffuse 1.0
+[r]   Diffuse 1.0 - Direc A + D: ffff00
+[r]   Diffuse 1.0 - Direc A + D + pow(S): ffffff
+[r]   Diffuse 1.0 - Direc A + pow(D): ffff00
+[r]   Diffuse 1.0 - Point A + D: ffff00
+[r]   Diffuse 1.0 - Point A + D + pow(S): ffffff
+[r]   Diffuse 1.0 - Point A + pow(D): ffff00
+[r]   Diffuse 1.0 - Spot A + D: ffff00
+[r]   Diffuse 1.0 - Spot A + D + pow(S): ffffff
+[r]   Diffuse 1.0 - Spot A + pow(D): ffff00
+
+[x] Diffuse 0.0
+[r]   Diffuse 0.0 - Direc A + D: ff0000
+[r]   Diffuse 0.0 - Direc A + D + pow(S): ff00b5
+[r]   Diffuse 0.0 - Direc A + pow(D): ff0000
+[r]   Diffuse 0.0 - Point A + D: ff0000
+[r]   Diffuse 0.0 - Point A + D + pow(S): ff00b5
+[r]   Diffuse 0.0 - Point A + pow(D): ff0000
+[r]   Diffuse 0.0 - Spot A + D: 000000
+[r]   Diffuse 0.0 - Spot A + D + pow(S): 000000
+[r]   Diffuse 0.0 - Spot A + pow(D): 000000
+
+[x] Diffuse 0.5
+[r]   Diffuse 0.5 - Direc A + D: ff8000
+[r]   Diffuse 0.5 - Direc A + D + pow(S): ff80dd
+[r]   Diffuse 0.5 - Direc A + pow(D): ff8000
+[r]   Diffuse 0.5 - Point A + D: ff7f00
+[r]   Diffuse 0.5 - Point A + D + pow(S): ff7fdd
+[r]   Diffuse 0.5 - Point A + pow(D): ff7f00
+[r]   Diffuse 0.5 - Spot A + D: 7f3f00
+[r]   Diffuse 0.5 - Spot A + D + pow(S): 7f3f6e
+[r]   Diffuse 0.5 - Spot A + pow(D): 7f3f00
+
+[x] Diffuse -0.5, specular 0.5
+[r]   Diffuse -0.5 - Direc A + D: ff0000
+[r]   Diffuse -0.5 - Direc A + D + pow(S): ff0000
+[r]   Diffuse -0.5 - Direc A + pow(D): ff0000
+[r]   Diffuse -0.5 - Point A + D: ff0000
+[r]   Diffuse -0.5 - Point A + D + pow(S): ff0000
+[r]   Diffuse -0.5 - Point A + pow(D): ff0000
+[r]   Diffuse -0.5 - Spot A + D: 000000
+[r]   Diffuse -0.5 - Spot A + D + pow(S): 000000
+[r]   Diffuse -0.5 - Spot A + pow(D): 000000
+
+[x] Attenuation
+[r]   Attenuation 0.5 - Direc A + D: ffff00
+[r]   Attenuation 0.5 - Direc A + D + pow(S): ffffff
+[r]   Attenuation 0.5 - Direc A + pow(D): ffff00
+[r]   Attenuation 0.5 - Point A + D: 808000
+[r]   Attenuation 0.5 - Point A + D + pow(S): 808080
+[r]   Attenuation 0.5 - Point A + pow(D): 808000
+[r]   Attenuation 0.5 - Spot A + D: 808000
+[r]   Attenuation 0.5 - Spot A + D + pow(S): 808080
+[r]   Attenuation 0.5 - Spot A + pow(D): 808000
+[r]   Attenuation pow(0.5) - Direc A + D: ffff00
+[r]   Attenuation pow(0.5) - Direc A + D + pow(S): ffffff
+[r]   Attenuation pow(0.5) - Direc A + pow(D): ffff00
+[r]   Attenuation pow(0.5) - Point A + D: 3f3f00
+[r]   Attenuation pow(0.5) - Point A + D + pow(S): 3f3f3f
+[r]   Attenuation pow(0.5) - Point A + pow(D): 3f3f00
+[r]   Attenuation pow(0.5) - Spot A + D: 3f3f00
+[r]   Attenuation pow(0.5) - Spot A + D + pow(S): 3f3f3f
+[r]   Attenuation pow(0.5) - Spot A + pow(D): 3f3f00
+[r]   Attenuation large - Direc A + D: ffff00
+[r]   Attenuation large - Direc A + D + pow(S): ffffff
+[r]   Attenuation large - Direc A + pow(D): ffff00
+[r]   Attenuation large - Point A + D: ff2b00
+[r]   Attenuation large - Point A + D + pow(S): ff2bc3
+[r]   Attenuation large - Point A + pow(D): ff2b00
+[r]   Attenuation large - Spot A + D: c52400
+[r]   Attenuation large - Spot A + D + pow(S): c52497
+[r]   Attenuation large - Spot A + pow(D): c52400
+[r]   Attenuation tiny - Direc A + D: ffff00
+[r]   Attenuation tiny - Direc A + D + pow(S): ffffff
+[r]   Attenuation tiny - Direc A + pow(D): ffff00
+[r]   Attenuation tiny - Point A + D: 000000
+[r]   Attenuation tiny - Point A + D + pow(S): 000000
+[r]   Attenuation tiny - Point A + pow(D): 000000
+[r]   Attenuation tiny - Spot A + D: 000000
+[r]   Attenuation tiny - Spot A + D + pow(S): 000000
+[r]   Attenuation tiny - Spot A + pow(D): 000000
+[r]   Attenuation -1.0 - Direc A + D: ffff00
+[r]   Attenuation -1.0 - Direc A + D + pow(S): ffffff
+[r]   Attenuation -1.0 - Direc A + pow(D): ffff00
+[r]   Attenuation -1.0 - Point A + D: 000000
+[r]   Attenuation -1.0 - Point A + D + pow(S): 000000
+[r]   Attenuation -1.0 - Point A + pow(D): 000000
+[r]   Attenuation -1.0 - Spot A + D: 000000
+[r]   Attenuation -1.0 - Spot A + D + pow(S): 000000
+[r]   Attenuation -1.0 - Spot A + pow(D): 000000
+
+[x] Spot direction
+[r]   Spot z=1 - Spot A + D: 949400
+[r]   Spot z=1 - Spot A + D + pow(S): 949494
+[r]   Spot z=1 - Spot A + pow(D): 949400
+[r]   Spot z=-1 - Spot A + D: 000000
+[r]   Spot z=-1 - Spot A + D + pow(S): 000000
+[r]   Spot z=-1 - Spot A + pow(D): 000000
+[r]   Spot xyz=1 - Spot A + D: ff9300
+[r]   Spot xyz=1 - Spot A + D + pow(S): ff93e3
+[r]   Spot xyz=1 - Spot A + pow(D): ff9300
+[r]   Spot z=0 - Spot A + D: 000000
+[r]   Spot z=0 - Spot A + D + pow(S): 000000
+[r]   Spot z=0 - Spot A + pow(D): 000000
+[r]   Spot zero vector - Spot A + D: 000000
+[r]   Spot zero vector - Spot A + D + pow(S): 000000
+[r]   Spot zero vector - Spot A + pow(D): 000000
+[r]   Spot NAN - Spot A + D: ff9300
+[r]   Spot NAN - Spot A + D + pow(S): ff93e3
+[r]   Spot NAN - Spot A + pow(D): ff9300
+[r]   Spot -NAN - Spot A + D: 000000
+[r]   Spot -NAN - Spot A + D + pow(S): 000000
+[r]   Spot -NAN - Spot A + pow(D): 000000
+[r]   Spot INFINITY - Spot A + D: ff9300
+[r]   Spot INFINITY - Spot A + D + pow(S): ff93e3
+[r]   Spot INFINITY - Spot A + pow(D): ff9300
+[r]   Spot -INFINITY - Spot A + D: 000000
+[r]   Spot -INFINITY - Spot A + D + pow(S): 000000
+[r]   Spot -INFINITY - Spot A + pow(D): 000000
+
+[x] Spot exponent
+[r]   Spot e=2 - Spot A + D: 545400
+[r]   Spot e=2 - Spot A + D + pow(S): 545454
+[r]   Spot e=2 - Spot A + pow(D): 545400
+[r]   Spot e=0.5 - Spot A + D: caca00
+[r]   Spot e=0.5 - Spot A + D + pow(S): cacaca
+[r]   Spot e=0.5 - Spot A + pow(D): caca00
+[r]   Spot e=0.0 - Spot A + D: ffff00
+[r]   Spot e=0.0 - Spot A + D + pow(S): ffffff
+[r]   Spot e=0.0 - Spot A + pow(D): ffff00
+[r]   Spot zero vector e=0.0 - Spot A + D: ffff00
+[r]   Spot zero vector e=0.0 - Spot A + D + pow(S): ffffff
+[r]   Spot zero vector e=0.0 - Spot A + pow(D): ffff00
+[r]   Spot e=NAN - Spot A + D: 000000
+[r]   Spot e=NAN - Spot A + D + pow(S): 000000
+[r]   Spot e=NAN - Spot A + pow(D): 000000
+[r]   Spot e=-NAN - Spot A + D: ffff00
+[r]   Spot e=-NAN - Spot A + D + pow(S): ffffff
+[r]   Spot e=-NAN - Spot A + pow(D): ffff00
+[r]   Spot e=INF - Spot A + D: 000000
+[r]   Spot e=INF - Spot A + D + pow(S): 000000
+[r]   Spot e=INF - Spot A + pow(D): 000000
+[r]   Spot e=-INF - Spot A + D: ffff00
+[r]   Spot e=-INF - Spot A + D + pow(S): ffffff
+[r]   Spot e=-INF - Spot A + pow(D): ffff00
+
+[x] Spot cutoff
+[r]   Spot negative cutoff + e=0.0 - Spot A + D: ffff00
+[r]   Spot negative cutoff + e=0.0 - Spot A + D + pow(S): ffffff
+[r]   Spot negative cutoff + e=0.0 - Spot A + pow(D): ffff00
+[r]   Spot negative cutoff + e=2.0 - Spot A + D: 000000
+[r]   Spot negative cutoff + e=2.0 - Spot A + D + pow(S): 000000
+[r]   Spot negative cutoff + e=2.0 - Spot A + pow(D): 000000
+[r]   Spot 1.0 cutoff=1.0 - Spot A + D: bfbf00
+[r]   Spot 1.0 cutoff=1.0 - Spot A + D + pow(S): bfbfbf
+[r]   Spot 1.0 cutoff=1.0 - Spot A + pow(D): bfbf00
+[r]   Spot 1.0 cutoff=2.0 - Spot A + D: 000000
+[r]   Spot 1.0 cutoff=2.0 - Spot A + D + pow(S): 000000
+[r]   Spot 1.0 cutoff=2.0 - Spot A + pow(D): 000000
+[r]   Spot 1.0 cutoff=-NAN - Spot A + D: ffff00
+[r]   Spot 1.0 cutoff=-NAN - Spot A + D + pow(S): ffffff
+[r]   Spot 1.0 cutoff=-NAN - Spot A + pow(D): ffff00
+[r]   Spot 1.0 cutoff=-INF - Spot A + D: ffff00
+[r]   Spot 1.0 cutoff=-INF - Spot A + D + pow(S): ffffff
+[r]   Spot 1.0 cutoff=-INF - Spot A + pow(D): ffff00
+[r]   Spot 1.0 cutoff=NAN - Spot A + D: 000000
+[r]   Spot 1.0 cutoff=NAN - Spot A + D + pow(S): 000000
+[r]   Spot 1.0 cutoff=NAN - Spot A + pow(D): 000000
+[r]   Spot 1.0 cutoff=INF - Spot A + D: 000000
+[r]   Spot 1.0 cutoff=INF - Spot A + D + pow(S): 000000
+[r]   Spot 1.0 cutoff=INF - Spot A + pow(D): 000000
+
+[x] Powered diffuse
+[r]   Diffuse 1.0 pow e=1.0 - Direc A + pow(D): ffff00
+[r]   Diffuse 1.0 pow e=1.0 - Point A + pow(D): ffff00
+[r]   Diffuse 1.0 pow e=1.0 - Spot A + pow(D): ffff00
+[r]   Diffuse 1.0 pow e=0.0 - Direc A + pow(D): ffff00
+[r]   Diffuse 1.0 pow e=0.0 - Point A + pow(D): ffff00
+[r]   Diffuse 1.0 pow e=0.0 - Spot A + pow(D): ffff00
+[r]   Diffuse -1.0 pow e=0.0 - Direc A + pow(D): ffff00
+[r]   Diffuse -1.0 pow e=0.0 - Point A + pow(D): ffff00
+[r]   Diffuse -1.0 pow e=0.0 - Spot A + pow(D): ffff00
+[r]   Diffuse -1.0 pow e=2.0 - Direc A + pow(D): ff0000
+[r]   Diffuse -1.0 pow e=2.0 - Point A + pow(D): ff0000
+[r]   Diffuse -1.0 pow e=2.0 - Spot A + pow(D): ff0000
+[r]   Diffuse 0.5 pow e=2.0 - Direc A + pow(D): ff4000
+[r]   Diffuse 0.5 pow e=2.0 - Point A + pow(D): ff3f00
+[r]   Diffuse 0.5 pow e=2.0 - Spot A + pow(D): 7f1f00
+[r]   Diffuse 0.5 pow e=0.5 - Direc A + pow(D): ffc000
+[r]   Diffuse 0.5 pow e=0.5 - Point A + pow(D): ffbf00
+[r]   Diffuse 0.5 pow e=0.5 - Spot A + pow(D): 7f5f00
+[r]   Diffuse 0.5 pow e=-1.0 - Direc A + pow(D): ffff00
+[r]   Diffuse 0.5 pow e=-1.0 - Point A + pow(D): ffff00
+[r]   Diffuse 0.5 pow e=-1.0 - Spot A + pow(D): 7f7f00
+
+[x] Specular
+[r]   Diffuse 0.0 spec e=0.0 - Direc A + D + pow(S): ff00ff
+[r]   Diffuse 0.0 spec e=0.0 - Point A + D + pow(S): ff00ff
+[r]   Diffuse 0.0 spec e=0.0 - Spot A + D + pow(S): ff00ff
+[r]   Diffuse -0.5 spec e=0.0 - Direc A + D + pow(S): ff0000
+[r]   Diffuse -0.5 spec e=0.0 - Point A + D + pow(S): ff0000
+[r]   Diffuse -0.5 spec e=0.0 - Spot A + D + pow(S): ff0000
+[r]   Diffuse 0.5 spec e=0.5 - Direc A + D + pow(S): ff80ee
+[r]   Diffuse 0.5 spec e=0.5 - Point A + D + pow(S): ff7fee
+[r]   Diffuse 0.5 spec e=0.5 - Spot A + D + pow(S): ff7fee
+[r]   Diffuse 0.5 spec e=2.0 - Direc A + D + pow(S): ff80bb
+[r]   Diffuse 0.5 spec e=2.0 - Point A + D + pow(S): ff7fbb
+[r]   Diffuse 0.5 spec e=2.0 - Spot A + D + pow(S): ff7fbb
+[r]   Diffuse 0.5 spec e=-2.0 - Direc A + D + pow(S): ff80ff
+[r]   Diffuse 0.5 spec e=-2.0 - Point A + D + pow(S): ff7fff
+[r]   Diffuse 0.5 spec e=-2.0 - Spot A + D + pow(S): ff7fff
+[r]   Diffuse 0.5 spec=-0.5 e=0.0 - Direc A + D + pow(S): ff80ff
+[r]   Diffuse 0.5 spec=-0.5 e=0.0 - Point A + D + pow(S): ff7fff
+[r]   Diffuse 0.5 spec=-0.5 e=0.0 - Spot A + D + pow(S): ff7fff
+[r]   Diffuse 0.5 spec=-0.5 e=1.0 - Direc A + D + pow(S): ff8000
+[r]   Diffuse 0.5 spec=-0.5 e=1.0 - Point A + D + pow(S): ff7f00
+[r]   Diffuse 0.5 spec=-0.5 e=1.0 - Spot A + D + pow(S): ff7f00
+[r]   Diffuse 0.5 spec=-0.5 e=2.0 - Direc A + D + pow(S): ff8000
+[r]   Diffuse 0.5 spec=-0.5 e=2.0 - Point A + D + pow(S): ff7f00
+[r]   Diffuse 0.5 spec=-0.5 e=2.0 - Spot A + D + pow(S): ff7f00
