@@ -25,7 +25,7 @@ If you want to change tests, you'll need to read the rest. This tutorial is focu
 ### Prerequisites:
   - A PSP with custom firmware installed (6.60 recommended)
   - A USB cable to use between your PC and PSP
-  - PSPSDK installed (on Windows I'd recommend MinPSPW, https://sourceforge.net/projects/minpspw/.)
+  - PSPSDK installed (on Windows I'd recommend MinPSPW, https://sourceforge.net/projects/minpspw/.) WARNING: Do not install 0.11b, install 0.10.
 
 The rest of this tutorial will assume that you installed the PSPSDK in C:\pspsdk.
 
