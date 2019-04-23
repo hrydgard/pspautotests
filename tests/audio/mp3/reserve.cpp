@@ -4,8 +4,6 @@
 #include <psputility.h>
 #include <vector>
 
-extern "C" int sceMp3LowLevelInit(int handle, int unk);
-
 static u8 dummyMp3[128 * (1152 / 2)] __attribute__((aligned(64)));
 static short pcmBuf[128 * (1152 / 2)] __attribute__((aligned(64)));
 
