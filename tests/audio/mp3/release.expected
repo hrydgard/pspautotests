@@ -1,0 +1,13 @@
+[x] Release handle types
+[x]   NULL: 00000000
+[x]   Basic: 00000000
+[x]   Double free: 00000000
+[x]   Negative: 80671001
+[x]   2: 80671001
+
+[x] After init
+[r]   Init: 00000000
+[x]   After init: 00000000
+
+[x] After term
+[x]   Prev allocated handle: 00000000
