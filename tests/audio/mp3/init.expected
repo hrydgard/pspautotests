@@ -1,0 +1,72 @@
+[x] Handles
+[x]   Unreserved: 80671102
+[x]   NULL info arg: 80671102
+[r]   Basic info arg: 807f00fd
+[x]   Negative: 80671001
+[x]   2: 80671001
+
+[x] Repeating
+[r]   Once: 00000000
+[r]   Twice: 00000000
+
+[x] Header
+[r]   Proper header: 00000000
+[r]   Sync missing: 807f00fd
+[r]   All missing: 807f00fd
+[r]   MPEG v1 layer I: 807f00fd
+[r]   MPEG v1 layer II: 807f00fd
+[r]   MPEG v1 layer III: 00000000
+[r]   MPEG v1 layer invalid: 807f00fd
+[r]   MPEG v2 layer I: 807f00fd
+[r]   MPEG v2 layer II: 807f00fd
+[r]   MPEG v2 layer III: 80671301
+[r]   MPEG v2 layer invalid: 807f00fd
+[r]   MPEG v2.5 layer I: 807f00fd
+[r]   MPEG v2.5 layer II: 807f00fd
+[r]   MPEG v2.5 layer III: 80671301
+[r]   MPEG v2.5 layer invalid: 807f00fd
+[r]   MPEG invalid layer I: 807f00fd
+[r]   MPEG invalid layer II: 807f00fd
+[r]   MPEG invalid layer III: 80671301
+[r]   MPEG invalid layer invalid: 807f00fd
+[r]   CRC protection: 00000000
+[r]   Padding bit: 00000000
+[r]   Private bit: 00000000
+[r]   Copyright bit: 00000000
+[r]   Original bit: 00000000
+[r]   Free bitrate: 807f00fd
+[r]   Max bitrate: 00000000
+[r]   Invalid bitrate: 807f00fd
+[r]   48kHz sample rate: 80671302
+[r]   32kHz sample rate: 80671302
+[r]   Invalid sample rate: 807f00fd
+[r]   Joint stereo: 00000000
+[r]   Dual channel: 00000000
+[r]   Mono: 00000000
+[r]   Joint stereo extended: 00000000
+[r]   Emphasis 50/15ms: 00000000
+[r]   Emphasis CCIT: 00000000
+[r]   Emphasis invalid: 00000000
+
+[x] Header offset
+[r]   Offset 1: 00000000
+[r]   Offset 2: 00000000
+[r]   Offset 3: 00000000
+[r]   Offset 4: 00000000
+[r]   Offset 256: 00000000
+[r]   Offset 1024: 00000000
+[r]   Offset 1439: 00000000
+[r]   Offset 1440: 807f00fd
+[r]   Offset 2048: 807f00fd
+[r]   Offset 4096: 807f00fd
+[r]   Valid after invalid bitrate: 807f00fd
+[r]   Valid after MPEG v2.5 layer III: 80671301
+[r]   Valid after MPEG v2 layer III: 80671301
+[r]   Valid after MPEG v1 layer I: 807f00fd
+
+[x] Sequence
+[r]   Initial init: 00000000
+[r]   After decode: 00000000
+
+[x] After term
+[x]   Prev allocated handle: 80671102
