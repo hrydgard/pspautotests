@@ -1,0 +1,20 @@
+[x] Handles
+[x]   Unreserved: 80671102 (0 to write)
+[x]   NULL info arg: 80671102 (0 to write)
+[x]   Basic info arg: 00000000 (6720 to write)
+[x]   Negative: 80671001 (0 to write)
+[x]   2: 80671001 (0 to write)
+
+[x] Sizes
+[x]   Size zero: 00000000 (6720 to write)
+[x]   Size negative: 00000000 (6721 to write)
+[x]   Size one: 00000000 (6720 to write)
+
+[x] Sequence
+[r]   Chunk 1: 00000000 (0 to write)
+[r]   Chunk 2: 00000000 (0 to write)
+[r]   Chunk 3, after init: 00000000 (0 to write)
+[r]   Chunk 4, after decode: 00000000 (0 to write)
+
+[x] After term
+[x]   Prev allocated handle: 80671102 (0 to write)
