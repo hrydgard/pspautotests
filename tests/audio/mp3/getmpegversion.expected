@@ -1,0 +1,19 @@
+[x] Handles
+[x]   Unreserved: 80671102
+[x]   NULL info arg: 80671102
+[x]   Basic info arg: 80671102
+[x]   Negative: 80671001
+[x]   2: 80671001
+
+[x] After init
+[r]   Low level init: 0
+[r]   Low level decode: 0
+[r]   After init: 3
+[r]   After decode: 3
+
+[x] Versions
+[r]   MPEG version 2.5: 80671001
+[r]   MPEG version 2: 80671001
+
+[x] After term
+[x]   Prev allocated handle: 80671102
