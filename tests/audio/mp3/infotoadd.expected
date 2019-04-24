@@ -1,0 +1,25 @@
+[x] Handles
+[x]   Unreserved: 80671102
+[x]   NULL info arg: 80671102
+[x]   Basic info arg: 00000000
+[x]   Negative: 80671001
+[x]   2: 80671001
+
+[x] Sequence
+[x]   First: 00000000
+[x]   Second: 00000000 - difference: dst=0, towrite=0, srcpos=0
+[x]   Add half: 00000000 - difference: dst=36, towrite=-36, srcpos=36
+[x]   Add remaining: 00000000 - now: dst=00000000, towrite=0, srcpos=0
+
+[x] Post decode
+[x]   After add: 00000000 - now: dst=00000000, towrite=0, srcpos=0
+[r]   After decode: 00000000 - now: dst=00000000, towrite=0, srcpos=0
+
+[x] Pointers
+[x]   All NULL: 00000000
+[x]   Dest only: 00000000
+[x]   To write only: 00000000
+[x]   Source pos only: 00000000
+
+[x] After term
+[x]   Prev allocated handle: 80671102

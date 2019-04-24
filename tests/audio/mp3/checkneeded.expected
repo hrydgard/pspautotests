@@ -1,0 +1,19 @@
+[x] Handles
+[x]   Unreserved: 80671102
+[x]   NULL info arg: 80671102
+[x]   Basic info arg: 00000001
+[x]   Negative: 80671001
+[x]   2: 80671001
+
+[x] Sequence
+[x]   First: 00000001
+[x]   Second: 00000001
+[x]   Add half: 00000001
+[x]   Add remaining: 00000000
+
+[x] Post decode
+[x]   After add: 00000000
+[r]   After decode: 00000000
+
+[x] After term
+[x]   Prev allocated handle: 80671102

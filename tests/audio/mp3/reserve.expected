@@ -1,0 +1,51 @@
+[x] NULL arg:
+[x]   Once: 00000000
+[x]   Twice: 00000000
+[x]   While allocated: 00000001
+[x]   Max 2 handles, last 1, failed with 80671201
+[x]   While basic allocated: 00000001
+
+[x] Basic arg:
+[x]   Once: 00000000
+[x]   Twice: 00000000
+[x]   While allocated: 00000001
+[x]   Max 2 handles, last 1, failed with 80671201
+[x]   While NULL allocated: 00000001
+
+[x] Stream start:
+[x]   End: 80671003
+[x]   Unaligned 1: 00000000
+[x]   Negative 1: 80671003
+
+[x] Stream end:
+[x]   Zero: 80671003
+[x]   Before start: 80671003
+[x]   Unaligned 1: 00000000
+[x]   Negative 1: 00000000
+
+[x] Unknown:
+[x]   Start value non-zero: 80671003
+[x]   End value non-zero: 00000000
+[x]   End as 64 bit before start: 00000000
+
+[x] Encoded buffer addr:
+[x]   Unaligned +1: 00000000
+[x]   NULL: 80671002
+[x]   Invalid: 00000000
+
+[x] Encoded buffer size:
+[x]   8191: 80671003
+[x]   8192: 00000000
+[x]   -1: 80671003
+[x]   0x7FFFFFFF: 00000000
+
+[x] Decoded buffer addr:
+[x]   Unaligned +1: 00000000
+[x]   NULL: 80671002
+[x]   Invalid: 00000000
+
+[x] Decoded buffer size:
+[x]   9215: 80671003
+[x]   9216: 00000000
+[x]   -1: 80671003
+[x]   0x7FFFFFFF: 00000000

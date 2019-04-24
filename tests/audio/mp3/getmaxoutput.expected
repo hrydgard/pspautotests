@@ -1,0 +1,26 @@
+[x] Handles
+[x]   Unreserved: 80671103
+[x]   NULL info arg: 80671103
+[x]   Basic info arg: 80671103
+[x]   Negative: 80671001
+[x]   2: 80671001
+
+[x] After init
+[r]   Low level init: 0
+[r]   Low level decode: 0
+[r]   After init: 1152
+[r]   After decode: 1152
+
+[x] Channels
+[r]   Channel stereo: 1152
+[r]   Channel joint stereo: 1152
+[r]   Channel dual channel: 1152
+[r]   Channel mono: 1152
+
+[x] Buffer sizes
+[r]   Small PCM buffer: 1152
+[r]   Double PCM buffer: 1152
+[r]   Large PCM buffer: 1152
+
+[x] After term
+[x]   Prev allocated handle: 80671103

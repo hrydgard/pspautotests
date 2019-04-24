@@ -1,0 +1,33 @@
+[x] Handles
+[x]   Unreserved: 80671103
+[x]   NULL info arg: 80671103
+[x]   Basic info arg: 80671103
+[x]   Negative: 80671001
+[x]   2: 80671001
+
+[x] After init
+[r]   Low level init: 0
+[r]   Low level decode: 0
+[r]   After init: 32
+[r]   After decode: 32
+
+[x] Bitrates
+[r]   Bitrate 0: Failed (807f00fd)
+[r]   Bitrate 32: 32
+[r]   Bitrate 40: 40
+[r]   Bitrate 48: 48
+[r]   Bitrate 56: 56
+[r]   Bitrate 64: 64
+[r]   Bitrate 80: 80
+[r]   Bitrate 96: 96
+[r]   Bitrate 112: 112
+[r]   Bitrate 128: 128
+[r]   Bitrate 160: 160
+[r]   Bitrate 192: 192
+[r]   Bitrate 224: 224
+[r]   Bitrate 256: 256
+[r]   Bitrate 320: 320
+[r]   Bitrate -1: Failed (807f00fd)
+
+[x] After term
+[x]   Prev allocated handle: 80671103

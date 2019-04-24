@@ -1,0 +1,10 @@
+[x] sceMp3InitResource:
+[r]   Once: 00000000, used 0 bytes
+[x]   Twice: 00000000, used 0 bytes
+[x]   Reserve after init: 00000000
+
+[x] sceMp3TermResource:
+[r]   Once: 00000000, used 0 bytes
+[x]   Twice: 00000000, used 0 bytes
+[x]   Thrice: 00000000, used 0 bytes
+[x]   Reserve after term: 80671201

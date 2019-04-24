@@ -1,0 +1,21 @@
+[x] Handles
+[x]   Unreserved: 80671103
+[x]   NULL info arg: 80671103
+[x]   Basic info arg: 80671103
+[x]   Negative: 80671001
+[x]   2: 80671001
+
+[x] After init
+[r]   Low level init: 0
+[r]   Low level decode: 0
+[r]   After init: 2
+[r]   After decode: 2
+
+[x] Channels
+[r]   Channel stereo: 2
+[r]   Channel joint stereo: 2
+[r]   Channel dual channel: 2
+[r]   Channel mono: 1
+
+[x] After term
+[x]   Prev allocated handle: 80671103
