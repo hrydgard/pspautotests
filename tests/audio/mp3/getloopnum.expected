@@ -1,0 +1,25 @@
+[x] Handles
+[x]   Unreserved: 80671102
+[x]   NULL info arg: 80671102
+[x]   Basic info arg: ffffffff
+[x]   Negative: 80671001
+[x]   2: 80671001
+
+[x] After init
+[r]   Low level init: 80671102
+[r]   Low level decode: 80671102
+[r]   After set then init: 0
+[r]   After init: ffffffff
+[r]   After decode: ffffffff
+
+[x] Loop values
+[x]   Value -2: ffffffff
+[x]   Value -1: ffffffff
+[x]   Value 0: 0
+[x]   Value 1: 1
+[x]   Value 2: 2
+[x]   Value 2147483647: 2147483647
+[x]   Value -2147483648: ffffffff
+
+[x] After term
+[x]   Prev allocated handle: 80671102
