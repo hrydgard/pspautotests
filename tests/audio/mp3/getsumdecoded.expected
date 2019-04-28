@@ -1,0 +1,32 @@
+[x] Handles
+[x]   Unreserved: 80671102
+[x]   NULL info arg: 80671102
+[x]   Basic info arg: 0
+[x]   Negative: 80671001
+[x]   2: 80671001
+
+[x] After decoding
+[r]   Low level init: 80671102
+[r]   Low level decode: 80671102
+[r]   After init: 0
+[r]   After decode 1: 1152
+[r]   After decode 2: 2304
+
+[x] Channels
+[r]   Channel stereo: 1152
+[r]   Channel joint stereo: 1152
+[r]   Channel dual channel: 1152
+[r]   Channel mono: 1152
+
+[x] Loop
+[r]   After decode: loop at 1, sum 251136 => 0
+[r]   After decode: loop at 0, sum 251136 => 0
+[r]   End of loops: 252288
+
+[x] Start pos
+[r]   After decode: loop at 1, sum 249984 => 0
+[r]   After decode: loop at 0, sum 249984 => 0
+[r]   End of offset start: 251136
+
+[x] After term
+[x]   Prev allocated handle: 80671001
