@@ -1,0 +1,42 @@
+[x] Handles
+[x]   Unreserved: 80671103
+[x]   NULL info arg: 80671103
+[x]   Basic info arg: 80671103
+[x]   Negative: 80671001
+[x]   2: 80671001
+
+[x] After init
+[r]   Low level init: 80671103
+[r]   Low level decode: 80671103
+[r]   After init: 875
+[r]   After decode: 218
+
+[x] Header info
+[r]   Info header: 875
+[r]   Xing header: 875
+[r]   Offset header: 875
+[r]   Padding header: 875
+
+[x] Channels
+[r]   Channel stereo: 875
+[r]   Channel joint stereo: 875
+[r]   Channel dual channel: 875
+[r]   Channel mono: 875
+
+[x] Stream start:
+[r]   Offset 103: 875
+[r]   Offset 104: 874
+[r]   Offset 207: 874
+[r]   Offset 208: 873
+[r]   Unaligned 1: 875
+
+[x] Stream end:
+[r]   1024: 9
+[r]   Too small: 0
+[r]   Length 104: 0
+[r]   Length 105: 1
+[r]   Unaligned 1: 0
+[r]   End value non-zero: 2
+
+[x] After term
+[x]   Prev allocated handle: 80671103
