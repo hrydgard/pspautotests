@@ -1,0 +1,68 @@
+[x] Output2
+[x]   Twice: 80268002
+[x]   Zero: 80000104
+[x]   Negative: 80000104
+[x]   16 samples: 80000104
+[x]   17 samples: 00000000
+[x]   18 samples: 00000000
+[x]   2048 samples: 00000000
+[x]   2049 samples: 00000000
+[x]   4110 samples: 00000000
+[x]   4111 samples: 00000000
+[x]   4112 samples: 80000104
+[x]   8222 samples: 80000104
+[x]   -2147479537 samples: 00000000
+[x]   1073745935 samples: 80000104
+[x]   -2147483632 samples: 80000104
+[x]   -2147483631 samples: 00000000
+
+[x] SRC
+[x]   SRC Twice: 80268002
+
+[x] SRC samples
+[x]   Zero SRC samples: 80000104
+[x]   Negative SRC samples: 80000104
+[x]   16 SRC samples: 80000104
+[x]   17 SRC samples: 00000000
+[x]   18 SRC samples: 00000000
+[x]   2048 SRC samples: 00000000
+[x]   2049 SRC samples: 00000000
+[x]   4110 SRC samples: 00000000
+[x]   4111 SRC samples: 00000000
+[x]   4112 SRC samples: 80000104
+[x]   8222 SRC samples: 80000104
+[x]   -2147479537 SRC samples: 00000000
+[x]   1073745935 SRC samples: 80000104
+[x]   -2147483632 SRC samples: 80000104
+[x]   -2147483631 SRC samples: 00000000
+
+[x] SRC frequencies
+[x]   Zero frequency: 00000000
+[x]   Negative frequency: 8026000a
+[x]   1 frequency: 8026000a
+[x]   48000 frequency: 00000000
+[x]   44100 frequency: 00000000
+[x]   32000 frequency: 00000000
+[x]   24000 frequency: 00000000
+[x]   22050 frequency: 00000000
+[x]   16000 frequency: 00000000
+[x]   12000 frequency: 00000000
+[x]   11025 frequency: 00000000
+[x]   8000 frequency: 00000000
+[x]   4000 frequency: 8026000a
+[x]   40000 frequency: 8026000a
+[x]   88200 frequency: 8026000a
+[x]   64000 frequency: 8026000a
+[x]   360000 frequency: 8026000a
+[x]   -2147439548 frequency: 8026000a
+
+[x] SRC formats
+[x]   Zero format: 80000104
+[x]   Negative format: 80000104
+[x]   1 format: 80000104
+[x]   2 format: 00000000
+[x]   3 format: 80000104
+[x]   4 format: 80000003
+[x]   5 format: 80000104
+[x]   8 format: 80000104
+[x]   -2147483646 format: 80000104
