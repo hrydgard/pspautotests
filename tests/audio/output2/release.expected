@@ -1,0 +1,15 @@
+[x] Output2
+[x]   Reserve: 00000000
+[x]   OutputBlocking: 00000040
+[x]   Release: 80268002
+[r]   Release (after 1ms): 80268002
+[r]   Release (after 2ms): 00000000
+[x]   Release (again): 80260008
+
+[x] SRC
+[x]   Reserve: 00000000
+[x]   OutputBlocking: 00000040
+[x]   Release: 80268002
+[r]   Release (after 1ms): 80268002
+[r]   Release (after 2ms): 00000000
+[x]   Release (again): 80260008
