@@ -1,0 +1,19 @@
+[x] Output2
+[x]   Reserve: 00000000
+[x]   OutputBlocking: 00001000
+[x]   Length to 64: 00000000
+[x]   Rest: 00000040
+[r]   Length to 64 (after 1ms): 00000000
+[r]   Length to 64 (after 4ms): 00000000, rest 00000040
+[r]   Released
+[x]   Not reserved: 80260008
+
+[x] SRC
+[x]   Reserve: 00000000
+[x]   OutputBlocking: 00001000
+[x]   Length to 64: 00000000
+[x]   Rest: 00000040
+[r]   Length to 64 (after 1ms): 00000000
+[r]   Length to 64 (after 4ms): 00000000, rest 00000040
+[r]   Released
+[x]   Not reserved: 80260008

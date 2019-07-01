@@ -1,0 +1,27 @@
+[x] SRC
+[x]   22.05kHz Reserve: 00000000
+[x]   22.05kHz OutputBlocking: 00000800
+[x]   22.05kHz: 92XXX / 92879
+[x]   22.05kHz Release: 00000000
+[x]   36kHz Reserve: 8026000a
+[x]   36kHz OutputBlocking: 80260008
+[x]   36kHz: 1000XXX / 56888
+[x]   36kHz Release: 80260008
+[x]   44.1kHz Reserve: 00000000
+[x]   44.1kHz OutputBlocking: 00000800
+[x]   44.1kHz: 46XXX / 46439
+[x]   44.1kHz Release: 00000000
+[x]   48kHz Reserve: 00000000
+[x]   48kHz OutputBlocking: 00000800
+[x]   48kHz: 42XXX / 42666
+[x]   48kHz Release: 00000000
+[x]   Zero Reserve: 00000000
+[x]   Zero OutputBlocking: 00000800
+[x]   Zero: 46XXX / 46439
+[x]   Zero Release: 00000000
+
+[x] Multi-channel
+[x]   48kHz Reserve: 00000000 00000000
+[x]   48kHz OutputBlocking: 00000840 00000800
+[x]   48kHz: src=42XXX, ch=46XXX / f=42666, 44.1=46439
+[x]   48kHz Release: 00000000 00000000
