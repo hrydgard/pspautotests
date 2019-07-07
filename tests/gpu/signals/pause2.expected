@@ -1,0 +1,77 @@
+[x] SDK version 00000000
+[x]   * ge_signal: 00000000 00000000
+[x]   * ge_signal: 100 at 5c000001, listsync: 00000004, drawsync: 00000002
+[x]   UpdateStallAddr: 00000000
+[x]   * ge_signal: 00000000 00000000
+[x]   * ge_finish: 0 at 5c000002, listsync: 00000000, drawsync: 00000000
+[x]   Continue: 00000000
+[r]   Callback 1 done: 5c000002
+[x]   * ge_signal: 00000000 00000000
+[x]   * ge_signal: 100 at 5c000001, listsync: 00000004, drawsync: 00000002
+[x]   * Continue: 00000000
+[x]   * ge_signal: 00000000 00000000
+[x]   * ge_finish: 0 at 5c000002, listsync: 00000000, drawsync: 00000000
+[x]   UpdateStallAddr: 80000020
+[x]   Continue: 00000000
+[r]   Callback 2 done: 5c000002
+
+[x] SDK version 02080000
+[x]   * ge_signal: 00000000 +00000006
+[x]   * ge_signal: 100 at 5c000001, listsync: 00000004, drawsync: 00000002
+[x]   UpdateStallAddr: 00000000
+[x]   * ge_signal: 00000000 +00000009
+[x]   * ge_finish: 0 at 5c000002, listsync: 00000000, drawsync: 00000000
+[x]   Continue: 00000000
+[r]   Callback 1 done: 5c000002
+[x]   * ge_signal: 00000000 +00000006
+[x]   * ge_signal: 100 at 5c000001, listsync: 00000004, drawsync: 00000002
+[x]   * Continue: 00000000
+[x]   * ge_signal: 00000000 +00000009
+[x]   * ge_finish: 0 at 5c000002, listsync: 00000000, drawsync: 00000000
+[x]   UpdateStallAddr: 80000020
+[x]   Continue: 00000000
+[r]   Callback 2 done: 5c000002
+
+[x] SDK version 03080000
+[x]   * ge_signal: 00000000 +00000006
+[x]   * ge_signal: 100 at 5c000001, listsync: 00000004, drawsync: 00000002
+[r]   UpdateStallAddr: 00000000
+[x]   * ge_signal: 00000000 +00000009
+[x]   * ge_finish: 0 at 5c000002, listsync: 00000000, drawsync: 00000000
+[x]   Continue: 00000000
+[r]   Callback 1 done: 5c000002
+[x]   * ge_signal: 00000000 +00000006
+[x]   * ge_signal: 100 at 5c000001, listsync: 00000004, drawsync: 00000002
+[x]   * Continue: 00000000
+[x]   * ge_signal: 00000000 +00000009
+[x]   * ge_finish: 0 at 5c000002, listsync: 00000000, drawsync: 00000000
+[r]   UpdateStallAddr: 80000020
+[x]   Continue: 00000000
+[r]   Callback 2 done: 5c000002
+
+[x] SDK version 06060010
+[x]   * ge_signal: 00000000 +00000006
+[x]   * ge_signal: 100 at 5c000001, listsync: 00000004, drawsync: 00000002
+[r]   UpdateStallAddr: 00000000
+[x]   * ge_signal: 00000000 +00000009
+[x]   * ge_finish: 0 at 5c000002, listsync: 00000000, drawsync: 00000000
+[x]   Continue: 00000000
+[r]   Callback 1 done: 5c000002
+[x]   * ge_signal: 00000000 +00000006
+[x]   * ge_signal: 100 at 5c000001, listsync: 00000004, drawsync: 00000002
+[x]   * Continue: 00000000
+[x]   * ge_signal: 00000000 +00000009
+[x]   * ge_finish: 0 at 5c000002, listsync: 00000000, drawsync: 00000000
+[r]   UpdateStallAddr: 80000020
+[x]   Continue: 00000000
+[r]   Callback 2 done: 5c000002
+
+[x] Pause with queue head
+[x]   * ge_signal: 00000000 +00000008
+[x]   * ge_signal: 100 at 5c000002, listsync: 00000000, drawsync: 00000002
+[r]   After pause: 5c000002 / 5d000001
+[r]   After enqueue head: 5c000002 / 5d000001
+[x]   * ge_signal: 00000000 +0000000b
+[x]   * ge_finish: 0 at 5c000003, listsync: 00000000, drawsync: 00000000
+[x]   Continue: 00000000
+[r]   Final list: 5c000003 / 5d000010
