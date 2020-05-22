@@ -9,7 +9,18 @@ extern "C" {
 #include "sysmem-imports.h"
 }
 
-static u32 __attribute__((aligned(16))) list[262144];
+struct SceGeStack {
+	unsigned int stack[8];
+};
+
+struct PspGeListArgs2 {
+	unsigned int size;
+	PspGeContext *context;
+	u32 numStacks;
+	SceGeStack *stacks;
+};
+
+static u32 __attribute__((aligned(16))) list[131072];
 
 struct SimpleIDMap {
 	static const int SIZE = 128;
@@ -126,15 +137,15 @@ int makeCompletedList() {
 }
 
 void testSameStackAddr() {
-	PspGeListArgs args = {0};
+	PspGeListArgs2 args = {0};
 	PspGeContext ctx;
 	SceGeStack stack;
 	args.size = sizeof(args);
 	args.context = &ctx;
 	args.numStacks = 1;
 	args.stacks = &stack;
-	int listID1 = sceGeListEnQueue(list, list + 1, -1, &args);
-	int listID2 = sceGeListEnQueue(list, list + 1, -1, &args);
+	int listID1 = sceGeListEnQueue(list, list + 1, -1, (PspGeListArgs *)&args);
+	int listID2 = sceGeListEnQueue(list, list + 1, -1, (PspGeListArgs *)&args);
 	checkpoint("  Enqueued 1: %08x", listID1 >= 0 ? 0x1337 : listID1);
 	checkpoint("  Enqueued 2: %08x", listID2 >= 0 ? 0x1337 : listID2);
 	sceGeBreak(1, NULL);

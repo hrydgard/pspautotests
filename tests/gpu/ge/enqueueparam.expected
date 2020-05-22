@@ -1,0 +1,85 @@
+[x] Normal:
+[x]   Normal: OK
+[x]   Normal: OK
+
+[x] Sizes:
+[x]   Size=-1: OK
+[x]   Size=-1: OK
+[x]   Size=0: OK
+[x]   Size=0: OK
+[x]   Size=1: OK
+[x]   Size=1: OK
+[x]   Size=4: OK
+[x]   Size=4: OK
+[x]   Size=5: OK
+[x]   Size=5: OK
+[x]   Size=8: OK
+[x]   Size=8: OK
+[x]   Size=12: OK
+[x]   Size=12: OK
+[x]   Size=15: OK
+[x]   Size=15: OK
+[x]   Size=16: OK
+[x]   Size=16: OK
+[x]   Size=17: OK
+[x]   Size=17: OK
+[x]   Size=32: OK
+[x]   Size=32: OK
+[x]   Size=64: OK
+[x]   Size=64: OK
+[x]   Size=1024: OK
+[x]   Size=1024: OK
+
+[x] Context:
+[x]   Context size=-1: used
+[x]   Context size=-1 (Head): used
+[x]   Context size=0: used
+[x]   Context size=0 (Head): used
+[x]   Context size=4: used
+[x]   Context size=4 (Head): used
+[x]   Context size=8: used
+[x]   Context size=8 (Head): used
+[x]   Context size=12: used
+[x]   Context size=12 (Head): used
+[x]   Context size=16: used
+[x]   Context size=16 (Head): used
+
+[x] Stack depths:
+[x]   Stack depth=-1: 80000104
+[x]   Stack depth=-1 (Head): 80000104
+[x]   Stack depth=0: OK
+[x]   Stack depth=0: OK
+[x]   Stack depth=1: OK
+[x]   Stack depth=1: OK
+[x]   Stack depth=4: OK
+[x]   Stack depth=4: OK
+[x]   Stack depth=5: OK
+[x]   Stack depth=5: OK
+[x]   Stack depth=255: OK
+[x]   Stack depth=255: OK
+[x]   Stack depth=256: 80000104
+[x]   Stack depth=256 (Head): 80000104
+[x]   Stack depth=257: 80000104
+[x]   Stack depth=257 (Head): 80000104
+[x]   Stack depth=1024: 80000104
+[x]   Stack depth=1024 (Head): 80000104
+
+[x] Stack depth by size:
+[x]   Stack=256 size=-1: 80000104
+[x]   Stack=256 size=-1 (Head): 80000104
+[x]   Stack=256 size=0: OK
+[x]   Stack=256 size=0: OK
+[x]   Stack=256 size=4: OK
+[x]   Stack=256 size=4: OK
+[x]   Stack=256 size=8: OK
+[x]   Stack=256 size=8: OK
+[x]   Stack=256 size=12: OK
+[x]   Stack=256 size=12: OK
+[x]   Stack=256 size=15: OK
+[x]   Stack=256 size=15: OK
+[x]   Stack=256 size=16: 80000104
+[x]   Stack=256 size=16 (Head): 80000104
+[x]   Stack=256 size=17: 80000104
+[x]   Stack=256 size=17 (Head): 80000104
+[x]   Stack=256 size=32: 80000104
+[x]   Stack=256 size=32 (Head): 80000104
