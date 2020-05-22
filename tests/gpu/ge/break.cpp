@@ -5,10 +5,6 @@
 
 #include "../commands/commands.h"
 
-// No idea what the second param could be?  Was getting errors until passing NULL.
-extern "C" int sceGeBreak(int mode, void *unk1);
-extern "C" int sceGeContinue();
-
 static u32 __attribute__((aligned(16))) list[262144];
 
 void logAddresses() {
@@ -53,11 +49,11 @@ extern "C" int main(int argc, char *argv[]) {
 	checkpoint("  Mode 1: %08x", sceGeBreak(1, NULL));
 	checkpoint("  Mode -1: %08x", sceGeBreak(-1, NULL));
 	checkpoint("  Mode 2: %08x", sceGeBreak(2, NULL));
-	checkpoint("  Valid ptr: %08x", sceGeBreak(0, list));
-	checkpoint("  Invalid ptr 1: %08x", sceGeBreak(0, (void *)0xDEADBEEF));
-	checkpoint("  Invalid ptr 2: %08x", sceGeBreak(0, (void *)-1));
-	checkpoint("  Invalid ptr 3: %08x", sceGeBreak(0, (void *)0x7FFFFFF0));
-	checkpoint("  Invalid ptr 4: %08x", sceGeBreak(0, (void *)0x7FFFFFEF));
+	checkpoint("  Valid ptr: %08x", sceGeBreak(0, (PspGeBreakParam *)list));
+	checkpoint("  Invalid ptr 1: %08x", sceGeBreak(0, (PspGeBreakParam *)0xDEADBEEF));
+	checkpoint("  Invalid ptr 2: %08x", sceGeBreak(0, (PspGeBreakParam *)-1));
+	checkpoint("  Invalid ptr 3: %08x", sceGeBreak(0, (PspGeBreakParam *)0x7FFFFFF0));
+	checkpoint("  Invalid ptr 4: %08x", sceGeBreak(0, (PspGeBreakParam *)0x7FFFFFEF));
 
 	checkpointNext("sceGeContinue - empty queue:");
 	checkpoint("  Normal: %08x", sceGeContinue());
