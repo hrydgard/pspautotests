@@ -59,6 +59,7 @@ Tip: If you see PSP Type A, you've connected the PSP in "USB mode".  Disconnect,
 
 ### Step 3: Add pspsdk to PATH
  - Add C:\pspsdk\bin (or equivalent) to your PATH if you haven't already got it.
+ - Go to pspautotests\common and run make (might need to start a new cmd shell)
 
 You are now ready to roll!
 
@@ -66,16 +67,22 @@ You are now ready to roll!
 
 In a command prompt in the directory that you want the PSP software to regard as "host0:/" (normally pspautotests/) if it tries to read files over the cable, type the following:
 
-> cd pspautotests<br />
+```
+> cd pspautotests
 > usbhostfs_pc -b 3000
+```
 
 Then in a separate command prompt:
 
+```
 > pspsh -p 3000
+```
 
 If you now don't see a host0:/ prompt, something is wrong. Most likely the driver has not loaded correctly. If the port 3000 happened to be taken (usbhostfs_pc would have complained), try another port number.
 
-Now you have full access to the PSP from this prompt. You can use gentest.py to run tests (e.g. `gentest.py misc/testgp`) and update the .expected files.
+Now you have full access to the PSP from this prompt.
+
+You can exit it and use gentest.py (which will start the same prompt) to run tests (e.g. `gentest.py misc/testgp`) and update the .expected files.
 
 You can run executables on the PSP that reside on the PC directly from within this the pspsh shell, just cd to the directory and run ./my_program.prx.
 
