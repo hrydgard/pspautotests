@@ -113,8 +113,24 @@ void testBasicParams() {
 
 	checkpointNext("sceFontOpen indexes:");
 	testOpen("  Index -1", fontLib, -1, 0, true);
-	testOpen("  Index 0", fontLib, 0, 0, true);
-	testOpen("  Index 1", fontLib, 1, 0, true);
+	testOpen("  Index 0",  fontLib,  0, 0, true);
+	testOpen("  Index 1",  fontLib,  1, 0, true);
+	testOpen("  Index 2",  fontLib,  2, 0, true);
+	testOpen("  Index 3",  fontLib,  3, 0, true);
+	testOpen("  Index 4",  fontLib,  4, 0, true);
+	testOpen("  Index 5",  fontLib,  5, 0, true);
+	testOpen("  Index 6",  fontLib,  6, 0, true);
+	testOpen("  Index 7",  fontLib,  7, 0, true);
+	testOpen("  Index 8",  fontLib,  8, 0, true);
+	testOpen("  Index 9",  fontLib,  9, 0, true);
+	testOpen("  Index 10", fontLib, 10, 0, true);
+	testOpen("  Index 11", fontLib, 11, 0, true);
+	testOpen("  Index 12", fontLib, 12, 0, true);
+	testOpen("  Index 13", fontLib, 13, 0, true);
+	testOpen("  Index 14", fontLib, 14, 0, true);
+	testOpen("  Index 15", fontLib, 15, 0, true);
+	testOpen("  Index 16", fontLib, 16, 0, true);
+	testOpen("  Index 17", fontLib, 17, 0, true);
 	testOpen("  Index 50", fontLib, 50, 0, true);
 
 	checkpointNext("sceFontOpen modes:");
