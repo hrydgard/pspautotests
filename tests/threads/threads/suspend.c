@@ -7,6 +7,13 @@ int testThread(SceSize argc, void *argp) {
 	return 0;
 }
 
+int testReScheduleThread(SceSize argc, void *argp) {
+	checkpoint(" - Suspending");
+	sceKernelSuspendThread(sceKernelGetThreadId());
+	checkpoint(" - Resumed form suspend and rescheduled");
+	return 0;
+}
+
 int main(int argc, char *argv[]) {
 	SceUID createdThread = sceKernelCreateThread("test", &testThread, 0x30, 0x800, 0, NULL);
 	SceUID readyThread = sceKernelCreateThread("test", &testThread, 0x30, 0x800, 0, NULL);
@@ -15,6 +22,7 @@ int main(int argc, char *argv[]) {
 	sceKernelStartThread(finishedThread, 0, NULL);
 	SceUID deletedThread = sceKernelCreateThread("test", &testThread, 0x10, 0x800, 0, NULL);
 	sceKernelDeleteThread(deletedThread);
+	SceUID reScheduleThread = sceKernelCreateThread("reSchedule test", &testReScheduleThread, 0x10, 0x800, 0, NULL);
 
 	checkpointNext("sceKernelSuspendThread:");
 	checkpoint("  Zero: %08x", sceKernelSuspendThread(0));
@@ -53,6 +61,11 @@ int main(int argc, char *argv[]) {
 	checkpoint("  Terminate: %08x", sceKernelTerminateThread(readyThread));
 	checkpoint("  Start again: %08x", sceKernelStartThread(readyThread, 4, &argc));
 	checkpoint("  Delay: %08x", sceKernelDelayThread(1000));
+
+	checkpointNext("Reschedule after resuming:");
+	sceKernelStartThread(reScheduleThread, 0, NULL);
+	sceKernelResumeThread(reScheduleThread);
+	checkpoint("Exit from reSchedule");
 
 	return 0;
 }
