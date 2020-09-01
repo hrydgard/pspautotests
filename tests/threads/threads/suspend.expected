@@ -29,3 +29,8 @@
 [x]   Start again: 00000000
 [r]  - testThread
 [r]   Delay: 00000000
+
+[x] Reschedule after resuming:
+[x]  - Suspending
+[x]  - Resumed form suspend and rescheduled
+[x] Exit from reSchedule
