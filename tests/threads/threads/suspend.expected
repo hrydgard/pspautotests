@@ -31,6 +31,10 @@
 [r]   Delay: 00000000
 
 [x] Reschedule after resuming:
-[x]  - Suspending
-[x]  - Resumed form suspend and rescheduled
+[x]  - Suspended
+[x]  - Resumed from suspend and rescheduled
 [x] Exit from reSchedule
+
+[x] Reschedule after resuming(same priority):
+[r]  - Suspended
+[x] Exit from reSchedule(same priority)
