@@ -1,0 +1,33 @@
+[x] Cull:
+[r]   Transform 2D (0/0, cw): 001f1fff
+[r]   Transform 2D (0/0, ccw): 001f1fff
+[r]   Transform 2D (type=0, cw): 003f3f3f
+[r]   Transform 2D (type=0, ccw): 001f1fff
+[r]   Transform 2D (type=1, cw): 001f1fff
+[r]   Transform 2D (type=1, ccw): 003f3f3f
+[r]   Transform 2D (type=1, cw sprite): 001f1fff
+[r]   Transform 2D (type=1, ccw sprite): 001f1fff
+[r]   Transform 3D (0/0, cw): 001f1fff
+[r]   Transform 3D (0/0, ccw): 001f1fff
+[r]   Transform 3D (type=0, cw): 003f3f3f
+[r]   Transform 3D (type=0, ccw): 001f1fff
+[r]   Transform 3D (type=1, cw): 001f1fff
+[r]   Transform 3D (type=1, ccw): 003f3f3f
+[r]   Transform 3D (type=1, cw sprite): 001f1fff
+[r]   Transform 3D (type=1, ccw sprite): 001f1fff
+[r]   Clear 2D (0/0, cw): 001f1fff
+[r]   Clear 2D (0/0, ccw): 001f1fff
+[r]   Clear 2D (type=0, cw): 001f1fff
+[r]   Clear 2D (type=0, ccw): 001f1fff
+[r]   Clear 2D (type=1, cw): 001f1fff
+[r]   Clear 2D (type=1, ccw): 001f1fff
+[r]   Clear 2D (type=1, cw sprite): 001f1fff
+[r]   Clear 2D (type=1, ccw sprite): 001f1fff
+[r]   Clear 3D (0/0, cw): 001f1fff
+[r]   Clear 3D (0/0, ccw): 001f1fff
+[r]   Clear 3D (type=0, cw): 001f1fff
+[r]   Clear 3D (type=0, ccw): 001f1fff
+[r]   Clear 3D (type=1, cw): 001f1fff
+[r]   Clear 3D (type=1, ccw): 001f1fff
+[r]   Clear 3D (type=1, cw sprite): 001f1fff
+[r]   Clear 3D (type=1, ccw sprite): 001f1fff

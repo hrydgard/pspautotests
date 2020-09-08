@@ -1,4 +1,4 @@
-TARGETS = basic blend blend565 blocktransfer material light
+TARGETS = basic blend blend565 blocktransfer cull material light
 EXTRA_OBJS = ../../dmac/dmac-imports.o shared.o
 EXTRA_LIBS = -lpspgum -lm -lstdc++ -lc
 
