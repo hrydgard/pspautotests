@@ -328,8 +328,13 @@ def main():
   init()
   tests = []
   args = []
-  for arg in sys.argv[1:]:
+  it = iter(sys.argv[1:])
+  global TIMEOUT
+  for arg in it:
     if arg[0] == "-":
+      if arg == "-t" or arg == "--timeout":
+        TIMEOUT = int(next(it))
+        
       args.append(arg)
     else:
       tests.append(arg.replace("\\", "/"))
@@ -347,6 +352,7 @@ def main():
     print("      --sdkver=VER      use sceKernelSetCompiledSdkVersion(VER)")
     print("      --sdkver-func=### use sceKernelSetCompiledSdkVersion###(VER)")
     print("  -a, --all-versions    run the test for all known versions")
+    print("  -t, --timeout secs    set the timeout in seconds to secs")
     return
 
   if "-a" in args or "--all-versions" in args:
