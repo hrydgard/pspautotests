@@ -1,0 +1,530 @@
+[x] no save name(auto load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:0): 00000000
+[r] result: 00000000 => 80110307
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:0): 00000000
+
+[x] save name not in the list(auto load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:0): 00000000
+[r] result: 00000000 => 80110307
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901E0/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:0): 00000000
+
+[x] save name is the first in the list(auto load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:0): 00000000
+
+[x] save name is in the list but not first(auto load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:0): 00000000
+[r] result: 00000000 => 80110307
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:0): 00000000
+
+[x] save name could be anything(auto load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:0): 00000000
+[r] result: 00000000 => 80110307
+
+[x] no save name(load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:2): 00000000
+[r] result: 00000000 => 80110307
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:2): 00000000
+
+[x] save name not in the list(load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:2): 00000000
+[r] result: 00000000 => 80110307
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901E0/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:2): 00000000
+
+[x] save name is the first in the list(load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:2): 00000000
+
+[x] save name is in the list but not first(load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:2): 00000000
+[r] result: 00000000 => 80110307
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:2): 00000000
+
+[x] save name could be anything(load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:2): 00000000
+[r] result: 00000000 => 80110307
+
+[x] no save name(list load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:4): 00000000
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:4): 00000000
+
+[x] save name not in the list(list load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:4): 00000000
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:4): 00000000
+
+[x] save name is the first in the list(list load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:4): 00000000
+
+[x] save name is in the list but not first(list load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:4): 00000000
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:4): 00000000
+
+[x] save name could be anything(list load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:4): 00000000
+
+[x] no save name(read data secure):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:15): 00000000
+[r] result: 00000000 => 80110327
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:15): 00000000
+
+[x] save name not in the list(read data secure):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:15): 00000000
+[r] result: 00000000 => 80110327
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901E0/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:15): 00000000
+
+[x] save name is the first in the list(read data secure):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:15): 00000000
+
+[x] save name is in the list but not first(read data secure):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:15): 00000000
+[r] result: 00000000 => 80110327
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:15): 00000000
+
+[x] save name could be anything(read data secure):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:15): 00000000
+[r] result: 00000000 => 80110327
+
+[x] no save name(read data):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:16): 00000000
+[r] result: 00000000 => 80110327
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:16): 00000000
+[r] result: 00000000 => 80110326
+
+[x] save name not in the list(read data):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:16): 00000000
+[r] result: 00000000 => 80110327
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901E0/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:16): 00000000
+[r] result: 00000000 => 80110326
+
+[x] save name is the first in the list(read data):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:16): 00000000
+[r] result: 00000000 => 80110326
+
+[x] save name is in the list but not first(read data):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:16): 00000000
+[r] result: 00000000 => 80110327
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:16): 00000000
+[r] result: 00000000 => 80110326
+
+[x] save name could be anything(read data):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:16): 00000000
+[r] result: 00000000 => 80110327
+
+[x] no save name list(auto load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:0): 00000000
+
+[x] no save name list(load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:2): 00000000
+
+[x] no save name list(list load):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:4): 00000000
+
+[x] no save name list(read data secure):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:15): 00000000
+
+[x] no save name list(read data):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+
+[x] Checking for files:
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901/DATA.BIN (80010002)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   File exists: ms0:/PSP/SAVEDATA/TEST99901ABC/DATA.BIN (00000000)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901F1/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901M2/DATA.BIN (80010002)
+[r]   Does not exist: ms0:/PSP/SAVEDATA/TEST99901L3/DATA.BIN (80010002)
+[r] sceUtilitySavedataInitStart(mode:16): 00000000
+[r] result: 00000000 => 80110326
