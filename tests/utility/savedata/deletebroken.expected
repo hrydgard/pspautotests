@@ -1,0 +1,172 @@
+[x] auto delete(broken 1):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+[r] sceUtilitySavedataInitStart(mode:9): 00000000
+
+[x] delete(broken 1):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+[r] sceUtilitySavedataInitStart(mode:10): 00000000
+
+[x] list delete(broken 1):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+[r] sceUtilitySavedataInitStart(mode:6): 00000000
+[r] result: 00000000 => 80110347
+
+[x] list all delete(broken 1):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+[r] sceUtilitySavedataInitStart(mode:7): 00000000
+[r] result: 00000000 => 00000001
+
+[x] delete data(broken 1):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+[r] sceUtilitySavedataInitStart(mode:21): 00000000
+
+[x] erase secure(broken 1):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+[r] sceUtilitySavedataInitStart(mode:19): 00000000
+[r] result: 00000000 => 80110329
+
+[x] erase(broken 1):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+[r] sceUtilitySavedataInitStart(mode:20): 00000000
+[r] result: 00000000 => 80110329
+
+[x] auto delete(broken 2):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:9): 00000000
+
+[x] delete(broken 2):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:10): 00000000
+
+[x] list delete(broken 2):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:6): 00000000
+[r] result: 00000000 => 80110347
+
+[x] list all delete(broken 2):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:7): 00000000
+[r] result: 00000000 => 00000001
+
+[x] delete data(broken 2):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:21): 00000000
+
+[x] erase secure(broken 2):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:19): 00000000
+[r] result: 00000000 => 80110326
+
+[x] erase(broken 2):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:20): 00000000
+[r] result: 00000000 => 80110326
+
+[x] auto delete(broken 3):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:9): 00000000
+
+[x] delete(broken 3):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:10): 00000000
+
+[x] list delete(broken 3):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:6): 00000000
+[r] result: 00000000 => 80110347
+
+[x] list all delete(broken 3):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:7): 00000000
+[r] result: 00000000 => 00000001
+
+[x] delete data(broken 3):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:21): 00000000
+
+[x] erase secure(broken 3):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:19): 00000000
+[r] result: 00000000 => 80110326
+
+[x] erase(broken 3):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:20): 00000000
+[r] result: 00000000 => 80110326
