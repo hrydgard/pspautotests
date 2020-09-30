@@ -1,0 +1,44 @@
+[x] auto load:
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:0): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] Secure:TEST1.OBJ
+[x] System:PARAM.SFO
+[x] loaddata:Orignal data
+
+[x] load:
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:2): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] Secure:TEST1.OBJ
+[x] System:PARAM.SFO
+[x] loaddata:Orignal data
+
+[x] list load:
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:4): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] Secure:TEST1.OBJ
+[x] System:PARAM.SFO
+[x] loaddata:Orignal data
+
+[x] read data secure:
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:15): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] Secure:TEST1.OBJ
+[x] System:PARAM.SFO
+[x] loaddata:Orignal data
+
+[x] read data:
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:16): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] Secure:TEST1.OBJ
+[x] System:PARAM.SFO
+[x] loaddata:Orignal data

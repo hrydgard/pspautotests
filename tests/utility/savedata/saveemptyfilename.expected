@@ -1,0 +1,52 @@
+[x] auto save
+[r] sceUtilitySavedataInitStart(mode:1): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+[x] loaddata:Orignal data
+
+[x] save:
+[r] sceUtilitySavedataInitStart(mode:3): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+[x] loaddata:Orignal data
+
+[x] list save:
+[r] sceUtilitySavedataInitStart(mode:5): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+[x] loaddata:Orignal data
+
+[x] write data secure:
+[r] sceUtilitySavedataInitStart(mode:17): 00000000
+[r] result: 00000000 => 80110327
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110327
+[r] Files:
+[x] System:
+[x] loaddata:Orignal data
+
+[x] write data:
+[r] sceUtilitySavedataInitStart(mode:18): 00000000
+[r] result: 00000000 => 80110327
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110327
+[r] Files:
+[x] System:
+[x] loaddata:Orignal data
+
+[x] make data secure:
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+[x] loaddata:Orignal data
+
+[x] make data:
+[r] sceUtilitySavedataInitStart(mode:14): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+[x] loaddata:Orignal data
