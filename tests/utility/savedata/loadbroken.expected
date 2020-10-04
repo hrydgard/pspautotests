@@ -1,0 +1,129 @@
+[x] auto load(broken 1):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+[r] sceUtilitySavedataInitStart(mode:0): 00000000
+[r] result: 00000000 => 80110309
+
+[x] load(broken 1):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+[r] sceUtilitySavedataInitStart(mode:2): 00000000
+[r] result: 00000000 => 80110309
+
+[x] list load(broken 1):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+[r] sceUtilitySavedataInitStart(mode:4): 00000000
+[r] result: 00000000 => 80110309
+
+[x] read data secure(broken 1):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+[r] sceUtilitySavedataInitStart(mode:15): 00000000
+[r] result: 00000000 => 80110329
+
+[x] read data(broken 1):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+[r] sceUtilitySavedataInitStart(mode:16): 00000000
+[r] result: 00000000 => 80110329
+
+[x] auto load(broken 2):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:0): 00000000
+[r] result: 00000000 => 80110306
+
+[x] load(broken 2):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:2): 00000000
+[r] result: 00000000 => 80110306
+
+[x] list load(broken 2):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:4): 00000000
+[r] result: 00000000 => 80110306
+
+[x] read data secure(broken 2):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:15): 00000000
+[r] result: 00000000 => 80110326
+
+[x] read data(broken 2):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:16): 00000000
+[r] result: 00000000 => 80110326
+
+[x] auto load(broken 3):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:0): 00000000
+[r] result: 00000000 => 80110306
+
+[x] load(broken 3):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:2): 00000000
+[r] result: 00000000 => 80110306
+
+[x] list load(broken 3):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:4): 00000000
+[r] result: 00000000 => 80110306
+
+[x] read data secure(broken 3):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:15): 00000000
+[r] result: 00000000 => 80110326
+
+[x] read data(broken 3):
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110326
+[r] Files:
+[x] System:
+[r] sceUtilitySavedataInitStart(mode:16): 00000000
+[r] result: 00000000 => 80110326

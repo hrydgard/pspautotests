@@ -1,0 +1,50 @@
+[x] auto delete:
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:9): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110327
+[r] Files:
+
+[x] delete:
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:10): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110327
+[r] Files:
+
+[x] list delete:
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:6): 00000000
+[r] result: 00000000 => 80110347
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110327
+[r] Files:
+
+[x] list all delete:
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:7): 00000000
+[r] result: 00000000 => 00000001
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110327
+[r] Files:
+
+[x] delete data:
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:21): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] result: 00000000 => 80110327
+[r] Files:
+
+[x] erase secure:
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:19): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
+
+[x] erase:
+[r] sceUtilitySavedataInitStart(mode:13): 00000000
+[r] sceUtilitySavedataInitStart(mode:20): 00000000
+[r] sceUtilitySavedataInitStart(mode:12): 00000000
+[r] Files:
+[x] System:PARAM.SFO
