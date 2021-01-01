@@ -47,9 +47,9 @@
 [x] sceUtilitySavedataGetStatus: 00000002 (duplicates skipped)
 [r] sceUtilitySavedataUpdate: 00000000 (duplicates skipped)
 CHANGE: msFree.clusterSize: 00000000 => 00008000
-CHANGE: msFree.freeClusters: 00000000 => 00008000
-CHANGE: msFree.freeSpaceKB: 00000000 => 00100000
-CHANGE: msFree.freeSpaceStr:  => 1 GB
+CHANGE: msFree.freeClusters: 00000000 => 0007ffff
+CHANGE: msFree.freeSpaceKB: 00000000 => 00fffffb
+CHANGE: msFree.freeSpaceStr:  => 15 GB
 CHANGE: utilityData.usedClusters: 00000000 => 00000003
 CHANGE: utilityData.usedSpaceKB: 00000000 => 00000060
 CHANGE: utilityData.usedSpaceStr:  => 96 KB
