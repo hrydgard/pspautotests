@@ -3,6 +3,7 @@
 *.map
 *.o
 *.a
+*.ppmap
 PARAM.SFO
 
 .pspsh.hist
