@@ -1,0 +1,9 @@
+[x] sceIoOpen tty0:
+[x]   Read only: 00000005
+[x]   Write only: 00000006
+[x]   Read write: 00000007
+[x]   Create: 00000008
+[x]   Truncate: 00000009
+[x]   Append: 0000000a
+[x]   With name: 0000000b
+[x]   TTY1: 0000000c
