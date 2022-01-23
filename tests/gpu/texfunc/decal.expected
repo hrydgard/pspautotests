@@ -13,6 +13,7 @@
 [r]   One x2 + Half: COLOR=44ffffff
 [r]   Half x2 + One: COLOR=44ffffff
 [r]   Quarter x2 + Half: COLOR=44dfdfdf
+[r]   Quarter x2 + Half (no alpha): COLOR=447e7e7e
 
 [x] Alpha:
 [r]   Half + Half (alpha): COLOR=ff7f7f7f
