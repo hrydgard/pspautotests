@@ -119,6 +119,7 @@ extern "C" int main(int argc, char *argv[]) {
 	testTexFunc("  One x2 + Half", 0xFFFFFFFF, 0x7F7F7F7F, true, ALPHA_NORMAL);
 	testTexFunc("  Half x2 + One", 0x7F7F7F7F, 0xFFFFFFFF, true, ALPHA_NORMAL);
 	testTexFunc("  Quarter x2 + Half", 0x3F3F3F3F, 0x7F7F7F7F, true, ALPHA_NORMAL);
+	testTexFunc("  Quarter x2 + Half (no alpha)", 0x3F3F3F3F, 0x7F7F7F7F, true, ALPHA_DISABLE);
 
 	checkpointNext("Alpha:");
 	testTexFunc("  Half + Half (alpha)", 0x7F000000, 0x7F000000, false, ALPHA_TO_RGB);

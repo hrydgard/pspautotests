@@ -60,18 +60,22 @@ Vertex verticesThrough[2] = { {0, 0, 0, 0, 0}, {2, 2, 2, 2, 0} };
 Vertex verticesTransform[2] = { {0, 0, norm16x(0), norm16y(0), 65500}, {256, 256, norm16x(2), norm16y(2), 65535} };
 
 int getBuffer() {
-	sceKernelDcacheWritebackInvalidateAll();
-	sceDmacMemcpy(copybuf, drawbuf, sizeof(copybuf));
-	sceKernelDcacheWritebackInvalidateAll();
+	sceKernelDcacheWritebackInvalidateRange(copybuf, sizeof(copybuf));
+	sceKernelDcacheWritebackInvalidateRange(drawbuf, sizeof(copybuf));
+	sceDmacMemcpy(copybuf, drawbuf, 512 * 4);
+	sceKernelDcacheWritebackInvalidateRange(copybuf, sizeof(copybuf));
+	sceKernelDcacheWritebackInvalidateRange(drawbuf, sizeof(copybuf));
 
 	return copybuf[0] & 0x00FFFFFF;
 }
 
 void resetBuffer(int c) {
-	memset(copybuf, c, sizeof(copybuf));
-	sceKernelDcacheWritebackInvalidateAll();
-	sceDmacMemcpy(drawbuf, copybuf, sizeof(copybuf));
-	sceKernelDcacheWritebackInvalidateAll();
+	memset(copybuf, c, 512 * 4);
+	sceKernelDcacheWritebackInvalidateRange(copybuf, sizeof(copybuf));
+	sceKernelDcacheWritebackInvalidateRange(drawbuf, sizeof(copybuf));
+	sceDmacMemcpy(drawbuf, copybuf, 512 * 4);
+	sceKernelDcacheWritebackInvalidateRange(copybuf, sizeof(copybuf));
+	sceKernelDcacheWritebackInvalidateRange(drawbuf, sizeof(copybuf));
 }
 
 DXT1Block *getTexturePtr(int img) {
@@ -121,7 +125,7 @@ void init() {
 	sceGuViewport(2048, 2048, 480, 272);
 	sceGuDepthRange(65535, 65500);
 	sceGuDepthMask(0);
-	sceGuScissor(0, 0, 480, 272);
+	sceGuScissor(0, 0, 8, 8);
 	sceGuEnable(GU_SCISSOR_TEST);
 	sceGuDisable(GU_DITHER);
 	sceGuFrontFace(GU_CW);

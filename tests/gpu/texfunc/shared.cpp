@@ -17,7 +17,7 @@ void initDisplay() {
 	sceGuDepthRange(65535, 0);
 	sceGuDepthMask(0);
 	sceGuScissor(0, 0, 8, 8);
-	sceGuDisable(GU_SCISSOR_TEST);
+	sceGuEnable(GU_SCISSOR_TEST);
 	sceGuFrontFace(GU_CW);
 	sceGuShadeModel(GU_SMOOTH);
 	sceGuEnable(GU_TEXTURE_2D);
