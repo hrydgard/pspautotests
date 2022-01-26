@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define sceRtcSetWin32FileTime sceRtcSetWin32FileTime_WRONG
 
 #include <pspkernel.h>
@@ -70,3 +74,7 @@ static void checkPspTime(pspTime pt) {
 		printf("Microseconds: OK\n");
 	}
 }
+
+#ifdef __cplusplus
+}
+#endif
