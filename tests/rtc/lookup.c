@@ -2,119 +2,104 @@
 #include "rtc_common.h"
 
 void checkDaysInMonth() {
-	printf("Checking sceRtcGetDaysInMonth\n");
-	printf("sceRtcGetDaysInMonth:2010, 4\n");
-	printf("%d\n", sceRtcGetDaysInMonth(2010, 4));
+	checkpointNext("Checking sceRtcGetDaysInMonth");
+	checkpoint("sceRtcGetDaysInMonth:2010, 4: %d", sceRtcGetDaysInMonth(2010, 4));
+}
+
+static void testRtcGetDayOfWeek(int y, int m, int d) {
+	checkpoint("sceRtcGetDayOfWeek:%d, %d, %d: %d", y, m, d, sceRtcGetDayOfWeek(y, m, d));
 }
 
 void checkDayOfWeek() {
-	printf("Checking sceRtcGetDayOfWeek\n");
-	printf("sceRtcGetDayOfWeek:2010, 4, 27\n");
-	printf("%d\n", sceRtcGetDayOfWeek(2010, 4, 27));
+	checkpointNext("Checking sceRtcGetDayOfWeek");
+	testRtcGetDayOfWeek(2010, 4, 27);
 	
 	//A game does this: sceRtcGetDayOfWeek(166970016, 1024, 0)
-	printf("sceRtcGetDayOfWeek:166970016, 1024, 0\n");
-	printf("%d\n", sceRtcGetDayOfWeek(166970016, 1024, 0));
+	testRtcGetDayOfWeek(166970016, 1024, 0);
 	
 	// test random no valid date
 	// leap year
-	printf("sceRtcGetDayOfWeek:2000, 0, 0\n");
-	printf("%d\n", sceRtcGetDayOfWeek(2000, 0, 0));
-	printf("sceRtcGetDayOfWeek:2000, 1, 0\n");
-	printf("%d\n", sceRtcGetDayOfWeek(2000, 1, 0));
-	printf("sceRtcGetDayOfWeek:2000, 573, 0\n");
-	printf("%d\n", sceRtcGetDayOfWeek(2000, 573, 0));
-	printf("sceRtcGetDayOfWeek:2000, 1, 2458\n");
-	printf("%d\n", sceRtcGetDayOfWeek(2000, 1, 2458));
-	printf("sceRtcGetDayOfWeek:2000, 4587, 2458\n");
-	printf("%d\n", sceRtcGetDayOfWeek(2000, 4587, 2458));
+	testRtcGetDayOfWeek(2000, 0, 0);
+	testRtcGetDayOfWeek(2000, 1, 0);
+	testRtcGetDayOfWeek(2000, 573, 0);
+	testRtcGetDayOfWeek(2000, 1, 2458);
+	testRtcGetDayOfWeek(2000, 4587, 2458);
 	
 	// standard year
-	printf("sceRtcGetDayOfWeek:2001, 0, 0\n");
-	printf("%d\n", sceRtcGetDayOfWeek(2001, 0, 0));
-	printf("sceRtcGetDayOfWeek:2001, 1, 0\n");
-	printf("%d\n", sceRtcGetDayOfWeek(2001, 1, 0));
-	printf("sceRtcGetDayOfWeek:2001, 573, 0\n");
-	printf("%d\n", sceRtcGetDayOfWeek(2001, 573, 0));
-	printf("sceRtcGetDayOfWeek:2001, 1, 2458\n");
-	printf("%d\n", sceRtcGetDayOfWeek(2001, 1, 2458));
-	printf("sceRtcGetDayOfWeek:2001, 4587, 2458\n");
-	printf("%d\n", sceRtcGetDayOfWeek(2001, 4587, 2458));
+	testRtcGetDayOfWeek(2001, 0, 0);
+	testRtcGetDayOfWeek(2001, 1, 0);
+	testRtcGetDayOfWeek(2001, 573, 0);
+	testRtcGetDayOfWeek(2001, 1, 2458);
+	testRtcGetDayOfWeek(2001, 4587, 2458);
 }
 
-void checkIsLeapYear()
-{
-	printf("Checking sceRtcIsLeapYear\n");
-	printf("Leap Years:\n");
-	printf("1636: %08x\n", sceRtcIsLeapYear(1636));
-	printf("1776: %08x\n", sceRtcIsLeapYear(1776));
-	printf("1872: %08x\n", sceRtcIsLeapYear(1872));
-	printf("1948: %08x\n", sceRtcIsLeapYear(1948));
-	printf("2004: %08x\n", sceRtcIsLeapYear(2004));
-	printf("2096: %08x\n", sceRtcIsLeapYear(2096));
-	printf("Non-Leap Years:\n");
-	printf("1637: %08x\n", sceRtcIsLeapYear(1637));
-	printf("1777: %08x\n", sceRtcIsLeapYear(1777));
-	printf("1873: %08x\n", sceRtcIsLeapYear(1873));
-	printf("1949: %08x\n", sceRtcIsLeapYear(1949));
-	printf("2005: %08x\n", sceRtcIsLeapYear(2005));
-	printf("2097: %08x\n", sceRtcIsLeapYear(2097));
+void checkIsLeapYear() {
+	checkpointNext("Checking sceRtcIsLeapYear");
+	checkpointNext("Leap Years:");
+	checkpoint("1636: %08x", sceRtcIsLeapYear(1636));
+	checkpoint("1776: %08x", sceRtcIsLeapYear(1776));
+	checkpoint("1872: %08x", sceRtcIsLeapYear(1872));
+	checkpoint("1948: %08x", sceRtcIsLeapYear(1948));
+	checkpoint("2004: %08x", sceRtcIsLeapYear(2004));
+	checkpoint("2096: %08x", sceRtcIsLeapYear(2096));
+	checkpointNext("Non-Leap Years:");
+	checkpoint("1637: %08x", sceRtcIsLeapYear(1637));
+	checkpoint("1777: %08x", sceRtcIsLeapYear(1777));
+	checkpoint("1873: %08x", sceRtcIsLeapYear(1873));
+	checkpoint("1949: %08x", sceRtcIsLeapYear(1949));
+	checkpoint("2005: %08x", sceRtcIsLeapYear(2005));
+	checkpoint("2097: %08x", sceRtcIsLeapYear(2097));
 }
 
-void checkMaxYear()
-{
-	printf("Checking sceRtcCheckValid for maximum year\n");
+void checkMaxYear() {
+	checkpointNext("Checking sceRtcCheckValid for maximum year");
 
 	int result, y;
 
 	pspTime pt;
 	FillPSPTime(&pt,1,1,1,0,0,0,1);
-	for (y = 1; y < SHRT_MAX; y++) 
-	{
+	for (y = 1; y < SHRT_MAX; y++) {
 		pt.year = y;
 		result = sceRtcCheckValid(&pt);
-		if (result != 0) 
-		{
-			printf("Max year: %d, struct year: %d, result: %d\n", y, pt.year, result);
+		if (result != 0) {
+			checkpoint("Max year: %d, struct year: %d, result: %d", y, pt.year, result);
 			break;
 		}
 	}
 }
 
-void checkRtcCheckValid()
-{
-	printf("Checking sceRtcCheckValid\n");
+void checkRtcCheckValid() {
+	checkpointNext("Checking sceRtcCheckValid");
 
 	pspTime pt;
 	
 	FillPSPTime(&pt,2012,9,20,7,0,0,0);
-	printf("Valid Date:%d\n", sceRtcCheckValid(&pt));
+	checkpoint("Valid Date: %d", sceRtcCheckValid(&pt));
 
 	FillPSPTime(&pt,-98,56,100,26,61,61,100000000);
-	printf("Very invalid Date:%d\n", sceRtcCheckValid(&pt));
+	checkpoint("Very invalid Date: %d", sceRtcCheckValid(&pt));
 
 	FillPSPTime(&pt,-98,9,20,7,0,0,0);
-	printf("invalid year:%d\n", sceRtcCheckValid(&pt));
+	checkpoint("invalid year: %d", sceRtcCheckValid(&pt));
 
 	FillPSPTime(&pt,2012,-9,20,7,0,0,0);
-	printf("invalid month:%d\n", sceRtcCheckValid(&pt));
+	checkpoint("invalid month: %d", sceRtcCheckValid(&pt));
 
 	FillPSPTime(&pt,2012,9,-20,7,0,0,0);
-	printf("invalid day:%d\n", sceRtcCheckValid(&pt));
+	checkpoint("invalid day: %d", sceRtcCheckValid(&pt));
 
 	FillPSPTime(&pt,2012,9,20,-7,0,0,0);
-	printf("invalid hour:%d\n", sceRtcCheckValid(&pt));
+	checkpoint("invalid hour: %d", sceRtcCheckValid(&pt));
 
 	FillPSPTime(&pt,2012,9,20,7,-10,10,10);
-	printf("invalid minutes:%d\n", sceRtcCheckValid(&pt));
+	checkpoint("invalid minutes: %d", sceRtcCheckValid(&pt));
 
 	FillPSPTime(&pt,2012,9,20,7,10,-10,10);
-	printf("invalid seconds:%d\n", sceRtcCheckValid(&pt));
+	checkpoint("invalid seconds: %d", sceRtcCheckValid(&pt));
 
 	FillPSPTime(&pt,2012,9,20,7,10,10,-10);
-	printf("invalid microseconds:%d\n", sceRtcCheckValid(&pt));
+	checkpoint("invalid microseconds: %d", sceRtcCheckValid(&pt));
 }
-
 
 int main(int argc, char **argv) {
 	checkDaysInMonth();
