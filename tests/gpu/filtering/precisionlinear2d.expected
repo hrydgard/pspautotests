@@ -1,0 +1,82 @@
+[x] Initial: COLOR=44444444, left=-1, 00000000, top=-1, 00000000
+
+[x] Orientations:
+[r]   TL -> BR: COLOR=44ffffff, left=72, 44efefff, top=72, 44efefef
+[r]   BR -> TL: COLOR=4400ff00, left=64, 4400ef00, top=64, 4400ef0f
+[r]   TR -> BL: COLOR=440000ff, left=72, 44000fef, top=64, 440f0fff
+[r]   BL -> TR: COLOR=44000000, left=64, 440f0f0f, top=72, 44000f00
+[r]   TL -> BR (small): COLOR=44ffffff, left=1, 440000ff, top=1, 44000000
+
+[x] Offsets
+[r]   One texel: COLOR=443f7f7f, left=8, 44377f7f, top=8, 44377f6f
+[r]   Half texel: COLOR=44ffffff, left=8, 44efefff, top=8, 44efefef
+[r]   Negative half texel: COLOR=44ffffff, left=136, 44efefff, top=136, 44efefef
+[r]   Half texel (small): COLOR=443f7f7f, left=1, 44007f7f, top=1, 44007f00
+
+[x] Pos X offsets:
+[r]   Pos X offset 0: COLOR=44ffffff, left=1, 440000ff, top=1, 44000000
+[r]   Pos X offset (256x) 0: COLOR=44ffffff, left=144, 44efefff, top=144, 44efefef
+[r]   Pos X offset 1: COLOR=44efefef, left=1, 44000fef, top=1, 44000000
+[r]   Pos X offset (256x) 1: COLOR=44ffffff, left=144, 44efefff, top=144, 44efefef
+[r]   Pos X offset 2: COLOR=44dfdfdf, left=1, 44001fdf, top=1, 44000000
+[r]   Pos X offset (256x) 2: COLOR=44ffffff, left=144, 44efefff, top=144, 44efefef
+[r]   Pos X offset 3: COLOR=44cfcfcf, left=1, 44002fcf, top=1, 44000000
+[r]   Pos X offset (256x) 3: COLOR=44ffffff, left=144, 44efefff, top=144, 44efefef
+[r]   Pos X offset 4: COLOR=44bfbfbf, left=1, 44003fbf, top=1, 44000000
+[r]   Pos X offset (256x) 4: COLOR=44ffffff, left=144, 44efefff, top=144, 44efefef
+[r]   Pos X offset 5: COLOR=44afafaf, left=1, 44004faf, top=1, 44000000
+[r]   Pos X offset (256x) 5: COLOR=44ffffff, left=144, 44efefff, top=144, 44efefef
+[r]   Pos X offset 6: COLOR=449f9f9f, left=1, 44005f9f, top=1, 44000000
+[r]   Pos X offset (256x) 6: COLOR=44ffffff, left=144, 44efefff, top=144, 44efefef
+[r]   Pos X offset 7: COLOR=448f8f8f, left=1, 44006f8f, top=1, 44000000
+[r]   Pos X offset (256x) 7: COLOR=44ffffff, left=144, 44efefff, top=144, 44efefef
+[r]   Pos X offset 8: COLOR=447f7f7f, left=1, 44007f7f, top=1, 44444444
+[r]   Pos X offset (256x) 8: COLOR=44ffffff, left=144, 44efefff, top=143, 44efefef
+[r]   Pos X offset 9: COLOR=446f6f6f, left=1, 44008f6f, top=1, 44444444
+[r]   Pos X offset (256x) 9: COLOR=44ffffff, left=144, 44efefff, top=143, 44efefef
+[r]   Pos X offset 10: COLOR=445f5f5f, left=1, 44009f5f, top=1, 44444444
+[r]   Pos X offset (256x) 10: COLOR=44ffffff, left=144, 44efefff, top=143, 44efefef
+[r]   Pos X offset 11: COLOR=444f4f4f, left=1, 4400af4f, top=1, 44444444
+[r]   Pos X offset (256x) 11: COLOR=44ffffff, left=144, 44efefff, top=143, 44efefef
+[r]   Pos X offset 12: COLOR=443f3f3f, left=1, 4400bf3f, top=1, 44444444
+[r]   Pos X offset (256x) 12: COLOR=44ffffff, left=144, 44efefff, top=143, 44efefef
+[r]   Pos X offset 13: COLOR=442f2f2f, left=1, 4400cf2f, top=1, 44444444
+[r]   Pos X offset (256x) 13: COLOR=44ffffff, left=144, 44efefff, top=143, 44efefef
+[r]   Pos X offset 14: COLOR=441f1f1f, left=1, 4400df1f, top=1, 44444444
+[r]   Pos X offset (256x) 14: COLOR=44ffffff, left=144, 44efefff, top=143, 44efefef
+[r]   Pos X offset 15: COLOR=440f0f0f, left=1, 4400ef0f, top=1, 44444444
+[r]   Pos X offset (256x) 15: COLOR=44ffffff, left=144, 44efefff, top=143, 44efefef
+
+[x] Pos Y offsets:
+[r]   Pos Y offset 0: COLOR=44ffffff, left=1, 440000ff, top=1, 44000000
+[r]   Pos Y offset (256x) 0: COLOR=44ffffff, left=144, 44efefff, top=144, 44efefef
+[r]   Pos Y offset 1: COLOR=44efefff, left=1, 440000ff, top=1, 44000f00
+[r]   Pos Y offset (256x) 1: COLOR=44ffffff, left=144, 44efefff, top=144, 44efefef
+[r]   Pos Y offset 2: COLOR=44dfdfff, left=1, 440000ff, top=1, 44001f00
+[r]   Pos Y offset (256x) 2: COLOR=44ffffff, left=144, 44efefff, top=144, 44efefef
+[r]   Pos Y offset 3: COLOR=44cfcfff, left=1, 440000ff, top=1, 44002f00
+[r]   Pos Y offset (256x) 3: COLOR=44ffffff, left=144, 44efefff, top=144, 44efefef
+[r]   Pos Y offset 4: COLOR=44bfbfff, left=1, 440000ff, top=1, 44003f00
+[r]   Pos Y offset (256x) 4: COLOR=44ffffff, left=144, 44efefff, top=144, 44efefef
+[r]   Pos Y offset 5: COLOR=44afafff, left=1, 440000ff, top=1, 44004f00
+[r]   Pos Y offset (256x) 5: COLOR=44ffffff, left=144, 44efefff, top=144, 44efefef
+[r]   Pos Y offset 6: COLOR=449f9fff, left=1, 440000ff, top=1, 44005f00
+[r]   Pos Y offset (256x) 6: COLOR=44ffffff, left=144, 44efefff, top=144, 44efefef
+[r]   Pos Y offset 7: COLOR=448f8fff, left=1, 440000ff, top=1, 44006f00
+[r]   Pos Y offset (256x) 7: COLOR=44ffffff, left=144, 44efefff, top=144, 44efefef
+[r]   Pos Y offset 8: COLOR=447f7fff, left=1, 44444444, top=1, 44007f00
+[r]   Pos Y offset (256x) 8: COLOR=44ffffff, left=143, 44efefff, top=144, 44efefef
+[r]   Pos Y offset 9: COLOR=446f6fff, left=1, 44444444, top=1, 44008f00
+[r]   Pos Y offset (256x) 9: COLOR=44ffffff, left=143, 44efefff, top=144, 44efefef
+[r]   Pos Y offset 10: COLOR=445f5fff, left=1, 44444444, top=1, 44009f00
+[r]   Pos Y offset (256x) 10: COLOR=44ffffff, left=143, 44efefff, top=144, 44efefef
+[r]   Pos Y offset 11: COLOR=444f4fff, left=1, 44444444, top=1, 4400af00
+[r]   Pos Y offset (256x) 11: COLOR=44ffffff, left=143, 44efefff, top=144, 44efefef
+[r]   Pos Y offset 12: COLOR=443f3fff, left=1, 44444444, top=1, 4400bf00
+[r]   Pos Y offset (256x) 12: COLOR=44ffffff, left=143, 44efefff, top=144, 44efefef
+[r]   Pos Y offset 13: COLOR=442f2fff, left=1, 44444444, top=1, 4400cf00
+[r]   Pos Y offset (256x) 13: COLOR=44ffffff, left=143, 44efefff, top=144, 44efefef
+[r]   Pos Y offset 14: COLOR=441f1fff, left=1, 44444444, top=1, 4400df00
+[r]   Pos Y offset (256x) 14: COLOR=44ffffff, left=143, 44efefff, top=144, 44efefef
+[r]   Pos Y offset 15: COLOR=440f0fff, left=1, 44444444, top=1, 4400ef00
+[r]   Pos Y offset (256x) 15: COLOR=44ffffff, left=143, 44efefff, top=144, 44efefef
