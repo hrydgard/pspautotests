@@ -21,5 +21,9 @@ void initDisplay();
 void startFrame();
 void endFrame();
 
+void setNeedFull(bool v);
+
 void clearDispBuffer(u32 c);
+void dirtyDispBuffer();
 u32 readDispBuffer();
+u32 readFullDispBuffer(int x, int y);

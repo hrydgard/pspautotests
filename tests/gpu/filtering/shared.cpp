@@ -2,6 +2,8 @@
 
 u32 __attribute__((aligned(16))) list[262144];
 static u32 copybuf[512 * 272];
+static bool readFull = false;
+static bool bufDirty = true;
 
 GePtr fbp0 = 0;
 GePtr dbp0 = fbp0 + 512 * 272 * sizeof(u32);
@@ -62,14 +64,46 @@ void endFrame() {
 	sceGuFinish();
 	sceGuSync(GU_SYNC_WAIT, GU_SYNC_WHAT_DONE);
 }
+
+void setNeedFull(bool v) {
+	readFull = v;
+}
+
 void clearDispBuffer(u32 c) {
-	copybuf[0] = c;
-	sceKernelDcacheWritebackInvalidateRange(copybuf, sizeof(copybuf[0]));
-	sceDmacMemcpy(sceGeEdramGetAddr(), copybuf, 512 * sizeof(copybuf[0]));
+	if (!readFull) {
+		copybuf[0] = c;
+		sceKernelDcacheWritebackInvalidateRange(copybuf, sizeof(copybuf[0]));
+		sceDmacMemcpy(sceGeEdramGetAddr(), copybuf, 512 * sizeof(copybuf[0]));
+	} else {
+		if ((c & 0xFFFF) == (c >> 16) && (c & 0xFF) == (c >> 24)) {
+			memset(copybuf, (u8)c, sizeof(copybuf));
+		} else {
+			for (int i = 0; i < 512 * 272; ++i) {
+				copybuf[i] = c;
+			}
+		}
+		sceKernelDcacheWritebackInvalidateRange(copybuf, sizeof(copybuf));
+		sceDmacMemcpy(sceGeEdramGetAddr(), copybuf, sizeof(copybuf));
+		bufDirty = false;
+	}
+}
+
+void dirtyDispBuffer() {
+	bufDirty = true;
 }
 
 u32 readDispBuffer() {
 	sceKernelDcacheWritebackInvalidateRange(copybuf, sizeof(copybuf[0]));
 	sceDmacMemcpy(copybuf, sceGeEdramGetAddr(), 512 * sizeof(copybuf[0]));
 	return copybuf[0];
+}
+
+u32 readFullDispBuffer(int x, int y) {
+	if (bufDirty) {
+		sceKernelDcacheWritebackInvalidateRange(copybuf, sizeof(copybuf));
+		sceDmacMemcpy(copybuf, sceGeEdramGetAddr(), sizeof(copybuf));
+		bufDirty = false;
+	}
+
+	return copybuf[512 * y + x];
 }
