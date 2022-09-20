@@ -1,0 +1,59 @@
+[x] Names:
+[x]   NULL: Failed (80020001)
+[x]   Blank: OK: 087fff00
+[x]   Long: OK: 087fff00
+
+[x] Types:
+[x]   Type ffffffff: Failed (800200d8)
+[x]   Type 0: OK: 08400000
+[x]   Type 1: OK: 087fff00
+[x]   Type 2: Failed (800200d9)
+[x]   Type 3: Failed (800200e4)
+[x]   Type 4: Failed (800200e4)
+[x]   Type 5: Failed (800200d8)
+[x]   Type 11: Failed (800200d8)
+[x]   Type 30: Failed (800200d8)
+[x]   Type 101: Failed (800200d8)
+[x]   Type 1001: Failed (800200d8)
+[x]   Type 10001: Failed (800200d8)
+[x]   Type 100001: Failed (800200d8)
+[x]   Type 1000001: Failed (800200d8)
+[x]   Type 10000001: Failed (800200d8)
+[x]   Type 2 in range: OK: 08500000
+[x]   Type 2 outside: Failed (800200d9)
+[x]   Type 3 align value: OK: 08400000
+[x]   Multi-error: Failed (800200d8)
+
+[x] Alignments:
+[x]   Type 4 align 0xffffffff: Failed (800200e4)
+[x]   Type 4 align 0x1: OK: 087fff00
+[x]   Type 4 align 0x2: OK: 087fff00
+[x]   Type 4 align 0x3: Failed (800200e4)
+[x]   Type 4 align 0x4: OK: 087fff00
+[x]   Type 4 align 0x6: Failed (800200e4)
+[x]   Type 4 align 0x8: OK: 087fff00
+[x]   Type 4 align 0x10: OK: 087fff00
+[x]   Type 4 align 0x200: OK: 087ffe00
+[x]   Type 4 align 0x400: OK: 087ffc00
+[x]   Type 4 align 0x800: OK: 087ff800
+
+[x] Sizes:
+[x]   Size ffffffff: Failed (800200d9)
+[x]   Size 0: Failed (800200d9)
+[x]   Size 1: OK, delta=100, addr=087ffe00
+[x]   Size 2: OK, delta=100, addr=087ffe00
+[x]   Size 3: OK, delta=100, addr=087ffe00
+[x]   Size 4: OK, delta=100, addr=087ffe00
+[x]   Size 5: OK, delta=100, addr=087ffe00
+[x]   Size 11: OK, delta=100, addr=087ffe00
+[x]   Size 101: OK, delta=200, addr=087ffd00
+[x]   Size 1001: OK, delta=1100, addr=087fee00
+[x]   Size 10001: OK, delta=10100, addr=087efe00
+[x]   Size 3fff00: OK, delta=3fff00, addr=08400000
+[x]   Size 400000: Failed (800200d9)
+
+[x] Other objects:
+[x]   FPL: 08400000
+[x]   VPL: 08400ef8
+[x]   TLSPL: 08400000
+[x]   Msgpipe: allocated 00000000 / OK

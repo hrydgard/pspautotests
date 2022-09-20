@@ -60,11 +60,8 @@ char *testAllocDiff(const char *title, int partition, const char *name, int type
 	}
 }
 
-volatile int didResched = 0;
-int reschedFunc(SceSize argc, void *argp) {
-	didResched = 1;
-	return 0;
-}
+extern volatile int didResched;
+int reschedFunc(SceSize argc, void *argp);
 
 int main(int argc, char *argv[]) {
 	int i;
