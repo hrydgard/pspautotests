@@ -1,0 +1,29 @@
+[x] Initial: TL=44444444 TR=44444444 BL=44444444 BR=44444444
+
+[x] Common:
+[r]   Position: TL=44ff0000 TR=44ff00ff BL=44ffff00 BR=44ffffff
+[r]   UV: TL=44ff4040 TR=44ff40bf BL=44ffbf40 BR=44ffbfbf
+[r]   Normal: TL=44ff7f00 TR=44ff7f7f BL=44ff0000 BR=44ff007f
+[r]   Normalized normal: TL=44ff6900 TR=44ff5d5d BL=44ff0000 BR=44ff0069
+[r]   Unknown: TL=44ff7f00 TR=44ff7f7f BL=44ff0000 BR=44ff007f
+
+[x] Without UV / normal:
+[r]   Position: TL=44ff0000 TR=44ff00ff BL=44ffff00 BR=44ffffff
+[r]   UV: TL=44ff40c0 TR=44ff40c0 BL=44ff40c0 BR=44ff40c0
+[r]   Normal: TL=44ff8080 TR=44ff8080 BL=44ff8080 BR=44ff8080
+[r]   Normalized normal: TL=44ff5d5d TR=44ff5d5d BL=44ff5d5d BR=44ff5d5d
+[r]   Unknown: TL=44ff8080 TR=44ff8080 BL=44ff8080 BR=44ff8080
+
+[x] Flat:
+[r]   Position: TL=44ff0000 TR=44ff00ff BL=44ffff00 BR=44ffffff
+[r]   UV: TL=44ff4040 TR=44ff40bf BL=44ffbf40 BR=44ffbfbf
+[r]   Normal: TL=44ff7f00 TR=44ff7f7f BL=44ff0000 BR=44ff007f
+[r]   Normalized normal: TL=44ff6900 TR=44ff5d5d BL=44ff0000 BR=44ff0069
+[r]   Unknown: TL=44ff7f00 TR=44ff7f7f BL=44ff0000 BR=44ff007f
+
+[x] Through:
+[r]   Position: TL=44ff4040 TR=44ff40bf BL=44ffbf40 BR=44ffbfbf
+[r]   UV: TL=44ff4040 TR=44ff40bf BL=44ffbf40 BR=44ffbfbf
+[r]   Normal: TL=44ff4040 TR=44ff40bf BL=44ffbf40 BR=44ffbfbf
+[r]   Normalized normal: TL=44ff4040 TR=44ff40bf BL=44ffbf40 BR=44ffbfbf
+[r]   Unknown: TL=44ff4040 TR=44ff40bf BL=44ffbf40 BR=44ffbfbf

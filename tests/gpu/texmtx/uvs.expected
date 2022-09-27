@@ -1,0 +1,5 @@
+[x] Initial: TL=44444444 TR=44444444 BL=44444444 BR=44444444
+
+[x] Normals:
+[r]   Weighted UV: TL=44ffff01 TR=44ffffff BL=44ff0101 BR=44ff01ff
+[r]   UV scaled UV: TL=44ffff00 TR=44ffffff BL=44ff0000 BR=44ff00ff
