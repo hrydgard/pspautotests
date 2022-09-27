@@ -1,0 +1,8 @@
+[x] Initial: TL=44444444 TR=44444444 BL=44444444 BR=44444444
+
+[x] Normals:
+[r]   Normalized zero: TL=44ff0000 TR=44ff0000 BL=44ff0000 BR=44ff0000
+[r]   Reversed normals: TL=44ff7f00 TR=44ff7f7f BL=44ff0000 BR=44ff007f
+[r]   Reversed normalized normals: TL=44ff6900 TR=44ff5d5d BL=44ff0000 BR=44ff0069
+[r]   Weighted normal: TL=44ff7f00 TR=44ff7f7f BL=44ff0000 BR=44ff007f
+[r]   UV scaled normal: TL=44ffff00 TR=44ffffff BL=44ff0000 BR=44ff00ff

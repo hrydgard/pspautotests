@@ -1,0 +1,7 @@
+[x] Initial: TL=44444444 TR=44444444 BL=44444444 BR=44444444
+
+[x] Primitives:
+[r]   Points: TL=44ff0000 TR=44ff0080 BL=44ff0000 BR=44ff8080
+[r]   Lines: TL=44ff0000 TR=44ff0080 BL=44ffff00 BR=44ff8080
+[r]   Triangles: TL=44ff0000 TR=44ff00ff BL=44fffd00 BR=44ffffff
+[r]   Rectangles: TL=44ff0000 TR=44ff00fd BL=44ffff00 BR=44fffdfd
