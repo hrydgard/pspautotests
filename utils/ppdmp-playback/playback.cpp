@@ -1,6 +1,7 @@
 #include <pspdisplay.h>
 #include <pspgu.h>
 #include <pspkernel.h>
+#include <psppower.h>
 #include <stdio.h>
 #include <string.h>
 #include <common.h>
@@ -22,6 +23,10 @@ static unsigned int __attribute__((aligned(16))) list[1024];
 void init() {
 	void *fbp0 = 0;
 
+	scePowerSetClockFrequency(333, 333, 166);
+	memset((void *)0x04000000, 0, 0x00200000);
+	sceKernelDcacheWritebackInvalidateAll();
+
 	sceGuInit();
 	sceGuStart(GU_DIRECT, list);
 	sceGuDrawBuffer(GU_PSM_8888, fbp0, BUF_WIDTH);
@@ -33,10 +38,6 @@ void init() {
 
 	sceDisplayWaitVblankStart();
 	sceGuDisplay(1);
-
-	void *drawbuf = sceGeEdramGetAddr();
-	memset(drawbuf, 0, 512 * 272 * 4);
-	sceKernelDcacheWritebackInvalidateAll();
 }
 
 extern int HAS_DISPLAY;

@@ -18,6 +18,7 @@ struct CommandType {
 		MEMCPYDATA = 8,
 		DISPLAY = 9,
 		CLUTADDR = 10,
+		EDRAMTRANS = 11,
 
 		TEXTURE0 = 0x10,
 		TEXTURE1 = 0x11,
@@ -83,6 +84,7 @@ protected:
 	void Texture(int level, u32 ptr, u32 sz);
 	void Framebuf(int level, u32 ptr, u32 sz);
 	void Display(u32 ptr, u32 sz);
+	void EdramTrans(u32 ptr, u32 sz);
 
 	int fd_;
 	bool valid_;
