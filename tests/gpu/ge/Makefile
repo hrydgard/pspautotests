@@ -1,4 +1,4 @@
-TARGETS = break context edram get queue enqueueparam
+TARGETS = break context edram edramswizzle get queue enqueueparam
 EXTRA_LIBS = ge-imports.S
 
 COMMON_DIR = ../../../common

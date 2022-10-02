@@ -5,7 +5,9 @@
 
 #include "../commands/commands.h"
 
+extern "C" {
 #include "sysmem-imports.h"
+}
 
 struct SceGeStack {
 	int v[8];
