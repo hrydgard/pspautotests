@@ -129,6 +129,10 @@ bool Replay::Run() {
 			Memcpy(cmd.ptr, cmd.sz);
 			break;
 
+		case CommandType::EDRAMTRANS:
+			EdramTrans(cmd.ptr, cmd.sz);
+			break;
+
 		case CommandType::TEXTURE0:
 		case CommandType::TEXTURE1:
 		case CommandType::TEXTURE2:
@@ -166,6 +170,10 @@ bool Replay::Run() {
 }
 
 void Replay::SyncStall() {
+	if (execListBuf == 0) {
+		return;
+	}
+
 	sceKernelDcacheWritebackInvalidateRange(execListBuf, LIST_BUF_SIZE);
 	sceGeListUpdateStallAddr(execListID, execListPos);
 
@@ -426,6 +434,15 @@ void Replay::Display(u32 ptr, u32 sz) {
 
 	sceDisplaySetFrameBuf(disp->topaddr, disp->linesize, disp->pixelFormat, 1);
 	sceDisplaySetFrameBuf(disp->topaddr, disp->linesize, disp->pixelFormat, 0);
+}
+
+void Replay::EdramTrans(u32 ptr, u32 sz) {
+	uint32_t value;
+	memcpy(&value, buf_.data() + ptr, 4);
+
+	SyncStall();
+
+	sceGeEdramSetAddrTranslation(value);
 }
 
 Replay::~Replay() {

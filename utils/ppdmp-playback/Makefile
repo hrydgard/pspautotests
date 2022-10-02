@@ -11,7 +11,7 @@ CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti -std=gnu++0x
 ASFLAGS = $(CFLAGS)
 LDFLAGS =
 
-LIBS = -lcommon -lpspgu -lstdc++ -lc -lm
+LIBS = -lcommon -lpspgu -lpsppower -lstdc++ -lc -lm
 TARGET = playback
 
 OBJS = playback.o replay.o \
