@@ -1,0 +1,45 @@
+[x] Basic:
+[r]   Before init: 80650020 (wrote 0 bytes, 0 per row)
+[r]   Init: 00000000
+[r]   After init: 80650020 (wrote 0 bytes, 0 per row)
+[x]   Create: 00000000
+[r]   After create: 01e00110 (wrote 556928 bytes, 1920 per row)
+[x]   Delete: 00000000
+[r]   After delete: 01e00110 (wrote 556928 bytes, 1920 per row)
+[r]   Finish: 00000000
+[r]   After finish: 80000001 (wrote 0 bytes, 0 per row)
+
+[x] Data:
+[r]   NULL: 80650023 (wrote 0 bytes, 0 per row)
+[r]   Empty: 80650023 (wrote 0 bytes, 0 per row)
+[r]   Size 0: 80650004 (wrote 0 bytes, 0 per row)
+[r]   Size 1: 80650023 (wrote 0 bytes, 0 per row)
+[x]   Huge: 80000023 (wrote 0 bytes, 0 per row)
+[x]   Negative: 80000023 (wrote 0 bytes, 0 per row)
+[r]   Offset: 80650023
+
+[x] Output:
+[r]   Output NULL: 80000103 (wrote 0 bytes, 0 per row)
+[r]   Output NULL again: 80000103 (wrote 0 bytes, 0 per row)
+[r]   Frame 512x16: 80650020 (wrote 0 bytes, 0 per row)
+[r]   Frame 480x271: 80650020 (wrote 0 bytes, 0 per row)
+[r]   Frame 480x272: 01e00110 (wrote 522240 bytes, 522240 per row)
+[r]   Frame 480x273: 01e00110 (wrote 522240 bytes, 522240 per row)
+[r]   Frame 479x272: 80650020 (wrote 0 bytes, 0 per row)
+[r]   Frame 1024x271: 80650020 (wrote 0 bytes, 0 per row)
+[r]   Frame 1024x272: 01e00110 (wrote 1048580 bytes, 1920 per row)
+[r]   Frame 0x0: 80650020 (wrote 0 bytes, 0 per row)
+[r]   Frame -1x-1: 80650020 (wrote 0 bytes, 0 per row)
+
+[x] Mode:
+[r]   Mode 1: 01e00110 (wrote 556928 bytes, 1920 per row)
+[r]   Mode 2: 01e00110 (wrote 556928 bytes, 1920 per row)
+[r]   Mode 3: 01e00110 (wrote 556928 bytes, 1920 per row)
+[r]   Mode 999: 01e00110 (wrote 556928 bytes, 1920 per row)
+[r]   Mode -1: 01e00110 (wrote 556928 bytes, 1920 per row)
+
+[x] Colors:
+[r]   Standard 2x2: 01e00110 (wrote 556928 bytes, 1920 per row)
+[r]   Color 2x1: 80650016 (wrote 0 bytes, 0 per row)
+[r]   Grayscale: 80650016 (wrote 0 bytes, 0 per row)
+[r]   Black: 00800100 (wrote 522752 bytes, 512 per row)
