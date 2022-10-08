@@ -1,0 +1,50 @@
+[x] Basic:
+[x]   Before init: 80650039
+[r]   Init: 00000000
+[x]   After init: 00000000
+[x]   Twice: 80650039
+[x]   Delete: 00000000
+[x]   After delete: 00000000
+
+[x] Widths:
+[x]   Width -2147483648: 00000000
+[x]   Width -65536: 00000000
+[x]   Width -32768: 00000000
+[x]   Width -1: 00000000
+[x]   Width 0: 00000000
+[x]   Width 1: 00000000
+[x]   Width 2: 00000000
+[x]   Width 3: 00000000
+[x]   Width 4: 00000000
+[x]   Width 5: 00000000
+[x]   Width 480: 00000000
+[x]   Width 512: 00000000
+[x]   Width 1023: 00000000
+[x]   Width 1024: 00000000
+[x]   Width 1025: 80650020
+[x]   Width 2048: 80650020
+[x]   Width 32768: 80650020
+[x]   Width 2147483647: 80650020
+
+[x] Heights:
+[x]   Height -2147483648: 00000000
+[x]   Height -65536: 00000000
+[x]   Height -32768: 00000000
+[x]   Height -1: 00000000
+[x]   Height 0: 00000000
+[x]   Height 1: 00000000
+[x]   Height 2: 00000000
+[x]   Height 3: 00000000
+[x]   Height 4: 00000000
+[x]   Height 5: 00000000
+[x]   Height 480: 00000000
+[x]   Height 512: 00000000
+[x]   Height 1023: 00000000
+[x]   Height 1024: 00000000
+[x]   Height 1025: 00000000
+[x]   Height 2048: 00000000
+[x]   Height 32768: 00000000
+[x]   Height 2147483647: 00000000
+
+[x] Total:
+[x]   Size 1024x1024: 00000000

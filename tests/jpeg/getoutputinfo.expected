@@ -1,0 +1,28 @@
+[x] Basic:
+[r]   Before init: 0002fd00 (00020202)
+[r]   Init: 00000000
+[r]   After init: 0002fd00 (00020202)
+
+[x] Data:
+[r]   NULL: 80650023 (cccccccc)
+[r]   Empty: 80650023 (cccccccc)
+[r]   Size 0: 80650004 (cccccccc)
+[r]   Size 1: 80650023 (cccccccc)
+[x]   Huge: 80000023 (cccccccc)
+[x]   Negative: 80000023 (cccccccc)
+[r]   Offset: 80650023
+
+[x] Info:
+[r]   NULL info: 0002fd00 (ffffffff)
+
+[x] Mode:
+[r]   Mode 1: 0002fd00 (00020202)
+[r]   Mode 2: 0002fd00 (00020202)
+[r]   Mode 3: 0002fd00 (00020202)
+[r]   Mode 999: 0002fd00 (00020202)
+[r]   Mode -1: 0002fd00 (00020202)
+
+[x] Colors:
+[r]   Standard 2x2: 0002fd00 (00020202)
+[r]   Color 2x1: 80650016 (cccccccc)
+[r]   Grayscale: 80650016 (cccccccc)
