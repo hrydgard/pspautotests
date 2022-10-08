@@ -1,0 +1,77 @@
+[x] Basic:
+[r]   Before init: 00000000 (wrote 1024 bytes, 1024 per row)
+[x]   Init: 00000000
+[r]   After init: 00000000 (wrote 1024 bytes, 1024 per row)
+
+[x] Buffers:
+[x]   Output NULL: 80650051 (wrote 0 bytes, 0 per row)
+[x]   input NULL: 80650051 (wrote 0 bytes, 0 per row)
+
+[x] Sizes:
+[r]   Wider than stride: 00000000 (wrote 2112 bytes, 2112 per row)
+[r]   Thinner than stride: 00000000 (wrote 4032 bytes, 64 per row)
+[r]   Odd size: 00000000 (wrote 92756 bytes, 92756 per row)
+[r]   Large width: 00000000 (wrote 262140 bytes, 262140 per row)
+[r]   Small width: 00000000 (wrote 988 bytes, 28 per row)
+[r]   Large height: 00000000 (wrote 2097120 bytes, 2097120 per row)
+[r]   Zero height: ffffffff (wrote 32 bytes, 32 per row)
+[r]   One height: 00000000 (wrote 32 bytes, 32 per row)
+
+[x] Strides:
+[r]   Zero stride: 00000000 (wrote 64 bytes, 64 per row)
+[r]   One stride: 00000000 (wrote 124 bytes, 124 per row)
+[r]   Large stride: 00000000 (wrote 2097212 bytes, 64 per row)
+[r]   Very negative stride: 00000000 (wrote 64 bytes, 64 per row)
+
+[x] Choma Sampling:
+[x]   Grayscale: 80650013 (wrote 0 bytes, 0 per row)
+[r]   1x1: 00000000 (wrote 1024 bytes, 1024 per row)
+[r]   2x1: 00000000 (wrote 1024 bytes, 1024 per row)
+[x]   2x1: 80650013 (wrote 0 bytes, 0 per row)
+[x]   3x3: 80650013 (wrote 0 bytes, 0 per row)
+[x]   4x4: 80650013 (wrote 0 bytes, 0 per row)
+[r]   Extra bits (top 12): 00000000 (wrote 2000 bytes, 1024 per row)
+[x]   Extra bits (top 13): 80650013 (wrote 0 bytes, 0 per row)
+
+[x] X/Y Pattern:
+[r]   2x2 short y: 00000000 = 0-254 00ff79ff 255-255 00e100b2
+[r]   2x2 short cb: 00000000 = 0-237 00ff79ff 238-239 001cd0ff 240-253 00ff79ff 254-255 001cd0ff
+[r]   2x2 short cr: 00000000 = 0-237 00ff79ff 238-239 00ffff4c 240-253 00ff79ff 254-255 00ffff4c
+[r]   2x1 short y: 00000000 = 0-254 00ff79ff 255-255 00e100b2
+[r]   2x1 short cb: 00000000 = 0-253 00ff79ff 254-255 001cd0ff
+[r]   2x1 short cr: 00000000 = 0-253 00ff79ff 254-255 00ffff4c
+[r]   1x1 short y: 00000000 = 0-254 00ff79ff 255-255 00e100b2
+[r]   1x1 short cb: 00000000 = 0-254 00ff79ff 255-255 001cd0ff
+[r]   1x1 short cr: 00000000 = 0-254 00ff79ff 255-255 00ffff4c
+
+[x] Bits:
+[r]   2x2 Black: 00000000 (00000000)
+[r]   2x2 White: 00000000 (00ffffff)
+[r]   2x2 0 Cb: 00000000 (001cffff)
+[r]   2x2 1 Cb: 00000000 (001effff)
+[r]   2x2 254 Cb: 00000000 (00ffd4ff)
+[r]   2x2 255 Cb: 00000000 (00ffd3ff)
+[r]   2x2 0 Cr: 00000000 (00ffff4c)
+[r]   2x2 1 Cr: 00000000 (00ffff4d)
+[r]   2x2 254 Cr: 00000000 (00ffa5ff)
+[r]   2x2 255 Cr: 00000000 (00ffa4ff)
+[r]   2x1 Black: 00000000 (00000000)
+[r]   2x1 White: 00000000 (00ffffff)
+[r]   2x1 0 Cb: 00000000 (001cffff)
+[r]   2x1 1 Cb: 00000000 (001effff)
+[r]   2x1 254 Cb: 00000000 (00ffd4ff)
+[r]   2x1 255 Cb: 00000000 (00ffd3ff)
+[r]   2x1 0 Cr: 00000000 (00ffff4c)
+[r]   2x1 1 Cr: 00000000 (00ffff4d)
+[r]   2x1 254 Cr: 00000000 (00ffa5ff)
+[r]   2x1 255 Cr: 00000000 (00ffa4ff)
+[r]   1x1 Black: 00000000 (00000000)
+[r]   1x1 White: 00000000 (00ffffff)
+[r]   1x1 0 Cb: 00000000 (001cffff)
+[r]   1x1 1 Cb: 00000000 (001effff)
+[r]   1x1 254 Cb: 00000000 (00ffd4ff)
+[r]   1x1 255 Cb: 00000000 (00ffd3ff)
+[r]   1x1 0 Cr: 00000000 (00ffff4c)
+[r]   1x1 1 Cr: 00000000 (00ffff4d)
+[r]   1x1 254 Cr: 00000000 (00ffa5ff)
+[r]   1x1 255 Cr: 00000000 (00ffa4ff)

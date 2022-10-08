@@ -1,4 +1,4 @@
-TARGETS = create decode decodes decodeycbcr decodeycbcrs delete finish getoutputinfo init
+TARGETS = create csc decode decodes decodeycbcr decodeycbcrs delete finish getoutputinfo init mjpegcsc
 EXTRA_LIBS = -lpsputility -lpspjpeg
 
 COMMON_DIR = ../../common
