@@ -1,0 +1,7 @@
+[x] Basic:
+[x]   Before init: 80650039
+[r]   Init: 00000000
+[x]   After init: 80650039
+[x]   Create: 00000000
+[x]   After delete: 00000000
+[x]   Twice: 80650039

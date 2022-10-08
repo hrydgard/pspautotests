@@ -1,0 +1,37 @@
+[x] Basic:
+[r]   Before init: 01e00110 (wrote 195840 bytes)
+[r]   Init: 00000000
+[r]   After init: 01e00110 (wrote 195840 bytes)
+[x]   Create: 00000000
+[r]   After create: 01e00110 (wrote 195840 bytes)
+
+[x] Data:
+[r]   NULL: 80650023 (wrote 0 bytes)
+[r]   Empty: 80650023 (wrote 0 bytes)
+[r]   Size 0: 80650004 (wrote 0 bytes)
+[r]   Size 1: 80650023 (wrote 0 bytes)
+[x]   Huge: 80000023 (wrote 0 bytes)
+[x]   Negative: 80000023 (wrote 0 bytes)
+[r]   Offset: 80650023
+
+[x] Output:
+[r]   Output NULL small: 80650041 (wrote 0 bytes)
+[r]   Output NULL: 80650010 (wrote 0 bytes)
+[r]   Output NULL again: 80650010 (wrote 0 bytes)
+[x]   Output valid, size negative: 80000023 (wrote 0 bytes)
+[r]   Output valid, small aligned: 80650041 (wrote 0 bytes)
+[r]   Output valid, small: 80650041 (wrote 0 bytes)
+[r]   Output valid, exact: 01e00110 (wrote 195840 bytes)
+
+[x] Mode:
+[r]   Mode 1: 01e00110 (wrote 195840 bytes)
+[r]   Mode 2: 01e00110 (wrote 195840 bytes)
+[r]   Mode 3: 01e00110 (wrote 195840 bytes)
+[r]   Mode 999: 01e00110 (wrote 195840 bytes)
+[r]   Mode -1: 01e00110 (wrote 195840 bytes)
+
+[x] Colors:
+[r]   Standard 2x2: 01e00110 (wrote 195840 bytes)
+[r]   Color 2x1: 80650016 (wrote 0 bytes)
+[r]   Grayscale: 80650016 (wrote 0 bytes)
+[r]   Black: 00800100 (wrote 49152 bytes)
