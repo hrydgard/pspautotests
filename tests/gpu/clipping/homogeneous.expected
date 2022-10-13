@@ -1,0 +1,59 @@
+[x] NDC clip space (top):
+[r]   All inside (top): 255
+[r]   X outside (top): 510
+[r]   Y outside (top): 256
+[r]   Z outside near (top): 171
+[r]   Z outside far (top): 255
+[r]   Z outside both (top): 192
+
+[x] NDC clip space (top, noclamp):
+[r]   All inside (top, noclamp): 255
+[r]   X outside (top, noclamp): 510
+[r]   Y outside (top, noclamp): 256
+[r]   Z outside near (top, noclamp): 0
+[r]   Z outside far (top, noclamp): 0
+[r]   Z outside both (top, noclamp): 0
+
+[x] NDC clip space (right):
+[r]   All inside (right): 128
+[r]   X outside (right): 128
+[r]   Y outside (right): 256
+[r]   Z outside near (right): 128
+[r]   Z outside far (right): 128
+[r]   Z outside both (right): 128
+
+[x] NDC clip space (right, noclamp):
+[r]   All inside (right, noclamp): 128
+[r]   X outside (right, noclamp): 128
+[r]   Y outside (right, noclamp): 256
+[r]   Z outside near (right, noclamp): 0
+[r]   Z outside far (right, noclamp): 0
+[r]   Z outside both (right, noclamp): 0
+
+[x] Flat W clip:
+[r]   Flat W=1: 255
+[r]   Flat W=2: 255
+[r]   Flat W=0: 0
+[r]   Flat W=0.001: 255
+[r]   Flat W=-1: 0
+[r]   Flat W=-2: 0
+
+[x] Flat W clip (noclamp):
+[r]   Flat W=1 (noclamp): 255
+[r]   Flat W=2 (noclamp): 255
+[r]   Flat W=0 (noclamp): 0
+[r]   Flat W=0.001 (noclamp): 0
+[r]   Flat W=-1 (noclamp): 0
+[r]   Flat W=-2 (noclamp): 0
+
+[x] Linear W clip:
+[r]   Linear W 1->1->2: 16384 (129,64)
+[r]   Linear W 1->2->2: 16384 (129,64)
+[r]   Linear W 1->1->epsilon: 16384 (129,64)
+[r]   Linear W 1->epsilon->epsilon: 16384 (129,64)
+[r]   Linear W 1->1->-0.001: 16384 (129,64)
+[r]   Linear W 1->-0.001->-0.001: 16384 (129,64)
+[r]   Linear W 1->1->-1: 16384 (129,64)
+[r]   Linear W 1->-1->-1: 16384 (129,64)
+[r]   Linear W -0.001->-0.001->-0.001: 0 (-1,-1)
+[r]   Linear W -1->-1->-1: 0 (-1,-1)
