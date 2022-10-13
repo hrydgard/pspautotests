@@ -1,4 +1,4 @@
-TARGETS = guardband
+TARGETS = guardband homogeneous
 EXTRA_OBJS = ../../dmac/dmac-imports.o
 EXTRA_LIBS = -lpspgum -lm
 
