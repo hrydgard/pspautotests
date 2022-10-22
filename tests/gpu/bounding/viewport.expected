@@ -1,0 +1,67 @@
+[x] Z - min/max test:
+[x]   Z outside min, clamp: inside
+[x]   Z outside min, noclamp: inside
+[x]   Z inside max, clamp: inside
+[x]   Z inside max, noclamp: inside
+
+[x] Viewport Z:
+[x]   Z inside range, outside projected -w, clamp: outside
+[x]   Z outside range, outside projected -w, clamp: outside
+[x]   Z inside range, outside projected -w, noclamp: inside
+[x]   Z outside range, outside projected -w, noclamp: inside
+[x]   Z inside range, outside projected +w, clamp: outside
+[x]   Z outside range, outside projected +w, clamp: outside
+[x]   Z inside range, outside projected +w, noclamp: inside
+[x]   Z outside range, outside projected +w, noclamp: inside
+
+[x] Scissor:
+[x]   X outside scissor negative: outside
+[x]   X inside scissor negative: inside
+[x]   X inside scissor positive: inside
+[x]   X outside scissor positive: outside
+[x]   Y outside scissor negative: outside
+[x]   Y inside scissor negative: inside
+[x]   Y inside scissor positive: inside
+[x]   Y outside scissor positive: outside
+
+[x] Region:
+[x]   X outside region negative: outside
+[x]   X inside region negative: inside
+[x]   X inside region positive: inside
+[x]   X outside region positive: outside
+[x]   Y outside region negative: outside
+[x]   Y inside region negative: inside
+[x]   Y inside region positive: inside
+[x]   Y outside region positive: outside
+
+[x] Viewport X:
+[x]   X outside range, outside projected -w: outside
+[x]   X inside range, outside projected -w: inside
+[x]   X outside range, outside projected +w: outside
+[x]   X inside range, outside projected +w: inside
+
+[x] Viewport Y:
+[x]   Y outside range, outside projected -w: outside
+[x]   Y inside range, outside projected -w: inside
+[x]   Y outside range, outside projected +w: outside
+[x]   Y inside range, outside projected +w: inside
+
+[x] Cullbox X
+[x]   X outside negative, cullbox offset=0: inside
+[x]   X inside negative, cullbox offset=0: inside
+[x]   X outside negative, cullbox offset=2: outside
+[x]   X inside negative, cullbox offset=2: inside
+[x]   X outside positive, cullbox offset=4095: inside
+[x]   X inside positive, cullbox offset=4095: inside
+[x]   X outside positive, cullbox offset=3615: outside
+[x]   X outside positive, cullbox offset=3616: inside
+
+[x] Cullbox Y
+[x]   Y outside negative, cullbox offset=0: inside
+[x]   Y inside negative, cullbox offset=0: inside
+[x]   Y outside negative, cullbox offset=2: outside
+[x]   Y inside negative, cullbox offset=2: inside
+[x]   Y outside positive, cullbox offset=4095: inside
+[x]   Y inside positive, cullbox offset=4095: inside
+[x]   Y outside positive, cullbox offset=3823: outside
+[x]   Y outside positive, cullbox offset=3824: inside

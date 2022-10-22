@@ -1,4 +1,4 @@
-TARGETS = count planes vertexaddr
+TARGETS = count planes vertexaddr viewport
 EXTRA_OBJS = ../../dmac/dmac-imports.o shared.o
 EXTRA_LIBS = -lpsppower -lpspgum -lm -lstdc++ -lc
 
