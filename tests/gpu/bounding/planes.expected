@@ -1,0 +1,27 @@
+[x] X:
+[x]   X outside negative: 5d000001
+[x]   X inside negative: 5d000002
+[x]   X inside positive: 5d000002
+[x]   X outside positive: 5d000001
+
+[x] Y:
+[x]   Y outside negative: 5d000001
+[x]   Y inside negative: 5d000002
+[x]   Y inside positive: 5d000002
+[x]   Y outside positive: 5d000001
+
+[x] Z:
+[x]   Z outside negative, clamp: 5d000001
+[x]   Z inside negative, clamp: 5d000002
+[x]   Z inside positive, clamp: 5d000002
+[x]   Z outside positive, clamp: 5d000001
+[x]   Z inside very negative, noclamp: 5d000002
+[x]   Z inside negative, noclamp: 5d000002
+[x]   Z inside positive, noclamp: 5d000002
+[x]   Z inside very positive, noclamp: 5d000002
+
+[x] W:
+[x]   W outside negative: 5d000001
+[x]   W inside negative: 5d000001
+[x]   W inside positive: 5d000002
+[x]   W inside very positive: 5d000002
