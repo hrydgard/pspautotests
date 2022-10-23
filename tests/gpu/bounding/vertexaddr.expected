@@ -1,0 +1,15 @@
+[x] Advancement:
+[x]   Positions F32 advance: 5d000002 (v +12, i +0)
+[x]   Positions S16 advance: 5d000002 (v +6, i +0)
+[x]   Positions S8 advance: 5d000002 (v +3, i +0)
+[x]   Throughmode advance: 5d000002 (v +12, i +0)
+[x]   Positions/Normal/TC S8 advance: 5d000002 (v +8, i +0)
+[x]   Large weighted advance: 5d000002 (v +68, i +0)
+[x]   Large morph advance: 5d000002 (v +320, i +0)
+[x]   Large everything advance: 5d000002 (v +544, i +0)
+
+[x] Indexes:
+[r]   Simple index usage, inside: 5d000002 (v +0, i +128)
+[r]   8 bit indices, inside: 5d000002 (v +0, i +64)
+[r]   32 bit indices, inside: 5d000002 (v +0, i +256)
+[r]   Simple index usage, outside: 5d000001 (v +0, i +128)

@@ -1,0 +1,40 @@
+[x] Basic:
+[x]   Single inside: 5d000002
+[x]   Single outside: 5d000001
+
+[x] Counts:
+[x]   Zero: 5d000001
+[r]   0x100 inside: 5d000002
+[r]   0x100 outside: 5d000001
+[r]   0x1000 inside: 5d000002
+[r]   0x1000 outside: 5d000001
+[r]   0xFFFF inside: 5d000002
+[r]   0xFFFF outside: 5d000001
+[x]   0x10000 inside: 5d000001
+[x]   0x10000 outside: 5d000001
+[r]   0x10100 inside: 5d000002
+[r]   0x10100 outside: 5d000001
+
+[x] Values:
+[r]   0xFF outside, 0xFF00 inside: 5d000002
+[r]   0x100 outside, 0xFEFF inside: 5d000002
+[r]   0x101 outside, 0xFEFE inside: 5d000002
+[r]   0xE00 outside, 0x100 inside, 0x100 outside: 5d000002
+[r]   0xE00 outside, 1 inside, 0x1FF outside: 5d000002
+[r]   0xEFF outside, 1 inside, 0x100 outside: 5d000002
+[r]   0xF00 outside, 1 inside, 0xFF outside: 5d000001
+[r]   0x1E00 outside, 0x100 inside, 0x100 outside: 5d000002
+[r]   0x1DFF outside, 1 inside, 0x200 outside: 5d000001
+[r]   0x1E00 outside, 1 inside, 0x1FF outside: 5d000002
+[r]   0x1EFF outside, 1 inside, 0x100 outside: 5d000002
+[r]   0x1F00 outside, 1 inside, 0xFF outside: 5d000001
+[r]   0x100 inside, last outside: 5d000002
+[r]   0x100 outside, last inside: 5d000002
+[r]   0x101 inside, last outside: 5d000002
+[r]   0x101 outside, last inside: 5d000001
+[r]   1 inside, 0x100 outside: 5d000002
+[r]   1 outside, 0x100 inside: 5d000001
+[r]   0xFFFF inside, last outside: 5d000002
+[r]   0xFFFF outside, last inside: 5d000001
+[r]   0xFDFE outside, 1 inside, 0x200 outside: 5d000002
+[r]   0xFDFF outside, 1 inside, 0x1FF outside: 5d000002
