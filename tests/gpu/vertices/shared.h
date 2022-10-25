@@ -30,8 +30,15 @@ struct Vertices {
 	void Color(u32 c);
 	void Normal(float x, float y, float z);
 	void Pos(int x, int y, u16 z);
+	void PosDirect(float x, float y, float z);
 	void EndVert();
 
+	void TCP(float u, float v, u32 c, int x, int y, u16 z) {
+		Texcoord(u, v);
+		Color(c);
+		Pos(x, y, z);
+		EndVert();
+	}
 	void TP(float u, float v, int x, int y, u16 z) {
 		Texcoord(u, v);
 		Pos(x, y, z);

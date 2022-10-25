@@ -75,6 +75,7 @@ void setSimpleTexture() {
 Vertices::Vertices(u32 vtype, size_t size) {
 	vtype_ = vtype;
 	ptr_ = new s8[size];
+	memset(ptr_, 0, size);
 	start_ = ptr_;
 }
 
@@ -135,6 +136,14 @@ void Vertices::Pos(int x, int y, u16 z) {
 		Write(fmt, norm32y(y));
 		Write(fmt, (int)z);
 	}
+}
+
+void Vertices::PosDirect(float x, float y, float z) {
+	int fmt = (vtype_ >> 7) & 3;
+	Align(fmt);
+	Write(fmt, x);
+	Write(fmt, y);
+	Write(fmt, z);
 }
 
 const void *Vertices::Ptr() {
