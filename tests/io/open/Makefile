@@ -1,4 +1,4 @@
-TARGETS = tty0
+TARGETS = badparent tty0
 EXTRA_OBJS = io-imports.o
 
 COMMON_DIR = ../../../common
