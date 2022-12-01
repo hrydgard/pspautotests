@@ -1,0 +1,11 @@
+[x] Between VRAM mirrors:
+[r]   Intra primary -> primary: 0 (0x4000000 -> 0x4100000)
+[r]   Intra primary -> simple: 0 (0x4000000 -> 0x4300000)
+[r]   Intra primary -> identical: 0 (0x4000000 -> 0x4500000)
+[r]   Intra primary -> complex: 0 (0x4000000 -> 0x4700000)
+
+[x] Straddling mirrors:
+[r]   Straddle simple/identical -> primary, 0x200 each side: 0 (0x43ffe00 -> 0x4100000 / 128,129 -> 128,129)
+[r]   Straddle simple/identical -> primary, 0x10 early: 0 (0x43ffff0 -> 0x4100000 / 240,241 -> 240,241)
+[r]   Straddle identical/complex -> primary, 0x200 each side: 0 (0x45ffe00 -> 0x4100000 / 128,129 -> 128,129)
+[r]   Straddle identical/complex -> primary, 0x10 early: 0 (0x45ffff0 -> 0x4100000 / 240,241 -> 240,241)
