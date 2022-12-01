@@ -1,0 +1,15 @@
+[x] Read beyond VRAM end:
+[r]   1/16 lines valid -> valid, 16-bit: 0 (0x47ffc00 -> 0x4100000 / 128,129 -> 128,129)
+[r]   1/16 lines valid -> valid, 32-bit: 0 (0x47ffc00 -> 0x4100000 / 128,129 -> 128,129)
+[r]   16 bytes valid -> valid, 16-bit: 0/0 (0x47ffff0 -> 0x4100000 / 0,1 -> 0,1)
+[r]   16 bytes valid -> valid, 32-bit: 0/0 (0x47ffff0 -> 0x4100000 / 0,1 -> 0,1)
+[r]   0 bytes valid -> valid, 16-bit: 0/0 (0x4800000 -> 0x4100000 / 0,1 -> 0,1)
+[r]   0 bytes valid -> valid, 32-bit: 0/0 (0x4800000 -> 0x4100000 / 0,1 -> 0,1)
+
+[x] Write beyond VRAM end:
+[r]   Valid -> 1/16 lines valid, 16-bit: 0 (0x4100000 -> 0x47ffc00 / 0,1 -> 0,1)
+[r]   Valid -> 1/16 lines valid, 32-bit: 0 (0x4100000 -> 0x47ffc00 / 0,1 -> 0,1)
+[r]   Valid -> 16 bytes valid, 16-bit: 0/0 (0x4100000 -> 0x47ffff0 / 16,17 -> 16,17)
+[r]   Valid -> 16 bytes valid, 32-bit: 0/0 (0x4100000 -> 0x47ffff0 / 16,17 -> 16,17)
+[r]   Valid -> 0 bytes valid, 16-bit: 0/0 (0x4100000 -> 0x4800000 / 0,1 -> 0,1)
+[r]   Valid -> 0 bytes valid, 32-bit: 0/0 (0x4100000 -> 0x4800000 / 0,1 -> 0,1)
