@@ -42,7 +42,7 @@ Tip: If you see PSP Type A, you've connected the PSP in "USB mode". Disconnect, 
 #### Windows 7 and later
 
 * Plug the PSP into your PC via USB while PSPLINK is running.
-* Use [Zadig](https://zadig.akeo.ie/) to install the libusb-win32 driver.
+* Use [Zadig](https://zadig.akeo.ie/) to install the libusbK (on Windows 11, at least) or libusb-win32 driver.
 * Make sure it says PSP Type B in Zadig and click Install Driver.
 
 #### Windows XP / Vista / etc.
