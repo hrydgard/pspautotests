@@ -1,0 +1,19 @@
+[x/183566489] sceKernelReferThreadProfiler
+[x/92] regs: 00000000
+[x/65] regs: 00000000
+[x/57] regs: 00000000
+[x/57] regs: 00000000
+[x/56] regs: 00000000
+[x/58] regs: 00000000
+[x/58] regs: 00000000
+[x/57] regs: 00000000
+
+[x/4608] sceKernelReferGlobalProfiler
+[x/70] regs: 00000000
+[x/64] regs: 00000000
+[x/57] regs: 00000000
+[x/57] regs: 00000000
+[x/57] regs: 00000000
+[x/56] regs: 00000000
+[x/57] regs: 00000000
+[x/55] regs: 00000000
