@@ -1,6 +1,10 @@
+#pragma once
+
 #include <pspatrac3.h>
 
+#ifdef __cplusplus
 extern "C" {
+#endif
 	typedef struct {
 		u8 *writePos;
 		u32 writableBytes;
@@ -115,4 +119,6 @@ extern "C" {
 	int sceAtracGetOutputChannel(int atracID, u32 *outputChannels);
 
 	SceAtracId *_sceAtracGetContextAddress(int atracID);
+#ifdef __cplusplus
 }
+#endif

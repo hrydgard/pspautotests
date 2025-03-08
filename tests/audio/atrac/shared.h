@@ -1,4 +1,7 @@
+#pragma once
+
 #include <common.h>
+
 #include "atrac.h"
 
 inline void schedfSingleResetBuffer(AtracSingleResetBufferInfo &info, void *basePtr) {

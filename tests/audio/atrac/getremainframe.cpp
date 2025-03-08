@@ -1,5 +1,7 @@
 #include "shared.h"
 
+#define PSP_ATRAC_AT3PLUS 0x00001000
+
 void testGetRemainFrame(const char *title, int atracID, bool withRemainFrame) {
 	int remainFrame = -1337;
 	int result = sceAtracGetRemainFrame(atracID, withRemainFrame ? &remainFrame : NULL);

@@ -39,3 +39,6 @@ __testfailure.bmp
 
 libpsmfplayer.prx
 psmf.prx
+
+# For VS Code
+.vscode
