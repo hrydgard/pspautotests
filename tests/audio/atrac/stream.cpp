@@ -58,12 +58,19 @@ void logContext(int atracID, u32 buffer, bool full) {
 	}
 }
 
+void hexDump16(char *p) {
+	unsigned char *ptr = (unsigned char *)p;
+	printf("%02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x | %c%c%c%c %c%c%c%c %c%c%c%c %c%c%c%c\n", ptr[0], ptr[1], ptr[2], ptr[3], ptr[4], ptr[5], ptr[6], ptr[7], ptr[8], ptr[9], ptr[10], ptr[11], ptr[12], ptr[13], ptr[14], ptr[15], ptr[0], ptr[1], ptr[2], ptr[3], ptr[4], ptr[5], ptr[6], ptr[7], ptr[8], ptr[9], ptr[10], ptr[11], ptr[12], ptr[13], ptr[14], ptr[15]);
+}
+
 extern "C" int main(int argc, char *argv[]) {
     SceCtrlData pad;
     sceCtrlSetSamplingCycle(0);
     sceCtrlSetSamplingMode(PSP_CTRL_MODE_ANALOG);
 
-	// Pretty small streaming buffer, so even sample.at3 will need to wrap around once.
+	// Pretty small streaming buffer, so even sample.at3 will need to wrap around more than once.
+	// Curious size: 0x4100 results in no wrapping of the buffer.
+	// const int blk_size = 0x4200;
 	const int blk_size = 0x8000;
 
 	// Here 170 is a guess frame threshold (too big for the small AT3!)
@@ -78,7 +85,7 @@ extern "C" int main(int argc, char *argv[]) {
 	FILE *file;
 
 	u32 writePtr;
-	u32 readOffset;
+	u32 readFileOffset;
 
 	// We start by just reading the header.
 	// sample_long.at3 streams just as well as sample.at3.
@@ -89,10 +96,12 @@ extern "C" int main(int argc, char *argv[]) {
 	char *decode_data;
 	if ((file = fopen("sample.at3", "rb")) != NULL) {
 		fseek(file, 0, SEEK_SET);
-		u32 header[2];
-		fread(&header, 4, 2, file);
+		u32 header[4];
+		fread(&header, 4, 4, file);
 		file_size = header[1];
 		printf("filesize (according to header) = 0x%08x\n", file_size);
+
+		hexDump16((char *)header);
 
 		fseek(file, 0, SEEK_END);
 		at3_size = ftell(file);
@@ -130,6 +139,7 @@ extern "C" int main(int argc, char *argv[]) {
 		printf("sceAtracSetDataAndGetID: OK, size=%08x (file_size: %08x)\n", blk_size, at3_size);
 		at3_size -= blk_size;
 	}
+	hexDump16((char *)at3_data);
 
 	int result;
 	int endSample, loopStart, loopEnd;
@@ -149,11 +159,11 @@ extern "C" int main(int argc, char *argv[]) {
 
 	int maxSamples = 0;
 	result = sceAtracGetMaxSample(atracID, &maxSamples);
-	printf("%08x=sceAtracGetMaxSample: %d\n", result, maxSamples);
+	printf("%08x=sceAtracGetMaxSample: %d (%08x)\n", result, maxSamples, maxSamples);
 
 	int nextSamples = 0;
 	result = sceAtracGetNextSample(atracID, &nextSamples);
-	printf("%08x=sceAtracGetNextSample: %d\n", result, nextSamples);
+	printf("%08x=sceAtracGetNextSample: %d (%08x)\n", result, nextSamples, nextSamples);
 
 	int audioChannel = sceAudioChReserve(0, maxSamples, PSP_AUDIO_FORMAT_STEREO);
 	printf("sceAudioChReserve: %08X\n", audioChannel);
@@ -161,12 +171,7 @@ extern "C" int main(int argc, char *argv[]) {
 	u32 secondPosition;
 	u32 secondDataByte;
 	result = sceAtracGetSecondBufferInfo(atracID, &secondPosition, &secondDataByte);
-	printf("%08x=sceAtracGetSecondBufferInfo: %u, %u\n", (unsigned int)secondPosition, (unsigned int)secondDataByte);
-
-	// Do an early query just to see what happens here.
-	u32 temp;
-	result = sceAtracGetStreamDataInfo(atracID, (u8**)&writePtr, &temp, &readOffset);
-	printf("%i=sceAtracGetStreamDataInfo: %d (off), %d, %d\n", result, (char *)writePtr - at3_data, temp, readOffset);
+	printf("%08x=sceAtracGetSecondBufferInfo: %u, %u\n", result, (unsigned int)secondPosition, (unsigned int)secondDataByte);
 
 	int end = 0;
 	int remainFrame = -1;
@@ -176,6 +181,11 @@ extern "C" int main(int argc, char *argv[]) {
 
 	result = sceAtracGetRemainFrame(atracID, &remainFrame);
 	printf("sceAtracGetRemainFrame(): %d\n\n", remainFrame);
+
+	// Do an early query just to see what happens here.
+	u32 bytesToRead;
+	result = sceAtracGetStreamDataInfo(atracID, (u8**)&writePtr, &bytesToRead, &readFileOffset);
+	printf("%i=sceAtracGetStreamDataInfo: %d (offset), %d, %d (%08x %08x %08x)\n", result, (char *)writePtr - at3_data, bytesToRead, readFileOffset, (char *)writePtr - at3_data, bytesToRead, readFileOffset);
 
 	bool first = true;
 	if (sizeof(SceAtracIdInfo) != 128) {
@@ -189,7 +199,6 @@ extern "C" int main(int argc, char *argv[]) {
 			break;
 		}
 
-		printf("========\n");
 		logContext(atracID, (u32)(uintptr_t)at3_data, first);
 
 		char *dec_frame = decode_data + decode_size * decIndex;
@@ -214,17 +223,22 @@ extern "C" int main(int argc, char *argv[]) {
 		// output sound. 0x8000 is the volume, not the block size, that's specified in sceAudioChReserve.
 		sceAudioOutputBlocking(audioChannel, 0x8000, dec_frame);
 
+		printf("========\n");
+
+		result = sceAtracGetStreamDataInfo(atracID, (u8**)&writePtr, &bytesToRead, &readFileOffset);
+		printf("%i=sceAtracGetStreamDataInfo: %d (off), %d, %d (%08x %08x %08x)\n", result, (char *)writePtr - at3_data, bytesToRead, readFileOffset, (char *)writePtr - at3_data, bytesToRead, readFileOffset);
+
 		if (remainFrame < minRemain) {
 			// get stream data info
-			u32 bytesToRead;
-			result = sceAtracGetStreamDataInfo(atracID, (u8**)&writePtr, &bytesToRead, &readOffset);
-			printf("%08x=sceAtracGetStreamDataInfo: %d (off), %d, %d\n", result, (char *)writePtr - at3_data, bytesToRead, readOffset);
 			if (bytesToRead > 0) {
+				int filePos = ftell(file);
+				printf("Calling fread (%d) (should be at %d, is at %d)\n", bytesToRead, readFileOffset, filePos);
 				int bytesRead = fread((u8*)writePtr, 1, bytesToRead, file);
 				if (bytesRead != bytesToRead) {
 					printf("fread error: %d != %d\n", bytesRead, bytesToRead);
 					return 1;
 				}
+				hexDump16((char *)at3_data);
 				result = sceAtracAddStreamData(atracID, bytesToRead);
 				if (result) {
 					printf("%08x=sceAtracAddStreamData(%d) error\n", result, bytesToRead);
@@ -241,6 +255,7 @@ extern "C" int main(int argc, char *argv[]) {
 			decIndex = 0;
 		}
 	}
+	hexDump16((char *)at3_data);
 
 	logContext(atracID, (u32)(uintptr_t)at3_data, true);
 
