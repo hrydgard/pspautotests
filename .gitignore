@@ -39,6 +39,7 @@ __testfailure.bmp
 
 libpsmfplayer.prx
 psmf.prx
+usbhostfs_pc.exe.stackdump
 
 # For VS Code
 .vscode

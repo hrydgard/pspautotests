@@ -1,0 +1,823 @@
+filesize (according to header) = 0x0000b500
+at3size = 0x0000b508
+Audio modules: OK
+Header: RIFF
+at3_size: 46344 bufSize: 00008000. minRemain: 20.
+sceAtracSetDataAndGetID: OK, size=00008000 (file_size: 0000b508)
+00000000=sceAtracGetSoundSample: 0003c6cc, ffffffff, ffffffff
+00000000=sceAtracGetBitrate: 64
+00000000=sceAtracGetChannel: 2
+80630021=sceAtracSetLoopNum
+00000000=sceAtracGetMaxSample: 2048
+00000000=sceAtracGetNextSample: 1680
+sceAudioChReserve: 00000000
+00000000=sceAtracGetSecondBufferInfo: 0, 164865984
+0=sceAtracGetStreamDataInfo: 336 (off), 136, 32768
+sceAtracGetRemainFrame(): 85
+
+========
+sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00008000 secondBufferByte: 00000000
+decodePos: 00000970 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000001d8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00007e28 streamOff: 000001d8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000690, end: 00000000, remainFrame: 84
+Deglitching first frame
+========
+decodePos: 00001000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00000350 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00007cb0 streamOff: 00000350 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 83
+========
+decodePos: 00001800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000004c8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00007b38 streamOff: 000004c8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 82
+========
+decodePos: 00002000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00000640 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000079c0 streamOff: 00000640 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 81
+========
+decodePos: 00002800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000007b8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00007848 streamOff: 000007b8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 80
+========
+decodePos: 00003000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00000930 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000076d0 streamOff: 00000930 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 79
+========
+decodePos: 00003800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00000aa8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00007558 streamOff: 00000aa8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 78
+========
+decodePos: 00004000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00000c20 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000073e0 streamOff: 00000c20 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 77
+========
+decodePos: 00004800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00000d98 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00007268 streamOff: 00000d98 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 76
+========
+decodePos: 00005000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00000f10 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000070f0 streamOff: 00000f10 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 75
+========
+decodePos: 00005800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00001088 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00006f78 streamOff: 00001088 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 74
+========
+decodePos: 00006000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00001200 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00006e00 streamOff: 00001200 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 73
+========
+decodePos: 00006800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00001378 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00006c88 streamOff: 00001378 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 72
+========
+decodePos: 00007000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000014f0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00006b10 streamOff: 000014f0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 71
+========
+decodePos: 00007800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00001668 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00006998 streamOff: 00001668 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 70
+========
+decodePos: 00008000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000017e0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00006820 streamOff: 000017e0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 69
+========
+decodePos: 00008800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00001958 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000066a8 streamOff: 00001958 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 68
+========
+decodePos: 00009000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00001ad0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00006530 streamOff: 00001ad0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 67
+========
+decodePos: 00009800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00001c48 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000063b8 streamOff: 00001c48 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 66
+========
+decodePos: 0000a000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00001dc0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00006240 streamOff: 00001dc0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 65
+========
+decodePos: 0000a800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00001f38 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000060c8 streamOff: 00001f38 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 64
+========
+decodePos: 0000b000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000020b0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00005f50 streamOff: 000020b0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 63
+========
+decodePos: 0000b800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00002228 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00005dd8 streamOff: 00002228 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 62
+========
+decodePos: 0000c000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000023a0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00005c60 streamOff: 000023a0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 61
+========
+decodePos: 0000c800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00002518 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00005ae8 streamOff: 00002518 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 60
+========
+decodePos: 0000d000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00002690 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00005970 streamOff: 00002690 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 59
+========
+decodePos: 0000d800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00002808 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000057f8 streamOff: 00002808 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 58
+========
+decodePos: 0000e000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00002980 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00005680 streamOff: 00002980 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 57
+========
+decodePos: 0000e800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00002af8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00005508 streamOff: 00002af8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 56
+========
+decodePos: 0000f000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00002c70 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00005390 streamOff: 00002c70 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 55
+========
+decodePos: 0000f800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00002de8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00005218 streamOff: 00002de8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 54
+========
+decodePos: 00010000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00002f60 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000050a0 streamOff: 00002f60 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 53
+========
+decodePos: 00010800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000030d8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00004f28 streamOff: 000030d8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 52
+========
+decodePos: 00011000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00003250 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00004db0 streamOff: 00003250 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 51
+========
+decodePos: 00011800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000033c8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00004c38 streamOff: 000033c8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 50
+========
+decodePos: 00012000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00003540 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00004ac0 streamOff: 00003540 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 49
+========
+decodePos: 00012800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000036b8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00004948 streamOff: 000036b8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 48
+========
+decodePos: 00013000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00003830 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000047d0 streamOff: 00003830 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 47
+========
+decodePos: 00013800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000039a8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00004658 streamOff: 000039a8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 46
+========
+decodePos: 00014000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00003b20 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000044e0 streamOff: 00003b20 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 45
+========
+decodePos: 00014800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00003c98 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00004368 streamOff: 00003c98 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 44
+========
+decodePos: 00015000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00003e10 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000041f0 streamOff: 00003e10 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 43
+========
+decodePos: 00015800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00003f88 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00004078 streamOff: 00003f88 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 42
+========
+decodePos: 00016000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00004100 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00003f00 streamOff: 00004100 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 41
+========
+decodePos: 00016800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00004278 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00003d88 streamOff: 00004278 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 40
+========
+decodePos: 00017000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000043f0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00003c10 streamOff: 000043f0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 39
+========
+decodePos: 00017800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00004568 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00003a98 streamOff: 00004568 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 38
+========
+decodePos: 00018000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000046e0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00003920 streamOff: 000046e0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 37
+========
+decodePos: 00018800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00004858 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000037a8 streamOff: 00004858 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 36
+========
+decodePos: 00019000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000049d0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00003630 streamOff: 000049d0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 35
+========
+decodePos: 00019800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00004b48 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000034b8 streamOff: 00004b48 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 34
+========
+decodePos: 0001a000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00004cc0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00003340 streamOff: 00004cc0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 33
+========
+decodePos: 0001a800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00004e38 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000031c8 streamOff: 00004e38 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 32
+========
+decodePos: 0001b000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00004fb0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00003050 streamOff: 00004fb0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 31
+========
+decodePos: 0001b800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00005128 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00002ed8 streamOff: 00005128 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 30
+========
+decodePos: 0001c000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000052a0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00002d60 streamOff: 000052a0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 29
+========
+decodePos: 0001c800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00005418 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00002be8 streamOff: 00005418 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 28
+========
+decodePos: 0001d000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00005590 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00002a70 streamOff: 00005590 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 27
+========
+decodePos: 0001d800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00005708 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000028f8 streamOff: 00005708 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 26
+========
+decodePos: 0001e000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00005880 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00002780 streamOff: 00005880 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 25
+========
+decodePos: 0001e800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000059f8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00002608 streamOff: 000059f8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 24
+========
+decodePos: 0001f000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00005b70 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00002490 streamOff: 00005b70 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 23
+========
+decodePos: 0001f800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00005ce8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00002318 streamOff: 00005ce8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 22
+========
+decodePos: 00020000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00005e60 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000021a0 streamOff: 00005e60 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 21
+========
+decodePos: 00020800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00005fd8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00002028 streamOff: 00005fd8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 20
+========
+decodePos: 00021000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00006150 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00001eb0 streamOff: 00006150 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: 19
+00000000=sceAtracGetStreamDataInfo: 336 (off), 13576, 32768
+00000000=sceAtracAddStreamData: 00003508
+========
+decodePos: 00021800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000062c8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00005240 streamOff: 000062c8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00022000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00006440 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000050c8 streamOff: 00006440 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00022800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000065b8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00004f50 streamOff: 000065b8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00023000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00006730 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00004dd8 streamOff: 00006730 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00023800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000068a8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00004c60 streamOff: 000068a8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00024000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00006a20 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00004ae8 streamOff: 00006a20 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00024800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00006b98 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00004970 streamOff: 00006b98 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00025000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00006d10 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000047f8 streamOff: 00006d10 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00025800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00006e88 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00004680 streamOff: 00006e88 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00026000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00007000 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00004508 streamOff: 00007000 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00026800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00007178 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00004390 streamOff: 00007178 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00027000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000072f0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00004218 streamOff: 000072f0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00027800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00007468 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000040a0 streamOff: 00007468 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00028000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000075e0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00003f28 streamOff: 000075e0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00028800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00007758 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00003db0 streamOff: 00007758 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00029000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000078d0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00003c38 streamOff: 000078d0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00029800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00007a48 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00003ac0 streamOff: 00007a48 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0002a000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00007bc0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00003948 streamOff: 00007bc0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0002a800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00007d38 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000037d0 streamOff: 00007d38 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0002b000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00007eb0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00003658 streamOff: 00000000 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0002b800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00008028 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000034e0 streamOff: 00000178 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0002c000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000081a0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00003368 streamOff: 000002f0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0002c800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00008318 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000031f0 streamOff: 00000468 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0002d000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00008490 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00003078 streamOff: 000005e0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0002d800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00008608 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00002f00 streamOff: 00000758 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0002e000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00008780 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00002d88 streamOff: 000008d0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0002e800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000088f8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00002c10 streamOff: 00000a48 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0002f000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00008a70 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00002a98 streamOff: 00000bc0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0002f800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00008be8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00002920 streamOff: 00000d38 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00030000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00008d60 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000027a8 streamOff: 00000eb0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00030800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00008ed8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00002630 streamOff: 00001028 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00031000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00009050 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000024b8 streamOff: 000011a0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00031800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000091c8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00002340 streamOff: 00001318 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00032000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00009340 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000021c8 streamOff: 00001490 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00032800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000094b8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00002050 streamOff: 00001608 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00033000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00009630 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00001ed8 streamOff: 00001780 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00033800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 000097a8 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00001d60 streamOff: 000018f8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00034000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00009920 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00001be8 streamOff: 00001a70 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00034800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00009a98 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00001a70 streamOff: 00001be8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00035000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00009c10 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000018f8 streamOff: 00001d60 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00035800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00009d88 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00001780 streamOff: 00001ed8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00036000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 00009f00 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00001608 streamOff: 00002050 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00036800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 0000a078 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00001490 streamOff: 000021c8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00037000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 0000a1f0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00001318 streamOff: 00002340 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00037800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 0000a368 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000011a0 streamOff: 000024b8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00038000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 0000a4e0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00001028 streamOff: 00002630 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00038800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 0000a658 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000eb0 streamOff: 000027a8 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00039000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 0000a7d0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000d38 streamOff: 00002920 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 00039800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 0000a948 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000bc0 streamOff: 00002a98 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0003a000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 0000aac0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000a48 streamOff: 00002c10 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0003a800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 0000ac38 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000008d0 streamOff: 00002d88 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0003b000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 0000adb0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000758 streamOff: 00002f00 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0003b800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 0000af28 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000005e0 streamOff: 00003078 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0003c000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 0000b0a0 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000468 streamOff: 000031f0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0003c800 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 0000b218 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 000002f0 streamOff: 00003368 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 00000800, end: 00000000, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+========
+decodePos: 0003d000 unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 0000b390 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000034e0 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+0=sceAtracDecodeData: samples: 0000003d, end: 00000001, remainFrame: -2
+00000000=sceAtracGetStreamDataInfo: 0 (off), 0, 0
+sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00008000 secondBufferByte: 00000000
+decodePos: 0003d03d unk22: 00000000 state: 4 numFrame: 00
+dataOff: 00000060 curOff: 0000b508 dataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000000 streamOff: 00003658 unk52: 00000000
+buffer(offset): 00000000 secondBuffer: 00000000 samplesPerChan: 0970
+reached end of file
+sceAudioChRelease: 00000000
+sceAtracReleaseAtracID: 00000000
+
+Done!

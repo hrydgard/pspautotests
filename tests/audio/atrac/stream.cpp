@@ -22,33 +22,60 @@ u32 min(u32 a, u32 b) {
 	return ret;
 }
 
-#define DEC_BUFFERS 3
+// Double buffering seems to be enough.
+#define DEC_BUFFERS 2
+
+void logContext(int atracID, u32 buffer, bool full) {
+	// Need to call this every time to get the values updated - but only in the emulator!
+	// TODO: All Atrac calls should update the raw context, or we should just directly use the fields.
+	SceAtracId *ctx = _sceAtracGetContextAddress(atracID);
+	if (full) {
+		// Also log some stuff from the codec context, just because.
+		// Actually, doesn't seem very useful. inBuf is just the current frame being decoded.
+		/*
+		printf("CODEC inbuf: %p\n", ctx->codec.inBuf);
+		printf("CODEC outbuf: %p\n", ctx->codec.outBuf);
+		printf("CODEC edramAddr: %08x\n", ctx->codec.edramAddr);
+		// printf("CODEC allocMem: %p\n", ctx->codec.allocMem);
+		printf("CODEC neededMem: %d\n", ctx->codec.neededMem);
+		printf("CODEC err: %d\n", ctx->codec.err);
+		*/
+		printf("sampleSize: %04x codec: %04x channels: %d\n", ctx->info.sampleSize, ctx->info.codec, ctx->info.numChan);
+		printf("endSample: %08x loopStart: %08x loopEnd: %08x\n", ctx->info.endSample, ctx->info.loopStart, ctx->info.loopEnd);
+		printf("bufferByte: %08x secondBufferByte: %08x\n", ctx->info.bufferByte, ctx->info.secondBufferByte);
+	}
+
+	printf("decodePos: %08x unk22: %08x state: %d numFrame: %02x\n", ctx->info.decodePos, ctx->info.unk22, ctx->info.state, ctx->info.numFrame);
+	printf("dataOff: %08x curOff: %08x dataEnd: %08x loopNum: %d\n", ctx->info.dataOff, ctx->info.curOff, ctx->info.dataEnd, ctx->info.loopNum);
+	printf("streamDataByte: %08x streamOff: %08x unk52: %08x\n", ctx->info.streamDataByte, ctx->info.streamOff, ctx->info.unk52);
+	// Probably shouldn't log these raw pointers (buffer/secondBuffer).
+	printf("buffer(offset): %08x secondBuffer: %08x samplesPerChan: %04x\n", ctx->info.buffer - buffer, ctx->info.secondBuffer, ctx->info.samplesPerChan);
+
+	for (int i = 0; i < ARRAY_SIZE(ctx->info.unk); i++) {
+		if (ctx->info.unk[i] != 0) {
+			printf("unk[%d]: %08x\n", i, ctx->info.unk[i]);
+		}
+	}
+}
 
 extern "C" int main(int argc, char *argv[]) {
     SceCtrlData pad;
     sceCtrlSetSamplingCycle(0);
     sceCtrlSetSamplingMode(PSP_CTRL_MODE_ANALOG);
 
-	char *at3_data;
-	int file_size;
-	int at3_size;
-
+	// Pretty small streaming buffer, so even sample.at3 will need to wrap around once.
 	const int blk_size = 0x8000;
+
+	// Here 170 is a guess frame threshold (too big for the small AT3!)
+	// 42 is not unusual (seen in Wipeout Pulse), though higher values are often seen too.
+	// Probably depends on the buffer size.
 	const int minRemain = 20;
 
-	char *decode_data;
-
 	// doesn't matter, as long as it's bigger than a frame size (0x800 bytes, or the return value of sceAtracGetMaxSample).
+	// We double buffer this, otherwise we get playback glitches.
 	int decode_size = 32 * 1024;
 
 	FILE *file;
-
-	int atracID;
-	int maxSamples = 0;
-	int result;
-
-	u32 puiPosition;
-	u32 puiDataByte;
 
 	u32 writePtr;
 	u32 readOffset;
@@ -56,6 +83,10 @@ extern "C" int main(int argc, char *argv[]) {
 	// We start by just reading the header.
 	// sample_long.at3 streams just as well as sample.at3.
 	// However, some offsets become different, which is good for testing. We should make both work.
+	char *at3_data;
+	int file_size;
+	int at3_size;
+	char *decode_data;
 	if ((file = fopen("sample.at3", "rb")) != NULL) {
 		fseek(file, 0, SEEK_SET);
 		u32 header[2];
@@ -91,7 +122,7 @@ extern "C" int main(int argc, char *argv[]) {
 	printf("at3_size: %d bufSize: %08x. minRemain: %d.\n", at3_size, blk_size, minRemain);
 
 	// set first block of data
-	atracID = sceAtracSetDataAndGetID(at3_data, blk_size);
+	int atracID = sceAtracSetDataAndGetID(at3_data, blk_size);
 	if (atracID < 0) {
 		printf("sceAtracSetDataAndGetID: Failed %08x\n", atracID);
 		return 1;
@@ -100,6 +131,7 @@ extern "C" int main(int argc, char *argv[]) {
 		at3_size -= blk_size;
 	}
 
+	int result;
 	int endSample, loopStart, loopEnd;
 	result = sceAtracGetSoundSample(atracID, &endSample, &loopStart, &loopEnd);
 	printf("%08x=sceAtracGetSoundSample: %08x, %08x, %08x\n", result, endSample, loopStart, loopEnd);
@@ -115,31 +147,26 @@ extern "C" int main(int argc, char *argv[]) {
 	result = sceAtracSetLoopNum(atracID, 0);
 	printf("%08x=sceAtracSetLoopNum\n", result);
 
+	int maxSamples = 0;
 	result = sceAtracGetMaxSample(atracID, &maxSamples);
 	printf("%08x=sceAtracGetMaxSample: %d\n", result, maxSamples);
+
+	int nextSamples = 0;
+	result = sceAtracGetNextSample(atracID, &nextSamples);
+	printf("%08x=sceAtracGetNextSample: %d\n", result, nextSamples);
 
 	int audioChannel = sceAudioChReserve(0, maxSamples, PSP_AUDIO_FORMAT_STEREO);
 	printf("sceAudioChReserve: %08X\n", audioChannel);
 
-	result = sceAtracGetSecondBufferInfo(atracID, &puiPosition, &puiDataByte);
-	printf("%08x=sceAtracGetSecondBufferInfo: %u, %u\n", (unsigned int)puiPosition, (unsigned int)puiDataByte);
+	u32 secondPosition;
+	u32 secondDataByte;
+	result = sceAtracGetSecondBufferInfo(atracID, &secondPosition, &secondDataByte);
+	printf("%08x=sceAtracGetSecondBufferInfo: %u, %u\n", (unsigned int)secondPosition, (unsigned int)secondDataByte);
 
 	// Do an early query just to see what happens here.
 	u32 temp;
 	result = sceAtracGetStreamDataInfo(atracID, (u8**)&writePtr, &temp, &readOffset);
 	printf("%i=sceAtracGetStreamDataInfo: %d (off), %d, %d\n", result, (char *)writePtr - at3_data, temp, readOffset);
-
-	SceAtracId *ctx = _sceAtracGetContextAddress(atracID);
-	printf("Context: decodePos: %08x, endSample: %08x\n", ctx->info.decodePos, ctx->info.endSample);
-	printf("loopStart: %08x, loopEnd: %08x, samplesPerChan: %08x\n", ctx->info.loopStart, ctx->info.loopEnd, ctx->info.samplesPerChan);
-	printf("numFrames: %02x, state: %02x, unk22: %02x\n", ctx->info.numFrame, ctx->info.state, ctx->info.unk22);
-	printf("numChan: %02x, sampleSize: %04x, codec: %04x\n", ctx->info.numChan, ctx->info.sampleSize, ctx->info.codec);
-	printf("dataOff: %08x, curOff: %08x, dataEnd: %08x"\n, ctx->info.dataOff, ctx->info.curOff, ctx->info.dataEnd);
-	printf("loopNum: %d, streamDataByte: %08x, unk48: %08x, unk52: %08x\n", ctx->info.loopNum, ctx->info.streamDataByte, ctx->info.unk48, ctx->info.unk52);
-	printf("buffer: %d, secondBuffer: %d, bufferByte: %08x, secondBufferByte: %08x\n", ctx->info.buffer != 0, ctx->info.secondBuffer != 0, ctx->info.bufferByte, ctx->info.secondBufferByte);
-	printf("\n");
-
-	schedfAtrac(atracID);
 
 	int end = 0;
 	int remainFrame = -1;
@@ -150,6 +177,11 @@ extern "C" int main(int argc, char *argv[]) {
 	result = sceAtracGetRemainFrame(atracID, &remainFrame);
 	printf("sceAtracGetRemainFrame(): %d\n\n", remainFrame);
 
+	bool first = true;
+	if (sizeof(SceAtracIdInfo) != 128) {
+		printf("bad size %d\n", sizeof(SceAtracIdInfo));
+	}
+
 	while (!end) {
         sceCtrlPeekBufferPositive(&pad, 1);
 		if (pad.Buttons & PSP_CTRL_START) {
@@ -157,13 +189,8 @@ extern "C" int main(int argc, char *argv[]) {
 			break;
 		}
 
-		// Need to call this again to get the values updated - but only in the emulator!
-		// TODO: All Atrac calls should update the raw context, or we should just directly use the fields.
-		SceAtracId *ctx = _sceAtracGetContextAddress(atracID);
-
-		// Log out some important fields so we can check them.
-		printf("ATRAC: decodePos: %08x, curPos: %08x, loopStart: %08x, loopEnd: %08x, samplesPerChan: %08x\n",
-			ctx->info.decodePos, ctx->info.endSample, ctx->info.loopStart, ctx->info.loopEnd, ctx->info.samplesPerChan);
+		printf("========\n");
+		logContext(atracID, (u32)(uintptr_t)at3_data, first);
 
 		char *dec_frame = decode_data + decode_size * decIndex;
 
@@ -177,12 +204,16 @@ extern "C" int main(int argc, char *argv[]) {
 		printf("%i=sceAtracDecodeData: samples: %08x, end: %08x, remainFrame: %d\n",
 			result, samples, end, remainFrame);
 
+		// de-glitch the first frame, which is usually shorter
+		if (first && samples < maxSamples) {
+			printf("Deglitching first frame\n");
+			memmove(dec_frame + (maxSamples - samples) * 4, dec_frame, samples * 4);
+			memset(dec_frame, 0, (maxSamples - samples) * 4);
+		}
+
 		// output sound. 0x8000 is the volume, not the block size, that's specified in sceAudioChReserve.
 		sceAudioOutputBlocking(audioChannel, 0x8000, dec_frame);
 
-		// Here 170 is a guess frame threshold (too big for the small AT3!)
-		// 42 is not unusual (seen in Wipeout Pulse), though higher values are often seen too.
-		// Probably depends on the buffer size.
 		if (remainFrame < minRemain) {
 			// get stream data info
 			u32 bytesToRead;
@@ -203,11 +234,15 @@ extern "C" int main(int argc, char *argv[]) {
 			}
 		}
 
+		first = false;
+
 		decIndex++;
 		if (decIndex == DEC_BUFFERS) {
 			decIndex = 0;
 		}
 	}
+
+	logContext(atracID, (u32)(uintptr_t)at3_data, true);
 
 	if (end) {
 		printf("reached end of file\n");

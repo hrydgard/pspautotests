@@ -33,7 +33,7 @@ inline void schedfAtrac(int atracID) {
 	schedf("numFrames: %02x, state: %02x, unk22: %02x", ctx->info.numFrame, ctx->info.state, ctx->info.unk22);
 	schedf(", numChan: %02x, sampleSize: %04x, codec: %04x\n", ctx->info.numChan, ctx->info.sampleSize, ctx->info.codec);
 	schedf("dataOff: %08x, curOff: %08x, dataEnd: %08x", ctx->info.dataOff, ctx->info.curOff, ctx->info.dataEnd);
-	schedf(", loopNum: %d, streamDataByte: %08x, unk48: %08x, unk52: %08x\n", ctx->info.loopNum, ctx->info.streamDataByte, ctx->info.unk48, ctx->info.unk52);
+	schedf(", loopNum: %d, streamDataByte: %08x, streamOff: %08x, unk52: %08x\n", ctx->info.loopNum, ctx->info.streamDataByte, ctx->info.streamOff, ctx->info.unk52);
 	schedf("buffer: %d, secondBuffer: %d, bufferByte: %08x, secondBufferByte: %08x\n", ctx->info.buffer != 0, ctx->info.secondBuffer != 0, ctx->info.bufferByte, ctx->info.secondBufferByte);
 	schedf("\n");
 }

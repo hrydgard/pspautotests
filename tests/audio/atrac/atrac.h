@@ -22,10 +22,10 @@ extern "C" {
 		s32 unk0;
 		s32 unk4;
 		s32 err; // 8
-		s32 edramAddr; // 12
-		s32 neededMem; // 16
+		s32 edramAddr; // 12  // 18eac0 ?? I guess this is in ME space?
+		s32 neededMem; // 16  // 0x102400
 		s32 unk20;
-		void *inBuf; // 24
+		void *inBuf; // 24  // This is updated for every frame that's decoded, to point to the start of the frame.
 		s32 unk28;
 		void *outBuf; // 32
 		s32 unk36;
@@ -75,14 +75,15 @@ extern "C" {
 		u32 dataEnd; // 36
 		int loopNum; // 40
 		u32 streamDataByte; // 44
-		u32 unk48;
-		u32 unk52;
+		u32 streamOff;  // previously unk48. This seems to be the offset of the stream data in the buffer.
+		u32 unk52;  // Always 0 as far as I can tell.
 		u8 *buffer; // 56
 		u8 *secondBuffer; // 60
 		u32 bufferByte; // 64
 		u32 secondBufferByte; // 68
 		// make sure the size is 128
-		u8 unk[56];
+		u32 unk[13];
+		u32 atracID;
 	} SceAtracIdInfo;
 
 	typedef struct {
