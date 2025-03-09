@@ -1,5 +1,7 @@
 #include "shared.h"
 
+#define PSP_ATRAC_AT3PLUS 0x00001000
+
 void testGetSoundSample(const char *title, int atracID) {
 	int end = -1337, loopStart = -1337, loopEnd = -1337;
 	int result = sceAtracGetSoundSample(atracID, &end, &loopStart, &loopEnd);
