@@ -89,3 +89,37 @@ void CreateLoopedAtracFrom(Atrac3File &at3, Atrac3File &updated, u32 loopStart, 
 
 	memcpy(updated.Data() + initialDataStart + extraLoopInfoSize, at3.Data() + initialDataStart, at3.Size() - initialDataStart);
 }
+
+// Pass in 'full' to get the "set-once" parameters too (that don't change with every Decode call etc)
+void LogAtracContext(int atracID, u32 buffer, bool full) {
+	// Need to call this every time to get the values updated - but only in the emulator!
+	// TODO: All Atrac calls should update the raw context, or we should just directly use the fields.
+	SceAtracId *ctx = _sceAtracGetContextAddress(atracID);
+	if (full) {
+		// Also log some stuff from the codec context, just because.
+		// Actually, doesn't seem very useful. inBuf is just the current frame being decoded.
+		/*
+		printf("CODEC inbuf: %p\n", ctx->codec.inBuf);
+		printf("CODEC outbuf: %p\n", ctx->codec.outBuf);
+		printf("CODEC edramAddr: %08x\n", ctx->codec.edramAddr);
+		// printf("CODEC allocMem: %p\n", ctx->codec.allocMem);
+		printf("CODEC neededMem: %d\n", ctx->codec.neededMem);
+		printf("CODEC err: %d\n", ctx->codec.err);
+		*/
+		printf("sampleSize: %04x codec: %04x channels: %d\n", ctx->info.sampleSize, ctx->info.codec, ctx->info.numChan);
+		printf("endSample: %08x loopStart: %08x loopEnd: %08x\n", ctx->info.endSample, ctx->info.loopStart, ctx->info.loopEnd);
+		printf("bufferByte: %08x secondBufferByte: %08x\n", ctx->info.bufferByte, ctx->info.secondBufferByte);
+	}
+
+	printf("decodePos: %08x unk22: %08x state: %d numFrame: %02x\n", ctx->info.decodePos, ctx->info.unk22, ctx->info.state, ctx->info.numFrame);
+	printf("dataOff: %08x curOff: %08x dataEnd: %08x loopNum: %d\n", ctx->info.dataOff, ctx->info.curOff, ctx->info.dataEnd, ctx->info.loopNum);
+	printf("streamDataByte: %08x streamOff: %08x unk52: %08x\n", ctx->info.streamDataByte, ctx->info.streamOff, ctx->info.unk52);
+	// Probably shouldn't log these raw pointers (buffer/secondBuffer).
+	printf("buffer(offset): %08x secondBuffer: %08x samplesPerChan: %04x\n", ctx->info.buffer - buffer, ctx->info.secondBuffer, ctx->info.samplesPerChan);
+
+	for (int i = 0; i < ARRAY_SIZE(ctx->info.unk); i++) {
+		if (ctx->info.unk[i] != 0) {
+			printf("unk[%d]: %08x\n", i, ctx->info.unk[i]);
+		}
+	}
+}

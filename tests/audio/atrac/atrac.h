@@ -98,7 +98,7 @@ extern "C" {
 
 	int sceAtracGetAtracID(uint codecType);
 	int sceAtracSetData(int atracID, u8 *buf, u32 bufSize);
-	int sceAtracSetHalfwayBufferAndGetID(u8 *buf, u32 bufSize, u32 readBytes);
+	int sceAtracSetHalfwayBufferAndGetID(u8 *buf, u32 readSize, u32 bufferSize);
 	int sceAtracSetHalfwayBuffer(int atracID, u8 *buffer, u32 readSize, u32 bufferSize);
 	int sceAtracSetMOutDataAndGetID(u8 *buffer, u32 bufferSize);
 	int sceAtracSetMOutData(int atracID, u8 *buffer, u32 bufferSize);

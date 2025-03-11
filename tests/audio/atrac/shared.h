@@ -21,23 +21,6 @@ inline void schedfResetBuffer(AtracResetBufferInfo &info, void *basePtr) {
 	schedf("\n");
 }
 
-inline void schedfAtrac(int atracID) {
-	SceAtracId *ctx = _sceAtracGetContextAddress(atracID);
-	if (!ctx) {
-		schedf("ATRAC: failed\n");
-		return;
-	}
-
-	schedf("ATRAC: decodePos: %08x, endSample: %08x", ctx->info.decodePos, ctx->info.endSample);
-	schedf(", loopStart: %08x, loopEnd: %08x, samplesPerChan: %08x\n", ctx->info.loopStart, ctx->info.loopEnd, ctx->info.samplesPerChan);
-	schedf("numFrames: %02x, state: %02x, unk22: %02x", ctx->info.numFrame, ctx->info.state, ctx->info.unk22);
-	schedf(", numChan: %02x, sampleSize: %04x, codec: %04x\n", ctx->info.numChan, ctx->info.sampleSize, ctx->info.codec);
-	schedf("dataOff: %08x, curOff: %08x, dataEnd: %08x", ctx->info.dataOff, ctx->info.curOff, ctx->info.dataEnd);
-	schedf(", loopNum: %d, streamDataByte: %08x, streamOff: %08x, unk52: %08x\n", ctx->info.loopNum, ctx->info.streamDataByte, ctx->info.streamOff, ctx->info.unk52);
-	schedf("buffer: %d, secondBuffer: %d, bufferByte: %08x, secondBufferByte: %08x\n", ctx->info.buffer != 0, ctx->info.secondBuffer != 0, ctx->info.bufferByte, ctx->info.secondBufferByte);
-	schedf("\n");
-}
-
 inline void forceAtracState(int atracID, int state) {
 	SceAtracId *ctx = _sceAtracGetContextAddress(atracID);
 	if (ctx) {
@@ -47,6 +30,8 @@ inline void forceAtracState(int atracID, int state) {
 
 void LoadAtrac();
 void UnloadAtrac();
+
+void LogAtracContext(int atracID, u32 buffer, bool full);
 
 struct Atrac3File {
 	Atrac3File(const char *filename);
