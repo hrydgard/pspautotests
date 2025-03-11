@@ -117,7 +117,7 @@ void LogAtracContext(int atracID, u32 buffer, bool full) {
 
 	schedf("decodePos: %08x unk22: %08x state: %d numFrame: %02x\n", ctx->info.decodePos, ctx->info.unk22, ctx->info.state, ctx->info.numFrame);
 	schedf("dataOff: %08x curOff: %08x dataEnd: %08x loopNum: %d\n", ctx->info.dataOff, ctx->info.curOff, ctx->info.dataEnd, ctx->info.loopNum);
-	schedf("streamDataByte: %08x streamOff: %08x unk52: %08x\n", ctx->info.streamDataByte, ctx->info.streamOff, ctx->info.unk52);
+	schedf("streamDataByte: %08x streamOff: %08x unk52: %08x codec_err: %08x\n", ctx->info.streamDataByte, ctx->info.streamOff, ctx->info.unk52, ctx->codec.err);
 	// Probably shouldn't log these raw pointers (buffer/secondBuffer).
 	schedf("buffer(offset): %08x secondBuffer: %08x samplesPerChan: %04x\n", ctx->info.buffer - buffer, ctx->info.secondBuffer, ctx->info.samplesPerChan);
 
