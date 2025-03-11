@@ -73,7 +73,7 @@ int main(int argc, char *argv[]) {
 		printf("Audio modules: Failed %08x %08x\n", id, id2);
 	}
 
-	printf("at3: %08X-%08X\n", (u32)at3_data, (u32)at3_data + at3_size);
+	printf("at3 size: %08X\n", at3_size);
 	printf("Header: %s\n", (char *)at3_data);
 
 
@@ -115,7 +115,7 @@ int main(int argc, char *argv[]) {
 	while (!end && steps < 65536) {
 		// get stream data info
 		result = sceAtracGetStreamDataInfo(atracID, (u8**)&writePtr, &availableBytes, &readOffset);
-		printf("%i=sceAtracGetStreamDataInfo: %08x, %08x, %08x\n", result, writePtr, availableBytes, readOffset);
+		printf("%i=sceAtracGetStreamDataInfo: %08x (offset), %08x, %08x\n", result, writePtr - (u32)at3_data, availableBytes, readOffset);
 
 		u32 nextSample;
 		sceAtracGetNextSample(atracID, &nextSample);
