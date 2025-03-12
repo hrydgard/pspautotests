@@ -85,16 +85,13 @@ void LogResetBufferInfo(int atracID, const u8 *bufPtr) {
 	}
 }
 
-bool RunAtracTest(const char *filename, AtracTestMode mode, int requestedBufSize, int minRemain, int loopCount, bool enablePlayback) {
+bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, int minRemain, int loopCount, bool enablePlayback) {
 	schedf("============================================================\n");
-	schedf("AtracTest: '%s', mode %s, buffer size %08x, min remain %d:\n", filename, AtracTestModeToString(mode), requestedBufSize, minRemain);
+	schedf("AtracTest: 'unk', mode %s, buffer size %08x, min remain %d:\n", AtracTestModeToString(mode), requestedBufSize, minRemain);
 
     SceCtrlData pad;
     sceCtrlSetSamplingCycle(0);
     sceCtrlSetSamplingMode(PSP_CTRL_MODE_ANALOG);
-
-	CHECKPOINT_OUTPUT_DIRECT = 1;
-	HAS_DISPLAY = 0;  // don't waste time logging to the screen.
 
 	// Pretty small streaming buffer, so even sample.at3 will need to wrap around more than once.
 	// Curious size: 0x4100 results in no wrapping of the buffer.
@@ -104,8 +101,6 @@ bool RunAtracTest(const char *filename, AtracTestMode mode, int requestedBufSize
 	// doesn't matter, as long as it's bigger than a frame size (0x800 bytes, or the return value of sceAtracGetMaxSample).
 	// We double buffer this, otherwise we get playback glitches.
 	int decode_size = 32 * 1024;
-
-	FILE *file;
 
 	u32 writePtr;
 	u32 readFileOffset;
@@ -118,18 +113,19 @@ bool RunAtracTest(const char *filename, AtracTestMode mode, int requestedBufSize
 	int load_bytes;
 	u8 *at3_data = 0;
 	u8 *decode_data = 0;
-	if ((file = fopen(filename, "rb")) != NULL) {
-		fseek(file, 0, SEEK_SET);
+
+	{
+		file.Seek(0, SEEK_SET);
 		u32 header[4];
-		fread(&header, 4, 4, file);
+		file.Read(&header, ARRAY_SIZE(header) * sizeof(u32));
+		file.Seek(0, SEEK_SET);
+
 		file_size = header[1];
 		schedf("filesize (according to header) = 0x%08x\n", file_size);
 
 		hexDump16((char *)header);
 
-		fseek(file, 0, SEEK_END);
-		at3_size = ftell(file);
-		fseek(file, 0, SEEK_SET);
+		at3_size = file.Size();
 
 		schedf("at3size = 0x%08x\n", at3_size);
 
@@ -140,9 +136,9 @@ bool RunAtracTest(const char *filename, AtracTestMode mode, int requestedBufSize
 			schedf("Streaming. buf_size: %08x\n", buf_size);
 			break;
 		case ATRAC_TEST_HALFWAY:
-			schedf("Creating a buffer that fits the full %08x bytes, but partially filled.\n", at3_size);
+			schedf("Halfway: Creating a buffer that fits the full %08x bytes, but partially filled.\n", at3_size);
 			buf_size = at3_size;
-			load_bytes = requestedBufSize;
+			load_bytes = std::min(requestedBufSize, at3_size);
 			break;
 		case ATRAC_TEST_HALFWAY_STREAM:
 			if (requestedBufSize >= at3_size) {
@@ -157,7 +153,7 @@ bool RunAtracTest(const char *filename, AtracTestMode mode, int requestedBufSize
 			}
 			break;
 		case ATRAC_TEST_FULL:
-			schedf("Creating a buffer that fits the full %08x bytes.\n", at3_size);
+			schedf("Full: Creating a buffer that fits all the %08x bytes.\n", at3_size);
 			buf_size = at3_size;
 			load_bytes = at3_size;
 			break;
@@ -169,7 +165,7 @@ bool RunAtracTest(const char *filename, AtracTestMode mode, int requestedBufSize
 		memset(at3_data, 0, buf_size);
 		memset(decode_data, 0, decode_size);
 
-		fread(at3_data, load_bytes, 1, file);
+		file.Read(at3_data, load_bytes);
 
 		if (mode & ATRAC_TEST_CORRUPT) {
 			schedf("Corrupting the data.\n");
@@ -245,7 +241,7 @@ bool RunAtracTest(const char *filename, AtracTestMode mode, int requestedBufSize
 	int loopNum = 0xcccccccc;
 	u32 loopStatus = 0xcccccccc;
 	result = sceAtracGetLoopStatus(atracID, &loopNum, &loopStatus);
-	schedf("%08x=sceAtracGetLoopStatus(%d, %08x)\n", result, loopNum, loopStatus);
+	schedf("%08x=sceAtracGetLoopStatus(%d, %08x, %d, %d)\n", result, loopNum, loopStatus);
 
 	result = sceAtracSetLoopNum(atracID, loopCount);
 	schedf("%08x=sceAtracSetLoopNum(%d)\n", result, loopCount);
@@ -279,19 +275,18 @@ bool RunAtracTest(const char *filename, AtracTestMode mode, int requestedBufSize
 		 (const u8 *)writePtr - at3_data, bytesToRead, readFileOffset,
 		 (const u8 *)writePtr - at3_data, bytesToRead, readFileOffset);
 
-	bool first = true;
 	if (sizeof(SceAtracIdInfo) != 128) {
 		schedf("bad size %d\n", sizeof(SceAtracIdInfo));
 	}
 
 	if (mode & ATRAC_TEST_RESET_POSITION_EARLY) {
 		schedf("==========================\n");
-		schedf("Option enabled: Resetting the buffer position.\n");
+		const int seekSamplePos = 0x3000;
+		schedf("Option enabled: Resetting the buffer position to %d.\n", seekSamplePos);
 
 		AtracResetBufferInfo resetInfo;
 		memset(&resetInfo, 0xcc, sizeof(resetInfo));
 
-		const int seekSamplePos = 0;
 		result = sceAtracGetBufferInfoForResetting(atracID, seekSamplePos, &resetInfo);
 		LogResetBuffer(result, seekSamplePos, resetInfo, (const u8 *)at3_data);
 
@@ -303,16 +298,17 @@ bool RunAtracTest(const char *filename, AtracTestMode mode, int requestedBufSize
 		}
 
 		schedf("Performing actions to reset the buffer - fread of %d/%d bytes from %d in file, to offset %d\n", bytesToWrite, resetInfo.first.writableBytes, resetInfo.first.filePos, resetInfo.first.writePos - at3_data);
-		fseek(file, resetInfo.first.filePos, SEEK_SET);
-		int writtenBytes1 = fread(resetInfo.first.writePos, 1, bytesToWrite, file);
+		file.Seek(resetInfo.first.filePos, SEEK_SET);
+		int writtenBytes1 = file.Read(resetInfo.first.writePos, bytesToWrite);
 		int writtenBytes2 = 0;
 
-		LogAtracContext(atracID, (u32)(uintptr_t)at3_data, first);
+		LogAtracContext(atracID, (u32)(uintptr_t)at3_data, true);
 
 		result = sceAtracResetPlayPosition(atracID, seekSamplePos, writtenBytes1, writtenBytes2);
 		schedf("%08x=sceAtracResetPlayPosition(%d, %d, %d)\n", result, seekSamplePos, writtenBytes1, writtenBytes2);
 	}
 
+	bool first = true;
 	int count = 0;
 	int end = 3;
 	int samples = 0;
@@ -337,11 +333,12 @@ bool RunAtracTest(const char *filename, AtracTestMode mode, int requestedBufSize
 
 		u8 *dec_frame = decode_data + decode_size * decIndex;
 
+		result = sceAtracGetLoopStatus(atracID, &loopNum, &loopStatus);
 		u32 nextDecodePosition = 0;
 		result = sceAtracGetNextDecodePosition(atracID, &nextDecodePosition);
 		// TODO: We should check sceAtracGetNextSample here, too.
 		// result = sceAtracGetNextSample(atracID, &nextDecodePosition);
-		schedf("%08x=sceAtracGetNextDecodePosition: %d (%08x)\n", result, nextDecodePosition, nextDecodePosition);
+		schedf("%08x=sceAtracGetNextDecodePosition: %d (%08x) (loopnum %d status %d)\n", result, nextDecodePosition, nextDecodePosition, loopNum, loopStatus);
 		// decode
 		int finish = 0;
 		result = sceAtracDecodeData(atracID, (u16 *)(dec_frame), &samples, &finish, &remainFrame);
@@ -387,19 +384,19 @@ bool RunAtracTest(const char *filename, AtracTestMode mode, int requestedBufSize
 		if (remainFrame >= 0 && remainFrame < minRemain) {
 			// get stream data info
 			if (bytesToRead > 0 && (mode & ATRAC_TEST_DONT_REFILL) == 0) {
-				int filePos = ftell(file);
+				int filePos = file.Tell();
 				// In halfway buffer mode, restrict the read size, for a more realistic simulation.
 				if ((mode & ATRAC_TEST_MODE_MASK) == ATRAC_TEST_HALFWAY) {
 					bytesToRead = min(bytesToRead, requestedBufSize);
 				}
 				if ((int)readFileOffset != filePos) {
 					schedf("Calling fread (%d) (!!!! should be at %d, is at %d). Seeking.\n", bytesToRead, readFileOffset, filePos);
-					fseek(file, readFileOffset, SEEK_SET);
+					file.Seek(readFileOffset, SEEK_SET);
 				} else {
 					schedf("Calling fread (%d) (at file offset %d)\n", bytesToRead, readFileOffset);
 				}
 
-				int bytesRead = fread((u8*)writePtr, 1, bytesToRead, file);
+				int bytesRead = file.Read((u8*)writePtr, bytesToRead);
 				if (bytesRead != (int)bytesToRead) {
 					schedf("fread error: %d != %d\n", bytesRead, bytesToRead);
 					return 1;
@@ -447,6 +444,7 @@ bool RunAtracTest(const char *filename, AtracTestMode mode, int requestedBufSize
 	loopNum = 0xcccccccc;
 	loopStatus = 0xcccccccc;
 
+	// TODO: Figure out how loop status works.
 	result = sceAtracGetLoopStatus(atracID, &loopNum, &loopStatus);
 	schedf("(end) %08x=sceAtracGetLoopStatus(%d, %08x)\n", result, loopNum, loopStatus);
 
@@ -461,7 +459,6 @@ bool RunAtracTest(const char *filename, AtracTestMode mode, int requestedBufSize
 	}
 
 	free(at3_data);
-	fclose(file);
 
 	if (enablePlayback) {
 		sceAudioChRelease(audioChannel);
@@ -475,12 +472,21 @@ bool RunAtracTest(const char *filename, AtracTestMode mode, int requestedBufSize
 }
 
 extern "C" int main(int argc, char *argv[]) {
+	CHECKPOINT_OUTPUT_DIRECT = 1;
+	HAS_DISPLAY = 0;  // don't waste time logging to the screen.
+
+
+	Atrac3File file("sample.at3");
+	printf("file size: %d\n", file.Size());
+	if (!file.Size()) {
+		return 1;
+	}
 	// ignore return values for now.
-	//RunAtracTest("sample.at3", (AtracTestMode)(ATRAC_TEST_HALFWAY_STREAM | ATRAC_TEST_RESET_POSITION_EARLY), 32 * 1024, 10, 0, false);
-	//RunAtracTest("sample.at3", (AtracTestMode)(ATRAC_TEST_HALFWAY_STREAM), 31 * 1024, 10, 0, false);
-	RunAtracTest("sample.at3", (AtracTestMode)(ATRAC_TEST_HALFWAY | ATRAC_TEST_RESET_POSITION_EARLY), 0x4000, 10, 0, true);
-	//RunAtracTest("sample.at3", (AtracTestMode)(ATRAC_TEST_FULL), 0, 10, 0, false);
-	//RunAtracTest("sample.at3", (AtracTestMode)(ATRAC_TEST_STREAM), 0x4000, 10, 0, false);
+	// RunAtracTest("sample.at3", (AtracTestMode)(ATRAC_TEST_HALFWAY_STREAM | ATRAC_TEST_RESET_POSITION_EARLY), 32 * 1024, 10, 0, true);
+	// RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_HALFWAY_STREAM), 29 * 1024, 10, 0, false);
+	RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_HALFWAY), 0x4300, 10, 0, true);
+	// RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_FULL), 0, 30, 3, true);
+	RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4500, 10, 0, true);
 	// RunAtracTest("sample.at3", (AtracTestMode)(ATRAC_TEST_STREAM | ATRAC_TEST_CORRUPT), 0x3700, 10, 0, false);
 	// RunAtracTest("sample.at3", (AtracTestMode)(ATRAC_TEST_STREAM | ATRAC_TEST_DONT_REFILL), 0x4300, 10, 0, false);
 	return 0;

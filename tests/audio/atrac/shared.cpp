@@ -1,5 +1,7 @@
 #include "shared.h"
 #include <stdio.h>
+#include <cstring>
+#include <cstdlib>
 #include <malloc.h>
 #include <psputility.h>
 
@@ -18,7 +20,7 @@ void UnloadAtrac() {
 	sceUtilityUnloadModule(PSP_MODULE_AV_AVCODEC);
 }
 
-Atrac3File::Atrac3File(const char *filename) : data_(NULL) {
+Atrac3File::Atrac3File(const char *filename) : data_(NULL), size_(0), pos_(0) {
 	Reload(filename);
 }
 
@@ -32,7 +34,7 @@ void Atrac3File::Reload(const char *filename) {
 	data_ = NULL;
 
 	FILE *file = fopen(filename, "rb");
-	if (file != NULL) {
+	if (file) {
 		fseek(file, 0, SEEK_END);
 		size_ = ftell(file);
 		data_ = new u8[size_];
@@ -42,6 +44,11 @@ void Atrac3File::Reload(const char *filename) {
 		fread(data_, size_, 1, file);
 
 		fclose(file);
+
+		pos_ = 0;
+	} else {
+		printf("Failed to open file: %s\n", filename);
+		size_ = 0;
 	}
 }
 
@@ -110,13 +117,13 @@ void LogAtracContext(int atracID, u32 buffer, bool full) {
 		printf("CODEC neededMem: %d\n", ctx->codec.neededMem);
 		printf("CODEC err: %d\n", ctx->codec.err);
 		*/
-		schedf("sampleSize: %04x codec: %04x channels: %d\n", ctx->info.sampleSize, ctx->info.codec, ctx->info.numChan);
+		schedf("dataOff: %08x sampleSize: %04x codec: %04x channels: %d\n", ctx->info.dataOff, ctx->info.sampleSize, ctx->info.codec, ctx->info.numChan);
 		schedf("endSample: %08x loopStart: %08x loopEnd: %08x\n", ctx->info.endSample, ctx->info.loopStart, ctx->info.loopEnd);
 		schedf("bufferByte: %08x secondBufferByte: %08x\n", ctx->info.bufferByte, ctx->info.secondBufferByte);
 	}
 
 	schedf("decodePos: %08x unk22: %08x state: %d numFrame: %02x\n", ctx->info.decodePos, ctx->info.unk22, ctx->info.state, ctx->info.numFrame);
-	schedf("dataOff: %08x curOff: %08x dataEnd: %08x loopNum: %d\n", ctx->info.dataOff, ctx->info.curOff, ctx->info.dataEnd, ctx->info.loopNum);
+	schedf("curOff: %08x dataEnd: %08x loopNum: %d\n", ctx->info.curOff, ctx->info.dataEnd, ctx->info.loopNum);
 	schedf("streamDataByte: %08x streamOff: %08x unk52: %08x codec_err: %08x\n", ctx->info.streamDataByte, ctx->info.streamOff, ctx->info.unk52, ctx->codec.err);
 	// Probably shouldn't log these raw pointers (buffer/secondBuffer).
 	schedf("buffer(offset): %08x secondBuffer: %08x samplesPerChan: %04x\n", ctx->info.buffer - buffer, ctx->info.secondBuffer, ctx->info.samplesPerChan);
