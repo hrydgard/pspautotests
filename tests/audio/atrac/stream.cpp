@@ -222,7 +222,7 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 	int result;
 	int endSample, loopStart, loopEnd;
 	result = sceAtracGetSoundSample(atracID, &endSample, &loopStart, &loopEnd);
-	schedf("%08x=sceAtracGetSoundSample: %08x, %08x, %08x\n", result, endSample, loopStart, loopEnd);
+	schedf("%08x=sceAtracGetSoundSample: endSample:%08x, loopStart:%08x, loopEnd:%08x\n", result, endSample, loopStart, loopEnd);
 
 	int bitrate;
 	result = sceAtracGetBitrate(atracID, &bitrate);
@@ -243,8 +243,11 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 	result = sceAtracGetLoopStatus(atracID, &loopNum, &loopStatus);
 	schedf("%08x=sceAtracGetLoopStatus(%d, %08x, %d, %d)\n", result, loopNum, loopStatus);
 
-	result = sceAtracSetLoopNum(atracID, loopCount);
-	schedf("%08x=sceAtracSetLoopNum(%d)\n", result, loopCount);
+	if (loopCount >= -1) {
+		// Override the loop number dynamically. It's also read from the file.
+		result = sceAtracSetLoopNum(atracID, loopCount);
+		schedf("%08x=sceAtracSetLoopNum(%d)\n", result, loopCount);
+	}
 
 	int maxSamples = 0;
 	result = sceAtracGetMaxSample(atracID, &maxSamples);
@@ -259,10 +262,23 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 		audioChannel = sceAudioChReserve(0, maxSamples, PSP_AUDIO_FORMAT_STEREO);
 	}
 
-	u32 secondPosition;
+	u8 *secondBuffer = NULL;
+	u32 secondFilePosition;
 	u32 secondDataByte;
-	result = sceAtracGetSecondBufferInfo(atracID, &secondPosition, &secondDataByte);
-	schedf("%08x=sceAtracGetSecondBufferInfo: %u, %u\n", result, (unsigned int)secondPosition, (unsigned int)secondDataByte);
+	result = sceAtracGetSecondBufferInfo(atracID, &secondFilePosition, &secondDataByte);
+	schedf("%08x=sceAtracGetSecondBufferInfo: %u, %u\n", result, (unsigned int)secondFilePosition, (unsigned int)secondDataByte);
+	if (result == 0) {
+		printf("Filling up a second data buffer according to specifications.\n");
+		// A second buffer is needed.
+		secondBuffer = (u8 *)malloc(secondDataByte);
+		memset(secondBuffer, 0, secondDataByte);
+		file.Seek(secondFilePosition, SEEK_SET);
+		if (file.Read(secondBuffer, secondDataByte) != secondDataByte) {
+			printf("File read for second buffer failed.\n");
+		}
+		file.Seek(0, SEEK_SET);
+		sceAtracSetSecondBuffer(atracID, secondBuffer, secondDataByte);
+	}
 
 	int remainFrame = 0xcccccccc;
 	result = sceAtracGetRemainFrame(atracID, &remainFrame);
@@ -351,6 +367,10 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 		if (result) {
 			schedf("%08x=sceAtracDecodeData error: samples: %08x, finish: %08x, remainFrame: %d\n",
 				result, samples, finish, remainFrame);
+			if (result == 0x80630002) {
+				// schedf("Corruption detected!\n");
+				// Could check the internal error here.
+			}
 			quit = true;
 		} else {
 			schedf("%08x=sceAtracDecodeData: samples: %08x, finish: %08x, remainFrame: %d\n",
@@ -467,6 +487,9 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 	result = sceAtracReleaseAtracID(atracID);
 	schedf("sceAtracReleaseAtracID: %08X\n\n", result);
 
+	if (secondBuffer) {
+		free(secondBuffer);
+	}
 	schedf("Done! req=%d\n", requestedBufSize);
 	return true;
 }
@@ -474,7 +497,6 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 extern "C" int main(int argc, char *argv[]) {
 	CHECKPOINT_OUTPUT_DIRECT = 1;
 	HAS_DISPLAY = 0;  // don't waste time logging to the screen.
-
 
 	Atrac3File file("sample.at3");
 	printf("file size: %d\n", file.Size());
@@ -484,9 +506,13 @@ extern "C" int main(int argc, char *argv[]) {
 	// ignore return values for now.
 	// RunAtracTest("sample.at3", (AtracTestMode)(ATRAC_TEST_HALFWAY_STREAM | ATRAC_TEST_RESET_POSITION_EARLY), 32 * 1024, 10, 0, true);
 	// RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_HALFWAY_STREAM), 29 * 1024, 10, 0, false);
-	RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_HALFWAY), 0x4300, 10, 0, true);
-	// RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_FULL), 0, 30, 3, true);
-	RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4500, 10, 0, true);
+	// RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_HALFWAY), 0x4300, 10, 0, true);
+
+	Atrac3File looped;
+	CreateLoopedAtracFrom(file, looped, 2048, 249548, 1);  // These parameters work. The key is setting the loop start to 2048 or more.
+
+	RunAtracTest(looped, (AtracTestMode)(ATRAC_TEST_FULL), 0x4000, 32, 1, true);
+	// RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4500, 10, 0, true);
 	// RunAtracTest("sample.at3", (AtracTestMode)(ATRAC_TEST_STREAM | ATRAC_TEST_CORRUPT), 0x3700, 10, 0, false);
 	// RunAtracTest("sample.at3", (AtracTestMode)(ATRAC_TEST_STREAM | ATRAC_TEST_DONT_REFILL), 0x4300, 10, 0, false);
 	return 0;

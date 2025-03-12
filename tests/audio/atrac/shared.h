@@ -35,10 +35,15 @@ void UnloadAtrac();
 void LogAtracContext(int atracID, u32 buffer, bool full);
 
 struct Atrac3File {
-	Atrac3File(const char *filename);
-	Atrac3File(size_t size) {
+	explicit Atrac3File(const char *filename);
+	explicit Atrac3File(size_t size) {
 		data_ = new u8[size];
 		size_ = size;
+		pos_ = 0;
+	}
+	Atrac3File() {
+		data_ = NULL;
+		size_ = 0;
 		pos_ = 0;
 	}
 	~Atrac3File();
@@ -60,10 +65,6 @@ struct Atrac3File {
 	}
 	size_t Size() {
 		return size_;
-	}
-
-	void Reset() {
-		pos_ = 0;
 	}
 
 	void Seek(int value, int method) {
@@ -103,4 +104,4 @@ private:
 	int pos_;
 };
 
-void CreateLoopedAtracFrom(Atrac3File &at3, Atrac3File &updated, u32 loopStart, u32 loopEnd);
+void CreateLoopedAtracFrom(Atrac3File &at3, Atrac3File &updated, int loopStart, int loopEnd, int numLoops = 1);

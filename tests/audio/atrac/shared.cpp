@@ -59,7 +59,7 @@ void Atrac3File::Require() {
 	}
 }
 
-void CreateLoopedAtracFrom(Atrac3File &at3, Atrac3File &updated, u32 loopStart, u32 loopEnd) {
+void CreateLoopedAtracFrom(Atrac3File &at3, Atrac3File &updated, int loopStart, int loopEnd, int numLoops) {
 	// We need a bit of extra space to fake loop information.
 	const u32 extraLoopInfoSize = 44 + 24;
 	updated.Reset(at3.Size() + extraLoopInfoSize);
@@ -83,7 +83,7 @@ void CreateLoopedAtracFrom(Atrac3File &at3, Atrac3File &updated, u32 loopStart, 
 	*data32++ = 0; // midi semi tone
 	*data32++ = 0; // SMPTE offset format
 	*data32++ = 0; // SMPTE offset
-	*data32++ = 1; // num loops
+	*data32++ = numLoops; // num loops
 	*data32++ = 0x18; // extra smpl bytes at end (seems incorrect, but found in data.)
 					  // Loop info itself.
 	*data32++ = 0; // ident
