@@ -1,5 +1,7 @@
 #include "shared.h"
 #include <stdio.h>
+#include <cstring>
+#include <cstdlib>
 #include <malloc.h>
 #include <psputility.h>
 
@@ -18,7 +20,7 @@ void UnloadAtrac() {
 	sceUtilityUnloadModule(PSP_MODULE_AV_AVCODEC);
 }
 
-Atrac3File::Atrac3File(const char *filename) : data_(NULL) {
+Atrac3File::Atrac3File(const char *filename) : data_(NULL), size_(0), pos_(0) {
 	Reload(filename);
 }
 
@@ -32,7 +34,7 @@ void Atrac3File::Reload(const char *filename) {
 	data_ = NULL;
 
 	FILE *file = fopen(filename, "rb");
-	if (file != NULL) {
+	if (file) {
 		fseek(file, 0, SEEK_END);
 		size_ = ftell(file);
 		data_ = new u8[size_];
@@ -42,6 +44,11 @@ void Atrac3File::Reload(const char *filename) {
 		fread(data_, size_, 1, file);
 
 		fclose(file);
+
+		pos_ = 0;
+	} else {
+		printf("Failed to open file: %s\n", filename);
+		size_ = 0;
 	}
 }
 
@@ -52,7 +59,7 @@ void Atrac3File::Require() {
 	}
 }
 
-void CreateLoopedAtracFrom(Atrac3File &at3, Atrac3File &updated, u32 loopStart, u32 loopEnd) {
+void CreateLoopedAtracFrom(Atrac3File &at3, Atrac3File &updated, int loopStart, int loopEnd, int numLoops) {
 	// We need a bit of extra space to fake loop information.
 	const u32 extraLoopInfoSize = 44 + 24;
 	updated.Reset(at3.Size() + extraLoopInfoSize);
@@ -76,7 +83,7 @@ void CreateLoopedAtracFrom(Atrac3File &at3, Atrac3File &updated, u32 loopStart, 
 	*data32++ = 0; // midi semi tone
 	*data32++ = 0; // SMPTE offset format
 	*data32++ = 0; // SMPTE offset
-	*data32++ = 1; // num loops
+	*data32++ = numLoops; // num loops
 	*data32++ = 0x18; // extra smpl bytes at end (seems incorrect, but found in data.)
 					  // Loop info itself.
 	*data32++ = 0; // ident
@@ -88,4 +95,42 @@ void CreateLoopedAtracFrom(Atrac3File &at3, Atrac3File &updated, u32 loopStart, 
 	*data32++ = 0; // num loops - ignored?
 
 	memcpy(updated.Data() + initialDataStart + extraLoopInfoSize, at3.Data() + initialDataStart, at3.Size() - initialDataStart);
+}
+
+// Pass in 'full' to get the "set-once" parameters too (that don't change with every Decode call etc)
+void LogAtracContext(int atracID, u32 buffer, bool full) {
+	// Need to call this every time to get the values updated - but only in the emulator!
+	// TODO: All Atrac calls should update the raw context, or we should just directly use the fields.
+	SceAtracId *ctx = _sceAtracGetContextAddress(atracID);
+	if (!ctx) {
+		schedf("Context not yet available for atracID %d\n", atracID);
+		return;
+	}
+	if (full) {
+		// Also log some stuff from the codec context, just because.
+		// Actually, doesn't seem very useful. inBuf is just the current frame being decoded.
+		/*
+		printf("CODEC inbuf: %p\n", ctx->codec.inBuf);
+		printf("CODEC outbuf: %p\n", ctx->codec.outBuf);
+		printf("CODEC edramAddr: %08x\n", ctx->codec.edramAddr);
+		// printf("CODEC allocMem: %p\n", ctx->codec.allocMem);
+		printf("CODEC neededMem: %d\n", ctx->codec.neededMem);
+		printf("CODEC err: %d\n", ctx->codec.err);
+		*/
+		schedf("dataOff: %08x sampleSize: %04x codec: %04x channels: %d\n", ctx->info.dataOff, ctx->info.sampleSize, ctx->info.codec, ctx->info.numChan);
+		schedf("endSample: %08x loopStart: %08x loopEnd: %08x\n", ctx->info.endSample, ctx->info.loopStart, ctx->info.loopEnd);
+		schedf("bufferByte: %08x secondBufferByte: %08x\n", ctx->info.bufferByte, ctx->info.secondBufferByte);
+	}
+
+	schedf("decodePos: %08x unk22: %08x state: %d numFrame: %02x\n", ctx->info.decodePos, ctx->info.unk22, ctx->info.state, ctx->info.numFrame);
+	schedf("curOff: %08x dataEnd: %08x loopNum: %d\n", ctx->info.curOff, ctx->info.dataEnd, ctx->info.loopNum);
+	schedf("streamDataByte: %08x streamOff: %08x unk52: %08x codec_err: %08x\n", ctx->info.streamDataByte, ctx->info.streamOff, ctx->info.unk52, ctx->codec.err);
+	// Probably shouldn't log these raw pointers (buffer/secondBuffer).
+	schedf("buffer(offset): %08x secondBuffer: %08x samplesPerChan: %04x\n", ctx->info.buffer - buffer, ctx->info.secondBuffer, ctx->info.samplesPerChan);
+
+	for (int i = 0; i < ARRAY_SIZE(ctx->info.unk); i++) {
+		if (ctx->info.unk[i] != 0) {
+			schedf("unk[%d]: %08x\n", i, ctx->info.unk[i]);
+		}
+	}
 }
