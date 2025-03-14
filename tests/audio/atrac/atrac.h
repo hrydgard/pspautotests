@@ -61,22 +61,22 @@ extern "C" {
 		u32 endSample; // 4
 		u32 loopStart; // 8
 		u32 loopEnd; // 12
-		int samplesPerChan; // 16
-		char numFrame; // 20
+		int firstValidSample; // 16
+		u8 framesToSkip; // 20
 		// 2: all the stream data on the buffer
 		// 6: looping -> second buffer needed
-		char state; // 21
-		char unk22;
-		char numChan; // 23
+		u8 state; // 21
+		u8 curBuffer;
+		u8 numChan; // 23
 		u16 sampleSize; // 24
 		u16 codec; // 26
 		u32 dataOff; // 28
-		u32 curOff; // 32
-		u32 dataEnd; // 36
+		u32 curFileOff; // 32
+		u32 fileDataEnd; // 36
 		int loopNum; // 40
 		u32 streamDataByte; // 44
 		u32 streamOff;  // previously unk48. This seems to be the offset of the stream data in the buffer.
-		u32 unk52;  // Always 0 as far as I can tell.
+		u32 secondStreamOff;  // Used in tail
 		u8 *buffer; // 56
 		u8 *secondBuffer; // 60
 		u32 bufferByte; // 64

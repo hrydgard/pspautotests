@@ -29,34 +29,6 @@ u32 min(u32 a, u32 b) {
 // Double buffering seems to be enough.
 #define DEC_BUFFERS 2
 
-void hexDump16(char *p) {
-	unsigned char *ptr = (unsigned char *)p;
-	/*
-	int i = 0;
-	for (; i < 4096; i++) {
-		if (ptr[i] != 0) {
-			break;
-			i++;
-		}
-	}*/
-	// Previously also logged alphabetically but the garbage characters caused git to regard the file as binary.
-	schedf("%02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n", ptr[0], ptr[1], ptr[2], ptr[3], ptr[4], ptr[5], ptr[6], ptr[7], ptr[8], ptr[9], ptr[10], ptr[11], ptr[12], ptr[13], ptr[14], ptr[15]);
-}
-
-enum AtracTestMode {
-	ATRAC_TEST_FULL = 1,
-	ATRAC_TEST_HALFWAY = 2,
-	ATRAC_TEST_STREAM = 3,
-	ATRAC_TEST_HALFWAY_STREAM = 4,
-	ATRAC_TEST_MODE_MASK = 7,
-
-	ATRAC_TEST_CORRUPT = 0x100,
-	ATRAC_TEST_DONT_REFILL = 0x200,
-	ATRAC_TEST_RESET_POSITION_EARLY = 0x400,
-	ATRAC_TEST_RESET_POSITION_LATE = 0x800,
-	ATRAC_TEST_RESET_POSITION_RELOAD_ALL = 0x1000,
-};
-
 static const char *AtracTestModeToString(AtracTestMode mode) {
 	switch (mode & ATRAC_TEST_MODE_MASK) {
 	case ATRAC_TEST_FULL: return "full";
@@ -241,7 +213,7 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 	int loopNum = 0xcccccccc;
 	u32 loopStatus = 0xcccccccc;
 	result = sceAtracGetLoopStatus(atracID, &loopNum, &loopStatus);
-	schedf("%08x=sceAtracGetLoopStatus(%d, %08x, %d, %d)\n", result, loopNum, loopStatus);
+	schedf("%08x=sceAtracGetLoopStatus(%d, %d)\n", result, loopNum, loopStatus);
 
 	if (loopCount >= -1) {
 		// Override the loop number dynamically. It's also read from the file.
@@ -268,13 +240,13 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 	result = sceAtracGetSecondBufferInfo(atracID, &secondFilePosition, &secondDataByte);
 	schedf("%08x=sceAtracGetSecondBufferInfo: %u, %u\n", result, (unsigned int)secondFilePosition, (unsigned int)secondDataByte);
 	if (result == 0) {
-		printf("Filling up a second data buffer according to specifications.\n");
+		schedf("Filling up a second data buffer according to specifications.\n");
 		// A second buffer is needed.
 		secondBuffer = (u8 *)malloc(secondDataByte);
 		memset(secondBuffer, 0, secondDataByte);
 		file.Seek(secondFilePosition, SEEK_SET);
 		if (file.Read(secondBuffer, secondDataByte) != secondDataByte) {
-			printf("File read for second buffer failed.\n");
+			schedf("File read for second buffer failed.\n");
 		}
 		file.Seek(0, SEEK_SET);
 		sceAtracSetSecondBuffer(atracID, secondBuffer, secondDataByte);
@@ -410,7 +382,7 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 					bytesToRead = min(bytesToRead, requestedBufSize);
 				}
 				if ((int)readFileOffset != filePos) {
-					schedf("Calling fread (%d) (!!!! should be at %d, is at %d). Seeking.\n", bytesToRead, readFileOffset, filePos);
+					schedf("Calling fread (%d) (!!!! predicted to be at %d, is at %d). Seeking.\n", bytesToRead, readFileOffset, filePos);
 					file.Seek(readFileOffset, SEEK_SET);
 				} else {
 					schedf("Calling fread (%d) (at file offset %d)\n", bytesToRead, readFileOffset);
@@ -418,7 +390,7 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 
 				int bytesRead = file.Read((u8*)writePtr, bytesToRead);
 				if (bytesRead != (int)bytesToRead) {
-					schedf("fread error: %d != %d\n", bytesRead, bytesToRead);
+					schedf("!!!! fread error: %d != %d\n", bytesRead, bytesToRead);
 					return 1;
 				}
 				LogAtracContext(atracID, (u32)(uintptr_t)at3_data, first);
@@ -499,7 +471,7 @@ extern "C" int main(int argc, char *argv[]) {
 	HAS_DISPLAY = 0;  // don't waste time logging to the screen.
 
 	Atrac3File file("sample.at3");
-	printf("file size: %d\n", file.Size());
+	schedf("file size: %d\n", file.Size());
 	if (!file.Size()) {
 		return 1;
 	}
@@ -509,9 +481,9 @@ extern "C" int main(int argc, char *argv[]) {
 	// RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_HALFWAY), 0x4300, 10, 0, true);
 
 	Atrac3File looped;
-	CreateLoopedAtracFrom(file, looped, 2048, 249548, 1);  // These parameters work. The key is setting the loop start to 2048 or more.
+	CreateLoopedAtracFrom(file, looped, 2048 + 2048 * 10 + 256, 249548, 1);  // These parameters work. The key is setting the loop start to 2048 or more.
 
-	RunAtracTest(looped, (AtracTestMode)(ATRAC_TEST_FULL), 0x4000, 32, 1, true);
+	RunAtracTest(looped, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4000, 32, 1, true);
 	// RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4500, 10, 0, true);
 	// RunAtracTest("sample.at3", (AtracTestMode)(ATRAC_TEST_STREAM | ATRAC_TEST_CORRUPT), 0x3700, 10, 0, false);
 	// RunAtracTest("sample.at3", (AtracTestMode)(ATRAC_TEST_STREAM | ATRAC_TEST_DONT_REFILL), 0x4300, 10, 0, false);
