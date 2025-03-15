@@ -191,6 +191,8 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 
 	hexDump16((char *)at3_data);
 
+	LogAtracContext(atracID, (u32)(uintptr_t)at3_data, true);
+
 	int result;
 	int endSample, loopStart, loopEnd;
 	result = sceAtracGetSoundSample(atracID, &endSample, &loopStart, &loopEnd);
@@ -245,7 +247,7 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 		secondBuffer = (u8 *)malloc(secondDataByte);
 		memset(secondBuffer, 0, secondDataByte);
 		file.Seek(secondFilePosition, SEEK_SET);
-		if (file.Read(secondBuffer, secondDataByte) != secondDataByte) {
+		if (file.Read(secondBuffer, secondDataByte) != (int)secondDataByte) {
 			schedf("File read for second buffer failed.\n");
 		}
 		file.Seek(0, SEEK_SET);
@@ -324,9 +326,11 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 		result = sceAtracGetLoopStatus(atracID, &loopNum, &loopStatus);
 		u32 nextDecodePosition = 0;
 		result = sceAtracGetNextDecodePosition(atracID, &nextDecodePosition);
-		// TODO: We should check sceAtracGetNextSample here, too.
-		// result = sceAtracGetNextSample(atracID, &nextDecodePosition);
-		schedf("%08x=sceAtracGetNextDecodePosition: %d (%08x) (loopnum %d status %d)\n", result, nextDecodePosition, nextDecodePosition, loopNum, loopStatus);
+		u32 result2 = sceAtracGetNextSample(atracID, &nextSamples);
+		schedf("%08x=sceAtracGetNextDecodePosition: pos=%d (%08x) (loopnum %d status %d)\n", result,
+			 nextDecodePosition, nextDecodePosition, loopNum, loopStatus);
+		schedf("%08x=sceAtracGetNextSample: samples=%d (%80x)", result2, nextSamples, nextSamples);
+
 		// decode
 		int finish = 0;
 		result = sceAtracDecodeData(atracID, (u16 *)(dec_frame), &samples, &finish, &remainFrame);
@@ -339,10 +343,6 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 		if (result) {
 			schedf("%08x=sceAtracDecodeData error: samples: %08x, finish: %08x, remainFrame: %d\n",
 				result, samples, finish, remainFrame);
-			if (result == 0x80630002) {
-				// schedf("Corruption detected!\n");
-				// Could check the internal error here.
-			}
 			quit = true;
 		} else {
 			schedf("%08x=sceAtracDecodeData: samples: %08x, finish: %08x, remainFrame: %d\n",
@@ -476,16 +476,16 @@ extern "C" int main(int argc, char *argv[]) {
 		return 1;
 	}
 	// ignore return values for now.
-	// RunAtracTest("sample.at3", (AtracTestMode)(ATRAC_TEST_HALFWAY_STREAM | ATRAC_TEST_RESET_POSITION_EARLY), 32 * 1024, 10, 0, true);
-	// RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_HALFWAY_STREAM), 29 * 1024, 10, 0, false);
-	// RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_HALFWAY), 0x4300, 10, 0, true);
+	RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_HALFWAY_STREAM | ATRAC_TEST_RESET_POSITION_EARLY), 32 * 1024, 10, 0, false);
+	RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_HALFWAY_STREAM), 29 * 1024, 10, 0, false);
+	RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_HALFWAY), 0x4300, 10, 0, false);
 
 	Atrac3File looped;
 	CreateLoopedAtracFrom(file, looped, 2048 + 2048 * 10 + 256, 249548, 1);  // These parameters work. The key is setting the loop start to 2048 or more.
 
-	RunAtracTest(looped, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4000, 32, 1, true);
-	// RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4500, 10, 0, true);
-	// RunAtracTest("sample.at3", (AtracTestMode)(ATRAC_TEST_STREAM | ATRAC_TEST_CORRUPT), 0x3700, 10, 0, false);
-	// RunAtracTest("sample.at3", (AtracTestMode)(ATRAC_TEST_STREAM | ATRAC_TEST_DONT_REFILL), 0x4300, 10, 0, false);
+	RunAtracTest(looped, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4000, 32, 1, false);
+	RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4500, 10, 0, true);
+	RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_STREAM | ATRAC_TEST_CORRUPT), 0x3700, 10, 0, false);
+	RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_STREAM | ATRAC_TEST_DONT_REFILL), 0x4300, 10, 0, false);
 	return 0;
 }
