@@ -10,6 +10,8 @@
 #include <malloc.h>
 #include <psputility.h>
 
+#include "atrac.h"
+
 int sceAtracGetSecondBufferInfo(int atracID, u32 *puiPosition, u32 *puiDataByte);
 int sceAtracGetNextDecodePosition(int atracID, u32 *puiSamplePosition);
 
@@ -87,7 +89,7 @@ int main(int argc, char *argv[]) {
 		at3_size -= blk_size;
 	}
 
-	u32 bitrate;
+	int bitrate;
 	result = sceAtracGetBitrate(atracID, &bitrate);
 	printf("%i=sceAtracGetBitrate: %i\n", result, bitrate);
 

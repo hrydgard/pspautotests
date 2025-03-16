@@ -49,7 +49,10 @@ inline void forceAtracState(int atracID, int state) {
 void LoadAtrac();
 void UnloadAtrac();
 
-void LogAtracContext(int atracID, u32 buffer, bool full);
+void LogAtracContext(int atracID, const u8 *buffer, const u8 *secondBuffer, bool full);
+void LogResetBuffer(u32 result, int sample, const AtracResetBufferInfo &resetInfo, const u8 *bufPtr);
+void LogResetBufferInfo(int atracID, const u8 *bufPtr);
+const char *AtracTestModeToString(AtracTestMode mode);
 
 inline void hexDump16(char *p) {
 	unsigned char *ptr = (unsigned char *)p;

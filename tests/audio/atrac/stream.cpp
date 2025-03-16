@@ -29,34 +29,6 @@ u32 min(u32 a, u32 b) {
 // Double buffering seems to be enough.
 #define DEC_BUFFERS 2
 
-static const char *AtracTestModeToString(AtracTestMode mode) {
-	switch (mode & ATRAC_TEST_MODE_MASK) {
-	case ATRAC_TEST_FULL: return "full";
-	case ATRAC_TEST_HALFWAY: return "halfway";
-	case ATRAC_TEST_STREAM: return "stream";
-	default: return "N/A";
-	}
-}
-
-inline void LogResetBuffer(u32 result, int sample, const AtracResetBufferInfo &resetInfo, const u8 *bufPtr) {
-	schedf("%08x=sceAtracGetBufferInfoForResetting(%d):\n", result, sample);
-	for (int i = 0; i < 2; i++) {
-		const AtracSingleResetBufferInfo &info = i == 0 ? resetInfo.first : resetInfo.second;
-		schedf("  %s: writeOffset: %08x writableBytes: %08x minWriteBytes: %08x filePos: %08x\n",
-			i == 0 ? "first " : "second", (info.writePos == (const u8*)0xcccccccc) ? 0xcccccccc : info.writePos - bufPtr, info.writableBytes, info.minWriteBytes, info.filePos);
-	}
-}
-
-void LogResetBufferInfo(int atracID, const u8 *bufPtr) {
-	static const int sampleOffsets[12] = { -2048, -10000, 0, 1, 2047, 2048, 2049, 4096, 16384, 20000, 40000, 1000000000, };
-	for (size_t i = 0; i < ARRAY_SIZE(sampleOffsets); i++) {
-		AtracResetBufferInfo resetInfo;
-		memset(&resetInfo, 0xcc, sizeof(resetInfo));
-		const u32 result = sceAtracGetBufferInfoForResetting(atracID, sampleOffsets[i], &resetInfo);
-		LogResetBuffer(result, sampleOffsets[i], resetInfo, (const u8 *)bufPtr);
-	}
-}
-
 bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, int minRemain, int loopCount, bool enablePlayback) {
 	schedf("============================================================\n");
 	schedf("AtracTest: 'unk', mode %s, buffer size %08x, min remain %d:\n", AtracTestModeToString(mode), requestedBufSize, minRemain);
@@ -191,7 +163,7 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 
 	hexDump16((char *)at3_data);
 
-	LogAtracContext(atracID, (u32)(uintptr_t)at3_data, true);
+	LogAtracContext(atracID, at3_data, NULL, true);
 
 	int result;
 	int endSample, loopStart, loopEnd;
@@ -292,7 +264,7 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 		int writtenBytes1 = file.Read(resetInfo.first.writePos, bytesToWrite);
 		int writtenBytes2 = 0;
 
-		LogAtracContext(atracID, (u32)(uintptr_t)at3_data, true);
+		LogAtracContext(atracID, at3_data, secondBuffer, true);
 
 		result = sceAtracResetPlayPosition(atracID, seekSamplePos, writtenBytes1, writtenBytes2);
 		schedf("%08x=sceAtracResetPlayPosition(%d, %d, %d)\n", result, seekSamplePos, writtenBytes1, writtenBytes2);
@@ -319,7 +291,7 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 			end--;
 		}
 
-		LogAtracContext(atracID, (u32)(uintptr_t)at3_data, first);
+		LogAtracContext(atracID, at3_data, secondBuffer, first);
 
 		u8 *dec_frame = decode_data + decode_size * decIndex;
 
@@ -393,7 +365,7 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 					schedf("!!!! fread error: %d != %d\n", bytesRead, bytesToRead);
 					return 1;
 				}
-				LogAtracContext(atracID, (u32)(uintptr_t)at3_data, first);
+				LogAtracContext(atracID, at3_data, secondBuffer, first);
 
 				result = sceAtracAddStreamData(atracID, bytesToRead);
 				if (result) {
@@ -444,7 +416,7 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 	schedf("(end) %08x=sceAtracGetNextSample: %d (%08x)\n", result, nextSamples, nextSamples);
 
 	LogResetBufferInfo(atracID, (const u8 *)at3_data);
-	LogAtracContext(atracID, (u32)(uintptr_t)at3_data, true);
+	LogAtracContext(atracID, at3_data, secondBuffer, true);
 
 	if (end) {
 		schedf("reached end of file\n");
@@ -482,9 +454,12 @@ extern "C" int main(int argc, char *argv[]) {
 
 	Atrac3File looped;
 	CreateLoopedAtracFrom(file, looped, 2048 + 2048 * 10 + 256, 249548, 1);  // These parameters work. The key is setting the loop start to 2048 or more.
+	Atrac3File looped2;
+	CreateLoopedAtracFrom(file, looped2, 2048 + 2048 * 10 + 256, 100000, 1);  // These parameters work. The key is setting the loop start to 2048 or more.
 
-	RunAtracTest(looped, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4000, 32, 1, false);
-	RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4500, 10, 0, true);
+	RunAtracTest(looped, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4000, 32, 1, true);
+	RunAtracTest(looped2, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4000, 32, 2, true);
+	RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4500, 10, 0, false);
 	RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_STREAM | ATRAC_TEST_CORRUPT), 0x3700, 10, 0, false);
 	RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_STREAM | ATRAC_TEST_DONT_REFILL), 0x4300, 10, 0, false);
 	return 0;

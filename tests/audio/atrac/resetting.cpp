@@ -16,13 +16,13 @@ extern "C" int main(int argc, char *argv[]) {
 	int ignore;
 	int atracID;
 	u16 data[16384];
-	
+
 	atracID = sceAtracSetHalfwayBufferAndGetID((u8 *)at3.Data(), at3.Size() / 2, at3.Size() / 2);
 	checkpointNext("IDs:");
 	testBufferInfo("  Unallocated", 4, 0, true, at3.Data());
 	testBufferInfo("  Invalid", -1, 0, true, at3.Data());
 	testBufferInfo("  Valid", atracID, 0, true, at3.Data());
-	
+
 	checkpointNext("Sample values:");
 	const static int samples[] = {0, 1, 1679, 1680, 2046, 2047, 0x1000, 0x47ff, 0x10000, 247499, 247500, 247501, 0x100000, 0x1000000, 0x7FFFFFFF, -1, -2, -2048, -4096};
 	for (size_t i = 0; i < ARRAY_SIZE(samples); ++i) {
@@ -73,9 +73,13 @@ extern "C" int main(int argc, char *argv[]) {
 	checkpoint("  Decode: %08x", sceAtracDecodeData(atracID, data, &ignore, &ignore, &ignore));
 	testBufferInfo("  After decode 2 -> 65536", atracID, 65536, true, at3.Data());
 
+	LogAtracContext(atracID, at3.Data(), NULL, true);
 	testBufferInfo("  After decode 2 -> 196608", atracID, 196608, true, at3.Data());
+	LogAtracContext(atracID, at3.Data(), NULL, true);
 	checkpoint("  Decode: %08x", sceAtracDecodeData(atracID, data, &ignore, &ignore, &ignore));
+	LogAtracContext(atracID, at3.Data(), NULL, true);
 	testBufferInfo("  After decode 3 -> 196608", atracID, 196608, true, at3.Data());
+	LogAtracContext(atracID, at3.Data(), NULL, true);
 
 	sceAtracReleaseAtracID(atracID);
 	at3.Reload("sample.at3");

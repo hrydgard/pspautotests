@@ -1,4 +1,6 @@
+#include "stdio.h"
 #include "shared.h"
+#include "atrac.h"
 
 void testDirectResetPlayPos(const char *title, int atracID, int sample, int firstBytes, int secondBytes) {
 	checkpoint("%s: %08x", title, sceAtracResetPlayPosition(atracID, sample, firstBytes, secondBytes));
@@ -6,12 +8,17 @@ void testDirectResetPlayPos(const char *title, int atracID, int sample, int firs
 
 void testSimpleResetPlayPos(const char *title, int atracID, int sample, u8 *input, Atrac3File &at3) {
 	AtracResetBufferInfo info = {};
-	if (sceAtracGetBufferInfoForResetting(atracID, sample, &info) == 0) {
+	memset(&info, 0xcc, sizeof(info));
+	int result = sceAtracGetBufferInfoForResetting(atracID, sample, &info);
+	if (result == 0) {
+		LogResetBuffer(atracID, sample, info, at3.Data());
 		if (info.first.minWriteBytes != 0) {
 			memcpy(info.first.writePos, at3.Data() + info.first.filePos, info.first.minWriteBytes);
 		}
+		LogAtracContext(atracID, at3.Data(), NULL, true);
 		testDirectResetPlayPos(title, atracID, sample, info.first.minWriteBytes, 0);
 	} else {
+		LogResetBuffer(atracID, sample, info, at3.Data());
 		testDirectResetPlayPos(title, atracID, sample, 0, 0);
 	}
 }
@@ -30,14 +37,16 @@ extern "C" int main(int argc, char *argv[]) {
 	testSimpleResetPlayPos("  Unallocated", 4, 0, input, at3);
 	testSimpleResetPlayPos("  Invalid", -1, 0, input, at3);
 	testSimpleResetPlayPos("  Valid", atracID, 0, input, at3);
-	
+
 	checkpointNext("Sample values:");
 	const static int samples[] = {0, 1, 2046, 2047, 0x1000, 0x47ff, 0x10000, 247499, 247500, 247501, 0x100000, 0x1000000, 0x7FFFFFFF, -1, -2, -2048, -4096};
 	for (size_t i = 0; i < ARRAY_SIZE(samples); ++i) {
+		LogAtracContext(atracID, at3.Data(), NULL, true);
 		char temp[128];
-		snprintf(temp, 128, "  %08x", samples[i]);
+		snprintf(temp, 128, "  %08x", samples[i]);  // set the "title"
 		testSimpleResetPlayPos(temp, atracID, samples[i], input, at3);
 	}
+	LogAtracContext(atracID, at3.Data(), NULL, true);
 
 	checkpointNext("Other states:");
 	int withoutDataID = sceAtracGetAtracID(0x1000);
