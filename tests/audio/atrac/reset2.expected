@@ -3,8 +3,8 @@ endSample: 0003d03c loopStart: 00000970 loopEnd: 0003d03c
 bufferByte: 00003000 secondBufferByte: 00000000
 decodePos: 00000970 curBuffer: 0 state: 5 framesToSkip: 0
 curFileOff: 0000021c fileDataEnd: 0000b54c loopNum: 0
-streamDataByte: 00002de4 streamOff: 0000021c streamOff2: 00000000 codec_err: 00000000
-buffer(offset): 00000000 secondBuffer: 00000000 firstValidSample: 0970
+streamDataByte: 00002de4 streamOff: 0000021c streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0970
 00000000: Reset info for sample 2048:
    #1: write=p+0xb510, writable=00002f00, min=000002f0, file=0000021c
 Read 12032/12032 bytes from 540 in file
@@ -14,8 +14,8 @@ endSample: 0003d03c loopStart: 00000970 loopEnd: 0003d03c
 bufferByte: 00003000 secondBufferByte: 00000000
 decodePos: 00001170 curBuffer: 0 state: 5 framesToSkip: 1
 curFileOff: 0000021c fileDataEnd: 0000b54c loopNum: 0
-streamDataByte: 00002f00 streamOff: 00000000 streamOff2: 00000000 codec_err: 0000020b
-buffer(offset): 00000000 secondBuffer: 00000000 firstValidSample: 0970
+streamDataByte: 00002f00 streamOff: 00000000 streamOff2: 00000000 codec_err: 020X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0970
 80630002: Reset info for sample 2548:
    #1: write=p+0xb510, writable=00002f00, min=000002f0, file=0000021c
 Failed to get reset info for sample 2548
@@ -24,8 +24,8 @@ endSample: 0003d03c loopStart: 00000970 loopEnd: 0003d03c
 bufferByte: 00003000 secondBufferByte: 00000000
 decodePos: 00001170 curBuffer: 0 state: 5 framesToSkip: 1
 curFileOff: 0000021c fileDataEnd: 0000b54c loopNum: 0
-streamDataByte: 00002f00 streamOff: 00000000 streamOff2: 00000000 codec_err: 0000020b
-buffer(offset): 00000000 secondBuffer: 00000000 firstValidSample: 0970
+streamDataByte: 00002f00 streamOff: 00000000 streamOff2: 00000000 codec_err: 020X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0970
 80630002: Reset info for sample 3048:
    #1: write=p+0xb510, writable=00002f00, min=000002f0, file=0000021c
 Failed to get reset info for sample 3048
@@ -34,5 +34,5 @@ endSample: 0003d03c loopStart: 00000970 loopEnd: 0003d03c
 bufferByte: 00003000 secondBufferByte: 00000000
 decodePos: 00001170 curBuffer: 0 state: 5 framesToSkip: 1
 curFileOff: 0000021c fileDataEnd: 0000b54c loopNum: 0
-streamDataByte: 00002f00 streamOff: 00000000 streamOff2: 00000000 codec_err: 0000020b
-buffer(offset): 00000000 secondBuffer: 00000000 firstValidSample: 0970
+streamDataByte: 00002f00 streamOff: 00000000 streamOff2: 00000000 codec_err: 020X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0970

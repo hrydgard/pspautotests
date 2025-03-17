@@ -14,7 +14,10 @@ void testDirectResetPlayPos(const char *title, int atracID, int sample, int firs
 
 void testSimpleResetPlayPos(const char *title, int atracID, int sample, u8 *input, Atrac3File &at3) {
 	AtracResetBufferInfo info = {};
-	if (sceAtracGetBufferInfoForResetting(atracID, sample, &info) == 0) {
+	int retval = sceAtracGetBufferInfoForResetting(atracID, sample, &info);
+	checkpoint("  %08x: Reset info for sample %d", retval, sample);
+	schedfResetBuffer(info, input);
+	if (retval == 0) {
 		if (info.first.minWriteBytes != 0) {
 			memcpy(info.first.writePos, at3.Data() + info.first.filePos, info.first.minWriteBytes);
 		}

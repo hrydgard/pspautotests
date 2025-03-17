@@ -224,6 +224,8 @@ bool RunAtracTest(Atrac3File &file, AtracTestMode mode, int requestedBufSize, in
 		}
 		file.Seek(0, SEEK_SET);
 		sceAtracSetSecondBuffer(atracID, secondBuffer, secondDataByte);
+	} else {
+		sceAtracSetSecondBuffer(atracID, 0, 0);
 	}
 
 	int remainFrame = 0xcccccccc;
@@ -457,8 +459,8 @@ extern "C" int main(int argc, char *argv[]) {
 	Atrac3File looped2;
 	CreateLoopedAtracFrom(file, looped2, 2048 + 2048 * 10 + 256, 100000, 1);  // These parameters work. The key is setting the loop start to 2048 or more.
 
-	RunAtracTest(looped, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4000, 32, 1, true);
-	RunAtracTest(looped2, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4000, 32, 2, true);
+	RunAtracTest(looped, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4000, 32, 1, false);
+	RunAtracTest(looped2, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4000, 32, 2, false);
 	RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_STREAM), 0x4500, 10, 0, false);
 	RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_STREAM | ATRAC_TEST_CORRUPT), 0x3700, 10, 0, false);
 	RunAtracTest(file, (AtracTestMode)(ATRAC_TEST_STREAM | ATRAC_TEST_DONT_REFILL), 0x4300, 10, 0, false);

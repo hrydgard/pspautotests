@@ -127,8 +127,15 @@ void LogAtracContext(int atracID, const u8 *buffer, const u8 *secondBuffer, bool
 	schedf("decodePos: %08x curBuffer: %d state: %d framesToSkip: %d\n", ctx->info.decodePos, ctx->info.curBuffer, ctx->info.state, ctx->info.framesToSkip);
 	schedf("curFileOff: %08x fileDataEnd: %08x loopNum: %d\n", ctx->info.curFileOff, ctx->info.fileDataEnd, ctx->info.loopNum);
 	schedf("streamDataByte: %08x streamOff: %08x streamOff2: %08x codec_err: %03xX\n", ctx->info.streamDataByte, ctx->info.streamOff, ctx->info.secondStreamOff, ctx->codec.err >> 4); // we censor the last codec err digit, haven't figured it out.
-	// Probably shouldn't log these raw pointers (buffer/secondBuffer).
-	schedf("buffer(offset): %08x secondBuffer: %08x firstValidSample: %04x\n", ctx->info.buffer - bufferOff, ctx->info.secondBuffer - secondBufferOff, ctx->info.firstValidSample);
+	// Change the raw pointers to offsets to account for allocation differences when running under psplink.
+	int bufOff = (ctx->info.buffer == 0) ? 0 : (intptr_t)ctx->info.buffer - bufferOff;
+	int secondBufOff = (ctx->info.secondBuffer == 0) ? 0 : (intptr_t)ctx->info.secondBuffer - secondBufferOff;
+	// Note, sometimes there's no secondbuffer use, but there's a value lingering in the register from a previous run.
+	// In those cases, we replace it with a dummy value.
+	if (!secondBuffer) {
+		secondBufOff = 0xabcdabcd;
+	}
+	schedf("buffer(offset): %08x secondBuffer(offset): %08x firstValidSample: %04x\n", bufOff, secondBufOff, ctx->info.firstValidSample);
 
 	for (int i = 0; i < ARRAY_SIZE(ctx->info.unk); i++) {
 		if (ctx->info.unk[i] != 0) {

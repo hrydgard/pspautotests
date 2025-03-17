@@ -7,42 +7,30 @@
    #2: write=0xcccccccc, writable=cccccccc, min=cccccccc, file=cccccccc
 [x]   Valid: 00000000
    #1: write=p+0x0, writable=00005998, min=000002f0, file=00000060
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 
 [x] Sample values:
 [x]   00000000: 00000000
    #1: write=p+0x0, writable=00005998, min=000002f0, file=00000060
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   00000001: 00000000
    #1: write=p+0x0, writable=00005998, min=000002f0, file=00000060
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   0000068f: 00000000
    #1: write=p+0x0, writable=00005998, min=000002f0, file=00000060
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   00000690: 00000000
    #1: write=p+0x0, writable=00005998, min=00000468, file=00000060
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   000007fe: 00000000
    #1: write=p+0x0, writable=00005998, min=00000468, file=00000060
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   000007ff: 00000000
    #1: write=p+0x0, writable=00005998, min=00000468, file=00000060
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   00001000: 00000000
    #1: write=p+0x0, writable=00005998, min=000002f0, file=00000350
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   000047ff: 00000000
    #1: write=p+0x0, writable=00005998, min=00000468, file=00000c20
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   00010000: 00000000
    #1: write=p+0x0, writable=00005998, min=000002f0, file=00002f60
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   0003c6cb: 00000000
    #1: write=p+0x0, writable=00000468, min=00000468, file=0000b0a0
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   0003c6cc: 00000000
    #1: write=p+0x0, writable=00000468, min=00000468, file=0000b0a0
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   0003c6cd: 80630015
    #1: write=0xcccccccc, writable=cccccccc, min=cccccccc, file=cccccccc
    #2: write=0xcccccccc, writable=cccccccc, min=cccccccc, file=cccccccc
@@ -57,13 +45,10 @@
    #2: write=0xcccccccc, writable=cccccccc, min=cccccccc, file=cccccccc
 [x]   ffffffff: 00000000
    #1: write=p+0x0, writable=00005998, min=00000468, file=00000060
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   fffffffe: 00000000
    #1: write=p+0x0, writable=00005998, min=00000468, file=00000060
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   fffff800: 00000000
    #1: write=p+0x0, writable=00005998, min=000002f0, file=fffffee8
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   fffff000: 80630015
    #1: write=0xcccccccc, writable=cccccccc, min=cccccccc, file=cccccccc
    #2: write=0xcccccccc, writable=cccccccc, min=cccccccc, file=cccccccc
@@ -82,68 +67,78 @@
 [x] Entire buffer:
 [x]   At start -> 0: 00000000
    #1: write=p+0x0, writable=00000000, min=00000000, file=00000000
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [r]   Decode: 00000000
 [x]   After decode 1 -> 0: 00000000
    #1: write=p+0x0, writable=00000000, min=00000000, file=00000000
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   After decode 1 -> 65536: 00000000
    #1: write=p+0x0, writable=00000000, min=00000000, file=00000000
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [r]   Decode: 00000000
 [x]   After decode 2 -> 65536: 00000000
    #1: write=p+0x0, writable=00000000, min=00000000, file=00000000
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   After decode 2 -> 196608: 00000000
    #1: write=p+0x0, writable=00000000, min=00000000, file=00000000
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [r]   Decode: 00000000
 [x]   After decode 3 -> 196608: 00000000
    #1: write=p+0x0, writable=00000000, min=00000000, file=00000000
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 
 [x] Half buffer:
 [x]   At start -> 0: 00000000
    #1: write=p+0x5a84, writable=00005a84, min=00000000, file=00005a84
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [r]   Decode: 00000000
 [x]   After decode 1 -> 0: 00000000
    #1: write=p+0x5a84, writable=00005a84, min=00000000, file=00005a84
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   After decode 1 -> 65536: 00000000
    #1: write=p+0x5a84, writable=00005a84, min=00000000, file=00005a84
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [r]   Decode: 00000000
 [x]   After decode 2 -> 65536: 00000000
    #1: write=p+0x5a84, writable=00005a84, min=00000000, file=00005a84
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 0000b508 secondBufferByte: 00000000
+decodePos: 00001800 curBuffer: 0 state: 3 framesToSkip: 0
+curFileOff: 000004c8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00005a24 streamOff: 00000060 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [x]   After decode 2 -> 196608: 00000000
    #1: write=p+0x5a84, writable=00005a84, min=000035cc, file=00005a84
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 0000b508 secondBufferByte: 00000000
+decodePos: 00001800 curBuffer: 0 state: 3 framesToSkip: 0
+curFileOff: 000004c8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00005a24 streamOff: 00000060 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   Decode: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 0000b508 secondBufferByte: 00000000
+decodePos: 00002000 curBuffer: 0 state: 3 framesToSkip: 0
+curFileOff: 00000640 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00005a24 streamOff: 00000060 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [x]   After decode 3 -> 196608: 00000000
    #1: write=p+0x5a84, writable=00005a84, min=000035cc, file=00005a84
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 0000b508 secondBufferByte: 00000000
+decodePos: 00002000 curBuffer: 0 state: 3 framesToSkip: 0
+curFileOff: 00000640 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00005a24 streamOff: 00000060 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0970
 
 [x] Streamed buffer:
 [x]   At start -> 0: 00000000
    #1: write=p+0x0, writable=00005998, min=000002f0, file=00000060
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [r]   Decode: 00000000
 [x]   After decode 1 -> 0: 00000000
    #1: write=p+0x0, writable=00005998, min=000002f0, file=00000060
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   After decode 1 -> 65536: 00000000
    #1: write=p+0x0, writable=00005998, min=000002f0, file=00002f60
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [r]   Decode: 00000000
 [x]   After decode 2 -> 65536: 00000000
    #1: write=p+0x0, writable=00005998, min=000002f0, file=00002f60
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [x]   After decode 2 -> 196608: 00000000
    #1: write=p+0x0, writable=000027a8, min=000002f0, file=00008d60
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
 [r]   Decode: 00000000
 [x]   After decode 3 -> 196608: 00000000
    #1: write=p+0x0, writable=000027a8, min=000002f0, file=00008d60
-   #2: write=p+0x0, writable=00000000, min=00000000, file=00000000
