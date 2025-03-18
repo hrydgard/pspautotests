@@ -10,6 +10,8 @@
 #include <malloc.h>
 #include <psputility.h>
 
+#include "atrac.h"
+
 int sceAtracGetSecondBufferInfo(int atracID, u32 *puiPosition, u32 *puiDataByte);
 int sceAtracGetNextDecodePosition(int atracID, u32 *puiSamplePosition);
 
@@ -35,14 +37,14 @@ int main(int argc, char *argv[]) {
 	int maxSamples = 0;
 	int result;
 	int channel;
-	
+
 	u32 puiPosition;
 	u32 puiDataByte;
 
 	u32 writePtr;
 	u32 availableBytes;
 	u32 readOffset;
-	
+
 	if ((file = fopen("sample.at3", "rb")) != NULL) {
 		fseek(file, 0, SEEK_SET);
 		u32 header[2];
@@ -60,7 +62,7 @@ int main(int argc, char *argv[]) {
 		decode_data = malloc(decode_size = 512 * 1024);
 		memset(at3_data, 0, blk_size);
 		memset(decode_data, 0, decode_size);
-		
+
 		fread(at3_data, blk_size, 1, file);
 	}
 
@@ -73,10 +75,10 @@ int main(int argc, char *argv[]) {
 		printf("Audio modules: Failed %08x %08x\n", id, id2);
 	}
 
-	printf("at3: %08X-%08X\n", (u32)at3_data, (u32)at3_data + at3_size);
+	printf("at3 size: %08X\n", at3_size);
 	printf("Header: %s\n", (char *)at3_data);
 
-		
+
 	// set first block of data
 	atracID = sceAtracSetDataAndGetID(at3_data, blk_size);
 	if (atracID < 0) {
@@ -87,7 +89,7 @@ int main(int argc, char *argv[]) {
 		at3_size -= blk_size;
 	}
 
-	u32 bitrate;
+	int bitrate;
 	result = sceAtracGetBitrate(atracID, &bitrate);
 	printf("%i=sceAtracGetBitrate: %i\n", result, bitrate);
 
@@ -100,13 +102,13 @@ int main(int argc, char *argv[]) {
 
 	result = sceAtracGetMaxSample(atracID, &maxSamples);
 	printf("sceAtracGetMaxSample: %08X, %d\n", result, maxSamples);
-	
+
 	channel = sceAudioChReserve(0, maxSamples, PSP_AUDIO_FORMAT_STEREO);
 	printf("sceAudioChReserve: %08X\n", channel);
-	
+
 	result = sceAtracGetSecondBufferInfo(atracID, &puiPosition, &puiDataByte);
 	printf("sceAtracGetSecondBufferInfo: %08X, %u, %u\n", result, (unsigned int)puiPosition, (unsigned int)puiDataByte);
-	
+
 	int end = 0;
 	int steps = 0;
 	int remainFrame = -1;
@@ -115,7 +117,7 @@ int main(int argc, char *argv[]) {
 	while (!end && steps < 65536) {
 		// get stream data info
 		result = sceAtracGetStreamDataInfo(atracID, (u8**)&writePtr, &availableBytes, &readOffset);
-		printf("%i=sceAtracGetStreamDataInfo: %08x, %08x, %08x\n", result, writePtr, availableBytes, readOffset);
+		printf("%i=sceAtracGetStreamDataInfo: %08x (offset), %08x, %08x\n", result, writePtr - (u32)at3_data, availableBytes, readOffset);
 
 		u32 nextSample;
 		sceAtracGetNextSample(atracID, &nextSample);
@@ -136,7 +138,8 @@ int main(int argc, char *argv[]) {
 		printf("sceAudioOutputBlocking\n\n");
 		result = sceAtracGetRemainFrame(atracID, &remainFrame);
 
-		// Here 170 is a guess frame threshold
+		// Here 170 is a guess frame threshold (too big for the small AT3!)
+		// 42 is not unusual (seen in Wipeout Pulse).
 		if (remainFrame < 170) {
 			u32 addtoBytes = min(at3_size, min(0xffc0, availableBytes));
 			if (availableBytes >= addtoBytes) {

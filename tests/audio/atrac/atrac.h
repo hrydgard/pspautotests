@@ -1,6 +1,10 @@
+#pragma once
+
 #include <pspatrac3.h>
 
+#ifdef __cplusplus
 extern "C" {
+#endif
 	typedef struct {
 		u8 *writePos;
 		u32 writableBytes;
@@ -18,10 +22,10 @@ extern "C" {
 		s32 unk0;
 		s32 unk4;
 		s32 err; // 8
-		s32 edramAddr; // 12
-		s32 neededMem; // 16
+		s32 edramAddr; // 12  // 18eac0 ?? I guess this is in ME space?
+		s32 neededMem; // 16  // 0x102400
 		s32 unk20;
-		void *inBuf; // 24
+		void *inBuf; // 24  // This is updated for every frame that's decoded, to point to the start of the frame.
 		s32 unk28;
 		void *outBuf; // 32
 		s32 unk36;
@@ -57,28 +61,29 @@ extern "C" {
 		u32 endSample; // 4
 		u32 loopStart; // 8
 		u32 loopEnd; // 12
-		int samplesPerChan; // 16
-		char numFrame; // 20
+		int firstValidSample; // 16
+		u8 framesToSkip; // 20
 		// 2: all the stream data on the buffer
 		// 6: looping -> second buffer needed
-		char state; // 21
-		char unk22;
-		char numChan; // 23
+		u8 state; // 21
+		u8 curBuffer;
+		u8 numChan; // 23
 		u16 sampleSize; // 24
 		u16 codec; // 26
 		u32 dataOff; // 28
-		u32 curOff; // 32
-		u32 dataEnd; // 36
+		u32 curFileOff; // 32
+		u32 fileDataEnd; // 36
 		int loopNum; // 40
 		u32 streamDataByte; // 44
-		u32 unk48;
-		u32 unk52;
+		u32 streamOff;  // previously unk48. This seems to be the offset of the stream data in the buffer.
+		u32 secondStreamOff;  // Used in tail
 		u8 *buffer; // 56
 		u8 *secondBuffer; // 60
 		u32 bufferByte; // 64
 		u32 secondBufferByte; // 68
 		// make sure the size is 128
-		u8 unk[56];
+		u32 unk[13];
+		u32 atracID;
 	} SceAtracIdInfo;
 
 	typedef struct {
@@ -93,7 +98,7 @@ extern "C" {
 
 	int sceAtracGetAtracID(uint codecType);
 	int sceAtracSetData(int atracID, u8 *buf, u32 bufSize);
-	int sceAtracSetHalfwayBufferAndGetID(u8 *buf, u32 bufSize, u32 readBytes);
+	int sceAtracSetHalfwayBufferAndGetID(u8 *buf, u32 readSize, u32 bufferSize);
 	int sceAtracSetHalfwayBuffer(int atracID, u8 *buffer, u32 readSize, u32 bufferSize);
 	int sceAtracSetMOutDataAndGetID(u8 *buffer, u32 bufferSize);
 	int sceAtracSetMOutData(int atracID, u8 *buffer, u32 bufferSize);
@@ -115,4 +120,6 @@ extern "C" {
 	int sceAtracGetOutputChannel(int atracID, u32 *outputChannels);
 
 	SceAtracId *_sceAtracGetContextAddress(int atracID);
+#ifdef __cplusplus
 }
+#endif

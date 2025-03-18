@@ -38,6 +38,7 @@ void testNoiseOutput() {
 	// Higher frequencies introduce new bits / shift faster.
 	// Seems to introduce a new bit every (0x00004000 >> (freq / 4)) / 4, or so.
 	// Probably gets the bits from some source, not sure.
+	// I wonder if this is the same as https://psx-spx.consoledev.net/soundprocessingunitspu/#spu-noise-generator ?
 	u16 last;
 	for (int i = 0; i < 256; ++i) {
 		schedf("[%02x] %04x %04x  ", i, (u16)samples[i * 2 + 0], (u16)samples[i * 2 + 1]);
@@ -81,7 +82,7 @@ extern "C" int main(int argc, char *argv[]) {
 	testSetNoise(&sasCore, 0, 1, "While paused");
 	checkpoint("Still paused: %08x", __sceSasGetPauseFlag(&sasCore));
 	__sceSasSetPause(&sasCore, -1, 0);
-	
+
 	checkpointNext("With core:");
 	checkpoint("Key on: %08x", __sceSasSetKeyOn(&sasCore, 0));
 	// Do it a few times to bump the height up.

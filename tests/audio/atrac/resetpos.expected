@@ -1,35 +1,351 @@
 [x] IDs:
+00000004=sceAtracGetBufferInfoForResetting(0):
+  first : writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
+  second: writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
 [x]   Unallocated: 80630005
+ffffffff=sceAtracGetBufferInfoForResetting(0):
+  first : writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
+  second: writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
 [x]   Invalid: 80630005
+00000000=sceAtracGetBufferInfoForResetting(0):
+  first : writeOffset: 0000b510 writableBytes: 00005998 minWriteBytes: 000002f0 filePos: 00000060
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 00000970 curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 000001d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 000058ac streamOff: 000001d8 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   Valid: 00000000
 
 [x] Sample values:
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 00000970 curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 000001d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 00000178 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
+00000000=sceAtracGetBufferInfoForResetting(0):
+  first : writeOffset: 0000b510 writableBytes: 00005998 minWriteBytes: 000002f0 filePos: 00000060
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 00000970 curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 000001d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 00000178 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   00000000: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 00000970 curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 000001d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 00000178 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
+00000000=sceAtracGetBufferInfoForResetting(1):
+  first : writeOffset: 0000b510 writableBytes: 00005998 minWriteBytes: 000002f0 filePos: 00000060
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 00000970 curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 000001d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 00000178 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   00000001: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 00000971 curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 000001d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 00000178 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
+00000000=sceAtracGetBufferInfoForResetting(2046):
+  first : writeOffset: 0000b510 writableBytes: 00005998 minWriteBytes: 00000468 filePos: 00000060
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 00000971 curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 000001d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 00000178 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   000007fe: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0000116e curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 00000350 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
+00000000=sceAtracGetBufferInfoForResetting(2047):
+  first : writeOffset: 0000b510 writableBytes: 00005998 minWriteBytes: 00000468 filePos: 00000060
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0000116e curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 00000350 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   000007ff: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0000116f curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 00000350 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
+00000000=sceAtracGetBufferInfoForResetting(4096):
+  first : writeOffset: 0000b510 writableBytes: 00005998 minWriteBytes: 000002f0 filePos: 00000350
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0000116f curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 00000350 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   00001000: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 00001970 curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 000004c8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 00000178 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
+00000000=sceAtracGetBufferInfoForResetting(18431):
+  first : writeOffset: 0000b510 writableBytes: 00005998 minWriteBytes: 00000468 filePos: 00000c20
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 00001970 curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 000004c8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 00000178 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   000047ff: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0000516f curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 00000f10 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
+00000000=sceAtracGetBufferInfoForResetting(65536):
+  first : writeOffset: 0000b510 writableBytes: 00005998 minWriteBytes: 000002f0 filePos: 00002f60
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0000516f curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 00000f10 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   00010000: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 00010970 curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 000030d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 00000178 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
+00000000=sceAtracGetBufferInfoForResetting(247499):
+  first : writeOffset: 0000b510 writableBytes: 00000468 minWriteBytes: 00000468 filePos: 0000b0a0
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 00010970 curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 000030d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 00000178 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   0003c6cb: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0003d03b curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 0000b390 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
+00000000=sceAtracGetBufferInfoForResetting(247500):
+  first : writeOffset: 0000b510 writableBytes: 00000468 minWriteBytes: 00000468 filePos: 0000b0a0
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0003d03b curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 0000b390 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   0003c6cc: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0003d03c curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 0000b390 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
+00000000=sceAtracGetBufferInfoForResetting(247501):
+  first : writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
+  second: writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
 [x]   0003c6cd: 80630015
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0003d03c curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 0000b390 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
+00000000=sceAtracGetBufferInfoForResetting(1048576):
+  first : writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
+  second: writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
 [x]   00100000: 80630015
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0003d03c curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 0000b390 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
+00000000=sceAtracGetBufferInfoForResetting(16777216):
+  first : writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
+  second: writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
 [x]   01000000: 80630015
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0003d03c curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 0000b390 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
+00000000=sceAtracGetBufferInfoForResetting(2147483647):
+  first : writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
+  second: writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
 [x]   7fffffff: 80630015
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0003d03c curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 0000b390 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
+00000000=sceAtracGetBufferInfoForResetting(-1):
+  first : writeOffset: 0000b510 writableBytes: 00005998 minWriteBytes: 00000468 filePos: 00000060
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0003d03c curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 0000b390 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   ffffffff: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0000096f curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 00000350 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
+00000000=sceAtracGetBufferInfoForResetting(-2):
+  first : writeOffset: 0000b510 writableBytes: 00005998 minWriteBytes: 00000468 filePos: 00000060
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0000096f curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 00000350 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   fffffffe: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0000096e curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 00000350 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
+00000000=sceAtracGetBufferInfoForResetting(-2048):
+  first : writeOffset: 0000b510 writableBytes: 00005998 minWriteBytes: 000002f0 filePos: fffffee8
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 0000096e curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 00000350 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 000002f0 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   fffff800: 80630002
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 00000170 curBuffer: 0 state: 4 framesToSkip: 1
+curFileOff: fffffee8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 000002f0 streamOff: 00000000 streamOff2: 00000000 codec_err: 020X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
+00000000=sceAtracGetBufferInfoForResetting(-4096):
+  first : writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
+  second: writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
 [x]   fffff000: 80630015
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 00000170 curBuffer: 0 state: 4 framesToSkip: 1
+curFileOff: fffffee8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 000002f0 streamOff: 00000000 streamOff2: 00000000 codec_err: 020X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 
 [x] Other states:
+00000001=sceAtracGetBufferInfoForResetting(0):
+  first : writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
+  second: writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
 [x]   No data: 80630010
+00000000=sceAtracGetBufferInfoForResetting(0):
+  first : writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
+  second: writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
 [x]   State 8: 80630031
+00000000=sceAtracGetBufferInfoForResetting(0):
+  first : writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
+  second: writeOffset: cccccccc writableBytes: cccccccc minWriteBytes: cccccccc filePos: cccccccc
 [x]   State 16: 80630040
 
 [x] Entire buffer:
+00000000=sceAtracGetBufferInfoForResetting(0):
+  first : writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 0000b508 secondBufferByte: 00000000
+decodePos: 00000970 curBuffer: 0 state: 2 framesToSkip: 0
+curFileOff: 000001d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 0000b4a8 streamOff: 00000060 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   Sample = 0: 00000000
+00000000=sceAtracGetBufferInfoForResetting(65536):
+  first : writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 0000b508 secondBufferByte: 00000000
+decodePos: 00000970 curBuffer: 0 state: 2 framesToSkip: 0
+curFileOff: 000001d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 0000b4a8 streamOff: 00000060 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   Sample = 65536: 00000000
+00000000=sceAtracGetBufferInfoForResetting(196608):
+  first : writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 0000b508 secondBufferByte: 00000000
+decodePos: 00010970 curBuffer: 0 state: 2 framesToSkip: 0
+curFileOff: 000030d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 0000b4a8 streamOff: 00000060 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   Sample = 196608: 00000000
 [x]   First size = ffffffff: 80630016
 [x]   Second size = ffffffff: 80630017
@@ -43,8 +359,38 @@
 [x]   Second size = 00100000: 80630017
 
 [x] Half buffer:
+00000000=sceAtracGetBufferInfoForResetting(0):
+  first : writeOffset: 00010f94 writableBytes: 00005a84 minWriteBytes: 00000000 filePos: 00005a84
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 0000b508 secondBufferByte: 00000000
+decodePos: 00000970 curBuffer: 0 state: 3 framesToSkip: 0
+curFileOff: 000001d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00005a24 streamOff: 00000060 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   Sample = 0: 00000000
+00000000=sceAtracGetBufferInfoForResetting(65536):
+  first : writeOffset: 00010f94 writableBytes: 00005a84 minWriteBytes: 00000000 filePos: 00005a84
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 0000b508 secondBufferByte: 00000000
+decodePos: 00000970 curBuffer: 0 state: 3 framesToSkip: 0
+curFileOff: 000001d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00005a24 streamOff: 00000060 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   Sample = 65536: 00000000
+00000000=sceAtracGetBufferInfoForResetting(196608):
+  first : writeOffset: 00010f94 writableBytes: 00005a84 minWriteBytes: 000035cc filePos: 00005a84
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 0000b508 secondBufferByte: 00000000
+decodePos: 00010970 curBuffer: 0 state: 3 framesToSkip: 0
+curFileOff: 000030d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00005a24 streamOff: 00000060 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   Sample = 196608: 00000000
 [x]   First size = ffffffff: 80630016
 [x]   Second size = ffffffff: 80630017
@@ -58,8 +404,38 @@
 [x]   Second size = 00100000: 80630017
 
 [x] Streamed buffer:
+00000000=sceAtracGetBufferInfoForResetting(0):
+  first : writeOffset: 0000b510 writableBytes: 00005998 minWriteBytes: 000002f0 filePos: 00000060
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 00000970 curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 000001d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 000058ac streamOff: 000001d8 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   Sample = 0: 00000000
+00000000=sceAtracGetBufferInfoForResetting(65536):
+  first : writeOffset: 0000b510 writableBytes: 00005998 minWriteBytes: 000002f0 filePos: 00002f60
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 00000970 curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 000001d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 00000178 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   Sample = 65536: 00000000
+00000000=sceAtracGetBufferInfoForResetting(196608):
+  first : writeOffset: 0000b510 writableBytes: 000027a8 minWriteBytes: 000002f0 filePos: 00008d60
+  second: writeOffset: 0000b510 writableBytes: 00000000 minWriteBytes: 00000000 filePos: 00000000
+dataOff: 00000060 sampleSize: 0178 codec: 1000 channels: 2
+endSample: 0003d03c loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00005a84 secondBufferByte: 00000000
+decodePos: 00010970 curBuffer: 0 state: 4 framesToSkip: 0
+curFileOff: 000030d8 fileDataEnd: 0000b508 loopNum: 0
+streamDataByte: 00000178 streamOff: 00000178 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 0000b510 secondBuffer(offset): abcdabcd firstValidSample: 0970
 [r]   Sample = 196608: 00000000
 [x]   First size = ffffffff: 80630016
 [x]   Second size = ffffffff: 80630016
