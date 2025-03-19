@@ -26,9 +26,9 @@ extern "C" {
 		s32 neededMem; // 16  // 0x102400
 		s32 unk20;
 		void *inBuf; // 24  // This is updated for every frame that's decoded, to point to the start of the frame.
-		s32 unk28;
+		s32 inBytes;
 		void *outBuf; // 32
-		s32 unk36;
+		s32 outBytes;
 		s8 unk40;
 		s8 unk41;
 		s8 unk42;

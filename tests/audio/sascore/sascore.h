@@ -3,7 +3,7 @@
 
 struct SasHeader
 {
-	int unk1End; // always 00180990?  0x00180000 + 0x10 + 32 * 76.
+	int driverCtx; // always 00180990?  0x00180000 + 0x10 + 32 * 76. I think the driver mirrors the sas state in ME EDRAM first, then it has its own context there.
 	char revType; // default -1
 	char unk; // default 0x0b -> changes to 0 after first sceSasCore...
 	char revDelay; // default 0
@@ -14,7 +14,7 @@ struct SasHeader
 	char busyFlag; // default = 0
 	u16 revVolLeft; // default = 0
 	u16 revVolRight; // default = 0
-	int unk2; // default = -1
+	int endFlag; // default = -1
 };
 
 typedef enum
@@ -80,8 +80,8 @@ struct SasVoice
 
 struct SasFooter
 {
-	int unk1; // default = -1
-	int unk2; // default 0, changes to 1 after first sceSasCore().
+	int endFlagsFromDriver; // default = -1
+	int driverInitedMaybe; // default 0, changes to 1 after first sceSasCore().
 	short unk3; // default 0
 	short unk4; // default 0
 };

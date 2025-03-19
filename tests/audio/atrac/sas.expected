@@ -1,0 +1,1030 @@
+sceAtracSetDataAndGetID(..., 10264): OK
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 2 framesToSkip: 0
+curFileOff: 000000e8 fileDataEnd: 00002818 loopNum: 0
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+sceSasInit: 00000000
+_sceAtracGetContextAddress: ...   streamOff=00000050
+__sceSasSetKeyOff: 80420016
+__sceSasSetOutputmode: 00000000
+__sceSasSetVoiceATRAC3: 00000000
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000000e8 fileDataEnd: 00002818 loopNum: 0
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000050 secondBuffer(offset): abcdabcd firstValidSample: 0445
+__sceSasSetADSR: 00000000
+__sceSasSetKeyOn: 00000000
+reserved audio channel: 0
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445
+=======
+__sceSasCore: 00000000
+sceAudioOutputBlocking: 00000800
+dataOff: 00000050 sampleSize: 0098 codec: 1001 channels: 1
+endSample: 00010944 loopStart: 00000000 loopEnd: 00000000
+bufferByte: 00002818 secondBufferByte: 00000000
+decodePos: 00000445 curBuffer: 0 state: 16 framesToSkip: 0
+curFileOff: 000028b0 fileDataEnd: 00002818 loopNum: 30
+streamDataByte: 000027c8 streamOff: 00000050 streamOff2: 00000000 codec_err: 000X
+buffer(offset): 00000000 secondBuffer(offset): abcdabcd firstValidSample: 0445

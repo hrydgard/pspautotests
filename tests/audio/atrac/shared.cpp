@@ -111,14 +111,7 @@ void LogAtracContext(int atracID, const u8 *buffer, const u8 *secondBuffer, bool
 	if (full) {
 		// Also log some stuff from the codec context, just because.
 		// Actually, doesn't seem very useful. inBuf is just the current frame being decoded.
-		/*
-		printf("CODEC inbuf: %p\n", ctx->codec.inBuf);
-		printf("CODEC outbuf: %p\n", ctx->codec.outBuf);
-		printf("CODEC edramAddr: %08x\n", ctx->codec.edramAddr);
-		// printf("CODEC allocMem: %p\n", ctx->codec.allocMem);
-		printf("CODEC neededMem: %d\n", ctx->codec.neededMem);
-		printf("CODEC err: %d\n", ctx->codec.err);
-		*/
+		// printf("sceAudioCodec inbuf: %p outbuf: %p inBytes: %d outBytes: %d\n", ctx->codec.inBuf, ctx->codec.outBuf, ctx->codec.inBytes, ctx->codec.outBytes);
 		schedf("dataOff: %08x sampleSize: %04x codec: %04x channels: %d\n", ctx->info.dataOff, ctx->info.sampleSize, ctx->info.codec, ctx->info.numChan);
 		schedf("endSample: %08x loopStart: %08x loopEnd: %08x\n", ctx->info.endSample, ctx->info.loopStart, ctx->info.loopEnd);
 		schedf("bufferByte: %08x secondBufferByte: %08x\n", ctx->info.bufferByte, ctx->info.secondBufferByte);
@@ -136,6 +129,7 @@ void LogAtracContext(int atracID, const u8 *buffer, const u8 *secondBuffer, bool
 		secondBufOff = 0xabcdabcd;
 	}
 	schedf("buffer(offset): %08x secondBuffer(offset): %08x firstValidSample: %04x\n", bufOff, secondBufOff, ctx->info.firstValidSample);
+	//schedf("buffer %08x secondBuffer %08x firstValidSample: %04x\n", ctx->info.buffer, ctx->info.secondBuffer, ctx->info.firstValidSample);
 
 	for (int i = 0; i < ARRAY_SIZE(ctx->info.unk); i++) {
 		if (ctx->info.unk[i] != 0) {
