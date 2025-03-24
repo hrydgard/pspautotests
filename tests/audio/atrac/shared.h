@@ -91,15 +91,11 @@ struct Atrac3File {
 		size_ = size;
 	}
 
-	bool IsValid() {
-		return data_ != NULL;
-	}
-	u8 *Data() {
-		return data_;
-	}
-	size_t Size() {
-		return size_;
-	}
+	bool IsValid() const { return data_ != NULL; }
+	u8 *Data() { return data_; }
+	const u8 *Data() const { return data_; }
+	size_t Size() const { return size_; }
+	int Tell() const { return pos_; }
 
 	void Seek(int value, int method) {
 		switch (method) {
@@ -123,10 +119,6 @@ struct Atrac3File {
 		memcpy(buffer, data_ + pos_, readSize);
 		pos_ += readSize;
 		return readSize;
-	}
-
-	int Tell() const {
-		return pos_;
 	}
 
 private:
