@@ -2,6 +2,8 @@
 
 #include <pspatrac3.h>
 
+#include "../audiocodec/audiocodec.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -16,45 +18,6 @@ extern "C" {
 		AtracSingleResetBufferInfo first;
 		AtracSingleResetBufferInfo second;
 	} AtracResetBufferInfo;
-
-	// From PPSSPP.
-	typedef struct {
-		s32 unk0;
-		s32 unk4;
-		s32 err; // 8
-		s32 edramAddr; // 12  // 18eac0 ?? I guess this is in ME space?
-		s32 neededMem; // 16  // 0x102400
-		s32 unk20;
-		void *inBuf; // 24  // This is updated for every frame that's decoded, to point to the start of the frame.
-		s32 inBytes;
-		void *outBuf; // 32
-		s32 outBytes;
-		s8 unk40;
-		s8 unk41;
-		s8 unk42;
-		s8 unk43;
-		s8 unk44;
-		s8 unk45;
-		s8 unk46;
-		s8 unk47;
-		s32 unk48;
-		s32 unk52;
-		s32 unk56;
-		s32 unk60;
-		s32 unk64;
-		s32 unk68;
-		s32 unk72;
-		s32 unk76;
-		s32 unk80;
-		s32 unk84;
-		s32 unk88;
-		s32 unk92;
-		s32 unk96;
-		s32 unk100;
-		void *allocMem; // 104
-		// make sure the size is 128
-		u8 unk[20];
-	} SceAudiocodecCodec;
 
 	typedef struct {
 		u32 decodePos; // 0

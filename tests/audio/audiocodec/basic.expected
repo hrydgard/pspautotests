@@ -1,0 +1,65 @@
+CheckNeedMem before init: 807f00fd
+Codec Dump:
+  err: 0000020f
+  edramAddr: 00000000
+  neededMem: 00000000
+  inited: 00000000
+  inBuf: 0x0
+  inBytes: 0000
+  outBuf: 0x0
+  outBytes: 0000
+  allocMem: 0x0
+  tailRelated: 0
+  tailFlag: 0
+sceAudiocodecCheckNeedMem at3+: 00000000
+Codec Dump:
+  err: 00000000
+  edramAddr: 00000000
+  neededMem: 00007bc0
+  inited: 00000000
+  inBuf: 0x0
+  inBytes: 0000
+  outBuf: 0x0
+  outBytes: 0000
+  allocMem: 0x0
+  tailRelated: 40
+  tailFlag: 92
+sceAudiocodecCheckNeedMem at3: 00000000
+Codec Dump:
+  err: 00000000
+  edramAddr: 00000000
+  neededMem: 00003de0
+  inited: 00000000
+  inBuf: 0x0
+  inBytes: 0000
+  outBuf: 0x0
+  outBytes: 0000
+  allocMem: 0x0
+  tailRelated: 40
+  tailFlag: 92
+sceAudiocodecGetEDRAM at3: 00000000 (addr: 0018eac0)
+Codec Dump:
+  err: 00000000
+  edramAddr: 0018eac0
+  neededMem: 00019000
+  inited: 00000001
+  inBuf: 0x0
+  inBytes: 0000
+  outBuf: 0x0
+  outBytes: 0000
+  allocMem: 0x18ea90
+  tailRelated: 40
+  tailFlag: 92
+Init: 00000000
+Codec Dump:
+  err: 00000000
+  edramAddr: 0018eac0
+  neededMem: 00019000
+  inited: 00000001
+  inBuf: 0x0
+  inBytes: 0000
+  outBuf: 0x0
+  outBytes: 0000
+  allocMem: 0x18ea90
+  tailRelated: 40
+  tailFlag: 92
