@@ -1,0 +1,344 @@
+[x] Registry test
+00000000 = sceRegOpenRegistry(bad) -> handle 00000000
+00000000 = sceRegOpenRegistry(/system) -> handle 00000000
+80082716 = sceRegOpenCategory() -> handle ffffffff
+80082716 = sceRegOpenCategory(/) -> handle ffffffff
+80082715 = sceRegOpenCategory(badreg, DATA/FONT) -> handle ffffffff
+80082718 = sceRegOpenCategory(DATA/FANT (bad)) -> handle ffffffff
+00000000 = sceRegOpenCategory(DATA/FONT)
+00000000 = sceRegGetKeysNum(fontCategory) -> 3
+keyname 0: path_name
+STR - path_name                   -   13 : flash0:/font
+keyname 1: num_fonts
+INT - num_fonts                   -    4 : 18
+keyname 2: PROPERTY
+DIR - PROPERTY                    size=00000000
+
+
+// Dump of the PSP registry using tests/misc/reg.prx in pspautotests
+
+// Dump of /DATA/FONT/PROPERTY/INFO0
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO0[] = {
+	{ "h_size", ValueType::INT, "", (int)0x00000288 },
+	{ "v_size", ValueType::INT, "", (int)0x00000288 },
+	{ "h_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "v_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "extra_attributes", ValueType::INT, "", (int)0x00000000 },
+	{ "weight", ValueType::INT, "", (int)0x00000000 },
+	{ "family_code", ValueType::INT, "", (int)0x00000001 },
+	{ "style", ValueType::INT, "", (int)0x00000067 },
+	{ "sub_style", ValueType::INT, "", (int)0x00000000 },
+	{ "language_code", ValueType::INT, "", (int)0x00000001 },
+	{ "region_code", ValueType::INT, "", (int)0x00000000 },
+	{ "country_code", ValueType::INT, "", (int)0x00000001 },
+	{ "font_name", ValueType::STR, "FTT-NewRodin Pro DB" },
+	{ "file_name", ValueType::STR, "jpn0.pgf" },
+	{ "expire_date", ValueType::INT, "", (int)0x00000000 },
+	{ "shadow_option", ValueType::INT, "", (int)0x00000000 },
+};
+
+// Dump of /DATA/FONT/PROPERTY/INFO1
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO1[] = {
+	{ "h_size", ValueType::INT, "", (int)0x00000288 },
+	{ "v_size", ValueType::INT, "", (int)0x00000288 },
+	{ "h_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "v_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "extra_attributes", ValueType::INT, "", (int)0x00000000 },
+	{ "weight", ValueType::INT, "", (int)0x00000000 },
+	{ "family_code", ValueType::INT, "", (int)0x00000001 },
+	{ "style", ValueType::INT, "", (int)0x00000001 },
+	{ "sub_style", ValueType::INT, "", (int)0x00000000 },
+	{ "language_code", ValueType::INT, "", (int)0x00000002 },
+	{ "region_code", ValueType::INT, "", (int)0x00000000 },
+	{ "country_code", ValueType::INT, "", (int)0x00000001 },
+	{ "font_name", ValueType::STR, "FTT-NewRodin Pro Latin" },
+	{ "file_name", ValueType::STR, "ltn0.pgf" },
+	{ "expire_date", ValueType::INT, "", (int)0x00000000 },
+	{ "shadow_option", ValueType::INT, "", (int)0x00000000 },
+};
+
+// Dump of /DATA/FONT/PROPERTY/INFO2
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO2[] = {
+	{ "h_size", ValueType::INT, "", (int)0x00000288 },
+	{ "v_size", ValueType::INT, "", (int)0x00000288 },
+	{ "h_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "v_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "extra_attributes", ValueType::INT, "", (int)0x00000000 },
+	{ "weight", ValueType::INT, "", (int)0x00000000 },
+	{ "family_code", ValueType::INT, "", (int)0x00000002 },
+	{ "style", ValueType::INT, "", (int)0x00000001 },
+	{ "sub_style", ValueType::INT, "", (int)0x00000000 },
+	{ "language_code", ValueType::INT, "", (int)0x00000002 },
+	{ "region_code", ValueType::INT, "", (int)0x00000000 },
+	{ "country_code", ValueType::INT, "", (int)0x00000001 },
+	{ "font_name", ValueType::STR, "FTT-Matisse Pro Latin" },
+	{ "file_name", ValueType::STR, "ltn1.pgf" },
+	{ "expire_date", ValueType::INT, "", (int)0x00000000 },
+	{ "shadow_option", ValueType::INT, "", (int)0x00000000 },
+};
+
+// Dump of /DATA/FONT/PROPERTY/INFO3
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO3[] = {
+	{ "h_size", ValueType::INT, "", (int)0x00000288 },
+	{ "v_size", ValueType::INT, "", (int)0x00000288 },
+	{ "h_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "v_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "extra_attributes", ValueType::INT, "", (int)0x00000000 },
+	{ "weight", ValueType::INT, "", (int)0x00000000 },
+	{ "family_code", ValueType::INT, "", (int)0x00000001 },
+	{ "style", ValueType::INT, "", (int)0x00000002 },
+	{ "sub_style", ValueType::INT, "", (int)0x00000000 },
+	{ "language_code", ValueType::INT, "", (int)0x00000002 },
+	{ "region_code", ValueType::INT, "", (int)0x00000000 },
+	{ "country_code", ValueType::INT, "", (int)0x00000001 },
+	{ "font_name", ValueType::STR, "FTT-NewRodin Pro Latin" },
+	{ "file_name", ValueType::STR, "ltn2.pgf" },
+	{ "expire_date", ValueType::INT, "", (int)0x00000000 },
+	{ "shadow_option", ValueType::INT, "", (int)0x00000000 },
+};
+
+// Dump of /DATA/FONT/PROPERTY/INFO4
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO4[] = {
+	{ "h_size", ValueType::INT, "", (int)0x00000288 },
+	{ "v_size", ValueType::INT, "", (int)0x00000288 },
+	{ "h_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "v_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "extra_attributes", ValueType::INT, "", (int)0x00000000 },
+	{ "weight", ValueType::INT, "", (int)0x00000000 },
+	{ "family_code", ValueType::INT, "", (int)0x00000002 },
+	{ "style", ValueType::INT, "", (int)0x00000002 },
+	{ "sub_style", ValueType::INT, "", (int)0x00000000 },
+	{ "language_code", ValueType::INT, "", (int)0x00000002 },
+	{ "region_code", ValueType::INT, "", (int)0x00000000 },
+	{ "country_code", ValueType::INT, "", (int)0x00000001 },
+	{ "font_name", ValueType::STR, "FTT-Matisse Pro Latin" },
+	{ "file_name", ValueType::STR, "ltn3.pgf" },
+	{ "expire_date", ValueType::INT, "", (int)0x00000000 },
+	{ "shadow_option", ValueType::INT, "", (int)0x00000000 },
+};
+
+// Dump of /DATA/FONT/PROPERTY/INFO5
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO5[] = {
+	{ "h_size", ValueType::INT, "", (int)0x00000288 },
+	{ "v_size", ValueType::INT, "", (int)0x00000288 },
+	{ "h_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "v_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "extra_attributes", ValueType::INT, "", (int)0x00000000 },
+	{ "weight", ValueType::INT, "", (int)0x00000000 },
+	{ "family_code", ValueType::INT, "", (int)0x00000001 },
+	{ "style", ValueType::INT, "", (int)0x00000005 },
+	{ "sub_style", ValueType::INT, "", (int)0x00000000 },
+	{ "language_code", ValueType::INT, "", (int)0x00000002 },
+	{ "region_code", ValueType::INT, "", (int)0x00000000 },
+	{ "country_code", ValueType::INT, "", (int)0x00000001 },
+	{ "font_name", ValueType::STR, "FTT-NewRodin Pro Latin" },
+	{ "file_name", ValueType::STR, "ltn4.pgf" },
+	{ "expire_date", ValueType::INT, "", (int)0x00000000 },
+	{ "shadow_option", ValueType::INT, "", (int)0x00000000 },
+};
+
+// Dump of /DATA/FONT/PROPERTY/INFO6
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO6[] = {
+	{ "h_size", ValueType::INT, "", (int)0x00000288 },
+	{ "v_size", ValueType::INT, "", (int)0x00000288 },
+	{ "h_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "v_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "extra_attributes", ValueType::INT, "", (int)0x00000000 },
+	{ "weight", ValueType::INT, "", (int)0x00000000 },
+	{ "family_code", ValueType::INT, "", (int)0x00000002 },
+	{ "style", ValueType::INT, "", (int)0x00000005 },
+	{ "sub_style", ValueType::INT, "", (int)0x00000000 },
+	{ "language_code", ValueType::INT, "", (int)0x00000002 },
+	{ "region_code", ValueType::INT, "", (int)0x00000000 },
+	{ "country_code", ValueType::INT, "", (int)0x00000001 },
+	{ "font_name", ValueType::STR, "FTT-Matisse Pro Latin" },
+	{ "file_name", ValueType::STR, "ltn5.pgf" },
+	{ "expire_date", ValueType::INT, "", (int)0x00000000 },
+	{ "shadow_option", ValueType::INT, "", (int)0x00000000 },
+};
+
+// Dump of /DATA/FONT/PROPERTY/INFO7
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO7[] = {
+	{ "h_size", ValueType::INT, "", (int)0x00000288 },
+	{ "v_size", ValueType::INT, "", (int)0x00000288 },
+	{ "h_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "v_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "extra_attributes", ValueType::INT, "", (int)0x00000000 },
+	{ "weight", ValueType::INT, "", (int)0x00000000 },
+	{ "family_code", ValueType::INT, "", (int)0x00000001 },
+	{ "style", ValueType::INT, "", (int)0x00000006 },
+	{ "sub_style", ValueType::INT, "", (int)0x00000000 },
+	{ "language_code", ValueType::INT, "", (int)0x00000002 },
+	{ "region_code", ValueType::INT, "", (int)0x00000000 },
+	{ "country_code", ValueType::INT, "", (int)0x00000001 },
+	{ "font_name", ValueType::STR, "FTT-NewRodin Pro Latin" },
+	{ "file_name", ValueType::STR, "ltn6.pgf" },
+	{ "expire_date", ValueType::INT, "", (int)0x00000000 },
+	{ "shadow_option", ValueType::INT, "", (int)0x00000000 },
+};
+
+// Dump of /DATA/FONT/PROPERTY/INFO8
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO8[] = {
+	{ "h_size", ValueType::INT, "", (int)0x00000288 },
+	{ "v_size", ValueType::INT, "", (int)0x00000288 },
+	{ "h_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "v_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "extra_attributes", ValueType::INT, "", (int)0x00000000 },
+	{ "weight", ValueType::INT, "", (int)0x00000000 },
+	{ "family_code", ValueType::INT, "", (int)0x00000002 },
+	{ "style", ValueType::INT, "", (int)0x00000006 },
+	{ "sub_style", ValueType::INT, "", (int)0x00000000 },
+	{ "language_code", ValueType::INT, "", (int)0x00000002 },
+	{ "region_code", ValueType::INT, "", (int)0x00000000 },
+	{ "country_code", ValueType::INT, "", (int)0x00000001 },
+	{ "font_name", ValueType::STR, "FTT-Matisse Pro Latin" },
+	{ "file_name", ValueType::STR, "ltn7.pgf" },
+	{ "expire_date", ValueType::INT, "", (int)0x00000000 },
+	{ "shadow_option", ValueType::INT, "", (int)0x00000000 },
+};
+
+// Dump of /DATA/FONT/PROPERTY/INFO9
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO9[] = {
+	{ "h_size", ValueType::INT, "", (int)0x000001c0 },
+	{ "v_size", ValueType::INT, "", (int)0x000001c0 },
+	{ "h_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "v_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "extra_attributes", ValueType::INT, "", (int)0x00000000 },
+	{ "weight", ValueType::INT, "", (int)0x00000000 },
+	{ "family_code", ValueType::INT, "", (int)0x00000001 },
+	{ "style", ValueType::INT, "", (int)0x00000001 },
+	{ "sub_style", ValueType::INT, "", (int)0x00000000 },
+	{ "language_code", ValueType::INT, "", (int)0x00000002 },
+	{ "region_code", ValueType::INT, "", (int)0x00000000 },
+	{ "country_code", ValueType::INT, "", (int)0x00000001 },
+	{ "font_name", ValueType::STR, "FTT-NewRodin Pro Latin" },
+	{ "file_name", ValueType::STR, "ltn8.pgf" },
+	{ "expire_date", ValueType::INT, "", (int)0x00000000 },
+	{ "shadow_option", ValueType::INT, "", (int)0x00000000 },
+};
+
+// Dump of /DATA/FONT/PROPERTY/INFO10
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO10[] = {
+	{ "h_size", ValueType::INT, "", (int)0x000001c0 },
+	{ "v_size", ValueType::INT, "", (int)0x000001c0 },
+	{ "h_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "v_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "extra_attributes", ValueType::INT, "", (int)0x00000000 },
+	{ "weight", ValueType::INT, "", (int)0x00000000 },
+	{ "family_code", ValueType::INT, "", (int)0x00000002 },
+	{ "style", ValueType::INT, "", (int)0x00000001 },
+	{ "sub_style", ValueType::INT, "", (int)0x00000000 },
+	{ "language_code", ValueType::INT, "", (int)0x00000002 },
+	{ "region_code", ValueType::INT, "", (int)0x00000000 },
+	{ "country_code", ValueType::INT, "", (int)0x00000001 },
+	{ "font_name", ValueType::STR, "FTT-Matisse Pro Latin" },
+	{ "file_name", ValueType::STR, "ltn9.pgf" },
+	{ "expire_date", ValueType::INT, "", (int)0x00000000 },
+	{ "shadow_option", ValueType::INT, "", (int)0x00000000 },
+};
+
+// Dump of /DATA/FONT/PROPERTY/INFO11
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO11[] = {
+	{ "h_size", ValueType::INT, "", (int)0x000001c0 },
+	{ "v_size", ValueType::INT, "", (int)0x000001c0 },
+	{ "h_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "v_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "extra_attributes", ValueType::INT, "", (int)0x00000000 },
+	{ "weight", ValueType::INT, "", (int)0x00000000 },
+	{ "family_code", ValueType::INT, "", (int)0x00000001 },
+	{ "style", ValueType::INT, "", (int)0x00000002 },
+	{ "sub_style", ValueType::INT, "", (int)0x00000000 },
+	{ "language_code", ValueType::INT, "", (int)0x00000002 },
+	{ "region_code", ValueType::INT, "", (int)0x00000000 },
+	{ "country_code", ValueType::INT, "", (int)0x00000001 },
+	{ "font_name", ValueType::STR, "FTT-NewRodin Pro Latin" },
+	{ "file_name", ValueType::STR, "ltn10.pgf" },
+	{ "expire_date", ValueType::INT, "", (int)0x00000000 },
+	{ "shadow_option", ValueType::INT, "", (int)0x00000000 },
+};
+
+// Dump of /DATA/FONT/PROPERTY/INFO12
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO12[] = {
+	{ "h_size", ValueType::INT, "", (int)0x000001c0 },
+	{ "v_size", ValueType::INT, "", (int)0x000001c0 },
+	{ "h_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "v_resolution", ValueType::INT, "", (int)0x00002000 },
+	{ "extra_attributes", ValueType::INT, "", (int)0x00000000 },
+	{ "weight", ValueType::INT, "", (int)0x00000000 },
+	{ "family_code", ValueType::INT, "", (int)0x00000002 },
+	{ "style", ValueType::INT, "", (int)0x00000002 },
+	{ "sub_style", ValueType::INT, "", (int)0x00000000 },
+	{ "language_code", ValueType::INT, "", (int)0x00000002 },
+	{ "region_code", ValueType::INT, "", (int)0x00000000 },
+	{ "country_code", ValueType::INT, "", (int)0x00000001 },
+	{ "font_name", ValueType::STR, "FTT-Matisse Pro Latin" },
+	{ "file_name", ValueType::STR, "ltn11.pgf" },
+	{ "expire_date", ValueType::INT, "", (int)0x00000000 },
+	{ "shadow_option", ValueType::INT, "", (int)0x00000000 },
+};
+
+// /DATA/FONT/PROPERTY/INFO13 was not accessible (returned 80082712)
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO13[1] = { "", ValueType::FAIL, "", (int)0x80082712 };
+
+// /DATA/FONT/PROPERTY/INFO14 was not accessible (returned 80082712)
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO14[1] = { "", ValueType::FAIL, "", (int)0x80082712 };
+
+// /DATA/FONT/PROPERTY/INFO15 was not accessible (returned 80082712)
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO15[1] = { "", ValueType::FAIL, "", (int)0x80082712 };
+
+// /DATA/FONT/PROPERTY/INFO16 was not accessible (returned 80082712)
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO16[1] = { "", ValueType::FAIL, "", (int)0x80082712 };
+
+// /DATA/FONT/PROPERTY/INFO17 was not accessible (returned 80082712)
+static const KeyValue tree_DATA_FONT_PROPERTY_INFO17[1] = { "", ValueType::FAIL, "", (int)0x80082712 };
+
+// Dump of /DATA/FONT/PROPERTY
+static const KeyValue tree_DATA_FONT_PROPERTY[] = {
+	{ "INFO0", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO0), tree_DATA_FONT_PROPERTY_INFO0 },
+	{ "INFO1", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO1), tree_DATA_FONT_PROPERTY_INFO1 },
+	{ "INFO2", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO2), tree_DATA_FONT_PROPERTY_INFO2 },
+	{ "INFO3", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO3), tree_DATA_FONT_PROPERTY_INFO3 },
+	{ "INFO4", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO4), tree_DATA_FONT_PROPERTY_INFO4 },
+	{ "INFO5", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO5), tree_DATA_FONT_PROPERTY_INFO5 },
+	{ "INFO6", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO6), tree_DATA_FONT_PROPERTY_INFO6 },
+	{ "INFO7", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO7), tree_DATA_FONT_PROPERTY_INFO7 },
+	{ "INFO8", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO8), tree_DATA_FONT_PROPERTY_INFO8 },
+	{ "INFO9", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO9), tree_DATA_FONT_PROPERTY_INFO9 },
+	{ "INFO10", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO10), tree_DATA_FONT_PROPERTY_INFO10 },
+	{ "INFO11", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO11), tree_DATA_FONT_PROPERTY_INFO11 },
+	{ "INFO12", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO12), tree_DATA_FONT_PROPERTY_INFO12 },
+	{ "INFO13", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO13), tree_DATA_FONT_PROPERTY_INFO13 },
+	{ "INFO14", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO14), tree_DATA_FONT_PROPERTY_INFO14 },
+	{ "INFO15", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO15), tree_DATA_FONT_PROPERTY_INFO15 },
+	{ "INFO16", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO16), tree_DATA_FONT_PROPERTY_INFO16 },
+	{ "INFO17", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY_INFO17), tree_DATA_FONT_PROPERTY_INFO17 },
+};
+
+// Dump of /DATA/FONT
+static const KeyValue tree_DATA_FONT[] = {
+	{ "path_name", ValueType::STR, "flash0:/font" },
+	{ "num_fonts", ValueType::INT, "", (int)0x00000012 },
+	{ "PROPERTY", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT_PROPERTY), tree_DATA_FONT_PROPERTY },
+};
+
+// Dump of /DATA/COUNT
+static const KeyValue tree_DATA_COUNT[] = {
+	{ "boot_count", ValueType::INT, "", (int)0x00000000 },
+	{ "game_exec_count", ValueType::INT, "", (int)0x00000046 },
+	{ "slide_count", ValueType::INT, "", (int)0x00000000 },
+	{ "usb_connect_count", ValueType::INT, "", (int)0x000000ec },
+	{ "wifi_connect_count", ValueType::INT, "", (int)0x00000000 },
+	{ "psn_access_count", ValueType::INT, "", (int)0x00000000 },
+};
+
+// Dump of /DATA
+static const KeyValue tree_DATA[] = {
+	{ "FONT", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_FONT), tree_DATA_FONT },
+	{ "COUNT", ValueType::DIR, "", ARRAY_SIZE(tree_DATA_COUNT), tree_DATA_COUNT },
+};
+
+// /SYSPROFILE was not accessible (returned 80082712)
+static const KeyValue tree_SYSPROFILE[1] = { "", ValueType::FAIL, "", (int)0x80082712 };
+
+80082715 = sceRegCloseRegistry(1337)
+00000000 = sceRegCloseRegistry(regHandle)
