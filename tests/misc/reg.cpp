@@ -85,6 +85,8 @@ void DumpCategory(REGHANDLE regHandle, const std::string &path, const std::strin
 
     schedf("};\n\n");
 
+    sceRegCloseCategory(category);
+
     free(keyData);
 }
 
@@ -143,6 +145,12 @@ extern "C" int main(int argc, char *argv[]) {
     if (retval < 0) {
         retval = sceRegOpenCategory(regHandle, "/", 2, &rootCategory);
         schedf("%08x = sceRegOpenCategory(/) -> handle %08x\n", retval, rootCategory);
+    }
+
+    REGHANDLE sysProfileCategory;
+    retval = sceRegOpenCategory(regHandle, "/SYSPROFILE/RESOLUTION", 2, &sysProfileCategory);
+    if (retval < 0) {
+        schedf("%08x = sceRegOpenCategory(SYSPROFILE) -> handle %08x\n", retval, sysProfileCategory);
     }
 
     REGHANDLE fontCategory;
