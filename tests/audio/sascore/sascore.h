@@ -185,7 +185,7 @@ int __sceSasSetVoicePCM(SasCore *sasCore, int voice, void *pcm, int size, int lo
 
 // TODO: Context struct
 int __sceSasSetVoiceATRAC3(SasCore *sasCore, int voice, void *atrac3Context);
-int __sceSasConcatenateATRAC3(SasCore *sasCore, int voice, void *data, int size);
+int __sceSasConcatenateATRAC3(SasCore *sasCore, int voice, const void *data, int size);
 int __sceSasUnsetATRAC3(SasCore *sasCore, int voice);
 
 #ifdef __cplusplus
