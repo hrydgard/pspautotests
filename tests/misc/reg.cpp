@@ -8,11 +8,73 @@
 
 #define SCE_REG_ERROR_CATEGORY_EMPTY_MAYBE 0x80082712
 
+/**
+ * Helper to check if a character should be preserved unescaped.
+ */
+static inline bool is_preserved_char(uint8_t c) {
+    if ((c >= 'a' && c <= 'z') ||
+        (c >= 'A' && c <= 'Z') ||
+        (c >= '0' && c <= '9')) {
+        return true;
+    }
+    switch (c) {
+        case ' ': case '-': case '_': case '.':
+        case ',': case ':': case ';':
+            return true;
+        default:
+            return false;
+    }
+}
+
+/**
+ * Takes a uint8_t buffer and converts it into a heap-allocated,
+ * escaped C string suitable for embedding directly in C code.
+ *
+ * Note: The caller is responsible for freeing the returned pointer.
+ */
+char *escape_to_c_string(const uint8_t *data, size_t len) {
+    if (data == NULL) return NULL;
+
+    // In the worst case, a byte becomes a 4-char octal escape like "\377".
+    // Allocate max possible size: (len * 4) + 1 null terminator.
+    size_t max_out_len = (len * 4) + 1;
+    char *out = (char *)malloc(max_out_len);
+    if (out == NULL) return NULL;
+
+    size_t pos = 0;
+
+    for (size_t i = 0; i < len; i++) {
+        uint8_t c = data[i];
+
+        if (is_preserved_char(c)) {
+            out[pos++] = (char)c;
+        } else {
+            // Handle common formatting escapes first for cleaner output
+            switch (c) {
+                case '\n': out[pos++] = '\\'; out[pos++] = 'n'; break;
+                case '\r': out[pos++] = '\\'; out[pos++] = 'r'; break;
+                case '\t': out[pos++] = '\\'; out[pos++] = 't'; break;
+                case '\\': out[pos++] = '\\'; out[pos++] = '\\'; break;
+                case '"':  out[pos++] = '\\'; out[pos++] = '"'; break;
+                default:
+                    // Octal escapes (\ooo) prevent ambiguity issues if followed by digit characters
+                    pos += snprintf(&out[pos], max_out_len - pos, "\\%03o", c);
+                    break;
+            }
+        }
+    }
+
+    out[pos] = '\0';
+    return out;
+}
+
+// This dumps a category of the registry to C code compatible with sceReg.cpp in PPSSPP, the PSP emulator.
+
 void DumpCategory(REGHANDLE regHandle, const std::string &path, const std::string &concat_name, const std::string &name) {
     REGHANDLE category = 0xcccccccc;
 
     int retval = sceRegOpenCategory(regHandle, path.c_str(), 2, &category);
-    if (retval == SCE_REG_ERROR_CATEGORY_EMPTY_MAYBE) {
+    if (retval == (int)SCE_REG_ERROR_CATEGORY_EMPTY_MAYBE) {
         schedf("// %s was not accessible (returned %08x)\n", path.c_str(), retval);
         schedf("static const KeyValue %s[1] = { \"\", ValueType::FAIL, \"\", (int)0x%08x };\n\n", concat_name.c_str(), retval);
         return;
@@ -26,7 +88,7 @@ void DumpCategory(REGHANDLE regHandle, const std::string &path, const std::strin
     int numKeys;
     int result = sceRegGetKeysNum(category, &numKeys);
     if (result < 0) {
-        schedf("%08x = sceRegGetKeysNum(%s) -> %d\n", result, numKeys);
+        schedf("%08x = sceRegGetKeysNum(%s) -> %d\n", result, path.c_str(), numKeys);
         return;
     }
     // schedf("%08x = sceRegGetKeysNum(fontCategory) -> %d\n", result, numKeys);
@@ -39,7 +101,7 @@ void DumpCategory(REGHANDLE regHandle, const std::string &path, const std::strin
         char *keyName = keyData + i * 27;
         unsigned int type;
         SceSize size = 0xcccccccc;
-        unsigned char data[1024];
+        // unsigned char data[1024];
         REGHANDLE keyHandle;
         if (!sceRegGetKeyInfo(category, keyName, &keyHandle, &type, &size)) {
             if (type == REG_TYPE_DIR) {
@@ -67,15 +129,32 @@ void DumpCategory(REGHANDLE regHandle, const std::string &path, const std::strin
                     case REG_TYPE_INT:
                     {
                         int ivalue = *((int*) data);
-                        schedf("\t{ \"%s\", ValueType::INT, \"\", (int)0x%08x },\n", keyName, ivalue);
+                        schedf("\t{ \"%s\", ValueType::INT, \"\", (int)0x%x },  // decimal: %d\n", keyName, ivalue, ivalue);
                         break;
                     }
                     case REG_TYPE_STR:
-                        schedf("\t{ \"%s\", ValueType::STR, \"%s\" },\n", keyName, (char *)data);
+                        schedf("\t{ \"%s\", ValueType::STR, \"%s\" },  // size: %d\n", keyName, (char *)data, size);
                         break;
                     case REG_TYPE_BIN:
-                        // Not yet supported
-                        schedf("\t // Skipping %s (binary)\n", keyName);
+                        if (size > 512) {
+                            schedf("\t // Skipping %s (large binary: %d)\n", keyName, (int)size);
+                        } else {
+                            // First check if data is all zeroes, in that case we emit null, this will be handled in the emulator.
+                            bool allZero = true;
+                            for (size_t j = 0; j < size; j++) {
+                                if (data[j] != 0) {
+                                    allZero = false;
+                                    break;
+                                }
+                            }
+                            if (allZero) {
+                                schedf("\t{ \"%s\", ValueType::BIN, nullptr, %d },\n", keyName, (int)size);
+                            } else {
+                                char *escaped = escape_to_c_string(data, size);
+                                schedf("\t{ \"%s\", ValueType::BIN, \"%s\", %d },\n", keyName, escaped, (int)size);
+                                free(escaped);
+                            }
+                        }
                         break;
                     };
                 }
@@ -96,12 +175,14 @@ void DumpRegistry(REGHANDLE regHandle) {
     static const char *topLevel[] = {
         "DATA",
         "SYSPROFILE",
+        "CONFIG",
+        "REGISTRY",
         // probably more...
     };
 
-    for (int i = 0; i < ARRAY_SIZE(topLevel); i++) {
+    for (int i = 0; i < (int)ARRAY_SIZE(topLevel); i++) {
         std::string concat = "tree_" + std::string(topLevel[i]);
-        for (int j = 0; j < concat.size(); j++) {
+        for (int j = 0; j < (int)concat.size(); j++) {
             if (concat[j] == '/') {
                 concat[j] = '_';
             }
@@ -115,7 +196,6 @@ extern "C" int main(int argc, char *argv[]) {
 
     struct RegParam reg;
 	REGHANDLE regHandle;
-	int ret = 0;
 
 	memset(&reg, 0, sizeof(reg));
 	reg.regtype = 1;
@@ -203,7 +283,7 @@ extern "C" int main(int argc, char *argv[]) {
                         {
                             int i;
                             schedf("BIN - %-27s - %4d : ", keyName, size);
-                            for (i = 0; i < size-1; i++) {
+                            for (i = 0; i < (int)size-1; i++) {
                                 schedf("%02X-", data[i]);
                             }
                             schedf("%02X\n", data[i]);

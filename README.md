@@ -39,13 +39,14 @@ The rest of this tutorial will assume that you installed the PSPSDK in C:\pspsdk
 
 Tip: If you see PSP Type A, you've connected the PSP in "USB mode". Disconnect, and run the PSPLINK game instead.
 
-#### Windows 7 and later
+#### Windows 7, 8, 10, 11, ...
 
 * Plug the PSP into your PC via USB while PSPLINK is running.
-* Use [Zadig](https://zadig.akeo.ie/) to install the libusbK (on Windows 11, at least) or libusb-win32 driver.
-* Make sure it says PSP Type B in Zadig and click Install Driver.
+* Use [Zadig](https://zadig.akeo.ie/) to install the libusbK (on Windows 11, at least) or libusb-win32 driver: Make sure it says PSP Type B in Zadig and click Install Driver. This might take over a minute even on a fast machine, unclear why but it works.
 
 #### Windows XP / Vista / etc.
+
+You probably don't want to do this. Upgrade Windows.
 
 * If you are on Vista x64, you may need to press F8 during boot up and select "Disable driver signing verification".  You'll have to do this each boot on Vista x64.
 * After boot, plug the PSP into your PC via USB while PSPLINK is running.
@@ -100,6 +101,12 @@ Also, somewhere in your program, add the following line to get a proper heap siz
 `unsigned int sce_newlib_heap_kb_size = -1;`
 
 For some probably historical reason, by default PSPSDK assumes that you want a 64k heap when you build a PRX.
+
+## Diagnosing failures
+
+### Image tests
+
+Examine __testfailure.bmp
 
 ## TODO
 
