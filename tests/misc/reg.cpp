@@ -148,7 +148,7 @@ void DumpCategory(REGHANDLE regHandle, const std::string &path, const std::strin
                                 }
                             }
                             if (allZero) {
-                                schedf("\t{ \"%s\", ValueType::BIN, nullptr, %d },\n", keyName, (int)size);
+                                schedf("\t{ \"%s\", ValueType::BIN, \"\", %d },  // (all zero)\n", keyName, (int)size);
                             } else {
                                 char *escaped = escape_to_c_string(data, size);
                                 schedf("\t{ \"%s\", ValueType::BIN, \"%s\", %d },\n", keyName, escaped, (int)size);
