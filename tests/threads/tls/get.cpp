@@ -1,10 +1,15 @@
 #include "shared.h"
 
+static void *g_lastTlsBase = NULL;
+
 inline void testGet(const char *title, SceUID tlspl) {
 	void *ptr = sceKernelGetTlsAddr(tlspl);
 	if (ptr != NULL) {
 		checkpoint(NULL);
-		schedf("%s: OK (%08x) ", title, ptr);
+		if (g_lastTlsBase == NULL)
+			g_lastTlsBase = ptr;
+		int offset = (int)((const char *)ptr - (const char *)g_lastTlsBase);
+		schedf("%s: OK (+%04x) ", title, offset);
 		schedfTlspl(tlspl);
 	} else {
 		checkpoint(NULL);
@@ -34,6 +39,7 @@ extern "C" int main(int argc, char *argv[]) {
 
 	SceUID tls = sceKernelCreateTlspl("tls", PSP_MEMORY_PARTITION_USER, 0, 0x10, 3, NULL);
 	checkpointNext("Allocation order");
+	g_lastTlsBase = NULL;
 	testGet("  Alloc #1", tls);
 	sceKernelFreeTlspl(tls);
 	testGet("  Alloc #2", tls);
@@ -45,6 +51,7 @@ extern "C" int main(int argc, char *argv[]) {
 
 	tls = sceKernelCreateTlspl("tls", PSP_MEMORY_PARTITION_USER, PSP_TLSPL_ATTR_HIGHMEM, 0x10, 3, NULL);
 	checkpointNext("Allocation order (high)");
+	g_lastTlsBase = NULL;
 	testGet("  Alloc #1", tls);
 	sceKernelFreeTlspl(tls);
 	testGet("  Alloc #2", tls);
@@ -59,6 +66,7 @@ extern "C" int main(int argc, char *argv[]) {
 	opts.alignment = 0x100;
 	tls = sceKernelCreateTlspl("tls", PSP_MEMORY_PARTITION_USER, 0, 1, 3, &opts);
 	checkpointNext("Allocation alignment (0x100)");
+	g_lastTlsBase = NULL;
 	testGet("  Alloc #1", tls);
 	sceKernelFreeTlspl(tls);
 	testGet("  Alloc #2", tls);
@@ -72,6 +80,7 @@ extern "C" int main(int argc, char *argv[]) {
 	opts.alignment = 1;
 	tls = sceKernelCreateTlspl("tls", PSP_MEMORY_PARTITION_USER, 0, 1, 3, &opts);
 	checkpointNext("Allocation alignment (1)");
+	g_lastTlsBase = NULL;
 	testGet("  Alloc #1", tls);
 	sceKernelFreeTlspl(tls);
 	testGet("  Alloc #2", tls);
@@ -85,6 +94,7 @@ extern "C" int main(int argc, char *argv[]) {
 	opts.alignment = 0;
 	tls = sceKernelCreateTlspl("tls", PSP_MEMORY_PARTITION_USER, 0, 1, 3, &opts);
 	checkpointNext("Allocation alignment (0)");
+	g_lastTlsBase = NULL;
 	testGet("  Alloc #1", tls);
 	sceKernelFreeTlspl(tls);
 	testGet("  Alloc #2", tls);

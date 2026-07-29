@@ -198,3 +198,4 @@ IMPORT_FUNC "Kernel_Library",0xfa835cde,sceKernelAllocateTlspl
 
 IMPORT_FUNC "Kernel_Library",0x1839852A,sceKernelMemcpy
 IMPORT_FUNC "Kernel_Library",0xA089ECA4,sceKernelMemset
+IMPORT_FUNC "Kernel_Library",0XFA835CDE,sceKernelGetTlsAddr

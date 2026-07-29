@@ -16,3 +16,4 @@ IMPORT_FUNC "Kernel_Library",0xbea46419,sceKernelLockLwMutex
 IMPORT_FUNC "Kernel_Library",0x1FC64E09,sceKernelLockLwMutexCB
 IMPORT_FUNC "Kernel_Library",0x15b6446b,sceKernelUnlockLwMutex
 IMPORT_FUNC "Kernel_Library",0x293b45b8,sceKernelGetThreadId
+IMPORT_FUNC "Kernel_Library",0XFA835CDE,sceKernelGetTlsAddr
