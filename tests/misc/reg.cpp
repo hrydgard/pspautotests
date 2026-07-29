@@ -133,7 +133,7 @@ void DumpCategory(REGHANDLE regHandle, const std::string &path, const std::strin
                         break;
                     }
                     case REG_TYPE_STR:
-                        schedf("\t{ \"%s\", ValueType::STR, \"%s\" },  // size: %d\n", keyName, (char *)data, size);
+                        schedf("\t{ \"%s\", ValueType::STR, \"%s\", %d },\n", keyName, (char *)data, (int)size, (int)size);
                         break;
                     case REG_TYPE_BIN:
                         if (size > 512) {
@@ -191,6 +191,10 @@ void DumpRegistry(REGHANDLE regHandle) {
     }
 }
 
+// Speculative
+extern "C" int sceRegGetCategoryNumAtRoot(REGHANDLE regHandle, int *numCategories);
+extern "C" int sceRegGetCategoryListAtRoot(REGHANDLE regHandle, char *buffer, int numCategories);
+
 extern "C" int main(int argc, char *argv[]) {
 	checkpointNext("Registry test");
 
@@ -204,6 +208,7 @@ extern "C" int main(int argc, char *argv[]) {
 	reg.unk3 = 1;
 	strcpy(reg.name, "/syst1m");
 
+    // 2 here is the "mode" parameter.
     int retval = sceRegOpenRegistry(&reg, 2, &regHandle);
     schedf("%08x = sceRegOpenRegistry(bad) -> handle %08x\n", retval, regHandle);
 
@@ -216,7 +221,6 @@ extern "C" int main(int argc, char *argv[]) {
         // OK, we're screwed.
         return 0;
     }
-
 
     REGHANDLE rootCategory;
     retval = sceRegOpenCategory(regHandle, "", 2, &rootCategory);
@@ -293,16 +297,60 @@ extern "C" int main(int argc, char *argv[]) {
                 }
             }
         }
+    }\
+
+    free(keyData);
+
+    // OK, let's now try the "new" functions.
+    REGHANDLE preMo;
+    retval = sceRegOpenCategory(regHandle, "/CONFIG/PREMO", 2, &preMo);
+    schedf("%08x = sceRegOpenCategory(CONFIG/PREMO)\n", retval);
+    if (retval < 0) {
+        return 0;
     }
+    unsigned int type = 0xcccccccc;
+    SceSize size = 0xcccccccc;
+    sceRegGetKeyInfoByName(preMo, "guide_page", &type, &size);
+    schedf("%08x = sceRegGetKeyInfoByName(CONFIG/PREMO, guide_page, %d, %d)\n", retval, type, size);
+    type = 0xdddddddd;
+    size = 0xdddddddd;
+    sceRegGetKeyInfoByName(preMo, "ps3_mac", &type, &size);
+    schedf("%08x = sceRegGetKeyInfoByName(CONFIG/PREMO, ps3_mac, %d, %d)\n", retval, type, size);
 
-    sceRegCloseCategory(fontCategory);
+    int val = 0xDEADBEEF;
+    sceRegGetKeyValueByName(preMo, "guide_page", &val, sizeof(val));
+    schedf("%08x = sceRegGetKeyValueByName(CONFIG/PREMO, guide_page, %08x, 4)\n", retval, val);
+    int val2 = 0xDEADBEEE;
+    sceRegGetKeyValueByName(preMo, "guide_page", &val2, 1);
+    schedf("%08x = sceRegGetKeyValueByName(CONFIG/PREMO, guide_page, %08x, 1)\n", retval, val2);
+    int64_t val3 = 0xCAFEBABEDEADBEEFULL;
+    sceRegGetKeyValueByName(preMo, "guide_page", &val3, 8);
+    schedf("%08x = sceRegGetKeyValueByName(CONFIG/PREMO, guide_page, %016llx, 8)\n", retval, val3);
 
-    DumpRegistry(regHandle);
+    sceRegCloseCategory(preMo);
+
+    // Uncomment this to get the dump, but don't leave it uncommented in the final test, too big output.
+    // DumpRegistry(regHandle);
 
     retval = sceRegCloseRegistry(1337);
     schedf("%08x = sceRegCloseRegistry(1337)\n", retval);
     retval = sceRegCloseRegistry(regHandle);
     schedf("%08x = sceRegCloseRegistry(regHandle)\n", retval);
 
+    numKeys = 0;
+    retval = sceRegGetCategoryNumAtRoot(regHandle, &numKeys);
+    schedf("%08x = sceRegGetCategoryNumAtRoot(regHandle) -> %d\n", retval, numKeys);
+    keyData = (char *)malloc(numKeys * 27);  // ??? 27 bytes per key?
+
+    retval = sceRegGetCategoryListAtRoot(regHandle, keyData, numKeys);
+    schedf("%08x = sceRegGetCategoryListAtRoot(regHandle, keyData, %d)\n", retval, numKeys);
+    for (int i = 0; i < numKeys; i++) {
+        char *keyName = keyData + i * 27;
+        schedf("root category %d: %s\n", i, keyName);
+    }
+
+    retval = sceRegGetCategoryListAtRoot(regHandle, keyData, numKeys + 1);
+    schedf("%08x = sceRegGetCategoryListAtRoot(regHandle, keyData, %d)\n", retval, numKeys + 1);
+    free(keyData);
 	return 0;
 }
