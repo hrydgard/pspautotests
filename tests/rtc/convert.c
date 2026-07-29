@@ -36,6 +36,21 @@ void checkRtcSetTime_t()
 	printf("from 2012, 9, 20, 7, 12, 15, 500:%d\n",sceRtcSetTime_t(&pt, 1348125135));
 	DumpPSPTime("", &pt);
 
+	// what does passing 0 give?
+	u64 zero = 0;
+	sceRtcSetTime64_t(&pt, zero);
+	DumpPSPTime("zero = ", &pt);
+
+	// what about passing a small value like 1000000 (1 second)?
+	u64 one_sec = 1000000;
+	sceRtcSetTime64_t(&pt, one_sec);
+	DumpPSPTime("1M = ", &pt);
+
+	// what about passing rtcMagicOffset related values
+	u64 test = 62135596800ULL;  // Unix epoch in seconds
+	sceRtcSetTime64_t(&pt, test);
+	DumpPSPTime("epoch_s = ", &pt);
+
 	printf("from epoc&0xffffffff:%d\n",sceRtcSetTime_t(&pt, 62135596800ULL&0xffffffff));
 	DumpPSPTime("", &pt);
 }
@@ -79,6 +94,7 @@ void checkRtcSetDosTime()
 	DumpPSPTime("1000000 = ",&pt);
 	printf("from epoc:%d\n",sceRtcSetDosTime(&pt, 10000000));
 	DumpPSPTime("10000000 = ",&pt);
+	// this truncates to 32-bits directly in the call, oops.
 	printf("from epoc:%d\n",sceRtcSetDosTime(&pt, 62135596800000000ULL));
 	DumpPSPTime("62135596800000000ULL = ",&pt);
 }
