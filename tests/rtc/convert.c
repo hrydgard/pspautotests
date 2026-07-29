@@ -2,26 +2,6 @@
 #include "rtc_common.h"
 
 
-void checkRtcConvertLocalTimeToUTC()
-{
-	printf("Checking sceRtcConvertLocalTimeToUTC\n");
-	u64 tick1=62135596800000000ULL;
-	u64 tick2=0; 
-	sceRtcConvertLocalTimeToUTC(&tick1, &tick2);
-	printf("epoch : %llu\n", tick1);
-	printf("epoch as UTC: %llu\n", tick2);
-}
-
-void checkRtcConvertUtcToLocalTime()
-{
-	printf("Checking checkRtcConvertUtcToLocalTime\n");
-	u64 tick1=62135596800000000ULL;
-	u64 tick2=0; 
-	sceRtcConvertUtcToLocalTime(&tick1, &tick2);
-	printf("epoch as UTC: %llu\n", tick1);
-	printf("epoch as UTC as Local : %llu\n", tick2);
-}
-
 void checkRtcSetTime_t()
 {
 	printf("Checking sceRtcSetTime_t\n");
@@ -318,9 +298,6 @@ void checkRtcParseDateTime() {
 }
 
 int main(int argc, char **argv) {
-	checkRtcConvertLocalTimeToUTC();
-	checkRtcConvertUtcToLocalTime();
-
 	checkRtcSetTime_t();
 	checkRtcGetTime_t();
 	checkRtcSetDosTime();

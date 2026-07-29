@@ -1,9 +1,3 @@
-Checking sceRtcConvertLocalTimeToUTC
-epoch : 62135596800000000
-epoch as UTC: 62135593200000000
-Checking checkRtcConvertUtcToLocalTime
-epoch as UTC: 62135596800000000
-epoch as UTC as Local : 62135600400000000
 Checking sceRtcSetTime_t
 from 0:0
  1970, 1, 1, 0, 0, 0, 0
