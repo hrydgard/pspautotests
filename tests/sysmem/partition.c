@@ -42,17 +42,12 @@ char *testAlloc(const char *title, int partition, const char *name, int type, Sc
 	}
 }
 
-char *testAllocDiff(const char *title, int partition, const char *name, int type, SceSize size, char *pos, int diffHigh, char *diff) {
+char *testAllocDiff(const char *title, int partition, const char *name, int type, SceSize size, char *pos) {
 	int result = sceKernelAllocPartitionMemory(partition, name, type, size, pos);
 	if (result >= 0) {
 		char *addr = (char *)sceKernelGetBlockHeadAddr(result);
 		sceKernelFreePartitionMemory(result);
-
-		if ((diffHigh ? diff - addr : addr - diff) == 0x1800) {
-			printf("That's strange: addr: %08x, diff: %08x\n", (unsigned int)addr, (unsigned int)diff);
-		}
-
-		printf("%s: OK (%s, difference %x)\n", title, allocatedPos(addr, size), diffHigh ? diff - addr : addr - diff);
+		printf("%s: OK (%s)\n", title, allocatedPos(addr, size));
 		return addr;
 	} else {
 		printf("%s: Failed (%08X)\n", title, result);
@@ -94,7 +89,7 @@ int main(int argc, char *argv[]) {
 	unsigned int sizes[] = {
 		-1, 0, 1, 0x10, 0x20, 0x2F, 0x30, 0x31, 0x32, 0x36, 0x38, 0x39, 0x3A,
 		0x131, 0x136, 0x139, 0x1000, 0x10000, 0x100000, 0x1000000, 0x10000000,
-		0x1800000, 0x2000000,
+		0x1800000, 0x20000000, 0x40000000
 	};
 	for (i = 0; i < sizeof(sizes) / sizeof(sizes[0]); ++i) {
 		sprintf(temp, "  Size 0x%08X", sizes[i]);
@@ -144,13 +139,13 @@ int main(int argc, char *argv[]) {
 	for (i = 0; i < sizeof(aligns) / sizeof(aligns[0]); ++i) {
 		char *addr;
 		sprintf(temp, "  Align 0x%08X low", aligns[i]);
-		addr = testAllocDiff(temp, PSP_MEMORY_PARTITION_USER, "part2", 3, 0x1000, (char *)aligns[i], 0, alignLow);
+		addr = testAllocDiff(temp, PSP_MEMORY_PARTITION_USER, "part2", 3, 0x1000, (char *)aligns[i]);
 		if (aligns[i] != 0 && ((u32)addr % aligns[i]) != 0) {
 			printf("    ACK: Not actually aligned: %08x\n", (unsigned int)addr);
 		}
 
 		sprintf(temp, "  Align 0x%08X high", aligns[i]);
-		addr = testAllocDiff(temp, PSP_MEMORY_PARTITION_USER, "part2", 4, 0x1000, (char *)aligns[i], 1, alignHigh);
+		addr = testAllocDiff(temp, PSP_MEMORY_PARTITION_USER, "part2", 4, 0x1000, (char *)aligns[i]);
 		if (aligns[i] != 0 && ((u32)addr % aligns[i]) != 0) {
 			printf("%s: not actually aligned, %08x\n", temp, (unsigned int)addr);
 		}

@@ -8,9 +8,9 @@
 [x] Threads:
 [r]   ** started waiting thread
 [x]   With waiting thread: OK Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000100,totalBlocks=00000001,freeBlocks=00000000,wait=0)
-[r]   ** waiting thread got result: 09d35b00, received = ptr
+[r]   ** waiting thread got result: 09d35a00, received = ptr
 [r]   ** stopped waiting thread
-[r]   ** holding thread got result: 09d35b00, received = ptr
+[r]   ** holding thread got result: 09d35a00, received = ptr
 [r]   ** started holding thread
 [x]   With holding thread: OK Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000100,totalBlocks=00000001,freeBlocks=00000000,wait=0)
 [r]   ** holding thread delayed: 00000000
@@ -23,7 +23,7 @@
 [x]   After allocate: 00000000
 
 [x] Auto free:
-[r]   Thread obtained tls: 09d35b00
+[r]   Thread obtained tls: 09d35a00
 [r]   While thread running: Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000100,totalBlocks=00000001,freeBlocks=00000000,wait=0)
 [r]   Thread quiting without free
 [r]   After thread exit: Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000100,totalBlocks=00000001,freeBlocks=00000001,wait=0)
