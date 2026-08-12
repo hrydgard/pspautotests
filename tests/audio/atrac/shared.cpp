@@ -54,7 +54,7 @@ void Atrac3File::Reload(const char *filename) {
 
 void Atrac3File::Require() {
 	if (!IsValid()) {
-		printf("TEST FAILURE: unable to read sample.at3\n");
+		printf("TEST FAILURE: data_ == nullptr\n");
 		exit(1);
 	}
 }
