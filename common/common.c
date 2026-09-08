@@ -117,6 +117,12 @@ int printf(const char *format, ...) {
 	if (len > (int)sizeof(line) - 1) {
 		len = (int)sizeof(line) - 1;
 	}
+	if (RUNNING_ON_EMULATOR) {
+		// Emulators collect test output through this devctl rather than by reading the file
+		// back, so a kernel build has to feed it too - it isn't going through the stdout hook
+		// the user build uses.
+		sceIoDevctl("emulator:", EMULATOR_DEVCTL__SEND_OUTPUT, (void *)line, len, NULL, 0);
+	}
 	if (kernelOutputFd >= 0) {
 		sceIoWrite(kernelOutputFd, line, len);
 	}
@@ -342,7 +348,12 @@ void test_end() {
 #endif
 	
 	//fclose(stdout);
-#ifndef COMMON_KERNEL
+#ifdef COMMON_KERNEL
+	// Returning from module_start leaves an emulator spinning until its timeout, so still ask
+	// for the machine to stop. sceKernelExitGame comes from LoadExecForKernel here, which a
+	// kernel module can import - unlike the exit callback, which needs the user library.
+	sceKernelExitGame();
+#else
 	sceKernelExitGame();
 	
 	exit(0);
