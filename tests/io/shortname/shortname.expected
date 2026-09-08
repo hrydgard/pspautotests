@@ -1,0 +1,62 @@
+-- listing (sdkver as launched):
+d_name='+plus[brack].txt' head=554c505f priv='_PLUS_~1.TXT|+plus[brack].txt|||||||||||||||'
+d_name='.' head=0000002e priv='.||||||||||||.||||||||||||||||||||||||||||||'
+d_name='..' head=00002e2e priv='..|||||||||||..|||||||||||||||||||||||||||||'
+d_name='.hidden' head=44444948 priv='HIDDEN~1|||||.hidden||||||||||||||||||||||||'
+d_name='LongDirectoryName' head=474e4f4c priv='LONGDI~1|||||LongDirectoryName||||||||||||||'
+d_name='LongFileName.txt' head=474e4f4c priv='LONGFI~1.TXT|LongFileName.txt|||||||||||||||'
+d_name='LongFileName2.txt' head=474e4f4c priv='LONGFI~2.TXT|LongFileName2.txt||||||||||||||'
+d_name='LongFileNameThree.txt' head=474e4f4c priv='LONGFI~3.TXT|LongFileNameThree.txt||||||||||'
+d_name='MiXeD.txt' head=4558494d priv='MIXED~1.TXT||MiXeD.txt||||||||||||||||||||||'
+d_name='UPPER.TXT' head=45505055 priv='UPPER.TXT||||UPPER.TXT||||||||||||||||||||||'
+d_name='a.b.c.txt' head=7e434241 priv='ABC~1.TXT||||a.b.c.txt||||||||||||||||||||||'
+d_name='noextensionhere' head=58454f4e priv='NOEXTE~1|||||noextensionhere||||||||||||||||'
+d_name='readme.txt' head=44414552 priv='README~1.TXT|readme.txt|||||||||||||||||||||'
+d_name='shrt' head=54524853 priv='SHRT|||||||||shrt|||||||||||||||||||||||||||'
+d_name='sp ace.txt' head=43415053 priv='SPACE~1.TXT||sp ace.txt|||||||||||||||||||||'
+d_name='toolongextension.mpeg' head=4c4f4f54 priv='TOOLON~1.MPE|toolongextension.mpeg||||||||||'
+sceIoDread at end: 00000000
+-- listing (sdkver 3.07):
+d_name='+plus[brack].txt' head=554c505f priv='_PLUS_~1.TXT|+plus[brack].txt|||||||||||||||'
+d_name='.' head=0000002e priv='.||||||||||||.||||||||||||||||||||||||||||||'
+d_name='..' head=00002e2e priv='..|||||||||||..|||||||||||||||||||||||||||||'
+d_name='.hidden' head=44444948 priv='HIDDEN~1|||||.hidden||||||||||||||||||||||||'
+d_name='LongDirectoryName' head=474e4f4c priv='LONGDI~1|||||LongDirectoryName||||||||||||||'
+d_name='LongFileName.txt' head=474e4f4c priv='LONGFI~1.TXT|LongFileName.txt|||||||||||||||'
+d_name='LongFileName2.txt' head=474e4f4c priv='LONGFI~2.TXT|LongFileName2.txt||||||||||||||'
+d_name='LongFileNameThree.txt' head=474e4f4c priv='LONGFI~3.TXT|LongFileNameThree.txt||||||||||'
+d_name='MiXeD.txt' head=4558494d priv='MIXED~1.TXT||MiXeD.txt||||||||||||||||||||||'
+d_name='UPPER.TXT' head=45505055 priv='UPPER.TXT||||UPPER.TXT||||||||||||||||||||||'
+d_name='a.b.c.txt' head=7e434241 priv='ABC~1.TXT||||a.b.c.txt||||||||||||||||||||||'
+d_name='noextensionhere' head=58454f4e priv='NOEXTE~1|||||noextensionhere||||||||||||||||'
+d_name='readme.txt' head=44414552 priv='README~1.TXT|readme.txt|||||||||||||||||||||'
+d_name='shrt' head=54524853 priv='SHRT|||||||||shrt|||||||||||||||||||||||||||'
+d_name='sp ace.txt' head=43415053 priv='SPACE~1.TXT||sp ace.txt|||||||||||||||||||||'
+d_name='toolongextension.mpeg' head=4c4f4f54 priv='TOOLON~1.MPE|toolongextension.mpeg||||||||||'
+sceIoDread at end: 00000000
+-- listing (sdkver 6.06):
+d_name='+plus[brack].txt' head=00000414 priv='??||_PLUS_~1.TXT||||+plus[brack].txt||||||||'
+d_name='.' head=00000414 priv='??||.|||||||||||||||.|||||||||||||||||||||||'
+d_name='..' head=00000414 priv='??||..||||||||||||||..||||||||||||||||||||||'
+d_name='.hidden' head=00000414 priv='??||HIDDEN~1||||||||.hidden|||||||||||||||||'
+d_name='LongDirectoryName' head=00000414 priv='??||LONGDI~1||||||||LongDirectoryName|||||||'
+d_name='LongFileName.txt' head=00000414 priv='??||LONGFI~1.TXT||||LongFileName.txt||||||||'
+d_name='LongFileName2.txt' head=00000414 priv='??||LONGFI~2.TXT||||LongFileName2.txt|||||||'
+d_name='LongFileNameThree.txt' head=00000414 priv='??||LONGFI~3.TXT||||LongFileNameThree.txt|||'
+d_name='MiXeD.txt' head=00000414 priv='??||MIXED~1.TXT|||||MiXeD.txt|||||||||||||||'
+d_name='UPPER.TXT' head=00000414 priv='??||UPPER.TXT|||||||UPPER.TXT|||||||||||||||'
+d_name='a.b.c.txt' head=00000414 priv='??||ABC~1.TXT|||||||a.b.c.txt|||||||||||||||'
+d_name='noextensionhere' head=00000414 priv='??||NOEXTE~1||||||||noextensionhere|||||||||'
+d_name='readme.txt' head=00000414 priv='??||README~1.TXT||||readme.txt||||||||||||||'
+d_name='shrt' head=00000414 priv='??||SHRT||||||||||||shrt||||||||||||||||||||'
+d_name='sp ace.txt' head=00000414 priv='??||SPACE~1.TXT|||||sp ace.txt||||||||||||||'
+d_name='toolongextension.mpeg' head=00000414 priv='??||TOOLON~1.MPE||||toolongextension.mpeg|||'
+sceIoDread at end: 00000000
+-- open by short name:
+open 'LONGFI~1.TXT': OK
+open 'longfi~1.txt': OK
+open 'README.TXT': OK
+open 'NOEXTE~1': OK
+open 'NOSUCH~1.TXT': 80010002
+-- cleanup:
+sceIoRmdir: 00000000
