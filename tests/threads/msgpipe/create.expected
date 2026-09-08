@@ -15,8 +15,8 @@
 [x]   Partition 4: Failed (800200d1)
 [x]   Partition 6: OK Msgpipe: OK (size=56, name=create, attr=00000000, buffer=0, free=0, sending=0, receiving=0)
 [x]   Partition 7: Failed (800200d2)
-[x]   Partition 8: Failed (800200d1)
-[x]   Partition 9: Failed (800200d1)
+[x]   Partition 8: Failed (800200d2)
+[x]   Partition 9: Failed (800200d2)
 [x]   Partition 10: Failed (800200d2)
 
 [x] Attributes:

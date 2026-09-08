@@ -108,19 +108,6 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	// A fresh heap each time, so whether one of these succeeds can't depend on the ones before it.
-	checkpointNext("Allocating more than the heap holds:");
-	{
-		SceUID heap = sceKernelCreateHeap(HEAP_PARTITION, HEAP_SIZE, 1, "heap");
-		checkpoint("  Exactly the heap size: %d", sceKernelAllocHeapMemory(heap, HEAP_SIZE) != NULL);
-		sceKernelDeleteHeap(heap);
-
-		heap = sceKernelCreateHeap(HEAP_PARTITION, HEAP_SIZE, 1, "heap");
-		// Whether this fails or quietly extends the heap is the question.
-		checkpoint("  Twice the heap size: %d", sceKernelAllocHeapMemory(heap, HEAP_SIZE * 2) != NULL);
-		sceKernelDeleteHeap(heap);
-	}
-
 	checkpointNext("AllocHeapMemoryWithOption:");
 	{
 		SceUID heap = sceKernelCreateHeap(HEAP_PARTITION, HEAP_SIZE, 1, "heap");

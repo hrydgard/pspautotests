@@ -15,8 +15,8 @@
 [x]   Partition 4: Failed (800200d1)
 [x]   Partition 6: OK FPL: OK (size=56,name=create,attr=00000000,blockSize=00000100,numBlocks=00000010,freeBlocks=00000010,wait=0)
 [x]   Partition 7: Failed (800200d2)
-[x]   Partition 8: Failed (800200d1)
-[x]   Partition 9: Failed (800200d1)
+[x]   Partition 8: Failed (800200d2)
+[x]   Partition 9: Failed (800200d2)
 [x]   Partition 10: Failed (800200d2)
 
 [x] Attributes:

@@ -1,0 +1,4 @@
+[x] Allocating more than the heap holds:
+[x]   Exactly the heap size: 1
+[x]   Twice the heap size: 1
+[x]   Half the heap size: 1

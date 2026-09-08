@@ -50,10 +50,6 @@
 [x]   Allocate again after freeing: 1
 [x]   Delete: 00000000
 
-[x] Allocating more than the heap holds:
-[x]   Exactly the heap size: 1
-[x]   Twice the heap size: 1
-
 [x] AllocHeapMemoryWithOption:
 [x]   Option size 0: 1
 [x]   Option size 4: 1
