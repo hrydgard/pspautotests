@@ -63,15 +63,24 @@ unsigned int CHECKPOINT_ENABLE_TIME = 0;
 unsigned int CHECKPOINT_OUTPUT_DIRECT = 0;
 unsigned int HAS_DISPLAY = 1;
 
+#ifdef COMMON_KERNEL
+// A kernel module has to live in the kernel partition, which is a few hundred KB with PSPLink
+// already resident - nothing like the 24 MB a user module gets. Both of these are sized so a
+// kernel test actually loads; see docs/pspautotests-hardware.md.
+#define SCHEDF_BUFFER_SIZE 4096
+unsigned int sce_newlib_heap_kb_size = 64;
+#else
+#define SCHEDF_BUFFER_SIZE 65536
 // 21 MB to give space for thread stacks and etc.
 unsigned int sce_newlib_heap_kb_size = 21504;
+#endif
 
 extern int test_main(int argc, char *argv[]);
 
 FILE stdout_back = {NULL};
 //int KprintfFd = 0;
 
-char schedfBuffer[65536];
+char schedfBuffer[SCHEDF_BUFFER_SIZE];
 unsigned int schedfBufferPos = 0;
 
 // Weak so that a test can supply its own schedf - a dozen of them do, to capture output into a
@@ -88,6 +97,32 @@ __attribute__((weak)) void schedf(const char *format, ...) {
 	}
 	va_end(args);
 }
+
+#ifdef COMMON_KERNEL
+// A kernel module can't use newlib's FILE layer: it pulls in libcglue, whose _open/_read/_write
+// bring imports of sceNetInet and sceUtility along with them, and a kernel module that imports
+// those fails to load with 8002013C. So talk to host0 through sceIo directly, and supply the
+// printf that tests call rather than letting newlib's turn up and drag stdio back in.
+static int kernelOutputFd = -1;
+
+int printf(const char *format, ...) {
+	static char line[2048];
+	va_list args;
+	va_start(args, format);
+	int len = vsnprintf(line, sizeof(line), format, args);
+	va_end(args);
+	if (len < 0) {
+		return len;
+	}
+	if (len > (int)sizeof(line) - 1) {
+		len = (int)sizeof(line) - 1;
+	}
+	if (kernelOutputFd >= 0) {
+		sceIoWrite(kernelOutputFd, line, len);
+	}
+	return len;
+}
+#endif
 
 void flushschedf() {
 	printf("%s", schedfBuffer);
@@ -153,6 +188,9 @@ static int writeStdoutHook(struct _reent *ptr, void *cookie, const char *buf, in
 		sceIoDevctl("emulator:", EMULATOR_DEVCTL__SEND_OUTPUT, (void *)buf, buf_len, NULL, 0);
 	}
 
+#ifndef COMMON_KERNEL
+	// Compiled out for kernel modules: the debug screen pulls in sceDisplay and sceGe, and a
+	// kernel module that imports those fails to load. Output goes to host0 only there.
 	if (buf_len < sizeof(temp)) {
 		if (HAS_DISPLAY) {
 			memcpy(temp, buf, buf_len);
@@ -162,6 +200,7 @@ static int writeStdoutHook(struct _reent *ptr, void *cookie, const char *buf, in
 			pspDebugScreenPrintf("%s", temp);
 		}
 	}
+#endif
 	
 	if (stdout_back._write != NULL) {
 		return stdout_back._write(ptr, cookie, buf, buf_len);
@@ -170,6 +209,7 @@ static int writeStdoutHook(struct _reent *ptr, void *cookie, const char *buf, in
 	}
 }
 
+#ifndef COMMON_KERNEL
 typedef int (*SdkVerFunc)(int ver);
 typedef struct SdkVerFuncTable {
 	u32 id;
@@ -210,7 +250,9 @@ static void updateSdkVer(int argc, char *argv[]) {
 	}
 
 	if (func == NULL) {
+#ifndef COMMON_KERNEL
 		fprintf(stderr, "Unknown sdkver-func value.\n");
+#endif
 		exit(1);
 	}
 
@@ -220,12 +262,18 @@ static void updateSdkVer(int argc, char *argv[]) {
 		}
 	}
 }
+#endif
 
 void test_begin() {
+#ifndef COMMON_KERNEL
 	if (HAS_DISPLAY) {
 		pspDebugScreenInit();
 	}
+#endif
 
+#ifdef COMMON_KERNEL
+	kernelOutputFd = sceIoOpen("host0:/__testoutput.txt", PSP_O_CREAT | PSP_O_WRONLY | PSP_O_TRUNC, 0777);
+#else
 	if (RUNNING_ON_EMULATOR && !HAS_DISPLAY) {
 		fclose(stdout);
 		stdout = fmemopen(alloca(4), 4, "wb");
@@ -245,6 +293,7 @@ void test_begin() {
 	setvbuf(stderr, NULL, _IONBF, 0);
 	
 	setbuf(stderr, NULL);
+#endif
 
 	reschedThread = sceKernelCreateThread("resched", &reschedFunc, sceKernelGetThreadCurrentPriority(), 0x1000, 0, NULL);
 }
@@ -252,6 +301,19 @@ void test_begin() {
 void test_end() {
 	flushschedf();
 
+#ifdef COMMON_KERNEL
+	if (kernelOutputFd >= 0) {
+		sceIoClose(kernelOutputFd);
+		kernelOutputFd = -1;
+	}
+	if (!RUNNING_ON_EMULATOR) {
+		int finish = sceIoOpen("host0:/__testfinish.txt", PSP_O_CREAT | PSP_O_WRONLY | PSP_O_TRUNC, 0777);
+		if (finish >= 0) {
+			sceIoWrite(finish, "1", 1);
+			sceIoClose(finish);
+		}
+	}
+#else
 	fflush(stdout);
 	fflush(stderr);
 	
@@ -266,8 +328,10 @@ void test_end() {
 			fclose(finish);
 		}
 	}
+#endif
 
   // Disabled the wait, much more convienent when running automated.
+#ifndef COMMON_KERNEL
 	if (0 && !RUNNING_ON_EMULATOR) {
 		SceCtrlData key;
 		while (1) {
@@ -275,13 +339,20 @@ void test_end() {
 			if (key.Buttons & PSP_CTRL_CROSS) break;
 		}
 	}
+#endif
 	
 	//fclose(stdout);
+#ifndef COMMON_KERNEL
 	sceKernelExitGame();
 	
 	exit(0);
+#endif
 }
 
+#ifndef COMMON_KERNEL
+// The exit callback is a game thing - sceKernelRegisterExitCallback lives in LoadExec, and a
+// kernel module that imports it won't load. Compiled out rather than just left uncalled, since
+// the reference alone is enough to pull the stub in.
 int test_psp_exit_callback(int arg1, int arg2, void *common) {
 	exit(0);
 	return 0;
@@ -301,6 +372,7 @@ int test_psp_setup_callbacks(void) {
 	if (thid >= 0) sceKernelStartThread(thid, 0, 0);
 	return thid;
 }
+#endif
 
 //#define START_WITH "ms0:/PSP/GAME/virtual"
 
@@ -419,6 +491,11 @@ static void rgab565_to_bgra8888(uint *dst, const ushort *src, int num) {
 	}
 }
 
+#ifdef COMMON_KERNEL
+// Needs sceDisplay, which a kernel module can't import.
+void emulatorEmitScreenshot() {
+}
+#else
 void emulatorEmitScreenshot() {
 	int file;
 
@@ -467,6 +544,7 @@ void emulatorEmitScreenshot() {
 		}
 	}
 }
+#endif
 
 void emulatorSendSceCtrlData(SceCtrlData* pad_data) {
 	sceIoDevctl("kemulator:", EMULATOR_DEVCTL__SEND_CTRLDATA, pad_data, sizeof(SceCtrlData), NULL, 0);
@@ -495,15 +573,26 @@ int main(int argc, char *argv[]) {
 
 	//if (strncmp(argv[0], START_WITH, strlen(START_WITH)) == 0) RUNNING_ON_EMULATOR = 1;
 
+#ifndef COMMON_KERNEL
+	// Both of these are about being a game: the exit callback and sceKernelExitGame come from
+	// LoadExec, which a kernel module shouldn't be importing (and doesn't need - it just
+	// returns from module_start).
 	if (!RUNNING_ON_EMULATOR) {
 		test_psp_setup_callbacks();
 	}
 	atexit(sceKernelExitGame);
+#endif
 
 	test_begin();
 	{
+#ifndef COMMON_KERNEL
 		pspDebugScreenPrintf("RUNNING_ON_EMULATOR: %s - %s\n", RUNNING_ON_EMULATOR ? "yes" : "no", argv[0]);
+#endif
+#ifndef COMMON_KERNEL
+		// sceKernelSetCompiledSdkVersion lives in SysMemUserForUser, and a kernel module can't
+		// import the ForUser libraries - it fails to load with 8002013C.
 		updateSdkVer(argc, argv);
+#endif
 
 		retval = test_main(argc, argv);
 	}

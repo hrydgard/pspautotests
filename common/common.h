@@ -42,7 +42,8 @@ extern unsigned int RUNNING_ON_EMULATOR;
 extern unsigned int CHECKPOINT_ENABLE_TIME;
 // Causes rescheduling (sceIoWrite) but easier to debug in the emulator.
 extern unsigned int CHECKPOINT_OUTPUT_DIRECT;
-extern char schedfBuffer[65536];
+// Size differs between the user and kernel builds - see common.c.
+extern char schedfBuffer[];
 extern unsigned int schedfBufferPos;
 
 void schedf(const char *format, ...);

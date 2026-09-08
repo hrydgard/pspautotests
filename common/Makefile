@@ -1,7 +1,7 @@
 TARGET_LIB = libcommon.a
 EXTRA_TARGETS = libcommon_kernel.a
 OBJS = common.o vram.o sysmem-imports.o
-KERNEL_OBJS = common_kernel.o vram.o sysmem-imports.o
+KERNEL_OBJS = common_kernel.o kernelglue.o vram.o sysmem-imports.o
 
 INCDIR = 
 CFLAGS = -O0 -G 0 -g -Wall
@@ -18,6 +18,9 @@ include $(PSPSDK)/lib/build.mak
 	$(AS) $(ASFLAGS) -c -o $@ $<
 
 common_kernel.o: common.c
+	$(CC) $(CFLAGS) -DCOMMON_KERNEL=1 -c -o $@ $<
+
+kernelglue.o: kernelglue.c
 	$(CC) $(CFLAGS) -DCOMMON_KERNEL=1 -c -o $@ $<
 
 libcommon_kernel.a: $(KERNEL_OBJS)

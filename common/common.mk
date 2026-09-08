@@ -9,6 +9,15 @@ BUILD_PRX = 1
 USE_PSPSDK_LIBC = 1
 PSP_FW_VERSION = 500
 
+ifdef COMMON_KERNEL
+# The stock crt0_prx references __libcglue_init, which drags in all of libcglue - and libcglue
+# imports sceNetInet, sceUtility and the ForUser IO libraries. A kernel module that imports those
+# won't load (8002013C, library not found), and no amount of trimming LIBS avoids it because the
+# reference comes from the startup object itself. USE_KERNEL_LIBS picks the kernel startup
+# instead; common.c supplies the handful of newlib support functions that go missing with it.
+USE_KERNEL_LIBS = 1
+endif
+
 INCDIR := $(INCDIR) . $(COMMON_DIR)
 LIBDIR := $(LIBDIR) . $(COMMON_DIR)
 
@@ -36,7 +45,7 @@ endif
 
 ifndef LIBS
 ifdef COMMON_KERNEL
-LIBS = -lpspgu -lpsprtc -lpspctrl -lpspmath -lcommon_kernel -lc -lm
+LIBS = -lcommon_kernel -lc -lm
 else
 LIBS = -lpspgu -lpsprtc -lpspctrl -lpspmath -lcommon -lc -lm
 endif
@@ -53,6 +62,12 @@ OBJS = $(firstword $(TARGETS)).o $(EXTRA_OBJS)
 
 PSPSDK = $(shell psp-config --pspsdk-path)
 include $(PSPSDK)/lib/build.mak
+
+ifdef COMMON_KERNEL
+# build.mak has composed the kernel library list by now; add ours and newlib in front of it.
+# This has to come after the include, since that's where the composing happens.
+LIBS := -lcommon_kernel $(LIBS) -lc -lm -lgcc
+endif
 
 %.elf: %.o $(EXTRA_OBJS) $(EXPORT_OBJ)
 	$(LINK.c) $^ $(LIBS) -o $@
