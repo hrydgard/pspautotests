@@ -13,18 +13,18 @@ extern "C" {
 
 #undef sceRtcSetWin32FileTime
 
-int sceRtcSetWin32FileTime(pspTime *date, u64 filetime);
+int sceRtcSetWin32FileTime(ScePspDateTime *date, u64 filetime);
 
 #include <inttypes.h>
 // These are not in the pspsdk
-int sceRtcSetTime64_t(pspTime *date, uint64_t time);
-int sceRtcGetTime64_t(const pspTime *date, uint64_t *time);
+int sceRtcSetTime64_t(ScePspDateTime *date, uint64_t time);
+int sceRtcGetTime64_t(const ScePspDateTime *date, uint64_t *time);
 
-static void DumpPSPTimeOnly(const pspTime *pt) {
-	printf("%d, %d, %d, %d, %d, %d, %d", pt->year, pt->month, pt->day, pt->hour, pt->minutes, pt->seconds, (int)pt->microseconds);
+static void DumpPSPTimeOnly(const ScePspDateTime *pt) {
+	printf("%d, %d, %d, %d, %d, %d, %d", pt->year, pt->month, pt->day, pt->hour, pt->minute, pt->second, (int)pt->microsecond);
 }
 
-static void DumpPSPTime(const char *name, const pspTime *pt) {
+static void DumpPSPTime(const char *name, const ScePspDateTime *pt) {
 	printf("%s ", name);
 	DumpPSPTimeOnly(pt);
 	printf("\n");
@@ -32,24 +32,24 @@ static void DumpPSPTime(const char *name, const pspTime *pt) {
 
 static void DumpTick(const char* name, u64 ticks)
 {
-	pspTime pt;
+	ScePspDateTime pt;
 	printf("%s %llu\n", name, ticks);
 	sceRtcSetTick(&pt, &ticks);
 	DumpPSPTime("",&pt);
 }
 
-static void FillPSPTime(pspTime* pt, int year, int month, int day, int hour, int min, int sec, int micro)
+static void FillPSPTime(ScePspDateTime* pt, int year, int month, int day, int hour, int min, int sec, int micro)
 {
 	pt->year = year;
 	pt->month = month;
 	pt->day = day;
 	pt->hour = hour;
-	pt->minutes = min;
-	pt->seconds = sec;
-	pt->microseconds = micro;
+	pt->minute = min;
+	pt->second = sec;
+	pt->microsecond = micro;
 }
 
-static void checkPspTime(pspTime pt) {
+static void checkPspTime(ScePspDateTime pt) {
 	if (pt.year > 1980) {
 		printf("Year: OK\n");
 	} else {
@@ -62,14 +62,14 @@ static void checkPspTime(pspTime pt) {
 		printf("Date: OK\n");
 	}
 
-	if (pt.hour < 0 || pt.hour > 23 || pt.minutes < 0 || pt.minutes > 59 || pt.seconds < 0 || pt.seconds > 59) {
-		printf("Time: Failed %02d:%02d:%02d\n", pt.hour, pt.minutes, pt.seconds);
+	if (pt.hour < 0 || pt.hour > 23 || pt.minute < 0 || pt.minute > 59 || pt.second < 0 || pt.second > 59) {
+		printf("Time: Failed %02d:%02d:%02d\n", pt.hour, pt.minute, pt.second);
 	} else {
 		printf("Time: OK\n");
 	}
 
-	if (pt.microseconds >= 1000000) {
-		printf("Microseconds: Failed, impossibly high: %d\n", (int)pt.microseconds);
+	if (pt.microsecond >= 1000000) {
+		printf("Microseconds: Failed, impossibly high: %d\n", (int)pt.microsecond);
 	} else {
 		printf("Microseconds: OK\n");
 	}

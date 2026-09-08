@@ -1,4 +1,5 @@
 #include <common.h>
+#include <pspthreadman.h>
 #include <pspaudio.h>
 #include <psputility.h>
 

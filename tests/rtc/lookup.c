@@ -56,7 +56,7 @@ void checkMaxYear() {
 
 	int result, y;
 
-	pspTime pt;
+	ScePspDateTime pt;
 	FillPSPTime(&pt,1,1,1,0,0,0,1);
 	for (y = 1; y < SHRT_MAX; y++) {
 		pt.year = y;
@@ -71,7 +71,7 @@ void checkMaxYear() {
 void checkRtcCheckValid() {
 	checkpointNext("Checking sceRtcCheckValid");
 
-	pspTime pt;
+	ScePspDateTime pt;
 	
 	FillPSPTime(&pt,2012,9,20,7,0,0,0);
 	checkpoint("Valid Date: %d", sceRtcCheckValid(&pt));

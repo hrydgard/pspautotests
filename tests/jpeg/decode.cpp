@@ -10,7 +10,7 @@ static void testJpegDecodeMJpeg(const char *title, const File &file, bool useFra
 	memset(frame, 0xCC, FRAME_SIZE + 4);
 	sceKernelDcacheWritebackInvalidateRange(frame, FRAME_SIZE + 4);
 
-	uint32_t result = sceJpegDecodeMJpeg(file.data, file.size, useFrame ? frame : NULL, mode);
+	uint32_t result = sceJpegDecodeMJpeg(file.data, file.size, useFrame ? (u8 *)frame : NULL, mode);
 	size_t len = 0;
 	for (int i = 512 * 512; i >= 0; --i) {
 		if (frame[i] != 0xCCCCCCCC) {
@@ -73,7 +73,7 @@ extern "C" int main(int argc, char *argv[]) {
 	testJpegDecodeMJpeg("  Size 1", File(jpegcolor, 1), true, 0);
 	testJpegDecodeMJpeg("  Huge", File(jpegcolor, 0x7FFFFFFF), true, 0);
 	testJpegDecodeMJpeg("  Negative", File(jpegcolor, 0x80000000), true, 0);
-	checkpoint("  Offset: %08x", sceJpegDecodeMJpeg(jpegcolor.data - 1, jpegcolor.size + 1, frame, 0));
+	checkpoint("  Offset: %08x", sceJpegDecodeMJpeg(jpegcolor.data - 1, jpegcolor.size + 1, (u8 *)frame, 0));
 
 	checkpointNext("Output:");
 	testJpegDecodeMJpeg("  Output NULL", jpegcolor, false, 0);

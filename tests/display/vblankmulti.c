@@ -1,4 +1,5 @@
 #include <common.h>
+#include <pspthreadman.h>
 #include <pspgu.h>
 #include <psprtc.h>
 #include <pspdisplay.h>

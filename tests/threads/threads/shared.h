@@ -65,7 +65,7 @@ const char *ptrDesc(void *ptr) {
 	return "UNKNOWN";
 }
 
-inline void schedfThreadStatus(SceUID thread) {
+static inline void schedfThreadStatus(SceUID thread) {
 	SceKernelThreadInfo info;
 	info.size = sizeof(info);
 

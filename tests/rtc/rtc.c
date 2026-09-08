@@ -27,8 +27,8 @@ void checkGetCurrentTick() {
 void checkGetCurrentClock() {
 	printf("Checking sceRtcGetCurrentClock\n");
 
-	pspTime pt_baseline;
-	pspTime pt;
+	ScePspDateTime pt_baseline;
+	ScePspDateTime pt;
 
 	do
 	{
@@ -36,7 +36,7 @@ void checkGetCurrentClock() {
 		sceRtcGetCurrentClock(&pt, -60);
 	}
 	// Rollover is annoying.  We could test in a more complicated way, I guess.
-	while (pt_baseline.minutes == 59 && pt_baseline.seconds == 59);
+	while (pt_baseline.minute == 59 && pt_baseline.second == 59);
 
 	if (pt.hour != pt_baseline.hour - 1 && !(pt.hour == 23 && pt_baseline.hour == 0))
 		printf("-60 TZ: Failed, got time different by %d hours.\n", (pt_baseline.hour - pt.hour) % 24);
@@ -58,7 +58,7 @@ void checkGetCurrentClock() {
 
 void checkGetCurrentClockLocalTime() {
 	printf("Checking sceRtcGetCurrentClockLocalTime\n");
-	pspTime pt;
+	ScePspDateTime pt;
 
 	// Crash.
 	//printf("NULL: %08x\n", sceRtcGetCurrentClockLocalTime(NULL));

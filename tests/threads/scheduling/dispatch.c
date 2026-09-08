@@ -17,22 +17,8 @@ int sceKernelLockMutexCB(SceUID mutexId, int count, SceUInt *timeout);
 int sceKernelTryLockMutex(SceUID mutexId, int count);
 int sceKernelUnlockMutex(SceUID mutexId, int count);
 
-int sceKernelCreateLwMutex(void *workarea, const char *name, uint attr, int count, void *options);
-int sceKernelDeleteLwMutex(void *workarea);
-int sceKernelTryLockLwMutex(void *workarea, int count);
 int sceKernelTryLockLwMutex_600(void *workarea, int count);
-int sceKernelLockLwMutex(void *workarea, int count, SceUInt *timeout);
 int sceKernelLockLwMutexCB(void *workarea, int count, SceUInt *timeout);
-int sceKernelUnlockLwMutex(void *workarea, int count);
-
-typedef struct {
-	int count;
-	SceUID thread;
-	int attr;
-	int numWaitThreads;
-	SceUID uid;
-	int pad[3];
-} SceLwMutexWorkarea;
 
 extern SceUID reschedThread;
 extern volatile int didResched;

@@ -10,7 +10,7 @@ typedef struct _TestMbxMessage {
 	char text[16];
  } TestMbxMessage;
 
-inline const char *mbxPtrStatusInfo(void *ptr, SceKernelMbxInfo *mbxinfo, void *itself) {
+static inline const char *mbxPtrStatusInfo(void *ptr, SceKernelMbxInfo *mbxinfo, void *itself) {
 	if (ptr == 0) {
 		return "NULL";
 	} else if ((uint) ptr == 0xDEADBEEF) {
@@ -24,7 +24,7 @@ inline const char *mbxPtrStatusInfo(void *ptr, SceKernelMbxInfo *mbxinfo, void *
 	}
 }
 
-inline const char *mbxPtrStatus(void *ptr, SceUID mbx, void *itself) {
+static inline const char *mbxPtrStatus(void *ptr, SceUID mbx, void *itself) {
 	SceKernelMbxInfo mbxinfo;
 	sceKernelReferMbxStatus(mbx, &mbxinfo);
 
@@ -35,7 +35,7 @@ inline const char *mbxPtrStatus(void *ptr, SceUID mbx, void *itself) {
 TestMbxMessage testMsgs[NUM_MSGS];
 int testMsg = 0;
 
-inline TestMbxMessage *nextMbxMsg() {
+static inline TestMbxMessage *nextMbxMsg() {
 	if (testMsg >= NUM_MSGS) {
 		testMsg = 0;
 		printf("TEST FAILURE\n");
@@ -47,7 +47,7 @@ inline TestMbxMessage *nextMbxMsg() {
 	return &testMsgs[testMsg++];
 }
 
-inline TestMbxMessage *sendMbx(SceUID mbx, char prio) {
+static inline TestMbxMessage *sendMbx(SceUID mbx, char prio) {
 	TestMbxMessage *msg = nextMbxMsg();
 
 	msg->header.msgPriority = prio;
@@ -56,7 +56,7 @@ inline TestMbxMessage *sendMbx(SceUID mbx, char prio) {
 	return msg;
 }
 
-inline void printMbxInfo(int result, SceKernelMbxInfo *mbxinfo) {
+static inline void printMbxInfo(int result, SceKernelMbxInfo *mbxinfo) {
 	if (result == 0) {
 		printf("Messagebox: OK (size=%d,name='%s',attr=%d,wait=%d,count=%d,first=%s)\n", mbxinfo->size, mbxinfo->name, mbxinfo->attr, mbxinfo->numWaitThreads, mbxinfo->numMessages, mbxPtrStatusInfo(mbxinfo->firstMessage, NULL, NULL));
 
@@ -79,7 +79,7 @@ inline void printMbxInfo(int result, SceKernelMbxInfo *mbxinfo) {
 	}
 }
 
-inline void PRINT_MBX(SceUID mbx) {
+static inline void PRINT_MBX(SceUID mbx) {
 	if (mbx > 0) {
 		SceKernelMbxInfo mbxinfo;
 		mbxinfo.size = sizeof(mbxinfo);

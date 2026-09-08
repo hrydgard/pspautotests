@@ -5,21 +5,17 @@
 
 extern "C" int sceDmacMemcpy(void *dest, const void *source, unsigned int size);
 
-const int GU_DOUBLE_SRC_ALPHA = 6;
-const int GU_ONE_MINUS_DOUBLE_SRC_ALPHA = 7;
-const int GU_DOUBLE_DST_ALPHA = 8;
-const int GU_ONE_MINUS_DOUBLE_DST_ALPHA = 9;
 
 typedef struct {
 	u32 color;
 	float x, y, z;
 } VertexColorF32;
 
-u8 *fbp0 = 0;
-u8 *dbp0 = fbp0 + 512 * 272 * sizeof(u32);
+static u8 *fbp0 = 0;
+static u8 *dbp0 = fbp0 + 512 * 272 * sizeof(u32);
 
 static u32 copybuf[512 * 272];
-unsigned int __attribute__((aligned(16))) list[262144];
+static unsigned int __attribute__((aligned(16))) list[262144];
 __attribute__((aligned(16))) VertexColorF32 vertices_f32[256];
 
 inline VertexColorF32 makeVertex32(u32 c, float x, float y, float z) {

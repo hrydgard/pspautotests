@@ -288,54 +288,54 @@ void xGuTexFilter(int filter)
 	}
 }
 
-inline void xGuTexMode(int tfx, int alpha)
+void xGuTexMode(int tfx, int alpha)
 {
     sceGuTexFunc(tfx, (alpha ? GU_TCC_RGBA : GU_TCC_RGB));
 }
 
-inline void xGumLoadIdentity()
+void xGumLoadIdentity()
 {
     sceGumLoadIdentity();
 }
 
-inline void xGumTranslate(float x, float y, float z)
+void xGumTranslate(float x, float y, float z)
 {
     ScePspFVector3 trans = {x,y,z};
     sceGumTranslate(&trans);
 }
 
-inline void xGumRotateX(float angle)
+void xGumRotateX(float angle)
 {
     sceGumRotateX(angle);
 }
 
-inline void xGumRotateY(float angle)
+void xGumRotateY(float angle)
 {
     sceGumRotateY(angle);
 }
 
-inline void xGumRotateZ(float angle)
+void xGumRotateZ(float angle)
 {
     sceGumRotateZ(angle);
 }
 
-inline void xGumScale(float x, float y, float z)
+void xGumScale(float x, float y, float z)
 {
     ScePspFVector3 scale = {x,y,z};
     sceGumScale(&scale);
 }
 
-inline void xGuSaveStates()
+void xGuSaveStates()
 {
     x_saved_states = x_states|sceGuGetAllStatus();
 }
-inline void xGuLoadStates()
+void xGuLoadStates()
 {
     sceGuSetAllStatus(x_saved_states & 0x1ffffff);
     xGuEnable(x_saved_states & ~0x1ffffff);
 }
 
-inline void* xGuDrawPtr(int uncached, int abs)
+void* xGuDrawPtr(int uncached, int abs)
 {
     u32 ptr = (u32)x_draw_buf[x_which_buf];
     if (uncached) ptr |= X_MEM_NO_CACHE;
@@ -343,7 +343,7 @@ inline void* xGuDrawPtr(int uncached, int abs)
     return (void*)ptr;
 }
 
-inline void* xGuDispPtr(int uncached, int abs)
+void* xGuDispPtr(int uncached, int abs)
 {
     u32 ptr = (u32)x_draw_buf[x_which_buf^1];
     if (uncached) ptr |= X_MEM_NO_CACHE;
@@ -351,7 +351,7 @@ inline void* xGuDispPtr(int uncached, int abs)
     return (void*)ptr;
 }
 
-inline void* xGuDepthPtr(int uncached, int abs)
+void* xGuDepthPtr(int uncached, int abs)
 {
     u32 ptr = (u32)x_depth_buf;
     if (uncached) ptr |= X_MEM_NO_CACHE;
@@ -359,7 +359,7 @@ inline void* xGuDepthPtr(int uncached, int abs)
     return (void*)ptr;
 }
 
-inline void* xGuStridePtr(int uncached, int abs)
+void* xGuStridePtr(int uncached, int abs)
 {
     u32 ptr = (u32)x_draw_buf[0] + X_SCREEN_WIDTH*X_PIXEL_BYTES;
     if (uncached) ptr |= X_MEM_NO_CACHE;

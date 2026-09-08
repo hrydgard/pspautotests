@@ -21,11 +21,11 @@ static volatile int schedulingPlacement = 0;
 // So we can log the result from the thread.
 static int schedulingResult = -1;
 
-inline void schedVplInfo(SceKernelVplInfo *info) {
+static inline void schedVplInfo(SceKernelVplInfo *info) {
 	schedf("VPL: OK (size=%d,name=%s,attr=%08X,poolSize=%08X,freeSize=%08X,wait=%d)\n", info->size, info->name, info->attr, info->poolSize, info->freeSize, info->numWaitThreads);
 }
 
-inline void schedfVpl(SceUID vpl) {
+static inline void schedfVpl(SceUID vpl) {
 	if (vpl > 0) {
 		SceKernelVplInfo info;
 		info.size = sizeof(info);
@@ -41,7 +41,7 @@ inline void schedfVpl(SceUID vpl) {
 	}
 }
 
-inline void printfVpl(SceUID vpl) {
+static inline void printfVpl(SceUID vpl) {
 	schedfVpl(vpl);
 	flushschedf();
 }

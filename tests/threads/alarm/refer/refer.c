@@ -3,7 +3,7 @@
 
 volatile int alarmHandlerHits = 0;
 
-inline void schedfRefer(const char *title, SceUID alarm, SceKernelAlarmInfo *info, SceSize size) {
+static inline void schedfRefer(const char *title, SceUID alarm, SceKernelAlarmInfo *info, SceSize size) {
 	if (info != NULL && info != (SceKernelAlarmInfo *) 0xDEADBEEF) {
 		memset(info, 0, sizeof(SceKernelAlarmInfo));
 		info->size = size;

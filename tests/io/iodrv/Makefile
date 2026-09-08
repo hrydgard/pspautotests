@@ -1,5 +1,5 @@
 TARGET = iodrv
-OBJS = iodrv.o
+OBJS = iodrv.o iodrv-imports.o
 PSP_EBOOT_TITLE = iodrv test 
 
 BUILD_PRX = 1

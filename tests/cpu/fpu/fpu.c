@@ -190,7 +190,7 @@ int areOperandsOkay(const char *name, float a1, float a2) {
 	return 1;
 }
 
-inline void runOperands(const char *name, float (*func)(float, float)) {
+static inline void runOperands(const char *name, float (*func)(float, float)) {
 	int i, j;
 	printf("%s.s:\n", name);
 	for (i = 0; i < lengthof(floatRelevantValues); i++) {
@@ -207,7 +207,7 @@ inline void runOperands(const char *name, float (*func)(float, float)) {
 	printf("\n\n");
 }
 
-inline void runOperand(const char *name, float (*func)(float)) {
+static inline void runOperand(const char *name, float (*func)(float)) {
 	int i;
 	printf("%s.s:\n", name);
 	for (i = 0; i < lengthof(floatRelevantValues); i++) {

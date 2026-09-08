@@ -1,4 +1,5 @@
 #include <common.h>
+#include <pspiofilemgr.h>
 
 int makeTestFile(const char *name) {
 	SceUID fd = sceIoOpen(name, PSP_O_WRONLY | PSP_O_CREAT, 0777);

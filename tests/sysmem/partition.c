@@ -1,4 +1,7 @@
 #include <common.h>
+#include <pspsysmem.h>
+#include <pspmodulemgr.h>
+#include <pspthreadman.h>
 
 static char *low, *high;
 

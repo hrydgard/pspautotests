@@ -1,4 +1,5 @@
 #include <common.h>
+#include <sys/param.h>
 
 #include <pspkernel.h>
 #include <psploadexec.h>

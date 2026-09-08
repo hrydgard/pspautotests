@@ -155,7 +155,10 @@ void __attribute__((noinline)) test_jalr() {
 
 		"move    $t2, $ra\n"
 		"la      $t0, target2_%=\n"
-		"jalr    $t0, $t0\n"
+		// This is "jalr $t0, $t0", the rd == rs case the test is about. Binutils refuses to
+		// assemble it ("source and destination must be different"), so encode it by hand:
+		// SPECIAL(0) rs=8 rt=0 rd=8 hint=0 funct=JALR(9).
+		".word   0x01004009\n"
 		"nop\n"
 
 		"target1_%=:\n"

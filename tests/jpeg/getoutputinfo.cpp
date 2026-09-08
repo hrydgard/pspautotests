@@ -1,11 +1,10 @@
 #include "shared.h"
 #include <psputility.h>
 
-extern "C" int sceJpegGetOutputInfo(const void *buffer, int bufferSize, u32 *info, int dhtMode);
 
 static void testJpegGetOutputInfo(const char *title, const File &file, bool useInfo, int mode) {
 	uint32_t info = 0xCCCCCCCC;
-	uint32_t result = sceJpegGetOutputInfo(file.data, file.size, useInfo ? &info : NULL, mode);
+	uint32_t result = sceJpegGetOutputInfo(file.data, file.size, useInfo ? (int *)&info : NULL, mode);
 	checkpoint("%s: %08x (%08x)", title, result, useInfo ? info : 0xFFFFFFFF);
 }
 
@@ -36,7 +35,7 @@ extern "C" int main(int argc, char *argv[]) {
 	testJpegGetOutputInfo("  Size 1", File(jpegcolor, 1), true, 0);
 	testJpegGetOutputInfo("  Huge", File(jpegcolor, 0x7FFFFFFF), true, 0);
 	testJpegGetOutputInfo("  Negative", File(jpegcolor, 0x80000000), true, 0);
-	checkpoint("  Offset: %08x", sceJpegGetOutputInfo(jpegcolor.data - 1, jpegcolor.size + 1, &info, 0));
+	checkpoint("  Offset: %08x", sceJpegGetOutputInfo(jpegcolor.data - 1, jpegcolor.size + 1, (int *)&info, 0));
 
 	checkpointNext("Info:");
 	testJpegGetOutputInfo("  NULL info", jpegcolor, false, 0);

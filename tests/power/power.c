@@ -6,6 +6,11 @@
 #include <psploadexec.h>
 #include <psppower.h>
 
+// These live in libpspuser but aren't declared by any pspsdk header.
+int sceKernelPowerTick(int type);
+int sceKernelPowerLock(unsigned int type);
+int sceKernelPowerUnlock(unsigned int type);
+
 static uint testResult;
 
 #define TEST_NAMED_RES(name, func, args...) \

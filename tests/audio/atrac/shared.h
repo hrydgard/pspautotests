@@ -19,7 +19,7 @@ enum AtracTestMode {
 	ATRAC_TEST_RESET_POSITION_RELOAD_ALL = 0x1000,
 };
 
-inline void schedfSingleResetBuffer(AtracSingleResetBufferInfo &info, void *basePtr) {
+static inline void schedfSingleResetBuffer(AtracSingleResetBufferInfo &info, void *basePtr) {
 	int diff = info.writePos - (u8 *)basePtr;
 	if (diff < 0x10000 && diff >= 0) {
 		schedf("write=p+0x%x, writable=%08x, min=%08x, file=%08x", diff, info.writableBytes, info.minWriteBytes, info.filePos);
@@ -28,7 +28,7 @@ inline void schedfSingleResetBuffer(AtracSingleResetBufferInfo &info, void *base
 	}
 }
 
-inline void schedfResetBuffer(AtracResetBufferInfo &info, void *basePtr) {
+static inline void schedfResetBuffer(AtracResetBufferInfo &info, void *basePtr) {
 	schedf("   #1: ");
 	schedfSingleResetBuffer(info.first, basePtr);
 	schedf("\n");
@@ -39,7 +39,7 @@ inline void schedfResetBuffer(AtracResetBufferInfo &info, void *basePtr) {
 	}
 }
 
-inline void forceAtracState(int atracID, int state) {
+static inline void forceAtracState(int atracID, int state) {
 	SceAtracId *ctx = _sceAtracGetContextAddress(atracID);
 	if (ctx) {
 		ctx->info.state = state;
@@ -54,7 +54,7 @@ void LogResetBuffer(u32 result, int sample, const AtracResetBufferInfo &resetInf
 void LogResetBufferInfo(int atracID, const u8 *bufPtr);
 const char *AtracTestModeToString(AtracTestMode mode);
 
-inline void hexDump16(char *p) {
+static inline void hexDump16(char *p) {
 	unsigned char *ptr = (unsigned char *)p;
 	/*
 	int i = 0;

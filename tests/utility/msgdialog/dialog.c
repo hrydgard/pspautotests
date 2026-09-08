@@ -1,6 +1,8 @@
 #define sceUtilityMsgDialogShutdownStart sceUtilityMsgDialogShutdownStart_WRONG
 
 #include <common.h>
+#include <pspthreadman.h>
+#include <pspkerror.h>
 #include <pspgu.h>
 #include <pspdisplay.h>
 #include <psputility.h>

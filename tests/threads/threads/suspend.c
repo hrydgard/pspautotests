@@ -1,4 +1,5 @@
 #include <common.h>
+#include <pspthreadman.h>
 
 int testThread(SceSize argc, void *argp) {
 	if (argc > 0) {

@@ -5,10 +5,6 @@
 
 extern "C" int sceDmacMemcpy(void *dest, const void *source, unsigned int size);
 
-const int GU_DOUBLE_SRC_ALPHA = 6;
-const int GU_ONE_MINUS_DOUBLE_SRC_ALPHA = 7;
-const int GU_DOUBLE_DST_ALPHA = 8;
-const int GU_ONE_MINUS_DOUBLE_DST_ALPHA = 9;
 
 typedef struct {
 	u32 color;

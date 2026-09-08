@@ -30,14 +30,10 @@ int sceKernelLockMutexCB(SceUID mutexId, int count, SceUInt *timeout);
 int sceKernelTryLockMutex(SceUID mutexId, int count);
 int sceKernelUnlockMutex(SceUID mutexId, int count);
 
-int sceKernelCreateLwMutex(void *workarea, const char *name, uint attr, int count, void *options);
-int sceKernelDeleteLwMutex(void *workarea);
-int sceKernelTryLockLwMutex(void *workarea, int count);
 int sceKernelTryLockLwMutex_600(void *workarea, int count);
-int sceKernelLockLwMutex(void *workarea, int count, SceUInt *timeout);
 int sceKernelLockLwMutexCB(void *workarea, int count, SceUInt *timeout);
-int sceKernelUnlockLwMutex(void *workarea, int count);
 
+SceUID sceKernelGetModuleId(void);
 int sceDisplayWaitVblankStartMulti(int vblanks);
 int sceDisplayWaitVblankStartMultiCB(int vblanks);
 }
@@ -237,10 +233,10 @@ extern "C" void interruptFunc(int no, void *arg) {
 	safeCheckpoint("  sceKernelLockMutexCB - bad count: %08x", sceKernelLockMutexCB(intrMutex, 9, NULL));
 	safeCheckpoint("  sceKernelLockMutexCB - valid mutex: %08x", sceKernelLockMutexCB(intrMutex, 1, NULL));
 
-	safeCheckpoint("  sceKernelLockLwMutex - bad count: %08x", sceKernelLockLwMutex(intrLwMutex, 9, NULL));
-	safeCheckpoint("  sceKernelLockLwMutex - valid mutex: %08x", sceKernelLockLwMutex(intrLwMutex, 1, NULL));
-	safeCheckpoint("  sceKernelLockLwMutexCB - bad count: %08x", sceKernelLockLwMutexCB(intrLwMutex, 9, NULL));
-	safeCheckpoint("  sceKernelLockLwMutexCB - valid mutex: %08x", sceKernelLockLwMutexCB(intrLwMutex, 1, NULL));
+	safeCheckpoint("  sceKernelLockLwMutex - bad count: %08x", sceKernelLockLwMutex((SceLwMutexWorkarea *)intrLwMutex, 9, NULL));
+	safeCheckpoint("  sceKernelLockLwMutex - valid mutex: %08x", sceKernelLockLwMutex((SceLwMutexWorkarea *)intrLwMutex, 1, NULL));
+	safeCheckpoint("  sceKernelLockLwMutexCB - bad count: %08x", sceKernelLockLwMutexCB((SceLwMutexWorkarea *)intrLwMutex, 9, NULL));
+	safeCheckpoint("  sceKernelLockLwMutexCB - valid mutex: %08x", sceKernelLockLwMutexCB((SceLwMutexWorkarea *)intrLwMutex, 1, NULL));
 
 	safeCheckpoint("  sceKernelStartModule: %08x", sceKernelStartModule(sceKernelGetModuleId(), 0, NULL, NULL, NULL));
 	safeCheckpoint("  sceKernelStopModule: %08x", sceKernelStopModule(sceKernelGetModuleId(), 0, NULL, NULL, NULL));
@@ -432,14 +428,14 @@ extern "C" int main(int argc, char *argv[]) {
 	INTR_DISPATCH_TITLE("Valid mutex", sceKernelLockMutexCB(mutex, 1, NULL));
 	sceKernelDeleteMutex(mutex);
 
-	sceKernelCreateLwMutex(buf, "lwmutex", 0, 0, NULL);
+	sceKernelCreateLwMutex((SceLwMutexWorkarea *)buf, "lwmutex", 0, 0, NULL);
 	checkpointNext("sceKernelLockLwMutex:");
-	INTR_DISPATCH_TITLE("Bad count", sceKernelLockLwMutex(buf, 9, NULL));
-	INTR_DISPATCH_TITLE("Valid mutex", sceKernelLockLwMutex(buf, 1, NULL));
+	INTR_DISPATCH_TITLE("Bad count", sceKernelLockLwMutex((SceLwMutexWorkarea *)buf, 9, NULL));
+	INTR_DISPATCH_TITLE("Valid mutex", sceKernelLockLwMutex((SceLwMutexWorkarea *)buf, 1, NULL));
 	checkpointNext("sceKernelLockLwMutexCB:");
-	INTR_DISPATCH_TITLE("Bad count", sceKernelLockLwMutexCB(buf, 9, NULL));
-	INTR_DISPATCH_TITLE("Valid mutex", sceKernelLockLwMutexCB(buf, 1, NULL));
-	sceKernelDeleteLwMutex(buf);
+	INTR_DISPATCH_TITLE("Bad count", sceKernelLockLwMutexCB((SceLwMutexWorkarea *)buf, 9, NULL));
+	INTR_DISPATCH_TITLE("Valid mutex", sceKernelLockLwMutexCB((SceLwMutexWorkarea *)buf, 1, NULL));
+	sceKernelDeleteLwMutex((SceLwMutexWorkarea *)buf);
 
 	checkpointNext("sceKernelStartModule:");
 	INTR_DISPATCH(sceKernelStartModule(sceKernelGetModuleId(), 0, NULL, NULL, NULL));
@@ -546,7 +542,7 @@ extern "C" int main(int argc, char *argv[]) {
 	intrTls = sceKernelCreateTlspl("tls", PSP_MEMORY_PARTITION_USER, 0, 0x100, 0x10, NULL);
 	intrMsgPipe = sceKernelCreateMsgPipe("msgpipe", PSP_MEMORY_PARTITION_USER, 0, (void *)0, NULL);
 	intrMutex = sceKernelCreateMutex("mutex", 0, 0, NULL);
-	sceKernelCreateLwMutex(intrLwMutex, "lwmutex", 0, 0, NULL);
+	sceKernelCreateLwMutex((SceLwMutexWorkarea *)intrLwMutex, "lwmutex", 0, 0, NULL);
 	intrThread = sceKernelCreateThread("notRunning", &dummyThread, 0x20, 0x1000, 0, NULL);
 	sceAudioChReserve(0, 64, PSP_AUDIO_FORMAT_STEREO);
 	sceAudioSRCChReserve(64, 44100, 2);
@@ -568,7 +564,7 @@ extern "C" int main(int argc, char *argv[]) {
 	sceKernelDeleteTlspl(tls);
 	sceKernelDeleteMsgPipe(intrMsgPipe);
 	sceKernelDeleteMutex(mutex);
-	sceKernelDeleteLwMutex(intrLwMutex);
+	sceKernelDeleteLwMutex((SceLwMutexWorkarea *)intrLwMutex);
 	sceKernelDeleteThread(intrThread);
 	sceAudioChRelease(0);
 	sceAudioSRCChRelease();

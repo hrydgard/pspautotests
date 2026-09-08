@@ -48,11 +48,11 @@ int main(int argc, char **argv) {
 	// Ignored for sizes?
 	strcpy(param.saveName, "ASDF");
 
-	SceUtilitySavedataMsFreeInfo freeInfo;
+	SceUtilitySavedataMsFreeInfo2 freeInfo;
 	memset(&freeInfo, 0, sizeof(freeInfo));
-	SceUtilitySavedataMsDataInfo msInfo;
+	SceUtilitySavedataMsDataInfo2 msInfo;
 	memset(&msInfo, 0, sizeof(msInfo));
-	SceUtilitySavedataUsedDataInfo utilityInfo;
+	SceUtilitySavedataUsedDataInfo2 utilityInfo;
 	memset(&utilityInfo, 0, sizeof(utilityInfo));
 	param.msFree = &freeInfo;
 	param.msData = &msInfo;

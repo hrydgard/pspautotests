@@ -48,7 +48,7 @@ void testNewLib(const char *title, FontNewLibParams *params, bool useError = tru
 	uint error = -1;
 	g_allocated = 0;
 	FontLibraryHandle libID = sceFontNewLib(params, useError ? &error : NULL);
-	if (libID <= 0) {
+	if ((int)libID <= 0) {
 		checkpoint("%s: Failed (%08x, %08x)", title, libID, error);
 	} else if (error != 0) {
 		checkpoint("%s: Error (%08x, %08x)", title, libID, error);

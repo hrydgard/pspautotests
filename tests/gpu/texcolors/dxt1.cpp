@@ -5,7 +5,6 @@
 #include <pspkernel.h>
 
 extern "C" int sceDmacMemcpy(void *dest, const void *source, unsigned int size);
-extern "C" void sendCommandi(int cmd, int argument);
 
 extern int HAS_DISPLAY;
 

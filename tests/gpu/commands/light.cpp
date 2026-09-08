@@ -5,6 +5,11 @@
 
 extern "C" int HAS_DISPLAY;
 
+// pspgu.h names GU_AMBIENT/GU_DIFFUSE/GU_SPECULAR but not this fourth bit. sceGuLight maps
+// components == 8 to GE light component 2 (ambient + powered diffuse), 6 to 1, anything else
+// to 0 - so 8 is how you ask for the component the tests below label "A + pow(D)".
+#define GU_UNKNOWN_LIGHT_COMPONENT 8
+
 struct BoxInfo {
 	int x;
 	int y;

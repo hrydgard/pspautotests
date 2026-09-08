@@ -3,7 +3,6 @@
 #include <psputility.h>
 #include <psputils.h>
 
-extern "C" int sceJpegDecodeMJpegYCbCr(const void *buffer, int bufferSize, void *frame, int frameSize, int dhtMode);
 
 static uint32_t *frame;
 static const uint32_t FRAME_SIZE = 512 * 512 * 4;
@@ -12,7 +11,7 @@ static void testJpegDecodeMJpegYCbCr(const char *title, const File &file, bool u
 	memset(frame, 0xCC, FRAME_SIZE + 4);
 	sceKernelDcacheWritebackInvalidateRange(frame, FRAME_SIZE + 4);
 
-	uint32_t result = sceJpegDecodeMJpegYCbCr(file.data, file.size, useFrame ? frame : NULL, frameSize, mode);
+	uint32_t result = sceJpegDecodeMJpegYCbCr(file.data, file.size, useFrame ? (u8 *)frame : NULL, frameSize, mode);
 	size_t len = 0;
 	for (int i = 512 * 512; i >= 0; --i) {
 		if (frame[i] != 0xCCCCCCCC) {
@@ -52,7 +51,7 @@ extern "C" int main(int argc, char *argv[]) {
 	testJpegDecodeMJpegYCbCr("  Size 1", File(jpegcolor, 1), true, FRAME_SIZE, 0);
 	testJpegDecodeMJpegYCbCr("  Huge", File(jpegcolor, 0x7FFFFFFF), true, FRAME_SIZE, 0);
 	testJpegDecodeMJpegYCbCr("  Negative", File(jpegcolor, 0x80000000), true, FRAME_SIZE, 0);
-	checkpoint("  Offset: %08x", sceJpegDecodeMJpegYCbCr(jpegcolor.data - 1, jpegcolor.size + 1, frame, FRAME_SIZE, 0));
+	checkpoint("  Offset: %08x", sceJpegDecodeMJpegYCbCr(jpegcolor.data - 1, jpegcolor.size + 1, (u8 *)frame, FRAME_SIZE, 0));
 
 	checkpointNext("Output:");
 	testJpegDecodeMJpegYCbCr("  Output NULL small", jpegcolor, false, 195839, 0);

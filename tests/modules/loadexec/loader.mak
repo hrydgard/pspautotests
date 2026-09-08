@@ -1,5 +1,5 @@
 TARGET = loader
-OBJS = loader.o
+OBJS = loader.o kdebug-imports.o
 PSP_EBOOT_TITLE = mstick test 
 
 BUILD_PRX = 1

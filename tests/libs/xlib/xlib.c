@@ -26,12 +26,12 @@ PSP_HEAP_SIZE_KB(-64);
 
 static int x_running = 1;
 
-inline int xRunning()
+int xRunning()
 {
 	return x_running;
 }
 
-inline void xExit()
+void xExit()
 {
     x_running = 0;
 }

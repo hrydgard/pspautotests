@@ -7,6 +7,11 @@
 #include <psploadexec.h>
 #include <pspumd.h>
 
+// The mutex calls have never been in the pspsdk headers; the stubs come from
+// ../mutex/mutex-imports.S.
+SceUID sceKernelCreateMutex(const char *name, SceUInt attr, int initCount, void *options);
+int sceKernelLockMutexCB(SceUID mutexId, int count, SceUInt *timeout);
+
 int cb1, cb2, cb3;
 int thread1, thread2, thread3;
 

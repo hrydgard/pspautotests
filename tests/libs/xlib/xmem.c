@@ -484,12 +484,12 @@ void x_free(void* ptr)
     }
 }
 
-inline u32 x_vlargest()
+u32 x_vlargest()
 {
     return VRAM_largestblock();
 }
 
-inline u32 x_slargest()
+u32 x_slargest()
 {
     return SPAD_largestblock();
 }

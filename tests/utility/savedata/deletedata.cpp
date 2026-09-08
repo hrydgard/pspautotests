@@ -97,10 +97,10 @@ bool createSave(int secureVersion) {
 }
 
 void showFiles() {
-	SceUtilitySavedataFileListInfo fileList;
-	SceUtilitySavedataFileListEntry secureEntries[5];
-	SceUtilitySavedataFileListEntry normalEntries[5];
-	SceUtilitySavedataFileListEntry systemEntries[5];
+	SceUtilitySavedataFileListInfo2 fileList;
+	SceUtilitySavedataFileListEntry2 secureEntries[5];
+	SceUtilitySavedataFileListEntry2 normalEntries[5];
+	SceUtilitySavedataFileListEntry2 systemEntries[5];
 
 	SceUtilitySavedataParam2 param;
 	initStandardSavedataParams(&param);

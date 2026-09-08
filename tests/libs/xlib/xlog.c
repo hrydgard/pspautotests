@@ -22,9 +22,9 @@ void xLogPrint(char* text)
 {
     xlog_file = fopen("./xlog.txt", "a");
     if (!xlog_file) return;
-    pspTime time_struct;
+    ScePspDateTime time_struct;
     sceRtcGetCurrentClockLocalTime(&time_struct);
-    fprintf(xlog_file, "[%02u:%02u:%02u:%06u] %s\r\n", time_struct.hour, time_struct.minutes, time_struct.seconds, (unsigned int)time_struct.microseconds, text);
+    fprintf(xlog_file, "[%02u:%02u:%02u:%06u] %s\r\n", time_struct.hour, time_struct.minute, time_struct.second, (unsigned int)time_struct.microsecond, text);
     fclose(xlog_file);
     xlog_file = 0;
 }

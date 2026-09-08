@@ -31,36 +31,36 @@ void dumpFileStat(SceIoStat d_stat, int dump_date)
 	{
 		printf(
 			"creation date : %d-%d-%d-%d-%d-%d-%d\n",
-			d_stat.st_ctime.year,
-			d_stat.st_ctime.month,
-			d_stat.st_ctime.day,
-			d_stat.st_ctime.hour,
-			d_stat.st_ctime.minute,
-			d_stat.st_ctime.second,
-			d_stat.st_ctime.microsecond
+			d_stat.sce_st_ctime.year,
+			d_stat.sce_st_ctime.month,
+			d_stat.sce_st_ctime.day,
+			d_stat.sce_st_ctime.hour,
+			d_stat.sce_st_ctime.minute,
+			d_stat.sce_st_ctime.second,
+			d_stat.sce_st_ctime.microsecond
 		);
 		// Don't dump acces, it change every time and fail test
 		/*
 		printf(
 			"acces date : %d-%d-%d-%d-%d-%d-%d\n",
-			d_stat.st_atime.year,
-			d_stat.st_atime.month,
-			d_stat.st_atime.day,
-			d_stat.st_atime.hour,
-			d_stat.st_atime.minute,
-			d_stat.st_atime.second,
-			d_stat.st_atime.microsecond
+			d_stat.sce_st_atime.year,
+			d_stat.sce_st_atime.month,
+			d_stat.sce_st_atime.day,
+			d_stat.sce_st_atime.hour,
+			d_stat.sce_st_atime.minute,
+			d_stat.sce_st_atime.second,
+			d_stat.sce_st_atime.microsecond
 		);
 		*/
 		printf(
 			"modif date : %d-%d-%d-%d-%d-%d-%d\n",
-			d_stat.st_mtime.year,
-			d_stat.st_mtime.month,
-			d_stat.st_mtime.day,
-			d_stat.st_mtime.hour,
-			d_stat.st_mtime.minute,
-			d_stat.st_mtime.second,
-			d_stat.st_mtime.microsecond
+			d_stat.sce_st_mtime.year,
+			d_stat.sce_st_mtime.month,
+			d_stat.sce_st_mtime.day,
+			d_stat.sce_st_mtime.hour,
+			d_stat.sce_st_mtime.minute,
+			d_stat.sce_st_mtime.second,
+			d_stat.sce_st_mtime.microsecond
 		);
 	}
 }

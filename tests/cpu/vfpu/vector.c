@@ -491,12 +491,12 @@ void checkConstants() {
 		"vcst.s S110, VFPU_LOG2TEN\n"
 		"vcst.s S120, VFPU_SQRT3_2\n"
 		"viim.s S130, 0\n"
-		"sv.q   R000, 0x00+%0\n"
-		"sv.q   R001, 0x10+%0\n"
-		"sv.q   R002, 0x20+%0\n"
-		"sv.q   R003, 0x30+%0\n"
-		"sv.q   R100, 0x40+%0\n"
-		: "+m" (v[0])
+		"sv.q   R000, 0x00(%0)\n"
+		"sv.q   R001, 0x10(%0)\n"
+		"sv.q   R002, 0x20(%0)\n"
+		"sv.q   R003, 0x30(%0)\n"
+		"sv.q   R100, 0x40(%0)\n"
+		: : "r" (v) : "memory"
 	);
 	for (n = 0; n < 5; n++) {
 		printVector("vcst.s", &v[n]);
@@ -518,11 +518,11 @@ void NOINLINE checkViim() {
 		"viim.s S011, -8\n"
 		"viim.s S021, -3\n"
 		"viim.s S031, -1\n"
-		"sv.q   R000, 0x00+%0\n"
-		"sv.q   R001, 0x10+%0\n"
-		"sv.q   R002, 0x20+%0\n"
-		"sv.q   R003, 0x30+%0\n"
-		: "+m" (v[0])
+		"sv.q   R000, 0x00(%0)\n"
+		"sv.q   R001, 0x10(%0)\n"
+		"sv.q   R002, 0x20(%0)\n"
+		"sv.q   R003, 0x30(%0)\n"
+		: : "r" (v) : "memory"
 	);
 
 	for (n = 0; n < 4; n++) {
@@ -634,8 +634,8 @@ void moveNormalRegister() {
 		"mtv %1, S411\n"
 		"mtv %1, S412\n"
 		"mtv %1, S413\n"
-		"sv.q   C410, 0x00+%0\n"
-		: "+m" (v[0]) : "t" (t)
+		"sv.q   C410, 0x00(%0)\n"
+		: : "r" (v), "t" (t) : "memory"
 	);
 	printVector("moveNormalRegister", &v0);
 }

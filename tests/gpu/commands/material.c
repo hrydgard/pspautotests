@@ -9,7 +9,8 @@
 #define SCR_WIDTH 480
 #define SCR_HEIGHT 272
 
-unsigned int __attribute__((aligned(16))) list[262144];
+// shared.cpp is linked into every target here and defines its own.
+static unsigned int __attribute__((aligned(16))) list[262144];
 unsigned int __attribute__((aligned(16))) clut[] = { 0xaaaaaaaa, 0xffffffff, 0x00000000 };
 unsigned char __attribute__((aligned(16))) bgData[] = {
 	2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

@@ -6,6 +6,7 @@
 #include <pspdisplay.h>
 #include <psptypes.h>
 #include <pspiofilemgr.h>
+#include <sys/param.h>
 
 #include <stdio.h>
 #include <stdlib.h>

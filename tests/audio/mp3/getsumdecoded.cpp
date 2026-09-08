@@ -4,8 +4,6 @@
 #include <psputility.h>
 #include <psputils.h>
 
-extern "C" int sceMp3LowLevelInit(int handle, int unk);
-extern "C" int sceMp3LowLevelDecode(int handle, const void *src, int *srcConsumed, short *samples, int *sampleBytesWritten);
 
 static u8 mp3Buf[8192] __attribute__((aligned(64)));
 static short pcmBuf[4608] __attribute__((aligned(64)));
@@ -58,13 +56,12 @@ extern "C" int main(int argc, char *argv[]) {
 	int handle;
 
 	SceMp3InitArg mp3Init;
+	memset(&mp3Init, 0, sizeof(mp3Init));
 	mp3Init.mp3StreamStart = 0;
 	mp3Init.mp3StreamEnd = sceIoLseek32(fd, 0, SEEK_END);
-	mp3Init.unk1 = 0;
-	mp3Init.unk2 = 0;
-	mp3Init.mp3Buf = mp3Buf;
+	mp3Init.mp3Buf = (SceUChar8 *)(mp3Buf);
 	mp3Init.mp3BufSize = sizeof(mp3Buf);
-	mp3Init.pcmBuf = pcmBuf;
+	mp3Init.pcmBuf = (SceUChar8 *)(pcmBuf);
 	mp3Init.pcmBufSize = sizeof(pcmBuf);
 
 	checkpointNext("Handles");
@@ -80,12 +77,12 @@ extern "C" int main(int argc, char *argv[]) {
 
 	checkpointNext("After decoding");
 	handle = sceMp3ReserveMp3Handle(NULL);
-	sceMp3LowLevelInit(handle, 0);
+	sceMp3LowLevelInit(handle, (SceUChar8 *)0);
 	testGetSumDecoded("  Low level init", handle);
 	sceIoLseek32(fd, 0, SEEK_SET);
 	sceIoRead(fd, mp3Buf, 4096);
 	int consumed, written;
-	sceMp3LowLevelDecode(handle, mp3Buf, &consumed, pcmBuf, &written);
+	sceMp3LowLevelDecode(handle, (SceUChar8 *)mp3Buf, (SceUInt32 *)&consumed, (SceShort16 *)pcmBuf, (SceUInt32 *)&written);
 	testGetSumDecoded("  Low level decode", handle);
 	sceMp3ReleaseMp3Handle(handle);
 	handle = sceMp3ReserveMp3Handle(&mp3Init);

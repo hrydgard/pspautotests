@@ -6,8 +6,8 @@
 void checkGetCurrentClock() {
 	printf("Checking sceRtcGetCurrentClock\n");
 
-	pspTime pt_baseline;
-	pspTime pt;
+	ScePspDateTime pt_baseline;
+	ScePspDateTime pt;
 
 	do
 	{
@@ -15,7 +15,7 @@ void checkGetCurrentClock() {
 		sceRtcGetCurrentClock(&pt, -60);
 	}
 	// Rollover is annoying.  We could test in a more complicated way, I guess.
-	while (pt_baseline.minutes == 59 && pt_baseline.seconds == 59);
+	while (pt_baseline.minute == 59 && pt_baseline.second == 59);
 
 	if (pt.hour != pt_baseline.hour - 1 && !(pt.hour == 23 && pt_baseline.hour == 0))
 		printf("-60 TZ: Failed, got time different by %d hours.\n", (pt_baseline.hour - pt.hour) % 24);
@@ -37,7 +37,7 @@ void checkGetCurrentClock() {
 
 void checkGetCurrentClockLocalTime() {
 	printf("Checking sceRtcGetCurrentClockLocalTime\n");
-	pspTime pt;
+	ScePspDateTime pt;
 
 	// Crash.
 	//printf("NULL: %08x\n", sceRtcGetCurrentClockLocalTime(NULL));
@@ -49,7 +49,7 @@ void checkGetCurrentClockLocalTime() {
 
 void checkAddDateValue(int year, int month, int day, int hour, int min, int sec, int micro, int type, long long int value_add)
 {
-	pspTime pt;
+	ScePspDateTime pt;
 	u64 sourceTick;
 
 	FillPSPTime(&pt,year, month, day, hour, min, sec, micro);
@@ -147,7 +147,7 @@ void checkRtcCheckValid()
 {
 	printf("Checking sceRtcCheckValid\n");
 
-	pspTime pt;
+	ScePspDateTime pt;
 	
 	FillPSPTime(&pt,2012,9,20,7,0,0,0);
 	printf("Valid Date:%d\n", sceRtcCheckValid(&pt));
@@ -184,7 +184,7 @@ void checkMaxYear()
 
 	int result, y;
 
-	pspTime pt;
+	ScePspDateTime pt;
 	FillPSPTime(&pt,1,1,1,0,0,0,1);
 	for (y = 1; y < SHRT_MAX; y++) 
 	{
@@ -202,7 +202,7 @@ void checkRtcSetTime_t()
 {
 	printf("Checking sceRtcSetTime_t\n");
 
-	pspTime pt;
+	ScePspDateTime pt;
 	printf("from 0:%d\n", sceRtcSetTime_t(&pt, 0));
 	DumpPSPTime("", &pt);
 	printf("from epoc:%d\n",sceRtcSetTime_t(&pt, 62135596800ULL));
@@ -220,7 +220,7 @@ void checkRtcSetTime_t()
 void checkRtcGetTime_t()
 {
 	printf("Checking sceRtcGetTime_t\n");
-	pspTime pt;
+	ScePspDateTime pt;
 	u64 ticks=0;
 	FillPSPTime(&pt,2012,9,20,7,12,15,500);
 	printf("from epoc:%d\n",sceRtcGetTime_t( &pt, &ticks));
@@ -237,7 +237,7 @@ void checkRtcSetDosTime()
 {
 	printf("Checking sceRtcSetDosTime\n");
 
-	pspTime pt;
+	ScePspDateTime pt;
 	printf("from epoc:%d\n",sceRtcSetDosTime(&pt, 0));
 	DumpPSPTime("0 = ",&pt);
 	printf("from epoc:%d\n",sceRtcSetDosTime(&pt, 1));
@@ -264,7 +264,7 @@ void checkRtcGetDosTime()
 {
 	printf("Checking sceRtcGetDosTime\n");
 
-	pspTime pt;
+	ScePspDateTime pt;
 	u64 ticks=0;
 	FillPSPTime(&pt, 2107, 9, 11, 24, 0, 0, 0);
 	printf("from epoc:%d\n",sceRtcGetDosTime( &pt, &ticks));
@@ -444,7 +444,7 @@ void checkRtcParseDateTime()
 
 void checkRtcSetWin32FileTime()
 {
-	pspTime pt;
+	ScePspDateTime pt;
 	u64 ft;
 	int result;
 	memset(&pt, 0, sizeof(pt));
@@ -471,7 +471,7 @@ void checkRtcSetWin32FileTime()
 
 void checkRtcGetWin32FileTime()
 {
-	pspTime pt;
+	ScePspDateTime pt;
 	u64 ft = -1337;
 	int result;
 

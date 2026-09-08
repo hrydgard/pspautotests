@@ -1,6 +1,6 @@
 #include "shared.h"
 
-inline void createTest(const char *title, const char *name, u32 attr, int count, void *options) {
+static inline void createTest(const char *title, const char *name, u32 attr, int count, void *options) {
 	SceUID mutex = sceKernelCreateMutex(name, attr, count, options);
 	if (mutex > 0) {
 		checkpoint(NULL);

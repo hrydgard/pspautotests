@@ -56,12 +56,12 @@ u32 xCtrlUpdate(float dt)
     return x_buttons_cur;
 }
 
-inline int xCtrlPress(u32 buttons)
+int xCtrlPress(u32 buttons)
 {
     return BUTTONS_PRESSED(x_buttons_cur, buttons);
 }
 
-inline int xCtrlTap(u32 buttons)
+int xCtrlTap(u32 buttons)
 {
     return (BUTTONS_PRESSED(x_buttons_cur, buttons) && !BUTTONS_PRESSED(x_buttons_last, buttons));
 }
@@ -82,17 +82,17 @@ int xCtrlHold(u32 buttons, float seconds)
     return 1;
 }
 
-inline int xCtrlAnalogAlive(float deadzone)
+int xCtrlAnalogAlive(float deadzone)
 {
     return (x_analog_x > deadzone || x_analog_x < -deadzone || x_analog_y > deadzone || x_analog_y < -deadzone);
 }
 
-inline float xCtrlAnalogX()
+float xCtrlAnalogX()
 {
     return x_analog_x;
 }
 
-inline float xCtrlAnalogY()
+float xCtrlAnalogY()
 {
     return x_analog_y;
 }

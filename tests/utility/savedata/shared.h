@@ -9,6 +9,8 @@
 #include <pspdisplay.h>
 #include <pspmoduleinfo.h>
 #include <psputility.h>
+#include <pspiofilemgr.h>
+#include <pspthreadman.h>
 
 #include <sysmem-imports.h>
 
@@ -24,44 +26,44 @@ extern int sceUtilitySavedataUpdate(int animSpeed);
 
 typedef char SceUtilitySavedataSaveName[20];
 
-typedef struct SceUtilitySavedataMsFreeInfo {
+typedef struct SceUtilitySavedataMsFreeInfo2 {
 	int clusterSize;
 	int freeClusters;
 	int freeSpaceKB;
 	char freeSpaceStr[8];
 	// TODO
 	int unknownSafetyPad;
-} SceUtilitySavedataMsFreeInfo;
+} SceUtilitySavedataMsFreeInfo2;
 
-typedef struct SceUtilitySavedataUsedDataInfo {
+typedef struct SceUtilitySavedataUsedDataInfo2 {
 	int usedClusters;
 	int usedSpaceKB;
 	char usedSpaceStr[8];
 	int usedSpace32KB;
 	char usedSpace32Str[8];
-} SceUtilitySavedataUsedDataInfo;
+} SceUtilitySavedataUsedDataInfo2;
 
-typedef struct SceUtilitySavedataMsDataInfo {
+typedef struct SceUtilitySavedataMsDataInfo2 {
 	char gameName[16];
 	SceUtilitySavedataSaveName saveName;
-	SceUtilitySavedataUsedDataInfo info;
-} SceUtilitySavedataMsDataInfo;
+	SceUtilitySavedataUsedDataInfo2 info;
+} SceUtilitySavedataMsDataInfo2;
 
-typedef struct SceUtilitySavedataIdListEntry {
+typedef struct SceUtilitySavedataIdListEntry2 {
 	int st_mode;
 	ScePspDateTime st_ctime;
 	ScePspDateTime st_atime;
 	ScePspDateTime st_mtime;
 	SceUtilitySavedataSaveName name;
-} SceUtilitySavedataIdListEntry;
+} SceUtilitySavedataIdListEntry2;
 
-typedef struct SceUtilitySavedataIdListInfo {
+typedef struct SceUtilitySavedataIdListInfo2 {
 	int maxCount;
 	int resultCount;
-	SceUtilitySavedataIdListEntry *entries;
-} SceUtilitySavedataIdListInfo;
+	SceUtilitySavedataIdListEntry2 *entries;
+} SceUtilitySavedataIdListInfo2;
 
-typedef struct SceUtilitySavedataFileListEntry {
+typedef struct SceUtilitySavedataFileListEntry2 {
 	int st_mode;
 	int st_attr;
 	u64 st_size;
@@ -69,19 +71,19 @@ typedef struct SceUtilitySavedataFileListEntry {
 	ScePspDateTime st_atime;
 	ScePspDateTime st_mtime;
 	char name[16];
-} SceUtilitySavedataFileListEntry;
+} SceUtilitySavedataFileListEntry2;
 
-typedef struct SceUtilitySavedataFileListInfo {
+typedef struct SceUtilitySavedataFileListInfo2 {
 	int maxSecureEntries;
 	int maxNormalEntries;
 	int maxSystemEntries;
 	int resultNumSecureEntries;
 	int resultNumNormalEntries;
 	int resultNumSystemEntries;
-	SceUtilitySavedataFileListEntry *secureEntries;
-	SceUtilitySavedataFileListEntry *normalEntries;
-	SceUtilitySavedataFileListEntry *systemEntries;
-} SceUtilitySavedataFileListInfo;
+	SceUtilitySavedataFileListEntry2 *secureEntries;
+	SceUtilitySavedataFileListEntry2 *normalEntries;
+	SceUtilitySavedataFileListEntry2 *systemEntries;
+} SceUtilitySavedataFileListInfo2;
 
 typedef struct SceUtilitySavedataSizeEntry {
 	u64 size;
@@ -125,15 +127,15 @@ typedef struct SceUtilitySavedataParam2 {
 	PspUtilitySavedataListSaveNewData *newData;
 	PspUtilitySavedataFocus focus;
 	int abortStatus;
-	SceUtilitySavedataMsFreeInfo *msFree;
-	SceUtilitySavedataMsDataInfo *msData;
-	SceUtilitySavedataUsedDataInfo *utilityData;
+	SceUtilitySavedataMsFreeInfo2 *msFree;
+	SceUtilitySavedataMsDataInfo2 *msData;
+	SceUtilitySavedataUsedDataInfo2 *utilityData;
 	char key[16];
 
 	int secureVersion;
 	int multiStatus;
-	SceUtilitySavedataIdListInfo *idList;
-	SceUtilitySavedataFileListInfo *fileList;
+	SceUtilitySavedataIdListInfo2 *idList;
+	SceUtilitySavedataFileListInfo2 *fileList;
 	SceUtilitySavedataSizeInfo *sizeInfo;
 } SceUtilitySavedataParam2;
 

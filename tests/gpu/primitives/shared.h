@@ -58,12 +58,12 @@ typedef struct {
 	float x, y, z;
 } Vertex_C8888_P32;
 
-inline s8 norm8x(int x) { return x * 255 / SCR_WIDTH - 128; }
-inline s8 norm8y(int x) { return 128 - x * 255 / SCR_HEIGHT; }
-inline s16 norm16x(int x) { return x * 65536 / SCR_WIDTH - 32768; }
-inline s16 norm16y(int x) { return 32768 - x * 65536 / SCR_HEIGHT; }
-inline float norm32x(int x) { return 2.0f * (float)x / SCR_WIDTH - 1.0f; }
-inline float norm32y(int y) { return 1.0f - 2.0f * (float)y / SCR_HEIGHT; }
+static inline s8 norm8x(int x) { return x * 255 / SCR_WIDTH - 128; }
+static inline s8 norm8y(int x) { return 128 - x * 255 / SCR_HEIGHT; }
+static inline s16 norm16x(int x) { return x * 65536 / SCR_WIDTH - 32768; }
+static inline s16 norm16y(int x) { return 32768 - x * 65536 / SCR_HEIGHT; }
+static inline float norm32x(int x) { return 2.0f * (float)x / SCR_WIDTH - 1.0f; }
+static inline float norm32y(int y) { return 1.0f - 2.0f * (float)y / SCR_HEIGHT; }
 
 void initDisplay();
 void startFrame();

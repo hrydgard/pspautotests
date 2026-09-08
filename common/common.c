@@ -74,7 +74,10 @@ FILE stdout_back = {NULL};
 char schedfBuffer[65536];
 unsigned int schedfBufferPos = 0;
 
-void schedf(const char *format, ...) {
+// Weak so that a test can supply its own schedf - a dozen of them do, to capture output into a
+// buffer instead of printing it. Older linkers silently took the test's definition; modern ld
+// rejects the duplicate unless this one is weak.
+__attribute__((weak)) void schedf(const char *format, ...) {
 	va_list args;
 	va_start(args, format);
 	if (CHECKPOINT_OUTPUT_DIRECT) {

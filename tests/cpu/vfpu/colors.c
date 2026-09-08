@@ -1,6 +1,7 @@
 #include <common.h>
 
 #include <pspkernel.h>
+#include "vfpu_common.h"
 #include <stdio.h>
 #include <string.h>
 #include <math.h>

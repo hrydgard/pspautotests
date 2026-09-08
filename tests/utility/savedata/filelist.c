@@ -47,17 +47,17 @@ int main(int argc, char **argv) {
 	// NEW / OTHER same?
 	strcpy(param.fileName, "NEW.BIN");
 
-	SceUtilitySavedataFileListInfo fileList;
+	SceUtilitySavedataFileListInfo2 fileList;
 	memset(&fileList, 0, sizeof(fileList));
-	SceUtilitySavedataFileListEntry fileListNormal[10];
+	SceUtilitySavedataFileListEntry2 fileListNormal[10];
 	memset(fileListNormal, 0, sizeof(fileListNormal));
 	fileListNormal[0].st_mode = 0x1337;
 	fileListNormal[0].st_attr = 0x1337;
-	SceUtilitySavedataFileListEntry fileListSecure[10];
+	SceUtilitySavedataFileListEntry2 fileListSecure[10];
 	memset(fileListSecure, 0, sizeof(fileListSecure));
 	fileListSecure[0].st_mode = 0x1337;
 	fileListSecure[0].st_attr = 0x1337;
-	SceUtilitySavedataFileListEntry fileListSystem[10];
+	SceUtilitySavedataFileListEntry2 fileListSystem[10];
 	memset(fileListSystem, 0, sizeof(fileListSystem));
 	fileListSystem[0].st_mode = 0x1337;
 	fileListSystem[0].st_attr = 0x1337;

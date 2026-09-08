@@ -164,7 +164,7 @@ typedef struct {
 
 #define primitive_vertex_vtype GU_COLOR_8888|GU_VERTEX_32BITF
 
-static inline u32 col4_to_8888(xColor4f* c)
+u32 col4_to_8888(xColor4f* c)
 {
     return GU_COLOR(c->r, c->g, c->b, c->a);
 }

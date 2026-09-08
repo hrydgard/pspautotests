@@ -120,18 +120,18 @@ void dumpSasVoice(int i, struct SasVoice *v) {
 }
 
 void dumpSasCore(SasCore *sas) {
-	schedf("  H: unk1End=%08x, revType=%d, unk=%02x", sas->header.unk1End, sas->header.revType, sas->header.unk);
+	schedf("  H: driverCtx=%08x, revType=%d, unk=%02x", sas->header.driverCtx, sas->header.revType, sas->header.unk);
 	schedf(", revDelay=%d, revFeedback=%d, grainFactor=%02x", sas->header.revDelay, sas->header.revFeedback, sas->header.grainFactor);
 	schedf(", outMode=%d, dry=%d, wet=%d", sas->header.outMode, sas->header.dryWet & 1, sas->header.dryWet & 2);
 	schedf(", busyFlag=%d, revVolLeft=%d, revVolRight=%d", sas->header.busyFlag, sas->header.revVolLeft, sas->header.revVolRight);
-	schedf(", unk2=%08x\n", sas->header.unk2);
+	schedf(", endFlag=%08x\n", sas->header.endFlag);
 
 	int i;
 	for (i = 0; i < ARRAY_SIZE(sas->voices); ++i) {
 		dumpSasVoice(i, &sas->voices[i]);
 	}
 
-	schedf("  F: unk1=%08x, unk2=%08x, unk3=%08x\n", sas->footer.unk1, sas->footer.unk2, sas->footer.unk3);
+	schedf("  F: endFlagsFromDriver=%08x, driverInitedMaybe=%08x, unk3=%08x\n", sas->footer.endFlagsFromDriver, sas->footer.driverInitedMaybe, sas->footer.unk3);
 }
 
 // http://www.psp-programming.com/forums/index.php?action=printpage;topic=4404.0

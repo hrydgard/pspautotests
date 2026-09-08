@@ -38,11 +38,11 @@ int sceKernelFreeTlspl(SceUID uid);
 int sceKernelReferTlsplStatus(SceUID uid, SceKernelTlsplInfo *info);
 }
 
-inline void schedfTlsplInfo(const SceKernelTlsplInfo *info) {
+static inline void schedfTlsplInfo(const SceKernelTlsplInfo *info) {
 	schedf("Tlspl: OK (size=%d,name=%s,attr=%08X,index=%d,blockSize=%08X,totalBlocks=%08X,freeBlocks=%08X,wait=%d)\n", info->size, info->name, info->attr, info->index, info->blockSize, info->totalBlocks, info->freeBlocks, info->numWaitThreads);
 }
 
-inline void schedfTlspl(SceUID tls) {
+static inline void schedfTlspl(SceUID tls) {
 	if (tls > 0) {
 		SceKernelTlsplInfo info;
 		info.size = sizeof(info);

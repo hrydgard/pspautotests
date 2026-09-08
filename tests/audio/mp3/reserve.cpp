@@ -4,29 +4,43 @@
 #include <psputility.h>
 #include <vector>
 
+// sceMp3ReserveMp3Handle takes a 64-bit stream start and end. pspsdk now spells those as two
+// SceOff fields, but this test sets their high and low halves independently - that's what the
+// "Unknown:" cases below are - so use the wire layout directly.
+struct Mp3InitArgWire {
+	u32 mp3StreamStart;
+	u32 unk1;
+	u32 mp3StreamEnd;
+	u32 unk2;
+	SceUChar8 *mp3Buf;
+	s32 mp3BufSize;
+	SceUChar8 *pcmBuf;
+	s32 pcmBufSize;
+};
+
 static u8 dummyMp3[128 * (1152 / 2)] __attribute__((aligned(64)));
 static short pcmBuf[128 * (1152 / 2)] __attribute__((aligned(64)));
 
-static void testReserve(const char *title, SceMp3InitArg *args) {
-	int result = sceMp3ReserveMp3Handle(args);
+static void testReserve(const char *title, Mp3InitArgWire *args) {
+	int result = sceMp3ReserveMp3Handle((SceMp3InitArg *)args);
 	checkpoint("%s: %08x", title, result);
 	if (result >= 0) {
 		sceMp3ReleaseMp3Handle(result);
 	}
 }
 
-static void testAllocation(SceMp3InitArg *args) {
+static void testAllocation(Mp3InitArgWire *args) {
 	int handle;
 
 	testReserve("  Once", args);
 	testReserve("  Twice", args);
-	handle = sceMp3ReserveMp3Handle(args);
+	handle = sceMp3ReserveMp3Handle((SceMp3InitArg *)args);
 	testReserve("  While allocated", args);
 	sceMp3ReleaseMp3Handle(handle);
 
 	std::vector<int> handles;
 	do {
-		handle = sceMp3ReserveMp3Handle(args);
+		handle = sceMp3ReserveMp3Handle((SceMp3InitArg *)args);
 		if (handle >= 0) {
 			handles.push_back(handle);
 		}
@@ -48,20 +62,19 @@ extern "C" int main(int argc, char *argv[]) {
 
 	sceMp3InitResource();
 
-	SceMp3InitArg mp3Init;
+	Mp3InitArgWire mp3Init;
+	memset(&mp3Init, 0, sizeof(mp3Init));
 	mp3Init.mp3StreamStart = 0;
 	mp3Init.mp3StreamEnd = sizeof(dummyMp3);
-	mp3Init.unk1 = 0;
-	mp3Init.unk2 = 0;
-	mp3Init.mp3Buf = dummyMp3;
+	mp3Init.mp3Buf = (SceUChar8 *)(dummyMp3);
 	mp3Init.mp3BufSize = sizeof(dummyMp3);
-	mp3Init.pcmBuf = pcmBuf;
+	mp3Init.pcmBuf = (SceUChar8 *)(pcmBuf);
 	mp3Init.pcmBufSize = sizeof(pcmBuf);
 
 	int handle;
 	checkpointNext("NULL arg:");
 	testAllocation(NULL);
-	handle = sceMp3ReserveMp3Handle(&mp3Init);
+	handle = sceMp3ReserveMp3Handle((SceMp3InitArg *)&mp3Init);
 	testReserve("  While basic allocated", NULL);
 	sceMp3ReleaseMp3Handle(handle);
 
@@ -107,13 +120,13 @@ extern "C" int main(int argc, char *argv[]) {
 	mp3Init.unk2 = 0;
 
 	checkpointNext("Encoded buffer addr:");
-	mp3Init.mp3Buf = dummyMp3 + 1;
+	mp3Init.mp3Buf = (SceUChar8 *)(dummyMp3 + 1);
 	testReserve("  Unaligned +1", &mp3Init);
-	mp3Init.mp3Buf = NULL;
+	mp3Init.mp3Buf = (SceUChar8 *)(NULL);
 	testReserve("  NULL", &mp3Init);
-	mp3Init.mp3Buf = (void *)0x1337;
+	mp3Init.mp3Buf = (SceUChar8 *)((void *)0x1337);
 	testReserve("  Invalid", &mp3Init);
-	mp3Init.mp3Buf = dummyMp3;
+	mp3Init.mp3Buf = (SceUChar8 *)(dummyMp3);
 
 	checkpointNext("Encoded buffer size:");
 	mp3Init.mp3BufSize = 8191;
@@ -127,13 +140,13 @@ extern "C" int main(int argc, char *argv[]) {
 	mp3Init.mp3BufSize = sizeof(dummyMp3);
 
 	checkpointNext("Decoded buffer addr:");
-	mp3Init.pcmBuf = dummyMp3 + 1;
+	mp3Init.pcmBuf = (SceUChar8 *)(dummyMp3 + 1);
 	testReserve("  Unaligned +1", &mp3Init);
-	mp3Init.pcmBuf = NULL;
+	mp3Init.pcmBuf = (SceUChar8 *)(NULL);
 	testReserve("  NULL", &mp3Init);
-	mp3Init.pcmBuf = (void *)0x1337;
+	mp3Init.pcmBuf = (SceUChar8 *)((void *)0x1337);
 	testReserve("  Invalid", &mp3Init);
-	mp3Init.pcmBuf = dummyMp3;
+	mp3Init.pcmBuf = (SceUChar8 *)(dummyMp3);
 
 	checkpointNext("Decoded buffer size:");
 	mp3Init.pcmBufSize = 9215;

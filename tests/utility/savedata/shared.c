@@ -3,15 +3,15 @@
 unsigned int __attribute__((aligned(16))) list[262144];
 
 static SceUtilitySavedataParam2 lastParam;
-SceUtilitySavedataMsFreeInfo lastMsFree;
-SceUtilitySavedataMsDataInfo lastMsData;
-SceUtilitySavedataUsedDataInfo lastUtilityData;
-SceUtilitySavedataIdListInfo lastIdList;
-SceUtilitySavedataIdListEntry lastIdListEntries[100];
-SceUtilitySavedataFileListInfo lastFileList;
-SceUtilitySavedataFileListEntry lastFileListNormal[100];
-SceUtilitySavedataFileListEntry lastFileListSecure[100];
-SceUtilitySavedataFileListEntry lastFileListSystem[100];
+SceUtilitySavedataMsFreeInfo2 lastMsFree;
+SceUtilitySavedataMsDataInfo2 lastMsData;
+SceUtilitySavedataUsedDataInfo2 lastUtilityData;
+SceUtilitySavedataIdListInfo2 lastIdList;
+SceUtilitySavedataIdListEntry2 lastIdListEntries[100];
+SceUtilitySavedataFileListInfo2 lastFileList;
+SceUtilitySavedataFileListEntry2 lastFileListNormal[100];
+SceUtilitySavedataFileListEntry2 lastFileListSecure[100];
+SceUtilitySavedataFileListEntry2 lastFileListSystem[100];
 SceUtilitySavedataSizeInfo lastSizeInfo;
 SceUtilitySavedataSizeEntry lastSizeInfoNormal[100];
 SceUtilitySavedataSizeEntry lastSizeInfoSecure[100];

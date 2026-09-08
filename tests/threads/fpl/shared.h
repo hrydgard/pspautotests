@@ -17,11 +17,11 @@ enum SceKernelFplAttr {
 	PSP_FPL_ATTR_KNOWN = PSP_FPL_ATTR_FIFO | PSP_FPL_ATTR_PRIORITY | PSP_FPL_ATTR_HIGHMEM,
 };
 
-inline void schedfFpl(SceKernelFplInfo &info) {
+static inline void schedfFpl(SceKernelFplInfo &info) {
 	schedf("FPL: OK (size=%d,name=%s,attr=%08x,blockSize=%08x,numBlocks=%08x,freeBlocks=%08x,wait=%d)\n", info.size, info.name, info.attr, info.blockSize, info.numBlocks, info.freeBlocks, info.numWaitThreads);
 }
 
-inline void schedfFpl(SceUID fpl) {
+static inline void schedfFpl(SceUID fpl) {
 	if (fpl > 0) {
 		SceKernelFplInfo info;
 		info.size = sizeof(info);

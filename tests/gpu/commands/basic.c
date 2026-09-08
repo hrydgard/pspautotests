@@ -7,7 +7,8 @@
 #define SCR_WIDTH 480
 #define SCR_HEIGHT 272
 
-unsigned int __attribute__((aligned(16))) list[262144];
+// File-local: shared.cpp, which is linked into every target here, defines its own 'list'.
+static unsigned int __attribute__((aligned(16))) list[262144];
 unsigned int __attribute__((aligned(16))) clutWhite[] = { 0xFFFFFFFF, 0x00000000 };
 unsigned char __attribute__((aligned(16))) imageData[16] = {0};
 

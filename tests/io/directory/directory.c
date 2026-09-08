@@ -134,9 +134,9 @@ void checkDirectory(const char *dirname, int checkMode, int filter(const char *f
 			printFileModeFlags(&files[i].d_stat);
 			printf("\n");
 		}
-		checkDatetime(&files[i].d_stat.st_ctime);
-		checkDatetime(&files[i].d_stat.st_atime);
-		checkDatetime(&files[i].d_stat.st_mtime);
+		checkDatetime(&files[i].d_stat.sce_st_ctime);
+		checkDatetime(&files[i].d_stat.sce_st_atime);
+		checkDatetime(&files[i].d_stat.sce_st_mtime);
 	}
 }
 

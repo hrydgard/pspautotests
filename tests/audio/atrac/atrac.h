@@ -96,7 +96,6 @@ extern "C" {
 	int sceAtracReinit(int at3origCount, int at3plusCount);
 	int sceAtracResetPlayPosition(int atracID, u32 sampleCount, u32 bytesWrittenFirstBuf, u32 bytesWrittenSecondBuf);
 
-	int sceAtracGetAtracID(uint codecType);
 	int sceAtracSetData(int atracID, u8 *buf, u32 bufSize);
 	int sceAtracSetHalfwayBufferAndGetID(u8 *buf, u32 readSize, u32 bufferSize);
 	int sceAtracSetHalfwayBuffer(int atracID, u8 *buffer, u32 readSize, u32 bufferSize);

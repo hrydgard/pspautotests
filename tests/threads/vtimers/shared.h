@@ -5,7 +5,7 @@
 #include <pspthreadman.h>
 #include <psploadexec.h>
 
-inline void schedfVTimer(SceUID vtimer) {
+static inline void schedfVTimer(SceUID vtimer) {
 	SceKernelVTimerInfo info = {0};
 	if (vtimer >= 0) {
 		info.size = sizeof(info);

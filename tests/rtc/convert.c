@@ -6,7 +6,7 @@ void checkRtcSetTime_t()
 {
 	printf("Checking sceRtcSetTime_t\n");
 
-	pspTime pt;
+	ScePspDateTime pt;
 	printf("from 0:%d\n", sceRtcSetTime_t(&pt, 0));
 	DumpPSPTime("", &pt);
 	printf("from epoc:%d\n",sceRtcSetTime_t(&pt, 62135596800ULL));
@@ -38,7 +38,7 @@ void checkRtcSetTime_t()
 void checkRtcGetTime_t()
 {
 	printf("Checking sceRtcGetTime_t\n");
-	pspTime pt;
+	ScePspDateTime pt;
 	u64 ticks=0;
 	FillPSPTime(&pt,2012,9,20,7,12,15,500);
 	printf("from epoc:%d\n",sceRtcGetTime_t( &pt, &ticks));
@@ -55,7 +55,7 @@ void checkRtcSetDosTime()
 {
 	printf("Checking sceRtcSetDosTime\n");
 
-	pspTime pt;
+	ScePspDateTime pt;
 	printf("from epoc:%d\n",sceRtcSetDosTime(&pt, 0));
 	DumpPSPTime("0 = ",&pt);
 	printf("from epoc:%d\n",sceRtcSetDosTime(&pt, 1));
@@ -85,7 +85,7 @@ void checkRtcGetDosTime()
 {
 	printf("Checking sceRtcGetDosTime\n");
 
-	pspTime pt;
+	ScePspDateTime pt;
 	u64 ticks=0;
 	FillPSPTime(&pt, 2107, 9, 11, 24, 0, 0, 0);
 	printf("from epoc:%d\n",sceRtcGetDosTime( &pt, &ticks));
@@ -102,7 +102,7 @@ void checkRtcGetDosTime()
 
 void checkRtcSetWin32FileTime()
 {
-	pspTime pt;
+	ScePspDateTime pt;
 	u64 ft;
 	int result;
 	memset(&pt, 0, sizeof(pt));
@@ -129,7 +129,7 @@ void checkRtcSetWin32FileTime()
 
 void checkRtcGetWin32FileTime()
 {
-	pspTime pt;
+	ScePspDateTime pt;
 	u64 ft = -1337;
 	int result;
 
@@ -171,7 +171,7 @@ void checkRtcGetWin32FileTime()
 
 void checkSetTick()
 {
-	pspTime pt;
+	ScePspDateTime pt;
 	u64 ticks = 835072;
 
 	memset(&pt, 0, sizeof(pt));
@@ -198,7 +198,7 @@ void checkSetTick()
 }
 
 void checkGetTick() {
-	pspTime pt;
+	ScePspDateTime pt;
 	u64 ticks;
 
 	printf("Checking sceRtcGetTick\n");
@@ -225,7 +225,7 @@ void checkGetTick() {
 }
 
 void checkRFC2822() {
-	pspTime pt;
+	ScePspDateTime pt;
 	u64 ticks;
 	char buffer[256];
 
@@ -245,7 +245,7 @@ void checkRFC2822() {
 }
 
 void checkRFC3339() {
-	pspTime pt;
+	ScePspDateTime pt;
 	u64 ticks;
 	char buffer[256];
 

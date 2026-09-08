@@ -1,5 +1,5 @@
 TARGET = simple
-OBJS = simple.o
+OBJS = simple.o kdebug-imports.o
 PSP_EBOOT_TITLE = mstick test 
 
 BUILD_PRX = 1

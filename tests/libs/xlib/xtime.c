@@ -45,17 +45,17 @@ void xTimeUpdate()
     }
 }
 
-inline float xTimeGetDeltaTime()
+float xTimeGetDeltaTime()
 {
     return delta_time;
 }
 
-inline int xTimeFpsApprox()
+int xTimeFpsApprox()
 {
     return (int)fps;
 }
 
-inline float xTimeSecPassed()
+float xTimeSecPassed()
 {
     return rel_time;
 }

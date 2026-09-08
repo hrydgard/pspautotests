@@ -13,7 +13,7 @@ static volatile int schedulingPlacement = 0;
 // So we can log the result from the thread.
 static int schedulingResult = -1;
 
-inline void schedfAlarm(SceUID alarm, s64 currentTime) {
+static inline void schedfAlarm(SceUID alarm, s64 currentTime) {
 	if (alarm > 0) {
 		SceKernelAlarmInfo info;
 		info.size = sizeof(info);
@@ -29,7 +29,7 @@ inline void schedfAlarm(SceUID alarm, s64 currentTime) {
 	}
 }
 
-inline void printfAlarm(SceUID alarm, s64 currentTime) {
+static inline void printfAlarm(SceUID alarm, s64 currentTime) {
 	schedfAlarm(alarm, currentTime);
 	flushschedf();
 }

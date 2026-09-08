@@ -33,11 +33,11 @@ static volatile int schedulingPlacement = 0;
 // So we can log the result from the thread.
 static int schedulingResult = -1;
 
-inline void schedfMutexInfo(SceKernelMutexInfo *info) {
+static inline void schedfMutexInfo(SceKernelMutexInfo *info) {
 	schedf("Mutex: OK (size=%d,name=%s,attr=%08x,init=%d,current=%d,lockThread=%d,waiting=%08x)\n", info->size, info->name, info->attr, info->initCount, info->currentCount, info->lockThread == -1 ? 0 : 1, info->numWaitThreads);
 }
 
-inline void schedfMutex(SceUID mutex) {
+static inline void schedfMutex(SceUID mutex) {
 	if (mutex > 0) {
 		SceKernelMutexInfo info;
 		info.size = sizeof(info);
@@ -53,7 +53,7 @@ inline void schedfMutex(SceUID mutex) {
 	}
 }
 
-inline void printfMutex(SceUID mutex) {
+static inline void printfMutex(SceUID mutex) {
 	schedfMutex(mutex);
 	flushschedf();
 }

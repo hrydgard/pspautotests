@@ -7,11 +7,11 @@
 
 const static SceUInt NO_TIMEOUT = (SceUInt)-1337;
 
-inline void schedfCallback(SceKernelCallbackInfo &info) {
+static inline void schedfCallback(SceKernelCallbackInfo &info) {
 	schedf("Callback: OK (size=%d,name=%s,thread=%d,callback=%d,common=%08x,notifyCount=%08x,notifyArg=%d)\n", info.size, info.name, info.threadId == 0 ? 0 : 1, info.callback == 0 ? 0 : 1, info.common, info.notifyCount, info.notifyArg);
 }
 
-inline void schedfCallback(SceUID cb) {
+static inline void schedfCallback(SceUID cb) {
 	if (cb > 0) {
 		SceKernelCallbackInfo info;
 		info.size = sizeof(info);

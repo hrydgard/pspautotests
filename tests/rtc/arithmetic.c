@@ -20,7 +20,7 @@ void checkRtcTickAddTicks() {
 
 	u64 sourceTick = 62135596800000445ULL;
 	u64 destTick = 0;
-	pspTime pt;
+	ScePspDateTime pt;
 
 	printf("62135596800000445 adding -62135596800000445 ticks:%d\n", sceRtcTickAddTicks(&destTick, &sourceTick,(u64)-62135596800000445ULL));
 	printf("source tick %llu\n", sourceTick);
@@ -69,7 +69,7 @@ typedef enum {
 } RtcAddType;
 
 void checkAddDateValue(int year, int month, int day, int hour, int min, int sec, int micro, RtcAddType type, long long value_add) {
-	pspTime pt;
+	ScePspDateTime pt;
 	u64 sourceTick = 0x1337;
 
 	FillPSPTime(&pt,year, month, day, hour, min, sec, micro);

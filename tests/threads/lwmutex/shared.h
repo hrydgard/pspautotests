@@ -6,15 +6,6 @@
 #include <psploadexec.h>
 
 typedef struct {
-	int count;
-	SceUID thread;
-	int attr;
-	int numWaitThreads;
-	SceUID uid;
-	int pad[3];
-} SceLwMutexWorkarea;
-
-typedef struct {
 	SceSize size;
 	char name[32];
 	SceUInt attr;
@@ -26,13 +17,8 @@ typedef struct {
 	int numWaitThreads;
 } SceKernelLwMutexInfo;
 
-int sceKernelCreateLwMutex(void *workarea, const char *name, uint attr, int count, void *options);
-int sceKernelDeleteLwMutex(void *workarea);
-int sceKernelTryLockLwMutex(void *workarea, int count);
 int sceKernelTryLockLwMutex_600(void *workarea, int count);
-int sceKernelLockLwMutex(void *workarea, int count, SceUInt *timeout);
 int sceKernelLockLwMutexCB(void *workarea, int count, SceUInt *timeout);
-int sceKernelUnlockLwMutex(void *workarea, int count);
 int sceKernelReferLwMutexStatus(void *workarea, SceKernelLwMutexInfo *status);
 int sceKernelReferLwMutexStatusByID(SceUID mutexID, SceKernelLwMutexInfo *status);
 
@@ -50,19 +36,19 @@ static int schedulingResult = -1;
 #define CREATE_SIMPLE_THREAD(func) CREATE_PRIORITY_THREAD(func, 0x12)
 
 static inline void schedfLwMutexWorkarea(SceLwMutexWorkarea *workarea) {
-	schedf("LwMutexWorkarea (count=%d, thread=%08X, attr=%03X, waiting=%d, uid=%d, %08X, %08X, %08X)\n", workarea->count, workarea->thread > 0 ? 1 : workarea->thread, workarea->attr, workarea->numWaitThreads, workarea->uid > 0 ? 1 : workarea->uid, workarea->pad[0], workarea->pad[1], workarea->pad[2]);
+	schedf("LwMutexWorkarea (count=%d, thread=%08X, attr=%03X, waiting=%d, uid=%d, %08X, %08X, %08X)\n", workarea->lockLevel, workarea->lockThread > 0 ? 1 : workarea->lockThread, workarea->attr, workarea->numWaitThreads, workarea->uid > 0 ? 1 : workarea->uid, workarea->pad[0], workarea->pad[1], workarea->pad[2]);
 }
 
 static inline void printfLwMutexWorkarea(SceLwMutexWorkarea *workarea) {
 	schedfLwMutexWorkarea(workarea);
 }
 
-inline void schedfLwMutexInfo(SceLwMutexWorkarea *workarea, SceKernelLwMutexInfo *info) {
+static inline void schedfLwMutexInfo(SceLwMutexWorkarea *workarea, SceKernelLwMutexInfo *info) {
 	schedf("LwMutex: OK (size=%d,name=%s,attr=%08x,uid=%d,workarea=%d,init=%d,current=%d,lockThread=%d)\n", info->size, info->name, info->attr, info->uid == workarea->uid ? 1 : 0, info->workarea == workarea ? 1 : 0, info->initCount, info->currentCount, info->lockThread == -1 ? 0 : 1);
 	schedfLwMutexWorkarea(workarea);
 }
 
-inline void schedfLwMutex(SceLwMutexWorkarea *workarea) {
+static inline void schedfLwMutex(SceLwMutexWorkarea *workarea) {
 	if (workarea != NULL && workarea != (void *)0xDEADBEEF) {
 		SceKernelLwMutexInfo info, info2;
 		// Avoid garbage after the name.
@@ -88,7 +74,7 @@ inline void schedfLwMutex(SceLwMutexWorkarea *workarea) {
 	}
 }
 
-inline void printfLwMutex(SceLwMutexWorkarea *workarea) {
+static inline void printfLwMutex(SceLwMutexWorkarea *workarea) {
 	schedfLwMutex(workarea);
 	flushschedf();
 }
@@ -147,8 +133,8 @@ static int scheduleTestFunc(SceSize argSize, void* argPointer) {
 #define BASIC_SCHED_TEST(title, x) LOCKED_SCHED_TEST(title, 1, 0, x);
 
 #define FAKE_LWMUTEX(workarea, attrib, init) { \
-	workarea.count = init; \
-	workarea.thread = init > 0 ? sceKernelGetThreadId() : 0; \
+	workarea.lockLevel = init; \
+	workarea.lockThread = init > 0 ? sceKernelGetThreadId() : 0; \
 	workarea.attr = attrib; \
 	workarea.numWaitThreads = 0; \
 	workarea.uid = 0; \

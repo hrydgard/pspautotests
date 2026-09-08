@@ -48,8 +48,8 @@ int main(int argc, char **argv) {
 	// Try: ABC, ABC2, "", <>, * (wildcards, work, <> not?)
 	strcpy(param.saveName, "A?C");
 
-	SceUtilitySavedataIdListInfo idList;
-	SceUtilitySavedataIdListEntry idEntries[10];
+	SceUtilitySavedataIdListInfo2 idList;
+	SceUtilitySavedataIdListEntry2 idEntries[10];
 	memset(idEntries, 0, sizeof(idEntries));
 	idList.maxCount = 10;
 	idList.resultCount = -1;

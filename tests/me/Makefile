@@ -7,6 +7,7 @@ CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
 ASFLAGS = $(CFLAGS)
 
 LIBDIR =
+LIBS = -lpspkernel
 LDFLAGS =
 
 EXTRA_TARGETS = EBOOT.PBP

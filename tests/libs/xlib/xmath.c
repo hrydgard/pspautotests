@@ -497,7 +497,7 @@ float x_powf(float x, float pow)
     return result;
 }
 
-inline int x_next_pow2(int x)
+int x_next_pow2(int x)
 {
     if (x <= 0) return 0;
 	int pow2 = 1;
@@ -505,57 +505,57 @@ inline int x_next_pow2(int x)
 	return pow2;
 }
 
-inline int x_num_align(int x, int num)
+int x_num_align(int x, int num)
 {
     return (x % num == 0 ? x : x + num - (x % num));
 }
 
-inline int x_absi(int x)
+int x_absi(int x)
 {
     return (x < 0 ? -x : x);
 }
 
-inline float x_absf(float x)
+float x_absf(float x)
 {
     return fabsf(x);
 }
 
-inline int x_mini(int x, int y)
+int x_mini(int x, int y)
 {
     return (x < y ? x : y);
 }
 
-inline float x_minf(float x, float y)
+float x_minf(float x, float y)
 {
     return (x < y ? x : y);
 }
 
-inline int x_maxi(int x, int y)
+int x_maxi(int x, int y)
 {
     return (x > y ? x : y);
 }
 
-inline float x_maxf(float x, float y)
+float x_maxf(float x, float y)
 {
     return (x > y ? x : y);
 }
 
-inline float x_floorf(float x)
+float x_floorf(float x)
 {
     return floorf(x);
 }
 
-inline float x_ceilf(float x)
+float x_ceilf(float x)
 {
     return ceilf(x);
 }
 
-inline float x_ipart(float x)
+float x_ipart(float x)
 {
     return (float)((int)x);
 }
 
-inline float x_fpart(float x)
+float x_fpart(float x)
 {
     return x - x_ipart(x);
 }
@@ -568,7 +568,7 @@ float x_roundf(float x)
     return result;
 }
 
-inline float x_angle_to_target(float eye_x, float eye_y, float target_x, float target_y)
+float x_angle_to_target(float eye_x, float eye_y, float target_x, float target_y)
 {
     return x_atan2f(target_y - eye_y, target_x - eye_x);
 }
@@ -790,28 +790,28 @@ void x_billboard_dir(ScePspFVector3* r, ScePspFVector3* eye, ScePspFVector3* pos
     x_normalize(r, 0.5f);
 }
 
-inline float x_dist2(float x1, float y1, float x2, float y2)
+float x_dist2(float x1, float y1, float x2, float y2)
 {
     return x_sqrtf(SQR(x2 - x1) + SQR(y2 - y1));
 }
 
-inline float x_dist3(ScePspFVector3* p1, ScePspFVector3* p2)
+float x_dist3(ScePspFVector3* p1, ScePspFVector3* p2)
 {
     return x_sqrtf(SQR(p2->x - p1->x) + SQR(p2->y - p1->y) + SQR(p2->z - p1->z));
 }
 
-inline float x_ease_to_target(float cur, float target, float p, float dt)
+float x_ease_to_target(float cur, float target, float p, float dt)
 {
     return cur + (target - cur) * p * dt;
 }
 
-inline void x_ease_to_target2(float* cur_x, float* cur_y, float target_x, float target_y, float p, float dt)
+void x_ease_to_target2(float* cur_x, float* cur_y, float target_x, float target_y, float p, float dt)
 {
     *cur_x = x_ease_to_target(*cur_x, target_x, p, dt);
     *cur_y = x_ease_to_target(*cur_y, target_y, p, dt);
 }
 
-inline void x_ease_to_target3(ScePspFVector3* cur, ScePspFVector3* target, float p, float dt)
+void x_ease_to_target3(ScePspFVector3* cur, ScePspFVector3* target, float p, float dt)
 {
     cur->x = x_ease_to_target(cur->x, target->x, p, dt);
     cur->y = x_ease_to_target(cur->y, target->y, p, dt);

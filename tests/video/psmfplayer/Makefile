@@ -4,7 +4,7 @@ TARGETS = basic \
 	break delete releasepsmf stop \
 	configplayer playmode selectspecific selectstream \
 	getcurrentpts getcurrentstatus getcurrentstream getpsmfinfo
-EXTRA_OBJS = psmf-imports.o mpeg-imports.o shared.o
+EXTRA_OBJS = psmf-imports.o ../mpeg/mpeg-imports.o shared.o
 
 COMMON_DIR = ../../../common
 include $(COMMON_DIR)/common.mk

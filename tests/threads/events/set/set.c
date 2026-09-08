@@ -2,7 +2,7 @@
 
 SETUP_SCHED_TEST;
 
-inline void testSet(const char *title, SceUID flag, u32 bits) {
+static inline void testSet(const char *title, SceUID flag, u32 bits) {
 	int result = sceKernelSetEventFlag(flag, bits);
 	if (result == 0) {
 		printf("%s: OK\n", title);

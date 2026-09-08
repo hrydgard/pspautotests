@@ -15,9 +15,18 @@ LIBDIR := $(LIBDIR) . $(COMMON_DIR)
 ifndef CFLAGS
 CFLAGS = -g -G0 -Wall -O0 -fno-strict-aliasing
 endif
+# Tests deliberately hand the kernel the wrong type - a NULL or 0xDEADBEEF where a SceUID goes,
+# an int stuffed into a void * callback argument - to see what it does with it. GCC 14 promoted
+# both of these from warnings to errors; put them back to warnings rather than casting away the
+# very thing being tested.
+CFLAGS := $(CFLAGS) -Wno-error=int-conversion -Wno-error=incompatible-pointer-types
 ifndef CXXFLAGS
-CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti 
+CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
 endif
+# Tests deliberately feed out-of-range constants (error codes, 0x8000xxxx values, 0xAB as a char)
+# through braced initializers to see what the kernel does with them. C++11 turned that from a
+# warning into an error, so keep it a warning.
+CXXFLAGS := $(CXXFLAGS) -Wno-narrowing
 ifndef ASFLAGS
 ASFLAGS = $(CFLAGS)
 endif
@@ -35,6 +44,9 @@ endif
 ifdef EXTRA_LIBS
 LIBS := $(LIBS) $(EXTRA_LIBS)
 endif
+# The .elf rule below links everything with the C driver, so C++ tests don't otherwise get
+# operator new/delete.
+LIBS := $(LIBS) -lstdc++
 
 TARGET = $(firstword $(TARGETS))
 OBJS = $(firstword $(TARGETS)).o $(EXTRA_OBJS)

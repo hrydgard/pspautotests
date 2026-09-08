@@ -7,6 +7,7 @@
  */
 
 #include <string.h>
+#include <strings.h>
 #include <pspgu.h>
 #include <pspgum.h>
 #include "xgraphics.h"
@@ -573,7 +574,7 @@ static int tex_load_tga(xTexture* t, char* filename, int levels, int flags)
 
 #include <png.h>
 
-static inline void user_warning_fn(png_structp png_ptr, png_const_charp warning_msg);
+void user_warning_fn(png_structp png_ptr, png_const_charp warning_msg);
 
 static int tex_load_png(xTexture* t, char* filename, int levels, int flags)
 {
@@ -757,11 +758,11 @@ xTexture* xTexLoadTex(char* filename, int levels, int flags)
     if (!ptr)
         return 0;
     xTexture* t = 0;
-    if (stricmp(".tga", ptr) == 0)
+    if (strcasecmp(".tga", ptr) == 0)
         t = xTexLoadTGA(filename, levels, flags);
-    else if (stricmp(".png", ptr) == 0)
+    else if (strcasecmp(".png", ptr) == 0)
         t = xTexLoadPNG(filename, levels, flags);
-    else if (stricmp(".bmp", ptr) == 0)
+    else if (strcasecmp(".bmp", ptr) == 0)
         t = xTexLoadBMP(filename, levels, flags);
     return t;
 }

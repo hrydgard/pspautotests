@@ -13,7 +13,7 @@ int sceKernelCancelSema(SceUID uid, int count, int *numWaitingThreads);
 
 int thread1, thread2;
 
-inline int whichThread() {
+static inline int whichThread() {
 	if (sceKernelGetThreadId() == thread1) {
 		return 1;
 	} else if (sceKernelGetThreadId() == thread2) {

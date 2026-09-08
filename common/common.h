@@ -27,8 +27,11 @@ void __va_end(va_list);
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdarg.h>
 #include <math.h>
 #include <string.h>
+// For uint, which several tests use and older pspsdk headers used to pull in.
+#include <sys/types.h>
 #include <pspctrl.h>
 #include <pspkerneltypes.h>
 

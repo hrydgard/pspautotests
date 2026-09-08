@@ -1,6 +1,7 @@
 #define sceKernelReferThreadStatus sceKernelReferThreadStatus_OLD
 
 #include <common.h>
+#include <pspthreadman.h>
 #include <sysmem-imports.h>
 
 #undef sceKernelReferThreadStatus

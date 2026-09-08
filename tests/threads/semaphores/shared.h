@@ -10,7 +10,7 @@
 	flushschedf(); \
 }
 
-inline void schedfSema(SceUID sema) {
+static inline void schedfSema(SceUID sema) {
 	if (sema > 0) {
 		SceKernelSemaInfo semainfo;
 		semainfo.size = sizeof(semainfo);

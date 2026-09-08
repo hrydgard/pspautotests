@@ -3,7 +3,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <pspgu.h>
+#include <pspintrman.h>
+#include <psputils.h>
 #include <pspgum.h>
+#include "sysmem-imports.h"
 
 static unsigned int __attribute__((aligned(16))) list[262144];
 
@@ -53,7 +56,7 @@ char* status_str(int status) {
 extern char schedfBuffer[65536];
 extern unsigned int schedfBufferPos;
 
-inline void breakInfo(const char *format, ...) {
+static inline void breakInfo(const char *format, ...) {
 	int result = sceGeBreak(1, NULL);
 	int flags = sceKernelCpuSuspendIntr();
 
@@ -67,7 +70,7 @@ inline void breakInfo(const char *format, ...) {
 	sceKernelCpuResumeIntr(flags);
 }
 
-inline void syncInfo(const char *format, ...) {
+static inline void syncInfo(const char *format, ...) {
 	int drawsync = sceGeDrawSync(0);
 
 	int flags = sceKernelCpuSuspendIntr();
@@ -81,7 +84,7 @@ inline void syncInfo(const char *format, ...) {
 	sceKernelCpuResumeIntr(flags);
 }
 
-inline void listInfo(int n, const char *format, ...) {
+static inline void listInfo(int n, const char *format, ...) {
 	int drawsync = sceGeDrawSync(1);
 	int flags = sceKernelCpuSuspendIntr();
 
@@ -100,7 +103,7 @@ inline void listInfo(int n, const char *format, ...) {
 	sceKernelCpuResumeIntr(flags);
 }
 
-inline void listInfoNosync(int n, const char *format, ...) {
+static inline void listInfoNosync(int n, const char *format, ...) {
 	int flags = sceKernelCpuSuspendIntr();
 	if (n != 0) {
 		schedf("  List %d\t", n);

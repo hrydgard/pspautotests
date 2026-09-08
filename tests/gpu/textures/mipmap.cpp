@@ -5,7 +5,6 @@
 #include <pspkernel.h>
 
 extern "C" int sceDmacMemcpy(void *dest, const void *source, unsigned int size);
-extern "C" void sendCommandi(int cmd, int argument);
 
 extern int HAS_DISPLAY;
 
@@ -129,7 +128,7 @@ void drawTexFlush(int img, unsigned int mode, const void *verts, u8 bias) {
 	sceGuEnable(GU_TEXTURE_2D);
 	sceGuTexSync();
 	sceGuTexFlush();
-	sendCommandi(200, (bias << 16) | mode);
+	sceGuSendCommandi(200, (bias << 16) | mode);
 	sceGuTexMode(GU_PSM_8888, 7, 0, GU_FALSE);
 	sceGuTexWrap(GU_CLAMP, GU_CLAMP);
 	sceGuTexFunc(GU_TFX_DECAL, GU_TCC_RGB);

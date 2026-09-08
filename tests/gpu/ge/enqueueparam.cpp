@@ -9,10 +9,6 @@ extern "C" {
 #include "sysmem-imports.h"
 }
 
-struct SceGeStack {
-	unsigned int stack[8];
-};
-
 struct PspGeListArgs2 {
 	unsigned int size;
 	PspGeContext *context;

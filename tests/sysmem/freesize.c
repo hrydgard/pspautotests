@@ -1,4 +1,6 @@
 #include <common.h>
+#include <pspsysmem.h>
+#include <pspmodulemgr.h>
 
 void tryAllocate(const char *title, SceSize size) {
 	SceUID alloc = sceKernelAllocPartitionMemory(PSP_MEMORY_PARTITION_USER, "test", PSP_SMEM_Low, size, NULL);

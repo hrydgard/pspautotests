@@ -1,6 +1,6 @@
 #include "shared.h"
 
-inline void deleteTest(const char *title, SceUID mutex) {
+static inline void deleteTest(const char *title, SceUID mutex) {
 	int result = sceKernelDeleteMutex(mutex);
 	if (result == 0) {
 		printf("%s: OK\n", title);

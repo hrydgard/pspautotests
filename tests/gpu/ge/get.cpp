@@ -9,23 +9,19 @@ extern "C" {
 #include "sysmem-imports.h"
 }
 
-struct SceGeStack {
-	int v[8];
-};
-extern "C" int sceGeGetStack(int level, SceGeStack *stack);
 
 static u32 __attribute__((aligned(16))) list[262144];
 
 void testGetStack(const char *title, int level, bool useStack = true) {
-	SceGeStack stack;
+	PspGeStack stack;
 	memset(&stack, 0xCC, sizeof(stack));
 	checkpoint("  %s: %08x", title, sceGeGetStack(level, useStack ? &stack : NULL));
 	// I'm not sure what the others are, or if they're important.
 	// So far, no games have been seen accessing this, so let's just make sure the values we know are right.
-	checkpoint("     * 0: %08x", 0, stack.v[0]);
-	checkpoint("     * 1: %08x", 1, stack.v[1]);
-	checkpoint("     * 2: %08x", 2, stack.v[2]);
-	checkpoint("     * 7: %08x", 7, stack.v[7]);
+	checkpoint("     * 0: %08x", 0, stack.stack[0]);
+	checkpoint("     * 1: %08x", 1, stack.stack[1]);
+	checkpoint("     * 2: %08x", 2, stack.stack[2]);
+	checkpoint("     * 7: %08x", 7, stack.stack[7]);
 }
 
 extern "C" void signalFunc(int id, void *arg) {

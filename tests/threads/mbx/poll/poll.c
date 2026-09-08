@@ -23,7 +23,7 @@ void pollMbx(const char *title, SceUID mbx, int getMsg) {
 	}
 }
 
-inline void sendMbxDummy(SceUID mbx, int prio) {
+static inline void sendMbxDummy(SceUID mbx, int prio) {
 	TestMbxMessage *msg = nextMbxMsg();
 
 	*((int *) &msg->header.msgPriority) = prio;

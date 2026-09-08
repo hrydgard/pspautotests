@@ -4,7 +4,6 @@
 #include <psputils.h>
 
 // sceJpegCsc
-extern "C" int sceJpeg_67F0ED84(void *dest, const void *srcYCbCr, uint32_t widthHeight, int stride, uint32_t chroma);
 
 static uint8_t ycbcr[786432];
 static uint32_t *frame;
@@ -14,7 +13,7 @@ static void testJpegCsc(const char *title, bool useDest, bool useSrc, uint32_t w
 	memset(frame, 0xCC, FRAME_SIZE + 4);
 	sceKernelDcacheWritebackInvalidateRange(frame, FRAME_SIZE + 4);
 
-	uint32_t result = sceJpeg_67F0ED84(useDest ? frame : NULL, useSrc ? ycbcr : NULL, widthHeight, stride, chroma);
+	uint32_t result = sceJpegCsc(useDest ? (u8 *)frame : NULL, useSrc ? (u8 *)ycbcr : NULL, widthHeight, stride, chroma);
 	size_t len = 0;
 	for (int i = 1024 * 1024; i >= 0; --i) {
 		if (frame[i] != 0xCCCCCCCC) {
@@ -46,7 +45,7 @@ static void testJpegCscPattern(const char *title, int chroma, int y, int cb, int
 	memset(ycbcr + 256 + cbcrSize, 0xFF, cr);
 	sceKernelDcacheWritebackInvalidateRange(ycbcr, 768);
 
-	int result = sceJpeg_67F0ED84(frame, ycbcr, 0x00100010, 0x0010, chroma);
+	int result = sceJpegCsc((u8 *)frame, (u8 *)ycbcr, 0x00100010, 0x0010, chroma);
 	checkpoint(NULL);
 	schedf("%s: %08x =", title, result);
 	uint32_t last = frame[0];
@@ -79,7 +78,7 @@ static void testJpegCscValue(const char *title, int chroma, uint8_t yy, uint8_t 
 	}
 	sceKernelDcacheWritebackInvalidateRange(ycbcr, sizeof(ycbcr));
 
-	int result = sceJpeg_67F0ED84(frame, ycbcr, 0x00100010, 0x0010, chroma);
+	int result = sceJpegCsc((u8 *)frame, (u8 *)ycbcr, 0x00100010, 0x0010, chroma);
 	checkpoint("%s: %08x (%08x)", title, result, frame[0]);
 }
 

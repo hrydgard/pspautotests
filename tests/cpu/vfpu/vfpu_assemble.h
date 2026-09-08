@@ -88,7 +88,7 @@ struct FP16 {
 };
 
 // More magic code: https://gist.github.com/rygorous/2156668
-inline FP16 float_to_half_fast3(FP32 f) {
+static inline FP16 float_to_half_fast3(FP32 f) {
 	static const FP32 f32infty = { 255 << 23 };
 	static const FP32 f16infty = { 31 << 23 };
 	static const FP32 magic = { 15 << 23 };
@@ -114,7 +114,7 @@ inline FP16 float_to_half_fast3(FP32 f) {
 	return o;
 }
 
-inline uint16_t ShrinkToHalf(float full) {
+static inline uint16_t ShrinkToHalf(float full) {
 	FP32 fp32;
 	fp32.f = full;
 	FP16 fp = float_to_half_fast3(fp32);

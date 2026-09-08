@@ -6,8 +6,6 @@
 
 const static bool DISPLAY_DEPTH_VALUES = false;
 
-extern "C" void sendCommandi(int cmd, int argument);
-extern "C" void sendCommandf(int cmd, float argument);
 extern "C" int sceDmacMemcpy(void *dest, const void *source, unsigned int size);
 
 u8 *fbp0 = 0;
@@ -127,10 +125,10 @@ void init() {
 	sceGuOffset(2048 - (480 / 2), 2048 - (272 / 2));
 	sceGuViewport(2048, 2048, 480, 272);
 	sceGuDepthMask(0);
-	sendCommandf(GE_CMD_VIEWPORTZ1, -32767.5f);
-	sendCommandf(GE_CMD_VIEWPORTZ2, 32767.5f);
-	sendCommandi(GE_CMD_MINZ, 0);
-	sendCommandi(GE_CMD_MAXZ, 65535);
+	sceGuSendCommandf(GE_CMD_VIEWPORTZ1, -32767.5f);
+	sceGuSendCommandf(GE_CMD_VIEWPORTZ2, 32767.5f);
+	sceGuSendCommandi(GE_CMD_MINZ, 0);
+	sceGuSendCommandi(GE_CMD_MAXZ, 65535);
 	sceGuEnable(GU_DEPTH_TEST);
 	sceGuDepthFunc(GU_ALWAYS);
 	sceGuEnable(GU_SCISSOR_TEST);
@@ -213,10 +211,10 @@ void setTranslateMatrix(int mtx, float amt) {
 
 void setDepthRange(float range) {
 	sceGuStart(GU_DIRECT, list);
-	sendCommandf(GE_CMD_VIEWPORTZ1, -32767.5f);
-	sendCommandf(GE_CMD_VIEWPORTZ2, range);
-	sendCommandi(GE_CMD_MINZ, 0);
-	sendCommandi(GE_CMD_MAXZ, 65535);
+	sceGuSendCommandf(GE_CMD_VIEWPORTZ1, -32767.5f);
+	sceGuSendCommandf(GE_CMD_VIEWPORTZ2, range);
+	sceGuSendCommandi(GE_CMD_MINZ, 0);
+	sceGuSendCommandi(GE_CMD_MAXZ, 65535);
 
 	sceGuFinish();
 	sceGuSync(0, 0);

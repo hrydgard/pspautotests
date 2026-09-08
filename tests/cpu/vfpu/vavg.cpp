@@ -11,7 +11,7 @@ ALIGN16 ScePspFVector4 input, output;
 	void NOINLINE FuncName(ScePspFVector4 *v0, const ScePspFVector4 *v1) { \
 	asm volatile ( \
 	"lv.q   C100, %1\n" \
-	Op " S000, "PFX"100\n" \
+	Op " S000, " PFX "100\n" \
 	"sv.q   C000, %0\n" \
 	: "+m" (*v0) : "m" (*v1) \
 	); \

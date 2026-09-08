@@ -4,11 +4,8 @@
 #include <stdio.h>
 #include <pspgu.h>
 #include <pspgum.h>
-
-typedef struct
-{
-    unsigned int stack[8];
-} PspGeStack;
+#include <psputils.h>
+#include "sysmem-imports.h"
 
 typedef struct
 {
@@ -100,7 +97,7 @@ char* status_str(int status) {
 	return str[status];
 }
 
-inline void breakInfo(const char *format, ...) {
+static inline void breakInfo(const char *format, ...) {
 	bpos += sprintf(bpos, "  BREAK \t");
 
 	int result = sceGeBreak(1, NULL);
@@ -112,7 +109,7 @@ inline void breakInfo(const char *format, ...) {
 	va_end(args);
 }
 
-inline void syncInfo(const char *format, ...) {
+static inline void syncInfo(const char *format, ...) {
 	bpos += sprintf(bpos, "  WAIT  \t");
 
 	int drawsync = sceGeDrawSync(0);
@@ -124,7 +121,7 @@ inline void syncInfo(const char *format, ...) {
 	va_end(args);
 }
 
-inline void listInfo(int n, const char *format, ...) {
+static inline void listInfo(int n, const char *format, ...) {
 	if (n != 0) {
 		bpos += sprintf(bpos, "  List %d\t", n);
 	} else {
@@ -140,7 +137,7 @@ inline void listInfo(int n, const char *format, ...) {
 	va_end(args);
 }
 
-inline void listInfoNosync(int n, const char *format, ...) {
+static inline void listInfoNosync(int n, const char *format, ...) {
 	if (n != 0) {
 		bpos += sprintf(bpos, "  List %d\t", n);
 	} else {
@@ -288,16 +285,16 @@ enum
 #define MAKE_GE_BASE(address) (0x10000000 | (((address) & 0xFF000000) >> 8))
 #define MAKE_GE_ORIGIN(value) (0x14000000 | ((value) & 0xFFFFFF))
 
-inline void dlist1SignalOffset(int pos, int type, int endtype, unsigned int address) {
+static inline void dlist1SignalOffset(int pos, int type, int endtype, unsigned int address) {
 	dlist1[pos + 0x00] = MAKE_GE_SIGNAL(type, address >> 16);
 	dlist1[pos + 0x01] = MAKE_GE_END(endtype, address);
 }
 
-inline void dlist1SignalRelative(int pos, int type, int endtype, unsigned int address) {
+static inline void dlist1SignalRelative(int pos, int type, int endtype, unsigned int address) {
 	dlist1SignalOffset(pos, type, endtype, address * sizeof(unsigned int));
 }
 
-inline void dlist1SignalAddress(int pos, int type, int endtype, unsigned int *address) {
+static inline void dlist1SignalAddress(int pos, int type, int endtype, unsigned int *address) {
 	dlist1SignalOffset(pos, type, endtype, (unsigned int) address);
 }
 

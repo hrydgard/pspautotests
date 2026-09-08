@@ -32,13 +32,12 @@ extern "C" int main(int argc, char *argv[]) {
 	int fd = sceIoOpen("sample.mp3", PSP_O_RDONLY, 0777);
 
 	SceMp3InitArg mp3Init;
+	memset(&mp3Init, 0, sizeof(mp3Init));
 	mp3Init.mp3StreamStart = 0;
 	mp3Init.mp3StreamEnd = sceIoLseek32(fd, 0, SEEK_END);
-	mp3Init.unk1 = 0;
-	mp3Init.unk2 = 0;
-	mp3Init.mp3Buf = mp3Buf;
+	mp3Init.mp3Buf = (SceUChar8 *)(mp3Buf);
 	mp3Init.mp3BufSize = sizeof(mp3Buf);
-	mp3Init.pcmBuf = pcmBuf;
+	mp3Init.pcmBuf = (SceUChar8 *)(pcmBuf);
 	mp3Init.pcmBufSize = sizeof(pcmBuf);
 
 	checkpointNext("Release handle types");

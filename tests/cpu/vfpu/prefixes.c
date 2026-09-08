@@ -1,4 +1,5 @@
 #include <common.h>
+#include "vfpu_common.h"
 
 #include <pspkernel.h>
 #include <stdio.h>

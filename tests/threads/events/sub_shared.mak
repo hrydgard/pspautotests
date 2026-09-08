@@ -9,6 +9,8 @@ USE_PSPSDK_LIBC = 1
 
 INCDIR = ../../../../common
 CFLAGS = -g -G0 -Wall -O0 -fno-strict-aliasing
+# See common/common.mk - these tests pass the kernel deliberately wrong types.
+CFLAGS += -Wno-error=int-conversion -Wno-error=incompatible-pointer-types
 CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
 ASFLAGS = $(CFLAGS)
 
