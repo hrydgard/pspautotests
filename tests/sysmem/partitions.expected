@@ -1,0 +1,14 @@
+Partitions from a user module:
+  Partition -1: alloc=800200d2 vpl=800200d2 fpl=800200d2 msgpipe=800200d2
+  Partition 0: alloc=800200d2 vpl=800200d2 fpl=800200d2 msgpipe=800200d2
+  Partition 1: alloc=800200d6 vpl=800200d1 fpl=800200d1 msgpipe=800200d1
+  Partition 2: alloc=OK vpl=OK fpl=OK msgpipe=OK
+  Partition 3: alloc=800200d6 vpl=800200d1 fpl=800200d1 msgpipe=800200d1
+  Partition 4: alloc=800200d6 vpl=800200d1 fpl=800200d1 msgpipe=800200d1
+  Partition 5: alloc=OK vpl=BLOCKS fpl=OK msgpipe=OK
+  Partition 6: alloc=OK vpl=OK fpl=OK msgpipe=OK
+  Partition 7: alloc=800200d2 vpl=800200d2 fpl=800200d2 msgpipe=800200d2
+  Partition 8: alloc=800200d2 vpl=800200d2 fpl=800200d2 msgpipe=800200d2
+  Partition 9: alloc=800200d2 vpl=800200d2 fpl=800200d2 msgpipe=800200d2
+  Partition 10: alloc=800200d2 vpl=800200d2 fpl=800200d2 msgpipe=800200d2
+  Partition 11: alloc=800200d2 vpl=800200d2 fpl=800200d2 msgpipe=800200d2

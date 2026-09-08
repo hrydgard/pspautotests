@@ -128,6 +128,33 @@ int printf(const char *format, ...) {
 	}
 	return len;
 }
+
+// GCC rewrites printf("literal\n") and printf("%s\n", s) into puts(), and printf("x") into
+// putchar() - so without these two, whole lines of a kernel test's output disappear into
+// newlib's stdout, which a kernel build doesn't have. This is not optional.
+int puts(const char *s) {
+	int len = (int)strlen(s);
+	if (RUNNING_ON_EMULATOR) {
+		sceIoDevctl("emulator:", EMULATOR_DEVCTL__SEND_OUTPUT, (void *)s, len, NULL, 0);
+		sceIoDevctl("emulator:", EMULATOR_DEVCTL__SEND_OUTPUT, (void *)"\n", 1, NULL, 0);
+	}
+	if (kernelOutputFd >= 0) {
+		sceIoWrite(kernelOutputFd, s, len);
+		sceIoWrite(kernelOutputFd, "\n", 1);
+	}
+	return len + 1;
+}
+
+int putchar(int c) {
+	char ch = (char)c;
+	if (RUNNING_ON_EMULATOR) {
+		sceIoDevctl("emulator:", EMULATOR_DEVCTL__SEND_OUTPUT, (void *)&ch, 1, NULL, 0);
+	}
+	if (kernelOutputFd >= 0) {
+		sceIoWrite(kernelOutputFd, &ch, 1);
+	}
+	return c;
+}
 #endif
 
 void flushschedf() {

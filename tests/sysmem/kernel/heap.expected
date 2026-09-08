@@ -1,0 +1,77 @@
+[x] Partitions:
+[x]   Partition -1: 800200d6
+[x]   Partition 0: 800200d6
+[x]   Partition 1: OK
+[x]   Partition 2: OK
+[x]   Partition 3: OK
+[x]   Partition 4: OK
+[x]   Partition 5: CRASHES
+[x]   Partition 6: OK
+[x]   Partition 7: 800200d6
+[x]   Partition 8: 800200d6
+[x]   Partition 9: 800200d6
+[x]   Partition 10: 800200d6
+[x]   Partition 11: 800200d6
+
+[x] Sizes:
+[x]   Size 0xFFFFFFFF: 800200dc
+[x]   Size 0x00000000: 800200dc
+[x]   Size 0x00000001: OK
+[x]   Size 0x00000010: OK
+[x]   Size 0x00000040: OK
+[x]   Size 0x00000100: OK
+[x]   Size 0x00001000: OK
+
+[x] Flags:
+[x]   Flags -1: OK
+[x]   Flags 0: OK
+[x]   Flags 1: OK
+[x]   Flags 2: OK
+[x]   Flags 3: OK
+[x]   Flags 4: OK
+[x]   Flags 256: OK
+[x]   Flags 4096: OK
+
+[x] Names:
+[x]   Normal name: OK
+[x]   Empty name: OK
+[x]   NULL name: 80020001
+
+[x] Does it come out of the partition it asked for:
+[x]   Took at least the heap size: 1
+[x]   Gave it all back on delete: 1
+
+[x] Allocating:
+[x]   0x100: 1
+[x]   Second 0x100 is a different block: 1
+[x]   Zero bytes: 1
+[x]   Free a block: 00000000
+[x]   Free the other block: 00000000
+[x]   Allocate again after freeing: 1
+[x]   Delete: 00000000
+
+[x] Allocating more than the heap holds:
+[x]   Exactly the heap size: 1
+[x]   Twice the heap size: 1
+
+[x] AllocHeapMemoryWithOption:
+[x]   Option size 0: 1
+[x]   Option size 4: 1
+[x]   Option size 8: 1
+[x]   Option size 12: 1
+[x]   Option size 256: 1
+[x]   NULL option: 1
+
+[x] Alignment:
+[x]   Aligned to 0x0: aligned=1
+[x]   Aligned to 0x1: failed
+[x]   Aligned to 0x2: failed
+[x]   Aligned to 0x4: aligned=1
+[x]   Aligned to 0x8: aligned=1
+[x]   Aligned to 0x10: aligned=1
+[x]   Aligned to 0x20: aligned=1
+[x]   Aligned to 0x40: aligned=1
+[x]   Aligned to 0x80: aligned=1
+[x]   Aligned to 0x100: failed
+[x]   Aligned to 0x200: failed
+[x]   Aligned to 0x1000: failed
