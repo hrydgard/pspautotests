@@ -1,4 +1,4 @@
-TARGETS = create delete free get priority refer
+TARGETS = create memory delete free get priority refer
 EXTRA_OBJS = ../lwmutex/lwmutex-imports.o
 
 COMMON_DIR = ../../../common

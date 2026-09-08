@@ -40,10 +40,11 @@ extern "C" int main(int argc, char *argv[]) {
 	}
 
 	checkpointNext("Block sizes:");
+	// Sizes that ask for a megabyte or more live in the memory test - whether they succeed
+	// depends on how much of the partition happens to be free, not on the API.
 	static const u32 sizes[] = {
 		-1, 0, 1, 0x10, 0x20, 0x2F, 0x30, 0x31, 0x32, 0x36, 0x38, 0x39, 0x3A,
-		0x131, 0x136, 0x139, 0x1000, 0x10000, 0x100000, 0x1000000, 0x10000000,
-		0x1800000, 0x2000000,
+		0x131, 0x136, 0x139, 0x1000, 0x10000,
 	};
 	for (size_t i = 0; i < ARRAY_SIZE(sizes); ++i) {
 		sprintf(temp, "  Size 0x%08X", sizes[i]);
@@ -53,8 +54,7 @@ extern "C" int main(int argc, char *argv[]) {
 	checkpointNext("Counts:");
 	static const u32 counts[] = {
 		-1, 0, 1, 0x10, 0x20, 0x2F, 0x30, 0x31, 0x32, 0x36, 0x38, 0x39, 0x3A,
-		0x131, 0x136, 0x139, 0x1000, 0x10000, 0x100000, 0x1000000, 0x10000000,
-		0x1800000, 0x2000000,
+		0x131, 0x136, 0x139,
 	};
 	for (size_t i = 0; i < ARRAY_SIZE(counts); ++i) {
 		sprintf(temp, "  Count 0x%08X", counts[i]);
@@ -77,8 +77,7 @@ extern "C" int main(int argc, char *argv[]) {
 	checkpointNext("Alignments:");
 	static const u32 alignments[] = {
 		-1, 0, 1, 3, 0x10, 0x20, 0x2F, 0x30, 0x31, 0x32, 0x100, 0x131, 0x800,
-		0x1000, 0x10000, 0x100000, 0x1000000, 0x10000000,
-		0x1800000, 0x2000000,
+		0x1000, 0x10000,
 	};
 	for (size_t i = 0; i < ARRAY_SIZE(alignments); ++i) {
 		sprintf(temp, "  Aligned to 0x%08X", alignments[i]);

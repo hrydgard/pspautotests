@@ -1,0 +1,26 @@
+[x] Free memory at start:
+[x]   At least 4MB free: 0
+[x]   At least 8MB free: 0
+
+[x] Large block sizes:
+[x]   Size 0x00100000: (allocated 0 bytes) Tlspl: Failed (80020190)
+[x]   Size 0x01000000: (allocated 0 bytes) Tlspl: Failed (80020190)
+[x]   Size 0x10000000: (allocated 0 bytes) Tlspl: Failed (80020190)
+[x]   Size 0x01800000: (allocated 0 bytes) Tlspl: Failed (80020190)
+[x]   Size 0x02000000: (allocated 0 bytes) Tlspl: Failed (80020190)
+
+[x] Large counts:
+[x]   Count 0x00001000: (allocated 1048576 bytes) Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000100,totalBlocks=00001000,freeBlocks=00001000,wait=0)
+[x]   Count 0x00010000: (allocated 0 bytes) Tlspl: Failed (80020190)
+[x]   Count 0x00100000: (allocated 0 bytes) Tlspl: Failed (80020190)
+[x]   Count 0x01000000: (allocated 0 bytes) Tlspl: Failed (800201B7)
+[x]   Count 0x10000000: (allocated 0 bytes) Tlspl: Failed (800201B7)
+[x]   Count 0x01800000: (allocated 0 bytes) Tlspl: Failed (800201B7)
+[x]   Count 0x02000000: (allocated 0 bytes) Tlspl: Failed (800201B7)
+
+[x] Large alignments:
+[x]   Aligned to 0x00100000: (allocated 0 bytes) Tlspl: Failed (80020190)
+[x]   Aligned to 0x01000000: (allocated 0 bytes) Tlspl: Failed (80020190)
+[x]   Aligned to 0x10000000: (allocated 0 bytes) Tlspl: Failed (80020190)
+[x]   Aligned to 0x01800000: (allocated 0 bytes) Tlspl: Failed (800200D2)
+[x]   Aligned to 0x02000000: (allocated 0 bytes) Tlspl: Failed (80020190)

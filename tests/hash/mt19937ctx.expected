@@ -1,0 +1,21 @@
+-- what the SDK header claims:
+sizeof(SceKernelUtilsMt19937Context) = 2500
+-- context size and contents:
+Mt19937Init: 00000000
+after init: touched [0..2499], so at least 2500 bytes
+seeded state: already-twisted array, all 624 words, at offset 4
+word before the state: 00000000
+word before the state after one draw: 00000001
+state unchanged by one draw: 0
+-- reference sequences, one generator at a time:
+seed 12345678: c6979343 0962d2fa a73a24a4 e118a180 b5475abb 64613c7c 6f32f4db f27bf199
+seed deadbeef: 39037a7d e5052ed8 c5dc5c6e 6ddccbe1 a13aed6c 23839b39 37f0a862 63e92751
+seed 12345678 matches reference MT19937: 1
+seed deadbeef matches reference MT19937: 1
+-- two generators, interleaved:
+A matches its solo sequence: 1
+B matches its solo sequence: 1
+-- re-seeding the same context:
+after re-init with the first seed: c6979343 0962d2fa a73a24a4 e118a180 b5475abb 64613c7c 6f32f4db f27bf199
+-- a context is self-contained:
+copied context continues identically: 1

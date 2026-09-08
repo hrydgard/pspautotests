@@ -1,0 +1,23 @@
+-- what the SDK header claims:
+sizeof(SceKernelUtilsMd5Context) = 96
+-- context size and contents:
+BlockInit: 00000000
+after init: touched [0..31], so at least 32 bytes
+init state (67452301 efcdab89 98badcfe 10325476): found at offset 0
+header after init: 67452301 efcdab89 98badcfe 10325476 cccccccc 00000000 00000000 00000000
+after one 64-byte update: touched [0..95], so at least 96 bytes
+header after 64 bytes: 632d18d4 cd1caeb8 858dcfd6 0a939a01 cccccccc 00000000 00000040 00000000
+first 4 bytes of the partial block: found at offset 32
+after a 5-byte update: touched [0..95], so at least 96 bytes
+header after 5 more bytes: 632d18d4 cd1caeb8 858dcfd6 0a939a01 cccccccc 00000005 00000045 00000000
+-- reference digests, one at a time:
+whole thing, Md5Digest: 5c2cb4d92a89056f07e6ddda4e0e2120
+whole thing, Block*: 5c2cb4d92a89056f07e6ddda4e0e2120
+first half, Block*: b08792c1ed6c9b29e05b1c5be22c7cd9
+-- two contexts, interleaved:
+interleaved A (whole thing): 5c2cb4d92a89056f07e6ddda4e0e2120
+interleaved B (first half): b08792c1ed6c9b29e05b1c5be22c7cd9
+A matches its sequential digest: 1
+B matches its sequential digest: 1
+-- a context is self-contained:
+copied context finishes identically: 1

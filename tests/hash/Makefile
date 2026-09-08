@@ -1,4 +1,4 @@
-TARGETS = hash
+TARGETS = hash md5ctx mt19937ctx
 LIBS = -lpspgu -lpsprtc -lpsppower -lpspctrl -lpspmath -lcommon -lc -lm
 
 COMMON_DIR = ../../common
