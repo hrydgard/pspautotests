@@ -19,13 +19,6 @@ dir: private=cccccccc cccccccc cccccccc cccccccc cccccccc cccccccc
 dir: wrote [0..63] of the 88 byte struct (margin starts at 16)
 -- the volume root:
 ms0: sceIoGetstat = 80010016
--- after chstat to read-only:
-sceIoChstat: 00000000
-readonly: sceIoGetstat = 00000000
-readonly: mode=0000216d attr=0021 size=8
-readonly: ctime/atime/mtime written = 1/1/1
-readonly: private=cccccccc cccccccc cccccccc cccccccc cccccccc cccccccc
-readonly: wrote [0..63] of the 88 byte struct (margin starts at 16)
 -- getstat vs dread:
 dread vs getstat for 'plain.txt': mode 000021ff/000021ff same, attr 0020/0020 same
 dread vs getstat for 'subdir': mode 000011ff/000011ff same, attr 0010/0010 same

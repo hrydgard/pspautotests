@@ -1,0 +1,14 @@
+-- as created:
+fresh: mode=000021ff attr=0020
+-- chstat to 0444:
+sceIoChstat: 00000000
+readonly: mode=0000216d attr=0021
+-- chstat back to 0777:
+sceIoChstat: 00000000
+writable again: mode=000021ff attr=0020
+-- chstat the attribute directly:
+sceIoChstat: 00000000
+attr 0x21: mode=0000216d attr=0021
+-- cleanup:
+remove: 00000000
+rmdir: 00000000

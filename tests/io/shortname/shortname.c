@@ -12,6 +12,13 @@
 // The layout of the d_private block is not the one in pspiofilemgr_dirent.h, and it depends
 // on the compiled SDK version, so we don't decode it - we dump it and let the .expected say
 // what the hardware really writes.
+//
+// Note for anyone running this against PPSSPP: the d_name column will not match, and that is
+// deliberate on the emulator's side rather than a bug to go and fix. SimulateVFATBug() in
+// DirectoryFileSystem.cpp uppercases lowercase 8.3 names on purpose, because some homebrew
+// depends on that firmware behaviour for files created on a PC. Files created on the PSP - which
+// is what this test does - keep their case on hardware, and its own comment says as much. The
+// short names in d_private are the part an emulator can and does match.
 
 #define TESTDIR "ms0:/PSP/SHORTTST"
 

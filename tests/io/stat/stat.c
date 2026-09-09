@@ -1,6 +1,7 @@
 #include <common.h>
 #include <pspiofilemgr.h>
 #include <pspkernel.h>
+#include <strings.h>
 
 // What does the kernel actually put in a SceIoStat on the memory stick?
 //
@@ -124,7 +125,9 @@ static void compareWithDread(const char *dir, const char *name) {
 		return;
 	}
 	while (sceIoDread(fd, &entry) > 0) {
-		if (strcmp(entry.d_name, name) != 0) {
+		// Case-insensitively: FAT doesn't distinguish, and an emulator may report the name
+		// uppercased. What's being compared here is stat against dread, not the spelling.
+		if (strcasecmp(entry.d_name, name) != 0) {
 			memset(&entry, 0, sizeof(entry));
 			continue;
 		}
@@ -171,22 +174,11 @@ int main(int argc, char **argv) {
 	printf("-- the volume root:\n");
 	statPath("ms0", "ms0:/");
 
-	// Clearing the write bits is how you make a FAT file read-only. Does st_mode follow, and
-	// does the executable bit the emulator adds for FAT show up here at all?
-	printf("-- after chstat to read-only:\n");
-	SceIoStat chg;
-	memset(&chg, 0, sizeof(chg));
-	chg.st_mode = 0444;
-	printf("sceIoChstat: %08x\n", sceIoChstat(TESTDIR "/readonly.txt", &chg, 0x0001));
-	statPath("readonly", TESTDIR "/readonly.txt");
-
 	printf("-- getstat vs dread:\n");
 	compareWithDread(TESTDIR, "plain.txt");
 	compareWithDread(TESTDIR, "subdir");
 
 	printf("-- cleanup:\n");
-	chg.st_mode = 0777;
-	sceIoChstat(TESTDIR "/readonly.txt", &chg, 0x0001);
 	printf("remove plain: %08x\n", sceIoRemove(TESTDIR "/plain.txt"));
 	printf("remove readonly: %08x\n", sceIoRemove(TESTDIR "/readonly.txt"));
 	printf("rmdir subdir: %08x\n", sceIoRmdir(TESTDIR "/subdir"));
