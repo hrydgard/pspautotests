@@ -1,0 +1,31 @@
+[x] Reserving around a draining channel
+  first reserve: 00000007
+  output: 00000800
+  release while playing: 00000000
+  next automatic reserve: a different one
+  release that one: 00000000
+  explicit reserve of it: 00000007
+  output to it: 80260002
+  release: 00000000
+  automatic reserve once drained: same channel
+  release: 00000000
+
+[x] Second channel joining a running mixer
+  reserved two: yes
+  first channel after its output: a block already gone
+  second channel after its output: untouched
+  release: 00000000 00000000
+
+[x] Mono
+  reserve: 00000007
+  output: 00000800
+  first=07c0 steps=31 of 64, uneven=0
+  drained in about one buffer
+  release: 00000000
+
+[x] Panned blocking, low and high channels
+  channel 0: 00000800 (100us-1ms)
+  channel 4: 00000800 (100us-1ms)
+  channel 5: 00000800 (100us-1ms)
+  channel 6: 00000800 (100us-1ms)
+  channel 7: 00000800 (100us-1ms)

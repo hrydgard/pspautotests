@@ -1,0 +1,57 @@
+[x] Basic
+  oneshot on channel 0: 00000000
+  rest right after: 03c0
+  release: 80260008
+  reserve while playing: 00000000
+  output while playing: 80260002
+  release: 00000000
+  automatic reserve after draining: 00000007
+  release: 00000000
+
+[x] Automatic channel
+  oneshot on channel -1: 00000007
+
+[x] On a reserved channel
+  reserve: 00000003
+  oneshot on it: 80260003
+  release: 00000000
+
+[x] Twice in a row
+  first: 00000001
+  second while it plays: 00000001
+
+[x] Channels
+  -2: 00000007
+  -1: 00000007
+  0: 00000000
+  7: 00000007
+  8: 80260003
+  9: 80260003
+
+[x] Sample counts
+  -64: 80260006
+  0: 80260006
+  1: 00000002
+  63: 00000002
+  64: 00000002
+  100: 00000002
+  1024: 00000002
+  65472: 00000002
+  65536: 00000002
+
+[x] Formats
+  -1: 80260007
+  0: 00000002
+  1: 80260007
+  2: 80260007
+  15: 80260007
+  16: 00000002
+  17: 80260007
+
+[x] Volumes
+  left 0x10000: 8026000b
+  right 0x10000: 8026000b
+  left -1: 8026000b
+
+[x] Null buffer
+  null: 00000002
