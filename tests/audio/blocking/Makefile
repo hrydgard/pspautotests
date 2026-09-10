@@ -1,4 +1,4 @@
-TARGETS = depth contend restlen errors
+TARGETS = depth contend restlen errors vaudio overhead
 EXTRA_OBJS = ../sceaudio/audio-imports.o
 
 COMMON_DIR = ../../../common

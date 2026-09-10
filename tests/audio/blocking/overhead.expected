@@ -1,0 +1,16 @@
+[x] Baseline
+  reading the clock twice: under 10us
+
+[x] Output2
+  reserve: 00000000
+  first output: 00000800 (over 100us)
+  refused output: 80260002 (30-100us)
+  release: 00000000
+  unreserved output: 80260008 (over 100us)
+
+[x] Channel
+  reserve: 00000007
+  first output: 00000800 (over 100us)
+  refused output: 80260002 (under 10us)
+  refused blocking output: 80260002 (under 10us)
+  release: 00000000

@@ -1,0 +1,22 @@
+[x] Release without reserving
+  release: 80260008
+
+[x] Release with nothing playing
+  reserve: 00000000
+  release: 00000000 (no wait)
+
+[x] Release with a buffer still playing
+  reserve: 00000000
+  output: 00000800
+  rest before release: 0800
+  release: 00000000 (one buffer)
+  rest after release: 80260008
+  release again: 80260008
+
+[x] Shared with Output2
+  output2 reserve: 00000000
+  vaudio reserve: 80268002
+  output2 release: 00000000
+  vaudio reserve after: 80000021
+  output: 80260008
+  vaudio release: 80260008
