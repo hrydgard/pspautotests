@@ -1,0 +1,150 @@
+sceUtilityLoadNetModule(parseuri): 00000000
+Everything present
+  "http://user:pass@example.com:8080/path/to/file.html?a=1&b=2#frag"
+    result=00000000 size=61
+    noSlash=0 port=8080
+    scheme   +000 "http"
+    user     +005 "user"
+    password +010 "pass"
+    host     +015 "example.com"
+    path     +027 "/path/to/file.html"
+    query    +046 "?a=1&b=2"
+    fragment +055 "#frag"
+    trailing: 00 00 00 00 00 00 00 00 00 00
+The ordinary shapes
+  "http://example.com/"
+    result=00000000 size=23
+    noSlash=0 port=80
+    scheme   +000 "http"
+    user     +005 ""
+    password +006 ""
+    host     +007 "example.com"
+    path     +019 "/"
+    query    +021 ""
+    fragment +022 ""
+    trailing: 00 00 00 00 00 00 00 00 00 00
+  "http://example.com"
+    result=00000000 size=22
+    noSlash=0 port=80
+    scheme   +000 "http"
+    user     +005 ""
+    password +006 ""
+    host     +007 "example.com"
+    path     +019 ""
+    query    +020 ""
+    fragment +021 ""
+    trailing: 00 00 00 00 00 00 00 00 00 00
+  "http://example.com/path"
+    result=00000000 size=27
+    noSlash=0 port=80
+    scheme   +000 "http"
+    user     +005 ""
+    password +006 ""
+    host     +007 "example.com"
+    path     +019 "/path"
+    query    +025 ""
+    fragment +026 ""
+    trailing: 00 00 00 00 00 00 00 00 00 00
+  "http://example.com:80/path"
+    result=00000000 size=27
+    noSlash=0 port=80
+    scheme   +000 "http"
+    user     +005 ""
+    password +006 ""
+    host     +007 "example.com"
+    path     +019 "/path"
+    query    +025 ""
+    fragment +026 ""
+    trailing: 00 00 00 00 00 00 00 00 00 00
+  "https://example.com/a/b/c?q=1"
+    result=00000000 size=33
+    noSlash=0 port=443
+    scheme   +000 "https"
+    user     +006 ""
+    password +007 ""
+    host     +008 "example.com"
+    path     +020 "/a/b/c"
+    query    +027 "?q=1"
+    fragment +032 ""
+    trailing: 00 00 00 00 00 00 00 00 00 00
+  "http://example.com/#only-fragment"
+    result=00000000 size=37
+    noSlash=0 port=80
+    scheme   +000 "http"
+    user     +005 ""
+    password +006 ""
+    host     +007 "example.com"
+    path     +019 "/"
+    query    +021 ""
+    fragment +022 "#only-fragment"
+    trailing: 00 00 00 00 00 00 00 00 00 00
+  "http://example.com/?only-query"
+    result=00000000 size=34
+    noSlash=0 port=80
+    scheme   +000 "http"
+    user     +005 ""
+    password +006 ""
+    host     +007 "example.com"
+    path     +019 "/"
+    query    +021 "?only-query"
+    fragment +033 ""
+    trailing: 00 00 00 00 00 00 00 00 00 00
+  "http://user@example.com/"
+    result=00000000 size=27
+    noSlash=0 port=80
+    scheme   +000 "http"
+    user     +005 "user"
+    password +010 ""
+    host     +011 "example.com"
+    path     +023 "/"
+    query    +025 ""
+    fragment +026 ""
+    trailing: 00 00 00 00 00 00 00 00 00 00
+  "HTTP://EXAMPLE.COM/PATH"
+    result=00000000 size=27
+    noSlash=0 port=80
+    scheme   +000 "HTTP"
+    user     +005 ""
+    password +006 ""
+    host     +007 "EXAMPLE.COM"
+    path     +019 "/PATH"
+    query    +025 ""
+    fragment +026 ""
+    trailing: 00 00 00 00 00 00 00 00 00 00
+No authority
+  "mailto:someone@example.com"
+    result=00000000 size=31
+    noSlash=1 port=0
+    scheme   +000 "mailto"
+    user     +007 "someone"
+    password +015 ""
+    host     +016 "example.com"
+    path     +028 ""
+    query    +029 ""
+    fragment +030 ""
+    trailing: 00 00 00 00 00 00 00 00 00 00
+  "urn:isbn:0451450523"
+    result=80433060 size=-1
+  "file:///tmp/x"
+    result=00000000 size=17
+    noSlash=0 port=0
+    scheme   +000 "file"
+    user     +005 ""
+    password +006 ""
+    host     +007 ""
+    path     +008 "/tmp/x"
+    query    +015 ""
+    fragment +016 ""
+    trailing: 00 00 00 00 00 00 00 00 00 00
+  "about:blank"
+    result=00000000 size=17
+    noSlash=1 port=0
+    scheme   +000 "about"
+    user     +006 ""
+    password +007 ""
+    host     +008 "blank"
+    path     +014 ""
+    query    +015 ""
+    fragment +016 ""
+    trailing: 00 00 00 00 00 00 00 00 00 00
+Done

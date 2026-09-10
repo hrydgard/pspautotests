@@ -1,0 +1,39 @@
+sceUtilityLoadNetModule(parseuri): 00000000
+Escape
+  "" -> 00000000 len=1 ""
+  "abc" -> 00000000 len=4 "abc"
+  "ABCabc012" -> 00000000 len=10 "ABCabc012"
+  "a b" -> 00000000 len=6 "a%20b"
+  "a+b" -> 00000000 len=6 "a%2Bb"
+  "hello world!" -> 00000000 len=17 "hello%20world%21"
+  "a/b?c#d&e=f" -> 00000000 len=22 "a%2Fb%3Fc%23d%26e%3Df"
+  "-_.~" -> 00000000 len=7 "-_.%7E"
+  "!*'();:@&=+$,/?#[]" -> 00000000 len=53 "%21*%27%28%29%3B%3A%40%26%3D%2B%24%2C%2F%3F%23%5B%5D"
+  "%" -> 00000000 len=4 "%25"
+  "%41" -> 00000000 len=6 "%2541"
+  "\x01\x1F\x7F" -> 00000000 len=10 "%01%1F%7F"
+  "\x80\xFF" -> 00000000 len=7 "%80%FF"
+  "caf\xC3\xA9" -> 00000000 len=10 "caf%C3%A9"
+Unescape
+  "" -> 00000000 len=1 ""
+  "abc" -> 00000003 len=4 "abc"
+  "a%20b" -> 00000007 len=4 "a b"
+  "a+b" -> 00000003 len=4 "a+b"
+  "%41%42%43" -> 0000000f len=4 "ABC"
+  "%2f%2F" -> 0000000a len=3 "//"
+  "%" -> 80433060 len=-1 ""
+  "%4" -> 80433060 len=-1 ""
+  "%zz" -> 80433060 len=-1 ""
+  "%00abc" -> 00000008 len=5 ""
+  "100%25" -> 00000008 len=5 "100%"
+Round trip
+  "hello world!" -> "hello%20world%21" -> 00000014 same
+  "a/b?c#d&e=f" -> "a%2Fb%3Fc%23d%26e%3Df" -> 0000001f same
+  "caf\xC3\xA9" -> "caf%C3%A9" -> 0000000d same
+Sizes
+  escape, no buffer: 00000000 len=17
+  unescape, no buffer: 00000007 len=4
+Buffer too small
+  escape into 4: 80433022 len=-1 "hell"
+  unescape into 4: 80433022 len=-1 "hell"
+Done

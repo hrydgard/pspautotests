@@ -1,0 +1,90 @@
+sceUtilityLoadNetModule(parseuri): 00000000
+Missing pieces
+  "" -> noSlash=1 port=0 size=7
+     scheme="" user="" pass="" host=""
+     path="" query="" fragment=""
+  "http://" -> noSlash=0 port=80 size=11
+     scheme="http" user="" pass="" host=""
+     path="" query="" fragment=""
+  "http:" -> noSlash=1 port=80 size=11
+     scheme="http" user="" pass="" host=""
+     path="" query="" fragment=""
+  "//example.com/path" -> noSlash=1 port=0 size=25
+     scheme="" user="" pass="" host=""
+     path="//example.com/path" query="" fragment=""
+  "/just/a/path" -> noSlash=1 port=0 size=19
+     scheme="" user="" pass="" host=""
+     path="/just/a/path" query="" fragment=""
+  "relative/path" -> noSlash=1 port=0 size=20
+     scheme="" user="" pass="" host="relative"
+     path="/path" query="" fragment=""
+  "example.com" -> noSlash=1 port=0 size=18
+     scheme="" user="" pass="" host="example.com"
+     path="" query="" fragment=""
+Ports
+  "http://example.com:0/" -> noSlash=0 port=0 size=23
+     scheme="http" user="" pass="" host="example.com"
+     path="/" query="" fragment=""
+  "http://example.com:1/" -> noSlash=0 port=1 size=23
+     scheme="http" user="" pass="" host="example.com"
+     path="/" query="" fragment=""
+  "http://example.com:65535/" -> noSlash=0 port=65535 size=23
+     scheme="http" user="" pass="" host="example.com"
+     path="/" query="" fragment=""
+  "http://example.com:65536/" -> noSlash=0 port=0 size=23
+     scheme="http" user="" pass="" host="example.com"
+     path="/" query="" fragment=""
+  "http://example.com:99999/" -> 80433060
+  "http://example.com:abc/" -> 80433060
+  "http://example.com:/" -> noSlash=0 port=80 size=23
+     scheme="http" user="" pass="" host="example.com"
+     path="/" query="" fragment=""
+Colons after a scheme with no slashes
+  "urn:isbn:1" -> noSlash=1 port=1 size=14
+     scheme="urn" user="" pass="" host="isbn"
+     path="" query="" fragment=""
+  "urn:isbn:65535" -> noSlash=1 port=65535 size=14
+     scheme="urn" user="" pass="" host="isbn"
+     path="" query="" fragment=""
+  "urn:isbn:65536" -> noSlash=1 port=0 size=14
+     scheme="urn" user="" pass="" host="isbn"
+     path="" query="" fragment=""
+  "urn:isbn:0451450523" -> 80433060
+Port limit
+  "http://example.com:65537/" -> 80433060
+  "http://example.com:65600/" -> 80433060
+  "http://example.com:70000/" -> 80433060
+  "http://example.com:99998/" -> 80433060
+  "http://example.com:100000/" -> 80433060
+  "http://example.com:000080/" -> 80433060
+What can start a host
+  "http://[::1]:8080/path" -> noSlash=0 port=80 size=26
+     scheme="http" user="" pass="" host=""
+     path="[::1]:8080/path" query="" fragment=""
+  "http://1.2.3.4/path" -> noSlash=0 port=80 size=23
+     scheme="http" user="" pass="" host="1.2.3.4"
+     path="/path" query="" fragment=""
+  "http://-abc/path" -> noSlash=0 port=80 size=20
+     scheme="http" user="" pass="" host="-abc"
+     path="/path" query="" fragment=""
+  "http://_abc/path" -> noSlash=0 port=80 size=20
+     scheme="http" user="" pass="" host=""
+     path="_abc/path" query="" fragment=""
+  "http://%41bc/path" -> noSlash=0 port=80 size=21
+     scheme="http" user="" pass="" host=""
+     path="%41bc/path" query="" fragment=""
+  "http://a[b/path" -> noSlash=0 port=80 size=19
+     scheme="http" user="" pass="" host="a"
+     path="[b/path" query="" fragment=""
+  "http://a b/path" -> noSlash=0 port=80 size=19
+     scheme="http" user="" pass="" host="a"
+     path=" b/path" query="" fragment=""
+Null arguments
+  no work area: 00000000 size=28
+  no parsed area: 00000000 size=28
+  neither, no size out: 804331fe
+  null uri: 80433060
+Work area too small
+  4 bytes: 80433022 size=-1
+  0 bytes: 80433022 size=-1
+Done
