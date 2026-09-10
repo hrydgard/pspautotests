@@ -1,0 +1,29 @@
+[x] Channel, second thread arrives while the first waits
+  reserve: 00000007
+  first output: 00000800
+  helper parked: done=0
+  second blocking output: 80260002 (fast)
+  non-blocking output: 80260002 (fast)
+  release: 80260002
+  setDataLen: 80260002
+  changeConfig: 80260002
+  changeVolume: 00000000
+  restLen with one waiting: more than one buffer
+  helper result: 00000800
+  release when idle: 00000000
+
+[x] Output2, third buffer with no slot free
+  reserve: 00000000
+  first output: 00000800
+  helper parked: done=0
+  third output: 80260002 (fast)
+  helper result: 00000800
+  release: 00000000
+
+[x] Null pointer drains
+  reserve: 00000007
+  drain when idle: 00000400
+  output: 00000400
+  drain when busy: 00000400 (waited)
+  restLen after drain: 0400
+  release: 00000000

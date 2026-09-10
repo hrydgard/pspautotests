@@ -1,0 +1,72 @@
+[x] sceAudioChRelease
+  never reserved: 80260008
+  bad channel: 80260003
+  reserved: 00000000
+  released twice: 80260008
+  while playing: 00000000
+
+[x] sceAudioChangeChannelConfig
+  not reserved: 80260008
+  bad channel: 80260003
+  format -1: 80260007
+  format 0: 00000000
+  format 1: 80260007
+  format 2: 80260007
+  format 4: 80260007
+  format 8: 80260007
+  format 15: 80260007
+  format 16: 00000000
+  format 17: 80260007
+  format 32: 80260007
+  release: 00000000
+
+[x] sceAudioChangeChannelVolume
+  not reserved: 00000000
+  bad channel: 80260003
+  too loud left: 8026000b
+  too loud right: 8026000b
+  negative left: 00000000
+  max: 00000000
+  release: 00000000
+
+[x] sceAudioSetChannelDataLen
+  not reserved: 80260001
+  not reserved, bad len: 80260006
+  bad channel: 80260003
+  len -64: 80260006
+  len 0: 80260006
+  len 1: 80260006
+  len 63: 80260006
+  len 64: 00000000
+  len 1024: 00000000
+  len 65472: 00000000
+  len 65536: 80260006
+  release: 00000000
+
+[x] sceAudioOutput2ChangeLength
+  not reserved: 80260008
+  not reserved, bad len: 80260006
+  reserve: 00000000
+  len -64: 80260006
+  len 0: 80260006
+  len 16: 80260006
+  len 17: 00000000
+  len 64: 00000000
+  len 1000: 00000000
+  len 4111: 00000000
+  len 4112: 80260006
+  len 65536: 80260006
+  release: 00000000
+
+[x] Output volume limits
+  output 0x10000: 8026000b
+  output -1: 00000040
+  panned 0x10000/0: 8026000b
+  panned -1/0: 00000040
+  blocking -1: 00000040
+  panned blocking -1/0: 8026000b
+  release: 00000000
+  output2 reserve: 00000000
+  output2 0xFFFFF: 00000040
+  output2 0x100000: 8026000b
+  output2 release: 00000000

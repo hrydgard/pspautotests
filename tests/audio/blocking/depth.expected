@@ -1,0 +1,35 @@
+Output2 1024 samples: reserve=00000000
+  [0] ret=00000400 no wait rest=0400
+  [1] ret=00000400 one buffer rest=0400
+  [2] ret=00000400 one buffer rest=0400
+  [3] ret=00000400 one buffer rest=0400
+  [4] ret=00000400 one buffer rest=0400
+  [5] ret=00000400 one buffer rest=0400
+  release=00000000
+SRC 1024 samples @44100: reserve=00000000
+  [0] ret=00000400 no wait rest=0400
+  [1] ret=00000400 one buffer rest=0400
+  [2] ret=00000400 one buffer rest=0400
+  [3] ret=00000400 one buffer rest=0400
+  [4] ret=00000400 one buffer rest=0400
+  [5] ret=00000400 one buffer rest=0400
+  release=00000000
+Channel 1024 samples: reserve=00000007
+  [0] ret=00000400 no wait rest=03c0
+  [1] ret=00000400 one buffer rest=0400
+  [2] ret=00000400 one buffer rest=0400
+  [3] ret=00000400 one buffer rest=0400
+  [4] ret=00000400 one buffer rest=0400
+  [5] ret=00000400 one buffer rest=0400
+  release=00000000
+Channel (non-blocking) 1024 samples: reserve=00000007
+  [0] ret=00000400
+  [1] ret=80260002
+  [2] ret=80260002
+  [3] ret=80260002
+  [4] ret=80260002
+  [5] ret=80260002
+  release=00000000
+Rest steps, 1024 samples: reserve=00000007
+  first=03c0 steps=15 of 64, uneven=0, ended at 0000
+  release=00000000

@@ -1,0 +1,18 @@
+[x] Channel rest length
+  not reserved             len=00000000 length=00000000
+  reserved, idle           len=00000000 length=00000000
+  playing                  len=000003c0 length=000003c0
+  drained                  len=00000000 length=00000000
+  after null output        len=00000400 length=00000000
+  one thread waiting       len>1024=1 length>1024=1
+  release: 00000000
+  channel 8                len=80260003 length=80260003
+
+[x] Output2 rest sample
+  not reserved: 80260008
+  reserve: 00000000
+  reserved, idle: 00000000
+  one buffer: 00000400
+  changeLength 64: 00000000
+  after changeLength: 00000040
+  release: 00000000
