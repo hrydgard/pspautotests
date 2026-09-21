@@ -1,0 +1,15 @@
+[x] Break with waiting threads:
+[x]   Enqueue stalled: OK
+[x]   Before break: list waiter waiting, draw waiter waiting
+[x]   sceGeBreak(1): 00000000
+[r]   After break: list waiter waiting, draw waiter waiting
+[x]   Old list, sceGeListSync(1): 80000100
+[x]   sceGeDrawSync(1): 00000000
+
+[x] A new list completes:
+[x]   * sceGeDrawSync woke: 00000000
+[x]   * sceGeListSync woke: 00000000
+[r]   Enqueue: OK, id reused
+[x]   After new list: list waiter ended, draw waiter ended
+[x]   sceGeDrawSync(0): 00000000
+[x]   After drawsync: list waiter ended, draw waiter ended

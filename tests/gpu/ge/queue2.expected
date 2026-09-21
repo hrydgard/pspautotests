@@ -1,0 +1,77 @@
+[x] Duplicate address, old SDK:
+[x]   First, now stalled two words in: OK
+[x]   Same start address: OK
+[x]   Same start address, uncached mirror: OK
+[x]   Address the first is stalled at: OK
+[x]   Break: OK
+[x]   After break, start address: OK
+[x]   After break, address it stopped at: OK
+
+[x] Duplicate address, new SDK:
+[x]   First, now stalled two words in: OK
+[x]   Same start address: 80000021
+[x]   Same start address, uncached mirror: 80000021
+[x]   Address the first is stalled at: OK
+[x]   Break: OK
+[x]   After break, start address: OK
+[x]   After break, address it stopped at: 80000021
+
+[x] Shared stack, old SDK:
+[x]   Running, stack 1: OK
+[x]   Queued, stack 2: OK
+[x]   Queued, stack 2 again: OK
+[x]   Queued, stack 1 again: OK
+
+[x] Shared stack, new SDK:
+[x]   Running, stack 1: OK
+[x]   Queued, stack 2: OK
+[x]   Queued, stack 2 again: OK
+[x]   Queued, stack 1 again: 80000021
+
+[x] Dequeue completed:
+[x]   Completed, had context: 80000021
+[x]   Again: 80000021
+[x]   After drawsync: 80000100
+
+[x] Pause window, old SDK:
+[r]   Pause requested, listsync: 00000004, drawsync: 00000003
+[x]   Continue: 80000021
+[x]   Break: 80000021
+[x]   Update stall: 00000000
+[r]   After update stall, listsync: 00000004, drawsync: 00000002
+[x]   Break: 80000021
+[x]   Continue: 80000021
+[r]   After continue, listsync: 00000004, drawsync: 00000002
+
+[x] Pause window, new SDK:
+[r]   Pause requested, listsync: 00000004, drawsync: 00000003
+[x]   Continue: 80000021
+[x]   Break: 80000021
+[x]   Update stall: 00000000
+[r]   After update stall, listsync: 00000004, drawsync: 00000002
+[x]   Break: 80000021
+[x]   Continue: 80000021
+[r]   After continue, listsync: 00000004, drawsync: 00000002
+
+[x] Finish callback ordering, old SDK:
+[x]   Queued both, listsync first: 00000003, second: 00000001
+[x]   * finish 1, listsync first: 00000000, second: 00000001, drawsync: 00000002
+[x]   * enqueue own address again: OK
+[x]   * dequeue that: 00000000
+[x]   * dequeue self: 80000021
+[x]   * update own stall: 80000020
+[x]   * finish 2, listsync first: 00000000, second: 00000000, drawsync: 00000000
+[x]   Update stall: 00000000
+[x]   Drawsync: 00000000
+[x]   After, listsync first: 80000100, second: 80000100
+
+[x] Finish callback ordering, new SDK:
+[x]   Queued both, listsync first: 00000003, second: 00000001
+[x]   * finish 1, listsync first: 00000000, second: 00000001, drawsync: 00000002
+[x]   * enqueue own address again: 80000021
+[x]   * dequeue self: 80000021
+[x]   * update own stall: 80000020
+[x]   * finish 2, listsync first: 00000000, second: 00000000, drawsync: 00000000
+[r]   Update stall: 00000000
+[x]   Drawsync: 00000000
+[x]   After, listsync first: 80000100, second: 80000100
