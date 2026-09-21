@@ -1,0 +1,18 @@
+[x] State seen from callbacks:
+[x]   Before: ambient 1, sceGeSaveContext: 00000000
+[x]   * signal 21: ambient 5, sceGeSaveContext: 00000000, listsync: 00000002
+[x]   * signal 22: ambient 6, sceGeSaveContext: ffffffff
+[r]   Stalled: ambient 6, sceGeSaveContext: ffffffff, listsync: 00000003
+[x]   * finish 1: ambient 7, sceGeSaveContext: 00000000, first: 00000000, second: 00000001
+[x]   * finish 2: ambient 1, sceGeSaveContext: 00000000, first: 00000000, second: 00000000
+[r]   After: ambient 1, sceGeSaveContext: 00000000, finished: 2
+
+[x] Dequeue and completed lists:
+[x]   Completed list: 00000000
+[x]   Head: 00000004, completed list: 00000000
+[x]   Dequeue head: 00000000
+[x]   Queue empty again, completed list: 00000000, head: 80000100, drawsync: 00000000
+[x]   After drawsync, completed list: 80000100
+
+[x] Break with nothing left:
+[r]   sceGeBreak(1) right after a short list: 80000020, finished: 1, list: 00000000
