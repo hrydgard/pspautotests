@@ -1,0 +1,16 @@
+[x] Two lists with interrupts suspended:
+[r]   Suspended, first list: 00000002, second: 00000001, drawsync: 00000002
+[x]   Suspended, finish callbacks: 0
+[x]   Suspended, sceGeListSync(0): 800201a7, sceGeDrawSync(0): 800201a7, callbacks after: 0
+[x]   Resumed, first list: 00000000, second: 00000000, drawsync: 00000000
+[x]   Resumed, finish callbacks: 2, order: 1 2
+[x]   In first callback, sceGeListSync(0): 80020064, sceGeDrawSync(0): 80020064
+
+[x] sceGeBreak(1) with interrupts suspended:
+[r]   sceGeBreak(1) with a finish pending: 00000000, list after: 80000100
+[x]   Finish callbacks once resumed: 0
+[r]   Next list: 00000000, finish callbacks: 1, last value: 2
+
+[x] Dispatch suspended:
+[x]   Dispatch suspended, finish callbacks: 1, list: 00000000
+[x]   Dispatch suspended, sceGeListSync(0): 800201a7, sceGeDrawSync(0): 800201a7

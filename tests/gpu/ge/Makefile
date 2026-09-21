@@ -1,4 +1,4 @@
-TARGETS = break breakwait context edram edramswizzle get queue queue2 enqueueparam
+TARGETS = break breakwait intrsuspend context edram edramswizzle get queue queue2 enqueueparam
 EXTRA_LIBS = ge-imports.S
 
 COMMON_DIR = ../../../common

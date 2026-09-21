@@ -1,0 +1,24 @@
+[x] Break in signal handler, old SDK:
+[x]   * signal 66, listsync: 00000004, at 1
+[x]   * sceGeBreak(0): other, listsync: 00000004
+[x]   * sceGeBreak(0) result: 80000021
+[x]   * finish 17, at 3
+[x]   After signal: listsync: 00000000, drawsync: 00000000, at 3, finished: 1
+[r]   sceGeContinue: 00000000
+[x]   After: listsync: 00000000, at 3, signals: 1, finished: 1
+
+[x] Update stall in signal handler, old SDK:
+[x]   * signal 66, listsync: 00000004, at 1
+[x]   * update stall: 00000000, listsync: 00000004
+[x]   After signal: listsync: 00000002, drawsync: 00000002, at 2, finished: 0
+[x]   * finish 17, at 3
+[x]   Update stall again: 00000000
+[x]   After: listsync: 00000000, at 3, signals: 1, finished: 1
+
+[x] Update stall in signal handler, new SDK:
+[x]   * signal 66, listsync: 00000002, at 1
+[x]   * update stall: 00000000, listsync: 00000002
+[x]   * finish 17, at 3
+[r]   After signal: listsync: 00000000, drawsync: 00000000, at 3, finished: 1
+[r]   Update stall again: 80000020
+[x]   After: listsync: 00000000, at 3, signals: 1, finished: 1
