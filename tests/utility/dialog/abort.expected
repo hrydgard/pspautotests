@@ -1,0 +1,5 @@
+animSpeed 1, 1 vblanks per update, abort after  0 updates: NONE, then RUNNING; FINISHED after 8 updates, result=00000000 button=00001337
+animSpeed 1, 1 vblanks per update, abort after  2 updates: NONE, then RUNNING; FINISHED after 6 updates, result=00000000 button=00001337
+animSpeed 1, 1 vblanks per update, abort after  5 updates: NONE, then RUNNING; FINISHED after 3 updates, result=00000000 button=00001337
+animSpeed 1, 1 vblanks per update, abort after 10 updates: NONE, then RUNNING; FINISHED after 1 updates, result=00000000 button=00001337
+animSpeed 2, 1 vblanks per update, abort after  0 updates: NONE, then RUNNING; FINISHED after 8 updates, result=00000000 button=00001337
