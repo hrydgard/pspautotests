@@ -1,0 +1,20 @@
+-- c.eq.s then the branch, condition previously the opposite --
+bc1f   1 == 1 (was false): taken=1 slot=1
+bc1f   1 == 2 (was true): taken=0 slot=1
+bc1t   1 == 1 (was false): taken=0 slot=1
+bc1t   1 == 2 (was true): taken=1 slot=1
+bc1fl  1 == 1 (was false): taken=1 slot=1
+bc1fl  1 == 2 (was true): taken=0 slot=0
+bc1tl  1 == 1 (was false): taken=0 slot=0
+bc1tl  1 == 2 (was true): taken=1 slot=1
+-- ctc1 then the branch --
+bc1t set (was clear): taken=1 slot=1
+bc1t clear (was set): taken=0 slot=1
+bc1f clear (was set): taken=1 slot=1
+bc1f set (was clear): taken=0 slot=1
+-- cfc1 right after c.eq.s --
+1 == 1 (was false): now=00800000 later=00800000
+1 == 2 (was true): now=00000000 later=00000000
+-- c.eq.s right after mtc1 --
+f0 := 1 (was 2), f1 = 1: fcr31=00800000
+f0 := 2 (was 1), f1 = 1: fcr31=00000000

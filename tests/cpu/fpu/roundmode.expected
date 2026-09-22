@@ -1,0 +1,268 @@
+== mode 0 ==
+-- float to int --
+3f000000: round 00000000 trunc 00000000 ceil 00000001 floor 00000000 cvt 00000000
+3fc00000: round 00000002 trunc 00000001 ceil 00000002 floor 00000001 cvt 00000002
+40200000: round 00000002 trunc 00000002 ceil 00000003 floor 00000002 cvt 00000002
+bf000000: round 00000000 trunc 00000000 ceil 00000000 floor ffffffff cvt 00000000
+bfc00000: round fffffffe trunc ffffffff ceil ffffffff floor fffffffe cvt fffffffe
+c0200000: round fffffffe trunc fffffffe ceil fffffffe floor fffffffd cvt fffffffe
+3effffff: round 00000000 trunc 00000000 ceil 00000001 floor 00000000 cvt 00000000
+3f800001: round 00000001 trunc 00000001 ceil 00000002 floor 00000001 cvt 00000001
+406ccccd: round 00000004 trunc 00000003 ceil 00000004 floor 00000003 cvt 00000004
+c06ccccd: round fffffffc trunc fffffffd ceil fffffffd floor fffffffc cvt fffffffc
+4b7fffff: round 00ffffff trunc 00ffffff ceil 00ffffff floor 00ffffff cvt 00ffffff
+4effffff: round 7fffff80 trunc 7fffff80 ceil 7fffff80 floor 7fffff80 cvt 7fffff80
+4f000000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+4f000001: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+ceffffff: round 80000080 trunc 80000080 ceil 80000080 floor 80000080 cvt 80000080
+cf000000: round 80000000 trunc 80000000 ceil 80000000 floor 80000000 cvt 80000000
+cf000001: round 80000000 trunc 80000000 ceil 80000000 floor 80000000 cvt 80000000
+4f800000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+501502f9: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+d01502f9: round 80000000 trunc 80000000 ceil 80000000 floor 80000000 cvt 80000000
+7149f2ca: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+7f800000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+ff800000: round 80000000 trunc 80000000 ceil 80000000 floor 80000000 cvt 80000000
+7fc00000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+ffc00000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+7f800001: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+000116c2: round 00000000 trunc 00000000 ceil 00000001 floor 00000000 cvt 00000000
+800116c2: round 00000000 trunc 00000000 ceil 00000000 floor ffffffff cvt 00000000
+00000000: round 00000000 trunc 00000000 ceil 00000000 floor 00000000 cvt 00000000
+80000000: round 00000000 trunc 00000000 ceil 00000000 floor 00000000 cvt 00000000
+-- int to float --
+          0: cvt.s.w 00000000
+          1: cvt.s.w 3f800000
+         -1: cvt.s.w bf800000
+        100: cvt.s.w 42c80000
+   16777215: cvt.s.w 4b7fffff
+   16777216: cvt.s.w 4b800000
+   16777217: cvt.s.w 4b800000
+  -16777217: cvt.s.w cb800000
+   16777219: cvt.s.w 4b800002
+  -16777219: cvt.s.w cb800002
+   33554435: cvt.s.w 4c000001
+  -33554435: cvt.s.w cc000001
+ 2147483647: cvt.s.w 4f000000
+-2147483648: cvt.s.w cf000000
+ 2147483584: cvt.s.w 4f000000
+ 2147483583: cvt.s.w 4effffff
+ 2147483520: cvt.s.w 4effffff
+ 2147483521: cvt.s.w 4effffff
+-2147483583: cvt.s.w ceffffff
+  305419896: cvt.s.w 4d91a2b4
+-2023406815: cvt.s.w cef1357a
+-- arithmetic --
+3f800000 33800000: add 3f800000 sub 3f7fffff mul 33800000 div 4b800000 sqrt(a) 3f800000
+3f800000 33c00000: add 3f800001 sub 3f7ffffe mul 33c00000 div 4b2aaaab sqrt(a) 3f800000
+3f800000 34000000: add 3f800001 sub 3f7ffffe mul 34000000 div 4b000000 sqrt(a) 3f800000
+bf800000 33800000: add bf7fffff sub bf800000 mul b3800000 div cb800000 sqrt(a) 7fc00000
+3f8ccccd 3f8ccccd: add 400ccccd sub 00000000 mul 3f9ae148 div 3f800000 sqrt(a) 3f863f5e
+3f800000 40400000: add 40800000 sub c0000000 mul 40400000 div 3eaaaaab sqrt(a) 3f800000
+40000000 40400000: add 40a00000 sub bf800000 mul 40c00000 div 3f2aaaab sqrt(a) 3fb504f3
+bf800000 40400000: add 40000000 sub c0800000 mul c0400000 div beaaaaab sqrt(a) 7fc00000
+40000000 3f800000: add 40400000 sub 3f800000 mul 40000000 div 40000000 sqrt(a) 3fb504f3
+4b7fffff 3f800000: add 4b800000 sub 4b7ffffe mul 4b7fffff div 4b7fffff sqrt(a) 457fffff
+00800000 3f000000: add 3f000000 sub bf000000 mul 00400000 div 01000000 sqrt(a) 20000000
+7f7fffff 7f7fffff: add 7f800000 sub 00000000 mul 7f800000 div 3f800000 sqrt(a) 5f7fffff
+== mode 1 ==
+-- float to int --
+3f000000: round 00000000 trunc 00000000 ceil 00000001 floor 00000000 cvt 00000000
+3fc00000: round 00000002 trunc 00000001 ceil 00000002 floor 00000001 cvt 00000001
+40200000: round 00000002 trunc 00000002 ceil 00000003 floor 00000002 cvt 00000002
+bf000000: round 00000000 trunc 00000000 ceil 00000000 floor ffffffff cvt 00000000
+bfc00000: round fffffffe trunc ffffffff ceil ffffffff floor fffffffe cvt ffffffff
+c0200000: round fffffffe trunc fffffffe ceil fffffffe floor fffffffd cvt fffffffe
+3effffff: round 00000000 trunc 00000000 ceil 00000001 floor 00000000 cvt 00000000
+3f800001: round 00000001 trunc 00000001 ceil 00000002 floor 00000001 cvt 00000001
+406ccccd: round 00000004 trunc 00000003 ceil 00000004 floor 00000003 cvt 00000003
+c06ccccd: round fffffffc trunc fffffffd ceil fffffffd floor fffffffc cvt fffffffd
+4b7fffff: round 00ffffff trunc 00ffffff ceil 00ffffff floor 00ffffff cvt 00ffffff
+4effffff: round 7fffff80 trunc 7fffff80 ceil 7fffff80 floor 7fffff80 cvt 7fffff80
+4f000000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+4f000001: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+ceffffff: round 80000080 trunc 80000080 ceil 80000080 floor 80000080 cvt 80000080
+cf000000: round 80000000 trunc 80000000 ceil 80000000 floor 80000000 cvt 80000000
+cf000001: round 80000000 trunc 80000000 ceil 80000000 floor 80000000 cvt 80000000
+4f800000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+501502f9: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+d01502f9: round 80000000 trunc 80000000 ceil 80000000 floor 80000000 cvt 80000000
+7149f2ca: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+7f800000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+ff800000: round 80000000 trunc 80000000 ceil 80000000 floor 80000000 cvt 80000000
+7fc00000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+ffc00000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+7f800001: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+000116c2: round 00000000 trunc 00000000 ceil 00000001 floor 00000000 cvt 00000000
+800116c2: round 00000000 trunc 00000000 ceil 00000000 floor ffffffff cvt 00000000
+00000000: round 00000000 trunc 00000000 ceil 00000000 floor 00000000 cvt 00000000
+80000000: round 00000000 trunc 00000000 ceil 00000000 floor 00000000 cvt 00000000
+-- int to float --
+          0: cvt.s.w 00000000
+          1: cvt.s.w 3f800000
+         -1: cvt.s.w bf800000
+        100: cvt.s.w 42c80000
+   16777215: cvt.s.w 4b7fffff
+   16777216: cvt.s.w 4b800000
+   16777217: cvt.s.w 4b800000
+  -16777217: cvt.s.w cb800000
+   16777219: cvt.s.w 4b800001
+  -16777219: cvt.s.w cb800001
+   33554435: cvt.s.w 4c000000
+  -33554435: cvt.s.w cc000000
+ 2147483647: cvt.s.w 4effffff
+-2147483648: cvt.s.w cf000000
+ 2147483584: cvt.s.w 4effffff
+ 2147483583: cvt.s.w 4effffff
+ 2147483520: cvt.s.w 4effffff
+ 2147483521: cvt.s.w 4effffff
+-2147483583: cvt.s.w ceffffff
+  305419896: cvt.s.w 4d91a2b3
+-2023406815: cvt.s.w cef13579
+-- arithmetic --
+3f800000 33800000: add 3f800000 sub 3f7fffff mul 33800000 div 4b800000 sqrt(a) 3f800000
+3f800000 33c00000: add 3f800000 sub 3f7ffffe mul 33c00000 div 4b2aaaaa sqrt(a) 3f800000
+3f800000 34000000: add 3f800001 sub 3f7ffffe mul 34000000 div 4b000000 sqrt(a) 3f800000
+bf800000 33800000: add bf7fffff sub bf800000 mul b3800000 div cb800000 sqrt(a) 7fc00000
+3f8ccccd 3f8ccccd: add 400ccccd sub 00000000 mul 3f9ae148 div 3f800000 sqrt(a) 3f863f5e
+3f800000 40400000: add 40800000 sub c0000000 mul 40400000 div 3eaaaaaa sqrt(a) 3f800000
+40000000 40400000: add 40a00000 sub bf800000 mul 40c00000 div 3f2aaaaa sqrt(a) 3fb504f3
+bf800000 40400000: add 40000000 sub c0800000 mul c0400000 div beaaaaaa sqrt(a) 7fc00000
+40000000 3f800000: add 40400000 sub 3f800000 mul 40000000 div 40000000 sqrt(a) 3fb504f3
+4b7fffff 3f800000: add 4b800000 sub 4b7ffffe mul 4b7fffff div 4b7fffff sqrt(a) 457fffff
+00800000 3f000000: add 3f000000 sub beffffff mul 00400000 div 01000000 sqrt(a) 20000000
+7f7fffff 7f7fffff: add 7f7fffff sub 00000000 mul 7f7fffff div 3f800000 sqrt(a) 5f7fffff
+== mode 2 ==
+-- float to int --
+3f000000: round 00000000 trunc 00000000 ceil 00000001 floor 00000000 cvt 00000001
+3fc00000: round 00000002 trunc 00000001 ceil 00000002 floor 00000001 cvt 00000002
+40200000: round 00000002 trunc 00000002 ceil 00000003 floor 00000002 cvt 00000003
+bf000000: round 00000000 trunc 00000000 ceil 00000000 floor ffffffff cvt 00000000
+bfc00000: round fffffffe trunc ffffffff ceil ffffffff floor fffffffe cvt ffffffff
+c0200000: round fffffffe trunc fffffffe ceil fffffffe floor fffffffd cvt fffffffe
+3effffff: round 00000000 trunc 00000000 ceil 00000001 floor 00000000 cvt 00000001
+3f800001: round 00000001 trunc 00000001 ceil 00000002 floor 00000001 cvt 00000002
+406ccccd: round 00000004 trunc 00000003 ceil 00000004 floor 00000003 cvt 00000004
+c06ccccd: round fffffffc trunc fffffffd ceil fffffffd floor fffffffc cvt fffffffd
+4b7fffff: round 00ffffff trunc 00ffffff ceil 00ffffff floor 00ffffff cvt 00ffffff
+4effffff: round 7fffff80 trunc 7fffff80 ceil 7fffff80 floor 7fffff80 cvt 7fffff80
+4f000000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+4f000001: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+ceffffff: round 80000080 trunc 80000080 ceil 80000080 floor 80000080 cvt 80000080
+cf000000: round 80000000 trunc 80000000 ceil 80000000 floor 80000000 cvt 80000000
+cf000001: round 80000000 trunc 80000000 ceil 80000000 floor 80000000 cvt 80000000
+4f800000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+501502f9: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+d01502f9: round 80000000 trunc 80000000 ceil 80000000 floor 80000000 cvt 80000000
+7149f2ca: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+7f800000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+ff800000: round 80000000 trunc 80000000 ceil 80000000 floor 80000000 cvt 80000000
+7fc00000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+ffc00000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+7f800001: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+000116c2: round 00000000 trunc 00000000 ceil 00000001 floor 00000000 cvt 00000001
+800116c2: round 00000000 trunc 00000000 ceil 00000000 floor ffffffff cvt 00000000
+00000000: round 00000000 trunc 00000000 ceil 00000000 floor 00000000 cvt 00000000
+80000000: round 00000000 trunc 00000000 ceil 00000000 floor 00000000 cvt 00000000
+-- int to float --
+          0: cvt.s.w 00000000
+          1: cvt.s.w 3f800000
+         -1: cvt.s.w bf800000
+        100: cvt.s.w 42c80000
+   16777215: cvt.s.w 4b7fffff
+   16777216: cvt.s.w 4b800000
+   16777217: cvt.s.w 4b800001
+  -16777217: cvt.s.w cb800000
+   16777219: cvt.s.w 4b800002
+  -16777219: cvt.s.w cb800001
+   33554435: cvt.s.w 4c000001
+  -33554435: cvt.s.w cc000000
+ 2147483647: cvt.s.w 4f000000
+-2147483648: cvt.s.w cf000000
+ 2147483584: cvt.s.w 4f000000
+ 2147483583: cvt.s.w 4f000000
+ 2147483520: cvt.s.w 4effffff
+ 2147483521: cvt.s.w 4f000000
+-2147483583: cvt.s.w ceffffff
+  305419896: cvt.s.w 4d91a2b4
+-2023406815: cvt.s.w cef13579
+-- arithmetic --
+3f800000 33800000: add 3f800001 sub 3f7fffff mul 33800000 div 4b800000 sqrt(a) 3f800000
+3f800000 33c00000: add 3f800001 sub 3f7fffff mul 33c00000 div 4b2aaaab sqrt(a) 3f800000
+3f800000 34000000: add 3f800001 sub 3f7ffffe mul 34000000 div 4b000000 sqrt(a) 3f800000
+bf800000 33800000: add bf7fffff sub bf800000 mul b3800000 div cb800000 sqrt(a) 7fc00000
+3f8ccccd 3f8ccccd: add 400ccccd sub 00000000 mul 3f9ae149 div 3f800000 sqrt(a) 3f863f5f
+3f800000 40400000: add 40800000 sub c0000000 mul 40400000 div 3eaaaaab sqrt(a) 3f800000
+40000000 40400000: add 40a00000 sub bf800000 mul 40c00000 div 3f2aaaab sqrt(a) 3fb504f4
+bf800000 40400000: add 40000000 sub c0800000 mul c0400000 div beaaaaaa sqrt(a) 7fc00000
+40000000 3f800000: add 40400000 sub 3f800000 mul 40000000 div 40000000 sqrt(a) 3fb504f4
+4b7fffff 3f800000: add 4b800000 sub 4b7ffffe mul 4b7fffff div 4b7fffff sqrt(a) 45800000
+00800000 3f000000: add 3f000001 sub beffffff mul 00400000 div 01000000 sqrt(a) 20000000
+7f7fffff 7f7fffff: add 7f800000 sub 00000000 mul 7f800000 div 3f800000 sqrt(a) 5f800000
+== mode 3 ==
+-- float to int --
+3f000000: round 00000000 trunc 00000000 ceil 00000001 floor 00000000 cvt 00000000
+3fc00000: round 00000002 trunc 00000001 ceil 00000002 floor 00000001 cvt 00000001
+40200000: round 00000002 trunc 00000002 ceil 00000003 floor 00000002 cvt 00000002
+bf000000: round 00000000 trunc 00000000 ceil 00000000 floor ffffffff cvt ffffffff
+bfc00000: round fffffffe trunc ffffffff ceil ffffffff floor fffffffe cvt fffffffe
+c0200000: round fffffffe trunc fffffffe ceil fffffffe floor fffffffd cvt fffffffd
+3effffff: round 00000000 trunc 00000000 ceil 00000001 floor 00000000 cvt 00000000
+3f800001: round 00000001 trunc 00000001 ceil 00000002 floor 00000001 cvt 00000001
+406ccccd: round 00000004 trunc 00000003 ceil 00000004 floor 00000003 cvt 00000003
+c06ccccd: round fffffffc trunc fffffffd ceil fffffffd floor fffffffc cvt fffffffc
+4b7fffff: round 00ffffff trunc 00ffffff ceil 00ffffff floor 00ffffff cvt 00ffffff
+4effffff: round 7fffff80 trunc 7fffff80 ceil 7fffff80 floor 7fffff80 cvt 7fffff80
+4f000000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+4f000001: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+ceffffff: round 80000080 trunc 80000080 ceil 80000080 floor 80000080 cvt 80000080
+cf000000: round 80000000 trunc 80000000 ceil 80000000 floor 80000000 cvt 80000000
+cf000001: round 80000000 trunc 80000000 ceil 80000000 floor 80000000 cvt 80000000
+4f800000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+501502f9: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+d01502f9: round 80000000 trunc 80000000 ceil 80000000 floor 80000000 cvt 80000000
+7149f2ca: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+7f800000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+ff800000: round 80000000 trunc 80000000 ceil 80000000 floor 80000000 cvt 80000000
+7fc00000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+ffc00000: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+7f800001: round 7fffffff trunc 7fffffff ceil 7fffffff floor 7fffffff cvt 7fffffff
+000116c2: round 00000000 trunc 00000000 ceil 00000001 floor 00000000 cvt 00000000
+800116c2: round 00000000 trunc 00000000 ceil 00000000 floor ffffffff cvt ffffffff
+00000000: round 00000000 trunc 00000000 ceil 00000000 floor 00000000 cvt 00000000
+80000000: round 00000000 trunc 00000000 ceil 00000000 floor 00000000 cvt 00000000
+-- int to float --
+          0: cvt.s.w 00000000
+          1: cvt.s.w 3f800000
+         -1: cvt.s.w bf800000
+        100: cvt.s.w 42c80000
+   16777215: cvt.s.w 4b7fffff
+   16777216: cvt.s.w 4b800000
+   16777217: cvt.s.w 4b800000
+  -16777217: cvt.s.w cb800001
+   16777219: cvt.s.w 4b800001
+  -16777219: cvt.s.w cb800002
+   33554435: cvt.s.w 4c000000
+  -33554435: cvt.s.w cc000001
+ 2147483647: cvt.s.w 4effffff
+-2147483648: cvt.s.w cf000000
+ 2147483584: cvt.s.w 4effffff
+ 2147483583: cvt.s.w 4effffff
+ 2147483520: cvt.s.w 4effffff
+ 2147483521: cvt.s.w 4effffff
+-2147483583: cvt.s.w cf000000
+  305419896: cvt.s.w 4d91a2b3
+-2023406815: cvt.s.w cef1357a
+-- arithmetic --
+3f800000 33800000: add 3f800000 sub 3f7fffff mul 33800000 div 4b800000 sqrt(a) 3f800000
+3f800000 33c00000: add 3f800000 sub 3f7ffffe mul 33c00000 div 4b2aaaaa sqrt(a) 3f800000
+3f800000 34000000: add 3f800001 sub 3f7ffffe mul 34000000 div 4b000000 sqrt(a) 3f800000
+bf800000 33800000: add bf7fffff sub bf800001 mul b3800000 div cb800000 sqrt(a) 7fc00000
+3f8ccccd 3f8ccccd: add 400ccccd sub 80000000 mul 3f9ae148 div 3f800000 sqrt(a) 3f863f5e
+3f800000 40400000: add 40800000 sub c0000000 mul 40400000 div 3eaaaaaa sqrt(a) 3f800000
+40000000 40400000: add 40a00000 sub bf800000 mul 40c00000 div 3f2aaaaa sqrt(a) 3fb504f3
+bf800000 40400000: add 40000000 sub c0800000 mul c0400000 div beaaaaab sqrt(a) 7fc00000
+40000000 3f800000: add 40400000 sub 3f800000 mul 40000000 div 40000000 sqrt(a) 3fb504f3
+4b7fffff 3f800000: add 4b800000 sub 4b7ffffe mul 4b7fffff div 4b7fffff sqrt(a) 457fffff
+00800000 3f000000: add 3f000000 sub bf000000 mul 00400000 div 01000000 sqrt(a) 20000000
+7f7fffff 7f7fffff: add 7f7fffff sub 80000000 mul 7f7fffff div 3f800000 sqrt(a) 5f7fffff

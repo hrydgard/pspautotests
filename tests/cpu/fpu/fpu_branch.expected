@@ -1,0 +1,25 @@
+-- condition from c.eq.s --
+bc1f   1 == 1: taken=0 slot=1 fcr31=00800e00
+bc1f   1 == 2: taken=1 slot=1 fcr31=00000e00
+bc1f   nan == nan: taken=1 slot=1 fcr31=00000e00
+bc1t   1 == 1: taken=1 slot=1 fcr31=00800e00
+bc1t   1 == 2: taken=0 slot=1 fcr31=00000e00
+bc1t   nan == nan: taken=0 slot=1 fcr31=00000e00
+bc1fl  1 == 1: taken=0 slot=0 fcr31=00800e00
+bc1fl  1 == 2: taken=1 slot=1 fcr31=00000e00
+bc1fl  nan == nan: taken=1 slot=1 fcr31=00000e00
+bc1tl  1 == 1: taken=1 slot=1 fcr31=00800e00
+bc1tl  1 == 2: taken=0 slot=0 fcr31=00000e00
+bc1tl  nan == nan: taken=0 slot=0 fcr31=00000e00
+-- condition from ctc1 --
+bc1f   bit 23 set: taken=0 slot=1 fcr31=00800000
+bc1f   bit 23 clear: taken=1 slot=1 fcr31=00000000
+bc1t   bit 23 set: taken=1 slot=1 fcr31=00800000
+bc1t   bit 23 clear: taken=0 slot=1 fcr31=00000000
+bc1fl  bit 23 set: taken=0 slot=0 fcr31=00800000
+bc1fl  bit 23 clear: taken=1 slot=1 fcr31=00000000
+bc1tl  bit 23 set: taken=1 slot=1 fcr31=00800000
+bc1tl  bit 23 clear: taken=0 slot=0 fcr31=00000000
+-- bc1tl loop --
+loop_bc1tl(5) = 4
+loop_bc1tl(1) = 0
