@@ -1,0 +1,11 @@
+start: cached=1 uncached=1
+after cached store: cached=2 uncached=1
+after hit writeback (0x1a): cached=2 uncached=2
+after store + hit invalidate (0x19): cached=2 uncached=2
+after store + hit writeback invalidate (0x1b): cached=4 uncached=4
+after uncached store, line cached: cached=4 uncached=5
+after hit invalidate: cached=5 uncached=5
+line granularity: uncached[0]=6 uncached[1]=7
+next line untouched: uncached[16]=0
+next line written back: uncached[16]=8
+ops on an uncached line: cached=6 uncached=6
