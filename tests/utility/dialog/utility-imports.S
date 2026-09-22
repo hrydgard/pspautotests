@@ -26,3 +26,6 @@ IMPORT_FUNC "sceUtility",0xD4B95FFB,sceUtilitySavedataUpdate
 IMPORT_FUNC "sceUtility",0xD81957B7,sceUtilityScreenshotGetStatus
 IMPORT_FUNC "sceUtility",0xB57E95D9,sceUtilityGamedataInstallGetStatus
 IMPORT_FUNC "sceUtility",0x86ABDB1B,sceUtilityNpSigninGetStatus
+IMPORT_FUNC "sceUtility",0xCDC3AA41,sceUtilityHtmlViewerInitStart
+IMPORT_FUNC "sceUtility",0xF5CE1134,sceUtilityHtmlViewerShutdownStart
+IMPORT_FUNC "sceUtility",0x05AFB9E4,sceUtilityHtmlViewerUpdate

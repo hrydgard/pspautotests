@@ -1,0 +1,22 @@
+size 000: INVALID_PARAM_SIZE
+size 070: 800200d9
+size 074: INVALID_PARAM_SIZE
+size 078: 800200d9
+size 07c: INVALID_PARAM_SIZE
+size 080: 800200d9
+size 084: INVALID_PARAM_SIZE
+size 098: 800200d9
+size 09c: INVALID_PARAM_SIZE
+size 0a4: 800200d9
+size 0ac: INVALID_PARAM_SIZE
+After:
+  msg=WRONG_TYPE save=WRONG_TYPE osk=WRONG_TYPE net=WRONG_TYPE share=WRONG_TYPE
+  html=WRONG_TYPE shot=WRONG_TYPE install=WRONG_TYPE np=WRONG_TYPE
+msg InitStart: NONE
+HtmlViewer InitStart during msg: 800200d9
+HtmlViewer Update: WRONG_TYPE
+HtmlViewer ShutdownStart: WRONG_TYPE
+During msg:
+  msg=INIT save=WRONG_TYPE osk=WRONG_TYPE net=WRONG_TYPE share=WRONG_TYPE
+  html=WRONG_TYPE shot=WRONG_TYPE install=WRONG_TYPE np=WRONG_TYPE
+msg finished: ok

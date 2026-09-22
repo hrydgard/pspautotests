@@ -1,4 +1,4 @@
-TARGETS = status priority
+TARGETS = status priority htmlviewer
 EXTRA_OBJS = shared.o utility-imports.o
 
 COMMON_DIR = ../../../common
