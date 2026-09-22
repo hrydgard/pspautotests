@@ -1,0 +1,56 @@
+-- div by zero --
+div 00000000 / 0: lo=ffffffff hi=00000000
+div 00000001 / 0: lo=ffffffff hi=00000001
+div ffffffff / 0: lo=00000001 hi=ffffffff
+div 00000002 / 0: lo=ffffffff hi=00000002
+div 00000064 / 0: lo=ffffffff hi=00000064
+div ffffff9c / 0: lo=00000001 hi=ffffff9c
+div 7fffffff / 0: lo=ffffffff hi=7fffffff
+div 80000000 / 0: lo=00000001 hi=80000000
+div 12345678 / 0: lo=ffffffff hi=12345678
+div f2345678 / 0: lo=00000001 hi=f2345678
+-- divu by zero --
+divu 00000000 / 0: lo=0000ffff hi=00000000
+divu 00000001 / 0: lo=0000ffff hi=00000001
+divu ffffffff / 0: lo=ffffffff hi=ffffffff
+divu 00000002 / 0: lo=0000ffff hi=00000002
+divu 00000064 / 0: lo=0000ffff hi=00000064
+divu ffffff9c / 0: lo=ffffffff hi=ffffff9c
+divu 7fffffff / 0: lo=ffffffff hi=7fffffff
+divu 80000000 / 0: lo=ffffffff hi=80000000
+divu 12345678 / 0: lo=ffffffff hi=12345678
+divu f2345678 / 0: lo=ffffffff hi=f2345678
+-- overflow --
+div 80000000 / -1: lo=80000000 hi=00000000
+divu 80000000 / ffffffff: lo=00000000 hi=80000000
+-- normal --
+div 00000000 / 7: lo=00000000 hi=00000000
+div 00000000 / -7: lo=00000000 hi=00000000
+divu 00000000 / 7: lo=00000000 hi=00000000
+div 00000001 / 7: lo=00000000 hi=00000001
+div 00000001 / -7: lo=00000000 hi=00000001
+divu 00000001 / 7: lo=00000000 hi=00000001
+div ffffffff / 7: lo=00000000 hi=ffffffff
+div ffffffff / -7: lo=00000000 hi=ffffffff
+divu ffffffff / 7: lo=24924924 hi=00000003
+div 00000002 / 7: lo=00000000 hi=00000002
+div 00000002 / -7: lo=00000000 hi=00000002
+divu 00000002 / 7: lo=00000000 hi=00000002
+div 00000064 / 7: lo=0000000e hi=00000002
+div 00000064 / -7: lo=fffffff2 hi=00000002
+divu 00000064 / 7: lo=0000000e hi=00000002
+div ffffff9c / 7: lo=fffffff2 hi=fffffffe
+div ffffff9c / -7: lo=0000000e hi=fffffffe
+divu ffffff9c / 7: lo=24924916 hi=00000002
+div 7fffffff / 7: lo=12492492 hi=00000001
+div 7fffffff / -7: lo=edb6db6e hi=00000001
+divu 7fffffff / 7: lo=12492492 hi=00000001
+div 80000000 / 7: lo=edb6db6e hi=fffffffe
+div 80000000 / -7: lo=12492492 hi=fffffffe
+divu 80000000 / 7: lo=12492492 hi=00000002
+div 12345678 / 7: lo=0299c335 hi=00000005
+div 12345678 / -7: lo=fd663ccb hi=00000005
+divu 12345678 / 7: lo=0299c335 hi=00000005
+div f2345678 / 7: lo=fe077a12 hi=fffffffa
+div f2345678 / -7: lo=01f885ee hi=fffffffa
+divu f2345678 / 7: lo=2299c335 hi=00000005

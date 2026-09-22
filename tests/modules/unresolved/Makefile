@@ -1,4 +1,5 @@
-TARGETS = cpu_alu cpu_branch cpu_branch2 cpu_div
+TARGETS = unresolved
+EXTRA_OBJS = unresolved-imports.o
 
 COMMON_DIR = ../../../common
 include $(COMMON_DIR)/common.mk

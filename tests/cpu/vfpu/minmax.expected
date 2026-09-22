@@ -1,0 +1,17 @@
+GPRs survived: yes
+vmin 0: 3f800000,3f800000,c0000000,c0000000
+vmin 1: 3f800000,bf800000,00000000,7f800000
+vmin 2: 3f800000,bf800000,00000000,7f800000
+vmin 3: 7fbfffff,ffbfffff,ffbfffff,ffbfffff
+vmin 4: c0000000,c0400000,c0800000,f149f2ca
+vmin 5: ff800000,ff800000,00000000,40a00000
+vmin 6: 00000000,8da24260,3fc00000,40200000
+vmin 7: 40400000,40400000,ffbfffff,ffbfffff
+vmax 0: 40000000,40000000,bf800000,bf800000
+vmax 1: 7fbfffff,7fbfffff,7fbfffff,7fbfffff
+vmax 2: 7fbfffff,7fbfffff,7fbfffff,7fbfffff
+vmax 3: 7fbfffff,7fbfffff,7fbfffff,ffbfffff
+vmax 4: bf800000,c0200000,c0400000,8da24260
+vmax 5: 7f800000,7f800000,3f800000,40a00000
+vmax 6: 0da24260,00000000,3fc00000,40200000
+vmax 7: 7fbfffff,7fbfffff,c0400000,c0400000
