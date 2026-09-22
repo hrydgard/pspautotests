@@ -1,0 +1,6 @@
+-- how soon after a CC write does bvt see it (previous CC 0, written 1 / previous 1, written 0) --
+mtvc +0: 0  +1: 0  +2: 0  +6: 1
+vcmp +0: 1  +1: 1  mtvc(1) then vcmp(false): 0  vcmp(true) then mtvc(0): 0
+mtvc +0: 1  +1: 1  +2: 1  +6: 0
+vcmp +0: 0  +1: 0  mtvc(1) then vcmp(false): 0  vcmp(true) then mtvc(0): 0
+mfvc after vcmp(true) +0: 00  +1: 31  +3: 31

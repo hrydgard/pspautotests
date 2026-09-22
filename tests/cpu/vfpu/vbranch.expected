@@ -1,0 +1,93 @@
+-- CC = 00 --
+imm 0: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 1: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 2: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 3: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 4: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 5: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 6: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 7: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+-- CC = 3f --
+imm 0: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 1: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 2: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 3: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 4: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 5: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 6: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 7: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+-- CC = 01 --
+imm 0: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 1: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 2: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 3: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 4: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 5: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 6: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 7: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+-- CC = 20 --
+imm 0: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 1: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 2: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 3: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 4: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 5: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 6: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 7: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+-- CC = 15 --
+imm 0: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 1: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 2: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 3: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 4: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 5: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 6: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 7: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+-- CC = 2a --
+imm 0: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 1: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 2: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 3: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 4: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 5: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 6: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 7: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+-- CC = c0 --
+imm 0: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 1: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 2: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 3: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 4: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 5: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 6: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 7: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+-- CC = ff --
+imm 0: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 1: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 2: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 3: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 4: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 5: bvt taken, slot ran          bvf not taken, slot ran      bvtl taken, slot ran          bvfl not taken, slot skipped
+imm 6: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+imm 7: bvt not taken, slot ran      bvf taken, slot ran          bvtl not taken, slot skipped  bvfl taken, slot ran
+-- vcmp in the delay slot --
+CC=0, bvt 0, slot sets bit:    not taken
+CC=3f, bvt 0, slot clears bit: taken
+CC=3f, bvf 0, slot clears bit: not taken
+CC=0, bvf 0, slot sets bit:    taken
+CC=0, bvt 4, slot sets bit:    not taken
+CC=0, bvtl 0, slot sets bit:   not taken
+CC=3f, bvfl 0, slot clears bit: not taken
+CC after bvt (not taken) with slot vcmp EQ true:  31
+CC after bvt (taken) with slot vcmp EQ false:     0e
+CC after bvtl (not taken) with slot vcmp EQ true: 00
+CC after bvtl (taken) with slot vcmp EQ false:    0e
+-- vcmp immediately before the branch --
+1 < 2, bvt: taken
+2 < 1, bvt: not taken
+1 < 2, bvf: not taken
+2 < 1, bvf: taken
+-- vcmp.q LT lane bits through branches --
+[1,5,1,5] < 2: 15
+[1,1,1,1] < 2: 3f
+[5,5,5,5] < 2: 00
