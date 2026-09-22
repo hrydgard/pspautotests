@@ -1,0 +1,17 @@
+sc first                     rt=0 words=11111111 22222222 33333333 44444444
+ll, sc                       rt=1 words=aaaaaaaa 22222222 33333333 44444444
+ll, sw same, sc              rt=1 words=aaaaaaaa 22222222 33333333 44444444
+ll, sw other, sc             rt=1 words=aaaaaaaa 00000077 33333333 44444444
+ll, lw same, sc              rt=1 words=aaaaaaaa 22222222 33333333 44444444
+ll, ll other, sc             rt=1 words=aaaaaaaa 22222222 33333333 44444444
+ll word 0, sc word 1         rt=1 words=11111111 aaaaaaaa 33333333 44444444
+ll word 0, sc word 3         rt=1 words=11111111 22222222 33333333 aaaaaaaa
+ll, syscall, sc              rt=0 words=11111111 22222222 33333333 44444444
+ll, delay thread, sc         rt=0 words=11111111 22222222 33333333 44444444
+ll, sc (rt = 0)              rt=1 words=00000000 22222222 33333333 44444444
+ll, sc, then sc alone        rt=1 words=bbbbbbbb 22222222 33333333 44444444
+ll, sc, sc                   rt=11 words=aaaaaaaa bbbbbbbb 33333333 44444444
+ll, syscall, sc, sc          rt=0 words=11111111 22222222 33333333 44444444
+ll, spin (interrupts), sc    rt=0 words=11111111 22222222 33333333 44444444
+ll, syscall, ll, sc          rt=1 words=aaaaaaaa 22222222 33333333 44444444
+syscall, sc                  rt=0 words=11111111 22222222 33333333 44444444
