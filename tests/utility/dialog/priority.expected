@@ -1,0 +1,28 @@
+caller=16 graphics=17 access=19:
+  InitStart: NONE, then INIT
+  ShutdownStart: NONE, then SHUTDOWN
+  savedata InitStart right after: INVALID_STATUS
+caller=18 graphics=17 access=19:
+  InitStart: NONE, then INIT
+  ShutdownStart: NONE, then SHUTDOWN
+  savedata InitStart right after: INVALID_STATUS
+caller=111 graphics=17 access=19:
+  InitStart: NONE, then INIT
+  ShutdownStart: NONE, then SHUTDOWN
+  savedata InitStart right after: INVALID_STATUS
+caller=16 graphics=19 access=17:
+  InitStart: NONE, then INIT
+  ShutdownStart: NONE, then SHUTDOWN
+  savedata InitStart right after: INVALID_STATUS
+caller=18 graphics=19 access=17:
+  InitStart: NONE, then INIT
+  ShutdownStart: NONE, then SHUTDOWN
+  savedata InitStart right after: INVALID_STATUS
+caller=111 graphics=19 access=17:
+  InitStart: NONE, then INIT
+  ShutdownStart: NONE, then SHUTDOWN
+  savedata InitStart right after: INVALID_STATUS
+caller=48 graphics=48 access=48:
+  InitStart: NONE, then INIT
+  ShutdownStart: NONE, then SHUTDOWN
+  savedata InitStart right after: INVALID_STATUS

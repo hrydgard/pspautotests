@@ -1,0 +1,83 @@
+At boot:
+  msg=WRONG_TYPE save=WRONG_TYPE osk=WRONG_TYPE net=WRONG_TYPE share=WRONG_TYPE
+  html=WRONG_TYPE shot=WRONG_TYPE install=WRONG_TYPE np=WRONG_TYPE
+At boot:
+  msg Update: WRONG_TYPE
+  msg ShutdownStart: WRONG_TYPE
+  msg Abort: WRONG_TYPE
+GameSharing InitStart, bad size: INVALID_PARAM_SIZE
+After failed GameSharing InitStart:
+  msg=WRONG_TYPE save=WRONG_TYPE osk=WRONG_TYPE net=WRONG_TYPE share=WRONG_TYPE
+  html=WRONG_TYPE shot=WRONG_TYPE install=WRONG_TYPE np=WRONG_TYPE
+msg InitStart, bad size: INVALID_PARAM_SIZE
+After failed msg InitStart:
+  msg=WRONG_TYPE save=WRONG_TYPE osk=WRONG_TYPE net=WRONG_TYPE share=WRONG_TYPE
+  html=WRONG_TYPE shot=WRONG_TYPE install=WRONG_TYPE np=WRONG_TYPE
+savedata InitStart: NONE
+Savedata just started:
+  msg=WRONG_TYPE save=INIT osk=WRONG_TYPE net=WRONG_TYPE share=WRONG_TYPE
+  html=WRONG_TYPE shot=WRONG_TYPE install=WRONG_TYPE np=WRONG_TYPE
+Savedata just started:
+  msg Update: WRONG_TYPE
+  msg ShutdownStart: WRONG_TYPE
+  msg Abort: WRONG_TYPE
+Savedata just started: msg InitStart: INVALID_STATUS
+Savedata just started: GameSharing InitStart, bad size: INVALID_STATUS
+Savedata running:
+  msg=WRONG_TYPE save=RUNNING osk=WRONG_TYPE net=WRONG_TYPE share=WRONG_TYPE
+  html=WRONG_TYPE shot=WRONG_TYPE install=WRONG_TYPE np=WRONG_TYPE
+Savedata running:
+  msg Update: WRONG_TYPE
+  msg ShutdownStart: WRONG_TYPE
+  msg Abort: WRONG_TYPE
+Savedata running: msg InitStart: INVALID_STATUS
+Savedata finished:
+  msg=WRONG_TYPE save=FINISHED osk=WRONG_TYPE net=WRONG_TYPE share=WRONG_TYPE
+  html=WRONG_TYPE shot=WRONG_TYPE install=WRONG_TYPE np=WRONG_TYPE
+Savedata finished:
+  msg Update: WRONG_TYPE
+  msg ShutdownStart: WRONG_TYPE
+  msg Abort: WRONG_TYPE
+Savedata finished: msg InitStart: INVALID_STATUS
+Savedata finished: savedata InitStart: INVALID_STATUS
+savedata ShutdownStart: NONE
+Savedata shutting down:
+  msg=WRONG_TYPE save=SHUTDOWN osk=WRONG_TYPE net=WRONG_TYPE share=WRONG_TYPE
+  html=WRONG_TYPE shot=WRONG_TYPE install=WRONG_TYPE np=WRONG_TYPE
+Savedata shutting down: msg InitStart: INVALID_STATUS
+savedata ShutdownStart again: INVALID_STATUS
+Savedata done:
+  msg=WRONG_TYPE save=NONE osk=WRONG_TYPE net=WRONG_TYPE share=WRONG_TYPE
+  html=WRONG_TYPE shot=WRONG_TYPE install=WRONG_TYPE np=WRONG_TYPE
+Savedata done:
+  msg Update: WRONG_TYPE
+  msg ShutdownStart: WRONG_TYPE
+  msg Abort: WRONG_TYPE
+savedata ShutdownStart after done: INVALID_STATUS
+savedata Update after done: INVALID_STATUS
+After those:
+  msg=WRONG_TYPE save=NONE osk=WRONG_TYPE net=WRONG_TYPE share=WRONG_TYPE
+  html=WRONG_TYPE shot=WRONG_TYPE install=WRONG_TYPE np=WRONG_TYPE
+msg InitStart: NONE
+Msg just started:
+  msg=INIT save=WRONG_TYPE osk=WRONG_TYPE net=WRONG_TYPE share=WRONG_TYPE
+  html=WRONG_TYPE shot=WRONG_TYPE install=WRONG_TYPE np=WRONG_TYPE
+msg finished: ok
+Msg done:
+  msg=NONE save=WRONG_TYPE osk=WRONG_TYPE net=WRONG_TYPE share=WRONG_TYPE
+  html=WRONG_TYPE shot=WRONG_TYPE install=WRONG_TYPE np=WRONG_TYPE
+GameSharing InitStart, bad size: INVALID_PARAM_SIZE
+After failed GameSharing InitStart:
+  msg=NONE save=WRONG_TYPE osk=WRONG_TYPE net=WRONG_TYPE share=WRONG_TYPE
+  html=WRONG_TYPE shot=WRONG_TYPE install=WRONG_TYPE np=WRONG_TYPE
+GameSharing Update: WRONG_TYPE
+GameSharing ShutdownStart: WRONG_TYPE
+msg InitStart: NONE
+msg Update during INIT: INVALID_STATUS
+msg ShutdownStart during INIT: INVALID_STATUS
+msg status: RUNNING
+msg ShutdownStart while RUNNING: INVALID_STATUS
+msg status: RUNNING
+msg finished: ok
+msg Update after done: INVALID_STATUS
+msg Abort after done: INVALID_STATUS
