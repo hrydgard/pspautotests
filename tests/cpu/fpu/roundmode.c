@@ -110,6 +110,18 @@ static const unsigned int arithOps[][2] = {
 	{ 0x4b7fffff, 0x3f800000 },  // 16777215, 1
 	{ 0x00800000, 0x3f000000 },  // FLT_MIN, 0.5: the result is a denormal
 	{ 0x7f7fffff, 0x7f7fffff },  // FLT_MAX, FLT_MAX: overflow
+	{ 0x80000000, 0x3f800000 },  // -0, 1: sqrt(-0)
+	{ 0xff800000, 0x3f800000 },  // -inf, 1
+	{ 0x7f800000, 0x3f800000 },  // inf, 1
+	{ 0x7fc00000, 0x3f800000 },  // NaN, 1
+	{ 0xffc00000, 0x3f800000 },  // -NaN, 1
+	{ 0x7f800001, 0x3f800000 },  // a NaN with a different payload, 1
+	{ 0x3f800000, 0x7fc00000 },  // 1, NaN
+	{ 0x3f800000, 0xffc00000 },  // 1, -NaN
+	{ 0x7fc00000, 0xffc00000 },  // NaN, -NaN
+	{ 0x3f800000, 0x00000000 },  // 1, 0: division by zero
+	{ 0x00000000, 0x00000000 },  // 0, 0
+	{ 0x7f800000, 0x7f800000 },  // inf, inf: inf - inf
 };
 
 int main(int argc, char *argv[]) {
