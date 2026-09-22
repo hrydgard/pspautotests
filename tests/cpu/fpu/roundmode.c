@@ -120,8 +120,8 @@ static const unsigned int arithOps[][2] = {
 	{ 0x3f800000, 0xffc00000 },  // 1, -NaN
 	{ 0x7fc00000, 0xffc00000 },  // NaN, -NaN
 	{ 0x3f800000, 0x00000000 },  // 1, 0: division by zero
-	{ 0x00000000, 0x00000000 },  // 0, 0
-	{ 0x7f800000, 0x7f800000 },  // inf, inf: inf - inf
+	// 0/0 and inf - inf, which make a NaN from scratch, are in fpu_nan.c: which NaN comes out
+	// depends on the host, and isn't worth a check on every operation.
 };
 
 int main(int argc, char *argv[]) {
