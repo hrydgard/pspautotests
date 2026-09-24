@@ -1,0 +1,12 @@
+reserve: ok
+from idle: rest 000003c0
+after waiting, 0: rest 00000400
+after waiting, 1: rest 00000400
+after waiting, 2: rest 00000400
+after waiting, 3: rest 00000400
+after waiting, 4: rest 00000400
+after waiting, 5: rest 00000400
+same buffer, 0: rest 00000400
+same buffer, 1: rest 00000400
+same buffer, 2: rest 00000400
+release: 00000000
