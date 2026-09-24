@@ -1,0 +1,39 @@
+msg:
+  000-800: INVALID_PARAM_SIZE
+  (skipped 23c)
+  (skipped 244)
+  (skipped 2c4)
+netconf:
+  000-800: INVALID_PARAM_SIZE
+  (skipped 038)
+  (skipped 040)
+  (skipped 044)
+osk:
+  000-800: INVALID_PARAM_SIZE
+  (skipped 040)
+  (skipped 044)
+npsignin:
+  000-800: INVALID_PARAM_SIZE
+  (skipped 040)
+screenshot:
+  000-800: INVALID_PARAM_SIZE
+  (skipped 1b4)
+  (skipped 3a0)
+  (skipped 3a4)
+gamedatainstall:
+  000-800: INVALID_PARAM_SIZE
+  (skipped 590)
+  (skipped 598)
+savedata:
+  000-800: INVALID_PARAM_SIZE
+  (skipped 5c8)
+  (skipped 5dc)
+  (skipped 600)
+gamesharing:
+  000-800: INVALID_PARAM_SIZE
+  (skipped 050)
+  (skipped 054)
+  (skipped 064)
+After:
+  msg=WRONG_TYPE save=WRONG_TYPE osk=WRONG_TYPE net=WRONG_TYPE share=WRONG_TYPE
+  html=WRONG_TYPE shot=WRONG_TYPE install=WRONG_TYPE np=WRONG_TYPE
