@@ -1,0 +1,13 @@
+Initial: 00000001
+After sceKernelCpuSuspendIntr: 00000000
+After sceKernelCpuResumeIntr: 00000001
+After mtic 0: 00000000
+  sceKernelIsCpuIntrEnable: 00000000
+  sceKernelCpuSuspendIntr: 00000000
+After mtic 1: 00000001
+  sceKernelIsCpuIntrEnable: 00000001
+After mtic 2: 00000000
+After mtic 0x80000000: 00000000
+  sceKernelCpuSuspendIntr: 00000000
+After sceKernelCpuResumeIntr(1): 00000001
+After sceKernelCpuResumeIntr(2): 00000000

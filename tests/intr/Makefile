@@ -1,4 +1,4 @@
-TARGETS = intr enablesub registersub releasesub suspended waits
+TARGETS = intr enablesub registersub releasesub suspended waits mfic
 EXTRA_OBJS = modulemgr-imports.o ../threads/lwmutex/lwmutex-imports.o ../display/display-imports.o ../audio/sceaudio/audio-imports.o
 EXTRA_LIBS = -lpspumd
 
