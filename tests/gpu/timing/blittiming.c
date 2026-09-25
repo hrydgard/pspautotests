@@ -11,6 +11,9 @@
 #include <pspdisplay.h>
 #include <pspgu.h>
 #include <psppower.h>
+#include <pspaudio.h>
+#include <psputility.h>
+#include "../../audio/sascore/sascore.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -100,6 +103,63 @@ static const Config configs[] = {
 
 #define REPEATS 8
 
+// A sceSasCore thread mixing in the background, like a game playing music: the mix runs on the
+// Media Engine and shares the bus with the GE.
+static volatile int g_sasRun, g_sasQuit;
+static SasCore g_sasCore __attribute__((aligned(64)));
+static short g_sasPcm[4096] __attribute__((aligned(64)));
+static short g_sasOut[3][512 * 2] __attribute__((aligned(64)));
+
+static int sasThread(SceSize args, void *argp) {
+	int ch = sceAudioChReserve(PSP_AUDIO_NEXT_CHANNEL, 512, PSP_AUDIO_FORMAT_STEREO);
+	int buf = 0;
+	while (!g_sasQuit) {
+		if (!g_sasRun) {
+			sceKernelDelayThread(1000);
+			continue;
+		}
+		short *out = g_sasOut[buf];
+		buf = (buf + 1) % 3;
+		__sceSasCore(&g_sasCore, out);
+		sceAudioOutputPannedBlocking(ch, 0, 0, out);
+	}
+	sceAudioChRelease(ch);
+	return 0;
+}
+
+// Threads that poll with sceKernelDelayThread(10), the way the game's reader and sound threads do.
+static volatile int g_pollRun;
+static int pollThread(SceSize args, void *argp) {
+	while (!g_sasQuit) {
+		if (!g_pollRun) {
+			sceKernelDelayThread(1000);
+			continue;
+		}
+		sceKernelDelayThread(10);
+	}
+	return 0;
+}
+
+static void startSas() {
+	int v, i;
+	for (i = 0; i < 4096; i++) {
+		g_sasPcm[i] = (short)(((i * 5) & 255) * 64 - 8192);
+	}
+	__sceSasInit(&g_sasCore, 512, 32, 0, 44100);
+	for (v = 0; v < 8; v++) {
+		__sceSasSetVoicePCM(&g_sasCore, v, g_sasPcm, 4096, 1);
+		__sceSasSetPitch(&g_sasCore, v, 0x1000);
+		__sceSasSetADSR(&g_sasCore, v, 15, 0x40000000, 0, 0x7FFFFFFF, 0);
+		__sceSasSetKeyOn(&g_sasCore, v);
+	}
+	SceUID th = sceKernelCreateThread("sas", sasThread, 0x10, 0x2000, 0, NULL);
+	sceKernelStartThread(th, 0, NULL);
+	th = sceKernelCreateThread("poll1", pollThread, 0x3d, 0x1000, 0, NULL);
+	sceKernelStartThread(th, 0, NULL);
+	th = sceKernelCreateThread("poll2", pollThread, 0x3b, 0x1000, 0, NULL);
+	sceKernelStartThread(th, 0, NULL);
+}
+
 static int runConfig(const Config *c, int fbFormat) {
 	void *tex = c->inVram ? (void *)(0x04000000 + 0x110000) : (void *)g_ramTex;
 
@@ -170,12 +230,20 @@ int main(int argc, char *argv[]) {
 	sceDisplayWaitVblankStart();
 	sceGuDisplay(GU_TRUE);
 
-	// Once at the default clocks, and once at the highest a game can pick.
-	static const int clocks[2][3] = { { 222, 222, 111 }, { 333, 333, 166 } };
+	sceUtilityLoadModule(PSP_MODULE_AV_AVCODEC);
+	sceUtilityLoadModule(PSP_MODULE_AV_SASCORE);
+	startSas();
+	// At the default clocks, and at the highest a game can pick, then at the default with SAS (8
+	// voices, 2.3ms of every 11.6ms on the Media Engine) mixing in the background.
+	// Then with two threads polling with sceKernelDelayThread(10), then with both SAS and those.
+	static const int clocks[5][3] = { { 222, 222, 111 }, { 333, 333, 166 }, { 222, 222, 111 }, { 222, 222, 111 }, { 222, 222, 111 } };
 	int k, c;
-	for (k = 0; k < 2; k++) {
+	for (k = 0; k < 5; k++) {
 	scePowerSetClockFrequency(clocks[k][0], clocks[k][1], clocks[k][2]);
-	printf("clocks: cpu %d, bus %d\n", scePowerGetCpuClockFrequencyInt(), scePowerGetBusClockFrequencyInt());
+	g_sasRun = k == 2 || k == 4;
+	g_pollRun = k == 3 || k == 4;
+	sceKernelDelayThread(50000);
+	printf("clocks: cpu %d, bus %d%s%s\n", scePowerGetCpuClockFrequencyInt(), scePowerGetBusClockFrequencyInt(), g_sasRun ? ", with SAS mixing" : "", g_pollRun ? ", with polling threads" : "");
 	printf("%-48s %8s %8s\n", "config (framebuffer same format as texture)", "min us", "avg us");
 	for (c = 0; c < (int)(sizeof(configs) / sizeof(configs[0])); c++) {
 		const Config *cfg = &configs[c];
@@ -190,6 +258,8 @@ int main(int argc, char *argv[]) {
 		printf("%-48s %8d %8d\n", cfg->name, minUs, sum / REPEATS);
 	}
 	}
+	g_sasQuit = 1;
+	sceKernelDelayThread(100000);
 	scePowerSetClockFrequency(222, 222, 111);
 
 	sceGuTerm();
