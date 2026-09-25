@@ -71,8 +71,9 @@ unsigned int HAS_DISPLAY = 1;
 unsigned int sce_newlib_heap_kb_size = 64;
 #else
 #define SCHEDF_BUFFER_SIZE 65536
-// 21 MB to give space for thread stacks and etc.
-unsigned int sce_newlib_heap_kb_size = 21504;
+// 21 MB to give space for thread stacks and etc. Weak, so a test can pick its own with
+// PSP_HEAP_SIZE_KB().
+unsigned int sce_newlib_heap_kb_size __attribute__((weak)) = 21504;
 #endif
 
 extern int test_main(int argc, char *argv[]);
