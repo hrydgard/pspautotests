@@ -1,0 +1,50 @@
+[x] Basic:
+[x]   First: 00000000, addr=+0010 Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000010,totalBlocks=00000004,freeBlocks=00000003,wait=0)
+[x]   sceKernelGetTlsAddr after: +0010
+[x]   Again: 00000000, addr=+0010 Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000010,totalBlocks=00000004,freeBlocks=00000003,wait=0)
+[x]   Not cleared again: cccccccc
+[x]   After free: 00000000, addr=+0020 Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000010,totalBlocks=00000004,freeBlocks=00000003,wait=0)
+[x]   Cleared: 00000000
+
+[x] Objects:
+[x]   Zero: 800201d0, addr=untouched Tlspl: Failed (00000000)
+[x]   Invalid: 800201d0, addr=untouched Tlspl: Failed (DEADBEEF)
+[x]   Negative: 800201d0, addr=untouched Tlspl: Failed (FFFFFFFF)
+[x]   Wrong uid, same index: 800201d0, addr=untouched Tlspl: Invalid (800201D0)
+[x]   Deleted: 800201d0, addr=untouched Tlspl: Invalid (800201D0)
+
+[x] Pointers:
+[x]   Kernel addr: 800200d3
+[x]   Kernel timeout: 800200d3, addr=untouched Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000010,totalBlocks=00000004,freeBlocks=00000004,wait=0)
+[x]   With timeout, not waiting: 00000000, addr=+0030 Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000010,totalBlocks=00000004,freeBlocks=00000003,wait=0)
+[x]   Timeout left: 100
+
+[x] Dispatch:
+[x]   Dispatch suspended: 800201a7, addr=untouched Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000010,totalBlocks=00000004,freeBlocks=00000004,wait=0)
+[x]   Dispatch resumed: 00000000, addr=+0000 Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000010,totalBlocks=00000004,freeBlocks=00000003,wait=0)
+[x]   Dispatch suspended, already allocated: 800201a7, addr=untouched Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000010,totalBlocks=00000004,freeBlocks=00000003,wait=0)
+[x]   Interrupts disabled: 800201a7, addr=untouched
+
+[x] Waiting:
+[r]   ** started waiter
+[x]   While waiting: Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000010,totalBlocks=00000001,freeBlocks=00000000,wait=1)
+[x]   Free: 00000000
+[x]   ** waiter got 00000000, addr=+0000, first word=00000000
+[r]   After handover: Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000010,totalBlocks=00000001,freeBlocks=00000000,wait=0)
+[r]   After waiter ended: Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000010,totalBlocks=00000001,freeBlocks=00000001,wait=0)
+
+[x] Timeout:
+[r]   ** waiter timeout left: 0
+[x]   ** waiter got 800201a8, addr=untouched
+[r]   ** started waiter
+[r]   After timeout: Tlspl: OK (size=60,name=tls,attr=00000000,index=0,blockSize=00000010,totalBlocks=00000001,freeBlocks=00000000,wait=0)
+
+[x] Release:
+[r]   ** started waiter
+[x]   Release: 00000000
+[x]   ** waiter got 800201aa, addr=untouched
+
+[x] Delete:
+[r]   ** started waiter
+[x]   Delete: 00000000
+[x]   ** waiter got 800201b5, addr=untouched

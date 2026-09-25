@@ -1,4 +1,4 @@
-TARGETS = create memory partition delete free get priority refer
+TARGETS = create memory partition delete free get priority refer allocate
 EXTRA_OBJS = ../lwmutex/lwmutex-imports.o
 
 COMMON_DIR = ../../../common
