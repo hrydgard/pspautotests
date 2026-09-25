@@ -34,7 +34,7 @@ typedef struct {
 	int stripWidth;  // 480 = one sprite
 	int linear;
 	int blend;
-	int clear;
+	int clear;  // GU_COLOR_BUFFER_BIT etc., or 1 for color only
 	int draw;  // 0 = clear only
 	int totalWidth;  // 0 = 480; 512 draws a last strip entirely outside the scissor
 	int fbFormat;  // 0 = same as the texture (565 for the 16-bit ones)
@@ -85,6 +85,17 @@ static const Config configs[] = {
 	{ "565 vram strips32 -> 565 fb", GU_PSM_5650, 1, 32, 0, 0, 0, 1 },
 	{ "565 vram sprite480 -> 8888 fb", GU_PSM_5650, 1, 480, 0, 0, 0, 1, 0, GU_PSM_8888 },
 	{ "clear only -> 8888 fb", GU_PSM_8888, 0, 480, 0, 0, 1, 0 },
+	// Clears on their own, by what they clear.
+	{ "clear color, 565 fb", GU_PSM_5650, 0, 480, 0, 0, GU_COLOR_BUFFER_BIT, 0 },
+	{ "clear color+depth, 565 fb", GU_PSM_5650, 0, 480, 0, 0, GU_COLOR_BUFFER_BIT | GU_DEPTH_BUFFER_BIT, 0 },
+	{ "clear color+depth+stencil, 565 fb", GU_PSM_5650, 0, 480, 0, 0, GU_COLOR_BUFFER_BIT | GU_DEPTH_BUFFER_BIT | GU_STENCIL_BUFFER_BIT, 0 },
+	{ "clear depth only, 565 fb", GU_PSM_5650, 0, 480, 0, 0, GU_DEPTH_BUFFER_BIT, 0 },
+	{ "clear color, 5551 fb", GU_PSM_5551, 0, 480, 0, 0, GU_COLOR_BUFFER_BIT, 0, 0, GU_PSM_5551 },
+	{ "clear color+stencil, 5551 fb", GU_PSM_5551, 0, 480, 0, 0, GU_COLOR_BUFFER_BIT | GU_STENCIL_BUFFER_BIT, 0, 0, GU_PSM_5551 },
+	{ "clear color, 8888 fb", GU_PSM_8888, 0, 480, 0, 0, GU_COLOR_BUFFER_BIT, 0 },
+	{ "clear color+depth, 8888 fb", GU_PSM_8888, 0, 480, 0, 0, GU_COLOR_BUFFER_BIT | GU_DEPTH_BUFFER_BIT, 0 },
+	{ "clear color+depth+stencil, 8888 fb", GU_PSM_8888, 0, 480, 0, 0, GU_COLOR_BUFFER_BIT | GU_DEPTH_BUFFER_BIT | GU_STENCIL_BUFFER_BIT, 0 },
+	{ "clear depth only, 8888 fb", GU_PSM_8888, 0, 480, 0, 0, GU_DEPTH_BUFFER_BIT, 0 },
 };
 
 #define REPEATS 8
@@ -97,7 +108,9 @@ static int runConfig(const Config *c, int fbFormat) {
 	sceGuDrawBufferList(fbFormat, (void *)0, 512);
 	if (c->clear) {
 		sceGuClearColor(0);
-		sceGuClear(GU_COLOR_BUFFER_BIT);
+		sceGuClearDepth(0);
+		sceGuClearStencil(0);
+		sceGuClear(c->clear == 1 ? GU_COLOR_BUFFER_BIT : c->clear);
 	}
 	if (c->draw) {
 		sceGuEnable(GU_TEXTURE_2D);
@@ -145,6 +158,8 @@ int main(int argc, char *argv[]) {
 	sceGuStart(GU_DIRECT, g_list);
 	sceGuDrawBuffer(GU_PSM_8888, (void *)0, 512);
 	sceGuDispBuffer(480, 272, (void *)0x88000, 512);
+	// After the VRAM test texture at 0x110000-0x198000.
+	sceGuDepthBuffer((void *)0x198000, 512);
 	sceGuOffset(2048 - 240, 2048 - 136);
 	sceGuViewport(2048, 2048, 480, 272);
 	sceGuScissor(0, 0, 480, 272);

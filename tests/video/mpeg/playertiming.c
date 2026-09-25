@@ -9,9 +9,12 @@
 // Needs the game's movie next to it, which can't be included here: get it with
 //   PPSSPPHeadless --dump-file disc0:/PSP_GAME/USRDIR/DATAPSP/MOVIES/LOGO.PMF --dump-file-out LOGO.PMF <iso>
 // It streams the file from ms0: through sceIoRead the way the game streams from disc0:, and
-// g_split selects sceMpegAvcDecodeYCbCr + sceMpegAvcCsc instead of the game's sceMpegAvcDecode.
+// g_split selects sceMpegAvcDecodeYCbCr + sceMpegAvcCsc instead of the game's sceMpegAvcDecode,
+// and g_sas adds a sceSasCore thread like the main game's (the SAS mix shares the Media Engine
+// with the video decoder: with it, the loop locks to 30 fps; without, ~36).
 // Findings: ppsspp-re docs/lethal-alliance-video-pacing.md.
 #include "shared.h"
+#include "../../audio/sascore/sascore.h"
 
 #define RING_PACKETS 170
 #define AUDIO_BUFS 10
@@ -118,13 +121,61 @@ static void lap(int step) {
 }
 
 // 1: decode with sceMpegAvcDecodeYCbCr + sceMpegAvcCsc, timed separately, instead of sceMpegAvcDecode.
-static int g_split = 1;
+static int g_split = 0;
 static void *g_ycbcr;
 static int g_cscUs[MAX_FRAMES];
 extern int sceMpegAvcQueryYCbCrSize(SceMpeg *mpeg, int mode, int width, int height, int *result);
 extern int sceMpegAvcInitYCbCr(SceMpeg *mpeg, int mode, int width, int height, void *ycbcr);
 extern int sceMpegAvcDecodeYCbCr(SceMpeg *mpeg, SceMpegAu *au, void **buffer, SceInt32 *init);
 extern int sceMpegAvcCsc(SceMpeg *mpeg, void *source, int *range, int frameWidth, void *dest);
+
+// 1: also run sceSasCore on its own thread, like the main game does during its movies. The mix
+// runs on the Media Engine, which the video decoder shares.
+static int g_sas = 1;
+static SasCore g_sasCore __attribute__((aligned(64)));
+static short g_sasPcm[2][4096] __attribute__((aligned(64)));
+// Output blocking returns while the hardware still plays the block just queued, so rotate.
+static short g_sasOut[3][512 * 2] __attribute__((aligned(64)));
+static long long g_sasUs;
+static int g_sasCount, g_sasMax;
+
+static int sasThread(SceSize args, void *argp) {
+	int ch = sceAudioChReserve(PSP_AUDIO_NEXT_CHANNEL, 512, PSP_AUDIO_FORMAT_STEREO);
+	int buf = 0;
+	while (!g_quit) {
+		short *out = g_sasOut[buf];
+		buf = (buf + 1) % 3;
+		u32 t0 = sceKernelGetSystemTimeLow();
+		__sceSasCore(&g_sasCore, out);
+		int dt = (int)(sceKernelGetSystemTimeLow() - t0);
+		g_sasUs += dt;
+		if (dt > g_sasMax) g_sasMax = dt;
+		g_sasCount++;
+		sceAudioOutputPannedBlocking(ch, 0x8000, 0x8000, out);
+	}
+	sceAudioChRelease(ch);
+	return 0;
+}
+
+static void setupSas() {
+	// As Star Wars: Lethal Alliance sets it up: 512-sample grain, 32 voices, two looping voices.
+	__sceSasInit(&g_sasCore, 512, 32, 0, 44100);
+	__sceSasRevType(&g_sasCore, -1);
+	__sceSasRevEVOL(&g_sasCore, 0x1000, 0x1000);
+	__sceSasRevVON(&g_sasCore, 1, 1);
+	static const int pitches[2] = { 743, 1671 };
+	int v, i;
+	for (v = 0; v < 2; v++) {
+		for (i = 0; i < 4096; i++) {
+			g_sasPcm[v][i] = (short)(((i * (v + 3)) & 255) * 64 - 8192);
+		}
+		__sceSasSetVoicePCM(&g_sasCore, v, g_sasPcm[v], 4096, 1);
+		__sceSasSetPitch(&g_sasCore, v, pitches[v]);
+		__sceSasSetVolume(&g_sasCore, v, 0x1000, 0x1000, 0x1000, 0x1000);
+		__sceSasSetADSR(&g_sasCore, v, 15, 0x10000000, 0, 100, 0x40000000);
+		__sceSasSetKeyOn(&g_sasCore, v);
+	}
+}
 
 static void *g_frameBuf;
 static int g_drawBuf;
@@ -340,6 +391,12 @@ int main(int argc, char *argv[]) {
 		g_filePos += got * 2048;
 	}
 
+	SceUID sas = -1;
+	if (g_sas) {
+		setupSas();
+		sas = sceKernelCreateThread("AudioWorkerThread", sasThread, 0x10, 0x2000, 0, NULL);
+		sceKernelStartThread(sas, 0, NULL);
+	}
 	SceUID reader = sceKernelCreateThread("readThread", readThread, 0x3d, 0x1000, 0, NULL);
 	SceUID sound = sceKernelCreateThread("soundThread", soundThread, 0x3b, 0x1000, 0, NULL);
 	SceUID player = sceKernelCreateThread("user_main", playerThread, 0x20, 0x4000, 0, NULL);
@@ -352,6 +409,10 @@ int main(int argc, char *argv[]) {
 	g_quit = 1;
 	sceKernelWaitThreadEnd(reader, NULL);
 	sceKernelWaitThreadEnd(sound, NULL);
+	if (sas >= 0) {
+		sceKernelWaitThreadEnd(sas, NULL);
+		printf("sceSasCore: %d calls, avg %d us, max %d\n", g_sasCount, g_sasCount ? (int)(g_sasUs / g_sasCount) : 0, g_sasMax);
+	}
 
 	for (i = 0; i < NUM_STEPS; i++) {
 		printf("step %-10s total %9d us, avg %6d, max %6d\n", g_stepNames[i], (int)g_stepUs[i], g_iterations ? (int)(g_stepUs[i] / g_iterations) : 0, g_stepMax[i]);
