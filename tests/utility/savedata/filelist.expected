@@ -46,6 +46,7 @@
 [x] sceUtilitySavedataGetStatus: 00000001 (duplicates skipped)
 [x] sceUtilitySavedataGetStatus: 00000002 (duplicates skipped)
 [r] sceUtilitySavedataUpdate: 00000000 (duplicates skipped)
+[x] sceUtilitySavedataGetStatus: 00000003 (duplicates skipped)
 CHANGE: bind: 00000000 => 000003fd
 CHANGE: fileList.resultNumSecureEntries: 00000000 => 00000001
 CHANGE: fileList.resultNumNormalEntries: 00000000 => 00000001
@@ -56,7 +57,6 @@ CHANGE: fileList->normalEntries.st_mode: 00001337 => 000021ff
 CHANGE: fileList->normalEntries.name:  => OTHER.BIN
 CHANGE: fileList->systemEntries.st_mode: 00001337 => 000021ff
 CHANGE: fileList->systemEntries.name:  => PARAM.SFO
-[x] sceUtilitySavedataGetStatus: 00000003 (duplicates skipped)
 [x] sceUtilitySavedataShutdownStart: 00000000
 [x] sceUtilitySavedataGetStatus: 00000004 (duplicates skipped)
 [r] Delayed to allow for shutdown: 00000000

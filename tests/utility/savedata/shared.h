@@ -174,5 +174,8 @@ void checkpointExists(const SceUtilitySavedataParam2 *param);
 // By default: TEST99901ABC/DATA.BIN.
 void initStandardSavedataParams(SceUtilitySavedataParam2 *param);
 void runStandardSavedataLoop(SceUtilitySavedataParam2 *param);
+// When the utility writes its results isn't important, only that they're there once it's finished.
+// Set to print the changes only then, since an emulator may write them across several polls.
+extern int onlyPrintFinishedChanges;
 
 void initDisplay();

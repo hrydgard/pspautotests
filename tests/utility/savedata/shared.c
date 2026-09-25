@@ -344,6 +344,8 @@ void checkpointResetForSavedata() {
 	sceKernelStartThread(reschedThread, 0, NULL);
 }
 
+int onlyPrintFinishedChanges = 0;
+
 void runStandardSavedataLoop(SceUtilitySavedataParam2 *param) {
 	setLastSaveParam(param);
 
@@ -365,7 +367,8 @@ void runStandardSavedataLoop(SceUtilitySavedataParam2 *param) {
 		int status = checkpointStatusChange();
 		if (status == 3)
 			break;
-		printSaveParamChanges(param);
+		if (!onlyPrintFinishedChanges)
+			printSaveParamChanges(param);
 
 		if (status == 2) {
 			int result = sceUtilitySavedataUpdate(1);
@@ -374,7 +377,8 @@ void runStandardSavedataLoop(SceUtilitySavedataParam2 *param) {
 				first = 0;
 			}
 		}
-		printSaveParamChanges(param);
+		if (!onlyPrintFinishedChanges)
+			printSaveParamChanges(param);
 
 		sceKernelDelayThread(2000);
 		checkpointResetForSavedata();
