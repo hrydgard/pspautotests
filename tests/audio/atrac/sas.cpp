@@ -29,22 +29,70 @@ void LogSasChannel(int channel) {
 	schedf("unk2=%04x, unk3=%02x, phase=%d, height=%d\n", voice.unk2, voice.unk3, voice.phase, voice.height);
 }
 
-extern "C" int main(int argc, char *argv[]) {
-	CHECKPOINT_OUTPUT_DIRECT = 1;
-	HAS_DISPLAY = 0;
+void LogAtracContextForSas(SasCore *sasCore, int atracID, const u8 *buffer, bool full) {
+	// Need to call this every time to get the values updated - but only in the emulator!
+	// TODO: All Atrac calls should update the raw context, or we should just directly use the fields.
+	int bufferOff = (intptr_t)buffer;
+	SceAtracId *ctx = _sceAtracGetContextAddress(atracID);
+	if (!ctx) {
+		schedf("Context not yet available for atracID %d\n", atracID);
+		return;
+	}
+	if (full) {
+		int bufOff = (ctx->info.buffer == 0) ? 0 : (intptr_t)ctx->info.buffer - bufferOff;
+		// Also log some stuff from the codec context, just because.
+		// Actually, doesn't seem very useful. inBuf is just the current frame being decoded.
+		// printf("sceAudioCodec inbuf: %p outbuf: %p inBytes: %d outBytes: %d\n", ctx->codec.inBuf, ctx->codec.outBuf, ctx->codec.inBytes, ctx->codec.outBytes);
+		schedf("dataOff: %08x sampleSize: %04x codec: %04x channels: %d\n", ctx->info.dataOff, ctx->info.sampleSize, ctx->info.codec, ctx->info.numChan);
+		schedf("endSample: %08x loopStart: %08x loopEnd: %08x\n", ctx->info.endSample, ctx->info.loopStart, ctx->info.loopEnd);
+		schedf("bufferByte: %08x secondBufferByte: %08x\n", ctx->info.bufferByte, ctx->info.secondBufferByte);
+		schedf("buffer(offset): %08x\n", bufOff);
+	}
 
-	sceUtilityLoadModule(PSP_MODULE_AV_AVCODEC);
-	sceUtilityLoadModule(PSP_MODULE_AV_SASCORE);
-	sceUtilityLoadModule(PSP_MODULE_AV_ATRAC3PLUS);
+	schedf("curFileOff: %08x fileDataEnd: %08x decodePos: %08x endFlag: %08x\n", ctx->info.curFileOff, ctx->info.fileDataEnd, ctx->info.decodePos, __sceSasGetEndFlag(sasCore));
+	schedf("second: %08x secondbyte: %08x buffer: %08x err: %08x ctx: %08x\n", ctx->info.secondBuffer, ctx->info.secondBufferByte, (u32)buffer, ctx->codec.err, (u32)ctx);
 
+	// schedf("buffer %08x secondBuffer %08x firstValidSample: %04x\n", ctx->info.buffer, ctx->info.secondBuffer, ctx->info.firstValidSample);
+
+	for (int i = 0; i < ARRAY_SIZE(ctx->info.unk); i++) {
+		if (ctx->info.unk[i] != 0) {
+			schedf("unk[%d]: %08x\n", i, ctx->info.unk[i]);
+		}
+	}
+}
+
+// Supported modes are FULL and STREAM.
+// The initialStreamSize and streamBlockSize are only used for STREAM mode.
+int SasAtracTest(Atrac3File &at3, AtracTestMode mode, int initialStreamSize, int streamBlockSize) {
     SceCtrlData pad;
     sceCtrlSetSamplingCycle(0);
     sceCtrlSetSamplingMode(PSP_CTRL_MODE_ANALOG);
 
-	Atrac3File at3("test_mono.at3");
-	at3.Require();
+	u8 *readBuf[2] = {
+		(u8 *)malloc(streamBlockSize),
+		(u8 *)malloc(streamBlockSize),
+	};
 
-	int atracID = sceAtracSetDataAndGetID(at3.Data(), at3.Size());
+	if (initialStreamSize >= at3.Size()) {
+		printf("Pointless to stream, buffer too big\n");
+		return 1;
+	}
+
+	int atracID = -1;
+	switch (mode) {
+	case ATRAC_TEST_FULL:
+		atracID = sceAtracSetDataAndGetID((void*)at3.Data(), at3.Size());
+		break;
+	case ATRAC_TEST_STREAM:
+		atracID = sceAtracSetDataAndGetID(at3.Data(), initialStreamSize);
+		// Let's start the stream at the correct location.
+		at3.Seek(initialStreamSize, SEEK_SET);
+		break;
+	default:
+		schedf("Unsupported test mode %d\n", mode);
+		return 1;
+	}
+
 	if (atracID < 0) {
 		schedf("sceAtracSetDataAndGetID: Failed %08x\n", atracID);
 		return 1;
@@ -56,11 +104,11 @@ extern "C" int main(int argc, char *argv[]) {
 	const int grainSize = 1024;
 	const int grainSampleBytes = grainSize * 4;
 
-	int retval = __sceSasInit(&sasCore, grainSize, 32, 1, 44100);
-	schedf("sceSasInit: %08x\n", retval);
-
 	SceAtracId *ctx = (SceAtracId *)_sceAtracGetContextAddress(atracID);
 	schedf("_sceAtracGetContextAddress: ...   streamOff=%08x\n", ctx->info.streamOff);
+
+	int retval = __sceSasInit(&sasCore, grainSize, 32, 1, 44100);
+	schedf("sceSasInit: %08x\n", retval);
 
 	int voice = 30;
 
@@ -70,10 +118,8 @@ extern "C" int main(int argc, char *argv[]) {
 	retval = __sceSasSetOutputmode(&sasCore, 0);
 	schedf("__sceSasSetOutputmode: %08x\n", retval);
 
-
 	//retval = __sceSasSetADSRmode(&sasCore, voice, 15, PSP_SAS_ADSR_CURVE_MODE_LINEAR_INCREASE, PSP_SAS_ADSR_CURVE_MODE_DIRECT, PSP_SAS_ADSR_CURVE_MODE_DIRECT, PSP_SAS_ADSR_CURVE_MODE_DIRECT);
 	//schedf("__sceSasSetADSRmode: %08x\n", retval);
-
 
 	// Hacking the context
 	// ===================
@@ -89,28 +135,45 @@ extern "C" int main(int argc, char *argv[]) {
 	// * Codec inbuf/outbuf are constant
 	// * I can't find the damn pointers being incremented!
 
-	ctx->info.state = 0x10;
+	int oldState = ctx->info.state;
+	printf("Old state: %d\n", oldState);
+
+	ctx->info.numChan = 1;   // Only mono supported.
+	ctx->info.loopEnd = 0;
+	ctx->info.state = 0x10;  // Set the secret Atrac3 state.
+	ctx->codec.err = 0;
 	retval = __sceSasSetVoiceATRAC3(&sasCore, voice, ctx);
 	schedf("__sceSasSetVoiceATRAC3: %08x\n", retval);
+	if ((int)retval < 0) {
+		// Bad.
+		return 1;
+	}
+	LogAtracContextForSas(&sasCore, atracID, at3.Data(), true);
 
-	LogAtracContext(atracID, at3.Data(), NULL, true);
+    int temp = sceKernelCpuSuspendIntr();
+
+	// This setup is shared whether we stream or not.
 
 	ctx->info.buffer += ctx->info.streamOff;
 	ctx->info.loopNum = voice;
 	ctx->info.curFileOff += ctx->info.streamDataByte;
-	ctx->info.secondBuffer = (u8 *)0xFFFFFFFF;
 
-	LogAtracContext(atracID, at3.Data(), NULL, true);
+	if (oldState != 2) {
+		// If we aren't in FULL mode, mark for streaming.
+		ctx->info.secondBuffer = (u8 *)0xFFFFFFFF;
+	}
+
+	sceKernelCpuResumeIntr(temp);
+
+	schedf("Modified the context.\n");
+
+	LogAtracContextForSas(&sasCore, atracID, at3.Data(), false);
 	// LogSasChannel(voice);
 
 	retval = __sceSasSetADSR(&sasCore,voice,0xf,0x40000000,0,0,0x10000);
 	schedf("__sceSasSetADSR: %08x\n", retval);
 
 	retval = __sceSasSetPitch(&sasCore, voice, 4096);
-
-    int temp = sceKernelCpuSuspendIntr();
-
-	sceKernelCpuResumeIntr(temp);
 
 	retval = __sceSasSetKeyOn(&sasCore, voice);
 	schedf("__sceSasSetKeyOn: %08x\n", retval);
@@ -124,7 +187,7 @@ extern "C" int main(int argc, char *argv[]) {
 	}
 
 	int frame = 0;
-	for (int i = 0; i < 100; i++) {
+	while (true) {
 		sceCtrlPeekBufferPositive(&pad, 1);
 		if (pad.Buttons & PSP_CTRL_START) {
 			schedf("Cancelled using the start button");
@@ -140,13 +203,13 @@ extern "C" int main(int argc, char *argv[]) {
 		retval = sceAudioOutputBlocking(audioChannel, 0x8000, dataPtr);
 		schedf("sceAudioOutputBlocking: %08x\n", retval);
 
-		LogAtracContext(atracID, at3.Data(), NULL, true);
+		LogAtracContextForSas(&sasCore, atracID, at3.Data(), false);
 
 		/*
 		printf("\n");
 		const uint32_t *ptr = (const uint32_t *)ctx;
-		for (int i = 0; i < 0x100; i++) {
-			printf("%08x ", ptr[i]);
+		for (int i = 0; i < 0x20; i++) {
+			printf("%08x ", (unsigned int)ptr[i]);
 			if (i % 8 == 7) {
 				printf("\n");
 			}
@@ -154,9 +217,51 @@ extern "C" int main(int argc, char *argv[]) {
 		printf("\n");
 		*/
 
+		if (mode == ATRAC_TEST_STREAM) {
+			int needMore = 0;
+			// Check with the context whether more data is needed.
+			if (ctx->info.curFileOff == ctx->info.fileDataEnd) {
+				if (ctx->info.secondBuffer != 0) {
+					needMore = (int)ctx->info.secondBuffer < 1;
+				}
+			} else {
+				needMore = (int)ctx->info.secondBuffer < 1;
+			}
+
+			if (needMore) {
+				schedf("!!!!!!!!!!!!!!!! Need more data! reading %08x bytes at %08x\n", streamBlockSize, at3.Tell());
+
+				static int curBuf = 0;
+				curBuf ^= 1;
+
+				int sizeToAdd = at3.Read(readBuf[curBuf], streamBlockSize);
+
+				const u8 *readPtr = readBuf[curBuf];
+
+				int remaining = ctx->info.fileDataEnd - ctx->info.curFileOff;
+				if (remaining < sizeToAdd) {
+					sizeToAdd = remaining;
+				}
+				if (sizeToAdd == 0) {
+					readPtr = NULL;
+				}
+				if (sizeToAdd == remaining || sizeToAdd > 0x3ff) {
+					ctx->info.curFileOff += sizeToAdd;
+					retval = __sceSasConcatenateATRAC3(&sasCore, voice, readPtr, sizeToAdd);
+					schedf("%08x=__sceSasConcatenateATRAC3(%d, %p, %d)\n", retval, voice, readPtr, sizeToAdd);
+					LogAtracContextForSas(&sasCore, atracID, at3.Data(), false);
+				}
+			}
+		}
+
 		// We don't (yet) want to test Sas internals.
 		// LogSasChannel(voice);
 		frame++;
+
+		if (__sceSasGetEndFlag(&sasCore) == 0xFFFFFFFF) {
+			schedf("All notes are done\n");
+			break;
+		}
 	}
 
 	if (enablePlayback) {
@@ -164,6 +269,33 @@ extern "C" int main(int argc, char *argv[]) {
 	}
 
 	sceAtracReleaseAtracID(atracID);
-
+	free(readBuf[0]);
+	free(readBuf[1]);
 	return 0;
+}
+
+extern "C" int main(int argc, char *argv[]) {
+	CHECKPOINT_OUTPUT_DIRECT = 1;
+	HAS_DISPLAY = 0;
+
+	sceUtilityLoadModule(PSP_MODULE_AV_AVCODEC);
+	sceUtilityLoadModule(PSP_MODULE_AV_SASCORE);
+	sceUtilityLoadModule(PSP_MODULE_AV_ATRAC3PLUS);
+
+	Atrac3File at3("test_mono_long.at3");
+	if (!at3.IsValid()) {
+		schedf("Failed to load test_mono_long.at3\n");
+		return 1;
+	}
+
+	int retval = SasAtracTest(at3, ATRAC_TEST_STREAM, 0x2000, 0x2000);
+	if (retval == 0) {
+		schedf("Test failed\n");
+	}
+
+	// at3.Reload("test_mono.at3");
+
+	schedf("end.\n");
+
+	return retval;
 }
