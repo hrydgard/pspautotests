@@ -4,6 +4,8 @@
 #include <common.h>
 #include <pspkernel.h>
 
+#include "dumpbuffer.h"
+
 extern "C" int sceDmacMemcpy(void *dest, const void *source, unsigned int size);
 
 #define BUF_WIDTH 512
@@ -55,17 +57,7 @@ void displayBuffer(const char *reason) {
 	checkpoint(reason);
 	// This prevents drawing to the screen, which makes the test faster.
 	HAS_DISPLAY = 0;
-	for (int y = 0; y < 272; ++y) {
-		for (int x = 0; x < 480; ++x) {
-			if (buf[y * 512 + x] != 0) {
-				schedf("%x", buf[y * 512 + x]);
-			} else {
-				schedf(" ");
-			}
-		}
-		schedf("\n");
-		flushschedf();
-	}
+	dumpBuffer(buf);
 	HAS_DISPLAY = 1;
 
 	// Reset.
