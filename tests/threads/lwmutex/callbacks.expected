@@ -1,0 +1,19 @@
+[x] Contended:
+    * callback, waking releaser
+  released in callback: 00000000
+    * callback, waking releaser
+  deleted in callback: 800201b5
+    * callback
+  released after callback: 00000000
+    * callback, waking releaser
+  timed out: 800201a8 (timeout left 0)
+    * callback, waking releaser
+  released in callback, with timeout: 00000000 (timeout left some)
+[x] Uncontended, with a pending callback:
+  sceKernelLockLwMutexCB: 00000000
+  sceKernelGetCallbackCount: 1
+[x] Callback after a contended lock returned:
+    * callback, waking releaser
+  released in callback: 00000000
+    * callback
+  sceKernelCheckCallback: 00000001
