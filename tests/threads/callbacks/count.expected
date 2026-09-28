@@ -18,8 +18,8 @@
 [x]   ** started worse priority sleeping thread
 [r]   Beginning sleep on worse priority sleeping thread
 [r]   Callback hit on better priority sleeping thread: 00000001, 00001337, returning 00000000
-[x]   Better: OK (0) Callback: OK (size=56,name=better priority sleeping thread,thread=1,callback=1,common=0babfdc0,notifyCount=00000000,notifyArg=0)
-[x]   Worse: OK (1) Callback: OK (size=56,name=worse priority sleeping thread,thread=1,callback=1,common=0babfdd4,notifyCount=00000001,notifyArg=4919)
+[x]   Better: OK (0) Callback: OK (size=56,name=better priority sleeping thread,thread=1,callback=1,common=00000000,notifyCount=00000000,notifyArg=0)
+[x]   Worse: OK (1) Callback: OK (size=56,name=worse priority sleeping thread,thread=1,callback=1,common=00000000,notifyCount=00000001,notifyArg=4919)
 [r]   Callback hit on worse priority sleeping thread: 00000001, 00001337, returning 00000000
 [r]   ** stopped worse priority sleeping thread
 [r]   ** stopped better priority sleeping thread

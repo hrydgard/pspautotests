@@ -1,4 +1,4 @@
-TARGETS = afterwait callbacks cancel check count create delete exit nested notify refer
+TARGETS = afterwait callbacks cancel check count create delete delivery exit nested notify refer
 EXTRA_OBJS = ../mutex/mutex-imports.o ../../modules/loadexec-imports.o
 EXTRA_LIBS = -lpsppower -lpspumd
 

@@ -5,12 +5,21 @@ int cbFunc(int arg1, int arg2, void *arg) {
 	return 0;
 }
 
-inline void testGetCount(const char *title, SceUID cb) {
+// commonBase: the common argument is a stack address, which differs between PSPLink and emulators,
+// so print it relative to where it's expected.
+inline void testGetCount(const char *title, SceUID cb, const void *commonBase = NULL) {
 	int result = sceKernelGetCallbackCount(cb);
 	if (result >= 0) {
 		checkpoint(NULL);
 		schedf("%s: OK (%d) ", title, result);
-		schedfCallback(cb);
+		SceKernelCallbackInfo info;
+		info.size = sizeof(info);
+		if (commonBase != NULL && sceKernelReferCallbackStatus(cb, &info) == 0) {
+			info.common = (void *)((const char *)info.common - (const char *)commonBase);
+			schedfCallback(info);
+		} else {
+			schedfCallback(cb);
+		}
 	} else {
 		checkpoint("%s: Failed (%08x)", title, result);
 	}
@@ -47,8 +56,8 @@ extern "C" int main(int argc, char *argv[]) {
 		sceKernelDelayThread(1000);
 		sceKernelNotifyCallback(waiter1.callbackID(), 0x1337);
 		sceKernelNotifyCallback(waiter2.callbackID(), 0x1337);
-		testGetCount("  Better", waiter1.callbackID());
-		testGetCount("  Worse", waiter2.callbackID());
+		testGetCount("  Better", waiter1.callbackID(), &waiter1);
+		testGetCount("  Worse", waiter2.callbackID(), &waiter2);
 		sceKernelDelayThread(1000);
 	}
 
