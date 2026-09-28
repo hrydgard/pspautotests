@@ -1,0 +1,21 @@
+[x] sceKernelDelayThread:
+     0: ~0us, CB ~0us
+     1: ~230us, CB ~230us
+     2: ~230us, CB ~230us
+     5: ~230us, CB ~230us
+    10: ~230us, CB ~230us
+    20: ~230us, CB ~230us
+    50: ~230us, CB ~230us
+   100: ~230us, CB ~230us
+   150: ~230us, CB ~230us
+   190: ~230us, CB ~230us
+   200: ~230us, CB ~230us
+   205: ~230us, CB ~230us
+   209: ~230us, CB ~230us
+   210: ~240us, CB ~230us
+   215: ~240us, CB ~240us
+   220: ~250us, CB ~250us
+   250: ~280us, CB ~280us
+   300: ~330us, CB ~330us
+   500: ~520us, CB ~530us
+  1000: ~1030us, CB ~1030us

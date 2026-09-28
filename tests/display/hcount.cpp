@@ -1,5 +1,6 @@
 #include <common.h>
 #include <pspdisplay.h>
+#include <pspthreadman.h>
 
 extern "C" {
 	int sceDisplayIsVblank();
@@ -9,6 +10,11 @@ extern "C" {
 }
 
 void testAdjustHcount(const char *title, int value) {
+	// Start right after a line begins, so the read below can't straddle the next one.
+	int line = sceDisplayGetCurrentHcount();
+	while (sceDisplayGetCurrentHcount() == line) {
+		continue;
+	}
 	int result = sceDisplayAdjustAccumulatedHcount(value);
 	int newValue = sceDisplayGetAccumulatedHcount();
 
@@ -28,6 +34,12 @@ extern "C" int main(int argc, char *argv[]) {
 
 	checkpointNext("sceDisplayGetAccumulatedHcount:");
 	testAdjustHcount("  Adjust to INT_MAX", 0x7FFFFFFF);
+	// It only wraps once the next line starts, about 58us later (display/hcountwrap), so wait
+	// long enough for that rather than leave it to how long the checkpoint took.
+	u32 waitStart = sceKernelGetSystemTimeLow();
+	while (sceKernelGetSystemTimeLow() - waitStart < 100) {
+		continue;
+	}
 	int wrappedH = sceDisplayGetAccumulatedHcount();
 	if (wrappedH < 5) {
 		checkpoint("  Wrapped around to 0: OK");

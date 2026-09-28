@@ -1,0 +1,4 @@
+[x] Vblank:
+  Length after wait returns: 730-740us
+  Hcount at start: 1-1, last seen in vblank: 13-14
+  Frame: 16680-16690us

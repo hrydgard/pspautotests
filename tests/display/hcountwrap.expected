@@ -1,0 +1,14 @@
+[x] Accumulated hcount after adjusting to INT_MAX:
+    0us later: wrapped 2, not 18
+    5us later: wrapped 3, not 17
+   10us later: wrapped 5, not 15
+   20us later: wrapped 8, not 12
+  first read 0
+   30us later: wrapped 12, not 8
+  first read 0
+   40us later: wrapped 15, not 5
+  first read 0
+   50us later: wrapped 18, not 2
+   60us later: wrapped 20, not 0
+   70us later: wrapped 20, not 0
+  120us later: wrapped 20, not 0
