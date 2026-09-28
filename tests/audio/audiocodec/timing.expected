@@ -1,0 +1,34 @@
+clocks: cpu 222, bus 111
+stream         min us avg us max us  bytes failed
+at3+ 64k         2196   2409   2633   8192      0
+at3+ 128k        2579   2986   3379   8192      0
+at3 66k           666    684    704   4096      0
+mp3 32k 22khz    1382   1410   1532   2304      0
+mp3 64k          1413   1462   1578   2304      0
+mp3 128k         2520   2573   2697   4608      0
+mp3 320k         2636   2696   2784   4608      0
+aac 64k          1536   1648   2042   4096      0
+aac 128k         1803   1988   2341   4096      0
+aac 192k         1889   2040   2702   4096      0
+codec    needmem getedram   init  release getinfo
+at3+         147       56    646       55      82
+at3           80       56    210       56       3
+mp3           79       57    517       57      82
+aac           57       57    230       55       3
+clocks: cpu 333, bus 166
+stream         min us avg us max us  bytes failed
+at3+ 64k         1461   1603   1753   8192      0
+at3+ 128k        1734   1988   2247   8192      0
+at3 66k           442    455    470   4096      0
+mp3 32k 22khz     920    939   1021   2304      0
+mp3 64k           940    973   1051   2304      0
+mp3 128k         1679   1713   1797   4608      0
+mp3 320k         1755   1796   1853   4608      0
+aac 64k          1024   1097   1360   4096      0
+aac 128k         1201   1322   1559   4096      0
+aac 192k         1254   1356   1801   4096      0
+codec    needmem getedram   init  release getinfo
+at3+          97       37    426       36      54
+at3           52       37    140       36       2
+mp3           52       36    344       37      54
+aac           37       37    154       36       2
