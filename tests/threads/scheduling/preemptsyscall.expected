@@ -1,0 +1,8 @@
+[x] Alone:
+  sceKernelCreateThread(256KB stack): ~1300us
+[x] With a better thread delaying 200us at a time:
+  sceKernelCreateThread: ~1600us, the better thread ran during it: 3 or more
+[x] With the better thread doing 150us of work each time:
+  sceKernelCreateThread: ~2500us, the better thread ran during it: 3 or more
+[x] With a worse thread ready to run:
+  sceKernelCreateThread: ~1600us, the worse thread ran during it: no

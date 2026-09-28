@@ -1,4 +1,4 @@
-TARGETS = scheduling dispatch costs delaylen
+TARGETS = scheduling dispatch costs delaylen preemptsyscall
 EXTRA_OBJS = lwmutex-imports.o
 
 COMMON_DIR = ../../../common
