@@ -1,0 +1,91 @@
+[x] sceUmdRegisterUMDCallBack types:
+[x]   Semaphore: 80010016
+[x]   Event flag: 80010016
+[x]   Thread: 80010016
+[x]   Callback: 00000000
+[x]   Unregister semaphore: 80010016
+[x]   Unregister callback: 00000000
+
+[x] sceUmdActivate params:
+[x]   Mode 1, disc0:: 00000000
+[x]   Mode 1, disc0: 80010016
+[x]   Mode 1, disc0:/: 80010016
+[x]   Mode 1, DISC0:: 80010016
+[x]   Mode 1, umd0:: 80010016
+[x]   Mode 1, empty: 80010016
+[x]   Mode 1, NULL: 80010016
+[x]   Mode 0: 80010016
+[x]   Mode 2: 00000000
+[x]   Mode 3: 80010016
+[x]   Mode -1: 80010016
+[x]   Kernel pointer: 80010016
+
+[x] sceUmdDeactivate params:
+[x]   Mode 19: 80010016
+[x]   Mode -1: 80010016
+[x]   Mode 2, NULL: 80010016
+[x]   Kernel pointer: 80010016
+
+[x] Wait stat validation:
+  00000000: WithTimer error, CB error
+    WithTimer: 80010016, CB: 80010016
+  00000004: WithTimer error, CB error
+    WithTimer: 80010016, CB: 80010016
+  00000040: WithTimer error, CB error
+    WithTimer: 80010016, CB: 80010016
+  00000080: WithTimer error, CB error
+    WithTimer: 80010016, CB: 80010016
+  ffffffc4: WithTimer error, CB error
+    WithTimer: 80010016, CB: 80010016
+  00000001: WithTimer ok, CB ok
+  00000002: WithTimer ok, CB ok
+  00000008: WithTimer ok, CB ok
+  00000010: WithTimer ok, CB ok
+  00000020: WithTimer ok, CB ok
+[x] Zero timeout:
+  canceler: sceUmdCancelWaitDriveStat: 00000000
+  sceUmdWaitDriveStatWithTimer(0): 800201a9 after 4-6ms
+  canceler: sceUmdCancelWaitDriveStat: 00000000
+  sceUmdWaitDriveStatCB(0): 800201a9 after 4-6ms
+  canceler: sceUmdCancelWaitDriveStat: 00000000
+  sceUmdWaitDriveStat: 800201a9 after 4-6ms
+[x] Timeouts:
+     5: WithTimer 800201a8 ~250us, CB 800201a8 ~250us
+    20: WithTimer 800201a8 ~250us, CB 800201a8 ~250us
+   100: WithTimer 800201a8 ~250us, CB 800201a8 ~250us
+   200: WithTimer 800201a8 ~250us, CB 800201a8 ~250us
+   400: WithTimer 800201a8 ~400us, CB 800201a8 ~400us
+  1000: WithTimer 800201a8 ~1ms, CB 800201a8 ~1ms
+[x] sceUmdCancelWaitDriveStat:
+[x]   No waiters: 00000000
+  canceler: sceUmdCancelWaitDriveStat: 00000000
+  WithTimer: 800201a9
+[x] Cancel during a callback:
+  * callback: 00000001, 00000077
+  canceler: sceUmdCancelWaitDriveStat: 00000000
+  CB: 800201a9
+[x] Cancel from the callback itself:
+  * callback canceling: 00000000
+  CB: 800201a8
+[x] Already satisfied:
+[x]   sceUmdWaitDriveStat: 00000000
+[x]   sceUmdWaitDriveStatWithTimer: 00000000
+[x]   sceUmdWaitDriveStatCB: 00000000
+  * callback: 00000001, 00000055
+[x]   sceUmdWaitDriveStatCB with callback: 00000000
+[x]   sceUmdWaitDriveStat with callback: 00000000
+  * callback: 00000001, 00000056
+[x]   sceKernelCheckCallback: 00000001
+
+[x] Dispatch disabled:
+[x]   Satisfied: 800201a7
+[x]   Not satisfied: 800201a7
+[x]   Invalid: 80010016
+[x]   WithTimer: 800201a7
+[x]   CB: 800201a7
+
+[x] sceUmdGetDiscInfo params:
+[x]   NULL: 80010016
+[x]   Size 0: 80010016
+[x]   Size 12: 80010016
+[x]   Kernel pointer: 80010016
