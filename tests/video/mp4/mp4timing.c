@@ -153,6 +153,21 @@ static u32 g_flipTime[MAX_FRAMES];
 static long long g_aacUs, g_aacGetUs, g_putUs;
 static int g_aacMax, g_putMax, g_puts;
 static int g_frames;
+static int g_noFrameUs[8], g_noFrames;
+
+// Setup and teardown calls, each timed once.
+static const char *g_callNames[24];
+static int g_callUs[24], g_calls;
+#define TIMED(name, call) do { \
+	u32 t_ = sceKernelGetSystemTimeLow(); \
+	call; \
+	if (g_calls < 24) { g_callNames[g_calls] = name; g_callUs[g_calls++] = (int)(sceKernelGetSystemTimeLow() - t_); } \
+} while (0)
+
+int sceVideocodecOpen(void *ctx, int type);
+int sceVideocodecGetEDRAM(void *ctx, int type);
+int sceVideocodecReleaseEDRAM(void *ctx);
+int sceVideocodecGetVersion(void *ctx, int type);
 
 static int soundThread(SceSize args, void *argp) {
 	while (!g_quit) {
@@ -244,15 +259,16 @@ int main(int argc, char *argv[]) {
 
 	// The AVC decoder, without a PSMF ringbuffer.
 	STEP("file read, %d bytes", g_fileSize);
-	sceMpegInit();
-	sceMpegAvcResourceInit(1);
+	TIMED("sceMpegInit", sceMpegInit());
+	TIMED("sceMpegAvcResourceInit", sceMpegAvcResourceInit(1));
 	STEP("mpeg init + avc resource init");
 	void *decTop = sceMpegAvcResourceGetAvcDecTopAddr();
 	void *esBuf = sceMpegAvcResourceGetAvcEsBuf();
 	STEP("dectop %08x esbuf %08x", (unsigned)decTop, (unsigned)esBuf);
 	int mpegSize = sceMpegQueryMemSize(1);
 	void *mpegData = allocHigh(mpegSize);
-	int result = sceMpegCreate(&g_mpeg, mpegData, mpegSize, NULL, 512, 1, (int)decTop);
+	int result;
+	TIMED("sceMpegCreate", result = sceMpegCreate(&g_mpeg, mpegData, mpegSize, NULL, 512, 1, (int)decTop));
 	if (result != 0) {
 		printf("sceMpegCreate: %08x\n", result);
 		return 1;
@@ -291,8 +307,8 @@ int main(int argc, char *argv[]) {
 	sceMpegInitAu(&g_mpeg, audioEs, &g_audioAu);
 	u32 audioInfo[16] = {0};
 	sceMp4GetAacTrackInfoData(g_mp4, g_audioTrack, audioInfo);
-	sceMp4AacDecodeInitResource(1);
-	sceMp4AacDecodeInit(g_aac);
+	TIMED("sceMp4AacDecodeInitResource", sceMp4AacDecodeInitResource(1));
+	TIMED("sceMp4AacDecodeInit", sceMp4AacDecodeInit(g_aac));
 
 	STEP("audio track + aac set up");
 	printf("tracks %d, video %d samples, audio %d samples at %d Hz, %d channels\n",
@@ -394,7 +410,7 @@ int main(int argc, char *argv[]) {
 				// many there are. Then they're shown one per frame like the rest.
 				t1 = sceKernelGetSystemTimeLow();
 				if (verbose) STEP("  AvcDecodeStop");
-				sceMpegAvcDecodeStop(&g_mpeg, 512, g_stopBufs, &status);
+				TIMED("sceMpegAvcDecodeStop", sceMpegAvcDecodeStop(&g_mpeg, 512, g_stopBufs, &status));
 				if (verbose) STEP("  AvcDecodeStop status %d", (int)status);
 				stopped = 1;
 				flushLeft = status;
@@ -414,6 +430,9 @@ int main(int argc, char *argv[]) {
 				break;
 			}
 			t2 = sceKernelGetSystemTimeLow();
+			if (status == 0 && !stopped && t1 != t0 && g_noFrames < 8) {
+				g_noFrameUs[g_noFrames++] = t2 - t1;
+			}
 			if (status != 0) {
 				g_getAvcUs[g_frames] = t1 - t0;
 				g_avcDecodeUs[g_frames] = t2 - t1;
@@ -471,16 +490,45 @@ int main(int argc, char *argv[]) {
 
 	sceGuTerm();
 	sceAudioOutput2Release();
-	sceMp4AacDecodeExit(g_aac);
-	sceMp4AacDecodeTermResource();
+	// Nothing is held back any more, so this is the stop itself.
+	SceInt32 stopStatus = 0;
+	TIMED("sceMpegAvcDecodeStop, empty", sceMpegAvcDecodeStop(&g_mpeg, 512, g_stopBufs, &stopStatus));
+	printf("second sceMpegAvcDecodeStop: status %d\n", (int)stopStatus);
+	TIMED("sceMp4AacDecodeExit", sceMp4AacDecodeExit(g_aac));
+	TIMED("sceMp4AacDecodeTermResource", sceMp4AacDecodeTermResource());
 	sceMp4TrackSampleBufDestruct(g_mp4, g_audioTrack);
 	sceMp4UnregistTrack(g_mp4, g_audioTrack);
 	sceMp4TrackSampleBufDestruct(g_mp4, g_videoTrack);
 	sceMp4UnregistTrack(g_mp4, g_videoTrack);
 	sceMp4Delete(g_mp4);
 	sceMp4Finish();
-	sceMpegDelete(&g_mpeg);
-	sceMpegAvcResourceFinish();
-	sceMpegFinish();
+	// These are thin wrappers (a semaphore around one sceVideocodec call) for Delete and
+	// ReleaseEDRAM.
+	TIMED("sceMpegDelete", sceMpegDelete(&g_mpeg));
+	TIMED("sceMpegAvcResourceFinish", sceMpegAvcResourceFinish());
+	TIMED("sceMpegFinish", sceMpegFinish());
+
+	// The resource calls directly, on a fresh context, as mpeg.prx's AvcResourceInit (0880ac54)
+	// makes them: Open writes the EDRAM size it needs at 0x18.
+	static u32 vctx[24] __attribute__((aligned(64)));
+	static u32 vout[10] __attribute__((aligned(64)));
+	memset(vctx, 0, sizeof(vctx));
+	memset(vout, 0, sizeof(vout));
+	vctx[4] = (u32)vout;
+	TIMED("sceVideocodecOpen", result = sceVideocodecOpen(vctx, 0));
+	printf("sceVideocodecOpen %08x, EDRAM size %08x\n", result, (unsigned)vctx[6]);
+	TIMED("sceVideocodecGetEDRAM", result = sceVideocodecGetEDRAM(vctx, 0));
+	printf("sceVideocodecGetEDRAM %08x\n", result);
+	TIMED("sceVideocodecGetVersion", result = sceVideocodecGetVersion(vctx, 0));
+	printf("sceVideocodecGetVersion %08x, version %08x\n", result, (unsigned)vctx[1]);
+	TIMED("sceVideocodecReleaseEDRAM", result = sceVideocodecReleaseEDRAM(vctx));
+	printf("sceVideocodecReleaseEDRAM %08x\n", result);
+
+	for (i = 0; i < g_noFrames; i++) {
+		printf("%-28s %6d us\n", i == 0 ? "sceMpegAvcDecode, no picture" : "", g_noFrameUs[i]);
+	}
+	for (i = 0; i < g_calls; i++) {
+		printf("%-28s %6d us\n", g_callNames[i], g_callUs[i]);
+	}
 	return 0;
 }

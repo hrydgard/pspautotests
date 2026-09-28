@@ -1,0 +1,91 @@
+step    284 ms: modules loaded
+step    330 ms: file read, 1176948 bytes
+step    331 ms: mpeg init + avc resource init
+step    332 ms: dectop 08800000 esbuf 089e0000
+step    362 ms: sceMpegCreate ok
+step    365 ms: sceMp4Create ok
+step    366 ms: movie info: 2 tracks
+step    367 ms: video track set up
+step    372 ms: audio track + aac set up
+tracks 2, video 300 samples, audio 432 samples at 44100 Hz, 2 channels
+step    374 ms: buffers flushed, starting display
+step    376 ms: sound thread started, entering loop
+step    377 ms: iter 0: frames 0 aus 0 audio 0/0
+step    397 ms:   topped up
+step    413 ms:   GetAvcAu 00000000 size 10127 pts 0 dts 0
+step    418 ms:   AvcDecode 00000000 status 0
+step    419 ms:   waiting for vblank
+step   5331 ms: iter 150: frames 147 aus 150 audio 217/213
+step   5333 ms:   topped up
+step   5338 ms:   GetAvcAu 00000000 size 3639 pts 450450 dts 450450
+step   5345 ms:   AvcDecode 00000000 status 1
+step   5355 ms:   waiting for vblank
+step   9902 ms: iter 300: frames 286 aus 289 audio 415/410
+step   9904 ms:   topped up
+step   9907 ms:   GetAvcAu 00000000 size 2764 pts 867867 dts 867867
+step   9914 ms:   AvcDecode 00000000 status 1
+step   9924 ms:   waiting for vblank
+step  10253 ms: iter 317: frames 296 aus 300 audio 430/425
+step  10254 ms:   topped up
+step  10257 ms:   waiting for vblank
+step  10269 ms: iter 318: frames 296 aus 300 audio 431/425
+step  10271 ms:   topped up
+step  10272 ms:   waiting for vblank
+step  10286 ms: iter 319: frames 297 aus 300 audio 431/426
+step  10287 ms:   topped up
+step  10291 ms:   AvcDecodeStop
+step  10297 ms:   AvcDecodeStop status 3
+step  10307 ms:   waiting for vblank
+step  10319 ms: iter 320: frames 298 aus 300 audio 432/428
+step  10321 ms:   topped up
+step  10331 ms:   waiting for vblank
+step  10336 ms: iter 321: frames 298 aus 300 audio 432/428
+step  10337 ms:   topped up
+step  10339 ms:   waiting for vblank
+step  10353 ms: iter 322: frames 299 aus 300 audio 432/429
+step  10354 ms:   topped up
+step  10364 ms:   waiting for vblank
+step  10369 ms: loop done
+frames 300 of 300, audio 432 decoded, 431 played, 9993296 us
+flip span 9876553 us -> 30.27 fps
+flip gaps: 1 vblank 14, 2 vblanks 278, 3 vblanks 6, more 1
+  sec  0: 28 frames
+  sec  1: 29 frames
+  sec  2: 31 frames
+  sec  3: 30 frames
+  sec  4: 30 frames
+  sec  5: 30 frames
+  sec  6: 30 frames
+  sec  7: 30 frames
+  sec  8: 30 frames
+  sec  9: 32 frames
+sceMp4GetAvcAu       avg    198 us, min      3, max   7689
+sceMpegAvcDecode     avg   5820 us, min      1, max   7821
+blit (15 strips)     avg   8852 us, min   8644, max  12850
+sceMp4GetAacAu       avg     31 us
+sceMp4AacDecode      avg   1739 us, max   2748 (432 AUs)
+TrackSampleBufPut    avg    338 us, max  10057 (637 calls)
+second sceMpegAvcDecodeStop: status 0
+sceVideocodecOpen 00000000, EDRAM size 00003c2c
+sceVideocodecGetEDRAM 00000000
+sceVideocodecGetVersion 00000000, version 00000078
+sceVideocodecReleaseEDRAM 00000000
+sceMpegAvcDecode, no picture   5449 us
+                               4233 us
+                               4202 us
+sceMpegInit                     544 us
+sceMpegAvcResourceInit           83 us
+sceMpegCreate                 28026 us
+sceMp4AacDecodeInitResource    3309 us
+sceMp4AacDecodeInit             399 us
+sceMpegAvcDecodeStop           4948 us
+sceMpegAvcDecodeStop, empty     132 us
+sceMp4AacDecodeExit               9 us
+sceMp4AacDecodeTermResource      52 us
+sceMpegDelete                 35913 us
+sceMpegAvcResourceFinish         55 us
+sceMpegFinish                   118 us
+sceVideocodecOpen               100 us
+sceVideocodecGetEDRAM           147 us
+sceVideocodecGetVersion          97 us
+sceVideocodecReleaseEDRAM        69 us

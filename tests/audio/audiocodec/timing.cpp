@@ -260,6 +260,70 @@ static void timeCalls() {
 	}
 }
 
+// Decodes that fail, and InitMono.
+static void timeFailures() {
+	static u8 junk[0x800] __attribute__((aligned(64)));
+	int i;
+	for (i = 0; i < (int)sizeof(junk); i++) {
+		junk[i] = (u8)((i * 2654435761u) >> 13);
+	}
+	sceKernelDcacheWritebackRange(junk, sizeof(junk));
+	int best[4] = { 0x7FFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF };
+	int r;
+	for (r = 0; r < 8; r++) {
+		u32 t0, us;
+		// Atrac3+, raw frames: junk fails in the bitstream (err 0x20a).
+		memset(&ctx, 0, sizeof(ctx));
+		ctx.fmt.at3.formatByte1 = 0x28;
+		ctx.fmt.at3.formatByte2 = 0x2e;
+		ctx.inited = 1;
+		sceAudiocodecCheckNeedMem(&ctx, AUDIOCODEC_AT3PLUS);
+		sceAudiocodecGetEDRAM(&ctx, AUDIOCODEC_AT3PLUS);
+		sceAudiocodecInit(&ctx, AUDIOCODEC_AT3PLUS);
+		ctx.inBuf = junk;
+		ctx.outBuf = pcm;
+		t0 = sceKernelGetSystemTimeLow();
+		sceAudiocodecDecode(&ctx, AUDIOCODEC_AT3PLUS);
+		us = sceKernelGetSystemTimeLow() - t0;
+		if ((int)us < best[0]) best[0] = us;
+		// Headered frames: no sync word (err 0x211).
+		ctx.fmt.at3.at3Related = 1;
+		t0 = sceKernelGetSystemTimeLow();
+		sceAudiocodecDecode(&ctx, AUDIOCODEC_AT3PLUS);
+		us = sceKernelGetSystemTimeLow() - t0;
+		if ((int)us < best[1]) best[1] = us;
+		sceAudiocodecReleaseEDRAM(&ctx);
+
+		// Atrac3 junk (err 0x182).
+		memset(&ctx, 0, sizeof(ctx));
+		*(u32 *)ctx.fmt.raw = 0x04;
+		sceAudiocodecCheckNeedMem(&ctx, AUDIOCODEC_AT3);
+		sceAudiocodecGetEDRAM(&ctx, AUDIOCODEC_AT3);
+		sceAudiocodecInit(&ctx, AUDIOCODEC_AT3);
+		ctx.inBuf = junk;
+		ctx.outBuf = pcm;
+		t0 = sceKernelGetSystemTimeLow();
+		sceAudiocodecDecode(&ctx, AUDIOCODEC_AT3);
+		us = sceKernelGetSystemTimeLow() - t0;
+		if ((int)us < best[2]) best[2] = us;
+		sceAudiocodecReleaseEDRAM(&ctx);
+
+		// InitMono, as libatrac3plus.prx uses it for the MOut functions.
+		memset(&ctx, 0, sizeof(ctx));
+		ctx.fmt.at3.formatByte1 = 0x24;
+		ctx.fmt.at3.formatByte2 = 0x5c;
+		ctx.inited = 1;
+		sceAudiocodecCheckNeedMem(&ctx, AUDIOCODEC_AT3PLUS);
+		sceAudiocodecGetEDRAM(&ctx, AUDIOCODEC_AT3PLUS);
+		t0 = sceKernelGetSystemTimeLow();
+		sceAudiocodecInitMono(&ctx, AUDIOCODEC_AT3PLUS);
+		us = sceKernelGetSystemTimeLow() - t0;
+		if ((int)us < best[3]) best[3] = us;
+		sceAudiocodecReleaseEDRAM(&ctx);
+	}
+	printf("failed decode: at3+ junk %d, at3+ no sync %d, at3 junk %d; at3+ InitMono %d\n", best[0], best[1], best[2], best[3]);
+}
+
 extern "C" int main(int argc, char *argv[]) {
 	HAS_DISPLAY = 0;
 	if (sceUtilityLoadModule(PSP_MODULE_AV_AVCODEC) < 0) {
@@ -277,6 +341,7 @@ extern "C" int main(int argc, char *argv[]) {
 			runStream(streams[i]);
 		}
 		timeCalls();
+		timeFailures();
 	}
 	scePowerSetClockFrequency(222, 222, 111);
 

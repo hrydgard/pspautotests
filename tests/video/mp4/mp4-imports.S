@@ -44,3 +44,9 @@ IMPORT_FUNC  "sceMpeg",0xFCBDB5AD,sceMpegAvcResourceInit
 IMPORT_FUNC  "sceMpeg",0x8160A2FE,sceMpegAvcResourceFinish
 IMPORT_FUNC  "sceMpeg",0x63B9536A,sceMpegAvcResourceGetAvcDecTopAddr
 IMPORT_FUNC  "sceMpeg",0xAF26BB01,sceMpegAvcResourceGetAvcEsBuf
+
+IMPORT_START "sceVideocodec",0x00090011
+IMPORT_FUNC  "sceVideocodec",0xC01EC829,sceVideocodecOpen
+IMPORT_FUNC  "sceVideocodec",0x2D31F5B1,sceVideocodecGetEDRAM
+IMPORT_FUNC  "sceVideocodec",0x4F160BF4,sceVideocodecReleaseEDRAM
+IMPORT_FUNC  "sceVideocodec",0x26927D19,sceVideocodecGetVersion
