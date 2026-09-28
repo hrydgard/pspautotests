@@ -1,0 +1,109 @@
+[x] Better priority waiter, notified from a callback:
+[x]   ** started waiter
+ no wait:
+  * main callback: 00000001, 00000000
+  main callback notifying waiter
+  * callback on waiter: 00000001, 00000010
+  main callback notified
+  main callback returning
+  sceKernelCheckCallback: 00000001
+  after yield
+[r]   ** started waiter
+ sceKernelDelayThread:
+  * main callback: 00000001, 00000001
+  main callback notifying waiter
+  * callback on waiter: 00000001, 00000011
+  main callback notified
+  sceKernelDelayThread in callback: 00000000
+  main callback returning
+  sceKernelCheckCallback: 00000001
+  after yield
+[r]   ** started waiter
+ sceKernelDelayThreadCB:
+  * main callback: 00000001, 00000002
+  main callback notifying waiter
+  * callback on waiter: 00000001, 00000012
+  main callback notified
+  sceKernelDelayThreadCB in callback: 00000000
+  main callback returning
+  sceKernelCheckCallback: 00000001
+  after yield
+[r]   ** started waiter
+ busy wait:
+  * main callback: 00000001, 00000003
+  main callback notifying waiter
+  * callback on waiter: 00000001, 00000013
+  main callback notified
+  busy wait in callback done
+  main callback returning
+  sceKernelCheckCallback: 00000001
+  after yield
+[x] Worse priority waiter, notified from a callback:
+[x]   ** started waiter
+ no wait:
+  * main callback: 00000001, 00000000
+  main callback notifying waiter
+  main callback notified
+  main callback returning
+  sceKernelCheckCallback: 00000001
+  * callback on waiter: 00000001, 00000010
+  after yield
+[r]   ** started waiter
+ sceKernelDelayThread:
+  * main callback: 00000001, 00000001
+  main callback notifying waiter
+  main callback notified
+  * callback on waiter: 00000001, 00000011
+  sceKernelDelayThread in callback: 00000000
+  main callback returning
+  sceKernelCheckCallback: 00000001
+  after yield
+[r]   ** started waiter
+ sceKernelDelayThreadCB:
+  * main callback: 00000001, 00000002
+  main callback notifying waiter
+  main callback notified
+  * callback on waiter: 00000001, 00000012
+  sceKernelDelayThreadCB in callback: 00000000
+  main callback returning
+  sceKernelCheckCallback: 00000001
+  after yield
+[r]   ** started waiter
+ busy wait:
+  * main callback: 00000001, 00000003
+  main callback notifying waiter
+  main callback notified
+  busy wait in callback done
+  main callback returning
+  sceKernelCheckCallback: 00000001
+  * callback on waiter: 00000001, 00000013
+  after yield
+[x] Main's callback, while a worse priority thread is in a callback:
+[x]   ** started waiter
+  main sceKernelDelayThreadCB
+  * callback on waiter: 00000001, 00000001
+  * main callback: 00000001, 00000077
+  waiter callback delaying
+  waiter callback delayed
+  main sceKernelDelayThreadCB: 00000000
+[x] Main's callback, while a better priority thread is in a callback:
+[x]   ** started waiter
+  main notifying waiter
+  * callback on waiter: 00000001, 00000001
+  waiter callback delaying
+  main sceKernelDelayThreadCB
+  * main callback: 00000001, 00000077
+  waiter callback delayed
+  main sceKernelDelayThreadCB: 00000000
+[x] Two threads in callbacks at once:
+[x]   ** started waiter 0x30
+[x]   ** started waiter 0x28
+  main sceKernelDelayThread
+  * callback on waiter 0x28: 00000001, 00000002
+  waiter 0x28 callback delaying
+  * callback on waiter 0x30: 00000001, 00000001
+  waiter 0x30 callback delaying
+  waiter 0x28 callback delayed
+  waiter 0x30 callback delayed
+  main sceKernelDelayThread done
+  * main callback: 00000002, 00000077

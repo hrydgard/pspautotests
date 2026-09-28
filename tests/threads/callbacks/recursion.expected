@@ -1,0 +1,35 @@
+[x] sceKernelDelayThreadCB at both depths:
+  enter depth 1: 00000001, 00000001
+  enter depth 2: 00000001, 00000002
+  depth 2 sceKernelDelayThreadCB: 00000000
+  leave depth 2
+  depth 1 sceKernelDelayThreadCB: 00000000
+  leave depth 1
+  sceKernelCheckCallback: 00000001
+[x] Same semaphore at each depth, timing out:
+  enter depth 1: 00000001, 00000001
+  enter depth 2: 00000001, 00000002
+  depth 2 sceKernelWaitSemaCB: 800201a8 (timeout left 0)
+  leave depth 2
+  depth 1 sceKernelWaitSemaCB: 800201a8 (timeout left 0)
+  leave depth 1
+  sceKernelCheckCallback: 00000001
+[x] Same semaphore at each depth, signaled once:
+  enter depth 1: 00000001, 00000001
+  enter depth 2: 00000001, 00000002
+  helper signaling
+  depth 2 sceKernelWaitSemaCB: 00000000 (timeout left some)
+  leave depth 2
+  depth 1 sceKernelWaitSemaCB: 800201a8 (timeout left 0)
+  leave depth 1
+  sceKernelCheckCallback: 00000001
+[x] Same semaphore at each depth, signaled twice:
+  enter depth 1: 00000001, 00000001
+  enter depth 2: 00000001, 00000002
+  helper signaling
+  depth 2 sceKernelWaitSemaCB: 00000000 (timeout left some)
+  leave depth 2
+  helper signaling
+  depth 1 sceKernelWaitSemaCB: 00000000 (timeout left some)
+  leave depth 1
+  sceKernelCheckCallback: 00000001

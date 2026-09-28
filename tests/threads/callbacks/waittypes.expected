@@ -1,0 +1,120 @@
+[x] sema
+    * callback, waking releaser
+  released in callback: 00000000
+    * callback, waking releaser
+  deleted in callback: 800201b5
+    * callback, waking releaser
+  canceled in callback, with timeout: 800201a8 (timeout left 0)
+    * callback
+  canceled after callback, with timeout: 800201a9 (timeout left some)
+    * callback
+  released after callback: 00000000
+    * callback, waking releaser
+  timed out: 800201a8 (timeout left 0)
+    * callback, waking releaser
+  released in callback, with timeout: 00000000 (timeout left some)
+[x] event flag
+    * callback, waking releaser
+  released in callback: 00000000
+    * callback, waking releaser
+  deleted in callback: 800201b5
+    * callback, waking releaser
+  canceled in callback, with timeout: 800201a8 (timeout left 0)
+    * callback
+  canceled after callback, with timeout: 800201a9 (timeout left some)
+    * callback
+  released after callback: 00000000
+    * callback, waking releaser
+  timed out: 800201a8 (timeout left 0)
+    * callback, waking releaser
+  released in callback, with timeout: 00000000 (timeout left some)
+[x] mutex
+    * callback, waking releaser
+  released in callback: 00000000
+    * callback, waking releaser
+  deleted in callback: 800201b5
+    * callback, waking releaser
+  canceled in callback, with timeout: 800201a8 (timeout left 0)
+    * callback
+  canceled after callback, with timeout: 800201a9 (timeout left some)
+    * callback
+  released after callback: 00000000
+    * callback, waking releaser
+  timed out: 800201a8 (timeout left 0)
+    * callback, waking releaser
+  released in callback, with timeout: 00000000 (timeout left some)
+[x] mbx
+    * callback, waking releaser
+  released in callback: 00000000
+    * callback, waking releaser
+  deleted in callback: 800201b5
+    * callback, waking releaser
+  canceled in callback, with timeout: 800201a8 (timeout left 0)
+    * callback
+  canceled after callback, with timeout: 800201a9 (timeout left some)
+    * callback
+  released after callback: 00000000
+    * callback, waking releaser
+  timed out: 800201a8 (timeout left 0)
+    * callback, waking releaser
+  released in callback, with timeout: 00000000 (timeout left some)
+[x] msgpipe receive
+    * callback, waking releaser
+  released in callback: 00000000
+    * callback, waking releaser
+  deleted in callback: 800201b5
+    * callback, waking releaser
+  canceled in callback, with timeout: 800201a8 (timeout left 0)
+    * callback
+  canceled after callback, with timeout: 800201a9 (timeout left some)
+    * callback
+  released after callback: 00000000
+    * callback, waking releaser
+  timed out: 800201a8 (timeout left 0)
+    * callback, waking releaser
+  released in callback, with timeout: 00000000 (timeout left some)
+[x] msgpipe send
+    * callback, waking releaser
+  released in callback: 00000000
+    * callback, waking releaser
+  deleted in callback: 800201b5
+    * callback, waking releaser
+  canceled in callback, with timeout: 00000000 (timeout left some)
+    * callback
+  canceled after callback, with timeout: 800201a9 (timeout left some)
+    * callback
+  released after callback: 00000000
+    * callback, waking releaser
+  timed out: 800201a8 (timeout left 0)
+    * callback, waking releaser
+  released in callback, with timeout: 00000000 (timeout left some)
+[x] vpl
+    * callback, waking releaser
+  released in callback: 00000000
+    * callback, waking releaser
+  deleted in callback: 800201b5
+    * callback, waking releaser
+  canceled in callback, with timeout: 800201a8 (timeout left 0)
+    * callback
+  canceled after callback, with timeout: 800201a9 (timeout left some)
+    * callback
+  released after callback: 00000000
+    * callback, waking releaser
+  timed out: 800201a8 (timeout left 0)
+    * callback, waking releaser
+  released in callback, with timeout: 00000000 (timeout left some)
+[x] fpl
+    * callback, waking releaser
+  released in callback: 00000000
+    * callback, waking releaser
+  deleted in callback: 800201b5
+    * callback, waking releaser
+  canceled in callback, with timeout: 800201a8 (timeout left 0)
+    * callback
+  canceled after callback, with timeout: 800201a9 (timeout left some)
+    * callback
+  released after callback: 00000000
+    * callback, waking releaser
+  timed out: 800201a8 (timeout left 0)
+    * callback, waking releaser
+  released in callback, with timeout: 00000000 (timeout left some)

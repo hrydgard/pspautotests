@@ -1,0 +1,16 @@
+[x] Callback pending before the wait:
+  * callback: 00000001, 00000001
+  sceKernelWaitSemaCB: 800201a8, elapsed ~10ms, timeout left 0
+  * callback: 00000001, 00000001
+  sceKernelWaitEventFlagCB: 800201a8, elapsed ~10ms, timeout left 0
+  * callback: 00000001, 00000001
+  sceKernelDelayThreadCB: 00000000, elapsed ~10ms
+[x] Callback notified 3ms into the wait:
+  * callback: 00000001, 00000002
+  sceKernelWaitSemaCB: 800201a8, elapsed ~10ms, timeout left 0
+  * callback: 00000001, 00000002
+  sceKernelWaitEventFlagCB: 800201a8, elapsed ~10ms, timeout left 0
+  * callback: 00000001, 00000002
+  sceKernelDelayThreadCB: 00000000, elapsed ~10ms
+[x] Without a callback:
+  sceKernelWaitSemaCB: 800201a8, elapsed ~10ms, timeout left 0

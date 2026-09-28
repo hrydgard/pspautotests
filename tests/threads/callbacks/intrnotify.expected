@@ -1,0 +1,24 @@
+[x] Own callback, sleeping with sceKernelSleepThreadCB:
+  * callback on main: 00000001, 00000042
+  sceKernelSleepThreadCB: 00000000
+  notified=1, result=00000000, ran=1, ran during busy wait=0, count=0
+[x] Own callback, sceKernelDelayThread:
+  notified=1, result=00000000, ran=0, ran during busy wait=0, count=1
+  * callback on main: 00000001, 00000042
+  sceKernelCheckCallback: 00000001
+[x] Own callback, busy waiting:
+  notified=1, result=00000000, ran=0, ran during busy wait=0, count=1
+  * callback on main: 00000001, 00000042
+  sceKernelCheckCallback: 00000001
+[x] Better priority waiter, main busy waiting:
+[x]   ** started waiter
+  * callback on waiter: 00000001, 00000042
+  notified=1, result=00000000, ran=1, ran during busy wait=1, count=0
+  waiter woke: 00000000
+[x] Worse priority waiter, main busy waiting:
+[x]   ** started waiter
+  notified=1, result=00000000, ran=0, ran during busy wait=0, count=1
+  main yielding
+  * callback on waiter: 00000001, 00000042
+  notified=1, result=00000000, ran=1, ran during busy wait=0, count=0
+  waiter woke: 00000000
