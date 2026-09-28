@@ -1,0 +1,262 @@
+[x] No previous wait:
+  * cbFunc hit: 00000001, 00000001
+  sceKernelCheckCallback: 00000001
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitSemaCB (available): 00000000
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitEventFlagCB (set): 00000000
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceUmdWaitDriveStatCB (matching): 00000000
+  sceKernelCheckCallback (none): 00000000
+[x] After sceKernelWaitEventFlagCB with a pending callback:
+  * cbFunc hit: 00000001, 00000010
+  sceKernelWaitEventFlagCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelCheckCallback: 00000001
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000010
+  sceKernelWaitEventFlagCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitSemaCB (available): 00000000
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000010
+  sceKernelWaitEventFlagCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitEventFlagCB (set): 00000000
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000010
+  sceKernelWaitEventFlagCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceUmdWaitDriveStatCB (matching): 00000000
+  sceKernelCheckCallback (none): 00000000
+[x] After sceKernelWaitEventFlagCB, woken:
+  sceKernelWaitEventFlagCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelCheckCallback: 00000001
+  sceKernelCheckCallback (none): 00000000
+  sceKernelWaitEventFlagCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitSemaCB (available): 00000000
+  sceKernelCheckCallback (none): 00000000
+  sceKernelWaitEventFlagCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitEventFlagCB (set): 00000000
+  sceKernelCheckCallback (none): 00000000
+  sceKernelWaitEventFlagCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceUmdWaitDriveStatCB (matching): 00000000
+  sceKernelCheckCallback (none): 00000000
+[x] After sceKernelWaitEventFlag, timed out:
+  sceKernelWaitEventFlag: 800201a8
+  * cbFunc hit: 00000001, 00000001
+  sceKernelCheckCallback: 00000001
+  sceKernelCheckCallback (none): 00000000
+  sceKernelWaitEventFlag: 800201a8
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitSemaCB (available): 00000000
+  sceKernelCheckCallback (none): 00000000
+  sceKernelWaitEventFlag: 800201a8
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitEventFlagCB (set): 00000000
+  sceKernelCheckCallback (none): 00000000
+  sceKernelWaitEventFlag: 800201a8
+  * cbFunc hit: 00000001, 00000001
+  sceUmdWaitDriveStatCB (matching): 00000000
+  sceKernelCheckCallback (none): 00000000
+[x] After sceKernelWaitSemaCB with a pending callback:
+  * cbFunc hit: 00000001, 00000011
+  sceKernelWaitSemaCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelCheckCallback: 00000001
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000011
+  sceKernelWaitSemaCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitSemaCB (available): 00000000
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000011
+  sceKernelWaitSemaCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitEventFlagCB (set): 00000000
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000011
+  sceKernelWaitSemaCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceUmdWaitDriveStatCB (matching): 00000000
+  sceKernelCheckCallback (none): 00000000
+[x] After sceKernelWaitSemaCB, woken:
+  sceKernelWaitSemaCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelCheckCallback: 00000001
+  sceKernelCheckCallback (none): 00000000
+  sceKernelWaitSemaCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitSemaCB (available): 00000000
+  sceKernelCheckCallback (none): 00000000
+  sceKernelWaitSemaCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitEventFlagCB (set): 00000000
+  sceKernelCheckCallback (none): 00000000
+  sceKernelWaitSemaCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceUmdWaitDriveStatCB (matching): 00000000
+  sceKernelCheckCallback (none): 00000000
+[x] After sceKernelWaitSemaCB, timed out:
+  sceKernelWaitSemaCB: 800201a8
+  * cbFunc hit: 00000001, 00000001
+  sceKernelCheckCallback: 00000001
+  sceKernelCheckCallback (none): 00000000
+  sceKernelWaitSemaCB: 800201a8
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitSemaCB (available): 00000000
+  sceKernelCheckCallback (none): 00000000
+  sceKernelWaitSemaCB: 800201a8
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitEventFlagCB (set): 00000000
+  sceKernelCheckCallback (none): 00000000
+  sceKernelWaitSemaCB: 800201a8
+  * cbFunc hit: 00000001, 00000001
+  sceUmdWaitDriveStatCB (matching): 00000000
+  sceKernelCheckCallback (none): 00000000
+[x] After sceKernelDelayThreadCB:
+  sceKernelDelayThreadCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelCheckCallback: 00000001
+  sceKernelCheckCallback (none): 00000000
+  sceKernelDelayThreadCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitSemaCB (available): 00000000
+  sceKernelCheckCallback (none): 00000000
+  sceKernelDelayThreadCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitEventFlagCB (set): 00000000
+  sceKernelCheckCallback (none): 00000000
+  sceKernelDelayThreadCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceUmdWaitDriveStatCB (matching): 00000000
+  sceKernelCheckCallback (none): 00000000
+[x] After sceKernelDelayThreadCB with a pending callback:
+  * cbFunc hit: 00000001, 00000012
+  sceKernelDelayThreadCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelCheckCallback: 00000001
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000012
+  sceKernelDelayThreadCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitSemaCB (available): 00000000
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000012
+  sceKernelDelayThreadCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitEventFlagCB (set): 00000000
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000012
+  sceKernelDelayThreadCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceUmdWaitDriveStatCB (matching): 00000000
+  sceKernelCheckCallback (none): 00000000
+[x] After sceKernelSleepThreadCB, woken:
+  sceKernelSleepThreadCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelCheckCallback: 00000001
+  sceKernelCheckCallback (none): 00000000
+  sceKernelSleepThreadCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitSemaCB (available): 00000000
+  sceKernelCheckCallback (none): 00000000
+  sceKernelSleepThreadCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitEventFlagCB (set): 00000000
+  sceKernelCheckCallback (none): 00000000
+  sceKernelSleepThreadCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceUmdWaitDriveStatCB (matching): 00000000
+  sceKernelCheckCallback (none): 00000000
+[x] After sceKernelSleepThreadCB with a pending callback:
+  * cbFunc hit: 00000001, 00000013
+  sceKernelSleepThreadCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelCheckCallback: 00000001
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000013
+  sceKernelSleepThreadCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitSemaCB (available): 00000000
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000013
+  sceKernelSleepThreadCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitEventFlagCB (set): 00000000
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000013
+  sceKernelSleepThreadCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceUmdWaitDriveStatCB (matching): 00000000
+  sceKernelCheckCallback (none): 00000000
+[x] After sceKernelWaitThreadEndCB:
+  sceKernelWaitThreadEndCB: 00001234
+  * cbFunc hit: 00000001, 00000001
+  sceKernelCheckCallback: 00000001
+  sceKernelCheckCallback (none): 00000000
+  sceKernelWaitThreadEndCB: 00001234
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitSemaCB (available): 00000000
+  sceKernelCheckCallback (none): 00000000
+  sceKernelWaitThreadEndCB: 00001234
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitEventFlagCB (set): 00000000
+  sceKernelCheckCallback (none): 00000000
+  sceKernelWaitThreadEndCB: 00001234
+  * cbFunc hit: 00000001, 00000001
+  sceUmdWaitDriveStatCB (matching): 00000000
+  sceKernelCheckCallback (none): 00000000
+[x] After sceUmdWaitDriveStatCB, timed out:
+  sceUmdWaitDriveStatCB: 800201a8
+  * cbFunc hit: 00000001, 00000001
+  sceKernelCheckCallback: 00000001
+  sceKernelCheckCallback (none): 00000000
+  sceUmdWaitDriveStatCB: 800201a8
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitSemaCB (available): 00000000
+  sceKernelCheckCallback (none): 00000000
+  sceUmdWaitDriveStatCB: 800201a8
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitEventFlagCB (set): 00000000
+  sceKernelCheckCallback (none): 00000000
+  sceUmdWaitDriveStatCB: 800201a8
+  * cbFunc hit: 00000001, 00000001
+  sceUmdWaitDriveStatCB (matching): 00000000
+  sceKernelCheckCallback (none): 00000000
+[x] After sceUmdWaitDriveStatCB with a pending callback:
+  * cbFunc hit: 00000001, 00000014
+  sceUmdWaitDriveStatCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelCheckCallback: 00000001
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000014
+  sceUmdWaitDriveStatCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitSemaCB (available): 00000000
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000014
+  sceUmdWaitDriveStatCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceKernelWaitEventFlagCB (set): 00000000
+  sceKernelCheckCallback (none): 00000000
+  * cbFunc hit: 00000001, 00000014
+  sceUmdWaitDriveStatCB: 00000000
+  * cbFunc hit: 00000001, 00000001
+  sceUmdWaitDriveStatCB (matching): 00000000
+  sceKernelCheckCallback (none): 00000000
+[x] Queued wakeup across a callback, after sceKernelSleepThreadCB:
+  * cbFunc hit: 00000001, 00000013
+  sceKernelSleepThreadCB: 00000000
+  wakeupCount before callback: 1
+  * cbFunc hit: 00000001, 00000005
+  sceKernelCheckCallback: 00000001
+  wakeupCount after callback: 1
+  sceKernelCancelWakeupThread: 00000001

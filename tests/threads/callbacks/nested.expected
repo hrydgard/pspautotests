@@ -1,0 +1,47 @@
+[x] From sceKernelCheckCallback:
+[x]   * outerFunc hit: 00000001, 00000000
+[x]   sceKernelCheckCallback in callback: 80020064
+[x]   sceKernelCheckCallback after, in callback: 80020064
+[x]     * innerFunc hit: 00000001, 00000000
+[x]   sceKernelCheckCallback: 00000001
+[x]   * outerFunc hit: 00000001, 00000001
+[x]     * innerFunc hit: 00000001, 00000001
+[x]   sceKernelWaitSemaCB (available) in callback: 00000000
+[x]   sceKernelCheckCallback after, in callback: 80020064
+[x]   sceKernelCheckCallback: 00000001
+[x]   * outerFunc hit: 00000001, 00000002
+[x]     * innerFunc hit: 00000001, 00000002
+[r]   sceKernelDelayThreadCB in callback: 00000000
+[x]   sceKernelCheckCallback after, in callback: 80020064
+[x]   sceKernelCheckCallback: 00000001
+[x]   * outerFunc hit: 00000001, 00000003
+[x]     * innerFunc hit: 00000001, 00000003
+[r]   sceKernelWaitEventFlagCB (timeout) in callback: 800201a8
+[x]   sceKernelCheckCallback after, in callback: 80020064
+[x]   sceKernelCheckCallback: 00000001
+
+[x] From a blocking sceKernelWaitEventFlagCB:
+[x]   * outerFunc hit: 00000001, 00000000
+[x]   sceKernelCheckCallback in callback: 80020064
+[x]   sceKernelCheckCallback after, in callback: 80020064
+[x]     * innerFunc hit: 00000001, 00000000
+[r]   sceKernelWaitEventFlagCB: 00000000
+[x]   bits: 00000002
+[r]   * outerFunc hit: 00000001, 00000001
+[x]     * innerFunc hit: 00000001, 00000001
+[x]   sceKernelWaitSemaCB (available) in callback: 00000000
+[x]   sceKernelCheckCallback after, in callback: 80020064
+[r]   sceKernelWaitEventFlagCB: 00000000
+[x]   bits: 00000002
+[r]   * outerFunc hit: 00000001, 00000002
+[x]     * innerFunc hit: 00000001, 00000002
+[r]   sceKernelDelayThreadCB in callback: 00000000
+[x]   sceKernelCheckCallback after, in callback: 80020064
+[r]   sceKernelWaitEventFlagCB: 00000000
+[x]   bits: 00000002
+[r]   * outerFunc hit: 00000001, 00000003
+[x]     * innerFunc hit: 00000001, 00000003
+[r]   sceKernelWaitEventFlagCB (timeout) in callback: 800201a8
+[x]   sceKernelCheckCallback after, in callback: 80020064
+[r]   sceKernelWaitEventFlagCB: 00000000
+[x]   bits: 00000002
