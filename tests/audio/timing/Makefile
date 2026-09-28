@@ -1,5 +1,5 @@
-TARGETS = sastiming
-EXTRA_OBJS = sas-imports.o
+TARGETS = sastiming meshare
+EXTRA_OBJS = sas-imports.o meshare-imports.o
 EXTRA_LIBS = -lpsppower
 
 COMMON_DIR = ../../../common
