@@ -1,0 +1,42 @@
+[x] sceKernelTerminateThread, no waiter:
+  Before: status=8, exitStatus=800201a4
+  Terminate: 00000000
+  After terminate: status=10, exitStatus=800201ac
+  Resume: 800201a5
+  After resume: status=10, exitStatus=800201ac
+  Start: 00000000
+  After start: status=4, exitStatus=800201a4
+[x] sceKernelTerminateThread, with a waiter:
+  Before: status=8, exitStatus=800201a4
+  Terminate: 00000000
+  After terminate: status=10, exitStatus=800201ac
+  waiter woke with 800201ac
+  Resume: 800201a5
+  After resume: status=10, exitStatus=800201ac
+  waiter woke with 800201ac
+  waiter woke with 800201ac
+  Start: 00000000
+  After start: status=4, exitStatus=800201a4
+[x] Starting a terminated thread that's still suspended:
+  Start: 00000000
+  After start: status=2, exitStatus=800201a4
+  Resume: 800201a5
+  After resume: status=4, exitStatus=800201a4
+[x] Preemption, suspended target:
+  Terminate: 00000000, woke: right after 0, after a syscall 0, after starting a lower thread 0 (00000000), after delete 0 (00000000), after delay 1
+[x] Preemption, running target:
+  Terminate: 00000000, woke: right after 0, after a syscall 0, after starting a lower thread 0 (00000000), after delete 0 (00000000), after delay 1
+[x] Preemption, sceKernelTerminateDeleteThread:
+  Terminate: 00000000, woke: right after 0, after a syscall 0, after starting a lower thread 0 (00000000), after delete 0 (80020198), after delay 1
+[x] Starting a thread of the same priority:
+  Start: 00000000, waiter woke after start 0, started thread ran no
+[x] Starting a thread of better priority:
+  Start: 00000000, waiter woke after start 1, started thread ran before the waiter
+[x] Starting a thread of better priority than the waiter:
+  Start: 00000000, waiter woke after start 1, started thread ran before the waiter
+[x] sceKernelRotateThreadReadyQueue(0):
+  Result: 00000000, waiter woke after it 1
+[x] sceKernelChangeThreadPriority(0, 0x20):
+  Result: 00000000, waiter woke after it 1
+[x] sceKernelSignalSema, no waiter:
+  Result: 00000000, waiter woke after it 0

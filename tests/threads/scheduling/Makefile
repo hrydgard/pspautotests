@@ -1,4 +1,4 @@
-TARGETS = scheduling dispatch
+TARGETS = scheduling dispatch costs
 EXTRA_OBJS = lwmutex-imports.o
 
 COMMON_DIR = ../../../common
