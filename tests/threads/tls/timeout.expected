@@ -1,0 +1,2 @@
+[x] _sceKernelAllocateTlspl timeouts (on time is within 10us of max(t, 205us) + 35us):
+  0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
