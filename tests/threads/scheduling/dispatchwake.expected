@@ -1,0 +1,12 @@
+[x] A better thread's 1000us delay ends while main has dispatch suspended for 3000us:
+  Order: MTR
+    it ran just after the resume
+
+[x] Made ready while dispatch is suspended:
+  Semaphore signalled: MTR
+  Woken up: MTR
+  Started: TMR
+
+[x] Waiting while dispatch is suspended:
+  sceKernelDelayThread after waking a better thread: MTR
+    it returned 800201a7

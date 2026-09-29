@@ -1,0 +1,17 @@
+[x] Mutex (A, B, C waited in that order):
+  FIFO, worse (0x30, 0x28, 0x30): UABC
+  Priority attr, worse: UBAC
+  FIFO, better (0x18, 0x10, 0x18): ABCU
+  Priority attr, better: BACU
+  FIFO, mixed (0x30, 0x10, 0x20): UABC
+  Priority attr, mixed: BUCA
+  Inheritance: holder at 0x20, 0x20 while a 0x10 thread waits
+
+[x] LwMutex (A, B, C waited in that order):
+  FIFO, worse (0x30, 0x28, 0x30): UABC
+  Priority attr, worse: UBAC
+  FIFO, better (0x18, 0x10, 0x18): ABCU
+  Priority attr, better: BACU
+  FIFO, mixed (0x30, 0x10, 0x20): UABC
+  Priority attr, mixed: BUCA
+  Inheritance: holder at 0x20, 0x20 while a 0x10 thread waits
