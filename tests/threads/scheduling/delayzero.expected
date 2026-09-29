@@ -1,0 +1,10 @@
+[x] sceKernelDelayThread:
+  0, alone: returns at once sometimes, spinner runs almost never
+  0, worse thread spinning: returns at once sometimes, spinner runs sometimes
+  1, alone: returns at once almost never, spinner runs almost never
+  1, worse thread spinning: returns at once almost never, spinner runs almost always
+  100, worse thread spinning: returns at once almost never, spinner runs almost always
+  0, a new thread's first delay: returns at once almost always
+  1, a new thread's first delay: returns at once sometimes
+  2, a new thread's first delay: returns at once almost never
+  5, a new thread's first delay: returns at once almost never

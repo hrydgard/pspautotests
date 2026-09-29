@@ -1,0 +1,5 @@
+[x] Handoffs:
+  Returning: start to entry ~35us, end to back in main ~20us
+  sceKernelExitThread: start to entry ~35us, end to back in main ~20us
+  sceKernelSignalSema waking a better thread: ~10us, it blocking again to back in main ~10us
+  sceKernelDelayThread(1000): ~1025us
