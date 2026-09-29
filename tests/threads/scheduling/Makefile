@@ -1,4 +1,4 @@
-TARGETS = scheduling dispatch costs delaylen preemptsyscall syscallkinds callcosts delayzero handoff readyqueue preemptuser waittimeouts alarmcosts dispatchwake mutexhandoff
+TARGETS = scheduling dispatch costs delaylen preemptsyscall syscallkinds callcosts delayzero handoff readyqueue preemptuser waittimeouts alarmcosts dispatchwake mutexhandoff vblankwake
 EXTRA_OBJS = lwmutex-imports.o ../../audio/atrac/atrac-imports.o
 EXTRA_LIBS = -lpsputility
 

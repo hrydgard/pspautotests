@@ -1,0 +1,7 @@
+[x] Waiting for the same vblank:
+  Mixed: BCMA
+    the first ran 50-100us after the interrupt
+  Equal to main: MABC
+    the first ran 50-100us after the interrupt
+  Better than main: BACM
+    the first ran 50-100us after the interrupt
