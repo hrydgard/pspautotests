@@ -1,4 +1,4 @@
-TARGETS = bezier continue lines linestrip indices invalidprim points rectangles spline trianglefan triangles trianglestrip immediate
+TARGETS = bezier continue lines linestrip indices invalidprim points rectangles spline trianglefan triangles trianglestrip immediate indices32
 EXTRA_OBJS = ../../dmac/dmac-imports.o shared.o
 EXTRA_LIBS = -lpspgum -lm
 

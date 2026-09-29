@@ -1,0 +1,5 @@
+[x] Indices:
+[r]   16-bit 0, 1, 2: left red, right nothing
+[r]   32-bit 0, 1, 2: left red, right nothing
+[r]   32-bit 0x10000, 0x10001, 0x10002: left red, right nothing
+[r]   32-bit 0xFFFF0000, 0xFFFF0001, 0xFFFF0002: left red, right nothing
