@@ -158,4 +158,6 @@ extern "C" int main(int argc, char *argv[]) {
 	mp3Init.pcmBufSize = 0x7FFFFFFF;
 	testReserve("  0x7FFFFFFF", &mp3Init);
 	mp3Init.pcmBufSize = sizeof(pcmBuf);
+
+	return 0;
 }

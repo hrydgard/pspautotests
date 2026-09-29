@@ -217,4 +217,6 @@ extern "C" int main(int argc, char *argv[]) {
 	sceMp3TermResource();
 	checkpointNext("After term");
 	testInit("  Prev allocated handle", handle);
+
+	return 0;
 }

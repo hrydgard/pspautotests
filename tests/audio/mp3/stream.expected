@@ -1,6 +1,6 @@
 **** MP3Test: sample.mp3
 sample.mp3: mp3StreamEnd = 0001658c
-0=sceMp3GetInfoToAddStreamData: 0881f0c0 00001a40 00000000
+0=sceMp3GetInfoToAddStreamData: 0882ba40 00001a40 00000000
 0=sceMp3NotifyAddStreamData: 00001a40
 80671103=sceMp3GetMaxOutputSample()  (preinit)
 0=sceMp3Init: 00000000
@@ -27,7 +27,7 @@ loop: 00000000 sum: 00002400
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 00002880
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881f0c0 00000d20 00001a40
+0=sceMp3GetInfoToAddStreamData: 0882ba40 00000d20 00001a40
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00002d00
 4608=sceMp3Decode(offset=0)
@@ -45,7 +45,7 @@ loop: 00000000 sum: 00004800
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 00004c80
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881fde0 00000d20 00002760
+0=sceMp3GetInfoToAddStreamData: 0882c760 00000d20 00002760
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00005100
 4608=sceMp3Decode(offset=0)
@@ -63,7 +63,7 @@ loop: 00000000 sum: 00006c00
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 00007080
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881f0c0 00000d20 00003480
+0=sceMp3GetInfoToAddStreamData: 0882ba40 00000d20 00003480
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00007500
 4608=sceMp3Decode(offset=0)
@@ -81,7 +81,7 @@ loop: 00000000 sum: 00009000
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 00009480
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881fde0 00000d20 000041a0
+0=sceMp3GetInfoToAddStreamData: 0882c760 00000d20 000041a0
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00009900
 4608=sceMp3Decode(offset=0)
@@ -99,7 +99,7 @@ loop: 00000000 sum: 0000b400
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 0000b880
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881f0c0 00000d20 00004ec0
+0=sceMp3GetInfoToAddStreamData: 0882ba40 00000d20 00004ec0
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 0000bd00
 4608=sceMp3Decode(offset=0)
@@ -117,7 +117,7 @@ loop: 00000000 sum: 0000d800
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 0000dc80
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881fde0 00000d20 00005be0
+0=sceMp3GetInfoToAddStreamData: 0882c760 00000d20 00005be0
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 0000e100
 4608=sceMp3Decode(offset=0)
@@ -135,7 +135,7 @@ loop: 00000000 sum: 0000fc00
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 00010080
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881f0c0 00000d20 00006900
+0=sceMp3GetInfoToAddStreamData: 0882ba40 00000d20 00006900
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00010500
 4608=sceMp3Decode(offset=0)
@@ -153,7 +153,7 @@ loop: 00000000 sum: 00012000
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 00012480
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881fde0 00000d20 00007620
+0=sceMp3GetInfoToAddStreamData: 0882c760 00000d20 00007620
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00012900
 4608=sceMp3Decode(offset=0)
@@ -171,7 +171,7 @@ loop: 00000000 sum: 00014400
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 00014880
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881f0c0 00000d20 00008340
+0=sceMp3GetInfoToAddStreamData: 0882ba40 00000d20 00008340
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00014d00
 4608=sceMp3Decode(offset=0)
@@ -189,7 +189,7 @@ loop: 00000000 sum: 00016800
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 00016c80
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881fde0 00000d20 00009060
+0=sceMp3GetInfoToAddStreamData: 0882c760 00000d20 00009060
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00017100
 4608=sceMp3Decode(offset=0)
@@ -207,7 +207,7 @@ loop: 00000000 sum: 00018c00
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 00019080
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881f0c0 00000d20 00009d80
+0=sceMp3GetInfoToAddStreamData: 0882ba40 00000d20 00009d80
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00019500
 4608=sceMp3Decode(offset=0)
@@ -225,7 +225,7 @@ loop: 00000000 sum: 0001b000
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 0001b480
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881fde0 00000d20 0000aaa0
+0=sceMp3GetInfoToAddStreamData: 0882c760 00000d20 0000aaa0
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 0001b900
 4608=sceMp3Decode(offset=0)
@@ -243,7 +243,7 @@ loop: 00000000 sum: 0001d400
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 0001d880
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881f0c0 00000d20 0000b7c0
+0=sceMp3GetInfoToAddStreamData: 0882ba40 00000d20 0000b7c0
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 0001dd00
 4608=sceMp3Decode(offset=0)
@@ -261,7 +261,7 @@ loop: 00000000 sum: 0001f800
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 0001fc80
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881fde0 00000d20 0000c4e0
+0=sceMp3GetInfoToAddStreamData: 0882c760 00000d20 0000c4e0
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00020100
 4608=sceMp3Decode(offset=0)
@@ -279,7 +279,7 @@ loop: 00000000 sum: 00021c00
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 00022080
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881f0c0 00000d20 0000d200
+0=sceMp3GetInfoToAddStreamData: 0882ba40 00000d20 0000d200
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00022500
 4608=sceMp3Decode(offset=0)
@@ -297,7 +297,7 @@ loop: 00000000 sum: 00024000
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 00024480
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881fde0 00000d20 0000df20
+0=sceMp3GetInfoToAddStreamData: 0882c760 00000d20 0000df20
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00024900
 4608=sceMp3Decode(offset=0)
@@ -315,7 +315,7 @@ loop: 00000000 sum: 00026400
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 00026880
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881f0c0 00000d20 0000ec40
+0=sceMp3GetInfoToAddStreamData: 0882ba40 00000d20 0000ec40
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00026d00
 4608=sceMp3Decode(offset=0)
@@ -333,7 +333,7 @@ loop: 00000000 sum: 00028800
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 00028c80
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881fde0 00000d20 0000f960
+0=sceMp3GetInfoToAddStreamData: 0882c760 00000d20 0000f960
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00029100
 4608=sceMp3Decode(offset=0)
@@ -351,7 +351,7 @@ loop: 00000000 sum: 0002ac00
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 0002b080
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881f0c0 00000d20 00010680
+0=sceMp3GetInfoToAddStreamData: 0882ba40 00000d20 00010680
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 0002b500
 4608=sceMp3Decode(offset=0)
@@ -369,7 +369,7 @@ loop: 00000000 sum: 0002d000
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 0002d480
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881fde0 00000d20 000113a0
+0=sceMp3GetInfoToAddStreamData: 0882c760 00000d20 000113a0
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 0002d900
 4608=sceMp3Decode(offset=0)
@@ -387,7 +387,7 @@ loop: 00000000 sum: 0002f400
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 0002f880
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881f0c0 00000d20 000120c0
+0=sceMp3GetInfoToAddStreamData: 0882ba40 00000d20 000120c0
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 0002fd00
 4608=sceMp3Decode(offset=0)
@@ -405,7 +405,7 @@ loop: 00000000 sum: 00031800
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 00031c80
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881fde0 00000d20 00012de0
+0=sceMp3GetInfoToAddStreamData: 0882c760 00000d20 00012de0
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00032100
 4608=sceMp3Decode(offset=0)
@@ -423,7 +423,7 @@ loop: 00000000 sum: 00033c00
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 00034080
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881f0c0 00000d20 00013b00
+0=sceMp3GetInfoToAddStreamData: 0882ba40 00000d20 00013b00
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00034500
 4608=sceMp3Decode(offset=0)
@@ -441,7 +441,7 @@ loop: 00000000 sum: 00036000
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 00036480
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881fde0 00000d20 00014820
+0=sceMp3GetInfoToAddStreamData: 0882c760 00000d20 00014820
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00036900
 4608=sceMp3Decode(offset=0)
@@ -459,7 +459,7 @@ loop: 00000000 sum: 00038400
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 00038880
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881f0c0 00000d20 00015540
+0=sceMp3GetInfoToAddStreamData: 0882ba40 00000d20 00015540
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 00038d00
 4608=sceMp3Decode(offset=0)
@@ -479,7 +479,7 @@ loop: 00000000 sum: 0003ac80
 4608=sceMp3Decode(offset=2304)
 loop: 00000000 sum: 0003b100
 Need more data (loopnum=0)
-0=sceMp3GetInfoToAddStreamData: 0881fde0 00000d20 00016260
+0=sceMp3GetInfoToAddStreamData: 0882c760 00000d20 00016260
 4608=sceMp3Decode(offset=0)
 loop: 00000000 sum: 0003b580
 4608=sceMp3Decode(offset=2304)

@@ -14,7 +14,7 @@ static int checkError(const char *call, int result) {
 	if (result < 0) {
 		schedf("ERROR: Unexpected error %08x from %s\n", result, call);
 	}
-	return 0;
+	return result;
 }
 
 static void testGetSumDecoded(const char *title, int handle) {

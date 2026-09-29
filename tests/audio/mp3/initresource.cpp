@@ -35,4 +35,6 @@ extern "C" int main(int argc, char *argv[]) {
 	testTerm("  Thrice");
 
 	checkpoint("  Reserve after term: %08x", sceMp3ReserveMp3Handle(NULL));
+
+	return 0;
 }
