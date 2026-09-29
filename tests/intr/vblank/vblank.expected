@@ -10,8 +10,8 @@ ended
 [r] sceKernelDelayThread: 00000000
 [x] Interrupts suspended: 0
 [x] sceKernelRegisterSubIntrHandler 2: 00000000
-[x] sceKernelEnableSubIntr: 00000000
+[r] sceKernelEnableSubIntr: 00000000
 [r] sceKernelDelayThread: 00000000
 [x] sceKernelDisableSubIntr: 00000000
 [r] sceKernelDelayThread: 00000000
-[x] Interrupts resumed: 18
+[x] Interrupts resumed: 17

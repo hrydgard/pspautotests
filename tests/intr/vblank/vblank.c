@@ -68,6 +68,8 @@ void suspendUsage() {
 
 	counter = 0;
 	checkpoint("sceKernelRegisterSubIntrHandler 2: %08x", sceKernelRegisterSubIntrHandler(PSP_VBLANK_INT, 2, vblank_counter, &counter));
+	// Start just after a vblank, so the 300ms that follow (just under 18 frames) always hold 17.
+	sceDisplayWaitVblankStart();
 	checkpoint("sceKernelEnableSubIntr: %08x", sceKernelEnableSubIntr(PSP_VBLANK_INT, 2));
 	checkpoint("sceKernelDelayThread: %08x", sceKernelDelayThread(300000));
 	checkpoint("sceKernelDisableSubIntr: %08x", sceKernelDisableSubIntr(PSP_VBLANK_INT, 2));
