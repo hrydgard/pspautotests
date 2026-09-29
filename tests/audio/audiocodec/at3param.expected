@@ -1,0 +1,15 @@
+[x] 0xC0 frames by parameter:
+[r]   0x0E (0xC0 mono): init 00000000
+[r]   frame 0: 00000000, read 192, wrote 4096
+[r]   70 of 70 frames decoded, audible=1, left==right=1
+[r]   0x0B (0xC0 joint stereo): init 00000000
+[r]   frame 0: 807f00fd, read 0, wrote 0
+[r]   0 of 70 frames decoded, audible=0, left==right=1
+
+[x] 0x180 stereo frames, parameter 0x04:
+[r]   Whole: init 00000000
+[r]   frame 0: 00000000, read 384, wrote 4096
+[r]   4 of 4 frames decoded, audible=1, left==right=0
+[r]   Second channel all zero: init 00000000
+[r]   frame 0: 807f00fd, read 0, wrote 0
+[r]   0 of 4 frames decoded, audible=0, left==right=1

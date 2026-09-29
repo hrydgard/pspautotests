@@ -1,0 +1,6 @@
+[x] Decoding:
+[r]   2-channel header: channels=00000000 (2)
+[r]   2-channel header: 69 calls, 70587 samples, last result 80630023, audible=1, left==right=1
+[r]   Mono header: channels=00000000 (1)
+[r]   Mono header: 69 calls, 70587 samples, last result 80630023, audible=1, left==right=1
+[r]   Joint stereo header: set failed: 80630002
