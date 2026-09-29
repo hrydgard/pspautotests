@@ -340,7 +340,7 @@
 [x/y] sceIoWaitAsync: 8002032a / 0000000000000001
 [x/y] sceIoWaitAsync: 8002032a / 0000000000000001
 [r/y] sceIoRead: 00000080
-[x/y] sceIoWrite: 00000007
+[x/y] sceIoWrite: 00000000
 [x/y] sceIoCloseAsync: 00000000
 [r/y] sceIoWaitAsync: 00000000 / 0000000000000000
 
@@ -363,7 +363,7 @@
 [r/y] sceIoWaitAsync: 00000000 / 0000000000000001
 [?/n] sceKernelSuspendDispatchThread: 00000001
 [?/n] sceIoRead: ffffffff
-[?/n] sceIoWrite: 00000007
+[?/n] sceIoWrite: 00000000
 [?/y] sceKernelResumeDispatchThread: 00000000
 [x/y] sceIoCloseAsync: 00000000
 [r/y] sceIoWaitAsync: 00000000 / 0000000000000000
@@ -383,7 +383,7 @@
 [?/y] sceIoWaitAsync: 8002032a / 0000000000000001
 [?/y] sceIoWaitAsync: 8002032a / 0000000000000001
 [?/y] sceIoRead: 00000080
-[?/y] sceIoWrite: 00000007
+[?/y] sceIoWrite: 00000000
 [?/y] sceIoCloseAsync: 00000000
 [?/y] sceIoWaitAsync: 00000000 / 0000000000000000
 [?/y] sceKernelResumeDispatchThread: 00000000
@@ -408,7 +408,7 @@
 [x/n] sceIoWaitAsync: 800201a7 / ffffffffffffffff
 [?/n] sceKernelSuspendDispatchThread: 80020066
 [?/n] sceIoRead: 80020329
-[?/n] sceIoWrite: 00000007
+[?/n] sceIoWrite: 00000000
 [?/n] sceKernelResumeDispatchThread: 80020066
 [x/n] sceIoCloseAsync: 80020329
 [x/n] sceIoWaitAsync: 800201a7 / ffffffffffffffff

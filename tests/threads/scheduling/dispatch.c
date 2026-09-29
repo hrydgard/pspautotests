@@ -292,7 +292,8 @@ void checkIo(int doDispatch) {
 		dispatchCheckpoint("sceKernelSuspendDispatchThread: %08x", state);
 	}
 	dispatchCheckpoint("sceIoRead: %08x", sceIoRead(fd, temp, sizeof(temp)));
-	dispatchCheckpoint("sceIoWrite: %08x", sceIoWrite(1, "Hello.", sizeof("Hello.")));
+	// Nothing, since under PSPLink stdout goes to its console rather than to the test output.
+	dispatchCheckpoint("sceIoWrite: %08x", sceIoWrite(1, "", 0));
 	if (doDispatch) {
 		dispatchCheckpoint("sceKernelResumeDispatchThread: %08x", sceKernelResumeDispatchThread(state));
 		--ignoreResched;
