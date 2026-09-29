@@ -1,9 +1,9 @@
 [x] Alarm, main sleeping until the handler wakes it:
-      0: sceKernelSetAlarm ~40us, handler at ~250us, main ~50us after that
-    100: sceKernelSetAlarm ~40us, handler at ~250us, main ~50us after that
-    200: sceKernelSetAlarm ~40us, handler at ~250us, main ~50us after that
-   1000: sceKernelSetAlarm ~40us, handler at ~1040us, main ~50us after that
-  10000: sceKernelSetAlarm ~40us, handler at ~10040us, main ~50us after that
+      0: sceKernelSetAlarm 35-50us, handler at 245-270us, main 40-60us after that
+    100: sceKernelSetAlarm 35-50us, handler at 245-270us, main 40-60us after that
+    200: sceKernelSetAlarm 35-50us, handler at 245-270us, main 40-60us after that
+   1000: sceKernelSetAlarm 35-50us, handler at 1030-1055us, main 40-60us after that
+  10000: sceKernelSetAlarm 35-50us, handler at 10030-10055us, main 40-60us after that
 
 [x] Alarm, main running:
-  Handler at ~1050us, main lost ~70us around it
+  Main lost 60-85us around the handler
