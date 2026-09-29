@@ -1,0 +1,5 @@
+[x] Peek:
+[x]    1 samples: positive 0-3us, negative 0-3us
+[x]   16 samples: positive 4-6us, negative 4-6us
+[x]   32 samples: positive 7-10us, negative 7-10us
+[x]   64 samples: positive 11-20us, negative 11-20us

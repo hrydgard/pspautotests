@@ -1,4 +1,4 @@
-TARGETS = ctrl vblank
+TARGETS = ctrl vblank peekcost
 EXTRA_OBJS = ../display/display-imports.o
 
 COMMON_DIR = ../../common

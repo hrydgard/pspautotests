@@ -1,0 +1,16 @@
+[x] No handler, 1 waiting: first runs 75-90us after the interrupt: 6 of 6
+[r] No handler, 3 waiting: first runs 78-95us after the interrupt: 6 of 6
+[x] No handler, 3 waiting: the rest follow 9-15us apart: 6 of 6
+[r] No handler:
+[x]   CPU taken on average: 58-69us
+[x]   Last line before the wrap is 285: 8 of 8
+[x]   Vblank ends 790-850us after the interrupt: 8 of 8
+[r] Handler, 1 waiting: first runs 85-100us after the interrupt: 6 of 6
+[r] Handler, 3 waiting: first runs 88-105us after the interrupt: 6 of 6
+[x] Handler, 3 waiting: the rest follow 9-15us apart: 6 of 6
+[r] Handler:
+[x]   CPU taken on average: 70-85us
+[x]   Last line before the wrap is 285: 8 of 8
+[x]   Vblank ends 790-850us after the interrupt: 8 of 8
+[x]   Handler reads line 0 in vblank: 8 of 8
+[x]   Handler runs 15-45us into the interrupt: 8 of 8

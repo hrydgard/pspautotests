@@ -11,7 +11,9 @@ extern "C" {
 static const bool LOG_ACCURATE_TIMING = false;
 static const u32 TIME_ROUND_INTERVAL = (1000000 / 60) / 8;
 static const u32 HCOUNT_ROUND_INTERVAL = 286 / 2;
-static const u32 FRAME_HCOUNT_ROUND_INTERVAL = 5;
+// Coarse, and rounded down: inside the handler the line depends on how fast the code before the read
+// runs, which is 0-2 on hardware.
+static const u32 FRAME_HCOUNT_ROUND_INTERVAL = 10;
 
 static SceCtrlData pad_data[64];
 static u32 firstSample = 0;
@@ -44,7 +46,7 @@ void logSampleInfo() {
 		sample = roundUp(sample, TIME_ROUND_INTERVAL);
 		timeDelta = roundUp(timeDelta, TIME_ROUND_INTERVAL);
 		hcount = roundUp(hcount, HCOUNT_ROUND_INTERVAL);
-		frameHcount = roundUp(frameHcount, FRAME_HCOUNT_ROUND_INTERVAL);
+		frameHcount = (frameHcount / FRAME_HCOUNT_ROUND_INTERVAL) * FRAME_HCOUNT_ROUND_INTERVAL;
 	}
 
 	schedf("[-]   Latest sample at: +%ums, behind: %ums\n", sample, timeDelta);
