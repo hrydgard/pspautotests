@@ -1,0 +1,14 @@
+[x] Order, notified C, A, B by main while a worse thread sleeps:
+  Ran: MABC
+
+[x] Order, notified B, C, A twice each:
+  Ran: MABC
+
+[x] Released and notified before a worse waiter runs (w is the wait returning):
+  Signal, then notify: Mw
+    wait result 00000000
+  Notify, then signal: MAw
+    wait result 00000000
+
+[x] Cost, a better thread sleeping with sceKernelSleepThreadCB:
+  Notify to callback 10-25us, callback return to back in main <10us

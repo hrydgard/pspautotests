@@ -1,4 +1,4 @@
-TARGETS = afterwait callbacks cancel cbtimeout check count create delete delivery exit intrnotify nested notify otherthread recursion refer waittypes
+TARGETS = afterwait callbacks cancel cbtimeout check count create delete delivery exit intrnotify nested notify otherthread recursion refer waittypes combos
 EXTRA_OBJS = ../mutex/mutex-imports.o ../../modules/loadexec-imports.o
 EXTRA_LIBS = -lpsppower -lpspumd
 
