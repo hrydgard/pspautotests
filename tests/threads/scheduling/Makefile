@@ -1,4 +1,4 @@
-TARGETS = scheduling dispatch costs delaylen preemptsyscall syscallkinds
+TARGETS = scheduling dispatch costs delaylen preemptsyscall syscallkinds callcosts
 EXTRA_OBJS = lwmutex-imports.o ../../audio/atrac/atrac-imports.o
 EXTRA_LIBS = -lpsputility
 

@@ -1,0 +1,27 @@
+[x] Costs:
+  Small module (under 16KB):
+    sceIoOpen: ~9.0ms, worse thread got 10-50%, result ok
+    sceIoRead (whole file): ~1.5ms, worse thread got 10-50%, result ok
+    sceIoClose: ~100us, worse thread got under 10%, result ok
+    sceKernelLoadModule: ~12ms, worse thread got 10-50%, result ok
+  Large module (over 100KB):
+    sceIoOpen: ~9.0ms, worse thread got 10-50%, result ok
+    sceIoRead (whole file): ~20ms, worse thread got 50-90%, result ok
+    sceIoClose: ~100us, worse thread got under 10%, result ok
+    sceKernelLoadModule: ~36ms, worse thread got 50-90%, result ok
+  ATRAC3, mono, 10KB:
+    sceAtracGetAtracID: <100us, worse thread got under 10%, result ok
+    sceAtracSetData: ~900us, worse thread got 50-90%, result ok
+    sceAtracSetDataAndGetID: ~900us, worse thread got 50-90%, result ok
+    sceAtracSetHalfwayBufferAndGetID (4KB): ~900us, worse thread got 50-90%, result ok
+    sceAtracDecodeData (first frame): ~700us, worse thread got 50-90%, result ok
+    sceAtracDecodeData (second frame): ~700us, worse thread got over 90%, result ok
+    sceAtracReleaseAtracID: <100us, worse thread got under 10%, result ok
+  ATRAC3+, stereo, 45KB:
+    sceAtracGetAtracID: <100us, worse thread got under 10%, result ok
+    sceAtracSetData: ~3.5ms, worse thread got 50-90%, result ok
+    sceAtracSetDataAndGetID: ~3.5ms, worse thread got 50-90%, result ok
+    sceAtracSetHalfwayBufferAndGetID (4KB): ~3.5ms, worse thread got 50-90%, result ok
+    sceAtracDecodeData (first frame): ~3.0ms, worse thread got over 90%, result ok
+    sceAtracDecodeData (second frame): ~2.5ms, worse thread got over 90%, result ok
+    sceAtracReleaseAtracID: <100us, worse thread got under 10%, result ok

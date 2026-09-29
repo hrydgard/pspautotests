@@ -1,5 +1,5 @@
 [x] Thread lifetime:
-  Stack 0x01000: create ~150us, start 10-25us, delete 50-100us
+  Stack 0x01000: create ~200us, start 10-25us, delete 50-100us
   Stack 0x10000: create ~450us, start 10-25us, delete 50-100us
   Stack 0x40000: create ~1300us, start 10-25us, delete 50-100us
 [x] Delays:

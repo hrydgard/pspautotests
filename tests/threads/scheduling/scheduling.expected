@@ -7,12 +7,12 @@
 
 [x] testSimpleScheduling (1):
 [x]   * 00000000 @3
-[x]   Started thread 0
 [x]   * 00000000 @2
+[x]   Started thread 0
 [x]   * 00000000 @1
+[x]   * 00000000 @0
 [x]   * 00000001 @3
 [x]   * 00000001 @2
-[x]   * 00000000 @0
 [x]   Started thread 1
 [x]   * 00000001 @1
 [x]   * 00000001 @0
