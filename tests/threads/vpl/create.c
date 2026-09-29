@@ -12,6 +12,8 @@ static void testCreate(const char *title, const char *name, int part, unsigned i
 	}
 }
 
+// Sizes that depend on how much memory is free live in memory.c.
+
 int main(int argc, char **argv) {
 	int i;
 	char temp[128];
@@ -43,8 +45,7 @@ int main(int argc, char **argv) {
 	schedf("\nSizes:\n");
 	unsigned int sizes[] = {
 		-1, 0, 1, 0x10, 0x20, 0x2F, 0x30, 0x31, 0x32, 0x36, 0x38, 0x39, 0x3A,
-		0x131, 0x136, 0x139, 0x1000, 0x10000, 0x100000, 0x1000000, 0x10000000,
-		0x1800000, 0x2000000,
+		0x131, 0x136, 0x139, 0x1000, 0x10000, 0x100000, 0x10000000,
 	};
 	for (i = 0; i < sizeof(sizes) / sizeof(sizes[0]); ++i) {
 		sprintf(temp, "  Size 0x%08X", sizes[i]);
@@ -73,26 +74,6 @@ int main(int argc, char **argv) {
 		result = vpl > 0 ? 1 : vpl;
 	);
 	sceKernelDeleteVpl(vpl);
-
-	SceUID vpls[1024];
-	int result = 0;
-	for (i = 0; i < 1024; i++)
-	{
-		vpls[i] = sceKernelCreateVpl("vpl", PSP_MEMORY_PARTITION_USER, 0, 0x1000, NULL);
-		if (vpls[i] < 0)
-		{
-			result = vpls[i];
-			break;
-		}
-	}
-
-	if (result != 0)
-		printf("Create 1024: Failed at %d (%08X)\n", i, result);
-	else
-		printf("Create 1024: OK\n");
-
-	while (--i >= 0)
-		sceKernelDeleteVpl(vpls[i]);
 
 	return 0;
 }

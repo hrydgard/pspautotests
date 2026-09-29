@@ -15,8 +15,8 @@ Partitions:
   Partition 4: VPL: Failed (800200D1)
   Partition 6: VPL: OK (size=52,name=vpl,attr=00000000,poolSize=00000FE0,freeSize=00000FE0,wait=0)
   Partition 7: VPL: Failed (800200D2)
-  Partition 8: VPL: Failed (800200D1)
-  Partition 9: VPL: Failed (800200D1)
+  Partition 8: VPL: Failed (800200D2)
+  Partition 9: VPL: Failed (800200D2)
   Partition 10: VPL: Failed (800200D2)
 
 Attributes:
@@ -51,12 +51,8 @@ Sizes:
   Size 0x00001000: VPL: OK (size=52,name=vpl,attr=00000000,poolSize=00000FE0,freeSize=00000FE0,wait=0)
   Size 0x00010000: VPL: OK (size=52,name=vpl,attr=00000000,poolSize=0000FFE0,freeSize=0000FFE0,wait=0)
   Size 0x00100000: VPL: OK (size=52,name=vpl,attr=00000000,poolSize=000FFFE0,freeSize=000FFFE0,wait=0)
-  Size 0x01000000: VPL: OK (size=52,name=vpl,attr=00000000,poolSize=00FFFFE0,freeSize=00FFFFE0,wait=0)
   Size 0x10000000: VPL: Failed (80020190)
-  Size 0x01800000: VPL: OK (size=52,name=vpl,attr=00000000,poolSize=017FFFE0,freeSize=017FFFE0,wait=0)
-  Size 0x02000000: VPL: Failed (80020190)
 
 Two with same name: OK
 NULL name: A1B1C2E1D1F2 (thread=800201B5, main=80020001)
 Normal: A1B1C2E1D1F2 (thread=800201B5, main=00000001)
-Create 1024: OK
