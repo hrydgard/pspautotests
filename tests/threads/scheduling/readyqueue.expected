@@ -1,0 +1,42 @@
+[x] Semaphore signalled for all three (A, B, C waited in that order):
+  FIFO, worse (0x30, 0x28, 0x30): MBAC
+  FIFO, equal: MABC
+  FIFO, better (0x18, 0x10, 0x18): BACM
+  FIFO, mixed (0x18, 0x30, 0x20): AMCB
+  Priority attr, worse: MBAC
+  Priority attr, better: BACM
+
+[x] Semaphore signalled for one:
+  FIFO, worse: MB
+  Priority attr, worse: MB
+  FIFO, better: AM
+  Priority attr, better: BM
+
+[x] Event flag satisfying all three:
+  FIFO, worse: MBAC
+  FIFO, equal: MABC
+  FIFO, better: BACM
+
+[x] Woken versus already ready, all at main's priority:
+  R started, then W woken: MRW
+  W woken, then R started: MWR
+
+[x] Starting threads at main's priority:
+  A, B started: MAB
+
+[x] sceKernelRotateThreadReadyQueue:
+  A, B ready, main rotates (0): ABM
+  A, B ready, main rotates (0x20): ABM
+  A, B ready at 0x30, main rotates (0x30): MBA
+
+[x] sceKernelChangeThreadPriority:
+  A, B ready, A changed to its own priority: MBA
+  A, B ready, main changed to its own priority: ABM
+  A ready, main lowers itself to 0x21 and back: AM
+  A 0x30, B 0x28, A raised to 0x28: MBA
+
+[x] sceKernelSuspendThread / sceKernelResumeThread:
+  A, B ready, A suspended and resumed: MBA
+
+[x] sceKernelReleaseWaitThread:
+  R started, then W released: MRW

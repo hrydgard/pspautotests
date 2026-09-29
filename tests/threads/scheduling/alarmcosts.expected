@@ -1,0 +1,9 @@
+[x] Alarm, main sleeping until the handler wakes it:
+      0: sceKernelSetAlarm ~40us, handler at ~250us, main ~50us after that
+    100: sceKernelSetAlarm ~40us, handler at ~250us, main ~50us after that
+    200: sceKernelSetAlarm ~40us, handler at ~250us, main ~50us after that
+   1000: sceKernelSetAlarm ~40us, handler at ~1040us, main ~50us after that
+  10000: sceKernelSetAlarm ~40us, handler at ~10040us, main ~50us after that
+
+[x] Alarm, main running:
+  Handler at ~1050us, main lost ~70us around it

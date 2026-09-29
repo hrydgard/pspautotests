@@ -1,0 +1,19 @@
+[x] How each timeout went, and what's left in it afterwards:
+  WaitSema: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
+  WaitSemaCB: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
+  WaitEventFlag: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
+  LockMutex: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
+  LockLwMutex: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
+  ReceiveMbx: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
+  ReceiveMsgPipe: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
+  AllocateFpl: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
+  AllocateVpl: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
+  WaitThreadEnd: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
+  WaitEventFlagCB: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
+  LockMutexCB: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
+  LockLwMutexCB: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
+  ReceiveMbxCB: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
+  ReceiveMsgPipeCB: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
+  AllocateFplCB: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
+  AllocateVplCB: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8
+  WaitThreadEndCB: 0=at once 1=at once(left 1) 100=on time 205=on time 210=on time 220=on time 1000=on time, result 800201a8

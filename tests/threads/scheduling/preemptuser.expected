@@ -1,0 +1,7 @@
+[x] 1000us waits, shortest to longest:
+  Delay, main blocked: ~1020us to ~1040us
+  Delay, main spinning: ~1020us to ~1030us
+  Alarm, main blocked: ~1090us to ~1110us
+    handler ran after ~1040us to ~1050us
+  Alarm, main spinning: ~1080us to ~1100us
+    handler ran after ~1030us to ~1050us
