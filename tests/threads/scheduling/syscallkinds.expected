@@ -1,0 +1,7 @@
+[x] Syscalls:
+  (copy module: 00000000)
+  sceKernelLoadModule: ~15ms, result ok, waits (worse thread ran)
+  sceKernelUnloadModule: ~400us, result ok, busy, preemptible (only the better thread ran)
+  sceGeDrawSync: ~56ms, result ok, waits (worse thread ran)
+  sceKernelVolatileMemTryLock: <100us, result ok, not preempted
+  sceAtracSetDataAndGetID: ~4ms, result ok, waits (worse thread ran)

@@ -1,0 +1,7 @@
+[x] Worse thread's share of the CPU:
+[x]   Dialog 1, while starting up: over 90%, while shutting down: 50-90%
+[x]     (starting up took ~650ms, shutting down ~30ms)
+[x]   Dialog 2, while starting up: over 90%, while shutting down: 50-90%
+[x]     (starting up took ~650ms, shutting down ~30ms)
+[x]   InitStart: 00000000, ShutdownStart: 00000000
+[x]   Final status: 0
