@@ -463,8 +463,10 @@ extern "C" int main(int argc, char *argv[]) {
 	checkpointNext("sceAudioOutputBlocking:");
 	INTR_DISPATCH_TITLE("Invalid channel", sceAudioOutputBlocking(1, 0, buf));
 	INTR_DISPATCH_TITLE("Valid channel - 64", sceAudioOutputBlocking(0, 0, buf));
-	sceAudioSetChannelDataLen(0, 128);
-	INTR_DISPATCH_TITLE("Valid channel - 128", sceAudioOutputBlocking(0, 0, buf));
+	// Not tested: a buffer arriving while the channel is still busy, so the call has to wait. The
+	// wait fails here, and the driver then leaves the channel's waiting flag set, so the channel is
+	// busy for good and can't even be released. PPSSPP deliberately doesn't emulate that (a timing
+	// difference could make it lose a channel where hardware wouldn't), see docs/sceAudio.md.
 	sceAudioChRelease(0);
 
 	sceAudioSRCChReserve(64, 44100, 2);

@@ -227,8 +227,6 @@
 [?]   Invalid channel - dispatch disabled: 80260001
 [?]   Valid channel - 64 - interrupts disabled: 00000040
 [?]   Valid channel - 64 - dispatch disabled: 00000040
-[?]   Valid channel - 128 - interrupts disabled: 800201a7
-[?]   Valid channel - 128 - dispatch disabled: 80260002
 
 [x] sceAudioSRCOutputBlocking:
 [x]   Valid channel - 64 - interrupts disabled: 800201a7
@@ -389,7 +387,7 @@
 [?]   sceCtrlReadBufferPositive - bad count: 80000104
 [?]   sceCtrlReadBufferPositive - valid: 80020064
 [?]   sceAudioOutputBlocking - invalid channel: 80260001
-[?]   sceAudioOutputBlocking - valid channel - 64: 00000080
+[?]   sceAudioOutputBlocking - valid channel - 64: 00000040
 [?]   sceAudioSRCOutputBlocking - valid channel - 64: 80020064
 [?]   sceGeListSync - invalid list: 80000100
 [?]   sceGeListSync - mode 0: 80020064
