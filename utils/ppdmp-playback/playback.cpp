@@ -50,6 +50,7 @@ extern "C" int main(int argc, char *argv[]) {
 	bool set_filename = false;
 	int start = 1;
 	int end = 0x7FFFFFFF;
+	int holdMs = 0;
 
 	for (int i = 1; i < argc; ++i) {
 		if (argv[i][0] == '-') {
@@ -61,11 +62,15 @@ extern "C" int main(int argc, char *argv[]) {
 				end = atoi(argv[i] + strlen("--end="));
 				continue;
 			}
+			if (!strncmp(argv[i], "--hold-ms=", strlen("--hold-ms="))) {
+				holdMs = atoi(argv[i] + strlen("--hold-ms="));
+				continue;
+			}
 		}
 
 		if (set_filename) {
 			printf("Unexpected argument %s\n", argv[i]);
-			printf("Usage: playback.prx filename [--start=1] [--end=1000]\n");
+			printf("Usage: playback.prx filename [--start=1] [--end=1000] [--hold-ms=1500]\n");
 			return 1;
 		}
 
@@ -77,6 +82,7 @@ extern "C" int main(int argc, char *argv[]) {
 	replay.SetRange(start, end);
 	printf("VALID: %d\n", replay.Valid());
 	printf("RUN: %d\n", replay.Run());
+	replay.ShowResult();
 
 	uint topaddr;
 	int bufferwidth;
@@ -86,6 +92,11 @@ extern "C" int main(int argc, char *argv[]) {
 	printf("SCREENSHOT: %08x, %d, %d\n", topaddr, bufferwidth, pixelformat);
 
 	emulatorEmitScreenshot();
+
+	// Keep the result on screen for a while: PSPLink clears the display when the program exits.
+	if (holdMs > 0) {
+		sceKernelDelayThread(holdMs * 1000);
+	}
 
 	sceGuTerm();
 

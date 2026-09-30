@@ -64,6 +64,10 @@ public:
 		return valid_;
 	}
 
+	// Waits for rendering to finish and puts the result on the display: the dump's last DISPLAY,
+	// or the last framebuffer it drew to when it has none.
+	void ShowResult();
+
 protected:
 	bool ReadCompressed(void *dest, size_t sz, uint32_t version);
 
@@ -85,6 +89,7 @@ protected:
 	void Framebuf(int level, u32 ptr, u32 sz);
 	void Display(u32 ptr, u32 sz);
 	void EdramTrans(u32 ptr, u32 sz);
+	void TrackRegisters(const u32 *words, u32 count);
 
 	int fd_;
 	bool valid_;
@@ -103,4 +108,13 @@ protected:
 	u32 execListID;
 	std::vector<u32> execListQueue;
 	u16 lastBufw_[8];
+
+	bool haveDisplay_ = false;
+	void *displayAddr_ = nullptr;
+	u32 displayStride_ = 0;
+	u32 displayFormat_ = 0;
+	bool haveFramebuf_ = false;
+	u32 fbPtr_ = 0;
+	u32 fbWidth_ = 0;
+	u32 fbFormat_ = 0;
 };

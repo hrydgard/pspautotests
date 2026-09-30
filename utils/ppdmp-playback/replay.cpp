@@ -284,11 +284,39 @@ void Replay::Init(u32 ptr, u32 sz) {
 		sceKernelDcacheWritebackInvalidateRange(ctx, sizeof(PspGeContext));
 	}
 
+	TrackRegisters((const u32 *)ctx->context + 17, 512 - 17);
 	sceGeRestoreContext(ctx);
 }
 
 void Replay::Registers(u32 ptr, u32 sz) {
+	TrackRegisters((const u32 *)(buf_.data() + ptr), sz / 4);
 	SubmitCmds(buf_.data() + ptr, sz);
+}
+
+void Replay::TrackRegisters(const u32 *words, u32 count) {
+	for (u32 i = 0; i < count; ++i) {
+		const u32 op = words[i] >> 24;
+		if (op == GE_CMD_FRAMEBUFPTR) {
+			fbPtr_ = words[i] & 0x00FFFFFF;
+			haveFramebuf_ = true;
+		} else if (op == GE_CMD_FRAMEBUFWIDTH) {
+			fbWidth_ = words[i] & 0x07FC;
+		} else if (op == GE_CMD_FRAMEBUFPIXFORMAT) {
+			fbFormat_ = words[i] & 3;
+		}
+	}
+}
+
+void Replay::ShowResult() {
+	sceGeDrawSync(0);
+	if (haveDisplay_) {
+		sceDisplaySetFrameBuf(displayAddr_, displayStride_, displayFormat_, PSP_DISPLAY_SETBUF_NEXTFRAME);
+	} else if (haveFramebuf_) {
+		sceDisplaySetFrameBuf((void *)(0x04000000 | (fbPtr_ & 0x001FFFF0)), fbWidth_, fbFormat_, PSP_DISPLAY_SETBUF_NEXTFRAME);
+	}
+	// Two, so the new buffer has been scanned out at least once.
+	sceDisplayWaitVblankStart();
+	sceDisplayWaitVblankStart();
 }
 
 void Replay::Vertices(u32 ptr, u32 sz) {
@@ -434,6 +462,10 @@ void Replay::Display(u32 ptr, u32 sz) {
 
 	sceDisplaySetFrameBuf(disp->topaddr, disp->linesize, disp->pixelFormat, 1);
 	sceDisplaySetFrameBuf(disp->topaddr, disp->linesize, disp->pixelFormat, 0);
+	haveDisplay_ = true;
+	displayAddr_ = disp->topaddr;
+	displayStride_ = disp->linesize;
+	displayFormat_ = disp->pixelFormat;
 }
 
 void Replay::EdramTrans(u32 ptr, u32 sz) {

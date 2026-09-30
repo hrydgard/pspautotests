@@ -20,6 +20,21 @@ pspsh -p 3000 -e "utils/ppdmp-playback/playback.prx host0:/framedumps/bug123.ppd
 
 Note that pspsh expects the command and its arguments all to be together inside the quotes.
 
+When the replay is done, the display shows the result (the dump's last display framebuffer, or the
+last framebuffer it drew to). PSPLink clears the screen when the program exits, so `--hold-ms=1500`
+keeps it up for a while first.
+
+`run.py` does all of this from the host, for one or more dumps (`.ppdmp`, or a zip holding one, as in
+the frametests repo), and saves what the PSP displays as `NAME-psp.png`:
+```sh
+python3 utils/ppdmp-playback/run.py --out /tmp/shots dumps/bug123.zip
+python3 utils/ppdmp-playback/run.py --headless ../build/PPSSPPHeadless dumps/bug123.zip
+```
+With `--headless`, it also renders each dump in PPSSPPHeadless (`--graphics=software` by default),
+saves `NAME-ppsspp.png` and prints the MSE between the two. Each result stays on the PSP's screen for
+1.5 seconds (`--hold=SECONDS` to change it). It builds `playback.prx` first, starts `usbhostfs_pc` if
+needed, and runs the dumps one after another.
+
 Building
 --------
 
