@@ -1,0 +1,24 @@
+[x] Bad frames:
+[r]   0E good: 00000000 err 000 read 192 wrote 4096
+[r]   0E id wrong: 807f00fd err 182 read 0 wrote 0
+[r]   0E all zero: 807f00fd err 182 read 0 wrote 0
+[r]   0E all FF: 807f00fd err 182 read 0 wrote 0
+[r]   04 good: 00000000 err 000 read 384 wrote 4096
+[r]   04 ch0 id wrong: 807f00fd err 182 read 0 wrote 0
+[r]   04 ch1 id wrong: 807f00fd err 182 read 0 wrote 0
+[r]   04 ch1 zero: 807f00fd err 182 read 0 wrote 0
+[r]   04 all FF: 807f00fd err 182 read 0 wrote 0
+[r]   0B mono data: 807f00fd err 183 read 0 wrote 0
+[r]   0B id wrong: 807f00fd err 182 read 0 wrote 0
+[r]   0B all zero: 807f00fd err 182 read 0 wrote 0
+
+[x] InitMono:
+[r]   InitMono(0e): 00000000
+[r]   0E: 00000000 wrote 2048; equal to Init's left 1024 of 1024
+[r]   InitMono(04): 807f00ff
+[r]   04: 807f00ff wrote 0
+[r]   Param 04: 807f00ff
+[r]   Param 06: 807f00ff
+[r]   Param 0b: 807f00ff
+[r]   Param 0e: 00000000
+[r]   Param 0f: 00000000

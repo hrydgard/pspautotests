@@ -57,8 +57,8 @@ static void run(const char *title, const u8 *frames, int count, u32 param, int f
 		result = sceAudiocodecDecode(&ctx, AUDIOCODEC_AT3);
 		sceKernelDcacheInvalidateRange(pcm, sizeof(pcm));
 		if (i == 0) {
-			// ctx.err also differs by cause: 0x183 for the mono frames under 0x0B, 0x182 for the
-			// half-zeroed stereo ones. We report 0x182 for both, so it isn't printed.
+			// ctx.err differs by cause here (0x183 for the mono frames under 0x0B, 0x182 for the
+			// half-zeroed stereo ones); at3errors covers that.
 			checkpoint("  frame 0: %08x, read %d, wrote %d", result, (int)ctx.srcBytesRead, (int)ctx.dstBytesWritten);
 		}
 		if (result < 0) {

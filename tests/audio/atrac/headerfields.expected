@@ -1,0 +1,36 @@
+[x] End sample limit:
+[r]   Atrac3, offset 0, end at the limit: SetData 00000000, Halfway 00000000
+[x]   Atrac3, offset 0, end at the limit + 1: SetData 80630008, Halfway 80630008
+[r]   Atrac3, offset 1, end at the limit: SetData 00000000, Halfway 00000000
+[x]   Atrac3, offset 1, end at the limit + 1: SetData 80630008, Halfway 80630008
+[r]   Atrac3, offset 200, end at the limit: SetData 00000000, Halfway 00000000
+[x]   Atrac3, offset 200, end at the limit + 1: SetData 80630008, Halfway 80630008
+[r]   Atrac3, offset 400, end at the limit: SetData 00000000, Halfway 00000000
+[x]   Atrac3, offset 400, end at the limit + 1: SetData 80630008, Halfway 80630008
+[r]   Atrac3, offset 500, end at the limit: SetData 00000000, Halfway 00000000
+[x]   Atrac3, offset 500, end at the limit + 1: SetData 80630008, Halfway 80630008
+[r]   Atrac3, offset 1000, end at the limit: SetData 00000000, Halfway 00000000
+[x]   Atrac3, offset 1000, end at the limit + 1: SetData 80630008, Halfway 80630008
+[r]   Atrac3+, offset 0, end at the limit: SetData 00000000, Halfway 00000000
+[x]   Atrac3+, offset 0, end at the limit + 1: SetData 80630008, Halfway 80630008
+[r]   Atrac3+, offset 1, end at the limit: SetData 00000000, Halfway 00000000
+[x]   Atrac3+, offset 1, end at the limit + 1: SetData 80630008, Halfway 80630008
+[r]   Atrac3+, offset 400, end at the limit: SetData 00000000, Halfway 00000000
+[x]   Atrac3+, offset 400, end at the limit + 1: SetData 80630008, Halfway 80630008
+[r]   Atrac3+, offset 800, end at the limit: SetData 00000000, Halfway 00000000
+[x]   Atrac3+, offset 800, end at the limit + 1: SetData 80630008, Halfway 80630008
+[r]   Atrac3+, offset 900, end at the limit: SetData 00000000, Halfway 00000000
+[x]   Atrac3+, offset 900, end at the limit + 1: SetData 80630008, Halfway 80630008
+[r]   Atrac3+, offset 1000, end at the limit: SetData 00000000, Halfway 00000000
+[x]   Atrac3+, offset 1000, end at the limit + 1: SetData 80630008, Halfway 80630008
+
+[x] Other fields:
+[r]   RIFF size 1: 00000000
+
+[x] Offset 0 against a whole frame:
+[r]   Atrac3, offset 0: end sample 59999, next position 0, first decode 00000000 with 955 samples
+[r]   Atrac3, offset 0x400: end sample 59999, next position 0, first decode 00000000 with 955 samples
+[r]   Atrac3, offset 0x200: end sample 59999, next position 0, first decode 00000000 with 443 samples
+[r]   Atrac3+, offset 0: end sample 199999, next position 0, first decode 00000000 with 1680 samples
+[r]   Atrac3+, offset 0x800: end sample 199999, next position 0, first decode 00000000 with 1680 samples
+[r]   Atrac3+, offset 0x400: end sample 199999, next position 0, first decode 00000000 with 656 samples
