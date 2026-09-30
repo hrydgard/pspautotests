@@ -1,0 +1,11 @@
+MAKEDATA: 00000000, result 00000000
+no save, caller 32, threads 17/19/18/16: ShutdownStart 00000000, then SHUTDOWN NONE
+no save, caller 111, threads 17/19/18/16: ShutdownStart 00000000, then NONE
+existing save, caller 32, threads 17/19/18/16: ShutdownStart 00000000, then SHUTDOWN NONE
+existing save, caller 111, threads 17/19/18/16: ShutdownStart 00000000, then NONE
+no save, caller 33, threads 17/19/35/32: ShutdownStart 00000000, then NONE
+no save, caller 34, threads 17/19/35/32: ShutdownStart 00000000, then NONE
+no save, caller 35, threads 17/19/35/32: ShutdownStart 00000000, then NONE
+no save, caller 36, threads 17/19/35/32: ShutdownStart 00000000, then NONE
+no save, caller 33, threads 17/19/64/32: ShutdownStart 00000000, then NONE
+no save, caller 33, threads 17/19/35/64: ShutdownStart 00000000, then NONE

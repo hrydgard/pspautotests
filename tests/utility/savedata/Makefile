@@ -1,4 +1,4 @@
-TARGETS = autosave filelist getsize idlist makedata sizes secureversion loaddata deletedata loademptyfilename deleteemptyfilename saveemptyfilename loadbroken deletebroken
+TARGETS = autosave filelist getsize idlist makedata sizes secureversion loaddata deletedata loademptyfilename deleteemptyfilename saveemptyfilename loadbroken deletebroken shutdownstatus
 EXTRA_OBJS = shared.o emptyfilename.o broken.o
 
 COMMON_DIR = ../../../common
