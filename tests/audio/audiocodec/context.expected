@@ -1,0 +1,305 @@
+[x] Atrac3+ 28 2e, inited 0
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->7bc0 +34 0->ac44 +3c 0->2 +40 0->178
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           807f00fd: +08 0->8001 +44 0->40 +48 0->2
+[x]   GetOutputBytes 00000000: 2000
+
+[x] Atrac3+ 28 2e, inited 2
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->7bc0 +34 0->ac44 +3c 0->2 +40 0->178
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           807f00fd: +08 0->8001 +44 0->40 +48 0->2
+[x]   GetOutputBytes 00000000: 2000
+
+[x] Atrac3+ 28 0b
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->7bc0 +34 0->ac44 +3c 0->2 +40 0->60
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +44 0->10 +48 0->2
+[x]   GetOutputBytes 00000000: 2000
+
+[x] Atrac3+ 28 1f
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->7bc0 +34 0->ac44 +3c 0->2 +40 0->100
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +44 0->2c +48 0->2
+[x]   GetOutputBytes 00000000: 2000
+
+[x] Atrac3+ 28 2e
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->7bc0 +34 0->ac44 +3c 0->2 +40 0->178
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +44 0->40 +48 0->2
+[x]   GetOutputBytes 00000000: 2000
+
+[x] Atrac3+ 28 45
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->7bc0 +34 0->ac44 +3c 0->2 +40 0->230
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +44 0->60 +48 0->2
+[x]   GetOutputBytes 00000000: 2000
+
+[x] Atrac3+ 28 5c
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->7bc0 +34 0->ac44 +3c 0->2 +40 0->2e8
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +44 0->80 +48 0->2
+[x]   GetOutputBytes 00000000: 2000
+
+[x] Atrac3+ 28 ff
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->7bc0 +34 0->ac44 +3c 0->2 +40 0->800
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +44 0->160 +48 0->2
+[x]   GetOutputBytes 00000000: 2000
+
+[x] Atrac3+ 20 2e
+[r]   CheckNeedMem   807f00fd: +00 0->5100601 +08 0->20f +34 0->ac44 +40 0->178
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           807f00fd: +08 20f->202
+[x]   GetOutputBytes 00000000: 0
+
+[x] Atrac3+ 24 2e
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->4340 +34 0->ac44 +3c 0->1 +40 0->178
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +44 0->40 +48 0->2
+[x]   GetOutputBytes 00000000: 2000
+
+[x] Atrac3+ 2c 2e
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->be40 +34 0->ac44 +3c 0->3 +40 0->178
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +44 0->40 +48 0->3
+[x]   GetOutputBytes 00000000: 3000
+
+[x] Atrac3+ 30 2e
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->100c0 +34 0->ac44 +3c 0->4 +40 0->178
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +44 0->40 +48 0->4
+[x]   GetOutputBytes 00000000: 4000
+
+[x] Atrac3+ 34 2e
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->17bc0 +34 0->ac44 +3c 0->5 +40 0->178
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +44 0->40 +48 0->6
+[x]   GetOutputBytes 00000000: 6000
+
+[x] Atrac3+ 38 2e
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->1be40 +34 0->ac44 +3c 0->6 +40 0->178
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +44 0->40 +48 0->7
+[x]   GetOutputBytes 00000000: 7000
+
+[x] Atrac3+ 3c 2e
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->1f6c0 +34 0->ac44 +3c 0->7 +40 0->178
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +44 0->40 +48 0->8
+[x]   GetOutputBytes 00000000: 8000
+
+[x] Atrac3+ 29 2e
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->7bc0 +34 0->ac44 +3c 0->2 +40 0->978
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +44 0->1a1 +48 0->2
+[x]   GetOutputBytes 00000000: 2000
+
+[x] Atrac3+ 2a 2e
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->7bc0 +34 0->ac44 +3c 0->2 +40 0->1178
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           807f00fd: +08 0->203 +48 0->2
+[x]   GetOutputBytes 00000000: 2000
+
+[x] Atrac3+ 08 2e
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->7bc0 +34 0->7d00 +3c 0->2 +40 0->178
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           807f00fd: +08 0->201 +48 0->2
+[x]   GetOutputBytes 00000000: 2000
+
+[x] Atrac3+ 48 2e
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->7bc0 +34 0->bb80 +3c 0->2 +40 0->178
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +44 0->46 +48 0->2
+[x]   GetOutputBytes 00000000: 2000
+
+[x] Atrac3+ 68 2e
+[r]   CheckNeedMem   807f00fd: +00 0->5100601 +3c 0->2
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           807f00fd:
+[x]   GetOutputBytes 00000000: 0
+
+[x] Atrac3+ 24 2e, InitMono
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->4340 +34 0->ac44 +3c 0->1 +40 0->178
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   InitMono       00000000: +44 0->40 +48 0->1
+[x]   GetOutputBytes 00000000: 1000
+
+[x] Atrac3+ 28 2e, InitMono
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->7bc0 +34 0->ac44 +3c 0->2 +40 0->178
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   InitMono       807f00ff:
+[x]   GetOutputBytes 00000000: 0
+
+[x] Atrac3+ decode
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->7bc0 +34 0->ac44 +3c 0->2 +40 0->178
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +44 0->40 +48 0->2
+[r]   Decode         00000000: +1c 0->178
+[r]   Decode         00000000: +24 0->2000
+[r]   Decode         00000000:
+[r]   Decode         00000000: +24 2000->1000
+[x]   GetOutputBytes 00000000: 1000
+[r]   ReleaseEDRAM   00000000: +0c 18eac0->0 +68 18ea90->0
+
+[x] Atrac3 0e
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->3de0
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +2c 0->ac44 +30 0->c0 +34 0->2
+[x]   GetOutputBytes 00000000: 1000
+[r]   Decode         00000000: +1c 0->c0 +24 0->1000
+[r]   ReleaseEDRAM   00000000: +0c 18eac0->0 +68 18ea90->0
+
+[x] Atrac3 04
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->3de0
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +2c 0->ac44 +30 0->c0
+[r]   Decode         00000000: +1c 0->180 +24 0->1000
+[r]   ReleaseEDRAM   00000000: +0c 18eac0->0 +68 18ea90->0
+
+[x] Atrac3 00
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->3de0
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +2c 0->ac44 +30 0->100
+
+[x] Atrac3 03
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->3de0
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +2c 0->ac44 +30 0->d4
+
+[x] Atrac3 09
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->3de0
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +2c 0->ac44 +30 0->88
+
+[x] Atrac3 0c
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->3de0
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +2c 0->ac44 +30 0->44
+
+[x] Atrac3 0d
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->3de0
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +2c 0->ac44 +30 0->30
+
+[x] MP3 without a frame
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->3b68
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +38 0->270f
+[r]   GetOutputBytes 807f00fd: deadbeef
+[r]   GetInfo        807f00fd: +08 ffffffeb->fffffffe +2c 0->ffffffff +38 270f->ffffffff +3c 0->ffffffff +40 0->ffffffff +44 0->ffffffff +48 0->ffffffff +4c 0->ffffffff +50 0->ffffffff +54 0->ffffffff +58 0->ffffffff +5c 0->ffffffff +60 0->ffffffff +64 0->ffffffff
+[x]   GetOutputBytes 00000000: 900
+[r]   ReleaseEDRAM   00000000: +0c 18eac0->0 +68 18ea90->0
+
+[x] mp3_128k.mp3
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->3b68
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +38 0->270f
+[r]   GetInfo        00000000: +38 270f->1 +3c 0->3 +44 0->9 +54 0->1 +58 0->2 +60 0->1
+[x]   GetOutputBytes 00000000: 1200
+[r]   Decode         00000000: +1c 0->1a1 +24 0->1200 +30 0->2 +34 0->2
+[r]   Decode         00000000: +1c 1a1->1a2 +4c 0->1
+[r]   ReleaseEDRAM   00000000: +0c 18eac0->0 +68 18ea90->0
+
+[x] mp3_320k.mp3
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->3b68
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +38 0->270f
+[r]   GetInfo        00000000: +38 270f->1 +3c 0->3 +44 0->e +54 0->1 +58 0->2 +60 0->1
+[x]   GetOutputBytes 00000000: 1200
+[r]   Decode         00000000: +1c 0->414 +24 0->1200 +30 0->2 +34 0->2
+[r]   Decode         00000000: +1c 414->415 +4c 0->1
+[r]   ReleaseEDRAM   00000000: +0c 18eac0->0 +68 18ea90->0
+
+[x] mp3_22khz_32k.mp3
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->3b68
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +38 0->270f
+[r]   GetInfo        00000000: +38 270f->0 +3c 0->3 +44 0->4 +48 0->2 +54 0->1 +58 0->2 +60 0->1
+[x]   GetOutputBytes 00000000: 900
+[r]   Decode         00000000: +1c 0->90 +24 0->900 +30 0->2 +34 0->1
+[r]   Decode         00000000:
+[r]   ReleaseEDRAM   00000000: +0c 18eac0->0 +68 18ea90->0
+
+[x] mp3_mono_64k.mp3
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->3b68
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000: +38 0->270f
+[r]   GetInfo        00000000: +38 270f->1 +3c 0->3 +44 0->5 +54 0->3 +60 0->1
+[x]   GetOutputBytes 00000000: 1200
+[r]   Decode         00000000: +1c 0->d0 +24 0->1200 +30 0->1 +34 0->2
+[r]   Decode         00000000: +1c d0->d1 +4c 0->1
+[r]   ReleaseEDRAM   00000000: +0c 18eac0->0 +68 18ea90->0
+
+[x] MP3 InitMono
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->3b68
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[x]   InitMono       807f00ff: +38 0->270f
+
+[x] AAC 44100
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->658c
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000:
+[x]   GetOutputBytes 00000000: 1000
+
+[x] AAC 48000
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->658c
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000:
+[x]   GetOutputBytes 00000000: 1000
+
+[x] AAC 22050
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->658c
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000:
+[x]   GetOutputBytes 00000000: 1000
+
+[x] AAC 12000
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->658c
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[x]   Init           807f00ff:
+[x]   GetOutputBytes 00000000: 1000
+
+[x] AAC 8000
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->658c
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000:
+[x]   GetOutputBytes 00000000: 1000
+
+[x] AAC 96000
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->658c
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000:
+[x]   GetOutputBytes 00000000: 1000
+
+[x] AAC 0
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->658c
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[x]   Init           807f00ff:
+[x]   GetOutputBytes 00000000: 1000
+
+[x] AAC 12345
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->658c
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[x]   Init           807f00ff:
+[x]   GetOutputBytes 00000000: 1000
+
+[x] AAC 0x2d set
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->658c
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           807f00ff:
+[x]   GetOutputBytes 00000000: 2000
+
+[x] AAC 0x2c set
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->658c
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           807f00ff:
+[x]   GetOutputBytes 00000000: 1000
+
+[x] AAC decode
+[r]   CheckNeedMem   00000000: +00 0->5100601 +10 0->658c
+[r]   GetEDRAM       00000000: +0c 0->18eac0 +68 0->18ea90
+[r]   Init           00000000:
+[r]   Decode         00000000: +1c 0->13b
+[r]   Decode         00000000: +1c 13b->131
+[r]   Decode         00000000: +1c 131->11b +24 0->1000
+[r]   ReleaseEDRAM   00000000: +0c 18eac0->0 +68 18ea90->0

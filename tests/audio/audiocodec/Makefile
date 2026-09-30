@@ -1,4 +1,4 @@
-TARGETS = basic timing at3param at3errors
+TARGETS = basic timing at3param at3errors context
 EXTRA_OBJS = audiocodec-imports.o
 EXTRA_LIBS = -lpsppower
 
