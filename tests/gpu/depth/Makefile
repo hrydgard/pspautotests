@@ -1,4 +1,4 @@
-TARGETS = precision
+TARGETS = precision transformprecision
 EXTRA_OBJS = ../../dmac/dmac-imports.o
 
 COMMON_DIR = ../../../common
