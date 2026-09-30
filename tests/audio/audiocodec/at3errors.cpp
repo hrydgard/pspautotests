@@ -14,7 +14,9 @@
 //
 // ctx.err is 0x183 for a joint stereo frame whose second part lacks its marker (a mono unit decoded
 // as joint stereo), and 0x182 for any other bad sound unit, on either channel. InitMono only takes
-// the mono parameters, and writes Init's left channel as plain mono.
+// the mono parameters, and writes Init's left channel as plain mono. What decides that is the word
+// at 0x34, which Init sets to 2 and InitMono to 1: a mono layout is decoded to stereo only when it's
+// 2, whichever init set it up.
 
 static SceAudiocodecCodec ctx __attribute__((aligned(64)));
 static short pcm[1024 * 2] __attribute__((aligned(64)));
@@ -103,6 +105,45 @@ extern "C" int main(int argc, char *argv[]) {
 	// A stereo parameter: InitMono fails.
 	r = decodeWith(0x04, true, stereo, 0x180, monoOut);
 	checkpoint("  04: %08x wrote %d", r, (int)ctx.dstBytesWritten);
+	checkpointNext("Context:");
+	static const u32 monoParams[] = { 0x0E, 0x0F };
+	for (u32 param : monoParams) {
+		for (int m = 0; m < 2; ++m) {
+			memset(&ctx, 0, sizeof(ctx));
+			*(u32 *)ctx.fmt.raw = param;
+			sceAudiocodecCheckNeedMem(&ctx, AUDIOCODEC_AT3);
+			sceAudiocodecGetEDRAM(&ctx, AUDIOCODEC_AT3);
+			int ri = m ? sceAudiocodecInitMono(&ctx, AUDIOCODEC_AT3) : sceAudiocodecInit(&ctx, AUDIOCODEC_AT3);
+			const u32 *f = (const u32 *)ctx.fmt.raw;
+			checkpoint("  %s(%02x): %08x, 0x2c %x, 0x30 %x, 0x34 %x", m ? "InitMono" : "Init", (int)param, ri, (unsigned)f[1], (unsigned)f[2], (unsigned)f[3]);
+			sceAudiocodecReleaseEDRAM(&ctx);
+		}
+	}
+	static const struct { u32 param; bool mono; int value; } pokes[] = {
+		{ 0x0E, false, 1 }, { 0x0E, false, 0 }, { 0x0E, false, 3 }, { 0x0E, true, 2 }, { 0x04, false, 1 },
+	};
+	for (const auto &poke : pokes) {
+		memset(&ctx, 0, sizeof(ctx));
+		*(u32 *)ctx.fmt.raw = poke.param;
+		sceAudiocodecCheckNeedMem(&ctx, AUDIOCODEC_AT3);
+		sceAudiocodecGetEDRAM(&ctx, AUDIOCODEC_AT3);
+		if (poke.mono) {
+			sceAudiocodecInitMono(&ctx, AUDIOCODEC_AT3);
+		} else {
+			sceAudiocodecInit(&ctx, AUDIOCODEC_AT3);
+		}
+		((u32 *)ctx.fmt.raw)[3] = poke.value;
+		const bool stereoFrame = poke.param == 0x04;
+		memcpy(frame, stereoFrame ? stereo : mono, stereoFrame ? 0x180 : 0xC0);
+		sceKernelDcacheWritebackRange(frame, sizeof(frame));
+		ctx.inBuf = frame;
+		ctx.outBuf = pcm;
+		int rd = sceAudiocodecDecode(&ctx, AUDIOCODEC_AT3);
+		checkpoint("  %s(%02x), then 0x34 = %d: decode %08x wrote %d", poke.mono ? "InitMono" : "Init", (int)poke.param, poke.value, rd, (int)ctx.dstBytesWritten);
+		sceAudiocodecReleaseEDRAM(&ctx);
+	}
+
+	checkpointNext("InitMono by parameter:");
 	// All of them, just the init.
 	static const u32 params[] = { 0x04, 0x06, 0x0B, 0x0E, 0x0F };
 	for (u32 param : params) {

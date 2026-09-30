@@ -17,6 +17,19 @@
 [r]   0E: 00000000 wrote 2048; equal to Init's left 1024 of 1024
 [r]   InitMono(04): 807f00ff
 [r]   04: 807f00ff wrote 0
+
+[x] Context:
+[r]   Init(0e): 00000000, 0x2c ac44, 0x30 c0, 0x34 2
+[r]   InitMono(0e): 00000000, 0x2c ac44, 0x30 c0, 0x34 1
+[r]   Init(0f): 00000000, 0x2c ac44, 0x30 98, 0x34 2
+[r]   InitMono(0f): 00000000, 0x2c ac44, 0x30 98, 0x34 1
+[r]   Init(0e), then 0x34 = 1: decode 00000000 wrote 2048
+[r]   Init(0e), then 0x34 = 0: decode 00000000 wrote 2048
+[r]   Init(0e), then 0x34 = 3: decode 00000000 wrote 2048
+[r]   InitMono(0e), then 0x34 = 2: decode 00000000 wrote 4096
+[r]   Init(04), then 0x34 = 1: decode 00000000 wrote 4096
+
+[x] InitMono by parameter:
 [r]   Param 04: 807f00ff
 [r]   Param 06: 807f00ff
 [r]   Param 0b: 807f00ff
