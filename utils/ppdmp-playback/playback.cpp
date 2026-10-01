@@ -51,6 +51,9 @@ extern "C" int main(int argc, char *argv[]) {
 	int start = 1;
 	int end = 0x7FFFFFFF;
 	int holdMs = 0;
+	int progress = 0;
+	int traceFrom = 0;
+	bool saveDepth = true;
 
 	for (int i = 1; i < argc; ++i) {
 		if (argv[i][0] == '-') {
@@ -60,6 +63,18 @@ extern "C" int main(int argc, char *argv[]) {
 			}
 			if (!strncmp(argv[i], "--end=", strlen("--end="))) {
 				end = atoi(argv[i] + strlen("--end="));
+				continue;
+			}
+			if (!strcmp(argv[i], "--no-depth")) {
+				saveDepth = false;
+				continue;
+			}
+			if (!strncmp(argv[i], "--trace-from=", strlen("--trace-from="))) {
+				traceFrom = atoi(argv[i] + strlen("--trace-from="));
+				continue;
+			}
+			if (!strncmp(argv[i], "--progress=", strlen("--progress="))) {
+				progress = atoi(argv[i] + strlen("--progress="));
 				continue;
 			}
 			if (!strncmp(argv[i], "--hold-ms=", strlen("--hold-ms="))) {
@@ -80,6 +95,7 @@ extern "C" int main(int argc, char *argv[]) {
 
 	Replay replay(filename);
 	replay.SetRange(start, end);
+	replay.SetProgress(progress, traceFrom);
 	printf("VALID: %d\n", replay.Valid());
 	printf("RUN: %d\n", replay.Run());
 	replay.ShowResult();
@@ -92,7 +108,8 @@ extern "C" int main(int argc, char *argv[]) {
 	printf("SCREENSHOT: %08x, %d, %d\n", topaddr, bufferwidth, pixelformat);
 
 	emulatorEmitScreenshot();
-	printf("DEPTH: %d\n", replay.SaveDepth("host0:/__depth.bin") ? 1 : 0);
+	if (saveDepth)
+		printf("DEPTH: %d\n", replay.SaveDepth("host0:/__depth.bin") ? 1 : 0);
 
 	// Keep the result on screen for a while: PSPLink clears the display when the program exits.
 	if (holdMs > 0) {

@@ -55,6 +55,10 @@ public:
 
 	bool Run();
 
+	void SetProgress(int every, int traceFrom) {
+		progress_ = every;
+		traceFrom_ = traceFrom;
+	}
 	void SetRange(int start, int end) {
 		primStart_ = start;
 		primEnd_ = end;
@@ -99,6 +103,10 @@ protected:
 	int prims_;
 	int primStart_;
 	int primEnd_;
+	int progress_ = 0;
+	int curCmd_ = 0;
+	int traceFrom_ = 0;
+	std::vector<u32> alignedRegs_;
 
 	std::vector<Command> cmds_;
 	std::vector<uint8_t> buf_;

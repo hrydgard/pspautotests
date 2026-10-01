@@ -88,6 +88,11 @@ bool Replay::Run() {
 	prims_ = 0;
 	for (size_t i = 0; i < cmds_.size(); ++i) {
 		const Command &cmd = cmds_[i];
+		curCmd_ = (int)i;
+		if (traceFrom_ && (int)i >= traceFrom_)
+			printf("TRACE: %d type %d sz %d\n", (int)i, (int)cmd.type, (int)cmd.sz);
+		if (progress_ && (i % progress_) == 0)
+			printf("PROGRESS: %d/%d type %d sz %d prims %d\n", (int)i, (int)cmds_.size(), (int)cmd.type, (int)cmd.sz, prims_);
 		switch (cmd.type) {
 		case CommandType::INIT:
 			Init(cmd.ptr, cmd.sz);
@@ -163,6 +168,8 @@ bool Replay::Run() {
 			printf("ERROR: Unsupported GE dump command: %d\n", (int)cmd.type);
 			return false;
 		}
+		if (traceFrom_ && (int)i >= traceFrom_)
+			printf("TRACE: done %d\n", (int)i);
 	}
 
 	SubmitListEnd();
@@ -175,11 +182,20 @@ void Replay::SyncStall() {
 	}
 
 	sceKernelDcacheWritebackInvalidateRange(execListBuf, LIST_BUF_SIZE);
+	if (traceFrom_ && curCmd_ >= traceFrom_)
+		printf("TRACE: stall update, list state %d\n", sceGeListSync(execListID, 1));
 	sceGeListUpdateStallAddr(execListID, execListPos);
+	if (traceFrom_ && curCmd_ >= traceFrom_)
+		printf("TRACE: stall updated, list state %d\n", sceGeListSync(execListID, 1));
 
 	// We specifically want to wait for 2 to clear, which is why we don't list sync.
+	int waited = 0;
 	while (sceGeListSync(execListID, 1) == 2) {
 		sceKernelDelayThreadCB(200);
+		if (progress_ && ++waited == 15000) {
+			// 3 seconds: report where the GE is, for finding hangs.
+			printf("STALL: GE still drawing after 3s, at dump command %d, list write offset %d\n", curCmd_, (int)(execListPos - execListBuf));
+		}
 	}
 }
 
@@ -207,6 +223,8 @@ bool Replay::SubmitCmds(void *p, u32 sz) {
 		*execListPos++ = (GE_CMD_JUMP << 24) | ((uintptr_t)execListBuf & 0x00FFFFFF);
 
 		execListPos = execListBuf;
+		if (traceFrom_ && curCmd_ >= traceFrom_)
+			printf("TRACE: list wrap\n");
 
 		// Don't continue until we've stalled.
 		SyncStall();
@@ -289,8 +307,16 @@ void Replay::Init(u32 ptr, u32 sz) {
 }
 
 void Replay::Registers(u32 ptr, u32 sz) {
-	TrackRegisters((const u32 *)(buf_.data() + ptr), sz / 4);
-	SubmitCmds(buf_.data() + ptr, sz);
+	const u8 *data = buf_.data() + ptr;
+	// Dumps pack their data without padding, so a register block can follow an odd-sized one, and an
+	// unaligned word load crashes the PSP's CPU.
+	if ((uintptr_t)data & 3) {
+		alignedRegs_.resize(sz / 4);
+		memcpy(alignedRegs_.data(), data, sz);
+		data = (const u8 *)alignedRegs_.data();
+	}
+	TrackRegisters((const u32 *)data, sz / 4);
+	SubmitCmds((void *)data, sz);
 }
 
 void Replay::TrackRegisters(const u32 *words, u32 count) {
