@@ -112,6 +112,8 @@ def run_on_psp(args, data):
 			command += ' --trace-from=%d' % args.trace_from
 		if args.no_depth:
 			command += ' --no-depth'
+		if args.display:
+			command += ' --display=%s' % args.display
 		pspsh(args.port, command, 5.0)
 		# pspsh returns once the module is started; the finish file marks its exit.
 		if not wait_until(lambda: os.path.exists(FINISHFILE), args.timeout + args.hold, 0.1):
@@ -153,6 +155,7 @@ def main():
 	parser.add_argument('--progress', type=int, help='print a progress line every N dump commands, to find a hang')
 	parser.add_argument('--trace-from', type=int, help='print every dump command from this index on')
 	parser.add_argument('--no-depth', action='store_true', help='skip the depth buffer readback')
+	parser.add_argument('--display', help='addr,stride,format (hex addr) of a buffer to show and screenshot instead of the display')
 	parser.add_argument('--port', type=int, default=3000)
 	parser.add_argument('--headless', help='PPSSPPHeadless to render each dump with too, printing the MSE')
 	parser.add_argument('--graphics', default='software', help='backend for --headless')

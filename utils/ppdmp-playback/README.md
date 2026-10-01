@@ -22,7 +22,8 @@ Note that pspsh expects the command and its arguments all to be together inside 
 
 When the replay is done, the display shows the result (the dump's last display framebuffer, or the
 last framebuffer it drew to). PSPLink clears the screen when the program exits, so `--hold-ms=1500`
-keeps it up for a while first.
+keeps it up for a while first. `--display=ADDR,STRIDE,FMT` (hex address, e.g. `04000000,512,3`)
+shows another buffer instead, such as an offscreen render target.
 
 `run.py` does all of this from the host, for one or more dumps (`.ppdmp`, or a zip holding one, as in
 the frametests repo), and saves what the PSP displays as `NAME-psp.png`:

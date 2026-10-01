@@ -54,6 +54,8 @@ extern "C" int main(int argc, char *argv[]) {
 	int progress = 0;
 	int traceFrom = 0;
 	bool saveDepth = true;
+	unsigned int displayAddr = 0;
+	int displayStride = 512, displayFormat = 3;
 
 	for (int i = 1; i < argc; ++i) {
 		if (argv[i][0] == '-') {
@@ -63,6 +65,11 @@ extern "C" int main(int argc, char *argv[]) {
 			}
 			if (!strncmp(argv[i], "--end=", strlen("--end="))) {
 				end = atoi(argv[i] + strlen("--end="));
+				continue;
+			}
+			if (!strncmp(argv[i], "--display=", strlen("--display="))) {
+				// addr,stride,format: show (and screenshot) this buffer instead of the dump's display.
+				sscanf(argv[i] + strlen("--display="), "%x,%d,%d", &displayAddr, &displayStride, &displayFormat);
 				continue;
 			}
 			if (!strcmp(argv[i], "--no-depth")) {
@@ -99,6 +106,11 @@ extern "C" int main(int argc, char *argv[]) {
 	printf("VALID: %d\n", replay.Valid());
 	printf("RUN: %d\n", replay.Run());
 	replay.ShowResult();
+	if (displayAddr != 0) {
+		sceDisplaySetFrameBuf((void *)displayAddr, displayStride, displayFormat, PSP_DISPLAY_SETBUF_NEXTFRAME);
+		sceDisplayWaitVblankStart();
+		sceDisplayWaitVblankStart();
+	}
 
 	uint topaddr;
 	int bufferwidth;
