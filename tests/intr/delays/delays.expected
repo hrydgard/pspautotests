@@ -1,0 +1,40 @@
+[x] Normal:
+  Reset: sceAtracReinit(0, 0): 00000000
+  Reset: sceAtracReinit(2, 2): 00000000
+  Reset: sceMpegInit: 00000000
+  Reset: sceMpegCreate: 00000000
+  Reset: sceMpegDelete: 00000000
+  Normal: sceIoOpen: 00000000
+  Normal: sceIoClose: 00000000
+  Normal: __sceSasCore: 00000000
+  Normal: sceAtracReinit(0, 0): 00000000
+  Normal: sceAtracReinit(2, 2): 00000000
+  Normal: sceMpegCreate: 00000000
+  Normal: sceMpegDelete: 00000000
+[x] Inside interrupt:
+  Reset: sceAtracReinit(0, 0): 00000000
+  Reset: sceAtracReinit(2, 2): 00000000
+  Reset: sceMpegInit: 00000000
+  Reset: sceMpegCreate: 00000000
+  Reset: sceMpegDelete: 00000000
+  Interrupt: sceIoOpen: 80020064
+  Interrupt: __sceSasCore: 80020064
+  Interrupt: sceAtracReinit(0, 0): 00000000
+  Interrupt: sceAtracReinit(2, 2): 807f00fd
+  Interrupt: sceMpegCreate: 80618008
+[x] Interrupts disabled:
+  Reset: sceAtracReinit(0, 0): 00000000
+  Reset: sceAtracReinit(2, 2): 00000000
+  Reset: sceMpegInit: 00000000
+  Reset: sceMpegCreate: 00000000
+  Reset: sceMpegDelete: 00000000
+  Interrupts disabled: sceIoOpen: ffffffff
+  Interrupts disabled: __sceSasCore: 800201a7
+[x] Dispatch disabled:
+  Reset: sceAtracReinit(0, 0): 00000000
+  Reset: sceAtracReinit(2, 2): 00000000
+  Reset: sceMpegInit: 00000000
+  Reset: sceMpegCreate: 00000000
+  Reset: sceMpegDelete: 00000000
+  Dispatch disabled: sceIoOpen: ffffffff
+  Dispatch disabled: __sceSasCore: 800201a7
