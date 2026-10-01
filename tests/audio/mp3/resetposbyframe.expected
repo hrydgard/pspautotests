@@ -1,0 +1,103 @@
+[x] MPEG-1 128kbps 44.1kHz
+[r]   sceMp3Init: 00000000
+[x]   sceMp3GetFrameNum: 20070
+[x]   Frame     0: 00000000, info 00000000, srcpos 00000000 (start+0), towrite 6720
+[x]   Frame     1: 00000000, info 00000000, srcpos 000001a0 (start+416), towrite 6720
+[x]   Frame     2: 00000000, info 00000000, srcpos 00000342 (start+834), towrite 6720
+[x]   Frame     3: 00000000, info 00000000, srcpos 000004e4 (start+1252), towrite 6720
+[x]   Frame    50: 00000000, info 00000000, srcpos 000051a0 (start+20896), towrite 6720
+[x]   Frame    93: 00000000, info 00000000, srcpos 000097d5 (start+38869), towrite 6720
+[x]   Frame    94: 00000000, info 00000000, srcpos 00009977 (start+39287), towrite 6720
+[x]   Frame   100: 00000000, info 00000000, srcpos 0000a342 (start+41794), towrite 6720
+[x]   Frame   233: 00000000, info 00000000, srcpos 00017c67 (start+97383), towrite 6720
+[x]   Frame   234: 00000000, info 00000000, srcpos 00017e09 (start+97801), towrite 6720
+[x]   Frame   500: 00000000, info 00000000, srcpos 00033052 (start+208978), towrite 6720
+[x]   Frame  1000: 00000000, info 00000000, srcpos 000660a6 (start+417958), towrite 6720
+[x]   Frame  1863: 00000000, info 00000000, srcpos 000be1a0 (start+778656), towrite 6720
+[x]   Frame  1864: 00000000, info 00000000, srcpos 000be342 (start+779074), towrite 6720
+[x]   Frame  5000: 00000000, info 00000000, srcpos 001fe342 (start+2089794), towrite 6720
+[x]   Frame 20000: 00000000, info 00000000, srcpos 007f8d0e (start+8359182), towrite 6720
+[x]   Frame 00004e65: 00000000, srcpos 007ffdb5
+[x]   Frame 00004e66: 80671501, srcpos 007ffdb5
+[x]   Frame 00004e67: 80671501, srcpos 007ffdb5
+[x]   Frame 80000000: 80671501, srcpos 007ffdb5
+[x]   Frame ffffffff: 80671501, srcpos 007ffdb5
+[r]   Decode after seek to 1000: 00001200, sum decoded 1153152
+
+[x] MPEG-1 320kbps 48kHz, start 0x1234
+[r]   sceMp3Init: 00000000
+[x]   sceMp3GetFrameNum: 8738
+[x]   Frame     0: 00000000, info 00000000, srcpos 00001234 (start+0), towrite 6720
+[x]   Frame     1: 00000000, info 00000000, srcpos 000015f3 (start+959), towrite 6720
+[x]   Frame     2: 00000000, info 00000000, srcpos 000019b3 (start+1919), towrite 6720
+[x]   Frame     3: 00000000, info 00000000, srcpos 00001d73 (start+2879), towrite 6720
+[x]   Frame    50: 00000000, info 00000000, srcpos 0000cdb3 (start+47999), towrite 6720
+[x]   Frame    93: 00000000, info 00000000, srcpos 00016ef3 (start+89279), towrite 6720
+[x]   Frame    94: 00000000, info 00000000, srcpos 000172b3 (start+90239), towrite 6720
+[x]   Frame   100: 00000000, info 00000000, srcpos 00018933 (start+95999), towrite 6720
+[x]   Frame   233: 00000000, info 00000000, srcpos 00037bf3 (start+223679), towrite 6720
+[x]   Frame   234: 00000000, info 00000000, srcpos 00037fb3 (start+224639), towrite 6720
+[x]   Frame   500: 00000000, info 00000000, srcpos 00076533 (start+479999), towrite 6720
+[x]   Frame  1000: 00000000, info 00000000, srcpos 000eb833 (start+959999), towrite 6720
+[x]   Frame  1863: 00000000, info 00000000, srcpos 001b5c73 (start+1788479), towrite 6720
+[x]   Frame  1864: 00000000, info 00000000, srcpos 001b6033 (start+1789439), towrite 6720
+[x]   Frame  5000: 00000000, info 00000000, srcpos 00495033 (start+4799999), towrite 6720
+[x]   Frame 20000: 80671501, info 00000000, srcpos 00495033 (start+4799999), towrite 6720
+[x]   Frame 00002221: 00000000, srcpos 00800df3
+[x]   Frame 00002222: 80671501, srcpos 00800df3
+[x]   Frame 00002223: 80671501, srcpos 00800df3
+[x]   Frame 80000000: 80671501, srcpos 00800df3
+[x]   Frame ffffffff: 80671501, srcpos 00800df3
+[r]   Decode after seek to 1000: 00001200, sum decoded 1153152
+
+[x] MPEG-2 64kbps 24kHz
+[r]   sceMp3Init: 00000000
+[x]   sceMp3GetFrameNum: 43690
+[x]   Frame     0: 00000000, info 00000000, srcpos 00000000 (start+0), towrite 6720
+[x]   Frame     1: 00000000, info 00000000, srcpos 000000bf (start+191), towrite 6720
+[x]   Frame     2: 00000000, info 00000000, srcpos 0000017f (start+383), towrite 6720
+[x]   Frame     3: 00000000, info 00000000, srcpos 0000023f (start+575), towrite 6720
+[x]   Frame    50: 00000000, info 00000000, srcpos 0000257f (start+9599), towrite 6720
+[x]   Frame    93: 00000000, info 00000000, srcpos 000045bf (start+17855), towrite 6720
+[x]   Frame    94: 00000000, info 00000000, srcpos 0000467f (start+18047), towrite 6720
+[x]   Frame   100: 00000000, info 00000000, srcpos 00004aff (start+19199), towrite 6720
+[x]   Frame   233: 00000000, info 00000000, srcpos 0000aebf (start+44735), towrite 6720
+[x]   Frame   234: 00000000, info 00000000, srcpos 0000af7f (start+44927), towrite 6720
+[x]   Frame   500: 00000000, info 00000000, srcpos 000176ff (start+95999), towrite 6720
+[x]   Frame  1000: 00000000, info 00000000, srcpos 0002edff (start+191999), towrite 6720
+[x]   Frame  1863: 00000000, info 00000000, srcpos 0005753f (start+357695), towrite 6720
+[x]   Frame  1864: 00000000, info 00000000, srcpos 000575ff (start+357887), towrite 6720
+[x]   Frame  5000: 00000000, info 00000000, srcpos 000ea5ff (start+959999), towrite 6720
+[x]   Frame 20000: 00000000, info 00000000, srcpos 003a97ff (start+3839999), towrite 6720
+[x]   Frame 0000aaa9: 00000000, srcpos 007ffebf
+[x]   Frame 0000aaaa: 80671501, srcpos 007ffebf
+[x]   Frame 0000aaab: 80671501, srcpos 007ffebf
+[x]   Frame 80000000: 80671501, srcpos 007ffebf
+[x]   Frame ffffffff: 80671501, srcpos 007ffebf
+[r]   Decode after seek to 1000: 00000900, sum decoded 576576
+
+[x] MPEG-2 32kbps 16kHz
+[r]   sceMp3Init: 00000000
+[x]   sceMp3GetFrameNum: 58254
+[x]   Frame     0: 00000000, info 00000000, srcpos 00000000 (start+0), towrite 6720
+[x]   Frame     1: 00000000, info 00000000, srcpos 0000008f (start+143), towrite 6720
+[x]   Frame     2: 00000000, info 00000000, srcpos 0000011f (start+287), towrite 6720
+[x]   Frame     3: 00000000, info 00000000, srcpos 000001af (start+431), towrite 6720
+[x]   Frame    50: 00000000, info 00000000, srcpos 00001c1f (start+7199), towrite 6720
+[x]   Frame    93: 00000000, info 00000000, srcpos 0000344f (start+13391), towrite 6720
+[x]   Frame    94: 00000000, info 00000000, srcpos 000034df (start+13535), towrite 6720
+[x]   Frame   100: 00000000, info 00000000, srcpos 0000383f (start+14399), towrite 6720
+[x]   Frame   233: 00000000, info 00000000, srcpos 0000830f (start+33551), towrite 6720
+[x]   Frame   234: 00000000, info 00000000, srcpos 0000839f (start+33695), towrite 6720
+[x]   Frame   500: 00000000, info 00000000, srcpos 0001193f (start+71999), towrite 6720
+[x]   Frame  1000: 00000000, info 00000000, srcpos 0002327f (start+143999), towrite 6720
+[x]   Frame  1863: 00000000, info 00000000, srcpos 000417ef (start+268271), towrite 6720
+[x]   Frame  1864: 00000000, info 00000000, srcpos 0004187f (start+268415), towrite 6720
+[x]   Frame  5000: 00000000, info 00000000, srcpos 000afc7f (start+719999), towrite 6720
+[x]   Frame 20000: 00000000, info 00000000, srcpos 002bf1ff (start+2879999), towrite 6720
+[x]   Frame 0000e38d: 00000000, srcpos 007fff4f
+[x]   Frame 0000e38e: 80671501, srcpos 007fff4f
+[x]   Frame 0000e38f: 80671501, srcpos 007fff4f
+[x]   Frame 80000000: 80671501, srcpos 007fff4f
+[x]   Frame ffffffff: 80671501, srcpos 007fff4f
+[r]   Decode after seek to 1000: 00000900, sum decoded 576576
