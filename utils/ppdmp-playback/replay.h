@@ -68,6 +68,9 @@ public:
 	// or the last framebuffer it drew to when it has none.
 	void ShowResult();
 
+	// Writes the depth buffer the frame ended with, deswizzled, as u32 width, u32 height, then u16s.
+	bool SaveDepth(const char *filename);
+
 protected:
 	bool ReadCompressed(void *dest, size_t sz, uint32_t version);
 
@@ -117,4 +120,7 @@ protected:
 	u32 fbPtr_ = 0;
 	u32 fbWidth_ = 0;
 	u32 fbFormat_ = 0;
+	bool haveZbuf_ = false;
+	u32 zbPtr_ = 0;
+	u32 zbWidth_ = 0;
 };

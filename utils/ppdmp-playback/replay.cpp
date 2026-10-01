@@ -303,6 +303,11 @@ void Replay::TrackRegisters(const u32 *words, u32 count) {
 			fbWidth_ = words[i] & 0x07FC;
 		} else if (op == GE_CMD_FRAMEBUFPIXFORMAT) {
 			fbFormat_ = words[i] & 3;
+		} else if (op == GE_CMD_ZBUFPTR) {
+			zbPtr_ = words[i] & 0x00FFFFFF;
+			haveZbuf_ = true;
+		} else if (op == GE_CMD_ZBUFWIDTH) {
+			zbWidth_ = words[i] & 0x07FC;
 		}
 	}
 }
@@ -466,6 +471,31 @@ void Replay::Display(u32 ptr, u32 sz) {
 	displayAddr_ = disp->topaddr;
 	displayStride_ = disp->linesize;
 	displayFormat_ = disp->pixelFormat;
+}
+
+bool Replay::SaveDepth(const char *filename) {
+	if (!haveZbuf_ || zbWidth_ == 0) {
+		return false;
+	}
+	sceGeDrawSync(0);
+	// Through the uncached mirror that undoes the swizzle for this color format: 0x600000 for 32-bit
+	// color, 0x200000 for 16-bit.
+	const u32 mirror = fbFormat_ == 3 ? 0x00600000 : 0x00200000;
+	const u16 *src = (const u16 *)(0x44000000 + mirror + (zbPtr_ & 0x001FFFF0));
+	SceUID fd = sceIoOpen(filename, PSP_O_WRONLY | PSP_O_CREAT | PSP_O_TRUNC, 0777);
+	if (fd < 0) {
+		return false;
+	}
+	const u32 header[2] = { zbWidth_, 272 };
+	sceIoWrite(fd, header, sizeof(header));
+	// Through RAM: host0 writes straight from VRAM don't work.
+	std::vector<u16> row(zbWidth_);
+	for (int y = 0; y < 272; ++y) {
+		memcpy(row.data(), src + y * zbWidth_, zbWidth_ * 2);
+		sceIoWrite(fd, row.data(), zbWidth_ * 2);
+	}
+	sceIoClose(fd);
+	return true;
 }
 
 void Replay::EdramTrans(u32 ptr, u32 sz) {

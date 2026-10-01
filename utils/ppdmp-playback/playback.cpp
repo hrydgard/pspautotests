@@ -92,6 +92,7 @@ extern "C" int main(int argc, char *argv[]) {
 	printf("SCREENSHOT: %08x, %d, %d\n", topaddr, bufferwidth, pixelformat);
 
 	emulatorEmitScreenshot();
+	printf("DEPTH: %d\n", replay.SaveDepth("host0:/__depth.bin") ? 1 : 0);
 
 	// Keep the result on screen for a while: PSPLink clears the display when the program exits.
 	if (holdMs > 0) {

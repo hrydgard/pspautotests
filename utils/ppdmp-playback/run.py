@@ -21,6 +21,7 @@ FINISHFILE = '__testfinish.txt'
 OUTFILE = '__testoutput.txt'
 ERRFILE = '__testerror.txt'
 SHOTFILE = '__screenshot.bmp'
+DEPTHFILE = '__depth.bin'
 RECONNECT_TIMEOUT = 10
 
 
@@ -89,7 +90,7 @@ def mse(a_path, b_path):
 
 
 def run_on_psp(args, data):
-	for f in (FINISHFILE, OUTFILE, ERRFILE, SHOTFILE):
+	for f in (FINISHFILE, OUTFILE, ERRFILE, SHOTFILE, DEPTHFILE):
 		if os.path.exists(f):
 			os.unlink(f)
 	with open(STAGED, 'wb') as f:
@@ -178,6 +179,8 @@ def main():
 				continue
 			psp_png = os.path.join(out_dir, name + '-psp.png')
 			save_png(SHOTFILE, psp_png)
+			if os.path.exists(DEPTHFILE):
+				shutil.copyfile(DEPTHFILE, os.path.join(out_dir, name + '-psp-depth.bin'))
 			line = psp_png
 			if args.headless:
 				ppsspp_png = os.path.join(out_dir, name + '-ppsspp.png')
