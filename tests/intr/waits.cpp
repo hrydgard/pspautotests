@@ -178,6 +178,9 @@ extern "C" void interruptFunc(int no, void *arg) {
 	safeCheckpoint("  sceDisplayWaitVblankStartMulti - valid count: %08x", sceDisplayWaitVblankStartMulti(1));
 	safeCheckpoint("  sceDisplayWaitVblankStartMultiCB - invalid count: %08x", sceDisplayWaitVblankStartMultiCB(0));
 	safeCheckpoint("  sceDisplayWaitVblankStartMultiCB - valid count: %08x", sceDisplayWaitVblankStartMultiCB(1));
+	safeCheckpoint("  sceDisplaySetMode - invalid mode: %08x", sceDisplaySetMode(1, 480, 272));
+	safeCheckpoint("  sceDisplaySetMode - invalid size: %08x", sceDisplaySetMode(0, 480, 270));
+	safeCheckpoint("  sceDisplaySetMode - valid: %08x", sceDisplaySetMode(0, 480, 272));
 
 	safeCheckpoint("  sceKernelWaitSema - bad sema: %08x", sceKernelWaitSema(0, 1, NULL));
 	safeCheckpoint("  sceKernelWaitSema - invalid count: %08x", sceKernelWaitSema(intrSema, 9, NULL));
@@ -334,6 +337,10 @@ extern "C" int main(int argc, char *argv[]) {
 	checkpointNext("sceDisplayWaitVblankStartMultiCB:");
 	INTR_DISPATCH_TITLE("Invalid count", sceDisplayWaitVblankStartMultiCB(0));
 	INTR_DISPATCH_TITLE("Valid count", sceDisplayWaitVblankStartMultiCB(1));
+	checkpointNext("sceDisplaySetMode:");
+	INTR_DISPATCH_TITLE("Invalid mode", sceDisplaySetMode(1, 480, 272));
+	INTR_DISPATCH_TITLE("Invalid size", sceDisplaySetMode(0, 480, 270));
+	INTR_DISPATCH_TITLE("Valid", sceDisplaySetMode(0, 480, 272));
 
 	SceUID sema = sceKernelCreateSema("sema", 0, 0, 1, NULL);
 	checkpointNext("sceKernelWaitSema:");

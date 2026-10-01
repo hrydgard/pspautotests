@@ -50,6 +50,14 @@
 [?]   Valid count - interrupts disabled: 800201a7
 [?]   Valid count - dispatch disabled: 800201a7
 
+[x] sceDisplaySetMode:
+[x]   Invalid mode - interrupts disabled: 80000107
+[?]   Invalid mode - dispatch disabled: 80000107
+[?]   Invalid size - interrupts disabled: 80000104
+[?]   Invalid size - dispatch disabled: 80000104
+[?]   Valid - interrupts disabled: 00000000
+[?]   Valid - dispatch disabled: 00000000
+
 [x] sceKernelWaitSema:
 [x]   Bad sema - interrupts disabled: 800201a7
 [?]   Bad sema - dispatch disabled: 800201a7
@@ -326,6 +334,9 @@
 [?]   sceDisplayWaitVblankStartMulti - valid count: 80020064
 [?]   sceDisplayWaitVblankStartMultiCB - invalid count: 800001fe
 [?]   sceDisplayWaitVblankStartMultiCB - valid count: 80020064
+[?]   sceDisplaySetMode - invalid mode: 80000107
+[?]   sceDisplaySetMode - invalid size: 80000104
+[?]   sceDisplaySetMode - valid: 00000000
 [?]   sceKernelWaitSema - bad sema: 80020064
 [?]   sceKernelWaitSema - invalid count: 80020064
 [?]   sceKernelWaitSema - valid: 80020064
