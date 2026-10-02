@@ -1,0 +1,131 @@
+[x] Clipping on
+[r]   Triangle all beyond +x: 0
+[r]   Triangle one on the plane +x: 1
+[r]   Triangle one a step past +x: 0
+[r]   Triangle one inside +x: 1
+[r]   Line all beyond +x: 0
+[r]   Line one on the plane +x: 1
+[r]   Point beyond +x: 0
+[r]   Point on the plane +x: 1
+[r]   Rectangle all beyond +x: 0
+[r]   Rectangle one inside +x: 1
+[r]   Triangle all beyond -x: 0
+[r]   Triangle one on the plane -x: 1
+[r]   Triangle one a step past -x: 0
+[r]   Triangle one inside -x: 1
+[r]   Line all beyond -x: 0
+[r]   Line one on the plane -x: 1
+[r]   Point beyond -x: 0
+[r]   Point on the plane -x: 1
+[r]   Rectangle all beyond -x: 0
+[r]   Rectangle one inside -x: 1
+[r]   Triangle all beyond +y: 0
+[r]   Triangle one on the plane +y: 1
+[r]   Triangle one a step past +y: 0
+[r]   Triangle one inside +y: 1
+[r]   Line all beyond +y: 0
+[r]   Line one on the plane +y: 1
+[r]   Point beyond +y: 0
+[r]   Point on the plane +y: 1
+[r]   Rectangle all beyond +y: 0
+[r]   Rectangle one inside +y: 1
+[r]   Triangle all beyond -y: 0
+[r]   Triangle one on the plane -y: 1
+[r]   Triangle one a step past -y: 0
+[r]   Triangle one inside -y: 1
+[r]   Line all beyond -y: 0
+[r]   Line one on the plane -y: 1
+[r]   Point beyond -y: 0
+[r]   Point on the plane -y: 1
+[r]   Rectangle all beyond -y: 0
+[r]   Rectangle one inside -y: 1
+[r]   Triangle beyond x and y corners: 1
+[r]   Triangle across x: 1
+
+[x] Clipping off
+[r]   Triangle all beyond +x: 0
+[r]   Triangle one on the plane +x: 1
+[r]   Triangle one a step past +x: 0
+[r]   Triangle one inside +x: 1
+[r]   Line all beyond +x: 0
+[r]   Line one on the plane +x: 1
+[r]   Point beyond +x: 0
+[r]   Point on the plane +x: 1
+[r]   Rectangle all beyond +x: 0
+[r]   Rectangle one inside +x: 1
+[r]   Triangle all beyond -x: 0
+[r]   Triangle one on the plane -x: 1
+[r]   Triangle one a step past -x: 0
+[r]   Triangle one inside -x: 1
+[r]   Line all beyond -x: 0
+[r]   Line one on the plane -x: 1
+[r]   Point beyond -x: 0
+[r]   Point on the plane -x: 1
+[r]   Rectangle all beyond -x: 0
+[r]   Rectangle one inside -x: 1
+[r]   Triangle all beyond +y: 0
+[r]   Triangle one on the plane +y: 1
+[r]   Triangle one a step past +y: 0
+[r]   Triangle one inside +y: 1
+[r]   Line all beyond +y: 0
+[r]   Line one on the plane +y: 1
+[r]   Point beyond +y: 0
+[r]   Point on the plane +y: 1
+[r]   Rectangle all beyond +y: 0
+[r]   Rectangle one inside +y: 1
+[r]   Triangle all beyond -y: 0
+[r]   Triangle one on the plane -y: 1
+[r]   Triangle one a step past -y: 0
+[r]   Triangle one inside -y: 1
+[r]   Line all beyond -y: 0
+[r]   Line one on the plane -y: 1
+[r]   Point beyond -y: 0
+[r]   Point on the plane -y: 1
+[r]   Rectangle all beyond -y: 0
+[r]   Rectangle one inside -y: 1
+[r]   Triangle beyond x and y corners: 1
+[r]   Triangle across x: 1
+
+[x] Clipping on, w = 2
+[r]   Triangle all beyond +x: 0
+[r]   Triangle one on the plane +x: 1
+[r]   Triangle one a step past +x: 0
+[r]   Triangle one inside +x: 1
+[r]   Line all beyond +x: 0
+[r]   Line one on the plane +x: 1
+[r]   Point beyond +x: 0
+[r]   Point on the plane +x: 1
+[r]   Rectangle all beyond +x: 0
+[r]   Rectangle one inside +x: 1
+[r]   Triangle all beyond -x: 0
+[r]   Triangle one on the plane -x: 1
+[r]   Triangle one a step past -x: 0
+[r]   Triangle one inside -x: 1
+[r]   Line all beyond -x: 0
+[r]   Line one on the plane -x: 1
+[r]   Point beyond -x: 0
+[r]   Point on the plane -x: 1
+[r]   Rectangle all beyond -x: 0
+[r]   Rectangle one inside -x: 1
+[r]   Triangle all beyond +y: 0
+[r]   Triangle one on the plane +y: 1
+[r]   Triangle one a step past +y: 0
+[r]   Triangle one inside +y: 1
+[r]   Line all beyond +y: 0
+[r]   Line one on the plane +y: 1
+[r]   Point beyond +y: 0
+[r]   Point on the plane +y: 1
+[r]   Rectangle all beyond +y: 0
+[r]   Rectangle one inside +y: 1
+[r]   Triangle all beyond -y: 0
+[r]   Triangle one on the plane -y: 1
+[r]   Triangle one a step past -y: 0
+[r]   Triangle one inside -y: 1
+[r]   Line all beyond -y: 0
+[r]   Line one on the plane -y: 1
+[r]   Point beyond -y: 0
+[r]   Point on the plane -y: 1
+[r]   Rectangle all beyond -y: 0
+[r]   Rectangle one inside -y: 1
+[r]   Triangle beyond x and y corners: 1
+[r]   Triangle across x: 1
