@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <algorithm>
+#include <map>
 #include "snappy/snappy-c.h"
 #include "zstd/lib/zstd.h"
 #include "commands.h"
@@ -51,13 +52,53 @@ Replay::Replay(const char *filename)
 
 	valid_ = valid_ && ReadCompressed(cmds_.data(), sizeof(Command) * cmdnum, version);
 	valid_ = valid_ && ReadCompressed(buf_.data(), bufsz, version);
+	if (valid_)
+		AlignPayloads();
 
-	sceKernelDcacheWritebackInvalidateRange(buf_.data(), bufsz);
+	sceKernelDcacheWritebackInvalidateRange(buf_.data(), buf_.size());
 
 	sceIoClose(fd_);
 
 	primStart_ = 0;
 	primEnd_ = 0x7FFFFFFF;
+}
+
+// The dump packs payloads back to back, so one after an odd-sized blob (18 bytes of vertices) starts
+// unaligned, and reading a REGISTERS or DISPLAY payload's words there raises an address error on the
+// PSP's CPU: the replay hung (Ace Combat ULUS10176, Naruto 16733, Shadow of Destiny 9545). The GE wants
+// its vertices aligned too. So every payload gets a copy at a 16-byte aligned address; payloads the
+// dump shares between commands stay shared.
+void Replay::AlignPayloads() {
+	std::map<std::pair<u32, u32>, u32> placed;
+	size_t total = 0;
+	for (const Command &cmd : cmds_) {
+		// Copies: Command is packed, and a reference to its fields would read them with word loads.
+		const u32 ptr = cmd.ptr, sz = cmd.sz;
+		const std::pair<u32, u32> key(ptr, sz);
+		if (placed.find(key) == placed.end()) {
+			placed[key] = 0;
+			total += (sz + 15) & ~15;
+		}
+	}
+	placed.clear();
+	std::vector<uint8_t> out(total + 16);
+	size_t pos = (16 - ((uintptr_t)out.data() & 15)) & 15;
+	for (Command &cmd : cmds_) {
+		const u32 ptr = cmd.ptr, sz = cmd.sz;
+		if (sz == 0 || ptr + sz > buf_.size())
+			continue;
+		const std::pair<u32, u32> key(ptr, sz);
+		auto it = placed.find(key);
+		if (it != placed.end()) {
+			cmd.ptr = it->second;
+			continue;
+		}
+		memcpy(out.data() + pos, buf_.data() + ptr, sz);
+		placed[key] = (u32)pos;
+		cmd.ptr = (u32)pos;
+		pos += (sz + 15) & ~15;
+	}
+	buf_.swap(out);
 }
 
 bool Replay::ReadCompressed(void *dest, size_t sz, uint32_t version) {
@@ -89,6 +130,8 @@ bool Replay::Run() {
 
 	prims_ = 0;
 	for (size_t i = 0; i < cmds_.size(); ++i) {
+		if (cmdLimit_ && (int)i >= cmdLimit_)
+			break;
 		const Command &cmd = cmds_[i];
 		curCmd_ = (int)i;
 		if (traceFrom_ && (int)i >= traceFrom_)
@@ -192,8 +235,20 @@ void Replay::SyncStall() {
 
 	// We specifically want to wait for 2 to clear, which is why we don't list sync.
 	int waited = 0;
+	const u32 waitStart = sceKernelGetSystemTimeLow();
 	while (sceGeListSync(execListID, 1) == 2) {
 		sceKernelDelayThreadCB(200);
+		if (traceFrom_ && curCmd_ >= traceFrom_ && sceKernelGetSystemTimeLow() - waitStart > 2000000) {
+			// Still DRAWING after 2s: has the GE executed the last commands queued (each register keeps the
+			// last value written), or is it stuck before them?
+			printf("HUNG: list state %d, list write offset %d\n", sceGeListSync(execListID, 1), (int)(execListPos - execListBuf));
+			for (const u32 *w = execListPos - 12; w < execListPos; ++w) {
+				if (w >= execListBuf)
+					printf("HUNG: queued %08x, GE has %08x\n", *w, sceGeGetCmd(*w >> 24));
+			}
+			fflush(stdout);
+			break;
+		}
 		if (progress_ && ++waited == 15000) {
 			// 3 seconds: report where the GE is, for finding hangs.
 			printf("STALL: GE still drawing after 3s, at dump command %d, list write offset %d\n", curCmd_, (int)(execListPos - execListBuf));
@@ -309,12 +364,45 @@ void Replay::Init(u32 ptr, u32 sz) {
 		}
 	}
 	if (isOldState) {
-		// TODO: This ignores matrix data and some other things, but it's closer.
-		for (int i = 234; i < 512; ++i) {
-			ctx->context[i] = GE_CMD_END << 24;
+		// PPSSPP's old layout (GPU/GPUState.cpp, savedContextVersion 0): 209 register words from index 17
+		// (contextCmdRanges), the CLUT load and the five matrix numbers, then the matrices as raw floats.
+		// Running the floats as commands hung Shadow of Destiny (ULUS10459), so they become matrix loads,
+		// followed by the numbers.
+		static const int OLD_MTX_NUMS = 17 + 209 + 1;
+		static const struct { u8 numCmd, dataCmd; u8 size; } mtx[5] = {
+			{ GE_CMD_BONEMATRIXNUMBER, GE_CMD_BONEMATRIXDATA, 96 },
+			{ GE_CMD_WORLDMATRIXNUMBER, GE_CMD_WORLDMATRIXDATA, 12 },
+			{ GE_CMD_VIEWMATRIXNUMBER, GE_CMD_VIEWMATRIXDATA, 12 },
+			{ GE_CMD_PROJMATRIXNUMBER, GE_CMD_PROJMATRIXDATA, 16 },
+			{ GE_CMD_TGENMATRIXNUMBER, GE_CMD_TGENMATRIXDATA, 12 },
+		};
+		u32 nums[5], floats[148];
+		memcpy(nums, &ctx->context[OLD_MTX_NUMS], sizeof(nums));
+		memcpy(floats, &ctx->context[OLD_MTX_NUMS + 5], sizeof(floats));
+		int out = OLD_MTX_NUMS;
+		const u32 *f = floats;
+		for (int m = 0; m < 5; ++m) {
+			ctx->context[out++] = mtx[m].numCmd << 24;
+			for (int i = 0; i < mtx[m].size; ++i)
+				ctx->context[out++] = (mtx[m].dataCmd << 24) | (*f++ >> 8);
 		}
+		for (int m = 0; m < 5; ++m)
+			ctx->context[out++] = nums[m];
+		while (out < 512)
+			ctx->context[out++] = GE_CMD_END << 24;
 		sceKernelDcacheWritebackInvalidateRange(ctx, sizeof(PspGeContext));
 	}
+
+	// The context's CLUT load reads the game's CLUT address, which here can be anything: Shadow of Destiny's
+	// (ULUS10459) points into kernel memory, and loading from it hung the GE. The dump brings the CLUTs it
+	// uses as CLUT commands anyway.
+	for (int i = 17; i < 512; ++i) {
+		if ((ctx->context[i] >> 24) == GE_CMD_END)
+			break;
+		if ((ctx->context[i] >> 24) == GE_CMD_LOADCLUT)
+			ctx->context[i] = GE_CMD_NOP << 24;
+	}
+	sceKernelDcacheWritebackInvalidateRange(ctx, sizeof(PspGeContext));
 
 	TrackRegisters((const u32 *)ctx->context + 17, 512 - 17, false);
 	sceGeRestoreContext(ctx);
@@ -531,9 +619,17 @@ void Replay::Display(u32 ptr, u32 sz) {
 
 	// Sync up drawing.
 	SyncStall();
+	if (traceFrom_ && curCmd_ >= traceFrom_) {
+		printf("TRACE: display synced, list state %d, setting %p %d %d\n", sceGeListSync(execListID, 1), disp->topaddr, (int)disp->linesize, (int)disp->pixelFormat);
+		fflush(stdout);
+	}
 
 	sceDisplaySetFrameBuf(disp->topaddr, disp->linesize, disp->pixelFormat, 1);
 	sceDisplaySetFrameBuf(disp->topaddr, disp->linesize, disp->pixelFormat, 0);
+	if (traceFrom_ && curCmd_ >= traceFrom_) {
+		printf("TRACE: display set\n");
+		fflush(stdout);
+	}
 	haveDisplay_ = true;
 	displayAddr_ = disp->topaddr;
 	displayStride_ = disp->linesize;

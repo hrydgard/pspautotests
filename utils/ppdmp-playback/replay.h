@@ -55,10 +55,15 @@ public:
 	~Replay();
 
 	bool Run();
+	void AlignPayloads();
 
 	void SetProgress(int every, int traceFrom) {
 		progress_ = every;
 		traceFrom_ = traceFrom;
+	}
+	// Only replay the first count dump commands (0: all), for bisecting a hang.
+	void SetCommandLimit(int count) {
+		cmdLimit_ = count;
 	}
 	void SetRange(int start, int end) {
 		primStart_ = start;
@@ -110,6 +115,7 @@ protected:
 	int progress_ = 0;
 	int curCmd_ = 0;
 	int traceFrom_ = 0;
+	int cmdLimit_ = 0;
 	std::vector<u32> alignedRegs_;
 
 	std::vector<Command> cmds_;

@@ -53,6 +53,7 @@ extern "C" int main(int argc, char *argv[]) {
 	int holdMs = 0;
 	int progress = 0;
 	int traceFrom = 0;
+	int cmdLimit = 0;
 	bool saveDepth = true;
 	unsigned int displayAddr = 0;
 	int displayStride = 512, displayFormat = 3;
@@ -80,6 +81,10 @@ extern "C" int main(int argc, char *argv[]) {
 				traceFrom = atoi(argv[i] + strlen("--trace-from="));
 				continue;
 			}
+			if (!strncmp(argv[i], "--cmds=", strlen("--cmds="))) {
+				cmdLimit = atoi(argv[i] + strlen("--cmds="));
+				continue;
+			}
 			if (!strncmp(argv[i], "--progress=", strlen("--progress="))) {
 				progress = atoi(argv[i] + strlen("--progress="));
 				continue;
@@ -103,6 +108,7 @@ extern "C" int main(int argc, char *argv[]) {
 	Replay replay(filename);
 	replay.SetRange(start, end);
 	replay.SetProgress(progress, traceFrom);
+	replay.SetCommandLimit(cmdLimit);
 	printf("VALID: %d\n", replay.Valid());
 	printf("RUN: %d\n", replay.Run());
 	replay.ShowResult();

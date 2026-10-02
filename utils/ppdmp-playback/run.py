@@ -108,6 +108,8 @@ def run_on_psp(args, data):
 			command += ' --end=%d' % args.end
 		if args.progress:
 			command += ' --progress=%d' % args.progress
+		if args.cmds:
+			command += ' --cmds=%d' % args.cmds
 		if args.trace_from:
 			command += ' --trace-from=%d' % args.trace_from
 		if args.no_depth:
@@ -118,6 +120,9 @@ def run_on_psp(args, data):
 		# pspsh returns once the module is started; the finish file marks its exit.
 		if not wait_until(lambda: os.path.exists(FINISHFILE), args.timeout + args.hold, 0.1):
 			print('ERROR: timed out after %d seconds, resetting the PSP' % (args.timeout + args.hold))
+			if os.path.exists(OUTFILE):
+				# The last lines show how far it got (with --progress or --trace-from).
+				print('\n'.join(open(OUTFILE, 'rt', errors='replace').read().strip().split('\n')[-12:]))
 			pspsh(args.port, 'reset', 5.0)
 			return False
 		output = open(OUTFILE, 'rt', errors='replace').read() if os.path.exists(OUTFILE) else ''
@@ -153,6 +158,7 @@ def main():
 	parser.add_argument('--end', type=int, help='last primitive to draw')
 	parser.add_argument('--timeout', type=int, default=60, help='seconds to wait for a replay')
 	parser.add_argument('--progress', type=int, help='print a progress line every N dump commands, to find a hang')
+	parser.add_argument('--cmds', type=int, help='only replay the first N dump commands, to bisect a hang')
 	parser.add_argument('--trace-from', type=int, help='print every dump command from this index on')
 	parser.add_argument('--no-depth', action='store_true', help='skip the depth buffer readback')
 	parser.add_argument('--display', help='addr,stride,format (hex addr) of a buffer to show and screenshot instead of the display')
