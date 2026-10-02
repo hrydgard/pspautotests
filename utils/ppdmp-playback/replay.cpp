@@ -641,20 +641,22 @@ void Replay::MarkDrawn(u32 prim) {
 			return;
 	}
 
-	auto add = [&](u32 base, u32 strideBytes, u32 bytesPerPixel) {
+	auto add = [&](u32 base, u32 strideBytes, u32 bytesPerPixel, const DrawnRect &rect) {
 		DrawnTarget &t = drawnTargets_[base];
 		t.strideBytes = strideBytes;
 		t.bpp = bytesPerPixel;
 		for (const DrawnRect &r : t.rects) {
-			if (r.Contains(x1, y1) && r.Contains(x2, y2))
+			if (r.Contains(rect.x1, rect.y1) && r.Contains(rect.x2, rect.y2))
 				return;
 		}
-		t.rects.push_back(DrawnRect{ x1, y1, x2, y2 });
+		t.rects.push_back(rect);
 	};
-	add(start, fbWidth_ * bpp, bpp);
+	add(start, fbWidth_ * bpp, bpp, DrawnRect{ x1, y1, x2, y2 });
 	const bool writesDepth = (clearMode_ & 1) ? (clearMode_ & 0x400) != 0 : (zTest_ && !zWriteDisable_);
-	if (writesDepth && zbWidth_ != 0)
-		add(zbPtr_ & 0x001FFFF0, zbWidth_ * 2, 2);
+	if (writesDepth && zbWidth_ != 0) {
+		// Depth is stored swizzled, so a drawn area spreads over whole rows in bands.
+		add(zbPtr_ & 0x001FFFF0, zbWidth_ * 2, 2, DrawnRect{ 0, y1 & ~7, (int)zbWidth_ - 1, y2 | 7 });
+	}
 }
 
 // As GPU/Debugger/Playback.cpp: the dump's copy of a buffer can be stale, and the GE's own result in what
