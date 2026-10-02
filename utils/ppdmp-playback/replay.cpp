@@ -220,15 +220,11 @@ bool Replay::SubmitCmds(void *p, u32 sz) {
 	// Validate space for jump.
 	u32 allocSize = pendingSize + sz + 8;
 	if ((uintptr_t)execListPos + allocSize >= (uintptr_t)execListBuf + LIST_BUF_SIZE) {
-		*execListPos++ = (GE_CMD_BASE << 24) | (((uintptr_t)execListBuf >> 8) & 0x00FF0000);
-		*execListPos++ = (GE_CMD_JUMP << 24) | ((uintptr_t)execListBuf & 0x00FFFFFF);
-
-		execListPos = execListBuf;
+		// End the list and start a new one at the buffer's start. Jumping back with the stall address moved
+		// there let the GE run a lap of old commands (ULJM05302 redrew its background over the cars).
 		if (traceFrom_ && curCmd_ >= traceFrom_)
 			printf("TRACE: list wrap\n");
-
-		// Don't continue until we've stalled.
-		SyncStall();
+		DrainGE();
 	}
 
 	memcpy(execListPos, execListQueue.data(), pendingSize);
@@ -272,6 +268,22 @@ bool Replay::SubmitCmds(void *p, u32 sz) {
 	execListQueue.clear();
 
 	return true;
+}
+
+// Finishes everything queued, pixels included, so a CPU or DMA write to VRAM lands after the draws
+// before it. Reaching the stall address only means the GE has read the commands: without this, FF Type-0's
+// memcpy over its frame lost to the tail of the draw before it.
+void Replay::DrainGE() {
+	if (execListBuf == 0) {
+		return;
+	}
+	SubmitListEnd();
+	sceGeDrawSync(0);
+
+	execListPos = execListBuf;
+	*execListPos++ = GE_CMD_NOP << 24;
+	sceKernelDcacheWritebackInvalidateRange(execListBuf, LIST_BUF_SIZE);
+	execListID = sceGeListEnQueue(execListBuf, execListPos, -1, NULL);
 }
 
 void Replay::SubmitListEnd() {
@@ -405,6 +417,7 @@ void Replay::Clut(u32 ptr, u32 sz) {
 		const bool isTarget = (execClutFlags & 1) != 0;
 
 		if (!isTarget) {
+			DrainGE();
 			sceDmacMemcpy(execClutAddr, buf_.data() + ptr, sz);
 			sceKernelDcacheWritebackInvalidateRange(execClutAddr, sz);
 		}
@@ -445,7 +458,7 @@ void Replay::Memset(u32 ptr, u32 sz) {
 	const MemsetCommand *data = (const MemsetCommand *)(buf_.data() + ptr);
 
 	if (IsVRAMAddress(data->dest)) {
-		SyncStall();
+		DrainGE();
 		memset(data->dest, (uint8_t)data->value, data->sz);
 		sceKernelDcacheWritebackInvalidateRange(data->dest, data->sz);
 		sceDmacMemcpy((void *)((uintptr_t)data->dest ^ 0x00400000), data->dest, data->sz);
@@ -458,7 +471,7 @@ void Replay::MemcpyDest(u32 ptr, u32 sz) {
 
 void Replay::Memcpy(u32 ptr, u32 sz) {
 	if (IsVRAMAddress(execMemcpyDest)) {
-		SyncStall();
+		DrainGE();
 		sceDmacMemcpy(execMemcpyDest, buf_.data() + ptr, sz);
 		sceKernelDcacheWritebackInvalidateRange(execMemcpyDest, sz);
 	}
@@ -494,8 +507,7 @@ void Replay::Framebuf(int level, u32 ptr, u32 sz) {
 	const bool isTarget = (framebuf->flags & 1) != 0;
 	const bool unchangedVRAM = version_ >= 6 && (framebuf->flags & 2) != 0;
 	if (!isTarget && !unchangedVRAM && !DrawnHere((uintptr_t)framebuf->addr)) {
-		// After the draws before it.
-		SyncStall();
+		DrainGE();
 		sceDmacMemcpy(framebuf->addr, psp, pspSize);
 		sceKernelDcacheWritebackInvalidateRange(framebuf->addr, pspSize);
 	}

@@ -82,6 +82,7 @@ protected:
 	void SyncStall();
 	bool SubmitCmds(void *p, u32 sz);
 	void SubmitListEnd();
+	void DrainGE();
 
 	void Init(u32 ptr, u32 sz);
 	void Registers(u32 ptr, u32 sz);
