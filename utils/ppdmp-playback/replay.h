@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <map>
 #include <vector>
 
 #pragma pack(push, 1)
@@ -96,7 +97,9 @@ protected:
 	void Framebuf(int level, u32 ptr, u32 sz);
 	void Display(u32 ptr, u32 sz);
 	void EdramTrans(u32 ptr, u32 sz);
-	void TrackRegisters(const u32 *words, u32 count);
+	void TrackRegisters(const u32 *words, u32 count, bool draws);
+	void MarkDrawn(u32 prim);
+	bool DrawnHere(u32 addr) const;
 
 	int fd_;
 	bool valid_;
@@ -136,4 +139,25 @@ protected:
 	u32 clearMode_ = 0;
 	u32 depthFormat_ = 0;
 	bool haveDepthFormat_ = false;
+	int32_t version_ = 0;
+
+	// As GPU/Debugger/Playback.cpp: the framebuffers drawn to so far by VRAM offset, with the areas the
+	// draws could reach.
+	struct DrawnRect {
+		int x1, y1, x2, y2;
+		bool Contains(int x, int y) const {
+			return x >= x1 && x <= x2 && y >= y1 && y <= y2;
+		}
+	};
+	struct DrawnTarget {
+		u32 strideBytes;
+		u32 bpp;
+		std::vector<DrawnRect> rects;
+	};
+	std::map<u32, DrawnTarget> drawnTargets_;
+	u32 region2_ = 0;
+	u32 scissor2_ = 0;
+	u32 vertType_ = 0;
+	u32 lastVertsPtr_ = 0;
+	u32 lastVertsSize_ = 0;
 };

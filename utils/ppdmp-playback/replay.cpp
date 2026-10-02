@@ -38,6 +38,7 @@ Replay::Replay(const char *filename)
 
 	valid_ = valid_ && memcmp(HEADER, header, sizeof(header)) == 0;
 	valid_ = valid_ && version >= MIN_VERSION && version <= MAX_VERSION;
+	version_ = version;
 
 	uint32_t cmdnum = 0, bufsz = 0;
 	valid_ = valid_ && sceIoRead(fd_, &cmdnum, sizeof(cmdnum)) == sizeof(cmdnum);
@@ -302,7 +303,7 @@ void Replay::Init(u32 ptr, u32 sz) {
 		sceKernelDcacheWritebackInvalidateRange(ctx, sizeof(PspGeContext));
 	}
 
-	TrackRegisters((const u32 *)ctx->context + 17, 512 - 17);
+	TrackRegisters((const u32 *)ctx->context + 17, 512 - 17, false);
 	sceGeRestoreContext(ctx);
 }
 
@@ -315,13 +316,20 @@ void Replay::Registers(u32 ptr, u32 sz) {
 		memcpy(alignedRegs_.data(), data, sz);
 		data = (const u8 *)alignedRegs_.data();
 	}
-	TrackRegisters((const u32 *)data, sz / 4);
+	TrackRegisters((const u32 *)data, sz / 4, true);
 	SubmitCmds((void *)data, sz);
 }
 
-void Replay::TrackRegisters(const u32 *words, u32 count) {
+void Replay::TrackRegisters(const u32 *words, u32 count, bool draws) {
 	for (u32 i = 0; i < count; ++i) {
 		const u32 op = words[i] >> 24;
+		if (op == GE_CMD_REGION2) {
+			region2_ = words[i] & 0x000FFFFF;
+		} else if (op == GE_CMD_SCISSOR2) {
+			scissor2_ = words[i] & 0x000FFFFF;
+		} else if (op == GE_CMD_VERTEXTYPE) {
+			vertType_ = words[i] & 0x00FFFFFF;
+		}
 		if (op == GE_CMD_FRAMEBUFPTR) {
 			fbPtr_ = words[i] & 0x00FFFFFF;
 			haveFramebuf_ = true;
@@ -347,6 +355,8 @@ void Replay::TrackRegisters(const u32 *words, u32 count) {
 				depthFormat_ = fbFormat_;
 				haveDepthFormat_ = true;
 			}
+			if (draws)
+				MarkDrawn(op == GE_CMD_PRIM ? words[i] & 0x00FFFFFF : 0);
 		}
 	}
 }
@@ -364,6 +374,8 @@ void Replay::ShowResult() {
 }
 
 void Replay::Vertices(u32 ptr, u32 sz) {
+	lastVertsPtr_ = ptr;
+	lastVertsSize_ = sz;
 	uintptr_t psp = (uintptr_t)(buf_.data() + ptr);
 	if (psp & 0x3) {
 		printf("Vertices: uh oh, alignment %d\n", psp & 0x3);
@@ -477,7 +489,13 @@ void Replay::Framebuf(int level, u32 ptr, u32 sz) {
 	uintptr_t headerSize = (uintptr_t)sizeof(FramebufData);
 	uintptr_t pspSize = sz - headerSize;
 	const uint8_t *psp = buf_.data() + ptr + headerSize;
-	if ((framebuf->flags & 1) == 0) {
+	// As GPU/Debugger/Playback.cpp: the GE's own result in a buffer the replay drew to beats the dump's
+	// copy, which can be stale.
+	const bool isTarget = (framebuf->flags & 1) != 0;
+	const bool unchangedVRAM = version_ >= 6 && (framebuf->flags & 2) != 0;
+	if (!isTarget && !unchangedVRAM && !DrawnHere((uintptr_t)framebuf->addr)) {
+		// After the draws before it.
+		SyncStall();
 		sceDmacMemcpy(framebuf->addr, psp, pspSize);
 		sceKernelDcacheWritebackInvalidateRange(framebuf->addr, pspSize);
 	}
@@ -536,6 +554,107 @@ bool Replay::SaveDepth(const char *filename) {
 	}
 	sceIoClose(fd);
 	return true;
+}
+
+// The drawing-space bounds of a through mode draw's vertices, or false if they aren't simple to read.
+static bool ThroughModeBounds(u32 vtype, const u8 *data, u32 size, u32 count, int &x1, int &y1, int &x2, int &y2) {
+	if ((vtype & (1 << 23)) == 0 || (vtype & (3 << 11)) != 0 || (vtype & (7 << 18)) != 0 || count == 0)
+		return false;
+
+	static const u8 compSizes[4] = { 0, 1, 2, 4 };
+	static const u8 colorSizes[8] = { 0, 0, 0, 0, 2, 2, 2, 4 };
+	u32 offset = 0, align = 1;
+	auto add = [&](u32 elemSize, u32 n) {
+		if (elemSize == 0)
+			return;
+		offset = (offset + elemSize - 1) & ~(elemSize - 1);
+		offset += elemSize * n;
+		if (elemSize > align)
+			align = elemSize;
+	};
+	add(compSizes[(vtype >> 9) & 3], ((vtype >> 14) & 7) + 1);
+	add(compSizes[vtype & 3], 2);
+	add(colorSizes[(vtype >> 2) & 7], 1);
+	add(compSizes[(vtype >> 5) & 3], 3);
+	const u32 posSize = compSizes[(vtype >> 7) & 3];
+	if (posSize == 0)
+		return false;
+	offset = (offset + posSize - 1) & ~(posSize - 1);
+	const u32 posOffset = offset;
+	add(posSize, 3);
+	const u32 stride = (offset + align - 1) & ~(align - 1);
+	if (stride * count > size)
+		return false;
+
+	x1 = y1 = 0x7FFFFFFF;
+	x2 = y2 = -0x7FFFFFFF;
+	for (u32 i = 0; i < count; ++i) {
+		const u8 *p = data + i * stride + posOffset;
+		int x, y;
+		if (posSize == 4) {
+			float fx, fy;
+			memcpy(&fx, p, 4);
+			memcpy(&fy, p + 4, 4);
+			if (!(fx == fx) || !(fy == fy) || fx < -4096.0f || fx > 4096.0f || fy < -4096.0f || fy > 4096.0f)
+				return false;
+			x = (int)fx;
+			y = (int)fy;
+		} else if (posSize == 2) {
+			x = (s16)(p[0] | (p[1] << 8));
+			y = (s16)(p[2] | (p[3] << 8));
+		} else {
+			x = (s8)p[0];
+			y = (s8)p[1];
+		}
+		// Truncation can be a pixel short at either end; the bounds only need to be generous.
+		if (x - 1 < x1) x1 = x - 1;
+		if (y - 1 < y1) y1 = y - 1;
+		if (x + 1 > x2) x2 = x + 1;
+		if (y + 1 > y2) y2 = y + 1;
+	}
+	return true;
+}
+
+void Replay::MarkDrawn(u32 prim) {
+	const u32 start = fbPtr_ & 0x001FFFF0;
+	const u32 bpp = fbFormat_ == 3 ? 4 : 2;
+	int x1 = 0, y1 = 0;
+	int x2 = (region2_ & 0x3FF) < (scissor2_ & 0x3FF) ? (region2_ & 0x3FF) : (scissor2_ & 0x3FF);
+	int y2 = ((region2_ >> 10) & 0x3FF) < ((scissor2_ >> 10) & 0x3FF) ? ((region2_ >> 10) & 0x3FF) : ((scissor2_ >> 10) & 0x3FF);
+	int vx1, vy1, vx2, vy2;
+	if (prim != 0 && lastVertsSize_ != 0 && ThroughModeBounds(vertType_, buf_.data() + lastVertsPtr_, lastVertsSize_, prim & 0xFFFF, vx1, vy1, vx2, vy2)) {
+		if (vx1 > x1) x1 = vx1;
+		if (vy1 > y1) y1 = vy1;
+		if (vx2 < x2) x2 = vx2;
+		if (vy2 < y2) y2 = vy2;
+		if (x1 > x2 || y1 > y2)
+			return;
+	}
+
+	DrawnTarget &t = drawnTargets_[start];
+	t.strideBytes = fbWidth_ * bpp;
+	t.bpp = bpp;
+	for (const DrawnRect &r : t.rects) {
+		if (r.Contains(x1, y1) && r.Contains(x2, y2))
+			return;
+	}
+	t.rects.push_back(DrawnRect{ x1, y1, x2, y2 });
+}
+
+bool Replay::DrawnHere(u32 addr) const {
+	const u32 offset = addr & 0x001FFFFF;
+	for (auto it = drawnTargets_.begin(); it != drawnTargets_.end() && it->first <= offset; ++it) {
+		const DrawnTarget &t = it->second;
+		if (t.strideBytes == 0)
+			continue;
+		const int y = (int)((offset - it->first) / t.strideBytes);
+		const int x = (int)((offset - it->first) % t.strideBytes / t.bpp);
+		for (const DrawnRect &r : t.rects) {
+			if (r.Contains(x, y))
+				return true;
+		}
+	}
+	return false;
 }
 
 void Replay::EdramTrans(u32 ptr, u32 sz) {
