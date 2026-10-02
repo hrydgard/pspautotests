@@ -5,6 +5,7 @@
 #include <psputils.h>
 #include <stdio.h>
 #include <string.h>
+#include <algorithm>
 #include "snappy/snappy-c.h"
 #include "zstd/lib/zstd.h"
 #include "commands.h"
@@ -502,14 +503,11 @@ void Replay::Framebuf(int level, u32 ptr, u32 sz) {
 	uintptr_t headerSize = (uintptr_t)sizeof(FramebufData);
 	uintptr_t pspSize = sz - headerSize;
 	const uint8_t *psp = buf_.data() + ptr + headerSize;
-	// As GPU/Debugger/Playback.cpp: the GE's own result in a buffer the replay drew to beats the dump's
-	// copy, which can be stale.
 	const bool isTarget = (framebuf->flags & 1) != 0;
 	const bool unchangedVRAM = version_ >= 6 && (framebuf->flags & 2) != 0;
-	if (!isTarget && !unchangedVRAM && !DrawnHere((uintptr_t)framebuf->addr)) {
+	if (!isTarget && !unchangedVRAM) {
 		DrainGE();
-		sceDmacMemcpy(framebuf->addr, psp, pspSize);
-		sceKernelDcacheWritebackInvalidateRange(framebuf->addr, pspSize);
+		CopyAroundDrawn(framebuf->addr, psp, pspSize);
 	}
 
 	if ((uintptr_t)framebuf->addr & 0xF) {
@@ -643,30 +641,60 @@ void Replay::MarkDrawn(u32 prim) {
 			return;
 	}
 
-	DrawnTarget &t = drawnTargets_[start];
-	t.strideBytes = fbWidth_ * bpp;
-	t.bpp = bpp;
-	for (const DrawnRect &r : t.rects) {
-		if (r.Contains(x1, y1) && r.Contains(x2, y2))
-			return;
-	}
-	t.rects.push_back(DrawnRect{ x1, y1, x2, y2 });
+	auto add = [&](u32 base, u32 strideBytes, u32 bytesPerPixel) {
+		DrawnTarget &t = drawnTargets_[base];
+		t.strideBytes = strideBytes;
+		t.bpp = bytesPerPixel;
+		for (const DrawnRect &r : t.rects) {
+			if (r.Contains(x1, y1) && r.Contains(x2, y2))
+				return;
+		}
+		t.rects.push_back(DrawnRect{ x1, y1, x2, y2 });
+	};
+	add(start, fbWidth_ * bpp, bpp);
+	const bool writesDepth = (clearMode_ & 1) ? (clearMode_ & 0x400) != 0 : (zTest_ && !zWriteDisable_);
+	if (writesDepth && zbWidth_ != 0)
+		add(zbPtr_ & 0x001FFFF0, zbWidth_ * 2, 2);
 }
 
-bool Replay::DrawnHere(u32 addr) const {
-	const u32 offset = addr & 0x001FFFFF;
-	for (auto it = drawnTargets_.begin(); it != drawnTargets_.end() && it->first <= offset; ++it) {
+// As GPU/Debugger/Playback.cpp: the dump's copy of a buffer can be stale, and the GE's own result in what
+// the replay drew beats it, so the copy leaves out the areas the replay's draws could reach.
+void Replay::CopyAroundDrawn(void *dest, const u8 *src, u32 size) {
+	// A texture recorded at its full size can run past the end of VRAM, into the depth swizzle mirror.
+	if (IsVRAMAddress(dest) && size > 0x00200000 - ((uintptr_t)dest & 0x001FFFFF))
+		size = 0x00200000 - ((uintptr_t)dest & 0x001FFFFF);
+	std::vector<std::pair<int64_t, int64_t>> skip;
+	const int64_t start = (uintptr_t)dest & 0x001FFFFF, end = start + size;
+	for (auto it = drawnTargets_.begin(); it != drawnTargets_.end(); ++it) {
 		const DrawnTarget &t = it->second;
 		if (t.strideBytes == 0)
 			continue;
-		const int y = (int)((offset - it->first) / t.strideBytes);
-		const int x = (int)((offset - it->first) % t.strideBytes / t.bpp);
 		for (const DrawnRect &r : t.rects) {
-			if (r.Contains(x, y))
-				return true;
+			for (int y = r.y1 > 0 ? r.y1 : 0; y <= r.y2; ++y) {
+				const int64_t row = (int64_t)it->first + (int64_t)y * t.strideBytes;
+				const int64_t a = row + (int64_t)(r.x1 > 0 ? r.x1 : 0) * t.bpp;
+				const int64_t b = row + (int64_t)(r.x2 + 1) * t.bpp;
+				if (b > start && a < end)
+					skip.push_back(std::make_pair(a > start ? a : start, b < end ? b : end));
+			}
 		}
 	}
-	return false;
+	std::sort(skip.begin(), skip.end());
+
+	int64_t pos = start;
+	auto copyTo = [&](int64_t until) {
+		if (until > pos) {
+			// Through the uncached mirror: the pieces can be any multiple of 2 bytes.
+			u8 *d = (u8 *)(((uintptr_t)dest | 0x40000000) + (pos - start));
+			memcpy(d, src + (pos - start), (u32)(until - pos));
+		}
+	};
+	for (size_t i = 0; i < skip.size(); ++i) {
+		copyTo(skip[i].first);
+		if (skip[i].second > pos)
+			pos = skip[i].second;
+	}
+	copyTo(end);
 }
 
 void Replay::EdramTrans(u32 ptr, u32 sz) {

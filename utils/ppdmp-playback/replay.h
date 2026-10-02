@@ -100,7 +100,7 @@ protected:
 	void EdramTrans(u32 ptr, u32 sz);
 	void TrackRegisters(const u32 *words, u32 count, bool draws);
 	void MarkDrawn(u32 prim);
-	bool DrawnHere(u32 addr) const;
+	void CopyAroundDrawn(void *dest, const u8 *src, u32 size);
 
 	int fd_;
 	bool valid_;
