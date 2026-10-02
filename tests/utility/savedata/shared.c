@@ -89,6 +89,13 @@ void printSaveParamChanges(SceUtilitySavedataParam2 *param) {
 		lastPtr.var = param->ptr->var; \
 	}
 
+// Compares and prints var >> shift, so small changes don't show.
+#define CHECK_CHANGE_ROUNDED_PTR(ptr, lastPtr, var, shift) \
+	if ((param->ptr->var >> shift) != (lastPtr.var >> shift)) { \
+		schedf("CHANGE: %s.%s >> %d: %08x => %08x\n", #ptr, #var, shift, (unsigned int) lastPtr.var >> shift, (unsigned int) param->ptr->var >> shift); \
+		lastPtr.var = param->ptr->var; \
+	}
+
 #define CHECK_CHANGE_U64_PTR(ptr, lastPtr, var) \
 	if (param->ptr->var != lastPtr.var) { \
 		schedf("CHANGE: %s.%s: %016llx => %016llx\n", #ptr, #var, (unsigned long long) lastPtr.var, (unsigned long long) param->ptr->var); \
@@ -243,8 +250,13 @@ void printSaveParamChanges(SceUtilitySavedataParam2 *param) {
 		}
 
 		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, sectorSize);
-		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, freeSectors);
-		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, freeKB);
+		if (roundFreeSpace) {
+			CHECK_CHANGE_ROUNDED_PTR(sizeInfo, lastSizeInfo, freeSectors, 5);
+			CHECK_CHANGE_ROUNDED_PTR(sizeInfo, lastSizeInfo, freeKB, 10);
+		} else {
+			CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, freeSectors);
+			CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, freeKB);
+		}
 		CHECK_CHANGE_STRN_PTR(sizeInfo, lastSizeInfo, freeString, 8);
 		CHECK_CHANGE_U32_PTR(sizeInfo, lastSizeInfo, neededKB);
 		CHECK_CHANGE_STRN_PTR(sizeInfo, lastSizeInfo, neededString, 8);
@@ -345,6 +357,7 @@ void checkpointResetForSavedata() {
 }
 
 int onlyPrintFinishedChanges = 0;
+int roundFreeSpace = 0;
 
 void runStandardSavedataLoop(SceUtilitySavedataParam2 *param) {
 	setLastSaveParam(param);

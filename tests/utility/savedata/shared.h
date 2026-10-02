@@ -177,5 +177,8 @@ void runStandardSavedataLoop(SceUtilitySavedataParam2 *param);
 // When the utility writes its results isn't important, only that they're there once it's finished.
 // Set to print the changes only then, since an emulator may write them across several polls.
 extern int onlyPrintFinishedChanges;
+// The free space depends on all the savedata for the game ID, which tests running in parallel
+// also write to. Set to compare and print it rounded to whole MB.
+extern int roundFreeSpace;
 
 void initDisplay();
