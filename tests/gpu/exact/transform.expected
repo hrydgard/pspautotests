@@ -1,0 +1,16 @@
+exp30 point landing, job 0: 89027fed
+exp21 fog, job 0: 0c178b3c
+exp21 fog, job 1: 7e95b1fc
+exp21 fog, job 2: 8ce421f4
+exp21 fog, job 3: 0c178b3c
+exp23 beyond the far plane, job 0: 8dfdda7e
+exp24 viewport z out of range, job 0: 05e627d4
+exp24 viewport z out of range, job 1: 14a9e392
+exp24 viewport z out of range, job 2: 8dfdda7e
+exp26 clamp off z cut-off, job 0: 0772d607
+exp27 behind the camera, job 0: 24847c62
+exp27 behind the camera, job 1: 2a3bd253
+exp28 lines and rects behind the camera, job 0: 05e627d4
+exp147 clamp off culling, job 0: 05e627d4
+exp147 clamp off culling, job 1: 14a9e392
+exp148 depth floored below 0, job 0: dda98ebd
