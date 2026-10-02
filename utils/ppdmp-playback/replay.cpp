@@ -334,6 +334,19 @@ void Replay::TrackRegisters(const u32 *words, u32 count) {
 			haveZbuf_ = true;
 		} else if (op == GE_CMD_ZBUFWIDTH) {
 			zbWidth_ = words[i] & 0x07FC;
+		} else if (op == GE_CMD_ZTESTENABLE) {
+			zTest_ = (words[i] & 1) != 0;
+		} else if (op == GE_CMD_ZWRITEDISABLE) {
+			zWriteDisable_ = (words[i] & 1) != 0;
+		} else if (op == GE_CMD_CLEARMODE) {
+			clearMode_ = words[i] & 0xFFFF;
+		} else if (op == GE_CMD_PRIM || op == GE_CMD_BEZIER || op == GE_CMD_SPLINE) {
+			// The depth swizzle follows the color format of the draw that wrote it.
+			const bool writesDepth = (clearMode_ & 1) ? (clearMode_ & 0x400) != 0 : (zTest_ && !zWriteDisable_);
+			if (writesDepth) {
+				depthFormat_ = fbFormat_;
+				haveDepthFormat_ = true;
+			}
 		}
 	}
 }
@@ -504,9 +517,10 @@ bool Replay::SaveDepth(const char *filename) {
 		return false;
 	}
 	sceGeDrawSync(0);
-	// Through the uncached mirror that undoes the swizzle for this color format: 0x600000 for 32-bit
-	// color, 0x200000 for 16-bit.
-	const u32 mirror = fbFormat_ == 3 ? 0x00600000 : 0x00200000;
+	// Through the uncached mirror that undoes the swizzle for the color format the depth was drawn
+	// with: 0x600000 for 32-bit color, 0x200000 for 16-bit.
+	const u32 format = haveDepthFormat_ ? depthFormat_ : fbFormat_;
+	const u32 mirror = format == 3 ? 0x00600000 : 0x00200000;
 	const u16 *src = (const u16 *)(0x44000000 + mirror + (zbPtr_ & 0x001FFFF0));
 	SceUID fd = sceIoOpen(filename, PSP_O_WRONLY | PSP_O_CREAT | PSP_O_TRUNC, 0777);
 	if (fd < 0) {

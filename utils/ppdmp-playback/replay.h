@@ -131,4 +131,9 @@ protected:
 	bool haveZbuf_ = false;
 	u32 zbPtr_ = 0;
 	u32 zbWidth_ = 0;
+	bool zTest_ = false;
+	bool zWriteDisable_ = false;
+	u32 clearMode_ = 0;
+	u32 depthFormat_ = 0;
+	bool haveDepthFormat_ = false;
 };
