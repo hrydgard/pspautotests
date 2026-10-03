@@ -1,4 +1,4 @@
-TARGETS = colors morph texcoords
+TARGETS = carry colors morph texcoords
 EXTRA_OBJS = ../../dmac/dmac-imports.o shared.o
 EXTRA_LIBS = -lpspgum -lm
 
