@@ -33,6 +33,29 @@ static u32 transferAddr2w(int cmd, void *p, int w) {
 	return (cmd << 24) | (((u32)p & 0xFF000000) >> 8) | (w & 0x0000FFFF);
 }
 
+// The 0x04200000 and 0x04600000 VRAM mirrors are accessed 16 bits at a time, as games access depth through
+// them: PPSSPP only deswizzles those accesses.
+static void fill16(u8 *p, u8 v, int size) {
+	volatile u16 *q = (volatile u16 *)p;
+	for (int i = 0; i < size / 2; ++i)
+		q[i] = v | (v << 8);
+}
+
+static u8 read8(const u8 *p) {
+	const u16 w = *(const volatile u16 *)((u32)p & ~1);
+	return ((u32)p & 1) ? w >> 8 : w & 0xFF;
+}
+
+// As memcmp: the difference of the first differing bytes.
+static int cmp16(const u8 *a, const u8 *b, int size) {
+	for (int i = 0; i < size; ++i) {
+		const int d = (int)read8(a + i) - (int)read8(b + i);
+		if (d != 0)
+			return d;
+	}
+	return 0;
+}
+
 static void initSrc() {
 	sceGeEdramSetAddrTranslation(0);
 
@@ -48,11 +71,11 @@ static void initSrc() {
 	}
 	sceKernelDcacheWritebackInvalidateRange(mem2, 0x4000);
 
-	u8 *mem3 = (u8 *)0x043FC000;
-	for (int i = 0; i < 0x4000; ++i) {
-		mem3[i] = 0x80 | (i & 0x7F);
+	volatile u16 *mem3 = (volatile u16 *)0x043FC000;
+	for (int i = 0; i < 0x4000; i += 2) {
+		mem3[i / 2] = (0x80 | (i & 0x7F)) | ((0x80 | ((i + 1) & 0x7F)) << 8);
 	}
-	sceKernelDcacheWritebackInvalidateRange(mem3, 0x4000);
+	sceKernelDcacheWritebackInvalidateRange((void *)mem3, 0x4000);
 }
 
 static void testTransferMirrors(const char *title, int fromMirror, int toMirror, int offset = -1, int bpp = 16, int checksize = 1024) {
@@ -72,16 +95,16 @@ static void testTransferMirrors(const char *title, int fromMirror, int toMirror,
 			int validToSize = 0x00800000 - toMirror;
 			int wrappedToSize = checksize - validToSize;
 
-			memset(mem2, 0xFF, validToSize);
-			memset(wrap, 0xFF, wrappedToSize);
-			if ((validToSize > 0 && memcmp(mem1, mem2, validToSize) == 0) || memcmp(mem1 + validToSize, wrap, wrappedToSize) == 0) {
+			fill16(mem2, 0xFF, validToSize);
+			fill16(wrap, 0xFF, wrappedToSize);
+			if ((validToSize > 0 && cmp16(mem1, mem2, validToSize) == 0) || cmp16(mem1 + validToSize, wrap, wrappedToSize) == 0) {
 				printf("TESTERROR\n");
 			}
 			sceKernelDcacheWritebackInvalidateRange(mem2, 4096);
 			sceKernelDcacheWritebackInvalidateRange(wrap, 4096);
 		} else {
-			memset(mem2, 0xFF, checksize);
-			if (!fromInvalid && memcmp(mem1, mem2, checksize) == 0) {
+			fill16(mem2, 0xFF, checksize);
+			if (!fromInvalid && cmp16(mem1, mem2, checksize) == 0) {
 				printf("TESTERROR\n");
 			}
 			sceKernelDcacheWritebackInvalidateRange(mem2, 4096);
@@ -117,36 +140,36 @@ static void testTransferMirrors(const char *title, int fromMirror, int toMirror,
 		if (fromInvalid && toInvalid) {
 			printf("TESTERROR\n");
 		} else if (fromInvalid) {
-			cmp1 = memcmp(mem1, mem2, validFromSize);
-			cmp2 = memcmp(wrap, mem2 + validFromSize, wrappedFromSize);
+			cmp1 = cmp16(mem1, mem2, validFromSize);
+			cmp2 = cmp16(wrap, mem2 + validFromSize, wrappedFromSize);
 		} else {
-			cmp1 = memcmp(mem1, mem2, validToSize);
-			cmp2 = memcmp(mem1 + validToSize, wrap, wrappedToSize);
+			cmp1 = cmp16(mem1, mem2, validToSize);
+			cmp2 = cmp16(mem1 + validToSize, wrap, wrappedToSize);
 		}
 
 		if (offset != -1) {
 			int src1, src2;
 			if (offset + 1 < validFromSize) {
-				src1 = mem1[offset];
-				src2 = mem1[offset + 1];
+				src1 = read8(mem1 + offset);
+				src2 = read8(mem1 + offset + 1);
 			} else if (offset + 1 == validFromSize) {
-				src1 = mem1[offset];
-				src2 = wrap[0];
+				src1 = read8(mem1 + offset);
+				src2 = read8(wrap + 0);
 			} else {
-				src1 = wrap[offset - validFromSize];
-				src2 = wrap[offset - validFromSize + 1];
+				src1 = read8(wrap + offset - validFromSize);
+				src2 = read8(wrap + offset - validFromSize + 1);
 			}
 
 			int dst1, dst2;
 			if (offset + 1 < validToSize) {
-				dst1 = mem2[offset];
-				dst2 = mem2[offset + 1];
+				dst1 = read8(mem2 + offset);
+				dst2 = read8(mem2 + offset + 1);
 			} else if (offset + 1 == validToSize) {
-				dst1 = mem2[offset];
-				dst2 = wrap[0];
+				dst1 = read8(mem2 + offset);
+				dst2 = read8(wrap + 0);
 			} else {
-				dst1 = wrap[offset - validToSize];
-				dst2 = wrap[offset - validToSize + 1];
+				dst1 = read8(wrap + offset - validToSize);
+				dst2 = read8(wrap + offset - validToSize + 1);
 			}
 
 			checkpoint("%s: %d/%d (%p -> %p / %d,%d -> %d,%d)", title, cmp1, cmp2, mem1, mem2, src1, src2, dst1, dst2);
@@ -154,9 +177,9 @@ static void testTransferMirrors(const char *title, int fromMirror, int toMirror,
 			checkpoint("%s: %d/%d (%p -> %p)", title, cmp1, cmp2, mem1, mem2);
 		}
 	} else if (offset == -1) {
-		checkpoint("%s: %d (%p -> %p)", title, memcmp(mem1, mem2, checksize), mem1, mem2);
+		checkpoint("%s: %d (%p -> %p)", title, cmp16(mem1, mem2, checksize), mem1, mem2);
 	} else {
-		checkpoint("%s: %d (%p -> %p / %d,%d -> %d,%d)", title, memcmp(mem1, mem2, checksize), mem1, mem2, mem1[offset], mem1[offset + 1], mem2[offset], mem2[offset + 1]);
+		checkpoint("%s: %d (%p -> %p / %d,%d -> %d,%d)", title, cmp16(mem1, mem2, checksize), mem1, mem2, read8(mem1 + offset), read8(mem1 + offset + 1), read8(mem2 + offset), read8(mem2 + offset + 1));
 	}
 }
 

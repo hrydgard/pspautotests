@@ -148,8 +148,12 @@ int runJobs(const u8 *data, const ExactJob *jobs, int count) {
 		sceGuSync(0, 0);
 
 		if (readCPU) {
-			// Through the uncached mirror, e.g. to read depth deswizzled at 0x200000 or 0x600000.
-			memcpy(readBuf, (const u8 *)(0x44000000 + readOffset), rows * 512 * bpp);
+			// Through the uncached mirror, e.g. to read depth deswizzled at 0x200000 or 0x600000. 16 bits at a
+			// time, as games read depth: PPSSPP only deswizzles those accesses.
+			const volatile u16 *src = (const volatile u16 *)(0x44000000 + readOffset);
+			u16 *dst = (u16 *)readBuf;
+			for (u32 i = 0; i < rows * 512 * bpp / 2; ++i)
+				dst[i] = src[i];
 		} else {
 			// A block transfer to RAM, so emulators with the framebuffer on a GPU download it.
 			sceKernelDcacheWritebackInvalidateRange(readBuf, 512 * 4 * 272);
