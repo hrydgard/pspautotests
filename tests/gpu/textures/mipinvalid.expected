@@ -1,0 +1,11 @@
+[x] Level 1 valid:
+[r]   8888 nearest: 000ff020 008fb040 00ef8058
+[r]   8888 linear: 000ff020 008fb040 00ef8058
+[r]   CLUT4 nearest: 000ff020 008fb040 00ef8058
+[r]   CLUT4 linear: 000ff020 008fb040 00ef8058
+
+[x] Level 1 invalid:
+[r]   8888 nearest: 000ff020 008fb040 00ef8058
+[r]   8888 linear: 000ff020 008fb040 00ef8058
+[r]   CLUT4 nearest: 000ff020 008fb040 00ef8058
+[r]   CLUT4 linear: 000ff020 008fb040 00ef8058

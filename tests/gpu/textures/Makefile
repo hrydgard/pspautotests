@@ -1,4 +1,4 @@
-TARGETS = mipmap rotate size
+TARGETS = mipinvalid mipmap rotate size
 EXTRA_OBJS = ../../dmac/dmac-imports.o
 
 COMMON_DIR = ../../../common
