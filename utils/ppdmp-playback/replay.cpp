@@ -128,6 +128,10 @@ bool Replay::Run() {
 		return false;
 	}
 
+	// As GPU/Debugger/Playback.cpp: the firmware's default EDRAM address translation, which the dump only records
+	// when the game changes it. It's GE state, so it would otherwise be whatever the last program left.
+	sceGeEdramSetAddrTranslation(0x400);
+
 	prims_ = 0;
 	for (size_t i = 0; i < cmds_.size(); ++i) {
 		if (cmdLimit_ && (int)i >= cmdLimit_)
