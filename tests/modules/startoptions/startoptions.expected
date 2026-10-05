@@ -1,0 +1,159 @@
+No option:
+  start: OK
+    start thread: stack=00040000 attr=800000ff priority=20 in user memory
+  stop: OK
+    stop thread: stack=00040000 attr=800000ff priority=20 in user memory
+Empty option:
+  start: OK
+    start thread: stack=00040000 attr=800000ff priority=20 in user memory
+  stop: OK
+    stop thread: stack=00040000 attr=800000ff priority=20 in user memory
+[x] Defaults:
+
+Stack 0x2000:
+  start: OK
+    start thread: stack=00002000 attr=800000ff priority=20 in user memory
+  stop: OK
+    stop thread: stack=00040000 attr=800000ff priority=20 in user memory
+Stack 0x100:
+  start: 80020194
+    start thread: didn't run
+Priority 0x30:
+  start: OK
+    start thread: stack=00040000 attr=800000ff priority=30 in user memory
+  stop: OK
+    stop thread: stack=00040000 attr=800000ff priority=20 in user memory
+Priority 0x80:
+  start: 80020193
+    start thread: didn't run
+[x] Fields:
+
+Attr VFPU:
+  start: OK
+    start thread: stack=00040000 attr=800040ff priority=20 in user memory
+  stop: OK
+    stop thread: stack=00040000 attr=800000ff priority=20 in user memory
+Attr 0x00100000:
+  start: OK
+    start thread: stack=00040000 attr=801000ff priority=20 in user memory
+  stop: OK
+    stop thread: stack=00040000 attr=800000ff priority=20 in user memory
+Attr 0x00002000:
+  start: OK
+    start thread: stack=00040000 attr=800020ff priority=20 in user memory
+  stop: OK
+    stop thread: stack=00040000 attr=800000ff priority=20 in user memory
+Attr user:
+  start: 80020001
+    start thread: didn't run
+Attr kernel:
+  start: 80020001
+    start thread: didn't run
+Attr 0x00000001:
+  start: 80020001
+    start thread: didn't run
+[x] Attributes:
+
+Partition 0:
+  start: OK
+    start thread: stack=00040000 attr=800000ff priority=20 in user memory
+  stop: OK
+    stop thread: stack=00040000 attr=800000ff priority=20 in user memory
+Partition 1:
+  start: 80020132
+    start thread: didn't run
+Partition 2:
+  start: OK
+    start thread: stack=00040000 attr=800000ff priority=20 in user memory
+  stop: OK
+    stop thread: stack=00040000 attr=800000ff priority=20 in user memory
+Partition 3:
+  start: 80020132
+    start thread: didn't run
+Partition 4:
+  start: 80020132
+    start thread: didn't run
+Partition 6:
+  start: OK
+    start thread: stack=00040000 attr=800000ff priority=20 in user memory
+  stop: OK
+    stop thread: stack=00040000 attr=800000ff priority=20 in user memory
+Partition 7:
+  start: 80020132
+    start thread: didn't run
+Partition 8:
+  start: 80020132
+    start thread: didn't run
+Partition 9:
+  start: 80020132
+    start thread: didn't run
+Partition 12:
+  start: 80020132
+    start thread: didn't run
+Partition 13:
+  start: 80020132
+    start thread: didn't run
+Partition -1:
+  start: 80020132
+    start thread: didn't run
+[x] Stack partitions:
+
+Stop stack 0x3000, priority 0x31, VFPU:
+  start: OK
+    start thread: stack=00040000 attr=800000ff priority=20 in user memory
+  stop: OK
+    stop thread: stack=00003000 attr=800040ff priority=31 in user memory
+Stop attr 0x00000001:
+  start: OK
+    start thread: stack=00040000 attr=800000ff priority=20 in user memory
+  stop: 80020001
+  stop without option: OK
+    stop thread: stack=00040000 attr=800000ff priority=20 in user memory
+Stop partition 1:
+  start: OK
+    start thread: stack=00040000 attr=800000ff priority=20 in user memory
+  stop: 80020132
+  stop without option: OK
+    stop thread: stack=00040000 attr=800000ff priority=20 in user memory
+Stop partition 13:
+  start: OK
+    start thread: stack=00040000 attr=800000ff priority=20 in user memory
+  stop: 80020132
+  stop without option: OK
+    stop thread: stack=00040000 attr=800000ff priority=20 in user memory
+[x] Stop:
+
+Size 0:
+  start: OK
+    start thread: stack=00002000 attr=800000ff priority=20 in user memory
+  stop: OK
+    stop thread: stack=00040000 attr=800000ff priority=20 in user memory
+Size 0x18:
+  start: OK
+    start thread: stack=00002000 attr=800000ff priority=20 in user memory
+  stop: OK
+    stop thread: stack=00040000 attr=800000ff priority=20 in user memory
+[x] Size, before setting an SDK version:
+[r] sceKernelSetCompiledSdkVersion606: 00000000
+
+Size 0:
+  start: 800201bc
+    start thread: didn't run
+Size 0x10:
+  start: 800201bc
+    start thread: didn't run
+Size 0x14:
+  start: OK
+    start thread: stack=00002000 attr=800000ff priority=20 in user memory
+  stop: OK
+    stop thread: stack=00040000 attr=800000ff priority=20 in user memory
+Size 0x18:
+  start: 800201bc
+    start thread: didn't run
+Stop size 0:
+  start: OK
+    start thread: stack=00040000 attr=800000ff priority=20 in user memory
+  stop: 800201bc
+  stop without option: OK
+    stop thread: stack=00040000 attr=800000ff priority=20 in user memory
+[x] Size, SDK 6.06:
