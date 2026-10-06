@@ -14,6 +14,9 @@
 
 extern "C" int sceDmacMemcpy(void *dest, const void *source, unsigned int size);
 
+// All of user memory but 1 MB (for thread stacks): common.c's 21 MB default is too small for big dumps.
+PSP_HEAP_SIZE_KB(-1024);
+
 #define BUF_WIDTH 512
 #define SCR_WIDTH 480
 #define SCR_HEIGHT 272

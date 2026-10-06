@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <stdlib.h>
 #include <map>
 #include <vector>
 
@@ -49,13 +50,23 @@ struct Command {
 
 #pragma pack(pop)
 
+// The dump's payloads. malloc'd, so a dump too big for the PSP is reported instead of written
+// through a failed allocation (which took the PSP down).
+struct PayloadBuffer {
+	uint8_t *p = nullptr;
+	size_t n = 0;
+	~PayloadBuffer() { free(p); }
+	uint8_t *data() { return p; }
+	const uint8_t *data() const { return p; }
+	size_t size() const { return n; }
+};
+
 class Replay {
 public:
 	Replay(const char *filename);
 	~Replay();
 
 	bool Run();
-	void AlignPayloads();
 
 	void SetProgress(int every, int traceFrom) {
 		progress_ = every;
@@ -83,6 +94,7 @@ public:
 
 protected:
 	bool ReadCompressed(void *dest, size_t sz, uint32_t version);
+	bool LoadPayloads(u32 bufsz, uint32_t version);
 
 	void SyncStall();
 	bool SubmitCmds(void *p, u32 sz);
@@ -119,7 +131,7 @@ protected:
 	std::vector<u32> alignedRegs_;
 
 	std::vector<Command> cmds_;
-	std::vector<uint8_t> buf_;
+	PayloadBuffer buf_;
 
 	void *execMemcpyDest;
 	void *execClutAddr;

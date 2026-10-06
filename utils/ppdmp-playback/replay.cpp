@@ -4,10 +4,15 @@
 #include <pspthreadman.h>
 #include <psputils.h>
 #include <stdio.h>
+#include <malloc.h>
+#include <stdlib.h>
 #include <string.h>
 #include <algorithm>
+#include <functional>
 #include <map>
-#include "snappy/snappy-c.h"
+#include "snappy/snappy.h"
+#include "snappy/snappy-sinksource.h"
+#define ZSTD_STATIC_LINKING_ONLY
 #include "zstd/lib/zstd.h"
 #include "commands.h"
 #include "replay.h"
@@ -46,16 +51,22 @@ Replay::Replay(const char *filename)
 	valid_ = valid_ && sceIoRead(fd_, &cmdnum, sizeof(cmdnum)) == sizeof(cmdnum);
 	valid_ = valid_ && sceIoRead(fd_, &bufsz, sizeof(bufsz)) == sizeof(bufsz);
 	if (valid_) {
-		cmds_.resize(cmdnum);
-		buf_.resize(bufsz);
+		// A vector can't report a failed allocation without exceptions, so check there's room first.
+		void *probe = malloc(sizeof(Command) * cmdnum + 1);
+		if (probe) {
+			free(probe);
+			cmds_.resize(cmdnum);
+		} else {
+			printf("ERROR: out of memory for %d commands (%d KB)\n", (int)cmdnum, (int)(sizeof(Command) * cmdnum / 1024));
+			valid_ = false;
+		}
 	}
 
 	valid_ = valid_ && ReadCompressed(cmds_.data(), sizeof(Command) * cmdnum, version);
-	valid_ = valid_ && ReadCompressed(buf_.data(), bufsz, version);
-	if (valid_)
-		AlignPayloads();
+	valid_ = valid_ && LoadPayloads(bufsz, version);
 
-	sceKernelDcacheWritebackInvalidateRange(buf_.data(), buf_.size());
+	if (valid_)
+		sceKernelDcacheWritebackInvalidateRange(buf_.data(), buf_.size());
 
 	sceIoClose(fd_);
 
@@ -63,43 +74,162 @@ Replay::Replay(const char *filename)
 	primEnd_ = 0x7FFFFFFF;
 }
 
+static void *AllocOrReport(size_t sz, const char *what) {
+	void *p = memalign(16, sz);
+	if (!p) {
+		// The largest block that is still free, to the nearest 64 KB.
+		size_t largest = 0;
+		for (size_t step = 64 * 1024 * 1024; step >= 64 * 1024; step /= 2) {
+			// volatile, or the compiler drops the unused malloc/free pair and takes every size as free.
+			void *volatile q = malloc(largest + step);
+			if (q) {
+				free(q);
+				largest += step;
+			}
+		}
+		printf("ERROR: out of memory: %s needs %d KB, the largest free block is %d KB\n", what, (int)(sz / 1024), (int)(largest / 1024));
+	}
+	return p;
+}
+
 // The dump packs payloads back to back, so one after an odd-sized blob (18 bytes of vertices) starts
 // unaligned, and reading a REGISTERS or DISPLAY payload's words there raises an address error on the
 // PSP's CPU: the replay hung (Ace Combat ULUS10176, Naruto 16733, Shadow of Destiny 9545). The GE wants
-// its vertices aligned too. So every payload gets a copy at a 16-byte aligned address; payloads the
-// dump shares between commands stay shared.
-void Replay::AlignPayloads() {
-	std::map<std::pair<u32, u32>, u32> placed;
-	size_t total = 0;
-	for (const Command &cmd : cmds_) {
-		// Copies: Command is packed, and a reference to its fields would read them with word loads.
-		const u32 ptr = cmd.ptr, sz = cmd.sz;
-		const std::pair<u32, u32> key(ptr, sz);
-		if (placed.find(key) == placed.end()) {
-			placed[key] = 0;
-			total += (sz + 15) & ~15;
-		}
+// its vertices aligned too. So every payload gets a 16-byte aligned spot; payloads the dump shares
+// between commands stay shared.
+//
+// To need the memory only once, the data is decompressed into the top of the buffer and each payload
+// then moved down to its spot, in source order. base is how high the decompressed data has to sit so
+// that no move overwrites a payload that hasn't been moved yet.
+bool Replay::LoadPayloads(u32 bufsz, uint32_t version) {
+	std::vector<u32> order;
+	order.reserve(cmds_.size());
+	for (size_t i = 0; i < cmds_.size(); ++i) {
+		const u32 ptr = cmds_[i].ptr, sz = cmds_[i].sz;
+		if (sz != 0 && (uint64_t)ptr + sz <= bufsz)
+			order.push_back((u32)i);
+		else
+			cmds_[i].ptr = 0;
 	}
-	placed.clear();
-	std::vector<uint8_t> out(total + 16);
-	size_t pos = (16 - ((uintptr_t)out.data() & 15)) & 15;
-	for (Command &cmd : cmds_) {
-		const u32 ptr = cmd.ptr, sz = cmd.sz;
-		if (sz == 0 || ptr + sz > buf_.size())
-			continue;
-		const std::pair<u32, u32> key(ptr, sz);
-		auto it = placed.find(key);
-		if (it != placed.end()) {
-			cmd.ptr = it->second;
-			continue;
+	// Copies of the fields: Command is packed, and a reference to them would read them with word loads.
+	std::sort(order.begin(), order.end(), [this](u32 a, u32 b) {
+		const u32 pa = cmds_[a].ptr, pb = cmds_[b].ptr;
+		if (pa != pb)
+			return pa < pb;
+		const u32 sa = cmds_[a].sz, sb = cmds_[b].sz;
+		return sa < sb;
+	});
+
+	// The alignment the commands using a payload need: the GE reads textures, CLUTs and transfer sources
+	// in place at 16 bytes, the rest are read as words.
+	auto alignmentOf = [&](size_t i, size_t j) {
+		for (size_t k = i; k < j; ++k) {
+			const u8 type = cmds_[order[k]].type;
+			if ((type >= CommandType::TEXTURE0 && type <= CommandType::TEXTURE7) || type == CommandType::CLUT || type == CommandType::TRANSFERSRC)
+				return 16;
 		}
-		memcpy(out.data() + pos, buf_.data() + ptr, sz);
-		placed[key] = (u32)pos;
-		cmd.ptr = (u32)pos;
-		pos += (sz + 15) & ~15;
-	}
-	buf_.swap(out);
+		return 4;
+	};
+
+	// Payloads that overlap are moved as one block, each pointing into it where its offset keeps its
+	// alignment: games draw from many overlapping windows of one vertex buffer, and a copy per window
+	// took 40 MB for 10 MB of data (Gundam vs Gundam 13531). One that would be misaligned starts a new
+	// block. Walks the distinct payloads in source order, calling payloadFn(first index in order, end
+	// index, spot) for each and blockFn(ptr, size, spot) as each block is complete.
+	typedef std::function<void(size_t, size_t, size_t)> PayloadFn;
+	typedef std::function<void(u32, u32, size_t)> BlockFn;
+	auto forEachPayload = [&](const PayloadFn &payloadFn, const BlockFn &blockFn) {
+		size_t spot = 0;
+		bool open = false;
+		u32 blockPtr = 0, blockEnd = 0;
+		auto closeBlock = [&]() {
+			if (open) {
+				blockFn(blockPtr, blockEnd - blockPtr, spot);
+				spot += (blockEnd - blockPtr + 15) & ~15;
+				open = false;
+			}
+		};
+		size_t i = 0;
+		while (i < order.size()) {
+			const u32 ptr = cmds_[order[i]].ptr, sz = cmds_[order[i]].sz;
+			size_t j = i + 1;
+			while (j < order.size() && cmds_[order[j]].ptr == ptr && cmds_[order[j]].sz == sz)
+				++j;
+			if (open && ptr < blockEnd && ((ptr - blockPtr) % alignmentOf(i, j)) == 0) {
+				blockEnd = std::max(blockEnd, ptr + sz);
+			} else {
+				closeBlock();
+				open = true;
+				blockPtr = ptr;
+				blockEnd = ptr + sz;
+			}
+			payloadFn(i, j, spot + (ptr - blockPtr));
+			i = j;
+		}
+		closeBlock();
+		return spot;
+	};
+
+	size_t base = 0;
+	size_t prevEnd = 0;
+	const size_t total = forEachPayload([](size_t, size_t, size_t) {}, [&](u32 ptr, u32 sz, size_t spot) {
+		// The move reads from base + ptr, so the spot can't be above it, and the previous block's move
+		// mustn't have reached this block's data (they may overlap).
+		if (spot > base + ptr)
+			base = spot - ptr;
+		if (prevEnd > base + ptr)
+			base = prevEnd - ptr;
+		prevEnd = spot + sz;
+	});
+
+	const size_t alloc = std::max(total, base + (size_t)bufsz);
+	buf_.p = (uint8_t *)AllocOrReport(alloc, "the dump's data");
+	if (!buf_.p)
+		return false;
+	if (!ReadCompressed(buf_.p + base, bufsz, version))
+		return false;
+
+	forEachPayload([&](size_t i, size_t j, size_t spot) {
+		for (size_t k = i; k < j; ++k)
+			cmds_[order[k]].ptr = (u32)spot;
+	}, [&](u32 ptr, u32 sz, size_t spot) {
+		memmove(buf_.p + spot, buf_.p + base + ptr, sz);
+	});
+	buf_.n = total;
+	return true;
 }
+
+static const size_t CHUNK_SIZE = 256 * 1024;
+
+// Feeds snappy a compressed block from the file a chunk at a time.
+class FileSource : public snappy::Source {
+public:
+	FileSource(int fd, size_t size, uint8_t *chunk) : fd_(fd), left_(size), chunk_(chunk) {}
+	size_t Available() const override {
+		return left_ + (len_ - pos_);
+	}
+	const char *Peek(size_t *len) override {
+		if (pos_ == len_ && left_ > 0) {
+			const int n = sceIoRead(fd_, chunk_, std::min(left_, CHUNK_SIZE));
+			pos_ = 0;
+			len_ = n > 0 ? n : 0;
+			// A failed read ends the data early, which snappy reports as corrupt.
+			left_ = n > 0 ? left_ - n : 0;
+		}
+		*len = len_ - pos_;
+		return (const char *)chunk_ + pos_;
+	}
+	void Skip(size_t n) override {
+		pos_ += n;
+	}
+
+private:
+	int fd_;
+	size_t left_;
+	uint8_t *chunk_;
+	size_t pos_ = 0;
+	size_t len_ = 0;
+};
 
 bool Replay::ReadCompressed(void *dest, size_t sz, uint32_t version) {
 	uint32_t compressed_size = 0;
@@ -107,20 +237,51 @@ bool Replay::ReadCompressed(void *dest, size_t sz, uint32_t version) {
 		return false;
 	}
 
-	uint8_t *compressed = new uint8_t[compressed_size];
-	if (sceIoRead(fd_, compressed, compressed_size) != (int)compressed_size) {
-		delete [] compressed;
+	// Both formats are streamed in chunks, so the compressed data never has to be in memory whole.
+	uint8_t *chunk = (uint8_t *)AllocOrReport(CHUNK_SIZE, "the read buffer");
+	if (!chunk)
 		return false;
+
+	if (version < 5) {
+		FileSource source(fd_, compressed_size, chunk);
+		// RawUncompress trusts the length the data starts with, so check it fits first.
+		size_t peeked = 0;
+		const char *head = source.Peek(&peeked);
+		size_t length = 0;
+		bool ok = snappy::GetUncompressedLength(head, peeked, &length) && length == sz;
+		ok = ok && snappy::RawUncompress(&source, (char *)dest);
+		free(chunk);
+		return ok;
 	}
 
-	size_t real_size = sz;
-	if (version < 5)
-		snappy_uncompress((const char *)compressed, compressed_size, (char *)dest, &real_size);
-	else
-		real_size = ZSTD_decompress(dest, real_size, compressed, compressed_size);
-	delete [] compressed;
+	// With a stable output buffer zstd decodes straight into dest instead of keeping a window of its own.
+	ZSTD_DCtx *dctx = ZSTD_createDCtx();
+	bool ok = dctx != nullptr;
+	if (ok)
+		ok = !ZSTD_isError(ZSTD_DCtx_setParameter(dctx, ZSTD_d_stableOutBuffer, 1));
 
-	return real_size == sz;
+	ZSTD_outBuffer out = { dest, sz, 0 };
+	size_t left = compressed_size;
+	while (ok && left > 0) {
+		const int n = sceIoRead(fd_, chunk, std::min(left, CHUNK_SIZE));
+		if (n <= 0) {
+			ok = false;
+			break;
+		}
+		left -= n;
+		ZSTD_inBuffer in = { chunk, (size_t)n, 0 };
+		while (in.pos < in.size) {
+			const size_t r = ZSTD_decompressStream(dctx, &out, &in);
+			if (ZSTD_isError(r) || out.pos == out.size) {
+				ok = !ZSTD_isError(r);
+				break;
+			}
+		}
+	}
+
+	ZSTD_freeDCtx(dctx);
+	free(chunk);
+	return ok && out.pos == sz;
 }
 
 bool Replay::Run() {
