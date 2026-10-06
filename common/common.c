@@ -548,7 +548,12 @@ void emulatorEmitScreenshot() {
 		int pixelformat;
 
 		sceDisplayGetFrameBuf((void **)&topaddr, &bufferwidth, &pixelformat, 0);
-		
+		if (topaddr == 0 || bufferwidth == 0) {
+			// The display is off: reading its rows from address 0 would fault and hang the PSP.
+			printf("ERROR: no display to screenshot\n");
+			return;
+		}
+
         if (topaddr & 0x80000000) {
             topaddr |= 0xA0000000;
         } else {

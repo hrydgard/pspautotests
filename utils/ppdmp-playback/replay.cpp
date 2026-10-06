@@ -794,7 +794,9 @@ void Replay::Display(u32 ptr, u32 sz) {
 		printf("TRACE: display set\n");
 		fflush(stdout);
 	}
-	haveDisplay_ = true;
+	// A display turned off (address 0) shows nothing to compare, so the result falls back to the last
+	// framebuffer drawn to, as for a dump without a DISPLAY (Auditorium 9213).
+	haveDisplay_ = disp->topaddr != nullptr;
 	displayAddr_ = disp->topaddr;
 	displayStride_ = disp->linesize;
 	displayFormat_ = disp->pixelFormat;
