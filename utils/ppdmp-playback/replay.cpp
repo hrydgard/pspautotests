@@ -571,9 +571,11 @@ void Replay::Init(u32 ptr, u32 sz) {
 
 	TrackRegisters((const u32 *)ctx->context + 17, 512 - 17, false);
 	sceGeRestoreContext(ctx);
+	initialClut_ = true;
 }
 
 void Replay::Registers(u32 ptr, u32 sz) {
+	initialClut_ = false;
 	const u8 *data = buf_.data() + ptr;
 	// Dumps pack their data without padding, so a register block can follow an odd-sized one, and an
 	// unaligned word load crashes the PSP's CPU.
@@ -682,8 +684,24 @@ void Replay::Clut(u32 ptr, u32 sz) {
 		if (psp & 0xF) {
 			printf("Clut: uh oh, alignment %d\n", psp & 0xF);
 		}
+		u32 gameUpper = 0, gameLower = 0;
+		if (initialClut_) {
+			SyncStall();
+			gameUpper = sceGeGetCmd(GE_CMD_CLUTADDRUPPER);
+			gameLower = sceGeGetCmd(GE_CMD_CLUTADDR);
+		}
 		execListQueue.push_back((GE_CMD_CLUTADDRUPPER << 24) | ((psp >> 8) & 0x00FF0000));
 		execListQueue.push_back((GE_CMD_CLUTADDR << 24) | (psp & 0x00FFFFFF));
+		if (initialClut_) {
+			// The CLUT the GE had loaded when the recording started (Record.cpp saves it right after INIT),
+			// with no LOADCLUT to follow, unlike the CLUTs recorded at a LOADCLUT: load it here, then put
+			// the game's CLUT address back. Without this, draws used whatever CLUT the GE last had
+			// (HotBrain 16131, ULUS10268).
+			execListQueue.push_back((GE_CMD_LOADCLUT << 24) | ((sz / 32) & 0x3F));
+			execListQueue.push_back(gameUpper);
+			execListQueue.push_back(gameLower);
+			initialClut_ = false;
+		}
 	}
 }
 

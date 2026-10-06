@@ -147,6 +147,8 @@ protected:
 	u32 displayStride_ = 0;
 	u32 displayFormat_ = 0;
 	bool haveFramebuf_ = false;
+	// Right after INIT, where a CLUT command is the CLUT the GE had loaded.
+	bool initialClut_ = false;
 	u32 fbPtr_ = 0;
 	u32 fbWidth_ = 0;
 	u32 fbFormat_ = 0;
