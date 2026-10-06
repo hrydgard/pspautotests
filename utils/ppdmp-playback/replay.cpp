@@ -305,7 +305,13 @@ bool Replay::Run() {
 			printf("PROGRESS: %d/%d type %d sz %d prims %d\n", (int)i, (int)cmds_.size(), (int)cmd.type, (int)cmd.sz, prims_);
 		switch (cmd.type) {
 		case CommandType::INIT:
-			Init(cmd.ptr, cmd.sz);
+			// Only the first INIT is real; as GPU/Debugger/Playback.cpp, a later one is a second recording
+			// request's (before PPSSPP 71210f3fa2), with state the dump only reaches after it. Restoring it
+			// happened to change nothing here (the 15 such dumps already matched PPSSPP with it skipped).
+			if (i == 0)
+				Init(cmd.ptr, cmd.sz);
+			else if (i + 1 < cmds_.size() && cmds_[i + 1].type == CommandType::CLUT)
+				++i;
 			break;
 
 		case CommandType::REGISTERS:
