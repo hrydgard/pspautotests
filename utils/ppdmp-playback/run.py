@@ -166,6 +166,7 @@ def main():
 	parser.add_argument('--headless', help='PPSSPPHeadless to render each dump with too, printing the MSE')
 	parser.add_argument('--graphics', default='software', help='backend for --headless')
 	parser.add_argument('--no-make', action='store_true', help='skip rebuilding playback.prx')
+	parser.add_argument('--settle', type=float, default=1.0, help='seconds to wait between replays: the finish file is written before the module has exited, and starting the next one too soon fails')
 	args = parser.parse_args()
 
 	dumps = [os.path.abspath(d) for d in args.dumps]
@@ -188,7 +189,9 @@ def main():
 
 	failures = 0
 	try:
-		for path in dumps:
+		for i, path in enumerate(dumps):
+			if i > 0:
+				time.sleep(args.settle)
 			name = dump_name(path)
 			print('%s:' % name, end=' ', flush=True)
 			data = read_dump(path)
