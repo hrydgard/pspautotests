@@ -759,7 +759,6 @@ void Replay::Framebuf(int level, u32 ptr, u32 sz) {
 	const bool isTarget = (framebuf->flags & 1) != 0;
 	const bool unchangedVRAM = version_ >= 6 && (framebuf->flags & 2) != 0;
 	if (!isTarget && !unchangedVRAM) {
-		DrainGE();
 		CopyAroundDrawn(framebuf->addr, psp, pspSize);
 	}
 
@@ -886,6 +885,30 @@ static bool ThroughModeBounds(u32 vtype, const u8 *data, u32 size, u32 count, in
 	return true;
 }
 
+void Replay::DrawnTarget::Add(const DrawnRect &rect) {
+	const int x1 = rect.x1 > 0 ? rect.x1 : 0, x2 = rect.x2 + 1;
+	if (x2 <= x1)
+		return;
+	if ((int)rows.size() <= rect.y2)
+		rows.resize(rect.y2 + 1);
+	for (int y = rect.y1 > 0 ? rect.y1 : 0; y <= rect.y2; ++y) {
+		// Insert [x1, x2) and merge it with the spans it touches, keeping the row sorted.
+		std::vector<std::pair<int, int>> &row = rows[y];
+		int a = x1, b = x2;
+		size_t i = 0;
+		while (i < row.size() && row[i].second < a)
+			++i;
+		size_t j = i;
+		while (j < row.size() && row[j].first <= b) {
+			a = std::min(a, row[j].first);
+			b = std::max(b, row[j].second);
+			++j;
+		}
+		row.erase(row.begin() + i, row.begin() + j);
+		row.insert(row.begin() + i, std::make_pair(a, b));
+	}
+}
+
 void Replay::MarkDrawn(u32 prim) {
 	const u32 start = fbPtr_ & 0x001FFFF0;
 	const u32 bpp = fbFormat_ == 3 ? 4 : 2;
@@ -906,11 +929,7 @@ void Replay::MarkDrawn(u32 prim) {
 		DrawnTarget &t = drawnTargets_[base];
 		t.strideBytes = strideBytes;
 		t.bpp = bytesPerPixel;
-		for (const DrawnRect &r : t.rects) {
-			if (r.Contains(rect.x1, rect.y1) && r.Contains(rect.x2, rect.y2))
-				return;
-		}
-		t.rects.push_back(rect);
+		t.Add(rect);
 	};
 	add(start, fbWidth_ * bpp, bpp, DrawnRect{ x1, y1, x2, y2 });
 	const bool writesDepth = (clearMode_ & 1) ? (clearMode_ & 0x400) != 0 : (zTest_ && !zWriteDisable_);
@@ -921,7 +940,8 @@ void Replay::MarkDrawn(u32 prim) {
 }
 
 // As GPU/Debugger/Playback.cpp: the dump's copy of a buffer can be stale, and the GE's own result in what
-// the replay drew beats it, so the copy leaves out the areas the replay's draws could reach.
+// the replay drew beats it, so the copy leaves out the areas the replay's draws could reach. Waits for the
+// GE before writing anything.
 void Replay::CopyAroundDrawn(void *dest, const u8 *src, u32 size) {
 	// A texture recorded at its full size can run past the end of VRAM, into the depth swizzle mirror.
 	if (IsVRAMAddress(dest) && size > 0x00200000 - ((uintptr_t)dest & 0x001FFFFF))
@@ -932,11 +952,15 @@ void Replay::CopyAroundDrawn(void *dest, const u8 *src, u32 size) {
 		const DrawnTarget &t = it->second;
 		if (t.strideBytes == 0)
 			continue;
-		for (const DrawnRect &r : t.rects) {
-			for (int y = r.y1 > 0 ? r.y1 : 0; y <= r.y2; ++y) {
-				const int64_t row = (int64_t)it->first + (int64_t)y * t.strideBytes;
-				const int64_t a = row + (int64_t)(r.x1 > 0 ? r.x1 : 0) * t.bpp;
-				const int64_t b = row + (int64_t)(r.x2 + 1) * t.bpp;
+		// Only the rows that can reach [start, end). A span ends by x 1024 (the region's limit), which can
+		// be past the stride.
+		const int64_t first = (start - (int64_t)it->first - 1024 * (int64_t)t.bpp) / (int64_t)t.strideBytes - 1;
+		const int64_t last = (end - (int64_t)it->first) / (int64_t)t.strideBytes + 1;
+		for (int64_t y = first > 0 ? first : 0; y <= last && y < (int64_t)t.rows.size(); ++y) {
+			const int64_t row = (int64_t)it->first + y * t.strideBytes;
+			for (const std::pair<int, int> &span : t.rows[y]) {
+				const int64_t a = row + (int64_t)span.first * t.bpp;
+				const int64_t b = row + (int64_t)span.second * t.bpp;
 				if (b > start && a < end)
 					skip.push_back(std::make_pair(a > start ? a : start, b < end ? b : end));
 			}
@@ -945,8 +969,15 @@ void Replay::CopyAroundDrawn(void *dest, const u8 *src, u32 size) {
 	std::sort(skip.begin(), skip.end());
 
 	int64_t pos = start;
+	bool drained = false;
 	auto copyTo = [&](int64_t until) {
 		if (until > pos) {
+			// The GE has to finish with the old contents first, but a copy that falls entirely inside
+			// what the replay drew writes nothing and needn't wait (thousands of them in Megamind 13846).
+			if (!drained) {
+				DrainGE();
+				drained = true;
+			}
 			// Through the uncached mirror: the pieces can be any multiple of 2 bytes.
 			u8 *d = (u8 *)(((uintptr_t)dest | 0x40000000) + (pos - start));
 			memcpy(d, src + (pos - start), (u32)(until - pos));

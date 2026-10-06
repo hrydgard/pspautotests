@@ -168,10 +168,14 @@ protected:
 			return x >= x1 && x <= x2 && y >= y1 && y <= y2;
 		}
 	};
+	// What the replay's draws could reach in one buffer, as merged pixel spans [x1, x2) per row.
+	// The same bytes as a list of the drawn rects, but quick to add to and walk with thousands of
+	// draws (Megamind 13846 has 180k commands).
 	struct DrawnTarget {
 		u32 strideBytes;
 		u32 bpp;
-		std::vector<DrawnRect> rects;
+		std::vector<std::vector<std::pair<int, int>>> rows;
+		void Add(const DrawnRect &rect);
 	};
 	std::map<u32, DrawnTarget> drawnTargets_;
 	u32 region2_ = 0;
