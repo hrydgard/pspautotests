@@ -284,6 +284,43 @@ bool Replay::ReadCompressed(void *dest, size_t sz, uint32_t version) {
 	return ok && out.pos == sz;
 }
 
+// As GPU/Debugger/Playback.cpp: a zero normal lights by a sign the GE keeps from the last Bezier patch
+// drawn, which outlives programs (ppsspp-re geprobe exp226-253). Before the replay, a flat patch facing +z
+// sets it to +1, as the software renderer starts. It runs as a list of its own, finished and synced:
+// drawn into the stalled replay list, after sceGeRestoreContext, it sometimes didn't take. Alpha test
+// NEVER keeps it from drawing and texturing off from touching the texture cache; INIT then sets the
+// registers it used.
+void Replay::ResetZeroNormalSign() {
+	static float __attribute__((aligned(16))) points[16 * 3];
+	for (int i = 0; i < 16; ++i) {
+		points[i * 3 + 0] = 0.01f * (float)(i & 3);
+		points[i * 3 + 1] = 0.01f * (float)(i >> 2);
+		points[i * 3 + 2] = 0.0f;
+	}
+	const uintptr_t addr = (uintptr_t)points;
+	static u32 __attribute__((aligned(16))) list[] = {
+		((u32)GE_CMD_TEXTUREMAPENABLE << 24) | 0,
+		((u32)GE_CMD_ALPHATESTENABLE << 24) | 1,
+		((u32)GE_CMD_ALPHATEST << 24) | 0,
+		((u32)GE_CMD_VERTEXTYPE << 24) | (3 << 7),
+		(u32)GE_CMD_BASE << 24,
+		(u32)GE_CMD_VADDR << 24,
+		((u32)GE_CMD_PATCHDIVISION << 24) | 1 | (1 << 8),
+		((u32)GE_CMD_PATCHPRIMITIVE << 24) | 2,
+		((u32)GE_CMD_PATCHFACING << 24) | 0,
+		((u32)GE_CMD_BEZIER << 24) | 4 | (4 << 8),
+		(u32)GE_CMD_FINISH << 24,
+		(u32)GE_CMD_END << 24,
+	};
+	list[4] = ((u32)GE_CMD_BASE << 24) | ((addr >> 8) & 0x00FF0000);
+	list[5] = ((u32)GE_CMD_VADDR << 24) | (addr & 0x00FFFFFF);
+	sceKernelDcacheWritebackInvalidateRange(points, sizeof(points));
+	sceKernelDcacheWritebackInvalidateRange(list, sizeof(list));
+	int id = sceGeListEnQueue(list, NULL, -1, NULL);
+	if (id >= 0)
+		sceGeListSync(id, 0);
+}
+
 bool Replay::Run() {
 	if (!Valid()) {
 		return false;
@@ -292,6 +329,7 @@ bool Replay::Run() {
 	// As GPU/Debugger/Playback.cpp: the firmware's default EDRAM address translation, which the dump only records
 	// when the game changes it. It's GE state, so it would otherwise be whatever the last program left.
 	sceGeEdramSetAddrTranslation(0x400);
+	ResetZeroNormalSign();
 
 	prims_ = 0;
 	for (size_t i = 0; i < cmds_.size(); ++i) {

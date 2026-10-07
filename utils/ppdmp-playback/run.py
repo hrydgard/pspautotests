@@ -114,6 +114,8 @@ def run_on_psp(args, data):
 			command += ' --trace-from=%d' % args.trace_from
 		if args.no_depth:
 			command += ' --no-depth'
+		if args.dump_regs:
+			command += ' --dump-regs=host0:/__geregs.bin'
 		if args.display:
 			command += ' --display=%s' % args.display
 		pspsh(args.port, command, 5.0)
@@ -161,6 +163,7 @@ def main():
 	parser.add_argument('--cmds', type=int, help='only replay the first N dump commands, to bisect a hang')
 	parser.add_argument('--trace-from', type=int, help='print every dump command from this index on')
 	parser.add_argument('--no-depth', action='store_true', help='skip the depth buffer readback')
+	parser.add_argument('--dump-regs', help='save the 256 GE registers as the previous program left them (before the replay sets any) to this file')
 	parser.add_argument('--display', help='addr,stride,format (hex addr) of a buffer to show and screenshot instead of the display')
 	parser.add_argument('--port', type=int, default=3000)
 	parser.add_argument('--headless', help='PPSSPPHeadless to render each dump with too, printing the MSE')
@@ -200,6 +203,8 @@ def main():
 				continue
 			psp_png = os.path.join(out_dir, name + '-psp.png')
 			save_png(SHOTFILE, psp_png)
+			if args.dump_regs and os.path.exists('__geregs.bin'):
+				shutil.copy('__geregs.bin', args.dump_regs)
 			if os.path.exists(DEPTHFILE):
 				shutil.copyfile(DEPTHFILE, os.path.join(out_dir, name + '-psp-depth.bin'))
 			line = psp_png

@@ -45,7 +45,24 @@ void init() {
 
 extern int HAS_DISPLAY;
 
+// Writes all 256 GE registers as the previous program left them, before init() sets any: registers outside
+// the saved context keep their values across programs and PSPLink restarts.
+static void DumpGERegisters(const char *path) {
+	u32 regs[256];
+	for (int i = 0; i < 256; ++i)
+		regs[i] = sceGeGetCmd(i);
+	SceUID fd = sceIoOpen(path, PSP_O_WRONLY | PSP_O_CREAT | PSP_O_TRUNC, 0777);
+	if (fd >= 0) {
+		sceIoWrite(fd, regs, sizeof(regs));
+		sceIoClose(fd);
+	}
+}
+
 extern "C" int main(int argc, char *argv[]) {
+	for (int i = 1; i < argc; ++i) {
+		if (!strncmp(argv[i], "--dump-regs=", strlen("--dump-regs=")))
+			DumpGERegisters(argv[i] + strlen("--dump-regs="));
+	}
 	init();
 	HAS_DISPLAY = 0;
 
@@ -74,6 +91,9 @@ extern "C" int main(int argc, char *argv[]) {
 			if (!strncmp(argv[i], "--display=", strlen("--display="))) {
 				// addr,stride,format: show (and screenshot) this buffer instead of the dump's display.
 				sscanf(argv[i] + strlen("--display="), "%x,%d,%d", &displayAddr, &displayStride, &displayFormat);
+				continue;
+			}
+			if (!strncmp(argv[i], "--dump-regs=", strlen("--dump-regs="))) {
 				continue;
 			}
 			if (!strcmp(argv[i], "--no-depth")) {

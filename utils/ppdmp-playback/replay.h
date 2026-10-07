@@ -97,6 +97,7 @@ protected:
 	bool LoadPayloads(u32 bufsz, uint32_t version);
 
 	void SyncStall();
+	void ResetZeroNormalSign();
 	bool SubmitCmds(void *p, u32 sz);
 	void SubmitListEnd();
 	void DrainGE();
