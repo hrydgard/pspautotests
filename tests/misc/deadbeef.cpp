@@ -221,7 +221,7 @@ extern "C" int main(int argc, char *argv[]) {
 
 	checkpointNext("Really long loop (interrupt):");
 	fillRegs();
-	for (int i = 0; i < 0x04000000; ++i) {
+	for (int i = 0; i < 0x00400000; ++i) {
 		continue;
 	}
 	dumpRegs();
