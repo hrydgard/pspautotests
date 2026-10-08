@@ -179,7 +179,8 @@ extern "C" int main(int argc, char *argv[]) {
 	HAS_DISPLAY = 0;
 
 	checkpointNext("Normals:");
-	testNormalizedZero();
+	// Not testNormalizedZero(): the GE turns a zero normal into s * (1, 1, 1), s being the sign left by the last
+	// Bezier patch drawn, by this or any earlier program, so its result depends on what ran before.
 	// Reverse flag definitely applies to texgen.
 	testReverseNormals("  Reversed normals", GU_NORMAL);
 	testReverseNormals("  Reversed normalized normals", GU_NORMALIZED_NORMAL);
