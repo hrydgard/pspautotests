@@ -1,4 +1,4 @@
-TARGETS = normals prims source uvs
+TARGETS = negq normals prims source uvs
 EXTRA_OBJS = ../../dmac/dmac-imports.o shared.o
 EXTRA_LIBS = -lpspgum -lm -lstdc++ -lc
 
