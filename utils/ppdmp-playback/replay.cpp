@@ -20,6 +20,7 @@
 extern "C" int sceDmacMemcpy(void *dest, const void *source, unsigned int size);
 
 static const int LIST_BUF_SIZE = 256 * 1024;
+static const size_t CHUNK_SIZE = 256 * 1024;
 
 Replay::Replay(const char *filename)
 	: valid_(true), execMemcpyDest(0), execClutAddr(0), execListBuf(0), execListPos(0), execListID(0) {
@@ -101,7 +102,10 @@ static void *AllocOrReport(size_t sz, const char *what) {
 // To need the memory only once, the data is decompressed into the top of the buffer and each payload
 // then moved down to its spot, in source order. base is how high the decompressed data has to sit so
 // that no move overwrites a payload that hasn't been moved yet.
-bool Replay::LoadPayloads(u32 bufsz, uint32_t version) {
+bool Replay::LoadPayloads(u32 bufsz, uint32_t version, SceOff dataStart, bool streamed) {
+	if (dataStart < 0)
+		dataStart = sceIoLseek(fd_, 0, PSP_SEEK_CUR);
+
 	std::vector<u32> order;
 	order.reserve(cmds_.size());
 	for (size_t i = 0; i < cmds_.size(); ++i) {
@@ -182,8 +186,33 @@ bool Replay::LoadPayloads(u32 bufsz, uint32_t version) {
 		prevEnd = spot + sz;
 	});
 
+	if (streamed) {
+		buf_.p = (uint8_t *)AllocOrReport(total, "the dump's data");
+		if (!buf_.p)
+			return false;
+		std::vector<PayloadRange> ranges;
+		forEachPayload([&](size_t i, size_t j, size_t spot) {
+			for (size_t k = i; k < j; ++k)
+				cmds_[order[k]].ptr = (u32)spot;
+		}, [&](u32 ptr, u32 sz, size_t spot) {
+			ranges.push_back({ ptr, sz, buf_.p + spot });
+		});
+		buf_.n = total;
+		return StreamPayloads(dataStart, ranges);
+	}
+
 	const size_t alloc = std::max(total, base + (size_t)bufsz);
-	buf_.p = (uint8_t *)AllocOrReport(alloc, "the dump's data");
+	buf_.p = (uint8_t *)memalign(16, alloc);
+	if (!buf_.p && version >= 5) {
+		// Most of a dump too big for the PSP is usually framebuffer snapshots (Cars Race-O-Rama has 64 MB of them),
+		// which the replay draws itself and doesn't copy. Without those, the rest is streamed into place.
+		printf("The dump's data needs %d KB, trimming framebuffer snapshots\n", (int)(alloc / 1024));
+		if (!TrimFramebufPayloads(dataStart, bufsz))
+			return false;
+		return LoadPayloads(bufsz, version, dataStart, true);
+	}
+	if (!buf_.p)
+		buf_.p = (uint8_t *)AllocOrReport(alloc, "the dump's data");
 	if (!buf_.p)
 		return false;
 	if (!ReadCompressed(buf_.p + base, bufsz, version))
@@ -199,7 +228,90 @@ bool Replay::LoadPayloads(u32 bufsz, uint32_t version) {
 	return true;
 }
 
-static const size_t CHUNK_SIZE = 256 * 1024;
+bool Replay::StreamPayloads(SceOff dataStart, std::vector<PayloadRange> &ranges) {
+	std::sort(ranges.begin(), ranges.end(), [](const PayloadRange &a, const PayloadRange &b) {
+		return a.ptr < b.ptr;
+	});
+
+	sceIoLseek(fd_, dataStart, PSP_SEEK_SET);
+	uint32_t compressed_size = 0;
+	if (sceIoRead(fd_, &compressed_size, sizeof(compressed_size)) != sizeof(compressed_size))
+		return false;
+
+	uint8_t *chunk = (uint8_t *)AllocOrReport(CHUNK_SIZE, "the read buffer");
+	uint8_t *outChunk = (uint8_t *)AllocOrReport(CHUNK_SIZE, "the decompression buffer");
+	ZSTD_DCtx *dctx = ZSTD_createDCtx();
+	bool ok = chunk && outChunk && dctx;
+
+	// Ranges can overlap, and are sorted by start: the first one not yet passed is where to look from.
+	size_t first = 0;
+	size_t pos = 0;
+	size_t left = compressed_size;
+	while (ok && left > 0) {
+		const int n = sceIoRead(fd_, chunk, std::min(left, CHUNK_SIZE));
+		if (n <= 0) {
+			ok = false;
+			break;
+		}
+		left -= n;
+		ZSTD_inBuffer in = { chunk, (size_t)n, 0 };
+		while (ok && in.pos < in.size) {
+			ZSTD_outBuffer out = { outChunk, CHUNK_SIZE, 0 };
+			const size_t r = ZSTD_decompressStream(dctx, &out, &in);
+			if (ZSTD_isError(r)) {
+				ok = false;
+				break;
+			}
+			const size_t end = pos + out.pos;
+			while (first < ranges.size() && ranges[first].ptr + ranges[first].size <= pos)
+				++first;
+			for (size_t k = first; k < ranges.size() && ranges[k].ptr < end; ++k) {
+				const size_t from = std::max(pos, (size_t)ranges[k].ptr);
+				const size_t to = std::min(end, (size_t)ranges[k].ptr + (size_t)ranges[k].size);
+				if (from < to)
+					memcpy(ranges[k].dest + (from - ranges[k].ptr), outChunk + (from - pos), to - from);
+			}
+			pos = end;
+		}
+	}
+
+	ZSTD_freeDCtx(dctx);
+	free(outChunk);
+	free(chunk);
+	return ok;
+}
+
+bool Replay::TrimFramebufPayloads(SceOff dataStart, u32 bufsz) {
+	struct FramebufHeader {
+		u32 addr;
+		int bufw;
+		u32 flags;
+		u32 pad;
+	};
+	std::vector<size_t> framebufs;
+	for (size_t i = 0; i < cmds_.size(); ++i) {
+		const u8 type = cmds_[i].type;
+		const u32 ptr = cmds_[i].ptr, sz = cmds_[i].sz;
+		if (type >= CommandType::FRAMEBUF0 && type <= CommandType::FRAMEBUF7 && sz >= sizeof(FramebufHeader) && (uint64_t)ptr + sz <= bufsz)
+			framebufs.push_back(i);
+	}
+
+	std::vector<FramebufHeader> headers(framebufs.size());
+	std::vector<PayloadRange> ranges;
+	for (size_t i = 0; i < framebufs.size(); ++i)
+		ranges.push_back({ cmds_[framebufs[i]].ptr, (u32)sizeof(FramebufHeader), (uint8_t *)&headers[i] });
+	if (!StreamPayloads(dataStart, ranges))
+		return false;
+
+	// As in Framebuf().
+	for (size_t i = 0; i < framebufs.size(); ++i) {
+		const bool isTarget = (headers[i].flags & 1) != 0;
+		const bool unchangedVRAM = version_ >= 6 && (headers[i].flags & 2) != 0;
+		if (isTarget || unchangedVRAM)
+			cmds_[framebufs[i]].sz = sizeof(FramebufHeader);
+	}
+	return true;
+}
 
 // Feeds snappy a compressed block from the file a chunk at a time.
 class FileSource : public snappy::Source {

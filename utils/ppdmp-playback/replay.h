@@ -94,7 +94,19 @@ public:
 
 protected:
 	bool ReadCompressed(void *dest, size_t sz, uint32_t version);
-	bool LoadPayloads(u32 bufsz, uint32_t version);
+	// streamed: the framebuffer snapshots have been trimmed, and the payloads are streamed into place.
+	bool LoadPayloads(u32 bufsz, uint32_t version, SceOff dataStart = -1, bool streamed = false);
+
+	// A range of the decompressed payload data to copy somewhere, for StreamPayloads.
+	struct PayloadRange {
+		u32 ptr;
+		u32 size;
+		uint8_t *dest;
+	};
+	// Decompresses the (zstd) payload data starting at dataStart in the file a chunk at a time, copying the ranges out.
+	bool StreamPayloads(SceOff dataStart, std::vector<PayloadRange> &ranges);
+	// Cuts the framebuffer snapshots the replay won't copy (render targets, unchanged VRAM) down to their headers.
+	bool TrimFramebufPayloads(SceOff dataStart, u32 bufsz);
 
 	void SyncStall();
 	void ResetZeroNormalSign();
