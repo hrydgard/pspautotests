@@ -139,7 +139,7 @@ protected:
 	void EdramTrans(u32 ptr, u32 sz);
 	void TrackRegisters(const u32 *words, u32 count, bool draws);
 	void MarkDrawn(u32 prim);
-	void CopyAroundDrawn(void *dest, const u8 *src, u32 size);
+	void CopyAroundDrawn(void *dest, const u8 *src, u32 size, bool linear);
 
 	int fd_;
 	bool valid_;
