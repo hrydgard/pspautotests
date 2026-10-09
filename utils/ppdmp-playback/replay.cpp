@@ -1007,8 +1007,12 @@ void Replay::Display(u32 ptr, u32 sz) {
 		fflush(stdout);
 	}
 
-	sceDisplaySetFrameBuf(disp->topaddr, disp->linesize, disp->pixelFormat, 1);
-	sceDisplaySetFrameBuf(disp->topaddr, disp->linesize, disp->pixelFormat, 0);
+	// Some dumps have garbage above the format's low byte (0xcccccc01: MX vs ATV Reflex, Cars Race-O-Rama),
+	// which PPSSPP drops by storing it as a byte. The display refuses such a format and kept showing the
+	// buffer before, so the result came from the wrong one.
+	const u32 pixelFormat = disp->pixelFormat & 0xFF;
+	sceDisplaySetFrameBuf(disp->topaddr, disp->linesize, pixelFormat, 1);
+	sceDisplaySetFrameBuf(disp->topaddr, disp->linesize, pixelFormat, 0);
 	if (traceFrom_ && curCmd_ >= traceFrom_) {
 		printf("TRACE: display set\n");
 		fflush(stdout);
@@ -1018,7 +1022,7 @@ void Replay::Display(u32 ptr, u32 sz) {
 	haveDisplay_ = disp->topaddr != nullptr;
 	displayAddr_ = disp->topaddr;
 	displayStride_ = disp->linesize;
-	displayFormat_ = disp->pixelFormat;
+	displayFormat_ = pixelFormat;
 }
 
 bool Replay::SaveDepth(const char *filename) {

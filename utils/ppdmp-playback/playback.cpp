@@ -91,6 +91,9 @@ extern "C" int main(int argc, char *argv[]) {
 			if (!strncmp(argv[i], "--display=", strlen("--display="))) {
 				// addr,stride,format: show (and screenshot) this buffer instead of the dump's display.
 				sscanf(argv[i] + strlen("--display="), "%x,%d,%d", &displayAddr, &displayStride, &displayFormat);
+				// A bare VRAM offset (088000) means VRAM; the display refuses anything else silently.
+				if (displayAddr != 0 && displayAddr < 0x00200000)
+					displayAddr |= 0x04000000;
 				continue;
 			}
 			if (!strncmp(argv[i], "--dump-regs=", strlen("--dump-regs="))) {
