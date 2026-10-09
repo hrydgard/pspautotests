@@ -108,6 +108,15 @@ protected:
 	// Cuts the framebuffer snapshots the replay won't copy (render targets, unchanged VRAM) down to their headers.
 	bool TrimFramebufPayloads(SceOff dataStart, u32 bufsz);
 
+	struct FramebufInfo {
+		size_t cmd;
+		u32 addr;
+		u32 size;
+		u32 flags;
+	};
+	// Sets copyTarget_ for the render target snapshots that hold data a later snapshot leaves out as unchanged.
+	void MarkNeededTargets(const std::vector<FramebufInfo> &framebufs);
+
 	void SyncStall();
 	void ResetZeroNormalSign();
 	bool SubmitCmds(void *p, u32 sz);
@@ -193,6 +202,8 @@ protected:
 		void Add(const DrawnRect &rect);
 	};
 	std::map<u32, DrawnTarget> drawnTargets_;
+	// By command: the render target snapshots to copy (around what was drawn), see MarkNeededTargets.
+	std::vector<bool> copyTarget_;
 	u32 region2_ = 0;
 	u32 scissor2_ = 0;
 	u32 vertType_ = 0;

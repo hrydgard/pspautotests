@@ -225,6 +225,17 @@ bool Replay::LoadPayloads(u32 bufsz, uint32_t version, SceOff dataStart, bool st
 		memmove(buf_.p + spot, buf_.p + base + ptr, sz);
 	});
 	buf_.n = total;
+
+	std::vector<FramebufInfo> framebufs;
+	for (size_t i = 0; i < cmds_.size(); ++i) {
+		const u8 type = cmds_[i].type;
+		const u32 sz = cmds_[i].sz;
+		if (type >= CommandType::FRAMEBUF0 && type <= CommandType::FRAMEBUF7 && sz >= 16) {
+			const u32 *header = (const u32 *)(buf_.p + cmds_[i].ptr);
+			framebufs.push_back({ i, header[0], sz - 16, header[2] });
+		}
+	}
+	MarkNeededTargets(framebufs);
 	return true;
 }
 
@@ -303,14 +314,44 @@ bool Replay::TrimFramebufPayloads(SceOff dataStart, u32 bufsz) {
 	if (!StreamPayloads(dataStart, ranges))
 		return false;
 
+	std::vector<FramebufInfo> infos;
+	for (size_t i = 0; i < framebufs.size(); ++i)
+		infos.push_back({ framebufs[i], headers[i].addr, (u32)(cmds_[framebufs[i]].sz - sizeof(FramebufHeader)), headers[i].flags });
+	MarkNeededTargets(infos);
+
 	// As in Framebuf().
 	for (size_t i = 0; i < framebufs.size(); ++i) {
 		const bool isTarget = (headers[i].flags & 1) != 0;
 		const bool unchangedVRAM = version_ >= 6 && (headers[i].flags & 2) != 0;
-		if (isTarget || unchangedVRAM)
+		if (unchangedVRAM || (isTarget && !copyTarget_[framebufs[i]]))
 			cmds_[framebufs[i]].sz = sizeof(FramebufHeader);
 	}
 	return true;
+}
+
+void Replay::MarkNeededTargets(const std::vector<FramebufInfo> &framebufs) {
+	copyTarget_.assign(cmds_.size(), false);
+	// For each 256-byte block of VRAM, the snapshot that last brought data there (+1, 0 for none) and whether it
+	// was a render target's.
+	const u32 BLOCK_SHIFT = 8;
+	std::vector<u32> lastSource((0x00200000 >> BLOCK_SHIFT), 0);
+	std::vector<bool> lastIsTarget(lastSource.size(), false);
+	for (size_t i = 0; i < framebufs.size(); ++i) {
+		const FramebufInfo &f = framebufs[i];
+		const u32 start = f.addr & 0x001FFFFF;
+		const u32 end = std::min(start + f.size, (u32)0x00200000);
+		const bool isTarget = (f.flags & 1) != 0;
+		const bool unchangedVRAM = version_ >= 6 && (f.flags & 2) != 0;
+		for (u32 b = start >> BLOCK_SHIFT; b < ((end + 255) >> BLOCK_SHIFT); ++b) {
+			if (unchangedVRAM) {
+				if (lastSource[b] != 0 && lastIsTarget[b])
+					copyTarget_[framebufs[lastSource[b] - 1].cmd] = true;
+			} else {
+				lastSource[b] = (u32)i + 1;
+				lastIsTarget[b] = isTarget;
+			}
+		}
+	}
 }
 
 // Feeds snappy a compressed block from the file a chunk at a time.
@@ -932,7 +973,11 @@ void Replay::Framebuf(int level, u32 ptr, u32 sz) {
 	const uint8_t *psp = buf_.data() + ptr + headerSize;
 	const bool isTarget = (framebuf->flags & 1) != 0;
 	const bool unchangedVRAM = version_ >= 6 && (framebuf->flags & 2) != 0;
-	if (!isTarget && !unchangedVRAM) {
+	// A render target's snapshot can run past what the replay draws, into data nothing else brings in: MX vs ATV
+	// Reflex textures through its depth buffer's mirror as 512x512, which takes in its HUD's textures, and the
+	// recorder leaves those out later as unchanged. As PPSSPP's playback, copy such a one around what was drawn.
+	const bool copyTarget = isTarget && !unchangedVRAM && (size_t)curCmd_ < copyTarget_.size() && copyTarget_[curCmd_];
+	if ((!isTarget || copyTarget) && !unchangedVRAM && pspSize != 0) {
 		CopyAroundDrawn(framebuf->addr, psp, pspSize);
 	}
 
@@ -1124,6 +1169,8 @@ void Replay::CopyAroundDrawn(void *dest, const u8 *src, u32 size) {
 		size = 0x00200000 - ((uintptr_t)dest & 0x001FFFFF);
 	std::vector<std::pair<int64_t, int64_t>> skip;
 	const int64_t start = (uintptr_t)dest & 0x001FFFFF, end = start + size;
+	// Through the uncached mirror, and for VRAM its linear view.
+	const uintptr_t linear = (IsVRAMAddress(dest) ? (((uintptr_t)dest & 0x001FFFFF) | 0x04000000) : (uintptr_t)dest) | 0x40000000;
 	for (auto it = drawnTargets_.begin(); it != drawnTargets_.end(); ++it) {
 		const DrawnTarget &t = it->second;
 		if (t.strideBytes == 0)
@@ -1155,7 +1202,9 @@ void Replay::CopyAroundDrawn(void *dest, const u8 *src, u32 size) {
 				drained = true;
 			}
 			// Through the uncached mirror: the pieces can be any multiple of 2 bytes.
-			u8 *d = (u8 *)(((uintptr_t)dest | 0x40000000) + (pos - start));
+			// PPSSPP recorded the bytes through a linear view of VRAM even at a mirror address, but the PSP's
+			// 0x04200000 and 0x04600000 mirrors are swizzled (MX vs ATV Reflex textures through 0x042cc000).
+			u8 *d = (u8 *)(linear + (pos - start));
 			memcpy(d, src + (pos - start), (u32)(until - pos));
 		}
 	};
