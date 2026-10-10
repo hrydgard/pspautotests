@@ -27,7 +27,7 @@
 [r]     sceIoRead: 0000c000, returning 24
 [x]   sceMpegRingbufferPut: 00000018
 [x]   sceMpegRingbufferAvailableSize: 488
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -43,7 +43,7 @@
 [r]     sceIoRead: 0000c000, returning 24
 [x]   sceMpegRingbufferPut: 00000018
 [x]   sceMpegRingbufferAvailableSize: 466
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -59,7 +59,7 @@
 [r]     sceIoRead: 0000c000, returning 24
 [x]   sceMpegRingbufferPut: 00000018
 [x]   sceMpegRingbufferAvailableSize: 442
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -75,7 +75,7 @@
 [r]     sceIoRead: 0000c000, returning 24
 [x]   sceMpegRingbufferPut: 00000018
 [x]   sceMpegRingbufferAvailableSize: 419
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -91,7 +91,7 @@
 [r]     sceIoRead: 0000c000, returning 24
 [x]   sceMpegRingbufferPut: 00000018
 [x]   sceMpegRingbufferAvailableSize: 396
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -109,7 +109,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000009
 [x]   sceMpegRingbufferAvailableSize: 387
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -125,7 +125,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 388
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -141,7 +141,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 389
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -157,7 +157,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 389
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -173,7 +173,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 390
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -189,7 +189,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 391
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -205,7 +205,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 391
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -221,7 +221,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 392
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -237,7 +237,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 393
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -253,7 +253,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 393
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -269,7 +269,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 394
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -285,7 +285,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 395
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -301,7 +301,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 395
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -317,7 +317,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 396
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -333,7 +333,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 396
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -349,7 +349,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 397
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -365,7 +365,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 398
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -381,7 +381,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 398
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -397,7 +397,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 399
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -413,7 +413,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 400
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -429,7 +429,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 401
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -445,7 +445,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 401
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -461,7 +461,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 402
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -477,7 +477,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 402
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -493,7 +493,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 403
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -509,11 +509,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 404
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000001)
+[r]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=1133
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -525,7 +525,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 404
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -541,7 +541,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 405
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -557,7 +557,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 406
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -573,7 +573,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 406
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -589,7 +589,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 407
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -605,7 +605,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 408
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -621,7 +621,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 408
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -637,7 +637,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 409
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -653,7 +653,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 410
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -669,7 +669,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 410
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -685,7 +685,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 411
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -701,7 +701,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 412
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -717,7 +717,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 412
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -733,7 +733,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 413
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -749,7 +749,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 413
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -765,7 +765,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 414
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -781,7 +781,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 415
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -797,7 +797,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 415
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -813,7 +813,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 416
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -829,7 +829,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 416
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -845,7 +845,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 417
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -861,7 +861,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 418
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -877,7 +877,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 419
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -893,7 +893,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 419
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -909,7 +909,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 420
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -925,7 +925,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 421
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -941,7 +941,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 421
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -957,7 +957,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 422
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -973,7 +973,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 424
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -989,7 +989,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 425
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1005,11 +1005,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 427
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000001)
+[r]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=1090
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -1021,7 +1021,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 427
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1037,7 +1037,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 428
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1053,11 +1053,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 428
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000001)
+[r]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=861
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -1069,11 +1069,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 429
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000001)
+[r]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=1116
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -1085,7 +1085,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 429
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1101,11 +1101,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 430
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000001)
+[r]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=1094
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -1117,7 +1117,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 430
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1133,11 +1133,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 431
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000001)
+[r]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=972
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -1149,7 +1149,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 431
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1165,7 +1165,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 432
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1181,7 +1181,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 432
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1197,7 +1197,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 433
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1213,7 +1213,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 433
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1229,7 +1229,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 434
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1245,7 +1245,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 435
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1261,7 +1261,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 436
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1277,7 +1277,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 437
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1293,7 +1293,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 438
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1309,7 +1309,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 438
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1325,7 +1325,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 439
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1341,7 +1341,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 440
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1357,7 +1357,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 441
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1373,7 +1373,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 441
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1389,7 +1389,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 442
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1405,7 +1405,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 443
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1421,7 +1421,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 444
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1437,7 +1437,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 445
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1453,7 +1453,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 445
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1469,7 +1469,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 446
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1485,7 +1485,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 447
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1501,7 +1501,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 448
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1517,7 +1517,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 448
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1533,7 +1533,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 449
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1549,7 +1549,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 450
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1565,7 +1565,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 450
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1581,11 +1581,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 451
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[r]   sceMpegGetAvcAu: 00000000 (00000001)
+[x]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=1012
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -1597,7 +1597,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 451
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1613,7 +1613,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 452
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1629,7 +1629,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 452
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1645,7 +1645,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 453
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1661,7 +1661,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 454
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1677,7 +1677,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 454
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1693,7 +1693,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 455
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1709,11 +1709,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 456
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000001)
+[r]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=1157
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -1725,7 +1725,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 456
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1741,7 +1741,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 457
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1757,7 +1757,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 458
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1773,7 +1773,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 459
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1789,7 +1789,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 459
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1805,7 +1805,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 461
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1821,7 +1821,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 462
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1837,7 +1837,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 463
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1853,7 +1853,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 464
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1869,7 +1869,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 465
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1885,7 +1885,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 465
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1901,7 +1901,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 466
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1917,7 +1917,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 467
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1933,7 +1933,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 468
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1949,7 +1949,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 468
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1965,7 +1965,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 469
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1981,7 +1981,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 470
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -1997,7 +1997,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 471
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2013,7 +2013,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 471
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2029,7 +2029,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 472
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2045,7 +2045,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 472
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2061,11 +2061,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 473
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000001)
+[r]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=959
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -2077,7 +2077,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 473
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2093,7 +2093,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 474
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2109,7 +2109,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 474
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2125,11 +2125,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 475
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000001)
+[r]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=1046
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -2141,7 +2141,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 475
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2157,7 +2157,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 476
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2173,7 +2173,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 476
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2189,11 +2189,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 477
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000001)
+[r]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=1028
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -2205,7 +2205,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 477
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2221,11 +2221,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 478
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000001)
+[r]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=1045
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -2237,11 +2237,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 478
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000001)
+[r]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=880
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -2253,7 +2253,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 479
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2269,7 +2269,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 479
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2285,7 +2285,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 480
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2301,7 +2301,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 480
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2317,11 +2317,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 480
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000001)
+[r]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=955
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -2333,7 +2333,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 481
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2349,11 +2349,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 481
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000001)
+[r]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=813
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -2365,7 +2365,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 482
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2381,7 +2381,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 482
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2397,11 +2397,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 483
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000001)
+[r]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=1054
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -2413,7 +2413,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 483
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2429,7 +2429,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 484
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2445,7 +2445,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 485
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2461,7 +2461,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 485
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2477,7 +2477,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 486
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2493,7 +2493,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 487
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2509,7 +2509,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 488
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2525,7 +2525,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 489
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2541,7 +2541,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 490
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2557,7 +2557,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 491
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2573,7 +2573,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 491
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2589,7 +2589,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 492
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2605,7 +2605,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 492
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2621,11 +2621,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 493
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000001)
+[r]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=966
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -2637,7 +2637,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 493
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2653,7 +2653,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 494
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2669,7 +2669,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 494
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2685,7 +2685,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 495
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2701,7 +2701,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 496
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2717,7 +2717,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 496
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2733,11 +2733,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 497
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000000)
+[r]   sceMpegGetAvcAu: 00000000 (00000000)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=1099
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -2749,7 +2749,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 498
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2765,7 +2765,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 499
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2781,7 +2781,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 500
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2797,7 +2797,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 500
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2813,7 +2813,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 501
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2829,7 +2829,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 502
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2845,7 +2845,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 502
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2861,7 +2861,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 503
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
@@ -2877,11 +2877,11 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 504
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
-[x]   sceMpegGetAvcAu: 00000000 (00000001)
+[r]   sceMpegGetAvcAu: 00000000 (00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=994
 [r]   sceMpegAvcDecode: 00000000 (00000200, 00000001)
 [x]     Au: presented=-1/-1, decoded=-1/-1, es=AVC, size=0
@@ -2893,7 +2893,7 @@
 [r]     sceIoRead: 00000000, returning 0
 [x]   sceMpegRingbufferPut: 00000000
 [x]   sceMpegRingbufferAvailableSize: 504
-[x]   sceMpegGetAtracAu: 80618001 (at 00000000 from 08952980)
+[x]   sceMpegGetAtracAu: 80618001 (at 00040800)
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0
 [r]   sceMpegAtracDecode: 807f00fd
 [x]     Au (interesting): presented=0/0, decoded=0/0, es=ATRAC, size=0

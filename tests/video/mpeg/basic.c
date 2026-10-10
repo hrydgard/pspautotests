@@ -26,7 +26,7 @@ void testDecodeVideo() {
 		checkpoint("  sceMpegRingbufferAvailableSize: %d", freePackets);
 
 		result = sceMpegGetAtracAu(&g_mpeg, g_atrac_stream, &g_atrac_au, &abuffer);
-		checkpoint("  sceMpegGetAtracAu: %08x (at %08x from %08x)", result, abuffer, g_atracData);
+		checkpoint("  sceMpegGetAtracAu: %08x (at %08x)", result, abuffer);
 		schedfAu(&g_atrac_au);
 
 		result = sceMpegAtracDecode(&g_mpeg, &g_atrac_au, abuffer, atracParamNotTestedYet);

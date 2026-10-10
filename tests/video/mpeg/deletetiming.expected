@@ -1,0 +1,78 @@
+[x] createTestMpeg:
+[x]   sceMpegRingbufferQueryMemSize: 0010d000
+[x]   sceMpegQueryMemSize: 00010000
+[x]   sceMpegRingbufferConstruct: 00000000
+[r]   sceMpegCreate: 00000000
+[x]   MPEG: LIBMPEG
+
+[x] Fresh:
+[r]   sceMpegDelete: 00000000, 20-60 ms
+[x]   sceMpegRingbufferDestruct: 00000000, under 1 ms
+
+[x] createTestMpeg:
+[x]   sceMpegRingbufferQueryMemSize: 0010d000
+[x]   sceMpegQueryMemSize: 00010000
+[x]   sceMpegRingbufferConstruct: 00000000
+[r]   sceMpegCreate: 00000000
+[x]   MPEG: LIBMPEG
+
+[x] registMpegStreams:
+[x]   sceMpegRegistStream: 000012c0
+[x]   sceMpegRegistStream: 00001700
+[x]   sceMpegMallocAvcEsBuf: 00000001
+[x]   sceMpegInitAu AVC: 00000000
+[x]   sceMpegQueryAtracEsSize: 00000000 (00000840, 00002000)
+[x]   sceMpegInitAu ATRAC: 00000000
+
+[x] Streams registered:
+[x]   sceMpegFreeAvcEsBuf: 00000000, under 1 ms
+[r]   sceMpegDelete: 00000000, 20-60 ms
+[x]   sceMpegRingbufferDestruct: 00000000, under 1 ms
+
+[x] createTestMpeg:
+[x]   sceMpegRingbufferQueryMemSize: 0010d000
+[x]   sceMpegQueryMemSize: 00010000
+[x]   sceMpegRingbufferConstruct: 00000000
+[r]   sceMpegCreate: 00000000
+[x]   MPEG: LIBMPEG
+
+[x] registMpegStreams:
+[x]   sceMpegRegistStream: 000012c0
+[x]   sceMpegRegistStream: 00001700
+[x]   sceMpegMallocAvcEsBuf: 00000001
+[x]   sceMpegInitAu AVC: 00000000
+[x]   sceMpegQueryAtracEsSize: 00000000 (00000840, 00002000)
+[x]   sceMpegInitAu ATRAC: 00000000
+
+[x] loadMpegFile:
+[r]   sceIoOpen: OK
+[r]   sceIoRead: 00000800
+[x]   sceMpegQueryStreamOffset: 00000000 (00000800)
+[x]   sceMpegQueryStreamSize: 00000000 (00040800)
+[r]   - mpeg_callback called: 00000000, 24, 00001234
+[r]     sceIoRead: 0000c000, returning 24
+[r]   - mpeg_callback called: 0000c000, 24, 00001234
+[r]     sceIoRead: 0000c000, returning 24
+[r]   - mpeg_callback called: 00018000, 24, 00001234
+[r]     sceIoRead: 0000c000, returning 24
+[r]   - mpeg_callback called: 00024000, 24, 00001234
+[r]     sceIoRead: 0000c000, returning 24
+[r]   - mpeg_callback called: 00030000, 24, 00001234
+[r]     sceIoRead: 0000c000, returning 24
+[r]   - mpeg_callback called: 0003c000, 24, 00001234
+[r]     sceIoRead: 00004800, returning 9
+[x]   - mpeg_callback called: 00040800, 15, 00001234
+[r]     sceIoRead: 00000000, returning 0
+[r]   - mpeg_callback called: 00040800, 24, 00001234
+[r]     sceIoRead: 00000000, returning 0
+[r]   - mpeg_callback called: 00040800, 24, 00001234
+[r]     sceIoRead: 00000000, returning 0
+[r]   - mpeg_callback called: 00040800, 24, 00001234
+[r]     sceIoRead: 00000000, returning 0
+[r]   - mpeg_callback called: 00040800, 24, 00001234
+[r]     sceIoRead: 00000000, returning 0
+
+[x] After decoding:
+[x]   sceMpegFreeAvcEsBuf: 00000000, under 1 ms
+[r]   sceMpegDelete: 00000000, 20-60 ms
+[x]   sceMpegRingbufferDestruct: 00000000, under 1 ms

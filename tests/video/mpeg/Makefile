@@ -1,4 +1,4 @@
-TARGETS = basic playertiming
+TARGETS = basic playertiming deletetiming
 EXTRA_OBJS = mpeg-imports.o shared.o sas-imports.o
 EXTRA_LIBS = -lpspaudio -lpsppower
 
