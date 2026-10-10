@@ -1,8 +1,10 @@
-After stop (00000000):
+[x] Stop:
+[r]   sceKernelStopModule: 00000000, 1-5 ms
     text: 67 words, unchanged 67, break 0, ffffffff 0, zero 0, other 0
     data: 64 words, unchanged 64, break 0, ffffffff 0, zero 0, other 0
     bss: 64 words, unchanged 64, break 0, ffffffff 0, zero 0, other 0
-After unload (00000000):
+[x] Unload:
+[r]   sceKernelUnloadModule: 00000000, 0.1-1 ms
     text: 67 words, unchanged 0, break 67, ffffffff 0, zero 0, other 0
     data: 64 words, unchanged 0, break 0, ffffffff 64, zero 0, other 0
     bss: 64 words, unchanged 0, break 0, ffffffff 64, zero 0, other 0

@@ -1,8 +1,10 @@
 // What becomes of a module's memory when it's unloaded: its text (which includes rodata), data and
-// bss. Every word is compared with what was there while it was loaded.
+// bss. Every word is compared with what was there while it was loaded. Also how long stopping and
+// unloading take, and whether they let other threads run.
 
 #include <common.h>
 #include <pspmodulemgr.h>
+#include <pspthreadman.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/param.h>
@@ -20,6 +22,19 @@ typedef struct {
 static void snapshot(Region *r) {
 	r->before = malloc(r->size);
 	memcpy(r->before, (void *)r->addr, r->size);
+}
+
+// Times are put in coarse ranges, so they can be compared with an emulator's.
+static const char *timeRange(SceInt64 us) {
+	if (us < 100)
+		return "under 0.1 ms";
+	if (us < 1000)
+		return "0.1-1 ms";
+	if (us < 5000)
+		return "1-5 ms";
+	if (us < 20000)
+		return "5-20 ms";
+	return "20 ms or more";
 }
 
 static void classify(const Region *r) {
@@ -85,14 +100,20 @@ int main(int argc, char *argv[]) {
 		snapshot(&regions[i]);
 	}
 
+	checkpointNext("Stop:");
+	SceInt64 start = sceKernelGetSystemTimeWide();
 	result = sceKernelStopModule(mod, 0, NULL, &status, NULL);
-	printf("After stop (%08x):\n", result);
+	checkpoint("  sceKernelStopModule: %08x, %s", result, timeRange(sceKernelGetSystemTimeWide() - start));
+	flushschedf();
 	for (i = 0; i < 3; i++) {
 		classify(&regions[i]);
 	}
 
+	checkpointNext("Unload:");
+	start = sceKernelGetSystemTimeWide();
 	result = sceKernelUnloadModule(mod);
-	printf("After unload (%08x):\n", result < 0 ? result : 0);
+	checkpoint("  sceKernelUnloadModule: %08x, %s", result < 0 ? result : 0, timeRange(sceKernelGetSystemTimeWide() - start));
+	flushschedf();
 	for (i = 0; i < 3; i++) {
 		classify(&regions[i]);
 	}
