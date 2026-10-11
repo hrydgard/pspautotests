@@ -1,0 +1,9 @@
+Reference: text at the lowest free block: yes
+No options:
+  marker written during the load
+  text at the lowest free block: yes, same place as the reference: yes
+  first 64 words of text: module 64, marker 0, other 0
+User partition, low:
+  marker written during the load
+  text at the lowest free block: yes, same place as the reference: yes
+  first 64 words of text: module 64, marker 0, other 0
