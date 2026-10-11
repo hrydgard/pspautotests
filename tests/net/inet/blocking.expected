@@ -1,0 +1,22 @@
+load common: 00000000
+load inet: 00000000
+sceNetInit: 00000000
+sceNetInetInit: 00000000
+socket: valid
+bind: 0
+listen: 0
+accept returned before a connect: 0
+connect: 0
+accept returned after the connect: 1, socket valid
+recv returned before a send: 0
+send: 5
+recv returned after the send: 1, 5 bytes, 'hello'
+recv, MSG_DONTWAIT: -1, errno 11, under 10 ms
+setsockopt SO_RCVTIMEO: 0
+recv, SO_RCVTIMEO 50 ms: -1, errno 11, 40-100 ms
+setsockopt SO_NBIO: 0
+recv, SO_NBIO: -1, errno 11, under 10 ms
+select, no sockets, 20 ms: 0, errno 0, server readable 0, 10-40 ms
+select, nothing to read, 20 ms: 0, errno 0, server readable 0, 10-40 ms
+select, tv_usec 1000000: -1, errno 22, server readable 1, under 10 ms
+select, data sent, 1 s: 1, errno 0, server readable 1
