@@ -115,6 +115,13 @@ static void testSelect(const char *title, int withServer, int sec, int usec, int
 	printf("\n");
 }
 
+static void testPoll(const char *title, int timeout) {
+	struct SceNetInetPollfd fd = { server, SCE_NET_INET_POLLIN, 0 };
+	SceInt64 start = sceKernelGetSystemTimeWide();
+	int result = sceNetInetPoll(&fd, 1, timeout);
+	printf("%s: %d, revents %04x, %s\n", title, result, fd.revents, timeRange(sceKernelGetSystemTimeWide() - start));
+}
+
 int main(int argc, char *argv[]) {
 	// Flushed line by line, so a hang still shows how far it got.
 	setvbuf(stdout, NULL, _IONBF, 0);
@@ -166,6 +173,9 @@ int main(int argc, char *argv[]) {
 	printf("setsockopt SO_NBIO: %d\n", sceNetInetSetsockopt(server, INET_SOL_SOCKET, INET_SO_NBIO, &on, sizeof(on)));
 	testRecvNoData("recv, SO_NBIO", 0);
 
+	// The timeout is in milliseconds, unlike select().
+	testPoll("poll, nothing to read, timeout 20", 20);
+	testPoll("poll, nothing to read, timeout 200", 200);
 	testSelect("select, no sockets, 20 ms", 0, 0, 20000, 1);
 	testSelect("select, nothing to read, 20 ms", 1, 0, 20000, 1);
 	testSelect("select, tv_usec 1000000", 1, 0, 1000000, 1);

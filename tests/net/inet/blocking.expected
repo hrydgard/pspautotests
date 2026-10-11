@@ -16,6 +16,8 @@ setsockopt SO_RCVTIMEO: 0
 recv, SO_RCVTIMEO 50 ms: -1, errno 11, 40-100 ms
 setsockopt SO_NBIO: 0
 recv, SO_NBIO: -1, errno 11, under 10 ms
+poll, nothing to read, timeout 20: 0, revents 0000, 10-40 ms
+poll, nothing to read, timeout 200: 0, revents 0000, 100 ms or more
 select, no sockets, 20 ms: 0, errno 0, server readable 0, 10-40 ms
 select, nothing to read, 20 ms: 0, errno 0, server readable 0, 10-40 ms
 select, tv_usec 1000000: -1, errno 22, server readable 1, under 10 ms
