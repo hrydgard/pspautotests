@@ -1,0 +1,18 @@
+funct 20, rs  0: 02=1283f6a4 03=f6a41283 10=fffffff6 14=6f2548c1 18=ffffa4f6
+funct 20, rs 31: 02=1283f6a4 03=f6a41283 10=fffffff6 14=6f2548c1 18=ffffa4f6
+funct 20, rs  0, op 00-07: 1283f6a4 f6a41283 1283f6a4 f6a41283 1283f6a4 f6a41283 1283f6a4 f6a41283
+funct 20, rs  0, op 08-0f: 1283f6a4 f6a41283 1283f6a4 f6a41283 1283f6a4 f6a41283 1283f6a4 f6a41283
+funct 20, rs  0, op 10-17: fffffff6 fffffff6 fffffff6 fffffff6 6f2548c1 6f2548c1 6f2548c1 6f2548c1
+funct 20, rs  0, op 18-1f: ffffa4f6 ffffa4f6 ffffa4f6 ffffa4f6 6f2548c1 6f2548c1 6f2548c1 6f2548c1
+funct 20, rs 31, op 00-07: 1283f6a4 f6a41283 1283f6a4 f6a41283 1283f6a4 f6a41283 1283f6a4 f6a41283
+funct 20, rs 31, op 08-0f: 1283f6a4 f6a41283 1283f6a4 f6a41283 1283f6a4 f6a41283 1283f6a4 f6a41283
+funct 20, rs 31, op 10-17: fffffff6 fffffff6 fffffff6 fffffff6 6f2548c1 6f2548c1 6f2548c1 6f2548c1
+funct 20, rs 31, op 18-1f: ffffa4f6 ffffa4f6 ffffa4f6 ffffa4f6 6f2548c1 6f2548c1 6f2548c1 6f2548c1
+funct 18, rs  0, op 00-07: deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+funct 18, rs  0, op 08-0f: deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+funct 18, rs  0, op 10-17: deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+funct 18, rs  0, op 18-1f: deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+funct 18, rs 31, op 00-07: deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+funct 18, rs 31, op 08-0f: deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+funct 18, rs 31, op 10-17: deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+funct 18, rs 31, op 18-1f: deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
