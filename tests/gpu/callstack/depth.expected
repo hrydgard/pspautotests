@@ -1,0 +1,45 @@
+[x] Depth 1: enqueue=OK sync=00000000
+[x]   Level 0: before=000100 after=000101
+[x]   Level 1: before=000110 after=000111
+[x]   Level 2: before=000000 after=000000
+[x]   Level 3: before=000000 after=000000
+[x]   Level 4: before=000000 after=000000
+[x] Depth 2: enqueue=OK sync=00000000
+[x]   Level 0: before=000100 after=000101
+[x]   Level 1: before=000110 after=000111
+[x]   Level 2: before=000120 after=000121
+[x]   Level 3: before=000000 after=000000
+[x]   Level 4: before=000000 after=000000
+[x] Depth 3: enqueue=OK sync=00000000
+[x]   Level 0: before=000100 after=000101
+[x]   Level 1: before=000110 after=000111
+[x]   Level 2: before=000120 after=000121
+[x]   Level 3: before=000000 after=000000
+[x]   Level 4: before=000000 after=000000
+[x] Depth 4: enqueue=OK sync=00000000
+[x]   Level 0: before=000100 after=000101
+[x]   Level 1: before=000110 after=000111
+[x]   Level 2: before=000120 after=000121
+[x]   Level 3: before=000000 after=000000
+[x]   Level 4: before=000000 after=000000
+[x] Depth 2 again: enqueue=OK sync=00000000
+[x]   Level 0: before=000100 after=000101
+[x]   Level 1: before=000110 after=000111
+[x]   Level 2: before=000120 after=000121
+[x]   Level 3: before=000000 after=000000
+[x]   Level 4: before=000000 after=000000
+[x] Signal call at depth 2, then CALL: enqueue=OK sync=00000000
+[x]   Marker 0: 000100
+[x]   Marker 1: 000110
+[x]   Marker 2: 000120
+[x]   Marker 3: 000130
+[x]   Marker 4: 000131
+[x]   Marker 5: 000140
+[x]   Marker 6: 000000
+[x]   Marker 7: 000121
+[x] Signal call at depth 1, then two CALLs: enqueue=OK sync=00000000
+[x]   Marker 0: 000100
+[x]   Marker 1: 000110
+[x]   Marker 2: 000120
+[x]   Marker 3: 000130
+[x]   Marker 4: 000140
