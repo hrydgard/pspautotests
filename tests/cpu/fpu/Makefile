@@ -1,4 +1,4 @@
-TARGETS = fpu fcr rounding roundmode fpu_branch fpu_branch_hazard fpu_nan
+TARGETS = fpu fcr rounding roundmode fpu_branch fpu_branch_hazard fpu_nan denormal
 LIBS = -lpsprtc -lpspgum -lpspmath -lcommon -lc -lm
 
 COMMON_DIR = ../../../common

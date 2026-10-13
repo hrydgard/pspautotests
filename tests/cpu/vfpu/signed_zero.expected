@@ -1,0 +1,182 @@
+== all -0      ==
+vdot.p : 00000000 deadbeef deadbeef deadbeef
+vdot.t : 00000000 deadbeef deadbeef deadbeef
+vdot.q : 00000000 deadbeef deadbeef deadbeef
+vhdp.p : 00000000 deadbeef deadbeef deadbeef
+vhdp.t : 00000000 deadbeef deadbeef deadbeef
+vhdp.q : 00000000 deadbeef deadbeef deadbeef
+vfad.p : 00000000 deadbeef deadbeef deadbeef
+vfad.t : 00000000 deadbeef deadbeef deadbeef
+vfad.q : 00000000 deadbeef deadbeef deadbeef
+vavg.p : 00000000 deadbeef deadbeef deadbeef
+vavg.t : 00000000 deadbeef deadbeef deadbeef
+vavg.q : 00000000 deadbeef deadbeef deadbeef
+vdet.p : 00000000 deadbeef deadbeef deadbeef
+vcrs.t : 80000000 80000000 80000000 deadbeef
+vcrsp.t: 00000000 00000000 00000000 deadbeef
+vqmul.q: 00000000 00000000 00000000 00000000
+vadd.q : 80000000 80000000 80000000 80000000
+vsub.q : 3f800000 3f800000 3f800000 3f800000
+== -1 * +0     ==
+vdot.p : 00000000 deadbeef deadbeef deadbeef
+vdot.t : 00000000 deadbeef deadbeef deadbeef
+vdot.q : 00000000 deadbeef deadbeef deadbeef
+vhdp.p : 00000000 deadbeef deadbeef deadbeef
+vhdp.t : 00000000 deadbeef deadbeef deadbeef
+vhdp.q : 00000000 deadbeef deadbeef deadbeef
+vfad.p : 00000000 deadbeef deadbeef deadbeef
+vfad.t : 00000000 deadbeef deadbeef deadbeef
+vfad.q : 00000000 deadbeef deadbeef deadbeef
+vavg.p : 00000000 deadbeef deadbeef deadbeef
+vavg.t : 00000000 deadbeef deadbeef deadbeef
+vavg.q : 00000000 deadbeef deadbeef deadbeef
+vdet.p : 00000000 deadbeef deadbeef deadbeef
+vcrs.t : 80000000 80000000 80000000 deadbeef
+vcrsp.t: 00000000 00000000 00000000 deadbeef
+vqmul.q: 00000000 00000000 00000000 00000000
+vadd.q : 00000000 00000000 00000000 00000000
+vsub.q : bf800000 bf800000 bf800000 bf800000
+== -0 * -0     ==
+vdot.p : 00000000 deadbeef deadbeef deadbeef
+vdot.t : 00000000 deadbeef deadbeef deadbeef
+vdot.q : 00000000 deadbeef deadbeef deadbeef
+vhdp.p : 00000000 deadbeef deadbeef deadbeef
+vhdp.t : 00000000 deadbeef deadbeef deadbeef
+vhdp.q : 00000000 deadbeef deadbeef deadbeef
+vfad.p : 00000000 deadbeef deadbeef deadbeef
+vfad.t : 00000000 deadbeef deadbeef deadbeef
+vfad.q : 00000000 deadbeef deadbeef deadbeef
+vavg.p : 00000000 deadbeef deadbeef deadbeef
+vavg.t : 00000000 deadbeef deadbeef deadbeef
+vavg.q : 00000000 deadbeef deadbeef deadbeef
+vdet.p : 00000000 deadbeef deadbeef deadbeef
+vcrs.t : 00000000 00000000 00000000 deadbeef
+vcrsp.t: 00000000 00000000 00000000 deadbeef
+vqmul.q: 00000000 00000000 00000000 00000000
+vadd.q : 80000000 80000000 80000000 80000000
+vsub.q : 00000000 00000000 00000000 00000000
+== +0 in x     ==
+vdot.p : 00000000 deadbeef deadbeef deadbeef
+vdot.t : 00000000 deadbeef deadbeef deadbeef
+vdot.q : 00000000 deadbeef deadbeef deadbeef
+vhdp.p : 00000000 deadbeef deadbeef deadbeef
+vhdp.t : 00000000 deadbeef deadbeef deadbeef
+vhdp.q : 00000000 deadbeef deadbeef deadbeef
+vfad.p : 00000000 deadbeef deadbeef deadbeef
+vfad.t : 00000000 deadbeef deadbeef deadbeef
+vfad.q : 00000000 deadbeef deadbeef deadbeef
+vavg.p : 00000000 deadbeef deadbeef deadbeef
+vavg.t : 00000000 deadbeef deadbeef deadbeef
+vavg.q : 00000000 deadbeef deadbeef deadbeef
+vdet.p : 00000000 deadbeef deadbeef deadbeef
+vcrs.t : 80000000 00000000 80000000 deadbeef
+vcrsp.t: 00000000 00000000 00000000 deadbeef
+vqmul.q: 00000000 00000000 00000000 00000000
+vadd.q : 00000000 80000000 80000000 80000000
+vsub.q : 3f800000 3f800000 3f800000 3f800000
+== +0 in y     ==
+vdot.p : 00000000 deadbeef deadbeef deadbeef
+vdot.t : 00000000 deadbeef deadbeef deadbeef
+vdot.q : 00000000 deadbeef deadbeef deadbeef
+vhdp.p : 00000000 deadbeef deadbeef deadbeef
+vhdp.t : 00000000 deadbeef deadbeef deadbeef
+vhdp.q : 00000000 deadbeef deadbeef deadbeef
+vfad.p : 00000000 deadbeef deadbeef deadbeef
+vfad.t : 00000000 deadbeef deadbeef deadbeef
+vfad.q : 00000000 deadbeef deadbeef deadbeef
+vavg.p : 00000000 deadbeef deadbeef deadbeef
+vavg.t : 00000000 deadbeef deadbeef deadbeef
+vavg.q : 00000000 deadbeef deadbeef deadbeef
+vdet.p : 00000000 deadbeef deadbeef deadbeef
+vcrs.t : 80000000 80000000 00000000 deadbeef
+vcrsp.t: 00000000 00000000 00000000 deadbeef
+vqmul.q: 00000000 00000000 00000000 00000000
+vadd.q : 80000000 00000000 80000000 80000000
+vsub.q : 3f800000 3f800000 3f800000 3f800000
+== +0 in z     ==
+vdot.p : 00000000 deadbeef deadbeef deadbeef
+vdot.t : 00000000 deadbeef deadbeef deadbeef
+vdot.q : 00000000 deadbeef deadbeef deadbeef
+vhdp.p : 00000000 deadbeef deadbeef deadbeef
+vhdp.t : 00000000 deadbeef deadbeef deadbeef
+vhdp.q : 00000000 deadbeef deadbeef deadbeef
+vfad.p : 00000000 deadbeef deadbeef deadbeef
+vfad.t : 00000000 deadbeef deadbeef deadbeef
+vfad.q : 00000000 deadbeef deadbeef deadbeef
+vavg.p : 00000000 deadbeef deadbeef deadbeef
+vavg.t : 00000000 deadbeef deadbeef deadbeef
+vavg.q : 00000000 deadbeef deadbeef deadbeef
+vdet.p : 00000000 deadbeef deadbeef deadbeef
+vcrs.t : 00000000 80000000 80000000 deadbeef
+vcrsp.t: 00000000 00000000 00000000 deadbeef
+vqmul.q: 00000000 00000000 00000000 00000000
+vadd.q : 80000000 80000000 00000000 80000000
+vsub.q : 3f800000 3f800000 3f800000 3f800000
+== +0 in w     ==
+vdot.p : 00000000 deadbeef deadbeef deadbeef
+vdot.t : 00000000 deadbeef deadbeef deadbeef
+vdot.q : 00000000 deadbeef deadbeef deadbeef
+vhdp.p : 00000000 deadbeef deadbeef deadbeef
+vhdp.t : 00000000 deadbeef deadbeef deadbeef
+vhdp.q : 00000000 deadbeef deadbeef deadbeef
+vfad.p : 00000000 deadbeef deadbeef deadbeef
+vfad.t : 00000000 deadbeef deadbeef deadbeef
+vfad.q : 00000000 deadbeef deadbeef deadbeef
+vavg.p : 00000000 deadbeef deadbeef deadbeef
+vavg.t : 00000000 deadbeef deadbeef deadbeef
+vavg.q : 00000000 deadbeef deadbeef deadbeef
+vdet.p : 00000000 deadbeef deadbeef deadbeef
+vcrs.t : 80000000 80000000 80000000 deadbeef
+vcrsp.t: 00000000 00000000 00000000 deadbeef
+vqmul.q: 00000000 00000000 00000000 00000000
+vadd.q : 80000000 80000000 80000000 00000000
+vsub.q : 3f800000 3f800000 3f800000 3f800000
+== 1 - 1       ==
+vdot.p : 00000000 deadbeef deadbeef deadbeef
+vdot.t : 3f800000 deadbeef deadbeef deadbeef
+vdot.q : 00000000 deadbeef deadbeef deadbeef
+vhdp.p : 00000000 deadbeef deadbeef deadbeef
+vhdp.t : 3f800000 deadbeef deadbeef deadbeef
+vhdp.q : 00000000 deadbeef deadbeef deadbeef
+vfad.p : 00000000 deadbeef deadbeef deadbeef
+vfad.t : 3f800000 deadbeef deadbeef deadbeef
+vfad.q : 00000000 deadbeef deadbeef deadbeef
+vavg.p : 00000000 deadbeef deadbeef deadbeef
+vavg.t : 3eaaaaab deadbeef deadbeef deadbeef
+vavg.q : 00000000 deadbeef deadbeef deadbeef
+vdet.p : c0000000 deadbeef deadbeef deadbeef
+vcrs.t : 3f800000 3f800000 bf800000 deadbeef
+vcrsp.t: 40000000 00000000 c0000000 deadbeef
+vqmul.q: 40000000 c0000000 c0000000 c0000000
+vadd.q : 40000000 c0000000 40000000 c0000000
+vsub.q : 00000000 40000000 00000000 40000000
+== ones * -0   ==
+vmmul.p  : 00000000 00000000 deadbeef deadbeef 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vmmul.t  : 00000000 00000000 00000000 deadbeef 00000000 00000000 00000000 deadbeef 00000000 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef
+vmmul.q  : 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+vtfm2.p  : 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vtfm3.t  : 00000000 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vtfm4.q  : 00000000 00000000 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vhtfm2.p : 3f800000 3f800000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vhtfm3.t : 3f800000 3f800000 3f800000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vhtfm4.q : 3f800000 3f800000 3f800000 3f800000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+== -0 * ones   ==
+vmmul.p  : 00000000 00000000 deadbeef deadbeef 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vmmul.t  : 00000000 00000000 00000000 deadbeef 00000000 00000000 00000000 deadbeef 00000000 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef
+vmmul.q  : 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+vtfm2.p  : 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vtfm3.t  : 00000000 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vtfm4.q  : 00000000 00000000 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vhtfm2.p : 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vhtfm3.t : 00000000 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vhtfm4.q : 00000000 00000000 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+== mixed       ==
+vmmul.p  : 00000000 00000000 deadbeef deadbeef 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vmmul.t  : 00000000 00000000 00000000 deadbeef 00000000 00000000 00000000 deadbeef 00000000 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef
+vmmul.q  : 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+vtfm2.p  : 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vtfm3.t  : 00000000 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vtfm4.q  : 00000000 00000000 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vhtfm2.p : 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vhtfm3.t : 00000000 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef
+vhtfm4.q : 00000000 00000000 00000000 00000000 deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef deadbeef

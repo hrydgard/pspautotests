@@ -73,6 +73,7 @@ void __attribute__((noinline)) test_jal() {
 
 void __attribute__((noinline)) test_jalr() {
 	int result = -1;
+	int base = 0;
 
 	asm volatile (
 		".set noreorder\n"
@@ -105,6 +106,7 @@ void __attribute__((noinline)) test_jalr() {
 
 		"move    $t2, $ra\n"
 		"la      $t1, target2_%=\n"
+		"la      %1, target1_%=\n"
 		"jalr    %0, $t1\n"
 		"nop\n"
 
@@ -118,10 +120,11 @@ void __attribute__((noinline)) test_jalr() {
 		"skip_%=:\n"
 		"move    $ra, $t2\n"
 
-		: "+r"(result)
+		: "+r"(result), "=r"(base)
 	);
 
-	printf("jalr: non-ra: %08x\n", result);
+	// Relative to the return address, since the load address isn't the same everywhere.
+	printf("jalr: non-ra: %08x\n", result - base);
 
 	result = -1;
 
