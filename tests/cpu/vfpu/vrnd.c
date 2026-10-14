@@ -21,6 +21,27 @@ static void __attribute__((noinline)) seed(unsigned int s) {
 	);
 }
 
+// vrnds with different values in the registers its vs and vd fields name. "vrnds.s S000" can't tell
+// them apart, since it encodes register 0 in both. The words are 0xD0200000 | vs << 8 | vd.
+#define SEED_RAW(name, word, regA, regB) \
+static void __attribute__((noinline)) name(unsigned int a, unsigned int b) { \
+	asm volatile ( \
+		".set noreorder\n" \
+		"mtv    %0, " regA "\n" \
+		"mtv    %1, " regB "\n" \
+		".word " word "\n" \
+		"nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\n" \
+		".set reorder\n" \
+		: : "r" (a), "r" (b) : "memory" \
+	); \
+}
+// vs = S100, vd = S000.
+SEED_RAW(seed_vs_s100_vd_s000, "0xD0200400", "S000", "S100")
+// vs = S000, vd = S100.
+SEED_RAW(seed_vs_s000_vd_s100, "0xD0200004", "S000", "S100")
+// vs = S620, vd = S000: the word Resistance: Retribution's particle code uses.
+SEED_RAW(seed_vs_s620_vd_s000, "0xD0201A00", "S000", "S620")
+
 static void __attribute__((noinline)) read_state(unsigned int *rcx) {
 	asm volatile (
 		".set noreorder\n"
@@ -135,6 +156,15 @@ int main(int argc, char *argv[]) {
 	rndf1_q(&v); printf("vrndf1.q: %08x %08x %08x %08x\n", v.x, v.y, v.z, v.w);
 	rndi_q_prefixed(&v); printf("vrndi.q s[-x,|y|,1,0] d[0:1,0:1,m,-1:1]: %08x %08x %08x %08x\n", v.x, v.y, v.z, v.w);
 	print_state("  state");
+
+	// Compare against the states printed for seeds 1 and 12345678 above.
+	printf("-- vs and vd fields, S000 = 00000001, other register = 12345678 --\n");
+	seed_vs_s100_vd_s000(1, 0x12345678);
+	print_state("vs=S100 vd=S000");
+	seed_vs_s000_vd_s100(1, 0x12345678);
+	print_state("vs=S000 vd=S100");
+	seed_vs_s620_vd_s000(1, 0x12345678);
+	print_state("vs=S620 vd=S000");
 
 	printf("-- state written directly --\n");
 	static const unsigned int st1[8] = { 0x00000001, 0x00000002, 0x00000004, 0x00000008, 0, 0, 0, 0 };
