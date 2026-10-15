@@ -1,0 +1,14 @@
+vfim.s 0000: 00000000
+vfim.s 8000: 80000000
+vfim.s 0001: 00000000
+vfim.s 0090: 00000000
+vfim.s 03ff: 00000000
+vfim.s 8090: 80000000
+vfim.s 0400: 38800000
+vfim.s 3c00: 3f800000
+vfim.s 7bff: 477fe000
+vfim.s 7c00: 7f800000
+vfim.s fc00: ff800000
+vfim.s 7c01: 7f800001
+vfim.s 7e00: 7f800200
+vfim.s fdff: ff8001ff
