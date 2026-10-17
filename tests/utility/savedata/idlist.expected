@@ -46,10 +46,10 @@
 [x] sceUtilitySavedataGetStatus: 00000001 (duplicates skipped)
 [x] sceUtilitySavedataGetStatus: 00000002 (duplicates skipped)
 [r] sceUtilitySavedataUpdate: 00000000 (duplicates skipped)
+[x] sceUtilitySavedataGetStatus: 00000003 (duplicates skipped)
+CHANGE: idList.resultCount: ffffffff => 00000001
 CHANGE: idList->entries.st_mode: 00000000 => 000011ff
 CHANGE: idList->entries.name:  => ABC
-CHANGE: idList.resultCount: ffffffff => 00000001
-[x] sceUtilitySavedataGetStatus: 00000003 (duplicates skipped)
 [x] sceUtilitySavedataShutdownStart: 00000000
 [x] sceUtilitySavedataGetStatus: 00000004 (duplicates skipped)
 [r] Delayed to allow for shutdown: 00000000

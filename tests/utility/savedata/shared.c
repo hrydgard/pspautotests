@@ -344,8 +344,6 @@ void checkpointResetForSavedata() {
 	sceKernelStartThread(reschedThread, 0, NULL);
 }
 
-int onlyPrintFinishedChanges = 0;
-
 void runStandardSavedataLoop(SceUtilitySavedataParam2 *param) {
 	setLastSaveParam(param);
 
@@ -365,10 +363,10 @@ void runStandardSavedataLoop(SceUtilitySavedataParam2 *param) {
 	int first = 1;
 	for (i = 0; i < 400000; ++i) {
 		int status = checkpointStatusChange();
+		// When the utility writes its results isn't important, only that they're there once it's
+		// finished, so the changes are only printed then: an emulator may write them across polls.
 		if (status == 3)
 			break;
-		if (!onlyPrintFinishedChanges)
-			printSaveParamChanges(param);
 
 		if (status == 2) {
 			int result = sceUtilitySavedataUpdate(1);
@@ -377,8 +375,6 @@ void runStandardSavedataLoop(SceUtilitySavedataParam2 *param) {
 				first = 0;
 			}
 		}
-		if (!onlyPrintFinishedChanges)
-			printSaveParamChanges(param);
 
 		sceKernelDelayThread(2000);
 		checkpointResetForSavedata();

@@ -13,7 +13,6 @@ static char savedata[] = {
 
 int main(int argc, char **argv) {
 	initDisplay();
-	onlyPrintFinishedChanges = 1;
 
 	SceUtilitySavedataParam2 param;
 	initStandardSavedataParams(&param);
