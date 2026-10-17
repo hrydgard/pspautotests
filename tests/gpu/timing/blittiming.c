@@ -4,7 +4,8 @@
 //
 // Motivation: two games' movie frame rates depend on how long this blit takes. Star Wars: Lethal
 // Alliance draws 16 strips of 32 pixels from an 8888 texture in RAM; Ys I & II Chronicles clears
-// and then draws one full-width sprite from a 565 texture in RAM with linear filtering.
+// and then draws one full-width sprite from a 565 texture in RAM with linear filtering. Tekken 6
+// draws one full-width sprite from an 8888 texture in RAM eight times, scissored to 64-pixel strips.
 #include <common.h>
 
 #include <pspkernel.h>
@@ -41,6 +42,7 @@ typedef struct {
 	int draw;  // 0 = clear only
 	int totalWidth;  // 0 = 480; 512 draws a last strip entirely outside the scissor
 	int fbFormat;  // 0 = same as the texture (565 for the 16-bit ones)
+	int scissorWidth;  // nonzero: draw the whole sprite once per scissor strip this wide
 } Config;
 
 static const Config configs[] = {
@@ -99,6 +101,15 @@ static const Config configs[] = {
 	{ "clear color+depth, 8888 fb", GU_PSM_8888, 0, 480, 0, 0, GU_COLOR_BUFFER_BIT | GU_DEPTH_BUFFER_BIT, 0 },
 	{ "clear color+depth+stencil, 8888 fb", GU_PSM_8888, 0, 480, 0, 0, GU_COLOR_BUFFER_BIT | GU_DEPTH_BUFFER_BIT | GU_STENCIL_BUFFER_BIT, 0 },
 	{ "clear depth only, 8888 fb", GU_PSM_8888, 0, 480, 0, 0, GU_DEPTH_BUFFER_BIT, 0 },
+	// One full-width sprite drawn once per scissor strip, next to the same area drawn unscissored
+	// and as separate sprites.
+	{ "8888 ram sprite480 nearest, again", GU_PSM_8888, 0, 480, 0, 0, 0, 1 },
+	{ "8888 ram strips64 nearest, again", GU_PSM_8888, 0, 64, 0, 0, 0, 1 },
+	{ "8888 ram sprite480 x8 scissor64 (Tekken 6)", GU_PSM_8888, 0, 480, 0, 0, 0, 1, 0, 0, 64 },
+	{ "8888 ram sprite480 x16 scissor32", GU_PSM_8888, 0, 480, 0, 0, 0, 1, 0, 0, 32 },
+	{ "8888 ram sprite480 x4 scissor128", GU_PSM_8888, 0, 480, 0, 0, 0, 1, 0, 0, 128 },
+	{ "8888 ram sprite480 x3 scissor160", GU_PSM_8888, 0, 480, 0, 0, 0, 1, 0, 0, 160 },
+	{ "565 ram sprite480 x8 scissor64", GU_PSM_5650, 0, 480, 0, 0, 0, 1, 0, 0, 64 },
 };
 
 #define REPEATS 8
@@ -187,7 +198,21 @@ static int runConfig(const Config *c, int fbFormat) {
 		}
 		const int total = c->totalWidth ? c->totalWidth : 480;
 		int x;
-		for (x = 0; x < total; x += c->stripWidth) {
+		for (x = 0; c->scissorWidth && x < total; x += c->scissorWidth) {
+			int x2 = x + c->scissorWidth > total ? total : x + c->scissorWidth;
+			// SCISSOR1 and SCISSOR2 (inclusive).
+			sceGuSendCommandi(212, (0 << 10) | x);
+			sceGuSendCommandi(213, ((272 - 1) << 10) | (x2 - 1));
+			Vertex *v = (Vertex *)sceGuGetMemory(2 * sizeof(Vertex));
+			v[0].u = 0; v[0].v = 0; v[0].x = 0; v[0].y = 0; v[0].z = 0;
+			v[1].u = total; v[1].v = 272; v[1].x = total; v[1].y = 272; v[1].z = 0;
+			sceGuDrawArray(GU_SPRITES, GU_TEXTURE_16BIT | GU_VERTEX_16BIT | GU_TRANSFORM_2D, 2, 0, v);
+		}
+		if (c->scissorWidth) {
+			sceGuSendCommandi(212, 0);
+			sceGuSendCommandi(213, ((272 - 1) << 10) | (480 - 1));
+		}
+		for (x = 0; !c->scissorWidth && x < total; x += c->stripWidth) {
 			int w = x + c->stripWidth > total ? total - x : c->stripWidth;
 			Vertex *v = (Vertex *)sceGuGetMemory(2 * sizeof(Vertex));
 			v[0].u = x; v[0].v = 0; v[0].x = x; v[0].y = 0; v[0].z = 0;
