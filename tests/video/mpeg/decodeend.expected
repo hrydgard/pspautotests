@@ -1,0 +1,13 @@
+sceMpegQueryStreamOffset: 00000000
+access units 190, pictures 189, first picture at AU 1
+end of stream: sceMpegGetAvcAu 80618001
+status runs: 0x1 1x189
+AUs with a pts: 4, first at AU 0, last at AU 170
+pts span 510510
+sceMpegAvcDecodeStop #0: 00000000, status 1
+sceMpegAvcDecodeStop #1: 00000000, status 0
+sceMpegAvcDecodeStop #2: 00000000, status 0
+sceMpegAvcDecodeStop #3: 00000000, status 0
+sceMpegAvcDecodeStop #4: 00000000, status 0
+sceMpegAvcDecodeStop #5: 00000000, status 0
+sceMpegAvcDecodeFlush: 00000000
