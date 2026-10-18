@@ -1,4 +1,4 @@
-TARGETS = mp4timing
+TARGETS = mp4timing avchold
 EXTRA_OBJS = mp4-imports.o
 EXTRA_LIBS = -lpspaudio -lpsppower
 

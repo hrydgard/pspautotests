@@ -1,0 +1,195 @@
+ref1: 60 samples, 60 decodes, 57 pictures
+  calls 0-2: none
+  calls 3-59: frames 0-56
+  sceMpegAvcDecodeStop: 00000000, status 3, frames 57 58 59
+  again: 00000000, status 0
+ref2: 60 samples, 60 decodes, 57 pictures
+  calls 0-2: none
+  calls 3-59: frames 0-56
+  sceMpegAvcDecodeStop: 00000000, status 3, frames 57 58 59
+  again: 00000000, status 0
+ref3: 60 samples, 60 decodes, 57 pictures
+  calls 0-2: none
+  calls 3-59: frames 0-56
+  sceMpegAvcDecodeStop: 00000000, status 3, frames 57 58 59
+  again: 00000000, status 0
+  sceMpegAvcDecode at call 0: 80628002
+ref4: 60 samples, 0 decodes, 0 pictures
+  sceMpegAvcDecode at call 0: 80628002
+ref5: 60 samples, 0 decodes, 0 pictures
+ref1norestrict: 60 samples, 60 decodes, 57 pictures
+  calls 0-2: none
+  calls 3-59: frames 0-56
+  sceMpegAvcDecodeStop: 00000000, status 3, frames 57 58 59
+  again: 00000000, status 0
+ref3norestrict: 60 samples, 60 decodes, 57 pictures
+  calls 0-2: none
+  calls 3-59: frames 0-56
+  sceMpegAvcDecodeStop: 00000000, status 3, frames 57 58 59
+  again: 00000000, status 0
+ref1buf3: 60 samples, 60 decodes, 57 pictures
+  calls 0-2: none
+  calls 3-59: frames 0-56
+  sceMpegAvcDecodeStop: 00000000, status 3, frames 57 58 59
+  again: 00000000, status 0
+ref3buf4: 60 samples, 60 decodes, 57 pictures
+  calls 0-2: none
+  calls 3-59: frames 0-56
+  sceMpegAvcDecodeStop: 00000000, status 3, frames 57 58 59
+  again: 00000000, status 0
+ref3reorder2: 60 samples, 60 decodes, 57 pictures
+  calls 0-2: none
+  calls 3-59: frames 0-56
+  sceMpegAvcDecodeStop: 00000000, status 3, frames 57 58 59
+  again: 00000000, status 0
+ref3b1: 60 samples, 60 decodes, 22 pictures
+  calls 0-2: none
+  calls 3-3: frames 0-0 (status 2)
+  calls 4-4: frames 2-2 (status 2)
+  calls 5-6: none
+  calls 7-7: frames 4-4 (status 3)
+  calls 8-8: none
+  calls 9-9: frames 7-7 (status 2)
+  calls 10-11: none
+  calls 12-12: frames 9-9 (status 3)
+  calls 13-14: none
+  calls 15-15: frames 12-12 (status 3)
+  calls 16-16: none
+  calls 17-17: frames 15-15 (status 2)
+  calls 18-19: none
+  calls 20-20: frames 17-17 (status 3)
+  calls 21-22: none
+  calls 23-23: frames 20-20 (status 3)
+  calls 24-24: none
+  calls 25-25: frames 23-23 (status 2)
+  calls 26-27: none
+  calls 28-28: frames 25-25 (status 3)
+  calls 29-30: none
+  calls 31-31: frames 28-28 (status 3)
+  calls 32-32: none
+  calls 33-33: frames 31-31 (status 2)
+  calls 34-35: none
+  calls 36-36: frames 33-33 (status 3)
+  calls 37-38: none
+  calls 39-39: frames 36-36 (status 3)
+  calls 40-40: none
+  calls 41-41: frames 39-39 (status 2)
+  calls 42-43: none
+  calls 44-44: frames 41-41 (status 3)
+  calls 45-46: none
+  calls 47-47: frames 44-44 (status 3)
+  calls 48-48: none
+  calls 49-49: frames 47-47 (status 2)
+  calls 50-51: none
+  calls 52-52: frames 49-49 (status 3)
+  calls 53-54: none
+  calls 55-55: frames 52-52 (status 3)
+  calls 56-56: none
+  calls 57-57: frames 55-55 (status 2)
+  calls 58-59: none
+  sceMpegAvcDecodeStop: 00000000, status 3, frames 57 58 59
+  again: 00000000, status 0
+ref3b2: 60 samples, 60 decodes, 36 pictures
+  calls 0-2: none
+  calls 3-3: frames 0-0 (status 2)
+  calls 4-4: frames 2-2 (status 2)
+  calls 5-5: frames 4-4
+  calls 6-6: none
+  calls 7-7: frames 5-5 (status 2)
+  calls 8-8: frames 7-7
+  calls 9-9: none
+  calls 10-10: frames 8-8 (status 2)
+  calls 11-11: none
+  calls 12-12: frames 10-10 (status 2)
+  calls 13-13: frames 12-12
+  calls 14-14: none
+  calls 15-15: frames 13-13 (status 2)
+  calls 16-16: frames 15-15
+  calls 17-17: none
+  calls 18-18: frames 16-16 (status 2)
+  calls 19-19: none
+  calls 20-20: frames 18-18 (status 2)
+  calls 21-21: frames 20-20
+  calls 22-22: none
+  calls 23-23: frames 21-21 (status 2)
+  calls 24-24: frames 23-23
+  calls 25-25: none
+  calls 26-26: frames 24-24 (status 2)
+  calls 27-27: none
+  calls 28-28: frames 26-26 (status 2)
+  calls 29-29: frames 28-28
+  calls 30-30: none
+  calls 31-31: frames 29-29 (status 2)
+  calls 32-32: frames 31-31
+  calls 33-33: none
+  calls 34-34: frames 32-32 (status 2)
+  calls 35-35: none
+  calls 36-36: frames 34-34 (status 2)
+  calls 37-37: frames 36-36
+  calls 38-38: none
+  calls 39-39: frames 37-37 (status 2)
+  calls 40-40: frames 39-39
+  calls 41-41: none
+  calls 42-42: frames 40-40 (status 2)
+  calls 43-43: none
+  calls 44-44: frames 42-42 (status 2)
+  calls 45-45: frames 44-44
+  calls 46-46: none
+  calls 47-47: frames 45-45 (status 2)
+  calls 48-48: none
+  calls 49-49: frames 47-47 (status 2)
+  calls 50-50: frames 49-49
+  calls 51-51: none
+  calls 52-52: frames 50-50 (status 2)
+  calls 53-53: frames 52-52
+  calls 54-54: none
+  calls 55-55: frames 53-53 (status 2)
+  calls 56-56: frames 55-55
+  calls 57-57: none
+  calls 58-58: frames 56-56 (status 2)
+  calls 59-59: none
+  sceMpegAvcDecodeStop: 00000000, status 2, frames 58 59
+  again: 00000000, status 0
+s144: 60 samples, 60 decodes, 57 pictures
+  calls 0-2: none
+  calls 3-59: frames 0-56
+  sceMpegAvcDecodeStop: 00000000, status 3, frames 57 58 59
+  again: 00000000, status 0
+s240: 60 samples, 60 decodes, 57 pictures
+  calls 0-2: none
+  calls 3-59: frames 0-56
+  sceMpegAvcDecodeStop: 00000000, status 3, frames 57 58 59
+  again: 00000000, status 0
+s320: 60 samples, 60 decodes, 57 pictures
+  calls 0-2: none
+  calls 3-59: frames 0-56
+  sceMpegAvcDecodeStop: 00000000, status 3, frames 57 58 59
+  again: 00000000, status 0
+s480l21: 60 samples, 60 decodes, 57 pictures
+  calls 0-2: none
+  calls 3-59: frames 0-56
+  sceMpegAvcDecodeStop: 00000000, status 3, frames 57 58 59
+  again: 00000000, status 0
+ref1aud: 60 samples, 60 decodes, 57 pictures
+  calls 0-2: none
+  calls 3-59: frames 0-56
+  sceMpegAvcDecodeStop: 00000000, status 3, frames 57 58 59
+  again: 00000000, status 0
+ref1hrd: 60 samples, 60 decodes, 60 pictures
+  calls 0-59: frames 0-59
+  sceMpegAvcDecodeStop: 00000000, status 0, frames
+  again: 00000000, status 0
+ref1pic: 60 samples, 60 decodes, 57 pictures
+  calls 0-2: none
+  calls 3-59: frames 0-56
+  sceMpegAvcDecodeStop: 00000000, status 3, frames 57 58 59
+  again: 00000000, status 0
+ref1hrdpic: 60 samples, 60 decodes, 60 pictures
+  calls 0-59: frames 0-59
+  sceMpegAvcDecodeStop: 00000000, status 0, frames
+  again: 00000000, status 0
+ref3b1hrd: 60 samples, 60 decodes, 59 pictures
+  calls 0-0: none
+  calls 1-59: frames 0-58
+  sceMpegAvcDecodeStop: 00000000, status 1, frames 59
+  again: 00000000, status 0
