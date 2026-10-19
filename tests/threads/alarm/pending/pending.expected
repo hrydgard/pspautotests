@@ -1,0 +1,8 @@
+Cancel while pending: 00000000
+Cancelled while pending: 0 ran
+Next alarm: 1 ran 2
+Cancel first of two pending: 00000000
+First of two cancelled: 1 ran 4
+Cancel second of two pending: 00000000
+Second of two cancelled: 1 ran 5
+Alarm after: 1 ran 7
