@@ -1,4 +1,4 @@
-TARGETS = blocking
+TARGETS = blocking bind
 LIBS = -lpspnet_inet -lpspnet -lcommon -lc -lm
 
 COMMON_DIR = ../../../common

@@ -1,0 +1,13 @@
+load common: 00000000
+load inet: 00000000
+sceNetInit: 00000000
+sceNetInetInit: 00000000
+sockets: valid
+bind INADDR_ANY: 0, errno 0, address unchanged
+getsockname, INADDR_ANY: 0, len 16, family 2, 0.0.0.0:requested port
+bind 127.0.0.1: 0, errno 0, address unchanged
+getsockname, 127.0.0.1: 0, len 16, family 2, 127.0.0.1:requested port
+bind INADDR_ANY, port 0: 0, errno 0, address unchanged
+getsockname, port 0: 0, len 16, family 2, 0.0.0.0:some port
+loopback to INADDR_ANY: sent 22, ready 1, received 22 'loopback to INADDR_ANY' from 127.0.0.1:23461
+INADDR_ANY to loopback: sent 22, ready 1, received 22 'INADDR_ANY to loopback' from 127.0.0.1:23460
