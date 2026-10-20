@@ -1,0 +1,12 @@
+Reached phase: 6
+Status before filling: 00000030
+Samples until full: 24
+Status full: 00000010, interrupts raised 00000000
+Status with room: 00000030, interrupts raised 00001000
+Played through halt: 5000, woke 5000 times, 0 without room
+Rate: about 44100 Hz
+Statuses while draining:
+  00000010 at about 0us
+  00000030 at about 0us
+  00000032 at about 600us
+Status drained: 00000032, interrupts raised 00001000
