@@ -1,0 +1,13 @@
+[x] Priorities from a kernel module:
+[x]   Priority ffffffff: 80020193
+[x]   Priority 0: 80020193
+[x]   Priority 1: OK
+[x]   Priority 2: OK
+[x]   Priority 7: OK
+[x]   Priority 8: OK
+[x]   Priority 77: OK
+[x]   Priority 78: OK
+[x]   Priority 7e: OK
+[x]   Priority 7f: 80020193
+[x]   Priority 80: 80020193
+[x]   Priority ff: 80020193
