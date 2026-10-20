@@ -1,0 +1,11 @@
+[x] Sizes:
+[x]   sceGeEdramGetSize: 00200000
+[x]   sceGeEdramGetHwSize: 00200000
+
+[x] sceGeEdramSetSize:
+[x]   00000000: 80000104, size now 00200000
+[x]   00100000: 80000104, size now 00200000
+[x]   00200000: 00000000, size now 00200000
+[x]   00300000: 80000104, size now 00200000
+[x]   00400000: 80000104, size now 00200000
+[x]   ffffffff: 80000104, size now 00200000
