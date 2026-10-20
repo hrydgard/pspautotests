@@ -1,0 +1,24 @@
+[x] Invalid numbers:
+[x]   -1: register 80020065 release 80020065 enable 80020065 disable 80020065
+[x]   68: register 80020065 release 80020065 enable 80020065 disable 80020065
+[x]   100: register 80020065 release 80020065 enable 80020065 disable 80020065
+
+[x] No handler yet:
+[x]   Release: 80020068
+[x]   Enable: 80020068
+[x]   Disable: 80020068
+
+[x] Registering:
+[x]   NULL handler: 80020065
+[x]   Handler: 00000000
+[x]   Again: 80020067
+
+[x] Enabling:
+[x]   Enable: 00000000
+[x]   Enable again: 00000000
+[x]   Disable: 00000000
+[x]   Disable again: 00000000
+
+[x] Releasing:
+[x]   Release: 00000000
+[x]   Release again: 80020068
