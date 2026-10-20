@@ -1,0 +1,11 @@
+ME progress: 9
+ME reads VRAM at 0xA4000000: no
+ME reads VRAM at 0xA4100000: no
+ME reads VRAM at 0x44000000: no
+ME reads VRAM at 0x44100000: no
+ME write through 0xA4000010 reaches VRAM: no
+ME write through 0x44000014 reaches VRAM: no
+ME reads back 0xA4000010: yes
+ME reads back 0x44000014: yes
+0xA4000020 and 0x44000020 are the same: yes
+Sony's ME firmware resumed: yes
