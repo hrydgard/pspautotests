@@ -1,0 +1,3 @@
+[x] EXL: to EPC, then EXL 0 ERL 0, next instruction skipped
+[x] ERL: to ErrorEPC, then EXL 0 ERL 0, next instruction skipped
+[x] EXL and ERL: to ErrorEPC, then EXL 1 ERL 0, next instruction skipped
