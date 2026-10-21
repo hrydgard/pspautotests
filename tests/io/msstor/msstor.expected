@@ -1,0 +1,15 @@
+[x] Ioctls:
+[x] msstor0p1:/ ioctl 02125008: 00000000, out 00000001
+[x] msstor0p1:/ ioctl 02125008, 3 byte out: 80220183
+[x] msstor0p1:/ ioctl 02125009: 00000000, out 00000000
+[x] msstor0p1:/ ioctl 02125009, 3 byte out: 80220183
+[x] msstor0p1: ioctl 02125008: 00000000, out 00000001
+[x] msstor0p1: ioctl 02125008, 3 byte out: 80220183
+[x] msstor:/ ioctl 02125008: 00000000, out 00000001
+[x] msstor:/ ioctl 02125008, 3 byte out: 80220183
+
+[x] Devctls:
+[x] msstor0p1:/ devctl 02125802: 00000000, out 00000040
+[x] msstor0p1: devctl 02125802: 00000000, out 00000040
+[x] msstor: devctl 02125802: 00000000, out 00000040
+[x] msstor0p1:/ devctl 02125801: 80220183, out cccccccc
