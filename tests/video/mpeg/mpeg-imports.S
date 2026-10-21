@@ -57,3 +57,6 @@ IMPORT_FUNC  "sceMpeg",0xD4DD6E75,sceMpeg_D4DD6E75
 IMPORT_FUNC  "sceMpeg",0xC345DED2,sceMpeg_C345DED2
 IMPORT_FUNC  "sceMpeg",0xCF3547A2,sceMpegAvcDecodeDetail2
 IMPORT_FUNC  "sceMpeg",0x988E9E12,sceMpeg_988E9E12
+
+IMPORT_START "sceVideocodec",0x00090011
+IMPORT_FUNC  "sceVideocodec",0x627B7D42,sceVideocodecGetSEI

@@ -10,6 +10,8 @@
 #define AUS 6
 
 
+extern int sceVideocodecGetSEI(void *ctx, int type);
+
 static SceUID g_fd = -1;
 static int g_eof;
 static u32 g_ctx;
@@ -176,6 +178,27 @@ static void testDetail(int withRecords) {
 		if (g_records) {
 			dumpWords("  records", (u32)g_records, 0x540);
 		}
+
+		// What mpeg_vsh.prx's sceMpeg_6F314410 asks for: the ME writes the SEI into the buffer at
+		// ctx+0x50.
+		u32 *sei = (u32 *)memalign(64, 0xC0);
+		memset(sei, 0xCC, 0xC0);
+		sceKernelDcacheWritebackInvalidateRange(sei, 0xC0);
+		*(u32 **)(g_ctx + 0x50) = sei;
+		sceKernelDcacheWritebackRange((void *)g_ctx, 0x60);
+		result = sceVideocodecGetSEI((void *)g_ctx, 0);
+		sceKernelDcacheInvalidateRange(sei, 0xC0);
+		printf(" sceVideocodecGetSEI %08x:\n", result);
+		for (i = 0; i < 0xC0 / 4; i += 8) {
+			printf("  sei+%02x:", i * 4);
+			int j;
+			for (j = i; j < i + 8; ++j) {
+				printf(" %08x", (unsigned)sei[j]);
+			}
+			printf("\n");
+		}
+		*(u32 *)(g_ctx + 0x50) = 0;
+		free(sei);
 	}
 
 	if (g_records) {
