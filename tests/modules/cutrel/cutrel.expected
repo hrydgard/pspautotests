@@ -1,0 +1,8 @@
+child.prx: loaded, relocated
+child.prx: unload OK
+child_k.prx: loaded
+child_k.prx: unload OK
+child_n.prx: loaded, relocated
+child_n.prx: unload OK
+child_n_cut.prx: loaded, not relocated
+child_n_cut.prx: unload OK

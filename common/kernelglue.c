@@ -78,11 +78,24 @@ void __retarget_lock_close_recursive(_LOCK_T lock) {}
 void __retarget_lock_acquire_recursive(_LOCK_T lock) {}
 void __retarget_lock_release_recursive(_LOCK_T lock) {}
 
+// A test that defines this (to anything) runs main on its own thread, after module_start has
+// returned. Loading a module from inside module_start fails with 80020143 (module manager busy).
+extern int kernel_main_in_thread __attribute__((weak));
+
+static int mainThread(SceSize args, void *argp) {
+	char *argv[1] = { (char *)"kernel_test" };
+	return main(1, argv);
+}
+
 // With no crt0 there's no module_start, and prxexports.o wants one. Run the test the same way
 // the user-mode startup would.
 int module_start(SceSize args, void *argp) {
-	char *argv[1] = { (char *)"kernel_test" };
-	return main(1, argv);
+	if (&kernel_main_in_thread) {
+		SceUID thread = sceKernelCreateThread("kernel_main", &mainThread, 0x20, 0x4000, 0, NULL);
+		sceKernelStartThread(thread, 0, NULL);
+		return 0;
+	}
+	return mainThread(0, NULL);
 }
 
 int module_stop(SceSize args, void *argp) {
