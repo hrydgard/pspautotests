@@ -60,3 +60,7 @@ IMPORT_FUNC  "sceMpeg",0x988E9E12,sceMpeg_988E9E12
 
 IMPORT_START "sceVideocodec",0x00090011
 IMPORT_FUNC  "sceVideocodec",0x627B7D42,sceVideocodecGetSEI
+
+IMPORT_START "sceMpegbase",0x00090011
+IMPORT_FUNC  "sceMpegbase",0x492B5E4B,sceMpegBaseCscInit
+IMPORT_FUNC  "sceMpegbase",0x91929A21,sceMpegBaseCscAvc
