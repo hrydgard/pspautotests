@@ -19,11 +19,11 @@ FRAMES = 60
 OUT_DIR = 'hold'
 
 
-def source(size):
+def source(size, first=0):
 	# Eight bars across the picture, whatever its width.
 	bar = int(size.split('x')[0]) // 8
 	return ("nullsrc=s=%s:r=30000/1001,"
-		"geq=lum='if(bitand(N\\,pow(2\\,floor(X/%d)))\\,235\\,16)':cb=128:cr=128" % (size, bar))
+		"geq=lum='if(bitand(N+%d\\,pow(2\\,floor(X/%d)))\\,235\\,16)':cb=128:cr=128" % (size, first, bar))
 
 
 # The PSP format needs an audio track, so the movies get a silent one; avchold doesn't register it.
@@ -36,8 +36,8 @@ def run(args):
 	subprocess.run(args, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
-def encode(path, x264params, fmt, size, level):
-	src = source(size)
+def encode(path, x264params, fmt, size, level, first=0):
+	src = source(size, first)
 	video = ['-frames:v', str(FRAMES), '-c:v', 'libx264', '-profile:v', 'main', '-level', level,
 		'-pix_fmt', 'yuv420p', '-b:v', '400k',
 		'-x264-params', x264params + ':b-pyramid=none:weightp=0:repeat-headers=1:keyint=300:scenecut=0']
@@ -150,7 +150,8 @@ def rewrite_sps(h264, out, restriction):
 
 
 # name, x264 params, VUI rewrite (None = keep x264's, 'drop', or (reorder, dec_frame_buffering)),
-# and optionally the size and level (480x272 at 3.0 otherwise). avchold.c has the same list.
+# and optionally the size and level (480x272 at 3.0 otherwise). avchold.c has the same list, less
+# ref3b1 and ref3b2: it explains why.
 STREAMS = [
 	('ref1', 'ref=1:bframes=0', None),
 	('ref2', 'ref=2:bframes=0', None),
@@ -175,17 +176,36 @@ STREAMS = [
 	('ref1pic', 'ref=1:bframes=0:pic-struct=1', None),
 	('ref1hrdpic', 'ref=1:bframes=0:aud=1:nal-hrd=vbr:vbv-maxrate=1000:vbv-bufsize=2000:pic-struct=1', None),
 	('ref3b1hrd', 'ref=3:bframes=1:nal-hrd=vbr:vbv-maxrate=1000:vbv-bufsize=2000:pic-struct=1', None),
+	# Two separate encodes of ref3b1hrd back to back, frames 60-119 in the second, so its IDR's
+	# buffering period starts cpb_removal_delay over from 0 while a picture of the first is still
+	# held. Burnout Legends feeds its intro movies to one decoder like this, without a flush.
+	('ref3b1hrdsplice', 'ref=3:bframes=1:nal-hrd=vbr:vbv-maxrate=1000:vbv-bufsize=2000:pic-struct=1', 'splice'),
 ]
 
 
 def main():
 	os.makedirs(OUT_DIR, exist_ok=True)
 
+	# Streams can be named on the command line, to make just those.
+	only = sys.argv[1:]
 	for entry in STREAMS:
 		name, params, vui = entry[:3]
+		if only and name not in only:
+			continue
 		size, level = entry[3:] if len(entry) > 3 else ('480x272', '3.0')
 		mp4 = os.path.join(OUT_DIR, name + '.mp4')
-		if vui is None:
+		if vui == 'splice':
+			raws = [os.path.join(OUT_DIR, '%s%d.h264' % (name, i)) for i in range(2)]
+			for i, raw in enumerate(raws):
+				encode(raw, params, 'h264', size, level, i * FRAMES)
+			joined = os.path.join(OUT_DIR, name + '.h264')
+			with open(joined, 'wb') as f:
+				for raw in raws:
+					f.write(open(raw, 'rb').read())
+			mux(joined, mp4)
+			for path in raws + [joined]:
+				os.remove(path)
+		elif vui is None:
 			# Straight to MP4, which keeps the composition offsets B-frames need.
 			encode(mp4, params, 'psp', size, level)
 		else:

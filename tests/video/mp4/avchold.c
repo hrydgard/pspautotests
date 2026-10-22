@@ -10,7 +10,13 @@
 // only the first lands in the frame buffer, while status counts them all. More than three
 // reference frames, and decoding fails. video/mpeg/decodeend's movie, from Sony's encoder, has
 // picture timing with a one frame delay; remuxed into an MP4 and played this way, it held one
-// picture back here too, so the PSMF and MP4 setups decode alike.
+// picture back here too, so the PSMF and MP4 setups decode alike. ref3b1hrdsplice is two streams
+// back to back, the second restarting cpb_removal_delay from 0 while a picture of the first is
+// held, as in Burnout Legends' intro movies: the pictures still come out one a call.
+//
+// The B-frame streams without picture timing (ref3b1, ref3b2) aren't run: PPSSPP doesn't model
+// several pictures completing in one call, and no game movie checked lacks picture timing. What
+// the hardware does with them is in avchold.expected's history.
 //
 // The streams are in hold/, made by make_holdstreams.py. Every frame shows its own number in binary
 // as bars across it, which is how the pictures that come out are identified.
@@ -67,15 +73,15 @@ typedef struct {
 	int width, height;
 } Stream;
 
-// The same list as make_holdstreams.py.
+// The same list as make_holdstreams.py, less ref3b1 and ref3b2 (see the top).
 static const Stream g_streams[] = {
 	{ "ref1", 480, 272 }, { "ref2", 480, 272 }, { "ref3", 480, 272 }, { "ref4", 480, 272 }, { "ref5", 480, 272 },
 	{ "ref1norestrict", 480, 272 }, { "ref3norestrict", 480, 272 },
 	{ "ref1buf3", 480, 272 }, { "ref3buf4", 480, 272 }, { "ref3reorder2", 480, 272 },
-	{ "ref3b1", 480, 272 }, { "ref3b2", 480, 272 },
 	{ "s144", 144, 80 }, { "s240", 240, 136 }, { "s320", 320, 176 }, { "s480l21", 480, 272 },
 	{ "ref1aud", 480, 272 }, { "ref1hrd", 480, 272 }, { "ref1pic", 480, 272 },
 	{ "ref1hrdpic", 480, 272 }, { "ref3b1hrd", 480, 272 },
+	{ "ref3b1hrdsplice", 480, 272 },
 };
 static const Stream *g_stream;
 
