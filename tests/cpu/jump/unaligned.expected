@@ -1,0 +1,8 @@
+jr   target+0: ran=003 bal ra=next+0
+jr   target+1: ran=003 bal ra=next+0
+jr   target+2: ran=003 bal ra=next+0
+jr   target+3: ran=003 bal ra=next+0
+jalr target+0: ran=003 link=next+0 bal ra=next+0
+jalr target+1: ran=003 link=next+0 bal ra=next+0
+jalr target+2: ran=003 link=next+0 bal ra=next+0
+jalr target+3: ran=003 link=next+0 bal ra=next+0
