@@ -64,3 +64,5 @@ IMPORT_FUNC  "sceVideocodec",0x627B7D42,sceVideocodecGetSEI
 IMPORT_START "sceMpegbase",0x00090011
 IMPORT_FUNC  "sceMpegbase",0x492B5E4B,sceMpegBaseCscInit
 IMPORT_FUNC  "sceMpegbase",0x91929A21,sceMpegBaseCscAvc
+IMPORT_FUNC  "sceMpegbase",0xBE45C284,sceMpegBaseYCrCbCopyVme
+IMPORT_FUNC  "sceMpegbase",0xCE8EB837,sceMpegBaseCscVme

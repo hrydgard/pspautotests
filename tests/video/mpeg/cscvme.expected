@@ -1,0 +1,126 @@
+setup 00000000
+sceMpegBaseCscInit 00000000
+copy 32x32 flags 1: 00000000, bytes 1024 0 256 256 0 0
+copy 32x32 flags 2: 00000000, bytes 0 1024 0 0 256 256
+copy 32x32 flags 3: 00000000, bytes 1024 1024 256 256 256 256
+copy 32x32 flags 0: 00000000, bytes 0 0 0 0 0 0
+copy 48x16 flags 3: 00000000, bytes 640 640 160 160 160 160
+copy 80x16 flags 3: 00000000, bytes 1024 1024 256 256 256 256
+copy 64x16 flags 3: 00000000, bytes 768 768 192 192 192 192
+copy 1024x4096 flags 3: 80000104, bytes 0 0 0 0 0 0
+csc second=-1: 00000000
+  row  0: 128 bytes changed, last at 127: 13 1f 00 00 13 1f 00 00 | 13 1f 00 00 cc cc cc cc
+  row  1: 128 bytes changed, last at 127: 82 76 c3 00 82 76 c3 00 | 82 76 c3 00 cc cc cc cc
+  row  2: 128 bytes changed, last at 127: 17 24 00 00 17 24 00 00 | 17 24 00 00 cc cc cc cc
+  row  3: 128 bytes changed, last at 127: 87 7b c8 00 87 7b c8 00 | 87 7b c8 00 cc cc cc cc
+  row  4: 128 bytes changed, last at 127: 1c 28 00 00 1c 28 00 00 | 1c 28 00 00 cc cc cc cc
+  row  5:  96 bytes changed, last at 127: 8c 7f cc 00 8c 7f cc 00 | 8c 7f cc 00 cc cc cc cc
+  row  6: 128 bytes changed, last at 127: 21 2d 00 00 21 2d 00 00 | 21 2d 00 00 cc cc cc cc
+  row  7: 128 bytes changed, last at 127: 90 84 d1 00 90 84 d1 00 | 90 84 d1 00 cc cc cc cc
+  row  8: 128 bytes changed, last at 127: 25 32 00 00 25 32 00 00 | 25 32 00 00 cc cc cc cc
+  row  9: 128 bytes changed, last at 127: 95 89 d6 00 95 89 d6 00 | 95 89 d6 00 cc cc cc cc
+  row 10: 128 bytes changed, last at 127: 2a 36 00 00 2a 36 00 00 | 2a 36 00 00 cc cc cc cc
+  row 11: 128 bytes changed, last at 127: 9a 8d da 00 9a 8d da 00 | 9a 8d da 00 cc cc cc cc
+  row 12: 128 bytes changed, last at 127: 2f 3b 00 00 2f 3b 00 00 | 2f 3b 00 00 cc cc cc cc
+  row 13: 128 bytes changed, last at 127: 9e 92 df 00 9e 92 df 00 | 9e 92 df 00 cc cc cc cc
+  row 14: 128 bytes changed, last at 127: 33 40 00 00 33 40 00 00 | 33 40 00 00 cc cc cc cc
+  row 15: 128 bytes changed, last at 127: a3 96 e3 00 a3 96 e3 00 | a3 96 e3 00 cc cc cc cc
+  row 16: 128 bytes changed, last at 127: 38 44 00 00 38 44 00 00 | 38 44 00 00 cc cc cc cc
+  row 17: 128 bytes changed, last at 127: a8 9b e8 00 a8 9b e8 00 | a8 9b e8 00 cc cc cc cc
+  row 18: 128 bytes changed, last at 127: 3d 49 00 00 3d 49 00 00 | 3d 49 00 00 cc cc cc cc
+  row 19: 128 bytes changed, last at 127: ac a0 ed 00 ac a0 ed 00 | ac a0 ed 00 cc cc cc cc
+  row 20: 128 bytes changed, last at 127: 41 4e 01 00 41 4e 01 00 | 41 4e 01 00 cc cc cc cc
+  row 21: 128 bytes changed, last at 127: b1 a4 f1 00 b1 a4 f1 00 | b1 a4 f1 00 cc cc cc cc
+  row 22: 128 bytes changed, last at 127: 46 52 05 00 46 52 05 00 | 46 52 05 00 cc cc cc cc
+  row 23: 128 bytes changed, last at 127: b6 a9 f6 00 b6 a9 f6 00 | b6 a9 f6 00 cc cc cc cc
+  row 24: 128 bytes changed, last at 127: 4b 57 0a 00 4b 57 0a 00 | 4b 57 0a 00 cc cc cc cc
+  row 25: 128 bytes changed, last at 127: ba ae fb 00 ba ae fb 00 | ba ae fb 00 cc cc cc cc
+  row 26: 128 bytes changed, last at 127: 4f 5c 0f 00 4f 5c 0f 00 | 4f 5c 0f 00 cc cc cc cc
+  row 27: 128 bytes changed, last at 127: bf b2 ff 00 bf b2 ff 00 | bf b2 ff 00 cc cc cc cc
+  row 28: 128 bytes changed, last at 127: 54 60 13 00 54 60 13 00 | 54 60 13 00 cc cc cc cc
+  row 29: 128 bytes changed, last at 127: c4 b7 ff 00 c4 b7 ff 00 | c4 b7 ff 00 cc cc cc cc
+  row 30: 128 bytes changed, last at 127: 58 65 18 00 58 65 18 00 | 58 65 18 00 cc cc cc cc
+  row 31: 128 bytes changed, last at 127: c8 bc ff 00 c8 bc ff 00 | c8 bc ff 00 cc cc cc cc
+csc second=0: 00000000
+  row  0: 128 bytes changed, last at 127: 13 1f 00 00 13 1f 00 00 | 13 1f 00 00 cc cc cc cc
+  row  1: 128 bytes changed, last at 127: 17 24 00 00 17 24 00 00 | 17 24 00 00 cc cc cc cc
+  row  2: 128 bytes changed, last at 127: 1c 28 00 00 1c 28 00 00 | 1c 28 00 00 cc cc cc cc
+  row  3: 128 bytes changed, last at 127: 21 2d 00 00 21 2d 00 00 | 21 2d 00 00 cc cc cc cc
+  row  4: 128 bytes changed, last at 127: 25 32 00 00 25 32 00 00 | 25 32 00 00 cc cc cc cc
+  row  5: 128 bytes changed, last at 127: 2a 36 00 00 2a 36 00 00 | 2a 36 00 00 cc cc cc cc
+  row  6: 128 bytes changed, last at 127: 2f 3b 00 00 2f 3b 00 00 | 2f 3b 00 00 cc cc cc cc
+  row  7: 128 bytes changed, last at 127: 33 40 00 00 33 40 00 00 | 33 40 00 00 cc cc cc cc
+  row  8: 128 bytes changed, last at 127: 38 44 00 00 38 44 00 00 | 38 44 00 00 cc cc cc cc
+  row  9: 128 bytes changed, last at 127: 3d 49 00 00 3d 49 00 00 | 3d 49 00 00 cc cc cc cc
+  row 10: 128 bytes changed, last at 127: 41 4e 01 00 41 4e 01 00 | 41 4e 01 00 cc cc cc cc
+  row 11: 128 bytes changed, last at 127: 46 52 05 00 46 52 05 00 | 46 52 05 00 cc cc cc cc
+  row 12: 128 bytes changed, last at 127: 4b 57 0a 00 4b 57 0a 00 | 4b 57 0a 00 cc cc cc cc
+  row 13: 128 bytes changed, last at 127: 4f 5c 0f 00 4f 5c 0f 00 | 4f 5c 0f 00 cc cc cc cc
+  row 14: 128 bytes changed, last at 127: 54 60 13 00 54 60 13 00 | 54 60 13 00 cc cc cc cc
+  row 15: 128 bytes changed, last at 127: 58 65 18 00 58 65 18 00 | 58 65 18 00 cc cc cc cc
+csc second=16: 00000000
+  row  0: 128 bytes changed, last at 127: 13 1f 00 00 13 1f 00 00 | 13 1f 00 00 cc cc cc cc
+  row  1: 128 bytes changed, last at 127: 17 24 00 00 17 24 00 00 | 17 24 00 00 cc cc cc cc
+  row  2: 128 bytes changed, last at 127: 1c 28 00 00 1c 28 00 00 | 1c 28 00 00 cc cc cc cc
+  row  3: 128 bytes changed, last at 127: 21 2d 00 00 21 2d 00 00 | 21 2d 00 00 cc cc cc cc
+  row  4: 128 bytes changed, last at 127: 25 32 00 00 25 32 00 00 | 25 32 00 00 cc cc cc cc
+  row  5: 128 bytes changed, last at 127: 2a 36 00 00 2a 36 00 00 | 2a 36 00 00 cc cc cc cc
+  row  6: 128 bytes changed, last at 127: 2f 3b 00 00 2f 3b 00 00 | 2f 3b 00 00 cc cc cc cc
+  row  7: 128 bytes changed, last at 127: 33 40 00 00 33 40 00 00 | 33 40 00 00 cc cc cc cc
+  row  8: 128 bytes changed, last at 127: 38 44 00 00 38 44 00 00 | 38 44 00 00 cc cc cc cc
+  row  9: 128 bytes changed, last at 127: 3d 49 00 00 3d 49 00 00 | 3d 49 00 00 cc cc cc cc
+  row 10: 128 bytes changed, last at 127: 41 4e 01 00 41 4e 01 00 | 41 4e 01 00 cc cc cc cc
+  row 11: 128 bytes changed, last at 127: 46 52 05 00 46 52 05 00 | 46 52 05 00 cc cc cc cc
+  row 12: 128 bytes changed, last at 127: 4b 57 0a 00 4b 57 0a 00 | 4b 57 0a 00 cc cc cc cc
+  row 13: 128 bytes changed, last at 127: 4f 5c 0f 00 4f 5c 0f 00 | 4f 5c 0f 00 cc cc cc cc
+  row 14: 128 bytes changed, last at 127: 54 60 13 00 54 60 13 00 | 54 60 13 00 cc cc cc cc
+  row 15: 128 bytes changed, last at 127: 58 65 18 00 58 65 18 00 | 58 65 18 00 cc cc cc cc
+  row 16: 128 bytes changed, last at 127: 82 76 c3 00 82 76 c3 00 | 82 76 c3 00 cc cc cc cc
+  row 17: 128 bytes changed, last at 127: 87 7b c8 00 87 7b c8 00 | 87 7b c8 00 cc cc cc cc
+  row 18:  96 bytes changed, last at 127: 8c 7f cc 00 8c 7f cc 00 | 8c 7f cc 00 cc cc cc cc
+  row 19: 128 bytes changed, last at 127: 90 84 d1 00 90 84 d1 00 | 90 84 d1 00 cc cc cc cc
+  row 20: 128 bytes changed, last at 127: 95 89 d6 00 95 89 d6 00 | 95 89 d6 00 cc cc cc cc
+  row 21: 128 bytes changed, last at 127: 9a 8d da 00 9a 8d da 00 | 9a 8d da 00 cc cc cc cc
+  row 22: 128 bytes changed, last at 127: 9e 92 df 00 9e 92 df 00 | 9e 92 df 00 cc cc cc cc
+  row 23: 128 bytes changed, last at 127: a3 96 e3 00 a3 96 e3 00 | a3 96 e3 00 cc cc cc cc
+  row 24: 128 bytes changed, last at 127: a8 9b e8 00 a8 9b e8 00 | a8 9b e8 00 cc cc cc cc
+  row 25: 128 bytes changed, last at 127: ac a0 ed 00 ac a0 ed 00 | ac a0 ed 00 cc cc cc cc
+  row 26: 128 bytes changed, last at 127: b1 a4 f1 00 b1 a4 f1 00 | b1 a4 f1 00 cc cc cc cc
+  row 27: 128 bytes changed, last at 127: b6 a9 f6 00 b6 a9 f6 00 | b6 a9 f6 00 cc cc cc cc
+  row 28: 128 bytes changed, last at 127: ba ae fb 00 ba ae fb 00 | ba ae fb 00 cc cc cc cc
+  row 29: 128 bytes changed, last at 127: bf b2 ff 00 bf b2 ff 00 | bf b2 ff 00 cc cc cc cc
+  row 30: 128 bytes changed, last at 127: c4 b7 ff 00 c4 b7 ff 00 | c4 b7 ff 00 cc cc cc cc
+  row 31: 128 bytes changed, last at 127: c8 bc ff 00 c8 bc ff 00 | c8 bc ff 00 cc cc cc cc
+csc second=48: 00000000
+  row  0: 128 bytes changed, last at 127: 13 1f 00 00 13 1f 00 00 | 13 1f 00 00 cc cc cc cc
+  row  1: 128 bytes changed, last at 127: 17 24 00 00 17 24 00 00 | 17 24 00 00 cc cc cc cc
+  row  2: 128 bytes changed, last at 127: 1c 28 00 00 1c 28 00 00 | 1c 28 00 00 cc cc cc cc
+  row  3: 128 bytes changed, last at 127: 21 2d 00 00 21 2d 00 00 | 21 2d 00 00 cc cc cc cc
+  row  4: 128 bytes changed, last at 127: 25 32 00 00 25 32 00 00 | 25 32 00 00 cc cc cc cc
+  row  5: 128 bytes changed, last at 127: 2a 36 00 00 2a 36 00 00 | 2a 36 00 00 cc cc cc cc
+  row  6: 128 bytes changed, last at 127: 2f 3b 00 00 2f 3b 00 00 | 2f 3b 00 00 cc cc cc cc
+  row  7: 128 bytes changed, last at 127: 33 40 00 00 33 40 00 00 | 33 40 00 00 cc cc cc cc
+  row  8: 128 bytes changed, last at 127: 38 44 00 00 38 44 00 00 | 38 44 00 00 cc cc cc cc
+  row  9: 128 bytes changed, last at 127: 3d 49 00 00 3d 49 00 00 | 3d 49 00 00 cc cc cc cc
+  row 10: 128 bytes changed, last at 127: 41 4e 01 00 41 4e 01 00 | 41 4e 01 00 cc cc cc cc
+  row 11: 128 bytes changed, last at 127: 46 52 05 00 46 52 05 00 | 46 52 05 00 cc cc cc cc
+  row 12: 128 bytes changed, last at 127: 4b 57 0a 00 4b 57 0a 00 | 4b 57 0a 00 cc cc cc cc
+  row 13: 128 bytes changed, last at 127: 4f 5c 0f 00 4f 5c 0f 00 | 4f 5c 0f 00 cc cc cc cc
+  row 14: 128 bytes changed, last at 127: 54 60 13 00 54 60 13 00 | 54 60 13 00 cc cc cc cc
+  row 15: 128 bytes changed, last at 127: 58 65 18 00 58 65 18 00 | 58 65 18 00 cc cc cc cc
+  row 48: 128 bytes changed, last at 127: 82 76 c3 00 82 76 c3 00 | 82 76 c3 00 cc cc cc cc
+  row 49: 128 bytes changed, last at 127: 87 7b c8 00 87 7b c8 00 | 87 7b c8 00 cc cc cc cc
+  row 50:  96 bytes changed, last at 127: 8c 7f cc 00 8c 7f cc 00 | 8c 7f cc 00 cc cc cc cc
+  row 51: 128 bytes changed, last at 127: 90 84 d1 00 90 84 d1 00 | 90 84 d1 00 cc cc cc cc
+  row 52: 128 bytes changed, last at 127: 95 89 d6 00 95 89 d6 00 | 95 89 d6 00 cc cc cc cc
+  row 53: 128 bytes changed, last at 127: 9a 8d da 00 9a 8d da 00 | 9a 8d da 00 cc cc cc cc
+  row 54: 128 bytes changed, last at 127: 9e 92 df 00 9e 92 df 00 | 9e 92 df 00 cc cc cc cc
+  row 55: 128 bytes changed, last at 127: a3 96 e3 00 a3 96 e3 00 | a3 96 e3 00 cc cc cc cc
+  row 56: 128 bytes changed, last at 127: a8 9b e8 00 a8 9b e8 00 | a8 9b e8 00 cc cc cc cc
+  row 57: 128 bytes changed, last at 127: ac a0 ed 00 ac a0 ed 00 | ac a0 ed 00 cc cc cc cc
+  row 58: 128 bytes changed, last at 127: b1 a4 f1 00 b1 a4 f1 00 | b1 a4 f1 00 cc cc cc cc
+  row 59: 128 bytes changed, last at 127: b6 a9 f6 00 b6 a9 f6 00 | b6 a9 f6 00 cc cc cc cc
+  row 60: 128 bytes changed, last at 127: ba ae fb 00 ba ae fb 00 | ba ae fb 00 cc cc cc cc
+  row 61: 128 bytes changed, last at 127: bf b2 ff 00 bf b2 ff 00 | bf b2 ff 00 cc cc cc cc
+  row 62: 128 bytes changed, last at 127: c4 b7 ff 00 c4 b7 ff 00 | c4 b7 ff 00 cc cc cc cc
+  row 63: 128 bytes changed, last at 127: c8 bc ff 00 c8 bc ff 00 | c8 bc ff 00 cc cc cc cc

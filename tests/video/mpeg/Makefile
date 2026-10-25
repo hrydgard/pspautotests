@@ -1,4 +1,4 @@
-TARGETS = basic playertiming deletetiming decodeend avcdetail cscavc
+TARGETS = basic playertiming deletetiming decodeend avcdetail cscavc cscvme
 EXTRA_OBJS = mpeg-imports.o shared.o sas-imports.o
 EXTRA_LIBS = -lpspaudio -lpsppower
 
