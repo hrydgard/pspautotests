@@ -1,0 +1,13 @@
+Full buffer: result=00000000, total >= 1: 1, total fits: 1
+Contains own module: 1
+Size 0: result=00000000, count is total: 1, entries written: none
+Size 1: result=00000000, count is total: 1, entries written: ceil(size / 4)
+Size 3: result=00000000, count is total: 1, entries written: ceil(size / 4)
+Size 4: result=00000000, count is total: 1, entries written: ceil(size / 4)
+Size 5: result=00000000, count is total: 1, entries written: ceil(size / 4)
+Size 6: result=00000000, count is total: 1, entries written: ceil(size / 4)
+Size 7: result=00000000, count is total: 1, entries written: ceil(size / 4)
+Size 8: result=00000000, count is total: 1, entries written: ceil(size / 4)
+Size -4: result=800200d3, count is total: 0, entries written: none
+NULL buffer, size 0: result=800200d3, count is total: 0
+NULL buffer, size 4: result=800200d3, count is total: 0

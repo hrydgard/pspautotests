@@ -108,6 +108,41 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
+	checkpointNext("Huge sizes:");
+	{
+		// The firmware adds a little to every request, which could wrap near 4GB. Kernel heap
+		// pointers are 0x88xxxxxx, so an error code is told apart by its 0x8002 prefix.
+		static const u32 sizes[] = { 0x7FFFFFFF, 0x80000000, 0xFFFFFF00, 0xFFFFFFF0, 0xFFFFFFF8, 0xFFFFFFFC, 0xFFFFFFFF };
+		SceUID heap = sceKernelCreateHeap(HEAP_PARTITION, HEAP_SIZE, 1, "heap");
+		if (heap <= 0) {
+			checkpoint("  Could not create a heap to allocate from: %08x", heap);
+		} else {
+			for (size_t i = 0; i < ARRAY_SIZE(sizes); ++i) {
+				void *p = sceKernelAllocHeapMemory(heap, (int)sizes[i]);
+				if (p == NULL) {
+					checkpoint("  %08x: null", sizes[i]);
+				} else if (((u32)p & 0xFFFF0000) == 0x80020000) {
+					checkpoint("  %08x: %08x", sizes[i], (u32)p);
+				} else {
+					checkpoint("  %08x: allocated", sizes[i]);
+					sceKernelFreeHeapMemory(heap, p);
+				}
+			}
+			for (size_t i = 0; i < ARRAY_SIZE(sizes); ++i) {
+				void *p = sceKernelAllocHeapMemoryWithOption(heap, (int)sizes[i], NULL);
+				if (p == NULL) {
+					checkpoint("  WithOption %08x: null", sizes[i]);
+				} else if (((u32)p & 0xFFFF0000) == 0x80020000) {
+					checkpoint("  WithOption %08x: %08x", sizes[i], (u32)p);
+				} else {
+					checkpoint("  WithOption %08x: allocated", sizes[i]);
+					sceKernelFreeHeapMemory(heap, p);
+				}
+			}
+			sceKernelDeleteHeap(heap);
+		}
+	}
+
 	checkpointNext("AllocHeapMemoryWithOption:");
 	{
 		SceUID heap = sceKernelCreateHeap(HEAP_PARTITION, HEAP_SIZE, 1, "heap");

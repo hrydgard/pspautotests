@@ -50,6 +50,22 @@
 [x]   Allocate again after freeing: 1
 [x]   Delete: 00000000
 
+[x] Huge sizes:
+[x]   7fffffff: null
+[x]   80000000: null
+[x]   ffffff00: null
+[x]   fffffff0: null
+[x]   fffffff8: null
+[x]   fffffffc: null
+[x]   ffffffff: null
+[x]   WithOption 7fffffff: null
+[x]   WithOption 80000000: null
+[x]   WithOption ffffff00: null
+[x]   WithOption fffffff0: null
+[x]   WithOption fffffff8: null
+[x]   WithOption fffffffc: null
+[x]   WithOption ffffffff: null
+
 [x] AllocHeapMemoryWithOption:
 [x]   Option size 0: 1
 [x]   Option size 4: 1
