@@ -1,7 +1,6 @@
 // Binding UDP sockets, and exchanging datagrams between them through the loopback interface.
 // A socket bound to INADDR_ANY or to port 0 keeps those in getsockname(), bind() leaves the
 // address it was passed alone, and the source address recvfrom() reports is the sender's binding.
-// Not yet run on a real PSP: the .expected is PPSSPP's output, matching the BSD sockets behaviour.
 
 #include <common.h>
 #include <pspkernel.h>

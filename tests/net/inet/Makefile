@@ -1,5 +1,5 @@
-TARGETS = blocking bind
-LIBS = -lpspnet_inet -lpspnet -lcommon -lc -lm
+TARGETS = blocking bind poll
+EXTRA_OBJS = net-imports.o
 
 COMMON_DIR = ../../../common
 include $(COMMON_DIR)/common.mk

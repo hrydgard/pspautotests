@@ -1,0 +1,11 @@
+load common: 00000000
+load inet: 00000000
+bind: 0
+Open socket, POLLOUT: 1, errno 0, revents 0004
+Unopened fd 200, POLLIN: 1, errno 0, revents 0020
+Open socket and unopened fd: 2, errno 0, revents 0004, revents 0020
+getsockname, namelen 16: 0, errno 0, len 16, bytes 10 02 5b ae, byte 16 cc
+getsockname, namelen 3: 0, errno 0, len 3, bytes 10 02 5b cc, byte 16 cc
+getsockname, namelen 2: 0, errno 0, len 2, bytes 10 02 cc cc, byte 16 cc
+getsockname, namelen 1: 0, errno 0, len 1, bytes 10 cc cc cc, byte 16 cc
+getsockname, namelen 0: 0, errno 0, len 0, bytes cc cc cc cc, byte 16 cc
