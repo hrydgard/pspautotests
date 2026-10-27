@@ -1,0 +1,26 @@
+sceNetAdhocInit: 00000000
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+
+PDP sockets, 256 byte buffers:
+  Created 255, then 8041070f
+
+PDP sockets on port 0:
+  Port 0x1000-0x7FFF
+  Port 0x1000-0x7FFF
+  Port 0x1000-0x7FFF
+
+PTP listeners, 256 byte buffers:
+  Created 255, then 8041070f
+
+PDP and PTP together:
+  Created 128 PDP and 127 PTP, then 8041070f
+
+Matching contexts:
+  Init: 00000000
+  Created 15, then 80410808
+  Started 15 of them, then 00000000
+  Term: 00000000
+
+Leave group: 00000000, event 2, state 0

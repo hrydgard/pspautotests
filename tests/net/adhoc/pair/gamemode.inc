@@ -42,6 +42,24 @@ int main(int argc, char *argv[]) {
 	printf("  CreateEnterGameMode: %08x\n", result);
 #else
 	sceKernelDelayThread(1500000);
+	// The host is waiting in game mode now. See how its group shows up in a scan.
+	int scanStart = eventCount;
+	if (sceNetAdhocctlScan() >= 0 && waitEvent(scanStart, 5000) == 3) {
+		AdhocctlScanInfo infos[8];
+		int size = sizeof(infos);
+		sceNetAdhocctlGetScanInfo(&size, infos);
+		int found = 0;
+		for (int i = 0; i < size / (int)sizeof(AdhocctlScanInfo) && i < 8; ++i) {
+			if (memcmp(infos[i].group, GM_GROUP, 6) == 0 && infos[i].group[6] == 0) {
+				printf("  Scan sees the game mode group, mode %d\n", infos[i].mode);
+				found = 1;
+			}
+		}
+		if (!found) {
+			printf("  Scan doesn't see the game mode group\n");
+		}
+	}
+	start = eventCount;
 	int result = sceNetAdhocctlJoinEnterGameMode(GM_GROUP, &peerMac, 10000000, 0);
 	printf("  JoinEnterGameMode: %08x\n", result);
 #endif
