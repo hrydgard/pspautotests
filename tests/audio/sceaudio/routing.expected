@@ -1,0 +1,29 @@
+[x] Initial:
+[x]   Mode: 00000000
+[x]   Volume mode: 00000000
+
+[x] sceAudioRoutingSetVolumeMode:
+[x]   0: 00000000, now 00000000 (mode 00000000)
+[x]   1: 00000000, now 00000001 (mode 00000000)
+[x]   2: 802c01fe, now 00000001 (mode 00000000)
+[x]   3: 802c01fe, now 00000001 (mode 00000000)
+[x]   4: 802c01fe, now 00000001 (mode 00000000)
+[x]   7: 802c01fe, now 00000001 (mode 00000000)
+[x]   8: 802c01fe, now 00000001 (mode 00000000)
+[x]   256: 802c01fe, now 00000001 (mode 00000000)
+[x]   2147483647: 802c01fe, now 00000001 (mode 00000000)
+[x]   -1: 802c01fe, now 00000001 (mode 00000000)
+[x]   0: 00000000, now 00000000 (mode 00000000)
+
+[x] sceAudioRoutingSetMode:
+[x]   0: 00000000, now 00000000 (volume mode 00000000)
+[x]   1: 00000000, now 00000001 (volume mode 00000000)
+[x]   2: 00000001, now 00000002 (volume mode 00000000)
+[x]   3: 00000002, now 00000003 (volume mode 00000000)
+[x]   4: 802c01fe, now 00000003 (volume mode 00000000)
+[x]   7: 802c01fe, now 00000003 (volume mode 00000000)
+[x]   8: 802c01fe, now 00000003 (volume mode 00000000)
+[x]   256: 802c01fe, now 00000003 (volume mode 00000000)
+[x]   2147483647: 802c01fe, now 00000003 (volume mode 00000000)
+[x]   -1: 802c01fe, now 00000003 (volume mode 00000000)
+[x]   0: 00000003, now 00000000 (volume mode 00000000)

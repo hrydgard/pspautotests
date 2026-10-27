@@ -1,0 +1,75 @@
+[x] Before init:
+  Rate 0: 80000001
+  Rate 0, NULL buf: 80000001
+  NULL buf: 80000001
+  Rate -1: 80000001
+  Rate 0: 80000001
+  Rate 1: 80000001
+  Rate 8000: 80000001
+  Rate 11025: 80000001
+  Rate 12000: 80000001
+  Rate 16000: 80000001
+  Rate 22050: 80000001
+  Rate 24000: 80000001
+  Rate 32000: 80000001
+  Rate 48000: 80000001
+  Rate 44100: 80000001
+  -64 samples at 0 Hz: 80000001
+  -1 samples at 0 Hz: 80000001
+  0 samples at 0 Hz: 80000001
+  1 samples at 0 Hz: 80000001
+  63 samples at 0 Hz: 80000001
+  64 samples at 0 Hz: 80000001
+  65 samples at 0 Hz: 80000001
+  128 samples at 0 Hz: 80000001
+  160 samples at 0 Hz: 80000001
+  65472 samples at 0 Hz: 80000001
+  65536 samples at 0 Hz: 80000001
+  1048576 samples at 0 Hz: 80000001
+  1048577 samples at 0 Hz: 80000001
+  16777216 samples at 0 Hz: 80000001
+  2147483584 samples at 0 Hz: 80000001
+  64 samples at 44100 Hz: 80000001
+  65472 samples at 44100 Hz: 80000001
+  65536 samples at 44100 Hz: 80000001
+
+[x] sceAudioInputInit:
+[r]   Init: 00000000
+  Rate 0: 8026000a
+  Rate 0, NULL buf: 8026000a
+  NULL buf: 00000000
+  Rate -1: 8026000a
+  Rate 0: 8026000a
+  Rate 1: 8026000a
+  Rate 8000: 8026000a
+  Rate 11025: 00000040
+  Rate 12000: 8026000a
+  Rate 16000: 8026000a
+  Rate 22050: 00000040
+  Rate 24000: 8026000a
+  Rate 32000: 8026000a
+  Rate 48000: 8026000a
+  Rate 44100: 00000040
+  -64 samples at 0 Hz: 80260006
+  -1 samples at 0 Hz: 80260006
+  0 samples at 0 Hz: 80260006
+  1 samples at 0 Hz: 80260006
+  63 samples at 0 Hz: 80260006
+  64 samples at 0 Hz: 8026000a
+  65 samples at 0 Hz: 80260006
+  128 samples at 0 Hz: 8026000a
+  160 samples at 0 Hz: 80260006
+  65472 samples at 0 Hz: 8026000a
+  65536 samples at 0 Hz: 8026000a
+  1048576 samples at 0 Hz: 8026000a
+  1048577 samples at 0 Hz: 80260006
+  16777216 samples at 0 Hz: 8026000a
+  2147483584 samples at 0 Hz: 8026000a
+  64 samples at 44100 Hz: 00000040
+  65472 samples at 44100 Hz: 0000ffc0
+  65536 samples at 44100 Hz: 00010000
+
+[x] sceAudioInputBlocking:
+[x]   Rate 0: 8026000a
+[x]   0 samples: 80260006
+[r]   64 samples at 44100 Hz: 00000040
