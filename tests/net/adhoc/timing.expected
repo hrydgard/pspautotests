@@ -1,0 +1,117 @@
+Startup:
+  LoadNetModule(COMMON)                           75480 us
+  LoadNetModule(ADHOC)                           224932 us
+  sceNetInit                                        803 us
+  sceNetAdhocInit                                    51 us
+  sceNetAdhocctlInit                              14015 us
+  sceNetAdhocctlAddHandler                           57 us
+
+Baseline:
+  sceKernelGetSystemTimeWide                          1.46 us each (1000 calls)
+  sceKernelDelayThread(0)                      n= 20 min        3 med        6 avg       95 max      239 us
+  sceKernelDelayThread(50)                     n= 20 min      230 med      232 avg      238 max      336 us
+  sceKernelDelayThread(100)                    n= 20 min      229 med      232 avg      236 max      314 us
+  sceKernelDelayThread(1000)                   n= 20 min     1026 med     1028 avg     1028 max     1035 us
+  sceKernelDelayThread(10000)                  n= 20 min    10029 med    10038 avg    10036 max    10042 us
+
+Create / Disconnect (10 rounds):
+  Create returns                               n= 10 min       25 med       29 avg       29 max       31 us
+  Create -> state CONNECTED                    n= 10 min  1086838 med  1115976 avg  1113048 max  1116383 us
+  Create -> CONNECT event                      n= 10 min  1086624 med  1115759 avg  1112832 max  1116164 us
+  Disconnect returns                           n= 10 min       22 med       23 avg       22 max       24 us
+  Disconnect -> state DISCONNECTED             n= 10 min   105654 med   105955 avg   105958 max   106258 us
+  Disconnect -> DISCONNECT event               n= 10 min   105497 med   105889 avg   105813 max   106104 us
+
+Scan (10 rounds, nothing around):
+  Scan returns                                 n= 10 min       28 med       33 avg       32 max       34 us
+  Scan -> SCAN event                           n= 10 min   988507 med   991812 avg   991479 max   991990 us
+  Scan -> state DISCONNECTED again             n= 10 min   988668 med   991971 avg   991633 max   992094 us
+
+Calls while disconnected:
+  GetState                                            0.37 us each (1000 calls)
+  GetScanInfo (size)                                  2.42 us each (1000 calls)
+  GetPeerList (size)                                  5.89 us each (1000 calls)
+
+Calls in a group:
+  GetState                                            0.45 us each (1000 calls)
+  GetParameter                                    14109.17 us each (100 calls)
+  GetParameter, one call at a time             n= 20 min    13614 med    13741 avg    13725 max    13809 us
+  sceKernelDelayThread(10000), same clock      n=  5 min    10030 med    10036 avg    10035 max    10041 us
+  GetPeerList (size)                                  5.90 us each (1000 calls)
+  GetPeerList (buffer)                                6.09 us each (1000 calls)
+  sceNetGetLocalEtherAddr                             1.80 us each (1000 calls)
+
+PDP:
+  PdpCreate                                    n= 20 min       33 med       34 avg       35 max       61 us
+  PdpDelete                                    n= 20 min       20 med       21 avg       21 max       25 us
+  PdpSend 16 to another MAC, non-blocking            31.83 us each (200 calls)
+  PdpSend 1024 to another MAC, non-blocking          35.94 us each (200 calls)
+  PdpSend 16 broadcast, non-blocking                 14.52 us each (200 calls)
+  PdpSend 16 to another MAC, blocking                17.56 us each (200 calls)
+  PdpRecv, empty, non-blocking                        3.62 us each (1000 calls)
+  PdpRecv blocking, empty, timeout 1           n= 20 min       10 med       11 avg       11 max       26 us
+  PdpRecv blocking, empty, timeout 50          n= 20 min      374 med      378 avg      386 max      476 us
+  PdpRecv blocking, empty, timeout 100         n= 20 min      375 med      379 avg      386 max      531 us
+  PdpRecv blocking, empty, timeout 500         n= 20 min      648 med      650 avg      651 max      673 us
+  PdpRecv blocking, empty, timeout 1000        n= 20 min     1147 med     1151 avg     1152 max     1169 us
+  PdpRecv blocking, empty, timeout 5000        n= 20 min     5149 med     5157 avg     5160 max     5172 us
+  PdpRecv blocking, empty, timeout 10000       n= 20 min    10150 med    10174 avg    10174 max    10242 us
+  GetPdpStat                                          1.65 us each (1000 calls)
+
+PollSocket (one PDP socket, polled for RECV with nothing to read):
+  PollSocket, non-blocking                           23.05 us each (1000 calls)
+  PollSocket blocking, timeout 1 (80410715 0000) n= 20 min       29 med       30 avg       31 max       59 us
+  PollSocket blocking, timeout 50 (80410715 0000) n= 20 min      416 med      419 avg      428 max      547 us
+  PollSocket blocking, timeout 100 (80410715 0000) n= 20 min      417 med      420 avg      425 max      496 us
+  PollSocket blocking, timeout 500 (80410715 0000) n= 20 min      686 med      691 avg      694 max      765 us
+  PollSocket blocking, timeout 1000 (80410715 0000) n= 20 min     1188 med     1191 avg     1200 max     1323 us
+  PollSocket blocking, timeout 5000 (80410715 0000) n= 20 min     5189 med     5198 avg     5205 max     5290 us
+  PollSocket blocking, timeout 10000 (80410715 0000) n= 20 min    10198 med    10211 avg    10213 max    10276 us
+  PollSocket for SEND, non-blocking (ready)          22.06 us each (1000 calls)
+
+PTP, connecting to itself:
+  PtpListen                                    n= 10 min       35 med       36 avg       38 max       58 us
+  PtpOpen returns                              n= 10 min      153 med      171 avg      168 max      180 us
+  PtpOpen -> blocking PtpAccept returns        n= 10 min      664 med      685 avg      682 max      696 us
+  PtpConnect after that                        n= 10 min       10 med       11 avg       10 max       12 us
+  PtpClose (connected)                         n= 10 min       87 med       89 avg       88 max       91 us
+  PtpSend 16 -> PtpRecv on the other end       n= 50 min      415 med      421 avg      424 max      531 us
+  PtpSend 1024 -> all received                 n= 50 min      484 med      487 avg      491 max      599 us
+  PtpFlush after sending 1024                  n= 20 min      278 med      281 avg      284 max      310 us
+  PtpRecv, empty, non-blocking                        3.52 us each (1000 calls)
+  PtpSend 16, non-blocking                          179.59 us each (200 calls)
+  PtpRecv blocking, empty, timeout 1           n= 20 min        8 med        9 avg        8 max       10 us
+  PtpRecv blocking, empty, timeout 50          n= 20 min      372 med      376 avg      382 max      451 us
+  PtpRecv blocking, empty, timeout 100         n= 20 min      372 med      375 avg      375 max      405 us
+  PtpRecv blocking, empty, timeout 500         n= 20 min      642 med      646 avg      648 max      667 us
+  PtpRecv blocking, empty, timeout 1000        n= 20 min     1142 med     1147 avg     1153 max     1222 us
+  PtpRecv blocking, empty, timeout 5000        n= 20 min      157 med     5159 avg     5962 max    26195 us
+  PtpRecv blocking, empty, timeout 10000       n= 20 min    10148 med    10171 avg    10172 max    10253 us
+  PtpAccept blocking, none, timeout 1          n= 20 min        9 med       10 avg       10 max       23 us
+  PtpAccept blocking, none, timeout 50         n= 20 min      374 med      376 avg      381 max      475 us
+  PtpAccept blocking, none, timeout 100        n= 20 min      373 med      376 avg      383 max      463 us
+  PtpAccept blocking, none, timeout 500        n= 20 min      646 med      649 avg      657 max      732 us
+  PtpAccept blocking, none, timeout 1000       n= 20 min     1144 med     1149 avg     1151 max     1171 us
+  PtpAccept blocking, none, timeout 5000       n= 20 min     5147 med     5157 avg     5168 max     5247 us
+  PtpAccept blocking, none, timeout 10000      n= 20 min    10155 med    10175 avg    10171 max    10181 us
+  GetPtpStat (3 sockets)                              3.47 us each (1000 calls)
+
+PTP, connecting to a port nobody listens on:
+  Blocking PtpConnect -> CONNECTION_REFUSED    n= 10 min      275 med      278 avg      278 max      289 us
+
+Matching:
+  MatchingInit                                      125 us
+  SetHelloOpt                                        30.50 us each (200 calls)
+  GetHelloOpt                                         4.68 us each (200 calls)
+  GetMembers (size)                                   1.55 us each (200 calls)
+  MatchingCreate                               n= 10 min       96 med       99 avg      106 max      162 us
+  MatchingStart                                n= 10 min      589 med      598 avg      609 max      707 us
+  MatchingStop (started 50ms before)           n= 10 min      523 med      536 avg      535 max      545 us
+  MatchingDelete                               n= 10 min       17 med       17 avg       17 max       19 us
+  MatchingTerm                                       56 us
+
+Shutdown:
+  Disconnect returns                                 18 us
+  sceNetAdhocctlTerm                                244 us
+  sceNetAdhocTerm                                    14 us
+  sceNetTerm                                        327 us
