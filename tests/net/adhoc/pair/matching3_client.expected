@@ -1,0 +1,40 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+
+Host and client:
+  Start: 00000000
+  Got HELLO: yes
+Holding a request:
+  SelectTarget: 00000000
+  HELLOs while the request is pending: none
+Denying it:
+  Got DENY: yes
+  HELLOs after DENY: some
+  TIMEOUT after DENY: no
+  Events: 4 1('HA')
+Asking again:
+  SelectTarget: 00000000
+  Got ESTABLISHED: yes
+  Events: 6 7
+
+P2P:
+  Create: ok
+  Start: 00000000
+  Got HELLO: yes
+  SelectTarget: 00000000
+  Got DENY: yes
+  HELLOs after DENY: some
+  TIMEOUT after DENY: no
+  Events, without requests and hellos: 4
+Asking again:
+  SelectTarget: 00000000
+  Got ESTABLISHED: yes
+  Events, without requests and hellos: 6 7
+Leave group: 00000000, event 2, state 0

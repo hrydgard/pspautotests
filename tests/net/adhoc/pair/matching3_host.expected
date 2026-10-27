@@ -1,0 +1,34 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+
+Host and client:
+  Start: 00000000
+Holding a request:
+  Got REQUEST: yes
+Denying it:
+  CancelTarget: 00000000
+  TIMEOUT for the denied client: no
+  Events, without requests:
+Asking again:
+  A REQUEST since the deny: yes
+  SelectTarget: 00000000
+  Got ESTABLISHED: yes
+  Events, without requests: 7
+
+P2P:
+  Create: ok
+  Start: 00000000
+  Got REQUEST: yes
+  CancelTarget: 00000000
+  TIMEOUT for the denied peer: no
+  Events, without requests and hellos:
+Asking again:
+  A REQUEST since the deny: yes
+  SelectTarget: 00000000
+  Got ESTABLISHED: yes
+  Events, without requests and hellos: 7
+Leave group: 00000000, event 2, state 0
