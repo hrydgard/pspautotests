@@ -1,0 +1,37 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+
+PDP:
+  (echoed)
+
+PTP:
+  Accept waiting since the client's sync       n= 10 min     2354 med     7085 avg     8312 max    25570 us
+  (echoed)
+
+Matching:
+  Host context: ok
+  Host got REQUEST: yes
+  Host: REQUEST event -> SelectTarget returned     4849 us
+  Host SelectTarget 00000000, ESTABLISHED: yes
+  Host: REQUEST -> ESTABLISHED                   197574 us
+  Host answered 20
+  Host context: ok
+
+Game mode:
+Leave group: 00000000, event 2, state 0
+  CreateEnterGameMode -> GAMEMODE event         4396539 us
+  UpdateMaster                                       99.25 us each (100 calls)
+  UpdateReplica                                      10.70 us each (100 calls)
+  Replica changes (278, 3412 master updates skipped) n=200 min     8126 med    12397 avg    14683 max   221182 us
+  Own master updates in 4s: 3363
+  ExitGameMode -> event                          644462 us
+
+Scanning and joining:
+  Round 0: client in the peer list  after CONNECT
+  Round 1: client in the peer list  after CONNECT
+  Round 2: client in the peer list  after CONNECT
+  Create -> CONNECT event                      n=  3 min  1128865 med  1135633 avg  1134062 max  1137688 us

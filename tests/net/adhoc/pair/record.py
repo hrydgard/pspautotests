@@ -59,6 +59,7 @@ def collect(port, role, test):
 def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--host-port", type=int, default=3000, choices=sorted(BRIDGES))
+	parser.add_argument("--timeout", type=int, default=TIMEOUT, help="seconds to wait for both sides")
 	parser.add_argument("name")
 	args = parser.parse_args()
 	test = args.name if "/" in args.name else "net/adhoc/pair/" + args.name
@@ -80,7 +81,7 @@ def main():
 		out = pspsh(port, "%s%s_%s.prx" % (BRIDGES[port][1], test, role))
 		print("%s (port %d): %s" % (role, port, (out or "no answer").strip()))
 
-	deadline = time.time() + TIMEOUT
+	deadline = time.time() + args.timeout
 	finishes = [os.path.join(BRIDGES[p][0], "__testfinish.txt") for p in (host_port, client_port)]
 	while time.time() < deadline and not all(os.path.exists(f) for f in finishes):
 		time.sleep(0.2)

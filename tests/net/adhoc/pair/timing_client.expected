@@ -1,0 +1,72 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+
+PDP:
+  PDP    16, blocking recv (0 lost)            n= 30 min     4061 med     4131 avg     4516 max     7387 us
+  PDP   256, blocking recv (0 lost)            n= 30 min     4881 med     4958 avg     5495 max     8308 us
+  PDP  1024, blocking recv (0 lost)            n= 30 min     7874 med     7976 avg     9118 max    21474 us
+  PDP  1444, blocking recv (0 lost)            n= 30 min     9286 med     9352 avg     9700 max    12232 us
+  PDP  4096, blocking recv (0 lost)            n= 30 min    17766 med    19512 avg    20509 max    29892 us
+  PDP  8192, blocking recv (0 lost)            n= 30 min    30687 med    32692 avg    34442 max    54226 us
+  PDP    16, polled, DelayThread(0) (0 lost)   n= 30 min     4269 med     4369 avg     5591 max    17541 us
+  PDP   256, polled, DelayThread(0) (0 lost)   n= 30 min     5030 med     5088 avg     5382 max     8371 us
+  PDP  1024, polled, DelayThread(0) (0 lost)   n= 30 min     7937 med     8071 avg     8867 max    13739 us
+  PDP  1444, polled, DelayThread(0) (0 lost)   n= 30 min     9438 med     9637 avg    10480 max    16177 us
+  PDP  4096, polled, DelayThread(0) (0 lost)   n= 30 min    17829 med    19639 avg    22101 max    68001 us
+  PDP  8192, polled, DelayThread(0) (0 lost)   n= 30 min    31139 med    33044 avg    33482 max    38276 us
+  PDP    16, polled, DelayThread(100) (0 lost) n= 30 min     4246 med     4285 avg     4692 max     8012 us
+  PDP   256, polled, DelayThread(100) (0 lost) n= 30 min     5014 med     5047 avg     5399 max     7968 us
+  PDP  1024, polled, DelayThread(100) (0 lost) n= 30 min     7899 med     8039 avg     9151 max    19809 us
+  PDP  1444, polled, DelayThread(100) (0 lost) n= 30 min     9389 med     9502 avg    11316 max    19472 us
+  PDP  4096, polled, DelayThread(100) (0 lost) n= 30 min    18034 med    18361 avg    19378 max    23233 us
+  PDP  8192, polled, DelayThread(100) (0 lost) n= 30 min    31281 med    31761 avg    33190 max    42046 us
+
+PTP:
+  PtpOpen returns                              n= 10 min      117 med      119 avg      121 max      153 us
+  PtpOpen -> blocking PtpConnect returns       n= 10 min     4354 med     7152 avg     6944 max     8952 us
+  PTP    16 bytes round trip (0 short)         n= 30 min     6175 med     6334 avg     6795 max     9814 us
+  PTP  1024 bytes round trip (0 short)         n= 30 min     9235 med     9949 avg    10666 max    20358 us
+  PTP  8192 bytes round trip (0 short)         n= 30 min    37589 med    44120 avg    47779 max   100438 us
+  PtpFlush after sending 8192                  n= 10 min    36981 med    41891 avg    42507 max    58462 us
+
+Matching:
+  Client context: ok
+  Interval between hellos, hello_int 200000    n= 19 min   193909 med   201417 avg   201148 max   208876 us
+  Client SelectTarget 00000000, ESTABLISHED: yes
+  Client: SelectTarget -> ESTABLISHED            205391 us
+  SendData failed 0 times
+  SendData returns                             n= 20 min      143 med      158 avg      153 max      161 us
+  SendData -> DATA_ACK                         n= 20 min     4370 med     4506 avg     4787 max     7048 us
+  SendData -> the host's reply DATA            n= 20 min     5699 med     5831 avg    25966 max   206624 us
+  Client context: ok
+  Interval between hellos, hello_int 500000    n=  7 min   498492 med   501090 avg   501085 max   503377 us
+
+Game mode:
+Leave group: 00000000, event 2, state 0
+  JoinEnterGameMode -> GAMEMODE event           3392833 us
+  UpdateMaster                                       66.03 us each (100 calls)
+  UpdateReplica                                       6.89 us each (100 calls)
+  Replica changes (280, 3044 master updates skipped) n=200 min     8734 med    12373 avg    14377 max   222040 us
+  Own master updates in 4s: 3719
+  ExitGameMode -> event                          648212 us
+
+Scanning and joining:
+  Round 0: found the group after 1 scan(s), 1009270 us
+  Scan -> SCAN event                           n=  1 min  1009205 med  1009205 avg  1009205 max  1009205 us
+  Join -> CONNECT event                          531527 us
+  Join -> host in the peer list                 1225101 us
+  Round 1: found the group after 2 scan(s), 2023977 us
+  Scan -> SCAN event                           n=  2 min   991415 med  1032235 avg  1011825 max  1032235 us
+  Join -> CONNECT event                          531632 us
+  Join -> host in the peer list                 1219861 us
+  Round 2: found the group after 2 scan(s), 2029298 us
+  Scan -> SCAN event                           n=  2 min   991253 med  1037716 avg  1014484 max  1037716 us
+  Join -> CONNECT event                          531582 us
+  Join -> host in the peer list                 1212909 us
