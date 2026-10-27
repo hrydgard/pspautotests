@@ -137,6 +137,7 @@ int sceNetAdhocMatchingInit(int poolsize);
 int sceNetAdhocMatchingTerm(void);
 int sceNetAdhocMatchingCreate(int mode, int maxnum, u16 port, int rxbuflen, u32 hello_int, u32 keepalive_int, int init_count, u32 rexmt_int, MatchingHandler handler);
 int sceNetAdhocMatchingStart(int id, int evthPri, int evthStack, int inthPri, int inthStack, int optlen, const void *opt);
+int sceNetAdhocMatchingStart2(int id, int evthPri, int evthStack, int evthPartition, int inthPri, int inthStack, int inthPartition, int optlen, const void *opt);
 int sceNetAdhocMatchingStop(int id);
 int sceNetAdhocMatchingDelete(int id);
 int sceNetAdhocMatchingSelectTarget(int id, const AdhocMac *mac, int optlen, const void *opt);

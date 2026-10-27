@@ -1,0 +1,158 @@
+Ether strings:
+  Ntostr: '00:1a:2b:c3:d4:ff'
+  Strton '01:23:45:67:89:ab': 01:23:45:67:89:ab
+  Strton '01:23:45:67:89:AB': 01:23:45:67:89:ab
+  Strton '1:2:3:4:5:6': 8f:f3:bf:f6:01:23
+  Strton '01-23-45-67-89-ab': 01:23:45:67:89:ab
+  Strton '01:23': 01:23:6f:af:af:af
+  Strton 'zz:zz:zz:zz:zz:zz': 53:53:53:53:53:53
+  Strton '': 6f:6f:6f:6f:6f:6f
+
+GetMallocStat:
+  00000000, pool 1ffe0, maximum in range, free in range
+  NULL: 80410103
+
+WLAN:
+  sceWlanDevIsPowerOn: 1
+  sceWlanGetSwitchState: 1
+
+ThreadAbort / FreeThreadinfo:
+  ThreadAbort on the blocked thread: 00000000
+  Blocked recv: within 0.5s 1, result -1, errno 4
+  FreeThreadinfo on the ended thread: 00000000
+  ThreadAbort on the current thread: 00000000
+  ThreadAbort on 0: 80410104
+  ThreadAbort on a bad ID: 80410104
+  FreeThreadinfo on the current thread: 00000000
+  FreeThreadinfo on 0: 80410104
+  FreeThreadinfo on a bad ID: 80410104
+
+Apctl:
+  GetState before init: 80410a0d
+  Init: 00000000
+  Init again: 80410a01
+  GetState: 00000000, state 0
+  GetState NULL: 80410a03
+  GetInfo 0, disconnected: 80410a05
+  GetInfo 1, disconnected: 80410a05
+  GetInfo 2, disconnected: 80410a05
+  GetInfo 8, disconnected: 80410a05
+  GetInfo 10, disconnected: 80410a05
+  GetInfo 11, disconnected: 80410a05
+  GetInfo 20, disconnected: 80410a05
+
+  Handlers:
+    Add: id
+    More handlers: 1 added, then 80410a0f
+    Same function again: allowed above
+    Add NULL: 80410a0f
+    Del: 00000000
+    Del again: 80410a09
+    Add after Del: id reused
+    Del bad id: 80410a82
+    Del -1: 80410a82
+
+  Scanning:
+  Scan:
+    Scan: 8002013a, state right after 0
+    Scan again while scanning: 8002013a
+    Back to state 0 after under 0.1s
+    events: none
+    List size query: 8002013a, odd
+    List: 8002013a, size different
+    First entry: next other, id -858993460
+    Entry code 0: 8002013a
+    Entry code 1: 8002013a
+    Entry code 2: 8002013a
+    Entry code 3: 8002013a
+    Entry code 4: 8002013a
+    Entry code 5: 8002013a
+    Entry code 6: 8002013a
+    Entry, bad id: 8002013a
+    Entry, bad code: 8002013a
+    List NULL size: 8002013a
+  ScanUser:
+    Scan: 00000000, state right after 0
+    Scan again while scanning: 80410a80
+    Back to state 0 after 1-3s
+    events: 0->1 e1(00000000) 1->0 e2(00000000)
+    List size query: 00000000, some, a multiple of 8
+    List: 00000000, size the same
+    First entry: next the next entry, id 1
+    Entry code 0: 00000000
+    Entry code 1: 00000000
+    Entry code 2: 00000000
+    Entry code 3: 00000000
+    Entry code 4: 00000000
+    Entry code 5: 00000000
+    Entry code 6: 80410a02
+    Entry, bad id: 80410a82
+    Entry, bad code: 80410a02
+    List NULL size: 80410a03
+
+  Connecting to profiles that don't exist:
+    Profile 10: 80110601, state 0
+    events: none
+    Profile 11: 80110601, state 0
+    events: none
+    Profile -1: 80110602, state 0
+    events: none
+    Profile 100: 80110601, state 0
+    events: none
+  Disconnect while disconnected: 00000000
+  Del the first handler: 00000000
+  Term: 00000000
+  Term again: 00000000
+  GetState after term: 80410a0d
+
+Resolver:
+  Create before init: 00000000
+  Init: 00000000
+  Init again: 80000020
+  Create NULL rid: 80410403
+  Create NULL buffer: 80410403, rid not set
+  Create, buffer 0: 80410404
+  Create, buffer 1: 00000000
+  Create, buffer 127: 00000000
+  Create, buffer 128: 00000000
+  Create, buffer 512: 00000000
+  Resolvers at once: 20, then 00000000
+  Delete bad id: 80410408
+  Create: 00000000
+  NtoA '127.0.0.1': 80410402, address 00000000, under 0.1s
+  NtoA '10.1.2.3': 80410402, address 00000000, under 0.1s
+  NtoA 'localhost': 80410402, address 00000000, under 0.1s
+  NtoA 'www.ppsspp.org': 80410402, address 00000000, under 0.1s
+  NtoA '': 80410418, address 00000000, under 0.1s
+  NtoA NULL name: 80410403
+  NtoA NULL address: 80410403
+  NtoA timeout 0: 80410402
+  NtoA retry 0: 80410402
+  NtoA bad rid: 80410408
+  AtoN 127.0.0.1: 80410402, '', under 0.1s
+  AtoN, length 0: 80410402
+
+  Async:
+    NtoAAsync 127.0.0.1: 00000000
+    PollAsync: 80410402, status 00001234
+    WaitAsync: 8041041a, status 00001234, address 00000000
+    PollAsync after: 8041041a, status 00001234
+    WaitAsync with nothing pending: 8041041a
+    NtoAAsync www.ppsspp.org: 00000000
+    NtoAAsync while one is pending: 80410409
+    WaitAsync: 80410402, status 00001234, under 0.1s
+    AtoNAsync 127.0.0.1: 00000000
+    WaitAsync: 80410402, status 00001234, ''
+    PollAsync bad rid: 80410408
+    PollAsync NULL: 80410419
+
+  Stop:
+    Stop with nothing running: 8041040a
+    Stop bad rid: 80410408
+    Stop during a blocking lookup: 8041040a
+    Lookup: done before 1, within 0.5s 1, result 80410402
+  Delete: 00000000
+  Delete again: 80410408
+  Term: 00000000
+  Term again: 00000000
+  Create after term: 00000000

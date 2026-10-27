@@ -104,6 +104,27 @@ int main(int argc, char *argv[]) {
 	printf("\nStarted:\n");
 	printf("  Start: %08x\n", sceNetAdhocMatchingStart(id, 0x30, 0x2000, 0x30, 0x2000, 4, "helo"));
 	printf("  Start again: %08x\n", sceNetAdhocMatchingStart(id, 0x30, 0x2000, 0x30, 0x2000, 0, NULL));
+	// Start2 adds a memory partition for each thread, after its stack size; the swapped order is tried too.
+	static const int start2Args[][6] = {
+		{ 0x30, 2, 0x2000, 0x30, 2, 0x2000 },
+		{ 0x30, 2, 0x4000, 0x30, 2, 0x4000 },
+		{ 0x30, 0x2000, 2, 0x30, 0x2000, 2 },
+		{ 0x30, 0x4000, 2, 0x30, 0x4000, 2 },
+		{ 0x30, 9, 0x4000, 0x30, 9, 0x4000 },
+		{ 0x30, 0x4000, 9, 0x30, 0x4000, 9 },
+	};
+	for (size_t i = 0; i < sizeof(start2Args) / sizeof(start2Args[0]); ++i) {
+		const int *a = start2Args[i];
+		int id2 = sceNetAdhocMatchingCreate(1, 4, PORT + 1, 1024, 200000, 200000, 5, 200000, &matchingHandler);
+		int result = sceNetAdhocMatchingStart2(id2, a[0], a[1], a[2], a[3], a[4], a[5], 0, NULL);
+		printf("  Start2 %x, %x, %x: %08x", a[0], a[1], a[2], result);
+		if (result == 0) {
+			printf(", again: %08x", sceNetAdhocMatchingStart2(id2, a[0], a[1], a[2], a[3], a[4], a[5], 0, NULL));
+		}
+		printf("\n");
+		sceNetAdhocMatchingStop(id2);
+		sceNetAdhocMatchingDelete(id2);
+	}
 	optlen = sizeof(opt);
 	memset(opt, 0, sizeof(opt));
 	printf("  GetHelloOpt: %08x, len %d, '%s'\n", sceNetAdhocMatchingGetHelloOpt(id, &optlen, opt), optlen, opt);
