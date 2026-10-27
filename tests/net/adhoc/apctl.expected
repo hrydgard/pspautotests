@@ -1,0 +1,42 @@
+load inet: 00000000
+sceNetInetInit: 00000000
+sceNetApctlInit: 00000000
+sceNetAdhocInit: 00000000
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+apctl state 0, adhocctl state 0
+
+Apctl connect alone:
+  sceNetApctlConnect: 00000000
+  Connecting: apctl states 2 3
+  Ends in 3, adhocctl state 0
+    Disconnect: apctl states 3 0
+    sceNetApctlDisconnect: 00000000, ends in 0
+
+Apctl connect while in an ad hoc group:
+Create group: 00000000, event 1 (error 00000000), state 1
+  sceNetApctlConnect: 00000000
+  Connecting: apctl states 2 0
+  Ends in 0, adhocctl state 1
+    Disconnect: apctl states 0
+    sceNetApctlDisconnect: 00000000, ends in 0
+  adhocctl state afterwards 1
+Leave group: 00000000, event 2, state 0
+
+Adhocctl create while apctl is connected:
+  sceNetApctlConnect: 00000000
+  Connecting: apctl states 2 3
+  Ends in 3
+  sceNetAdhocctlCreate: 00000000, event 0 (error 80410d01), adhocctl state 0, apctl state 3
+  apctl state afterwards 3
+    Disconnect: apctl states 3 0
+    sceNetApctlDisconnect: 00000000, ends in 0
+
+sceNetAdhocctlTerm: 00000000
+sceNetAdhocTerm: 00000000
+sceNetApctlTerm: 00000000
+sceNetInetTerm: 00000000
+sceNetTerm: 00000000
+unload inet: 00000000
+unload adhoc: 00000000
+unload common: 00000000

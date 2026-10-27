@@ -1,0 +1,46 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+
+Host and client:
+  Start: 00000000
+  SetHelloOpt: 00000000
+Rejecting:
+  Got REQUEST: no
+  CancelTargetWithOpt: 00000000
+  Events:
+Client cancels:
+  Got REQUEST: yes
+  Got CANCEL: yes
+  SelectTarget on the cancelled request: 8041080d
+  Events: 2('JOIN2') 5
+Accepting:
+  Got REQUEST: yes
+  SelectTarget: 00000000
+  Got ESTABLISHED: yes
+  Events: 2('JOIN3') 7
+Kicking:
+  CancelTarget: 00000000
+  Members afterwards: 1
+  Events:
+
+P2P:
+  Create: ok
+  Start: 00000000
+  Got REQUEST: yes
+  SelectTarget: 00000000
+  Got ESTABLISHED: yes
+  SendData: 00000000
+  Got DATA_ACK: yes
+  AbortSendData with nothing pending: 00000000
+  SendData: 00000000
+  AbortSendData at once: 00000000
+  SendData after aborting: 00000000
+  Another DATA_ACK: yes
+  AbortSendData, unknown peer: 8041080c
+  Members: 2
+  Events, without hellos: 2 7 12 12
+Leave group: 00000000, event 2, state 0

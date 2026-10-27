@@ -1,0 +1,75 @@
+sceNetAdhocInit: 00000000
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+
+Outside game mode:
+  CreateMaster: 8041071b
+  UpdateMaster: 8041071b
+  DeleteMaster: 8041071c
+  CreateReplica: 8041071b
+  UpdateReplica: 8041071b
+  DeleteReplica: 8041071c
+  GetGameModeInfo: 80410b0c, num 1234
+
+CreateEnterGameMode arguments:
+  NULL group: 80410b04
+  Bad group name: 80410b04
+  NULL members: 80410b04
+  Type 0: 80410b04
+  Type 4: 80410b04
+  Type 1, 1 member: 80410b04
+  Type 1, 5 members: 80410b04
+  Type 2, 5 members: 00000000
+    event 0, state 0
+    events: 0(80410b05)
+    ExitGameMode: 00000000, state 0
+  Type 3, 16 members: 00000000
+    event 0, state 0
+    events: 0(80410b05)
+    ExitGameMode: 00000000, state 0
+  Type 3, 17 members: 80410b04
+  First member not local: 00000000
+    event 0, state 0
+    events: 0(80410702)
+    ExitGameMode: 00000000, state 0
+
+CreateEnterGameModeMin arguments:
+  min 0, num 2: 80410b04
+  min 1, num 2: 80410b04
+  min 2, num 2: 00000000
+    event 0 (80410b05)
+  min 3, num 2: 80410b04
+  min 2, num 4: 00000000
+    event 0 (80410b05)
+  min 4, num 4: 00000000
+    event 0 (80410b05)
+
+CreateEnterGameMode with nobody else around:
+  Type 1, 2 members, 2s: 00000000
+    event 0, state 0
+    events: 0(80410b05)
+    ExitGameMode: 00000000, state 0
+
+JoinEnterGameMode:
+  NULL group: 80410b04
+  NULL master: 80410b04
+  Master that isn't there, 2s: 00000000, event 0, state 0
+    events: 0(80410b05)
+  ExitGameMode outside game mode: 00000000
+
+In a normal group:
+Create group: 00000000, event 1 (error 00000000), state 1
+Data calls:
+  CreateMaster: 8041071b
+  UpdateMaster: 8041071b
+  DeleteMaster: 8041071c
+  CreateReplica: 8041071b
+  UpdateReplica: 8041071b
+  DeleteReplica: 8041071c
+  GetGameModeInfo: 80410b0c, num 1234
+  CreateEnterGameMode: 00000000
+    event 0, state 1
+    events:
+    ExitGameMode: 80410b0b, state 1
+Leave group: 00000000, event 2, state 0
+

@@ -1,0 +1,31 @@
+load inet: 00000000
+sceNetInetInit: 00000000
+
+Before ad hoc:
+  UDP: socket ok, bind 0, sent 4, ready 1, received 4 'udp'
+  TCP: bind 0, listen 0, connect 0 (errno 0), accept ok, sent 4, received 4 'tcp'
+
+sceNetAdhocInit: 00000000
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+With adhocctl initialized:
+  UDP: socket ok, bind 0, sent 4, ready 1, received 4 'udp'
+  TCP: bind 0, listen 0, connect 0 (errno 0), accept ok, sent 4, received 4 'tcp'
+
+Create group: 00000000, event 1 (error 00000000), state 1
+In an ad hoc group:
+  UDP: socket ok, bind 0, sent 4, ready 1, received 4 'udp'
+  TCP: bind 0, listen 0, connect 0 (errno 0), accept ok, sent 4, received 4 'tcp'
+Leave group: 00000000, event 2, state 0
+
+After leaving the group:
+  UDP: socket ok, bind 0, sent 4, ready 1, received 4 'udp'
+  TCP: bind 0, listen 0, connect 0 (errno 0), accept ok, sent 4, received 4 'tcp'
+
+sceNetAdhocctlTerm: 00000000
+sceNetAdhocTerm: 00000000
+sceNetInetTerm: 00000000
+sceNetTerm: 00000000
+unload inet: 00000000
+unload adhoc: 00000000
+unload common: 00000000

@@ -1,0 +1,23 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+
+The creator leaves:
+  Host gone from the peer list: under 1s
+  Events: 0, state 1, same BSSID: yes
+
+The creator comes back:
+  Sees the host again: yes
+
+Two groups with the same name:
+Leave group: 00000000, event 2, state 0
+Create group: 00000000, event 1 (error 00000000), state 1
+  Peers after 5s: 0
+  Same BSSID as the first network: no
+Leave group: 00000000, event 2, state 0

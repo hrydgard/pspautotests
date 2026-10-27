@@ -1,0 +1,37 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+
+Matching:
+  Init: 00000000
+  Create: ok
+  Start: 00000000
+  Got HELLO: yes
+  SelectTarget: 00000000
+  SelectTarget again: 8041080f
+  Got ACCEPT: yes
+  Got ESTABLISHED: yes
+  Members: 00000000, size 24: local peer
+  Got DATA: yes
+  SendData: 00000000
+  Got DATA_ACK: yes
+  CancelTarget: 00000000
+  Members after cancelling: 00000000, size 12: local
+  Stop: 00000000
+  Delete: 00000000
+  Term: 00000000
+Events:
+  1 from peer, optlen 7 'HOSTOPT'
+  6 from peer, optlen 4 'ACPT'
+  7 from peer, optlen 0 ''
+  11 from peer, optlen 5 'HDATA'
+  12 from peer, optlen 0 ''
+  1 from peer, optlen 7 'HOSTOPT'
+  (hellos: some)
+Leave group: 00000000, event 2, state 0

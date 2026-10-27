@@ -1,0 +1,51 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+
+Peers:
+  GetPeerList: 00000000, size 152
+  [0] next NULL, mac peer, nickname set, last_recv set
+  GetPeerList size query: 00000000, size 152
+  GetPeerInfo: 00000000, mac peer, nickname matches
+  GetPeerInfo, size 4: 80410704
+  GetNameByAddr peer: 00000000, matches
+  GetNameByAddr local: 80410716, empty
+  GetNameByAddr other: 80410716
+  GetAddrByName: 00000000, size 152, peer
+  Same BSSID as the peer: yes
+
+PDP:
+  Create: ok
+  Recv 16: 00000000, len 16, from peer port 1000, data ok
+  Send 16 back: 00000000
+  Recv 1444: 00000000, len 1444, from peer port 1000, data ok
+  Send 1444 back: 00000000
+  Recv 1445: 00000000, len 1445, from peer port 1000, data ok
+  Send 1445 back: 00000000
+  Recv 4000: 00000000, len 4000, from peer port 1000, data ok
+  Send 4000 back: 00000000
+  Recv 8000: 00000000, len 8000, from peer port 1000, data ok
+  Send 8000 back: 00000000
+  Recv 16000: 00000000, len 16000, from peer port 1000, data ok
+  Send 16000 back: 00000000
+  Recv 32000: 80410715, len 65536, from unexpected port cccc, data -
+  Send 32000 back: 00000000
+  Broadcast 100: 00000000
+  Burst of 50: received at least 40, in order
+
+PTP:
+  Listen: ok
+  Accept: ok, from peer port 2000
+  Stat: peer peer port 2000, ESTABLISHED
+  Received 20000 bytes, ok
+  Send 100: 00000000, len 100
+  Close: 00000000
+
+Leaving:
+  Peer gone from the list after less than 5 seconds
+  Events while waiting: 0
+  State: 1
+Leave group: 00000000, event 2, state 0

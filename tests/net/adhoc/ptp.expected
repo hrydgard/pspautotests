@@ -1,0 +1,81 @@
+sceNetAdhocInit: 00000000
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+
+PtpOpen:
+  Normal: socket
+  NULL mac: 80410711
+  Other mac: 80410702
+  NULL destination: 80410711
+  Zero destination: 80410702
+  Broadcast destination: socket, id +3
+  Port 0: socket, id +1
+  Destination port 0: 80410703
+  Destination port 0xFFFF: 80410703
+  Bufsize 0: socket, id +3
+  Rexmt 0: socket, id +1
+  Count 0: socket, id +1
+  Flag 1: 80410711
+
+PtpListen:
+  Normal: socket, id +1
+  NULL mac: 80410711
+  Port 0: socket, id +1
+  Bufsize 0: socket, id +1
+  Rexmt 0: socket, id +1
+  Count 0: socket, id +1
+  Backlog 0: socket, id +1
+  Flag 1: 80410711
+
+Connecting to itself:
+  Listen: socket, id +1
+  Send on listener: 8041070b
+  Accept, nothing waiting: 80410709
+  Accept, 1ms: 80410715
+  Open: socket, id +1
+  Stat after open: 00000000, size 108
+  listener: mac local, port 2345, peer zero port 0000, snd 0, rcv 0, LISTEN
+  client: mac local, port 2346, peer local port 2345, snd 0, rcv 0, ESTABLISHED
+  id -1: mac local, port 2345, peer local port 2346, snd 0, rcv 0, ESTABLISHED
+  Accept on client: 8040070e
+  Connect: 00000000
+  Accept: socket, id +1
+    from local port 2346
+  Connect again: 00000000
+  Stat after accept: 00000000, size 108
+  listener: mac local, port 2345, peer zero port 0000, snd 0, rcv 0, LISTEN
+  client: mac local, port 2346, peer local port 2345, snd 0, rcv 0, ESTABLISHED
+  accepted: mac local, port 2345, peer local port 2346, snd 0, rcv 0, ESTABLISHED
+
+Data:
+  Send 100: 00000000, len 100
+  Flush: 00000000
+  Recv 30: 00000000, len 30, data 55
+  Recv 1000: 00000000, len 70
+  Recv empty: 80410709, len 1000
+  Recv, 1ms: 80410715, len 1000
+  Send NULL data: 80410705
+  Send NULL length: 80410711
+  Send 0: 00000000, len 0
+  Send -1: 80410705, len -1
+  Recv on listener: 8041070b
+
+Close:
+  Close accepted: 00000000
+  Recv on client: 8041070c, len 16
+  Send on client: 8041070c
+  Stat: 00000000, size 72
+  listener: mac local, port 2345, peer zero port 0000, snd 0, rcv 0, LISTEN
+  client: mac local, port 2346, peer local port 2345, snd 0, rcv 0, CLOSED
+  Close client: 00000000
+  Close twice: 80410701
+  Close flag 1: 80410711
+  Close listener: 00000000
+
+Connecting to nobody:
+  Open: socket, id +1
+  Connect, non-blocking: 80410718
+  Connect: 80410718
+
+Leave group: 00000000, event 2, state 0

@@ -1,0 +1,36 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+
+Matching:
+  Init: 00000000
+  Create: ok
+  Start: 00000000
+  Got REQUEST: yes
+  Members before accepting: 00000000, size 12: local
+  SelectTarget: 00000000
+  SelectTarget again: 8041080f
+  Got ESTABLISHED: yes
+  Members: 00000000, size 24: local peer
+  SendData: 00000000
+  SendData again at once: 80410818
+  Got DATA: yes
+  Got DATA_ACK: yes
+  Got LEAVE: yes
+  Members after the client left: 00000000, size 12: local
+  Got BYE: yes
+  Stop: 00000000
+  Delete: 00000000
+  Term: 00000000
+Events:
+  2 from peer, optlen 4 'JOIN'
+  7 from peer, optlen 0 ''
+  12 from peer, optlen 0 ''
+  11 from peer, optlen 5 'CDATA'
+  3 from peer, optlen 0 ''
+  10 from peer, optlen 0 ''
+  (hellos: none)
+Leave group: 00000000, event 2, state 0

@@ -1,0 +1,177 @@
+sceNetGetLocalEtherAddr before adhocctl: 80410180
+Create before init: 80410712
+sceNetAdhocInit: 00000000
+sceNetAdhocInit again: 80410713
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+
+== Outside a network ==
+
+PdpCreate:
+  Normal: 80410702
+  NULL mac: 80410711
+  Zero mac: 80410702
+  Broadcast mac: 80410702
+  Other mac: 80410702
+  Port 0: 80410702
+  Port 0xFFFF: 80410702
+  Bufsize 0: 80410702
+  Bufsize 1: 80410702
+  Bufsize -1: 80410702
+  Bufsize 0x100000: 80410702
+  Flag 1: 80410711
+  Flag 2: 80410711
+  Socket: 80410702
+  Same port again: 80410702
+  Second socket: 80410702
+
+PdpSend:
+  Broadcast: 80410701
+  Other mac: 80410701
+  Self: 80410701
+  Invalid id: 80410701
+  Unused id: 80410701
+  NULL mac: 80410711
+  Zero mac: 80410701
+  Multicast mac: 80410701
+  Port 0: 80410701
+  Port 0xFFFF: 80410701
+  Length 0: 80410701
+  Length 0, NULL data: 80410701
+  Length 16, NULL data: 80410701
+  Length -1: 80410701
+  Length 1444: 80410701
+  Length 1445: 80410701
+  Length 65523: 80410701
+  Length 65524: 80410701
+  Flag 0: 80410701
+  Flag 2: 80410711
+  Flag 3: 80410711
+
+Receiving from self:
+  Recv into 64: 80410701, len 64, from unexpected port cccc, data 00
+  Send 100 to self: 80410701
+  Recv into 10: 80410701, len 10, from unexpected port cccc, data 00
+  Recv into 128: 80410701, len 128, from unexpected port cccc, data 00
+  Recv into 128: 80410701, len 128, from unexpected port cccc, data 00
+  Broadcast 16: 80410701
+  Recv into 64: 80410701, len 64, from unexpected port cccc, data 00
+
+PdpRecv:
+  Non-blocking, empty: 80410701, len 64 -> 64
+  Blocking, 1ms: 80410701, len 64 -> 64
+  Invalid id: 80410701, len 64 -> 64
+  Unused id: 80410701, len 64 -> 64
+  NULL mac: 80410701, len 64 -> 64
+  NULL port: 80410701, len 64 -> 64
+  NULL buffer: 80410711, len 64 -> 64
+  NULL length: 80410711, len -1 -> -1
+  Length 0: 80410701, len 0 -> 0
+  Length -1: 80410701, len -1 -> -1
+  Flag 2: 80410711, len 64 -> 64
+
+GetPdpStat:
+  Two sockets: size query 00000000, size 0
+  stat 00000000, size 0
+  NULL size: 80410711
+  Size 4: 00000000, size 0
+
+PdpDelete:
+  Invalid id: 80410701
+  Unused id: 80410701
+  Flag 1: 80410711
+  Normal: 80410701
+  Twice: 80410701
+  No sockets: size query 00000000, size 0
+  stat 00000000, size 0
+
+== In a group ==
+Create group: 00000000, event 1 (error 00000000), state 1
+sceNetGetLocalEtherAddr: 00000000, local
+
+PdpCreate:
+  Normal: socket
+  NULL mac: 80410711
+  Zero mac: 80410702
+  Broadcast mac: 80410702
+  Other mac: 80410702
+  Port 0: socket, id +4
+  Port 0xFFFF: 80410703
+  Bufsize 0: socket, id +2
+  Bufsize 1: socket, id +1
+  Bufsize -1: socket, id +1
+  Bufsize 0x100000: socket, id +1
+  Flag 1: 80410711
+  Flag 2: 80410711
+  Socket: socket, id +1
+  Same port again: 8041070a
+  Second socket: socket, id +2
+
+PdpSend:
+  Broadcast: 00000000
+  Other mac: 00000000
+  Self: 00000000
+  Invalid id: 80410701
+  Unused id: 80410701
+  NULL mac: 80410711
+  Zero mac: 80410702
+  Multicast mac: 80410702
+  Port 0: 80410703
+  Port 0xFFFF: 80410703
+  Length 0: 00000000
+  Length 0, NULL data: 00000000
+  Length 16, NULL data: 80410705
+  Length -1: 80410705
+  Length 1444: 00000000
+  Length 1445: 00000000
+  Length 65523: 00000000
+  Length 65524: 80410705
+  Flag 0: 00000000
+  Flag 2: 80410711
+  Flag 3: 80410711
+
+Receiving from self:
+  Recv into 64: 00000000, len 16, from local port 1234, data 00
+  Send 100 to self: 00000000
+  Recv into 10: 80400706, len 100, from local port 1234, data 00
+  Recv into 128: 00000000, len 100, from local port 1234, data 55
+  Recv into 128: 80410715, len 128, from unexpected port cccc, data 00
+  Broadcast 16: 00000000
+  Recv into 64: 80410715, len 64, from unexpected port cccc, data 00
+
+PdpRecv:
+  Non-blocking, empty: 80410709, len 64 -> 64
+  Blocking, 1ms: 80410715, len 64 -> 64
+  Invalid id: 80410701, len 64 -> 64
+  Unused id: 80410701, len 64 -> 64
+  NULL mac: 80410709, len 64 -> 64
+  NULL port: 80410709, len 64 -> 64
+  NULL buffer: 80410711, len 64 -> 64
+  NULL length: 80410711, len -1 -> -1
+  Length 0: 80410709, len 0 -> 0
+  Length -1: 80410709, len -1 -> -1
+  Flag 2: 80410711, len 64 -> 64
+
+GetPdpStat:
+  Two sockets: size query 00000000, size 40
+  stat 00000000, size 40
+  [0] next 1, mac local, port 1234, rcv 0
+  [1] next -1, mac local, port 1235, rcv 0
+  NULL size: 80410711
+  Size 4: 00000000, size 0
+
+PdpDelete:
+  Invalid id: 80410701
+  Unused id: 80410701
+  Flag 1: 80410711
+  Normal: 00000000
+  Twice: 80410701
+  No sockets: size query 00000000, size 20
+  stat 00000000, size 20
+  [0] next -1, mac local, port 1235, rcv 0
+Leave group: 00000000, event 2, state 0
+
+Term:
+  sceNetAdhocTerm: 00000000
+  sceNetAdhocTerm again: 00000000
+  Create after term: 80410712

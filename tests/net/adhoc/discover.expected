@@ -1,0 +1,29 @@
+sceNetAdhocInit: 00000000
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+
+Before InitStart:
+  GetStatus: 00000000
+  Update: 00000000
+  Stop: 00000000
+  Term: 00000000
+
+Discovering, nobody around:
+  InitStart: 00000000, result field cccc
+  InitStart again: 80411301
+  status/state: 1/0 1/4
+  Final status 1, result field cccc
+  Stop: 00000000
+  status/state: 1/4 1/0 2/0
+  After Stop: status 2, result field 1
+  Handler events: 2(00000000)
+  Term: 00000000, status 0, adhocctl state 0
+
+RequestSuspend:
+  InitStart: 00000000
+  RequestSuspend: 80411303
+  status/state: 1/0 1/4
+  Final status 1, result field cccc
+  status/state: 1/4 1/0 2/0
+  Term: 00000000
+

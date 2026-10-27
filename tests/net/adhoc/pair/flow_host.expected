@@ -1,0 +1,17 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+
+PTP, 8K buffers, receiver not reading:
+  Accept: ok
+  Bytes waiting (GetPtpStat): 8K-16K
+  Read: 16K-32K
+
+PDP, receiving buffer sizes:
+  Buffer 0: GetPdpStat 0, received none of 10
+  Buffer 2048: GetPdpStat under 4K, received 1-7 of 10
+  Buffer 32768: GetPdpStat 8K-16K, received all of 10
+Leave group: 00000000, event 2, state 0

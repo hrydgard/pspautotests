@@ -1,0 +1,37 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+Leave group: 00000000, event 2, state 0
+
+Entering game mode:
+  JoinEnterGameMode: 00000000
+  Event 4 (error 00000000), state 3
+  GetGameModeInfo: 00000000, 2 members: peer local
+  Peer list: 1
+
+Buffers:
+  CreateMaster, size 0: 80410705
+  CreateMaster: 00000000
+  CreateMaster again: 8041071a
+  CreateReplica for a non-member: 80410d13
+  CreateReplica: 00000000
+  CreateReplica again: 8041071a
+
+Running for 3 seconds:
+  Replica updates in 60 polls: 40 or more
+  Peer's counter only increases: yes, magic right, timestamps increase
+  Info length field after the call: 16
+  UpdateReplica with NULL info: 00000000
+  UpdateReplica bad id: 8041071c
+
+Leaving:
+  DeleteReplica: 00000000
+  DeleteMaster: 00000000
+  ExitGameMode: 00000000
+  Event 2, state 0

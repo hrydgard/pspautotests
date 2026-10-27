@@ -1,0 +1,20 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+
+Setup:
+  PTP: connected
+  Matching: established
+
+Vanishing:
+  sceNetAdhocctlDisconnect: 00000000
+  PTP send afterwards: 00000000
+  PTP recv afterwards: no error
+  PDP send afterwards: 00000000
+  Events: 8

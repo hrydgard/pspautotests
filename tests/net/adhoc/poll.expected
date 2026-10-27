@@ -1,0 +1,65 @@
+sceNetAdhocInit: 00000000
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+
+Alerts:
+  Get initial: 00000000, flags 00000000
+  Recv: 00000000, get 00000000, flags 00000020
+  All: 00000000, get 00000000, flags 000003f0
+  Bit 0: 00000000, get 00000000, flags 00000000
+  Bit 0x400: 00000000, get 00000000, flags 00000000
+  All bits: 00000000, get 00000000, flags 000003f0
+  Zero: 00000000, get 00000000, flags 00000000
+  Invalid id: 80410701, get 80410701, flags 0000cccc
+  Unused id: 80410701, get 80410701, flags 0000cccc
+  Get NULL: 80410711
+
+Alerted calls:
+  Recv, non-blocking: 80410708
+  Recv, blocking: 80410708
+  Recv again: 80410708
+  Flags afterwards: 00000020
+  Send, blocking: 00000000
+  Poll RECV: 00000000, revents 0000
+  Poll with poll alert, non-blocking: 80410717, revents 0400
+  Poll with poll alert, blocking: 80410717, revents 0400
+  Send with send alert, blocking: 80410708
+  Send with send alert, non-blocking: 80410708
+
+Poll, PDP:
+  Nothing waiting, RECV: 00000000, revents 0000
+  Nothing waiting, SEND: 00000001, revents 0001
+  Nothing waiting, all: 00000001, revents 0001
+  Nothing waiting, none: 00000000, revents 0000
+  Data waiting, RECV: 00000001, revents 0002
+  Data waiting, all: 00000001, revents 0003
+  Two sockets: 00000001, revents 0000, revents 0002
+  Blocking, 1ms: 80410715, revents 0000
+  Count 0: 80410711
+  Count -1: 80410711
+  NULL: 80410711
+  Flag 2: 80410711, revents cccc
+  With an invalid id: 80410701, revents 0100, revents cccc
+
+Waking a blocked receive:
+  SetSocketAlert: 00000000
+  Recv alert: done before 0, after 1, result 80410708
+  SetSocketAlert: 00000000
+  Send alert: done before 0, after 0, result 00001234
+  PdpDelete: 00000000
+  Delete: done before 0, after 1, result 80410707
+  Poll deleted socket: 80410701, revents 0100
+
+Poll, PTP:
+  Listener, nothing waiting: 00000001, revents 0011
+  Listener, connection waiting: 00000001, revents 0019
+  Client: 00000001, revents 0015
+  Accepted: 00000001, revents 0015
+  Accepted, data waiting: 00000001, revents 0017
+  Accepted, data waiting, SEND only: 00000001, revents 0001
+  Accepted, peer closed: 80410717, revents 0800
+  Accepted, peer closed, none: 80410717, revents 0800
+  Refused connect: 80410717, revents 0800
+
+Leave group: 00000000, event 2, state 0

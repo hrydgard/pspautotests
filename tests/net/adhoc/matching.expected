@@ -1,0 +1,100 @@
+sceNetAdhocInit: 00000000
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+
+Init:
+  Create before init: 80410813
+  Term before init: 00000000
+  Init: 00000000
+  Init again: 80410812
+  GetPoolMaxAlloc: not positive
+  GetPoolStat: 00000000, pool 1ffe0, max odd, free ok
+  GetPoolStat NULL: 80410806
+
+Create:
+  Normal, host: context
+  Normal, client: context, id +1
+  Normal, p2p: context, id +1
+  Mode 0: 80410801
+  Mode 4: 80410801
+  Maxnum 1, host: 80410803
+  Maxnum 1, client: 80410803
+  Maxnum 1, p2p: 80410803
+  Maxnum 2, host: context, id +1
+  Maxnum 2, client: context, id +1
+  Maxnum 2, p2p: context, id +1
+  Maxnum 16, host: context, id +1
+  Maxnum 16, client: context, id +1
+  Maxnum 16, p2p: context, id +1
+  Maxnum 17, host: 80410803
+  Maxnum 17, client: 80410803
+  Maxnum 17, p2p: 80410803
+  Rxbuflen 0, host: 80410804
+  Rxbuflen 0, client: 80410804
+  Rxbuflen 0, p2p: 80410804
+  Rxbuflen 27 (maxnum 4), host: 80410804
+  Rxbuflen 27 (maxnum 4), client: 80410804
+  Rxbuflen 27 (maxnum 4), p2p: 80410804
+  Rxbuflen 28 (maxnum 4), host: context, id +1
+  Rxbuflen 28 (maxnum 4), client: context, id +1
+  Rxbuflen 28 (maxnum 4), p2p: context, id +1
+  Rxbuflen 15 (maxnum 2), host: 80410804
+  Rxbuflen 15 (maxnum 2), client: 80410804
+  Rxbuflen 15 (maxnum 2), p2p: 80410804
+  Rxbuflen 16 (maxnum 2), host: context, id +1
+  Rxbuflen 16 (maxnum 2), client: context, id +1
+  Rxbuflen 16 (maxnum 2), p2p: context, id +1
+  Hello 0, host: 80410806
+  Hello 0, client: context, id +-14
+  Hello 0, p2p: 80410806
+  Keepalive 0, host: 80410806
+  Keepalive 0, client: context, id +1
+  Keepalive 0, p2p: 80410806
+  Count 0, host: context, id +1
+  Count 0, client: context, id +1
+  Count 0, p2p: context, id +1
+  Count -1, host: 80410806
+  Count -1, client: 80410806
+  Count -1, p2p: 80410806
+  Rexmt 0, host: 80410806
+  Rexmt 0, client: 80410806
+  Rexmt 0, p2p: 80410806
+  Port 0: context, id +1
+  NULL handler: context, id +1
+  Context: context, id +1
+  Same port again: 80410814
+
+Not started:
+  Stop: 00000000
+  SelectTarget: 8041080b
+  CancelTarget: 8041080b
+  SendData: 8041080b
+  SetHelloOpt: 8041080b
+  GetHelloOpt: 8041080b, len 1234
+  GetMembers: 8041080b, size 1234
+  Invalid id Stop: 80410807
+  Invalid id Delete: 80410807
+  Invalid id GetMembers: 80410807
+
+Started:
+  Start: 00000000
+  Start again: 8041080a
+  GetHelloOpt: 00000000, len 16, 'helo'
+  SetHelloOpt: 00000000
+  GetHelloOpt into 2: 00000000, len 2, 'he'
+  GetMembers size: 00000000, size 12
+  SelectTarget unknown: 8041080c
+  CancelTarget unknown: 8041080c
+  SendData unknown: 8041080c
+  Delete while running: 8041080a
+  Stop: 00000000
+  Stop again: 00000000
+  Delete: 00000000
+  Delete again: 80410807
+
+Term:
+  Term: 00000000
+  Term again: 00000000
+
+Leave group: 00000000, event 2, state 0

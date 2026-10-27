@@ -1,0 +1,27 @@
+sceNetAdhocInit: 00000000
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+
+PDP between two sockets:
+  Create: ok, ok
+  Broadcast to the other socket: sent 00000000, recv 80410715, ''
+  Unicast to the other socket: sent 00000000, recv 00000000, 'unicast'
+
+sceNetAdhocMatchingInit: 00000000
+
+Matching, host and client on the same port:
+  Create host: ok, client: failed
+  Client create: 80410814
+  Start host: 00000000
+  host events (0):
+  client events (0):
+
+Matching, client on another port:
+  Create host: ok, client: ok
+  Start host: 00000000
+  Start client: 00000000
+  host events (0):
+  client events (0):
+
+Leave group: 00000000, event 2, state 0

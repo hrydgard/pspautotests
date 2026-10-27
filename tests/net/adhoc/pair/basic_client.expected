@@ -1,0 +1,55 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+
+Peers:
+  GetPeerList: 00000000, size 152
+  [0] next NULL, mac peer, nickname set, last_recv set
+  GetPeerList size query: 00000000, size 152
+  GetPeerInfo: 00000000, mac peer, nickname matches
+  GetPeerInfo, size 4: 80410704
+  GetNameByAddr peer: 00000000, matches
+  GetNameByAddr local: 80410716, empty
+  GetNameByAddr other: 80410716
+  GetAddrByName: 00000000, size 152, peer
+  Same BSSID as the peer: yes
+
+PDP:
+  Create: ok
+  Send 16: 00000000
+  Recv 16 back: 00000000, len 16, from peer port 1000, data ok
+  Send 1444: 00000000
+  Recv 1444 back: 00000000, len 1444, from peer port 1000, data ok
+  Send 1445: 00000000
+  Recv 1445 back: 00000000, len 1445, from peer port 1000, data ok
+  Send 4000: 00000000
+  Recv 4000 back: 00000000, len 4000, from peer port 1000, data ok
+  Send 8000: 00000000
+  Recv 8000 back: 00000000, len 8000, from peer port 1000, data ok
+  Send 16000: 00000000
+  Recv 16000 back: 00000000, len 16000, from peer port 1000, data ok
+  Send 32000: 00000000
+  Recv 32000 back: 80410715, len 65536, from unexpected port cccc, data -
+  Recv broadcast: 00000000, len 100, from peer port 1000, data ok
+  Burst of 50: sent 50
+  Send to a closed port: 00000000
+
+PTP:
+  Open: ok
+  Connect: 00000000
+  Stat: peer peer port 2000, ESTABLISHED
+  Sent 20000 bytes
+  Flush: 00000000
+  Recv: 00000000, len 100, ok
+  Recv after the host closed: 8041070c
+  Stat: peer peer port 2000, CLOSED
+  Connect to a closed port: 80410718, within a second
+
+Leaving:
+Leave group: 00000000, event 2, state 0

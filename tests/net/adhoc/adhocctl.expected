@@ -1,0 +1,92 @@
+sceNetAdhocInit: 00000000
+
+Before init:
+  GetState: 80410b08, state -1
+  AddHandler: 80410b08
+  Create: 80410b08
+  Term: 00000000
+
+Init:
+  Stack 0: 80410b13, GetState 80410b08
+  Stack 0x400: 80410b13, GetState 80410b08
+  Stack 0xBFF: 80410b13, GetState 80410b08
+  Stack 0xC00: 00000000, GetState 00000000
+  Priority 0: 80020193, GetState 80410b08
+  Priority 0x80: 80020193, GetState 80410b08
+  NULL id: 80410b04, GetState 80410b08
+  Type 3: 80410b04, GetState 80410b08
+  Lowercase product: 00000000, GetState 00000000
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+  GetState: 00000000, state 0
+  GetAdhocId: 00000000, matches
+  sceNetGetLocalEtherAddr: 80410180
+
+Disconnected:
+  GetState: 00000000, state 0
+  GetParameter: 80410b09
+  GetPeerList: 80410682, size 0
+  GetScanInfo: 00000000, size 0
+  Disconnect: 00000000
+
+Handlers:
+  NULL: 80410b04
+  First: 00000000
+  Same again: 00000001
+  Added 2 more, then 80410b12
+  Delete the duplicate: 00000000
+  Delete invalid: 80410b06
+  Delete -1: 80410b06
+
+Group names:
+  NULL: 00000000
+  Dash: 80410b04
+  Space: 80410b04
+  Underscore: 80410b04
+
+Create:
+  Create TESTGRP1: 00000000, state right after 0, event 1, state 1
+    events: 1(00000000)
+  GetParameter: 00000000, channel 1/6/11, group 'TESTGRP1', nickname set, bssid unexpected (low bits 2)
+  sceNetGetLocalEtherAddr: 00000000, local
+  GetPeerList: 00000000, size 0
+  GetPeerInfo local: 80410716
+  GetPeerInfo other: 80410716
+  GetScanInfo: 00000000, size 0
+
+While connected:
+  Create: 00000000
+  Connect: 00000000
+  Scan: 00000000
+    events: 0(80410b02) 0(80410b02) 0(80410b02)
+  GetState: 00000000, state 1
+
+Disconnect:
+  Disconnect: 00000000, state right after 1, event 2, state 0
+    events: 2(00000000)
+  GetParameter: 80410b09
+  GetPeerList: 80410682, size 0
+  Disconnect again: 00000000
+
+Scan:
+  Scan: 00000000, state right after 0, event 3, state 0
+    events: 3(00000000)
+  GetScanInfo: 00000000, size 0
+
+Connect:
+  Connect TESTGRP3: 00000000, state right after 0, event 1, state 1
+    events: 1(00000000)
+  GetParameter: 00000000, channel 1/6/11, group 'TESTGRP3', nickname set, bssid unexpected (low bits 2)
+  Disconnect: 00000000, state right after 1, event 2, state 0
+    events: 2(00000000)
+
+Init again:
+  Again: 80410b07, GetState 80410b08
+  GetState: 80410b08, state -1
+  And again: 80410601, GetState 80410b08
+
+Term:
+  DelHandler: 80410b08
+  Term: 00000000
+  Term again: 00000000
+  GetState after term: 80410b08, state -1

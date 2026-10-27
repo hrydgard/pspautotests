@@ -1,0 +1,21 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+
+Setup:
+  PTP: accepted
+  Matching: established
+
+The client vanishes:
+  PTP send fails: 1-2s, 8041070c
+  PTP recv fails: 1-2s, 8041070c
+  Peer gone from the peer list: under 1s
+  Matching TIMEOUT: 2-4s
+  PDP sends to the peer: all succeed
+  Events: 8
+  Matching members: 1
+  adhocctl state: 1, events: 1
+Leave group: 00000000, event 2, state 0

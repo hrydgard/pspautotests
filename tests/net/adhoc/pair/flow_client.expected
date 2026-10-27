@@ -1,0 +1,22 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+
+PTP, 8K buffers, receiver not reading:
+  Connect: 00000000
+  Sent before it stopped: 8K-16K, then 80410709
+  Bytes not yet sent (GetPtpStat): 8K-16K
+  Blocking send, 200ms: 80410715
+  Send once drained: 00000000
+
+PDP, receiving buffer sizes:
+  Buffer 0: sent 10
+  Buffer 2048: sent 10
+  Buffer 32768: sent 10
+Leave group: 00000000, event 2, state 0
