@@ -14,8 +14,9 @@ The client vanishes:
   PTP recv fails: 1-2s, 8041070c
   Peer gone from the peer list: under 1s
   Matching TIMEOUT: 2-4s
+  Matching SendData once the peer is gone: 00000000, DATA_TIMEOUT after it: 1-2s
   PDP sends to the peer: all succeed
-  Events: 8
+  Events: 13 8
   Matching members: 1
   adhocctl state: 1, events: 1
 Leave group: 00000000, event 2, state 0

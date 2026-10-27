@@ -1,5 +1,5 @@
 TARGETS = lan_host lan_client
-EXTRA_OBJS = ../net-imports.o pair-imports.o
+EXTRA_OBJS = ../../net-imports.o
 
 COMMON_DIR = ../../../../common
 include $(COMMON_DIR)/common.mk

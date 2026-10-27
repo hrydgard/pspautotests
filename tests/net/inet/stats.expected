@@ -1,0 +1,32 @@
+GetUdpcbstat:
+  No sockets, size query: 0, size 0
+  Size with 1 socket: 24, with 2: 48
+  Read: 0, size 48
+  Entry 0: port B at 20 127.0.0.1 at 12, first word points into the buffer
+  Entry 1: 127.0.0.1 at 12, first word 0
+  Buffer of 4: 0, size 48
+
+GetTcpcbstat:
+  No sockets, size query: 0, size 0
+  Size with 1 socket: 28, with 2: 56
+  Read: 0, size 56
+  Entry 0: port B at 20 127.0.0.1 at 12, first word points into the buffer
+  Entry 1: 127.0.0.1 at 12, first word 0
+  Buffer of 4: 0, size 56
+
+SocketAbort:
+  SocketAbort: 0
+  Blocked recv: done before 0, within 0.5s 1, result -1, errno 4
+  recv afterwards, DONTWAIT: -1, errno 11
+  sendto afterwards: 1
+  SocketAbort on a bad socket: -1, errno 9
+
+Sendmsg / Recvmsg:
+  sendmsg, two parts: 12
+  recvmsg: 12, 'hell' + 'o world', from port 24520, namelen 16, flags 0
+  sendmsg, one part: 6
+  recvmsg into 3: 3, 'hel', flags 10
+  recvmsg, no name: 6
+  recvmsg, nothing waiting, DONTWAIT: -1, errno 11
+  sendmsg on a bad socket: -1, errno 9
+  sendmsg, no destination, unconnected: -1, errno 121

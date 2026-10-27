@@ -9,7 +9,7 @@ Join: 00000000, event 1 (error 00000000), state 1
 Peers: 1
 
 The creator leaves:
-  Host gone from the peer list: under 1s
+  Host gone from the peer list: yes
   Events: 0, state 1, same BSSID: yes
 
 The creator comes back:

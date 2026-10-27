@@ -35,7 +35,8 @@ int main(int argc, char *argv[]) {
 	printf("\nThe creator leaves:\n");
 #if HOST
 	adhocctlLeaveGroup();
-	sceKernelDelayThread(3000000);
+	// Longer than the client takes to time the host out, in case it misses the leave.
+	sceKernelDelayThread(17000000);
 
 	printf("\nFinding the network again:\n");
 	AdhocctlScanInfo infos[8];
@@ -64,19 +65,20 @@ int main(int argc, char *argv[]) {
 	sceNetAdhocctlGetParameter(&param);
 	printf("  Connect: %08x, event %d, same BSSID as before: %s\n", result, event, memcmp(&param.bssid, &originalBssid, 6) == 0 ? "yes" : "no");
 	s64 took = waitPeers(1, 10000);
-	printf("  Sees the client again: %s\n", took < 0 ? "no" : timeBucket(took));
+	printf("  Sees the client again: %s\n", took < 0 ? "not within 10s" : "yes");
 #else
 	int start = eventCount;
-	s64 took = waitPeers(0, 15000);
-	printf("  Host gone from the peer list: %s\n", took < 0 ? "not within 15s" : timeBucket(took));
+	// Usually under 1s, but 8-16s when the leaving console's notice doesn't arrive and the peer times out.
+	s64 took = waitPeers(0, 20000);
+	printf("  Host gone from the peer list: %s\n", took < 0 ? "not within 20s" : "yes");
 	int state = -1;
 	sceNetAdhocctlGetState(&state);
 	sceNetAdhocctlGetParameter(&param);
 	printf("  Events: %d, state %d, same BSSID: %s\n", eventCount - start, state, memcmp(&param.bssid, &originalBssid, 6) == 0 ? "yes" : "no");
 
 	printf("\nThe creator comes back:\n");
-	took = waitPeers(1, 20000);
-	printf("  Sees the host again: %s\n", took < 0 ? "not within 20s" : "yes");
+	took = waitPeers(1, 40000);
+	printf("  Sees the host again: %s\n", took < 0 ? "not within 40s" : "yes");
 #endif
 	pairSync(2);
 

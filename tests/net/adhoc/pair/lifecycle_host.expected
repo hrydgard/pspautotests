@@ -11,7 +11,7 @@ Leave group: 00000000, event 2, state 0
 Finding the network again:
   Scan finds it, same BSSID as before: yes
   Connect: 00000000, event 1, same BSSID as before: yes
-  Sees the client again: under 1s
+  Sees the client again: yes
 
 Two groups with the same name:
 Leave group: 00000000, event 2, state 0

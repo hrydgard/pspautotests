@@ -1,5 +1,5 @@
 TARGETS = basic_host basic_client matching_host matching_client vanish_host vanish_client matching2_host matching2_client gamemode_host gamemode_client lifecycle_host lifecycle_client flow_host flow_client
-EXTRA_OBJS = ../adhoc-imports.o
+EXTRA_OBJS = ../../net-imports.o
 
 COMMON_DIR = ../../../../common
 include $(COMMON_DIR)/common.mk

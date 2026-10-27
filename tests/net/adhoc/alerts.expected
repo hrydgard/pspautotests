@@ -1,0 +1,31 @@
+sceNetAdhocInit: 00000000
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+
+Listener:
+  Flags: 00000100
+  Accept, non-blocking: 80410708
+  Accept, blocking: 80410708
+  Accept with only the receive alert: 80410715
+  Blocked accept, accept alert: done before 0, within 0.5s 1, result 80410708
+  Blocked accept, receive alert: done before 0, within 0.5s 0, result 00001234
+
+Connection:
+  Connected: yes
+  Connect with the connect alert: 00000000
+  Send with the send alert: 80410708
+  Send with the send alert, non-blocking: 80410708
+  Send with only the flush alert: 00000000
+  Flush with the flush alert: 00000000
+  Flush, no alert: 00000000
+  Server recv: 00000000, len 4
+  Recv with the receive alert: 80410708
+  Blocked recv, receive alert: done before 0, within 0.5s 1, result 80410708
+  Blocked recv, flush alert: done before 0, within 0.5s 0, result 00001234
+  Recv after clearing: 00000000, len 4
+
+Poll alert on PTP:
+  Poll: 80410717, revents 0400
+
+Leave group: 00000000, event 2, state 0

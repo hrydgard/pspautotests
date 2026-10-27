@@ -1,5 +1,5 @@
-TARGETS = pdp adhocctl ptp matching self poll gamemode apctl loopback discover limits
-EXTRA_OBJS = adhoc-imports.o
+TARGETS = pdp adhocctl ptp matching self poll gamemode apctl loopback discover limits alerts
+EXTRA_OBJS = ../net-imports.o
 
 COMMON_DIR = ../../../common
 include $(COMMON_DIR)/common.mk

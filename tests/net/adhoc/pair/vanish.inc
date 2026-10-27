@@ -50,7 +50,10 @@ int main(int argc, char *argv[]) {
 	printf("\nThe client vanishes:\n");
 	// From here on, nothing more from the client. Watch for up to 40 seconds.
 	u64 begin = sceKernelGetSystemTimeWide();
-	u64 ptpSendFailed = 0, ptpRecvFailed = 0, peerGone = 0, matchingTimeout = 0;
+	// Matching data to the client once it has gone from the peer list: nobody acknowledges it.
+	int sendData = 0x1234;
+	int sendStart = -1;
+	u64 ptpSendFailed = 0, ptpRecvFailed = 0, peerGone = 0, matchingTimeout = 0, dataTimeout = 0;
 	int ptpSendError = 0, ptpRecvError = 0;
 	int pdpSends = 0, pdpSendFailures = 0;
 	while (sceKernelGetSystemTimeWide() - begin < 40000000) {
@@ -76,17 +79,23 @@ int main(int argc, char *argv[]) {
 			sceNetAdhocctlGetPeerList(&size, NULL);
 			if (size == 0) {
 				peerGone = now;
+				sendStart = mNumEvents;
+				sendData = sceNetAdhocMatchingSendData(matching, &peerMac, 4, "LOST");
 			}
 		}
 		int timeoutEvent = matchingTimeout ? -1 : waitMatching(8, start, 0);
 		if (timeoutEvent >= 0) {
 			matchingTimeout = mEvents[timeoutEvent].time - begin;
 		}
+		int dataTimeoutEvent = dataTimeout || sendStart < 0 ? -1 : waitMatching(13, sendStart, 0);
+		if (dataTimeoutEvent >= 0) {
+			dataTimeout = mEvents[dataTimeoutEvent].time - begin - peerGone;
+		}
 		pdpSends++;
 		if (sceNetAdhocPdpSend(pdp, &peerMac, PDP_PORT, buffer, 16, 0, 1) < 0) {
 			pdpSendFailures++;
 		}
-		if (ptpSendFailed && ptpRecvFailed && peerGone && matchingTimeout) {
+		if (ptpSendFailed && ptpRecvFailed && peerGone && matchingTimeout && dataTimeout) {
 			break;
 		}
 		sceKernelDelayThread(100000);
@@ -95,6 +104,7 @@ int main(int argc, char *argv[]) {
 	printf("  PTP recv fails: %s, %08x\n", ptpRecvFailed ? timeBucket(ptpRecvFailed) : "not within 40s", ptpRecvError);
 	printf("  Peer gone from the peer list: %s\n", peerGone ? timeBucket(peerGone) : "not within 40s");
 	printf("  Matching TIMEOUT: %s\n", matchingTimeout ? timeBucket(matchingTimeout) : "not within 40s");
+	printf("  Matching SendData once the peer is gone: %08x, DATA_TIMEOUT after it: %s\n", sendData, dataTimeout ? timeBucket(dataTimeout) : "not within 40s");
 	printf("  PDP sends to the peer: %s\n", pdpSendFailures == 0 ? "all succeed" : (pdpSendFailures == pdpSends ? "all fail" : "some fail"));
 	printMatchingEvents(start);
 	int members = 0;
