@@ -286,6 +286,10 @@ static void testResolver() {
 	int rid = -1;
 	static u8 rbuf[1024];
 	printf("  Create before init: %08x\n", sceNetResolverCreate(&rid, rbuf, sizeof(rbuf)));
+	u32 early = 0;
+	printf("  NtoA before init: %08x\n", sceNetResolverStartNtoA(rid, "127.0.0.1", &early, 1, 1));
+	printf("  Stop before init: %08x\n", sceNetResolverStop(rid));
+	printf("  Delete before init: %08x\n", sceNetResolverDelete(rid));
 	printf("  Init: %08x\n", sceNetResolverInit());
 	printf("  Init again: %08x\n", sceNetResolverInit());
 	printf("  Create NULL rid: %08x\n", sceNetResolverCreate(NULL, rbuf, sizeof(rbuf)));

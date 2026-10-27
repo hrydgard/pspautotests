@@ -107,6 +107,9 @@ Apctl:
 
 Resolver:
   Create before init: 00000000
+  NtoA before init: 80410402
+  Stop before init: 8041040a
+  Delete before init: 00000000
   Init: 00000000
   Init again: 80000020
   Create NULL rid: 80410403
