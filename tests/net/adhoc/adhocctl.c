@@ -141,7 +141,11 @@ int main(int argc, char *argv[]) {
 	printParameter("  GetParameter");
 	printPeers("  GetPeerList");
 	printScanInfo("  GetScanInfo");
+	int disconnectStart = eventCount;
 	printf("  Disconnect: %08x\n", sceNetAdhocctlDisconnect());
+	// Whether a Disconnect that has nothing to leave still notifies the handlers.
+	sceKernelDelayThread(500000);
+	printEventsSince(disconnectStart);
 
 	printf("\nHandlers:\n");
 	printf("  NULL: %08x\n", sceNetAdhocctlAddHandler(NULL, NULL));
@@ -197,7 +201,10 @@ int main(int argc, char *argv[]) {
 		runAndWait("  Disconnect", sceNetAdhocctlDisconnect());
 		printParameter("  GetParameter");
 		printPeers("  GetPeerList");
+		int againStart = eventCount;
 		printf("  Disconnect again: %08x\n", sceNetAdhocctlDisconnect());
+		sceKernelDelayThread(500000);
+		printEventsSince(againStart);
 	}
 
 	printf("\nScan:\n");
