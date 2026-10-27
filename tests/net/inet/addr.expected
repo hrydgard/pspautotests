@@ -1,0 +1,33 @@
+InetAddr / InetAton / InetPton:
+  '127.0.0.1': addr 0100007f, aton 1 0100007f, pton 1 0100007f
+  '0.0.0.0': addr 00000000, aton 1 00000000, pton 1 00000000
+  '255.255.255.255': addr ffffffff, aton 1 ffffffff, pton 1 ffffffff
+  '192.168.1.20': addr 1401a8c0, aton 1 1401a8c0, pton 1 1401a8c0
+  '1.2.3': addr 03000201, aton 1 03000201, pton 0 cccccccc
+  '1.2': addr 02000001, aton 1 02000001, pton 0 cccccccc
+  '16909060': addr 04030201, aton 1 04030201, pton 0 cccccccc
+  '0x7f.1': addr 0100007f, aton 1 0100007f, pton 0 cccccccc
+  '0x7f000001': addr 0100007f, aton 1 0100007f, pton 0 cccccccc
+  '010.0.0.1': addr 01000008, aton 1 01000008, pton 0 cccccccc
+  '256.0.0.1': addr ffffffff, aton 0 cccccccc, pton 0 cccccccc
+  '1.2.3.4.5': addr ffffffff, aton 0 cccccccc, pton 0 cccccccc
+  '1.2.3.4 ': addr 04030201, aton 1 04030201, pton 1 04030201
+  ' 1.2.3.4': addr ffffffff, aton 0 cccccccc, pton 0 cccccccc
+  '1.2.3.': addr ffffffff, aton 0 cccccccc, pton 0 cccccccc
+  '': addr ffffffff, aton 0 cccccccc, pton 0 cccccccc
+  'abc': addr ffffffff, aton 0 cccccccc, pton 0 cccccccc
+  '1..2.3': addr ffffffff, aton 0 cccccccc, pton 0 cccccccc
+
+InetPton, other families:
+  Family 0: -1, errno 106, cccccccc
+  Family 23 '::1': -1, errno 106, last byte cc
+
+InetNtop:
+  0100007f: returns dst '127.0.0.1'
+  00000000: returns dst '0.0.0.0'
+  ffffffff: returns dst '255.255.255.255'
+  1401a8c0: returns dst '192.168.1.20'
+  Buffer of 8 for 192.168.1.20: NULL, errno 28, first bytes XXXX
+  Buffer of 16 for 255.255.255.255: 255.255.255.255
+  Buffer of 15 for 255.255.255.255: NULL
+  Family 0: NULL, errno 106

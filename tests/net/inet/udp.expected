@@ -1,0 +1,61 @@
+Truncation:
+  sendto 100: 100
+  recvfrom into 10: 10, from 127.0.0.1 port 24300, fromlen 16, first byte 01
+  Anything left: 0
+
+MSG_PEEK:
+  Peek: 50, from 127.0.0.1 port 24300, fromlen 16, first byte 02
+  Peek into 10: 10, from 127.0.0.1 port 24300, fromlen 16, first byte 02
+  Receive: 50, from 127.0.0.1 port 24300, fromlen 16, first byte 02
+  Anything left: 0
+
+Order and boundaries:
+  First: 10, from 127.0.0.1 port 24300, fromlen 16, first byte 00
+  Second: 11, from 127.0.0.1 port 24300, fromlen 16, first byte 10
+  Third: 12, from 127.0.0.1 port 24300, fromlen 16, first byte 20
+
+Sizes:
+  sendto 0: 0
+  recvfrom: 0, from 127.0.0.1 port 24300, fromlen 16, first byte 00
+  sendto 8192: 8192
+  recvfrom: 8192, from 127.0.0.1 port 24300, fromlen 16, first byte 00
+  sendto 9216: 9216
+  recvfrom: 9216, from 127.0.0.1 port 24300, fromlen 16, first byte 00
+  sendto 9217: -1, errno 122
+  recvfrom: -1, ready 0, errno 0
+  sendto 65507: -1, errno 122
+  recvfrom: -1, ready 0, errno 0
+  sendto 65508: -1, errno 122
+  setsockopt SO_SNDBUF 32K: 0
+  setsockopt SO_RCVBUF 32K: 0
+  sendto 20000 after: 20000
+  recvfrom: 20000, from 127.0.0.1 port 24300, fromlen 16, first byte 00
+
+fromlen:
+  fromlen 4: 4, fromlen now 4, port bytes written
+  NULL from: 4
+
+Connected UDP:
+  connect to B: 0
+  Bound to 127.0.0.1, port picked
+  getpeername: 0
+    port 24301
+  send: 5
+  B receives: 5, from 127.0.0.1 port picked, fromlen 16, first byte 04
+  sendto another address: -1, errno 127
+  A receives: -1, ready 0, errno 0
+  c receives from A: -1, ready 0, errno 0
+  c receives from B: 5, from 127.0.0.1 port 24301, fromlen 16, first byte 00
+
+Sending to a closed port:
+  connect: 0
+  send: 5
+  recv afterwards: -1, errno 111
+  send again: 5
+  sendto unconnected: 5
+  recvfrom afterwards: -1, errno 11
+
+Broadcast on loopback:
+  sendto 255.255.255.255 without SO_BROADCAST: -1, errno 118
+  sendto 255.255.255.255 with SO_BROADCAST: -1, errno 118
+  B receives: -1, ready 0, errno 0

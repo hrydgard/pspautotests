@@ -1,0 +1,30 @@
+Role: client
+sceNetApctlInit: 00000000
+sceNetApctlConnect: 00000000
+apctl state: 4
+
+Apctl info:
+  Profile name: set
+  SSID: length matches SSID_LENGTH: yes
+  Security type: 0
+  Strength: 1-100
+  Channel: 1-14
+  IP: private
+  Subnet mask: set
+  Gateway: private
+  Primary DNS: set
+  Code 19: 80410a02
+
+Discovery:
+  Answers sent: all 30, errno 0
+  Got the host's broadcast: yes
+  Peer is on the same subnet: yes
+
+TCP:
+  Connect: 0
+  Sent 20000
+  Received 100 back
+  Connect to a closed port: -1, errno 111, within 3 seconds
+
+UDP:
+  Sent 50 datagrams

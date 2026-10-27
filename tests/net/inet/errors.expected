@@ -1,0 +1,76 @@
+socket:
+  TCP: a socket
+  UDP: a socket
+  TCP, IPPROTO_TCP: a socket
+  UDP, IPPROTO_UDP: a socket
+  TCP, IPPROTO_UDP: -1, errno 123
+  Raw: a socket
+  Domain 0: -1, errno 123
+  Domain 23 (INET6): -1, errno 123
+  Type 0: -1, errno 123
+  Type 99: -1, errno 123
+  Protocol 99: -1, errno 123
+
+Invalid descriptors:
+  close -1: -1, errno 9
+  close 200: -1, errno 9
+  send on 200: -1, errno 9
+  recv on 200: -1, errno 9
+  close: 0
+  close again: -1, errno 9
+  sendto on the closed socket: -1, errno 9
+
+bind:
+  UDP: 0
+  Same address again, other socket: -1, errno 112
+  The same socket again, other port: -1, errno 22
+  addrlen 4: -1, errno 22
+  addrlen 0: -1, errno 22
+  Wrong family: -1, errno 125
+  An address the console doesn't have: -1, errno 125
+
+TCP in the wrong state:
+  send, not connected: -1, errno 128
+  recv, not connected: -1, errno 128
+  getpeername, not connected: -1, errno 128
+  accept, not listening: -1, errno 22
+  shutdown, not connected: 0
+  listen, not bound: -1, errno 22
+  listen again: -1, errno 22
+  connect, while listening: -1, errno 22
+
+UDP in the wrong state:
+  listen: -1, errno 95
+  accept: -1, errno 95
+  send, not connected: -1, errno 121
+  getpeername, not connected: -1, errno 128
+  shutdown: 0
+  shutdown, how 3: -1, errno 22
+
+Connecting to a port nobody listens on:
+  connect: -1, errno 111
+  connect again: -1, errno 22
+  getsockopt SO_ERROR: 0
+    SO_ERROR 0
+
+The peer closes:
+  recv: 0
+  recv again: 0
+  send: 1
+  send again: -1, errno 32
+  getpeername: -1, errno 128
+
+The peer resets:
+  CloseWithRST: 0
+  recv: -1, errno 104
+  recv again: 0
+  send: -1, errno 32
+
+Descriptor numbers:
+  Consecutive: yes
+  After closing the second, a new one gets a higher number
+  Sockets until it fails: 255, then -1, errno 24
+
+errno:
+  After a failure then a success: changed
+  GetPspError: 00000000

@@ -1,0 +1,89 @@
+Defaults, TCP:
+  SO_DEBUG: len 4, 00 00 00 00
+  SO_ACCEPTCONN: -1, errno 109
+  SO_REUSEADDR: len 4, 00 00 00 00
+  SO_KEEPALIVE: len 4, 00 00 00 00
+  SO_DONTROUTE: len 4, 00 00 00 00
+  SO_BROADCAST: len 4, 00 00 00 00
+  SO_LINGER: len 8, 00 00 00 00 00 00 00 00
+  SO_OOBINLINE: len 4, 00 00 00 00
+  SO_REUSEPORT: len 4, 00 00 00 00
+  SO_SNDBUF: len 4, 00 40 00 00
+  SO_RCVBUF: len 4, 00 40 00 00
+  SO_SNDLOWAT: len 4, 00 08 00 00
+  SO_RCVLOWAT: len 4, 01 00 00 00
+  SO_SNDTIMEO: len 4, 00 00 00 00
+  SO_RCVTIMEO: len 4, 00 00 00 00
+  SO_ERROR: len 4, 00 00 00 00
+  SO_TYPE: len 4, 01 00 00 00
+  SO_NBIO: len 4, 00 00 00 00
+  IP_TTL: len 4, 40 00 00 00
+  TCP_NODELAY: len 4, 00 00 00 00
+  Unknown option 0x7777: -1, errno 109
+  Unknown level 99: -1, errno 22
+
+Defaults, UDP:
+  SO_DEBUG: len 4, 00 00 00 00
+  SO_ACCEPTCONN: -1, errno 109
+  SO_REUSEADDR: len 4, 00 00 00 00
+  SO_KEEPALIVE: len 4, 00 00 00 00
+  SO_DONTROUTE: len 4, 00 00 00 00
+  SO_BROADCAST: len 4, 00 00 00 00
+  SO_LINGER: len 8, 00 00 00 00 00 00 00 00
+  SO_OOBINLINE: len 4, 00 00 00 00
+  SO_REUSEPORT: len 4, 00 00 00 00
+  SO_SNDBUF: len 4, 00 24 00 00
+  SO_RCVBUF: len 4, 80 a2 00 00
+  SO_SNDLOWAT: len 4, 00 08 00 00
+  SO_RCVLOWAT: len 4, 01 00 00 00
+  SO_SNDTIMEO: len 4, 00 00 00 00
+  SO_RCVTIMEO: len 4, 00 00 00 00
+  SO_ERROR: len 4, 00 00 00 00
+  SO_TYPE: len 4, 02 00 00 00
+  SO_NBIO: len 4, 00 00 00 00
+  IP_TTL: len 4, 40 00 00 00
+  TCP_NODELAY: -1, errno 22
+  Unknown option 0x7777: -1, errno 109
+  Unknown level 99: -1, errno 22
+
+Setting, TCP:
+  SO_REUSEADDR = 1, reads: len 4, 04 00 00 00
+  SO_REUSEADDR = 5, reads: len 4, 04 00 00 00
+  SO_KEEPALIVE = 1, reads: len 4, 08 00 00 00
+  SO_SNDBUF = 1000, reads: len 4, e8 03 00 00
+  SO_SNDBUF = 65536, reads: len 4, 00 00 01 00
+  SO_SNDBUF = 1048576: -1, errno 105
+  SO_SNDBUF = 0: -1, errno 22
+  SO_SNDBUF = -1: -1, errno 22
+  SO_RCVBUF = 1000, reads: len 4, e8 03 00 00
+  SO_RCVBUF = 1048576: -1, errno 105
+  SO_NBIO = 1, reads: len 4, 80 00 00 00
+  SO_NBIO = 0, reads: len 4, 00 00 00 00
+  TCP_NODELAY = 1, reads: len 4, 04 00 00 00
+  IP_TTL = 10, reads: len 4, 0a 00 00 00
+  SO_TYPE = 2: -1, errno 109
+  SO_ERROR = 1: -1, errno 109
+  Unknown option 0x7777 = 1: -1, errno 109
+
+Timeouts (timeval):
+  Set SO_RCVTIMEO 1.5s: 0
+  Reads: len 4, 00 00 00 00
+  Set SO_RCVTIMEO as a 4-byte 250000: 0, errno 0
+  Reads: len 4, 19 00 00 00
+  Set SO_SNDTIMEO with usec 2000000: 0, errno 0
+  Reads: len 4, 00 00 00 00
+
+Linger:
+  Set SO_LINGER {1, 5}: 0
+  Reads: len 8, 80 00 00 00 05 00 00 00
+
+Sizes:
+  setsockopt len 0: -1, errno 22
+  setsockopt len 1: -1, errno 22
+  setsockopt len 8: 0
+  getsockopt len 2: 0, len 2, value 12340002
+  getsockopt len 0: 0
+  getsockopt bad socket: -1, errno 9
+
+After listen:
+  SO_ACCEPTCONN: -1, errno 109

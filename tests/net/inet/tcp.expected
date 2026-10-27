@@ -1,0 +1,48 @@
+Stream:
+  Two sends of 10, recv 64: 20, first byte 01
+  Peek 64: 30, first byte 03
+  Recv 10: 10, first byte 03
+  Recv 64: 20, first byte 0d
+  Recv with nothing there, DONTWAIT: -1, errno 11
+  send 0 bytes: 0
+  Recv after 0 bytes, DONTWAIT: -1, errno 11
+
+MSG_WAITALL:
+  WAITALL for 20 with 5 there, 300ms timeout: -1, errno 11, waited for the timeout
+  Then recv 64: 5, first byte 04
+
+Addresses:
+  Server's peer is the client's address: yes, alen 16
+  Client's local port is 1024 or above
+
+Half-close:
+  shutdown(client, SHUT_WR): 0
+  Server recv: 15, first byte 05
+  Client send after SHUT_WR: -1, errno 32
+  Server send to the half-closed client: 1
+  Client recv: 1, first byte 79
+  shutdown(client, SHUT_RD): 0
+  Client recv after SHUT_RD: 0, first byte 00
+
+Buffering:
+  Non-blocking sends until full: 16K-64K, then -1, errno 11
+  select writable: 1
+  Received: 16K-64K, all of it yes
+  select writable after draining: 1
+
+Non-blocking connect:
+  connect: -1, errno 119
+  select writable: 1
+  SO_ERROR: 0
+  connect again: -1, errno 127
+  accept: ok
+  accept with nothing waiting: -1, errno 11
+  connect to a closed port: -1, errno 119
+  select writable: 1
+  SO_ERROR: -2147418001
+
+Backlog of 2:
+  5 non-blocking connects: 5 connected, 4 accepted
+
+Accept's address:
+  addrlen 4: accepted, addrlen now 4, family 2

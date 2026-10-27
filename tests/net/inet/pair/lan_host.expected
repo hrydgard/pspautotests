@@ -1,0 +1,38 @@
+Role: host
+sceNetApctlInit: 00000000
+sceNetApctlConnect: 00000000
+apctl state: 4
+
+Apctl info:
+  Profile name: set
+  SSID: length matches SSID_LENGTH: yes
+  Security type: 0
+  Strength: 1-100
+  Channel: 1-14
+  IP: private
+  Subnet mask: set
+  Gateway: private
+  Primary DNS: set
+  Code 19: 80410a02
+
+Discovery:
+  Broadcast to 255.255.255.255: 4
+  Client answered: yes
+  Peer is on the same subnet: yes
+
+TCP:
+  Accept: ok, from the client: yes
+  Received 20000, intact
+  Send 100 back: 100
+
+UDP:
+  50 datagrams: received 45 or more, in order
+
+Resolver:
+  sceNetResolverInit: 00000000
+  Create: 00000000
+  NtoA www.ppsspp.org: 00000000, address set
+  NtoA doesnotexist.invalid: 80410414, address 0
+  NtoA 127.0.0.1: 00000000, address 0100007f
+  Delete: 00000000
+  Term: 00000000
