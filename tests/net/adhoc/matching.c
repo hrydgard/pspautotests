@@ -100,6 +100,7 @@ int main(int argc, char *argv[]) {
 	printf("  Invalid id Stop: %08x\n", sceNetAdhocMatchingStop(100));
 	printf("  Invalid id Delete: %08x\n", sceNetAdhocMatchingDelete(100));
 	printf("  Invalid id GetMembers: %08x\n", sceNetAdhocMatchingGetMembers(100, &size, NULL));
+	printf("  Invalid id Start: %08x\n", sceNetAdhocMatchingStart(100, 0x30, 0x2000, 0x30, 0x2000, 0, NULL));
 
 	printf("\nStarted:\n");
 	printf("  Start: %08x\n", sceNetAdhocMatchingStart(id, 0x30, 0x2000, 0x30, 0x2000, 4, "helo"));
