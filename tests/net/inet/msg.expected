@@ -1,0 +1,41 @@
+Sendmsg, UDP:
+  Three buffers: 12
+  B receives: 12 'hello, world'
+  No buffers: 0
+  B receives: 0 ''
+  namelen 8: -1, errno 22
+  B receives: nothing, ready 0
+  No address, not connected: -1, errno 121
+  With control data: -1, errno 22
+  B receives: nothing, ready 0
+  With an empty control message: -1, errno 22
+  B receives: nothing, ready 0
+  msg_flags set: 3
+  B receives: 3 'hel'
+  Bad socket: -1, errno 9
+
+Recvmsg, UDP:
+  Three buffers: 10, namelen 16, controllen 0, flags 00000000, from len 10 family 02 port A
+    '0123' '4567' '89'
+  20 bytes into 8: 8, namelen 16, controllen 0, flags 00000010, from len 10 family 02 port A
+    'abcd' 'efgh'
+  Anything left: nothing, ready 0
+  namelen 4: 3, namelen 4, controllen 0, flags 00000000, from len 10 family 02 port A
+  No address buffer: 3, namelen 16, controllen 0, flags 00000000
+  Nothing waiting, MSG_DONTWAIT: -1, errno 11, namelen 16, controllen 0, flags 00000000
+  Bad socket: -1, errno 9, namelen 16, controllen 0, flags 00000000
+
+Recvmsg, TCP:
+  Recvmsg: 6, namelen 0, controllen 0, flags 00000000
+    'abcdef', address untouched
+  Sendmsg, two buffers: 7
+  Server receives: 7 'hello, '
+  Sendmsg with control data: -1, errno 22
+  Server receives: nothing, ready 0
+
+Sendto without an address:
+  Not connected: -1, errno 121
+  Address, length 0: -1, errno 22
+  B receives: nothing, ready 0
+  Connected: 1
+  B receives: 1 'c'
