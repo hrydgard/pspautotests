@@ -1,0 +1,38 @@
+listen:
+  Bound to loopback: 0
+  Again: 0
+  connect while listening: -1, errno 95
+  bind while listening: -1, errno 22
+  Unbound: 0
+  bind afterwards: -1, errno 22
+  listen after the bind: 0
+  connect to a listener after a failed listen: -1, errno 95
+  connect to a listener, fresh socket: 0
+  connect again: -1, errno 127
+  connect elsewhere: -1, errno 127
+  listen while connected: 0
+
+Non-blocking connect:
+  connect: -1, errno 119
+  connect again at once: -1, errno 127
+  connect after it's writable: -1, errno 127
+
+shutdown:
+  Not connected, how -1: -1, errno 22
+  Not connected, how 0: 0
+  Not connected, how 1: 0
+  Not connected, how 2: -1, errno 22
+  Not connected, how 3: -1, errno 22
+  Connected, how 3: -1, errno 22
+  Connected, SHUT_WR: 0
+  send after SHUT_WR: -1, errno 32
+  SHUT_WR again: 0
+  The peer's recv: 0
+  SHUT_RD: 0
+  recv after SHUT_RD: 0
+
+Descriptor numbers:
+  Close, then a new one: +1
+  And another: +1
+  Highest before wrapping: 255, then 1
+  Two at once after wrapping: 2, 3
