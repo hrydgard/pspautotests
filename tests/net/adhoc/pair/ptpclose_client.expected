@@ -1,0 +1,28 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+
+Closing with data unread:
+  Connect: 00000000
+  Send 3000: 00000000, len 3000
+  Close: 00000000
+
+Closing while the other end is blocked in recv:
+  Connect: 00000000
+  Close: 00000000
+
+Three connects to a listener with backlog 1, nobody accepting:
+  Connect 0 (2s timeout): 00000000, returned under 1s
+  Connect 1 (2s timeout): 80410718, returned 1-2s
+  Connect 2 (2s timeout): 80410718, returned 1-2s
+
+Connecting a second before the other side listens:
+  Connect (4s timeout): 80410718, returned under 1s
+  Connect again: 80410718
+Leave group: 00000000, event 2, state 0

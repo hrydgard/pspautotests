@@ -1,0 +1,26 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+
+Closing with data unread:
+  Accept: ok
+  Recv 0: 00000000, len 1000
+  Recv 1: 00000000, len 1000
+  Recv 2: 00000000, len 1000
+  Recv 3: 8041070c, len -1
+
+Closing while the other end is blocked in recv:
+  Accept: ok
+  Blocking recv (4s timeout): 8041070c, returned under 1s
+  Recv again: 8041070c
+  Send: 8041070c
+
+Three connects to a listener with backlog 1, nobody accepting:
+  Accepted afterwards: 1
+
+Connecting a second before the other side listens:
+  Accept: nothing within 4s
+Leave group: 00000000, event 2, state 0
