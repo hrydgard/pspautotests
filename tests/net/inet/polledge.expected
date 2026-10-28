@@ -1,0 +1,13 @@
+poll:
+  No events: 0, errno 0, revents 0000
+  Connected, nothing to read: 1, errno 0, revents 0004
+  With fd -1: 2, errno 0, revents 0004, revents 0020
+  nfds 0: 0, errno 0
+  The peer closed: 1, errno 0, revents 0005
+  The peer closed, no events: 0, errno 0, revents 0000
+  recv: 0
+  After sending into it: 1, errno 0, revents 0005
+  The peer reset: 1, errno 0, revents 0005
+
+select:
+  A closed fd in the set: -1, errno 9, open one set
