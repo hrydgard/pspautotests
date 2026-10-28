@@ -382,11 +382,83 @@ static void timeShutdown() {
 	sceUtilityUnloadNetModule(PSP_NET_MODULE_COMMON);
 }
 
+// Samples the state about every millisecond after a call, and prints each change and the first event
+// with its time since the call. Stops 300 ms after the event, or after 6 seconds.
+static void traceStates(const char *title, int from, u64 t) {
+	printf("  %s:", title);
+	int last = -1;
+	u64 eventAt = 0;
+	u64 end = t + 6000000;
+	while (timeNow() < end) {
+		int state = -1;
+		sceNetAdhocctlGetState(&state);
+		u64 now = timeNow();
+		if (state != last) {
+			printf(" [%u ms: state %d]", (unsigned)((now - t) / 1000), state);
+			last = state;
+		}
+		if (!eventAt && timedEventCount > from) {
+			eventAt = timedEvents[from].time;
+			printf(" [%u ms: event %d]", (unsigned)((eventAt - t) / 1000), timedEvents[from].event);
+		}
+		if (eventAt && now - eventAt > 300000) {
+			break;
+		}
+		sceKernelDelayThread(1000);
+	}
+	printf("\n");
+}
+
+static void timeStateTrace() {
+	printf("\nState changes after a call (sampled every ms):\n");
+	int from = timedEventCount;
+	u64 t = timeNow();
+	sceNetAdhocctlCreate("TIMING");
+	traceStates("Create", from, t);
+	from = timedEventCount;
+	t = timeNow();
+	sceNetAdhocctlDisconnect();
+	traceStates("Disconnect", from, t);
+	sceKernelDelayThread(100000);
+	from = timedEventCount;
+	t = timeNow();
+	sceNetAdhocctlConnect("TIMING2");
+	traceStates("Connect, nobody there", from, t);
+	from = timedEventCount;
+	sceNetAdhocctlDisconnect();
+	waitTimedEvent(from, 5000);
+	sceKernelDelayThread(100000);
+	from = timedEventCount;
+	t = timeNow();
+	sceNetAdhocctlScan();
+	traceStates("Scan", from, t);
+
+	printf("\nConnect with nobody there (%d rounds):\n", ROUNDS);
+	Samples ret = { 0 }, ev = { 0 };
+	for (int r = 0; r < ROUNDS; ++r) {
+		from = timedEventCount;
+		t = timeNow();
+		sceNetAdhocctlConnect("TIMING2");
+		sampleAdd(&ret, timeNow() - t);
+		if (waitTimedEvent(from, 8000) >= 0 && timedEvents[from].event == 1) {
+			sampleAdd(&ev, timedEvents[from].time - t);
+		}
+		sceKernelDelayThread(100000);
+		from = timedEventCount;
+		sceNetAdhocctlDisconnect();
+		waitTimedEvent(from, 5000);
+		sceKernelDelayThread(100000);
+	}
+	samplePrint("Connect returns", &ret);
+	samplePrint("Connect -> CONNECT event", &ev);
+}
+
 int main(int argc, char *argv[]) {
 	setvbuf(stdout, NULL, _IONBF, 0);
 	timeStartup();
 	timeBaseline();
 	timeGroup();
+	timeStateTrace();
 	timeSockets();
 	timeMatching();
 	timeShutdown();
