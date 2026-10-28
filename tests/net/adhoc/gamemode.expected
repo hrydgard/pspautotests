@@ -69,7 +69,7 @@ Data calls:
   GetGameModeInfo: 80410b0c, num 1234
   CreateEnterGameMode: 00000000
     event 0, state 1
-    events:
+    events: 0(80410b02)
     ExitGameMode: 80410b0b, state 1
 Leave group: 00000000, event 2, state 0
 

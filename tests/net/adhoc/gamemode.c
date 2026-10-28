@@ -125,6 +125,8 @@ int main(int argc, char *argv[]) {
 	}
 	printf("  ExitGameMode outside game mode: %08x\n", sceNetAdhocctlExitGameMode());
 
+	// The event log holds 16 events, and it's full by now; start it again.
+	eventCount = 0;
 	printf("\nIn a normal group:\n");
 	if (adhocctlCreateGroup("NORMAL")) {
 		testDataCalls("Data calls");
