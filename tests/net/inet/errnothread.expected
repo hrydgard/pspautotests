@@ -1,0 +1,6 @@
+Main thread after a failure: 9
+Another thread, before any call: 80410001
+  After a successful call: 0
+  After a failure of its own: 123
+Main thread afterwards: 9
+4 KB stack: GetErrno 80410005, socket ffffffff
