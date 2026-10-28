@@ -1,0 +1,31 @@
+sceNetAdhocInit: 00000000
+Create right after Init:
+  Init: 00000000, within 50 ms: yes, AddHandler: ok
+  Create: 00000000, state right after 0, event 1, state 1
+    events: 1(00000000)
+Connect right after Init:
+  Init: 00000000, within 50 ms: yes, AddHandler: ok
+  Connect: 00000000, state right after 0, event 1, state 1
+    events: 1(00000000)
+Scan right after Init:
+  Init: 00000000, within 50 ms: yes, AddHandler: ok
+  Scan: 00000000, state right after 0, event 3, state 0
+    events: 3(00000000)
+Disconnect right after Init:
+  Init: 00000000, within 50 ms: yes, AddHandler: ok
+  Disconnect: 00000000, event within 1 s 2
+Queries right after Init:
+  Init: 00000000, within 50 ms: yes, AddHandler: ok
+  GetState: 00000000, state 0
+  GetPeerList: 80410682, size 0
+  GetScanInfo: 00000000, size 0
+Create, then Scan before its event:
+  Init: 00000000, within 50 ms: yes, AddHandler: ok
+  Create: 00000000, Scan right after: 80410b10
+  (waiting): 00000000, state right after 0, event 1, state 1
+    events: 1(00000000)
+Create twice:
+  Init: 00000000, within 50 ms: yes, AddHandler: ok
+  Create: 00000000, again right after: 80410b10
+  (waiting): 00000000, state right after 0, event 1, state 1
+    events: 1(00000000)

@@ -141,11 +141,8 @@ int main(int argc, char *argv[]) {
 	printParameter("  GetParameter");
 	printPeers("  GetPeerList");
 	printScanInfo("  GetScanInfo");
-	int disconnectStart = eventCount;
+	// No handler yet, so its event goes unseen here (net/adhoc/ctlinit has it).
 	printf("  Disconnect: %08x\n", sceNetAdhocctlDisconnect());
-	// Whether a Disconnect that has nothing to leave still notifies the handlers.
-	sceKernelDelayThread(500000);
-	printEventsSince(disconnectStart);
 
 	printf("\nHandlers:\n");
 	printf("  NULL: %08x\n", sceNetAdhocctlAddHandler(NULL, NULL));

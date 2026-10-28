@@ -28,7 +28,6 @@ Disconnected:
   GetPeerList: 80410682, size 0
   GetScanInfo: 00000000, size 0
   Disconnect: 00000000
-    events:
 
 Handlers:
   NULL: 80410b04
