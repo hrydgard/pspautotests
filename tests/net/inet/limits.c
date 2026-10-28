@@ -44,8 +44,9 @@ static void testTimeout(const char *title, int s, const void *val, int len) {
 	sceKernelWaitThreadEnd(thid, NULL);
 	sceKernelDeleteThread(thid);
 	// Whatever the thread sent, if recv gave up first.
-	sceKernelDelayThread(20000);
-	sceNetInetRecv(s, buf, sizeof(buf), INET_MSG_DONTWAIT);
+	if (result < 0 && inetWait(s, 0, 500) > 0) {
+		sceNetInetRecv(s, buf, sizeof(buf), INET_MSG_DONTWAIT);
+	}
 }
 
 int main(int argc, char *argv[]) {
