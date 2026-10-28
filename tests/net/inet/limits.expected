@@ -1,0 +1,19 @@
+Largest buffer accepted:
+  TCP SO_SNDBUF: 233016
+  TCP SO_RCVBUF: 233016
+  UDP SO_SNDBUF: 233016
+  UDP SO_RCVBUF: 233016
+
+Receive timeouts:
+  100000 us: -1, errno 11, 40-250 ms
+    (sender: 4, errno 0)
+  15000 us: -1, errno 11, 5-40 ms
+    (sender: 4, errno 0)
+    (sender: 4, errno 0)
+  9999 us: 4, errno 0, 250 ms or more
+    (sender: 4, errno 0)
+  1 us: 4, errno 0, 250 ms or more
+    (sender: 4, errno 0)
+  A timeval of 5 s: 4, errno 0, 250 ms or more
+    (sender: 4, errno 0)
+  0: 4, errno 0, 250 ms or more
