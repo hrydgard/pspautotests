@@ -1,0 +1,55 @@
+Startup:
+  LoadNetModule(COMMON)                       51412 us
+  LoadNetModule(INET)                        216853 us
+  sceNetInit                                    511 us
+  sceNetInetInit                                690 us
+  sceNetApctlInit                               185 us
+  sceNetResolverInit                              5 us
+
+Cheap calls:
+  sceNetInetGetErrno                              0.68 us each (1000 calls)
+  sceNetInetGetsockopt(SO_TYPE)                  23.36 us each (1000 calls)
+  sceNetInetSetsockopt(SO_RCVBUF)                20.59 us each (1000 calls)
+  sceNetInetInetAddr                              2.05 us each (1000 calls)
+  sceNetInetGetsockname                          29.58 us each (1000 calls)
+  sceNetInetRecv, nothing there                   3.78 us each (1000 calls)
+  sceNetInetPoll, timeout 0                      10.95 us each (1000 calls)
+  sceNetInetSelect, timeout 0                    14.86 us each (1000 calls)
+  socket(UDP)                              n= 50 min       34 med       36 avg       36 max       74 us
+  close(TCP, never used)                   n= 50 min       36 med       37 avg       36 max       42 us
+  bind(UDP)                                n= 50 min       36 med       37 avg       36 max       44 us
+
+Loopback:
+  UDP sendto returns (64 bytes)            n= 50 min       82 med       84 avg       84 max      123 us
+  UDP sendto -> blocking recv done         n= 50 min      233 med      237 avg      239 max      305 us
+  UDP round, 1024 bytes                    n= 50 min      303 med      305 avg      307 max      375 us
+  TCP connect (blocking)                   n= 20 min      509 med      739 avg      728 max      821 us
+  accept, connection waiting               n= 20 min       38 med       43 avg       45 max       84 us
+  TCP ping-pong, 1 byte each way           n= 50 min      508 med      511 avg      513 max      582 us
+
+Timeouts (nothing arrives):
+  poll, 10 ms                              n= 10 min    10127 med    10138 avg    10136 max    10142 us
+  select, 10 ms                            n= 10 min    10138 med    10148 avg    10147 max    10155 us
+  recv, SO_RCVTIMEO 10 ms                  n= 10 min    10119 med    10126 avg    10126 max    10135 us
+  poll, 50 ms                              n= 10 min    50133 med    50146 avg    50153 max    50214 us
+  select, 50 ms                            n= 10 min    50142 med    50156 avg    50153 max    50172 us
+  recv, SO_RCVTIMEO 50 ms                  n= 10 min    50122 med    50136 avg    50133 max    50142 us
+
+Access point (profile 1):
+  sceNetApctlConnect(1): 00000000, returns in 11157 us
+    +   11195 us: state 0 -> 2, event 0, error 00000000
+    + 2577128 us: state 2 -> 3, event 3, error 00000000
+    + 6628016 us: state 3 -> 4, event 4, error 00000000
+  Disconnect -> state 0                     1106047 us
+  Connect -> state 4 (got IP)              n=  3 min  3562776 med  3597706 avg  4596181 max  6628062 us
+  sceNetApctlGetState                             0.24 us each (1000 calls)
+  sceNetApctlGetInfo(IP)                          8.31 us each (100 calls)
+  Resolver NtoA www.ppsspp.org: 00000000
+  Resolver NtoA (each)                     n=  3 min     4339 med     4637 avg     9006 max    18043 us
+
+Shutdown:
+  sceNetApctlDisconnect -> state 0          1073602 us
+  sceNetResolverTerm                              4 us
+  sceNetApctlTerm                               146 us
+  sceNetInetTerm                                142 us
+  sceNetTerm                                    242 us
