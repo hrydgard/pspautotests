@@ -1,0 +1,28 @@
+UDP:
+  Same address: 0, then -1, errno 112
+  Same address, REUSEADDR on the second: 0, then -1, errno 112
+  Same address, REUSEADDR on both: 0, then -1, errno 112
+  Same address, REUSEPORT on the second: 0, then -1, errno 112
+  Same address, REUSEPORT on both: 0, then 0
+  ANY, then loopback: 0, then -1, errno 112
+  Loopback, then ANY: 0, then -1, errno 112
+  ANY, then loopback, REUSEADDR on the second: 0, then 0
+  ANY, then loopback, REUSEADDR on both: 0, then 0
+  ANY twice: 0, then -1, errno 112
+  ANY twice, REUSEADDR on both: 0, then -1, errno 112
+
+TCP:
+  Same address: 0, then -1, errno 112
+  Same address, REUSEADDR on both: 0, then -1, errno 112
+  Same address, REUSEPORT on both: 0, then 0
+  Same address, first listening: 0, then -1, errno 112
+  ANY, then loopback: 0, then -1, errno 112
+  ANY, then loopback, REUSEADDR on the second: 0, then 0
+  ANY, then loopback, REUSEADDR on both: 0, then 0
+
+TCP and UDP on the same port:
+  TCP: 0
+  UDP: 0
+
+After a close:
+  UDP, the same port: 0
