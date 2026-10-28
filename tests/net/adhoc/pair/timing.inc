@@ -431,8 +431,9 @@ static void gameModeTiming() {
 
 // Last, as there's no group to sync through while it runs: the host creates the group, the client
 // scans for it and joins, three times.
+// Rounds 0-2 scan and join; in rounds 3-4 the client calls Connect on the group instead.
 static void joinTiming() {
-	for (int round = 0; round < 3; ++round) {
+	for (int round = 0; round < 5; ++round) {
 		int from = timedEventCount;
 #if HOST
 		u64 t = timeNow();
@@ -470,6 +471,22 @@ static void joinTiming() {
 		sceKernelDelayThread(2000000);
 #else
 		sceKernelDelayThread(1000000);
+		if (round >= 3) {
+			// The host's group is up by now (its CONNECT takes about 1.1 s).
+			sceKernelDelayThread(1000000);
+			from = timedEventCount;
+			u64 t = timeNow();
+			sceNetAdhocctlConnect(PAIR_GROUP);
+			if (waitTimedEvent(from, 8000) >= 0) {
+				printOnce("Connect to the group -> CONNECT event", timedEvents[from].time - t);
+			}
+			sceKernelDelayThread(500000);
+			from = timedEventCount;
+			sceNetAdhocctlDisconnect();
+			waitTimedEvent(from, 5000);
+			sceKernelDelayThread(1000000);
+			continue;
+		}
 		Samples scan = { 0 };
 		AdhocctlScanInfo info;
 		int found = 0, scans = 0;
