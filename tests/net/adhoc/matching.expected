@@ -11,6 +11,7 @@ Init:
   GetPoolMaxAlloc: not positive
   GetPoolStat: 00000000, pool 1ffe0, max odd, free ok
   GetPoolStat NULL: 80410806
+  Raw: GetPoolMaxAlloc 00000000, GetPoolStat 1ffe0 0 1ffe0
 
 Create:
   Normal, host: context

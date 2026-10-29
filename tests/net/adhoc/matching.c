@@ -60,6 +60,7 @@ int main(int argc, char *argv[]) {
 	int result = sceNetAdhocMatchingGetPoolStat(stat);
 	printf("  GetPoolStat: %08x, pool %x, max %s, free %s\n", result, stat[0], stat[1] > 0 && stat[1] <= stat[0] ? "ok" : "odd", stat[2] > 0 && stat[2] <= stat[0] ? "ok" : "odd");
 	printf("  GetPoolStat NULL: %08x\n", sceNetAdhocMatchingGetPoolStat(NULL));
+	printf("  Raw: GetPoolMaxAlloc %08x, GetPoolStat %x %x %x\n", sceNetAdhocMatchingGetPoolMaxAlloc(), stat[0], stat[1], stat[2]);
 
 	printf("\nCreate:\n");
 	testModes("  Normal", 4, 1024, 200000, 200000, 5, 200000);
