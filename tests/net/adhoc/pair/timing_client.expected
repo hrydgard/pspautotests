@@ -9,66 +9,74 @@ Join: 00000000, event 1 (error 00000000), state 1
 Peers: 1
 
 PDP:
-  PDP    16, blocking recv (0 lost)            n= 30 min     4104 med     4173 avg     4801 max     9165 us
-  PDP   256, blocking recv (0 lost)            n= 30 min     4886 med     4952 avg     6044 max    12918 us
-  PDP  1024, blocking recv (0 lost)            n= 30 min     7894 med     8038 avg     8958 max    13095 us
-  PDP  1444, blocking recv (0 lost)            n= 30 min     9264 med     9425 avg    10559 max    16460 us
-  PDP  4096, blocking recv (0 lost)            n= 30 min    17839 med    20363 avg    21230 max    34998 us
-  PDP  8192, blocking recv (1 lost)            n= 29 min    30892 med    36936 avg    37383 max    47444 us
-  PDP    16, polled, DelayThread(0) (0 lost)   n= 30 min     4272 med     4424 avg     5366 max    12875 us
-  PDP   256, polled, DelayThread(0) (0 lost)   n= 30 min     5027 med     5189 avg     5798 max     8308 us
-  PDP  1024, polled, DelayThread(0) (0 lost)   n= 30 min     8002 med     8131 avg     9210 max    16193 us
-  PDP  1444, polled, DelayThread(0) (0 lost)   n= 30 min     9458 med     9629 avg    10323 max    17270 us
-  PDP  4096, polled, DelayThread(0) (1 lost)   n= 29 min    17983 med    20009 avg    20783 max    28262 us
-  PDP  8192, polled, DelayThread(0) (0 lost)   n= 30 min    31146 med    34920 avg    35598 max    56414 us
-  PDP    16, polled, DelayThread(100) (0 lost) n= 30 min     4243 med     4311 avg     4910 max     9249 us
-  PDP   256, polled, DelayThread(100) (1 lost) n= 29 min     4995 med     5045 avg     5405 max     8436 us
-  PDP  1024, polled, DelayThread(100) (0 lost) n= 30 min     7944 med     8031 avg     8451 max    13173 us
-  PDP  1444, polled, DelayThread(100) (0 lost) n= 30 min     9387 med     9485 avg    10868 max    22135 us
-  PDP  4096, polled, DelayThread(100) (0 lost) n= 30 min    18162 med    20034 avg    20756 max    29088 us
-  PDP  8192, polled, DelayThread(100) (0 lost) n= 30 min    31213 med    34906 avg    35322 max    53337 us
+  PDP    16, blocking recv (0 lost)            n= 30 min     4093 med     4159 avg     4498 max     7542 us
+  PDP   256, blocking recv (0 lost)            n= 30 min     4855 med     4958 avg     5333 max     7969 us
+  PDP  1024, blocking recv (0 lost)            n= 30 min     7867 med     8053 avg     9188 max    19671 us
+  PDP  1444, blocking recv (0 lost)            n= 30 min     9255 med     9378 avg    10032 max    14269 us
+  PDP  4096, blocking recv (0 lost)            n= 30 min    17757 med    20060 avg    20378 max    26460 us
+  PDP  8192, blocking recv (0 lost)            n= 30 min    30741 med    33765 avg    35571 max    54707 us
+  PDP    16, polled, DelayThread(0) (1 lost)   n= 29 min     4236 med     4319 avg     4622 max     6674 us
+  PDP   256, polled, DelayThread(0) (0 lost)   n= 30 min     5022 med     5111 avg     5797 max     9142 us
+  PDP  1024, polled, DelayThread(0) (0 lost)   n= 30 min     7879 med     8124 avg     8620 max    11834 us
+  PDP  1444, polled, DelayThread(0) (0 lost)   n= 30 min     9406 med     9612 avg    10720 max    19649 us
+  PDP  4096, polled, DelayThread(0) (0 lost)   n= 30 min    18049 med    19706 avg    20143 max    25320 us
+  PDP  8192, polled, DelayThread(0) (0 lost)   n= 30 min    31013 med    34330 avg    34834 max    49276 us
+  PDP    16, polled, DelayThread(100) (0 lost) n= 30 min     4241 med     4313 avg     4481 max     5817 us
+  PDP   256, polled, DelayThread(100) (0 lost) n= 30 min     4948 med     5042 avg     5307 max     6889 us
+  PDP  1024, polled, DelayThread(100) (0 lost) n= 30 min     7927 med     7994 avg     8595 max    14520 us
+  PDP  1444, polled, DelayThread(100) (0 lost) n= 30 min     9336 med     9485 avg    10207 max    15582 us
+  PDP  4096, polled, DelayThread(100) (0 lost) n= 30 min    18062 med    18652 avg    20205 max    30057 us
+  PDP  8192, polled, DelayThread(100) (0 lost) n= 30 min    31131 med    33739 avg    36554 max    54594 us
 
 PTP:
-  PtpOpen returns                              n= 10 min      108 med      112 avg      120 max      166 us
-  PtpOpen -> blocking PtpConnect returns       n= 10 min     5441 med     7169 avg     8006 max    16090 us
-  PTP    16 bytes round trip (0 short)         n= 30 min     6119 med     6385 avg     6913 max    11710 us
-  PTP  1024 bytes round trip (0 short)         n= 30 min     9761 med     9933 avg    10948 max    16126 us
-  PTP  8192 bytes round trip (0 short)         n= 30 min    38367 med    48121 avg    49852 max    81386 us
-  PtpFlush after sending 8192                  n= 10 min    36649 med    43245 avg    44381 max    54927 us
+  PtpOpen returns                              n= 10 min      106 med      114 avg      127 max      180 us
+  PtpOpen -> blocking PtpConnect returns       n= 10 min     5011 med     7242 avg     8047 max    18662 us
+  PTP    16 bytes round trip (0 short)         n= 30 min     6107 med     6303 avg     7772 max    25558 us
+  PTP  1024 bytes round trip (0 short)         n= 30 min     9195 med     9998 avg    10540 max    13327 us
+  PTP  8192 bytes round trip (0 short)         n= 30 min    38314 med    42074 avg    43703 max    58307 us
+  PtpFlush after sending 8192                  n= 10 min    37614 med    39906 avg    41016 max    51306 us
 
 Matching:
   Client context: ok
-  Interval between hellos, hello_int 200000    n= 18 min   197569 med   200939 avg   200982 max   204291 us
+  Interval between hellos, hello_int 200000    n= 18 min   198055 med   200944 avg   212115 max   401863 us
   Client SelectTarget 00000000, ESTABLISHED: yes
-  Client: SelectTarget -> ESTABLISHED             18812 us
+  Client: SelectTarget -> ESTABLISHED             19064 us
   SendData failed 0 times
-  SendData returns                             n= 20 min      142 med      161 avg      157 max      164 us
-  SendData -> DATA_ACK                         n= 20 min     4389 med     4533 avg     5449 max    12189 us
-  SendData -> the host's reply DATA            n= 20 min     5748 med     5979 avg    36726 max   207143 us
+  SendData returns                             n= 20 min      148 med      163 avg      161 max      166 us
+  SendData -> DATA_ACK                         n= 20 min     4466 med     4597 avg     5586 max    14087 us
+  SendData -> the host's reply DATA            n= 20 min     5809 med     6090 avg    17140 max   206201 us
   Client context: ok
-  Interval between hellos, hello_int 500000    n=  7 min   500136 med   500945 avg   500955 max   501824 us
+  Interval between hellos, hello_int 500000    n=  7 min   500865 med   500943 avg   501001 max   501425 us
 
 Game mode:
 Leave group: 00000000, event 2, state 0
-  JoinEnterGameMode -> GAMEMODE event           3336165 us
-  UpdateMaster                                       66.38 us each (100 calls)
-  UpdateReplica                                       7.17 us each (100 calls)
-  Replica changes (297, 3038 master updates skipped) n=200 min     4601 med    12347 avg    13823 max   222093 us
-  Own master updates in 4s: 3704
-  ExitGameMode -> event                          637772 us
+  JoinEnterGameMode -> GAMEMODE event           3416659 us
+  UpdateMaster                                       64.02 us each (100 calls)
+  UpdateReplica                                       6.89 us each (100 calls)
+  Replica changes (291, 3032 master updates skipped) n=200 min    11428 med    12323 avg    14056 max   219520 us
+  Own master updates in 4s: 3702
+  ExitGameMode -> event                          638179 us
 
 Scanning and joining:
-  Round 0: found the group after 1 scan(s), 1026823 us
-  Scan -> SCAN event                           n=  1 min  1026586 med  1026586 avg  1026586 max  1026586 us
-  Join -> CONNECT event                          531454 us
-  Join -> host in the peer list                 1245159 us
-  Round 1: found the group after 3 scan(s), 7004518 us
-  Scan -> SCAN event                           n=  2 min   991687 med  1012421 avg  1002054 max  1012421 us
-  Join -> CONNECT event                          531650 us
-  Join -> host in the peer list                 1247706 us
-  Round 2: found the group after 2 scan(s), 2001833 us
-  Scan -> SCAN event                           n=  2 min   991477 med  1009809 avg  1000643 max  1009809 us
-  Join -> CONNECT event                          531491 us
-  Join -> host in the peer list                 1184891 us
-  Connect to the group -> CONNECT event         3284223 us
-  Connect to the group -> CONNECT event         3795534 us
+  Round 0: found the group after 1 scan(s), 1017319 us
+  Scan -> SCAN event                           n=  1 min  1017263 med  1017263 avg  1017263 max  1017263 us
+  Join -> CONNECT event                          531570 us
+  Join -> host in the peer list                 1255261 us
+  Round 1: found the group after 2 scan(s), 1993816 us
+  Scan -> SCAN event                           n=  2 min   991349 med  1002352 avg   996850 max  1002352 us
+  Join -> CONNECT event                          531498 us
+  Join -> host in the peer list                 1256501 us
+  Round 2: found the group after 2 scan(s), 1992541 us
+  Scan -> SCAN event                           n=  2 min   991375 med  1001052 avg   996213 max  1001052 us
+  Join -> CONNECT event                          531577 us
+  Join -> host in the peer list                 1244148 us
+  Round 3: found the group after 1 scan(s), 1013655 us
+  Scan -> SCAN event                           n=  1 min  1013590 med  1013590 avg  1013590 max  1013590 us
+  Connect to the group -> CONNECT event         3532715 us
+  Round 3: Connect's BSSID is the scanned one: yes
+  Round 3: host in the peer list: never
+  Round 4: found the group after 1 scan(s), 1034617 us
+  Scan -> SCAN event                           n=  1 min  1034551 med  1034551 avg  1034551 max  1034551 us
+  Connect to the group -> CONNECT event         3862738 us
+  Round 4: Connect's BSSID is the scanned one: yes
+  Round 4: host in the peer list: never

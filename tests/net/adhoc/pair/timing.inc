@@ -431,7 +431,8 @@ static void gameModeTiming() {
 
 // Last, as there's no group to sync through while it runs: the host creates the group, the client
 // scans for it and joins, three times.
-// Rounds 0-2 scan and join; in rounds 3-4 the client calls Connect on the group instead.
+// Rounds 0-2 scan and join; in rounds 3-4 the client scans until it sees the group and then calls
+// Connect on it instead.
 static void joinTiming() {
 	for (int round = 0; round < 5; ++round) {
 		int from = timedEventCount;
@@ -471,22 +472,6 @@ static void joinTiming() {
 		sceKernelDelayThread(2000000);
 #else
 		sceKernelDelayThread(1000000);
-		if (round >= 3) {
-			// The host's group is up by now (its CONNECT takes about 1.1 s).
-			sceKernelDelayThread(1000000);
-			from = timedEventCount;
-			u64 t = timeNow();
-			sceNetAdhocctlConnect(PAIR_GROUP);
-			if (waitTimedEvent(from, 8000) >= 0) {
-				printOnce("Connect to the group -> CONNECT event", timedEvents[from].time - t);
-			}
-			sceKernelDelayThread(500000);
-			from = timedEventCount;
-			sceNetAdhocctlDisconnect();
-			waitTimedEvent(from, 5000);
-			sceKernelDelayThread(1000000);
-			continue;
-		}
 		Samples scan = { 0 };
 		AdhocctlScanInfo info;
 		int found = 0, scans = 0;
@@ -509,9 +494,20 @@ static void joinTiming() {
 		}
 		from = timedEventCount;
 		u64 t = timeNow();
-		sceNetAdhocctlJoin(&info);
-		if (waitTimedEvent(from, 5000) >= 0) {
-			printOnce("Join -> CONNECT event", timedEvents[from].time - t);
+		// Rounds 3-4 Connect once the scan has seen the group, so it's there to join.
+		if (round >= 3) {
+			sceNetAdhocctlConnect(PAIR_GROUP);
+			if (waitTimedEvent(from, 8000) >= 0) {
+				printOnce("Connect to the group -> CONNECT event", timedEvents[from].time - t);
+			}
+			AdhocctlParameter param;
+			sceNetAdhocctlGetParameter(&param);
+			printf("  Round %d: Connect's BSSID is the scanned one: %s\n", round, memcmp(&param.bssid, &info.bssid, 6) == 0 ? "yes" : "no");
+		} else {
+			sceNetAdhocctlJoin(&info);
+			if (waitTimedEvent(from, 5000) >= 0) {
+				printOnce("Join -> CONNECT event", timedEvents[from].time - t);
+			}
 		}
 		AdhocctlPeerInfo peers[4];
 		int size = 0;
@@ -525,7 +521,9 @@ static void joinTiming() {
 			sceKernelDelayThread(1000);
 		}
 		if (size > 0) {
-			printOnce("Join -> host in the peer list", timeNow() - t);
+			printOnce(round >= 3 ? "Connect -> host in the peer list" : "Join -> host in the peer list", timeNow() - t);
+		} else {
+			printf("  Round %d: host in the peer list: never\n", round);
 		}
 		sceKernelDelayThread(500000);
 		from = timedEventCount;
