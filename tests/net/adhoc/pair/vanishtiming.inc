@@ -16,6 +16,8 @@ typedef struct {
 	int keepaliveMs, matchingRexmtMs, initCount;
 	// How long the client waits after the sync before it leaves.
 	int leaveDelayMs;
+	// Whether the host keeps sending on the PTP connection, or only receives.
+	int ptpSends;
 } Settings;
 
 #if HOST
@@ -31,8 +33,8 @@ static void printTime(const char *what, u64 us) {
 #endif
 
 static void vanishRound(int r, const Settings *s) {
-	printf("\nRound %d: PTP rexmt %d ms x %d, matching keepalive %d ms, rexmt %d ms, init count %d, leaving %d ms after the sync:\n",
-		r, s->ptpRexmtMs, s->ptpRexmtCount, s->keepaliveMs, s->matchingRexmtMs, s->initCount, s->leaveDelayMs);
+	printf("\nRound %d: PTP rexmt %d ms x %d, matching keepalive %d ms, rexmt %d ms, init count %d, leaving %d ms after the sync%s:\n",
+		r, s->ptpRexmtMs, s->ptpRexmtCount, s->keepaliveMs, s->matchingRexmtMs, s->initCount, s->leaveDelayMs, s->ptpSends ? "" : ", the host only receiving on PTP");
 	mNumEvents = 0;
 	int sync = 10 * r;
 	int go = sceNetAdhocPdpCreate(&localMac, GO_PORT, 0x1000, 0);
@@ -71,7 +73,7 @@ static void vanishRound(int r, const Settings *s) {
 	while (sceKernelGetSystemTimeWide() - begin < 9000000) {
 		u64 now = sceKernelGetSystemTimeWide() - begin;
 		// Data to the client keeps the PTP connection waiting for acknowledgements.
-		if (!ptpSendFailed && now - lastPtpSend >= 10000) {
+		if (s->ptpSends && !ptpSendFailed && now - lastPtpSend >= 10000) {
 			lastPtpSend = now;
 			int sendLen = 100;
 			int result = sceNetAdhocPtpSend(ptp, buffer, &sendLen, 0, 1);
@@ -111,7 +113,7 @@ static void vanishRound(int r, const Settings *s) {
 				dataTimeout = mEvents[e].time - sendDataAt;
 			}
 		}
-		if (ptpSendFailed && ptpRecvFailed && peerGone && (matching <= 0 || (matchingTimeout && dataTimeout))) {
+		if ((ptpSendFailed || !s->ptpSends) && ptpRecvFailed && peerGone && (matching <= 0 || (matchingTimeout && dataTimeout))) {
 			break;
 		}
 		sceKernelDelayThread(1000);
@@ -194,15 +196,16 @@ int main(int argc, char *argv[]) {
 	}
 	// PTP: rexmt interval, count. Matching: keepalive interval, rexmt interval, init count.
 	static const Settings settings[] = {
-		{ 200, 5, 500, 200, 5, 200 },
-		{ 500, 2, 250, 100, 10, 200 },
-		{ 100, 10, 1250, 500, 2, 200 },
-		{ 200, 2, 500, 200, 2, 200 },
-		{ 500, 5, 1000, 400, 5, 200 },
-		{ 100, 3, 200, 100, 5, 200 },
-		{ 500, 2, 1000, 200, 2, 500 },
-		{ 500, 2, 1000, 200, 2, 800 },
-		{ 500, 2, 1000, 200, 2, 200 },
+		{ 200, 5, 500, 200, 5, 200, 1 },
+		{ 500, 2, 250, 100, 10, 200, 1 },
+		{ 100, 10, 1250, 500, 2, 200, 1 },
+		{ 200, 2, 500, 200, 2, 200, 1 },
+		{ 500, 5, 1000, 400, 5, 200, 1 },
+		{ 100, 3, 200, 100, 5, 200, 1 },
+		{ 500, 2, 1000, 200, 2, 500, 1 },
+		{ 500, 2, 1000, 200, 2, 800, 1 },
+		{ 500, 2, 1000, 200, 2, 200, 1 },
+		{ 200, 5, 500, 200, 5, 200, 0 },
 	};
 	for (int r = 0; r < (int)(sizeof(settings) / sizeof(settings[0])); ++r) {
 		vanishRound(r + 1, &settings[r]);

@@ -84,4 +84,12 @@ Scan: found the group
   Scan info: channel 1/6/11, mode 0, bssid low bits 2
 Join: 00000000, event 1 (error 00000000), state 1
   BSSID is the scanned one: yes
+
+Round 10: PTP rexmt 200 ms x 5, matching keepalive 500 ms, rexmt 200 ms, init count 5, leaving 200 ms after the sync, the host only receiving on PTP:
+  PTP: connected
+  Matching: established
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
 Leave group: 00000000, event 2, state 0
