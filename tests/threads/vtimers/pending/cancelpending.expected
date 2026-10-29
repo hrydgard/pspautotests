@@ -1,0 +1,11 @@
+Cancel the second while pending: 00000000
+Second of three cancelled: 2 ran 1 3
+Clear the first while pending: 00000000
+First of two cleared: 1 ran 2
+Replace the first while pending: 00000000
+First of two replaced: 1 ran 2
+Stop the first while pending: 00000001
+First of two stopped: 1 ran 2
+First cancels the second in its handler: 1 ran 1
+Cancel in handler: 00000000
+Timer after: 1 ran 4
