@@ -1,0 +1,12 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+Leave group: 00000000, event 2, state 0
+Create GMSCAN1: 00000000
+  Event 1
+Leave group: 00000000, event 2, state 0
+CreateEnterGameMode GMSCAN2: 00000000
+  Event 0 (error 80410715)
