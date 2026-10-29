@@ -45,6 +45,7 @@ static void vanishRound(int r, const Settings *s) {
 	}
 	pairSync(sync + 1);
 	int ptp = sceNetAdhocPtpAccept(listener, NULL, NULL, 5000000, 0);
+	u64 acceptedAt = sceKernelGetSystemTimeWide();
 	printf("  PTP: %s\n", ptp > 0 ? "accepted" : "failed");
 	if (matching > 0) {
 		if (waitMatching(2, 0, 10000) >= 0) {
@@ -119,6 +120,16 @@ static void vanishRound(int r, const Settings *s) {
 	printTime("PTP send fails:", ptpSendFailed);
 	printTime("PTP recv fails:", ptpRecvFailed);
 	printf("  PTP errors: %08x %08x\n", ptpSendError, ptpRecvError);
+	// Theory: the PSP checks the age of the oldest unacknowledged data every rexmt_int, counting from
+	// when the connection was established, and gives up at the first check where it's older than
+	// (rexmt_cnt + 1) * rexmt_int. That data was sent right after time zero.
+	u64 interval = s->ptpRexmtMs * 1000ULL;
+	u64 limit = interval * (s->ptpRexmtCount + 1);
+	u64 tick = acceptedAt;
+	while (tick <= begin + limit) {
+		tick += interval;
+	}
+	printTime("PTP fails, predicted:", tick - begin);
 	if (matching > 0) {
 		printTime("Matching TIMEOUT:", matchingTimeout);
 		printf("  SendData at 300 ms: %08x\n", sendData);

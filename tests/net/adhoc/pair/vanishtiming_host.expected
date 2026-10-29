@@ -15,10 +15,11 @@ Round 1: PTP rexmt 200 ms x 5, matching keepalive 500 ms, rexmt 200 ms, init cou
   PTP: accepted
   Matching: established
   Peer gone from the peer list:         11 ms
-  PTP send fails:                     1268 ms
-  PTP recv fails:                     1268 ms
+  PTP send fails:                     1244 ms
+  PTP recv fails:                     1244 ms
   PTP errors: 8041070c 8041070c
-  Matching TIMEOUT:                   2177 ms
+  PTP fails, predicted:               1237 ms
+  Matching TIMEOUT:                   2174 ms
   SendData at 300 ms: 00000000
   DATA_TIMEOUT after SendData:        1001 ms
   Events: 13 8
@@ -31,6 +32,7 @@ Round 2: PTP rexmt 500 ms x 2, matching keepalive 250 ms, rexmt 100 ms, init cou
   PTP send fails:                     1661 ms
   PTP recv fails:                     1661 ms
   PTP errors: 8041070c 8041070c
+  PTP fails, predicted:               1658 ms
   Matching TIMEOUT:                   2427 ms
   SendData at 300 ms: 00000000
   DATA_TIMEOUT after SendData:        1003 ms
@@ -41,10 +43,11 @@ Round 3: PTP rexmt 100 ms x 10, matching keepalive 1250 ms, rexmt 500 ms, init c
   PTP: accepted
   Matching: established
   Peer gone from the peer list:         11 ms
-  PTP send fails:                     1159 ms
-  PTP recv fails:                     1159 ms
+  PTP send fails:                     1180 ms
+  PTP recv fails:                     1180 ms
   PTP errors: 8041070c 8041070c
-  Matching TIMEOUT:                   2167 ms
+  PTP fails, predicted:               1157 ms
+  Matching TIMEOUT:                   2173 ms
   SendData at 300 ms: 00000000
   DATA_TIMEOUT after SendData:        1000 ms
   Events: 13 8
@@ -54,10 +57,11 @@ Round 4: PTP rexmt 200 ms x 2, matching keepalive 500 ms, rexmt 200 ms, init cou
   PTP: accepted
   Matching: established
   Peer gone from the peer list:         11 ms
-  PTP send fails:                      769 ms
-  PTP recv fails:                      769 ms
+  PTP send fails:                      668 ms
+  PTP recv fails:                      668 ms
   PTP errors: 8041070c 8041070c
-  Matching TIMEOUT:                    673 ms
+  PTP fails, predicted:                654 ms
+  Matching TIMEOUT:                    670 ms
   SendData at 300 ms: 00000000
   DATA_TIMEOUT after SendData:       not within 9s
   Events: 8
@@ -67,10 +71,11 @@ Round 5: PTP rexmt 500 ms x 5, matching keepalive 1000 ms, rexmt 400 ms, init co
   PTP: accepted
   Matching: established
   Peer gone from the peer list:         11 ms
-  PTP send fails:                     3159 ms
-  PTP recv fails:                     3159 ms
+  PTP send fails:                     3168 ms
+  PTP recv fails:                     3168 ms
   PTP errors: 8041070c 8041070c
-  Matching TIMEOUT:                   4677 ms
+  PTP fails, predicted:               3157 ms
+  Matching TIMEOUT:                   4682 ms
   SendData at 300 ms: 00000000
   DATA_TIMEOUT after SendData:        2001 ms
   Events: 13 8
@@ -80,10 +85,11 @@ Round 6: PTP rexmt 100 ms x 3, matching keepalive 200 ms, rexmt 100 ms, init cou
   PTP: accepted
   Matching: established
   Peer gone from the peer list:         11 ms
-  PTP send fails:                      476 ms
-  PTP recv fails:                      476 ms
+  PTP send fails:                      498 ms
+  PTP recv fails:                      498 ms
   PTP errors: 8041070c 8041070c
-  Matching TIMEOUT:                    874 ms
+  PTP fails, predicted:                480 ms
+  Matching TIMEOUT:                    891 ms
   SendData at 300 ms: 00000000
   DATA_TIMEOUT after SendData:         501 ms
   Events: 13 8
@@ -94,37 +100,43 @@ Round 7: PTP rexmt 500 ms x 2, matching keepalive 1000 ms, rexmt 200 ms, init co
   PTP: accepted
   Matching: established
   Peer gone from the peer list:         11 ms
-  PTP send fails:                     1862 ms
-  PTP recv fails:                     1857 ms
+  PTP send fails:                     1860 ms
+  PTP recv fails:                     1858 ms
   PTP errors: 8041070c 8041070c
-  Matching TIMEOUT:                   1372 ms
+  PTP fails, predicted:               1857 ms
+  Matching TIMEOUT:                   1373 ms
   SendData at 300 ms: 00000000
   DATA_TIMEOUT after SendData:         400 ms
   Events: 13 8
+(sync 73 timed out)
 
 Round 8: PTP rexmt 500 ms x 2, matching keepalive 1000 ms, rexmt 200 ms, init count 2, leaving 800 ms after the sync:
   MatchingCreate: ok
   PTP: accepted
   Matching: established
   Peer gone from the peer list:         11 ms
-  PTP send fails:                     1853 ms
-  PTP recv fails:                     1846 ms
+  PTP send fails:                     1565 ms
+  PTP recv fails:                     1557 ms
   PTP errors: 8041070c 8041070c
-  Matching TIMEOUT:                   1062 ms
+  PTP fails, predicted:               1556 ms
+  Matching TIMEOUT:                   1074 ms
   SendData at 300 ms: 00000000
   DATA_TIMEOUT after SendData:         400 ms
   Events: 13 8
+(sync 83 timed out)
 
 Round 9: PTP rexmt 500 ms x 2, matching keepalive 1000 ms, rexmt 200 ms, init count 2, leaving 200 ms after the sync:
   MatchingCreate: ok
   PTP: accepted
   Matching: established
   Peer gone from the peer list:         11 ms
-  PTP send fails:                     1665 ms
-  PTP recv fails:                     1665 ms
+  PTP send fails:                     1663 ms
+  PTP recv fails:                     1663 ms
   PTP errors: 8041070c 8041070c
+  PTP fails, predicted:               1657 ms
   Matching TIMEOUT:                   1673 ms
   SendData at 300 ms: 00000000
   DATA_TIMEOUT after SendData:         400 ms
   Events: 13 8
+(sync 93 timed out)
 Leave group: 00000000, event 2, state 0
