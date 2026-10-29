@@ -43,10 +43,11 @@ static void hostClient() {
 #if HOST
 	int id = sceNetAdhocMatchingCreate(1, 4, MATCHING_PORT, 2048, 200000, 500000, 5, 200000, &countingHandler);
 	printf("  Start: %08x\n", sceNetAdhocMatchingStart(id, 0x30, 0x2000, 0x30, 0x2000, 2, "H0"));
+	// The client asks as soon as its pairSync returns, which can be before ours does.
+	start = mNumEvents;
 	pairSync(1);
 
 	printf("Holding a request:\n");
-	start = mNumEvents;
 	printf("  Got REQUEST: %s\n", waitMatching(2, start, 5000) >= 0 ? "yes" : "no");
 	// Different hello data every 200ms, so each one is a new HELLO event on the client.
 	static const char *opts[] = { "H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "HA" };

@@ -109,11 +109,13 @@ static void hostClient() {
 	// A full host shouldn't advertise. Hellos come every 200ms, so 2 seconds is plenty.
 	sceKernelDelayThread(2000000);
 	printf("  Hellos while the host is full: %s\n", countEvents(1, fullStart) == 0 ? "none" : "some");
+	// The host kicks as soon as its pairSync returns, which can be before ours does.
+	int kickStart = mNumEvents;
 	pairSync(7);
-	printMatchingEvents(start);
+	printMatchingEventsUntil(start, kickStart);
 
 	printf("Kicking:\n");
-	start = mNumEvents;
+	start = kickStart;
 	printf("  Got LEAVE: %s\n", waitMatching(3, start, 5000) >= 0 ? "yes" : "no");
 	int size = 0;
 	sceNetAdhocMatchingGetMembers(id, &size, NULL);
