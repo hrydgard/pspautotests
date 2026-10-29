@@ -83,9 +83,9 @@ static void orderRound(int r, int helloUs, int keepaliveUs) {
 	while (sceKernelGetSystemTimeWide() - start < 2ULL * keepaliveUs) {
 		int now = selfFirst(id);
 		if (now != last) {
-			// In keepalive intervals, to the nearest tenth, so the output doesn't depend on exact timing.
-			u64 tenths = ((sceKernelGetSystemTimeWide() - start) * 10 + keepaliveUs / 2) / keepaliveUs;
-			printf("  Order changed to %s first %d.%d keepalive intervals after ESTABLISHED\n", now == 1 ? "self" : "parent", (int)(tenths / 10), (int)(tenths % 10));
+			// In keepalive intervals, to the nearest whole one, so the output doesn't depend on network latency.
+			u64 intervals = ((sceKernelGetSystemTimeWide() - start) + keepaliveUs / 2) / keepaliveUs;
+			printf("  Order changed to %s first %d keepalive interval(s) after ESTABLISHED\n", now == 1 ? "self" : "parent", (int)intervals);
 			last = now;
 		}
 		sceKernelDelayThread(20000);

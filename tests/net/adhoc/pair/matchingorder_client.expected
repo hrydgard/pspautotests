@@ -15,7 +15,7 @@ Got HELLO: yes
 SelectTarget: 00000000
 Got ESTABLISHED: yes
   Members at once: 00000000, size 24, then 00000000, size 24: local peer (next: 1 -)
-  Order changed to parent first 1.0 keepalive intervals after ESTABLISHED
+  Order changed to parent first 1 keepalive interval(s) after ESTABLISHED
   Members two keepalive intervals later: 00000000, size 24, then 00000000, size 24: peer local (next: 1 -)
 SetHelloOpt after joining: 80410801
   Events: 1('HOST') 6 7
@@ -27,7 +27,7 @@ Got HELLO: yes
 SelectTarget: 00000000
 Got ESTABLISHED: yes
   Members at once: 00000000, size 24, then 00000000, size 24: local peer (next: 1 -)
-  Order changed to parent first 1.0 keepalive intervals after ESTABLISHED
+  Order changed to parent first 1 keepalive interval(s) after ESTABLISHED
   Members two keepalive intervals later: 00000000, size 24, then 00000000, size 24: peer local (next: 1 -)
 SetHelloOpt after joining: 80410801
   Events: 1('HOST') 6 7
@@ -39,7 +39,7 @@ Got HELLO: yes
 SelectTarget: 00000000
 Got ESTABLISHED: yes
   Members at once: 00000000, size 24, then 00000000, size 24: local peer (next: 1 -)
-  Order changed to parent first 1.0 keepalive intervals after ESTABLISHED
+  Order changed to parent first 1 keepalive interval(s) after ESTABLISHED
   Members two keepalive intervals later: 00000000, size 24, then 00000000, size 24: peer local (next: 1 -)
 SetHelloOpt after joining: 80410801
   Events: 1('HOST') 6 7
