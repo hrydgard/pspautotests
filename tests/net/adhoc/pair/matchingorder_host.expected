@@ -1,0 +1,34 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+
+Round 1, hello 1000 ms, keepalive 3000 ms:
+Start: 00000000
+Got REQUEST: yes
+SelectTarget: 00000000
+Got ESTABLISHED: yes
+  Members: 00000000, size 24, then 00000000, size 24: local peer (next: 1 -)
+  Members later: 00000000, size 24, then 00000000, size 24: local peer (next: 1 -)
+  Events: 2('JOIN') 7
+
+Round 2, hello 3000 ms, keepalive 1000 ms:
+Start: 00000000
+Got REQUEST: yes
+SelectTarget: 00000000
+Got ESTABLISHED: yes
+  Members: 00000000, size 24, then 00000000, size 24: local peer (next: 1 -)
+  Members later: 00000000, size 24, then 00000000, size 24: local peer (next: 1 -)
+  Events: 2('JOIN') 7
+
+Round 3, hello 500 ms, keepalive 2000 ms:
+Start: 00000000
+Got REQUEST: yes
+SelectTarget: 00000000
+Got ESTABLISHED: yes
+  Members: 00000000, size 24, then 00000000, size 24: local peer (next: 1 -)
+  Members later: 00000000, size 24, then 00000000, size 24: local peer (next: 1 -)
+  Events: 2('JOIN') 7
+Leave group: 00000000, event 2, state 0

@@ -1,0 +1,46 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+
+Round 1, hello 1000 ms, keepalive 3000 ms:
+Start: 00000000
+SetHelloOpt before joining: 80410801
+Got HELLO: yes
+SelectTarget: 00000000
+Got ESTABLISHED: yes
+  Members at once: 00000000, size 24, then 00000000, size 24: local peer (next: 1 -)
+  Order changed to parent first 1.0 keepalive intervals after ESTABLISHED
+  Members 10 s later: 00000000, size 24, then 00000000, size 24: peer local (next: 1 -)
+SetHelloOpt after joining: 80410801
+  Events: 1('HOST') 6 7
+
+Round 2, hello 3000 ms, keepalive 1000 ms:
+Start: 00000000
+SetHelloOpt before joining: 80410801
+Got HELLO: yes
+SelectTarget: 00000000
+Got ESTABLISHED: yes
+  Members at once: 00000000, size 24, then 00000000, size 24: local peer (next: 1 -)
+  Order changed to parent first 1.0 keepalive intervals after ESTABLISHED
+  Members 10 s later: 00000000, size 24, then 00000000, size 24: peer local (next: 1 -)
+SetHelloOpt after joining: 80410801
+  Events: 1('HOST') 6 7
+
+Round 3, hello 500 ms, keepalive 2000 ms:
+Start: 00000000
+SetHelloOpt before joining: 80410801
+Got HELLO: yes
+SelectTarget: 00000000
+Got ESTABLISHED: yes
+  Members at once: 00000000, size 24, then 00000000, size 24: local peer (next: 1 -)
+  Order changed to parent first 1.0 keepalive intervals after ESTABLISHED
+  Members 10 s later: 00000000, size 24, then 00000000, size 24: peer local (next: 1 -)
+SetHelloOpt after joining: 80410801
+  Events: 1('HOST') 6 7
+Leave group: 00000000, event 2, state 0
