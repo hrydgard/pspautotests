@@ -1,0 +1,56 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+
+Join, hello data unchanged:
+  Got HELLO 'OPT1': yes
+  SelectTarget: 00000000
+  Got DENY: yes
+  Events: 4
+
+Join as soon as the new hello data arrives:
+  Got HELLO 'OPT1': yes
+  Got HELLO 'OPT2': yes
+  SelectTarget: 00000000
+  Got DENY: yes
+  Events: 4
+
+Join 0.5 seconds after the new hello data:
+  Got HELLO 'OPT1': yes
+  Got HELLO 'OPT2': yes
+  SelectTarget: 00000000
+  Got DENY: yes
+  Events: 4
+
+Join 1 second after the new hello data:
+  Got HELLO 'OPT1': yes
+  Got HELLO 'OPT2': yes
+  SelectTarget: 00000000
+  Got DENY: yes
+  Events: 4
+
+Join 2 seconds after the new hello data:
+  Got HELLO 'OPT1': yes
+  Got HELLO 'OPT2': yes
+  SelectTarget: 00000000
+  Got DENY: yes
+  Events: 4
+
+Join right after SetHelloOpt, without waiting for the new hello data:
+  Got HELLO 'OPT1': yes
+  SelectTarget: 00000000
+  Got DENY: yes
+  Events: 4
+
+Join while the host changes its hello data every second:
+  Got HELLO 'OPT1': yes
+  SelectTarget: 00000000
+  Got DENY: yes
+  Events: 4
+Leave group: 00000000, event 2, state 0

@@ -1,0 +1,54 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+
+Join, hello data unchanged:
+  Start: 00000000
+  Got REQUEST: under 1s
+  CancelTarget: 00000000
+  Events: 2('JOIN')
+
+Join as soon as the new hello data arrives:
+  Start: 00000000
+  SetHelloOpt: 00000000
+  Got REQUEST: under 1s
+  CancelTarget: 00000000
+  Events: 2('JOIN')
+
+Join 0.5 seconds after the new hello data:
+  Start: 00000000
+  SetHelloOpt: 00000000
+  Got REQUEST: under 1s
+  CancelTarget: 00000000
+  Events: 2('JOIN')
+
+Join 1 second after the new hello data:
+  Start: 00000000
+  SetHelloOpt: 00000000
+  Got REQUEST: under 1s
+  CancelTarget: 00000000
+  Events: 2('JOIN')
+
+Join 2 seconds after the new hello data:
+  Start: 00000000
+  SetHelloOpt: 00000000
+  Got REQUEST: under 1s
+  CancelTarget: 00000000
+  Events: 2('JOIN')
+
+Join right after SetHelloOpt, without waiting for the new hello data:
+  Start: 00000000
+  SetHelloOpt: 00000000
+  Got REQUEST: under 1s
+  CancelTarget: 00000000
+  Events: 2('JOIN')
+
+Join while the host changes its hello data every second:
+  Start: 00000000
+  Got REQUEST: under 1s
+  CancelTarget: 00000000
+  Events: 2('JOIN')
+Leave group: 00000000, event 2, state 0

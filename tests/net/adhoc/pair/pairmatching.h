@@ -54,9 +54,10 @@ static inline int waitMatching(int event, int from, int timeoutMs) {
 	return -1;
 }
 
-static inline void printMatchingEvents(int from) {
+// Prints the events from index `from` up to, not including, `end`.
+static inline void printMatchingEventsUntil(int from, int end) {
 	printf("  Events:");
-	for (int i = from; i < mNumEvents; ++i) {
+	for (int i = from; i < end; ++i) {
 		printf(" %d", mEvents[i].event);
 		if (mEvents[i].optlen > 0) {
 			printf("('%s')", mEvents[i].opt);
@@ -66,6 +67,10 @@ static inline void printMatchingEvents(int from) {
 		}
 	}
 	printf("\n");
+}
+
+static inline void printMatchingEvents(int from) {
+	printMatchingEventsUntil(from, mNumEvents);
 }
 
 // How long something took, in coarse buckets, so that the output doesn't depend on exact timing.
