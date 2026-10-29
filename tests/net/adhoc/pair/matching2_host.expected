@@ -9,9 +9,9 @@ Host and client:
   Start: 00000000
   SetHelloOpt: 00000000
 Rejecting:
-  Got REQUEST: no
+  Got REQUEST: yes
   CancelTargetWithOpt: 00000000
-  Events:
+  Events: 2('JOIN1')
 Client cancels:
   Got REQUEST: yes
   Got CANCEL: yes

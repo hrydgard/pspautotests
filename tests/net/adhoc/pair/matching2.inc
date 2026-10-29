@@ -36,10 +36,11 @@ static void hostClient() {
 	printf("  Start: %08x\n", sceNetAdhocMatchingStart(id, 0x30, 0x2000, 0x30, 0x2000, 4, "OPT1"));
 	pairSync(1);
 	printf("  SetHelloOpt: %08x\n", sceNetAdhocMatchingSetHelloOpt(id, 4, "OPT2"));
+	// The client joins as soon as its pairSync returns, which can be before ours does.
+	start = mNumEvents;
 	pairSync(2);
 
 	printf("Rejecting:\n");
-	start = mNumEvents;
 	printf("  Got REQUEST: %s\n", waitMatching(2, start, 5000) >= 0 ? "yes" : "no");
 	printf("  CancelTargetWithOpt: %08x\n", sceNetAdhocMatchingCancelTargetWithOpt(id, &peerMac, 4, "NOPE"));
 	pairSync(3);
