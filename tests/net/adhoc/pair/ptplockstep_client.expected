@@ -1,0 +1,23 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+PTP: connected
+
+Poll, receive, send, wait for vblank:
+  Steps per second: 47 (122 of 601 polls found nothing)
+  Send -> the peer's next message              n=200 min    16541 med    16578 avg    18677 max    33292 us
+
+The same with PtpFlush after each send:
+  Steps per second: 51 (81 of 600 polls found nothing)
+  Send -> the peer's next message              n=200 min     8726 med    16573 avg    19702 max   266824 us
+
+Without waiting for vblank:
+  Steps per second: 107 (14444 of 14983 polls found nothing)
+  Send -> the peer's next message              n=200 min       61 med     7225 avg     9717 max   246600 us
+Leave group: 00000000, event 2, state 0

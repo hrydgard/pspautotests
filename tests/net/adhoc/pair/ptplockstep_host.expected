@@ -1,0 +1,20 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+PTP: connected
+
+Poll, receive, send, wait for vblank:
+  Steps per second: 47 (122 of 600 polls found nothing)
+  Send -> the peer's next message              n=200 min    16470 med    16484 avg    18632 max    33173 us
+
+The same with PtpFlush after each send:
+  Steps per second: 51 (82 of 601 polls found nothing)
+  Send -> the peer's next message              n=200 min    16461 med    16474 avg    19674 max   266719 us
+
+Without waiting for vblank:
+  Steps per second: 107 (11891 of 12429 polls found nothing)
+  Send -> the peer's next message              n=200 min     6669 med     7242 avg     9670 max   255853 us
+Leave group: 00000000, event 2, state 0
