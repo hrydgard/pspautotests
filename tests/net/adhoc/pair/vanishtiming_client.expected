@@ -1,0 +1,87 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+
+Keepalive 0:
+  MatchingCreate, mode 1: 80410806
+  MatchingCreate, mode 2: 00000000
+  MatchingCreate, mode 3: 80410806
+
+Round 1: PTP rexmt 200 ms x 5, matching keepalive 500 ms, rexmt 200 ms, init count 5, leaving 200 ms after the sync:
+  PTP: connected
+  Matching: established
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+
+Round 2: PTP rexmt 500 ms x 2, matching keepalive 250 ms, rexmt 100 ms, init count 10, leaving 200 ms after the sync:
+  PTP: connected
+  Matching: established
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+
+Round 3: PTP rexmt 100 ms x 10, matching keepalive 1250 ms, rexmt 500 ms, init count 2, leaving 200 ms after the sync:
+  PTP: connected
+  Matching: established
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+
+Round 4: PTP rexmt 200 ms x 2, matching keepalive 500 ms, rexmt 200 ms, init count 2, leaving 200 ms after the sync:
+  PTP: connected
+  Matching: established
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+
+Round 5: PTP rexmt 500 ms x 5, matching keepalive 1000 ms, rexmt 400 ms, init count 5, leaving 200 ms after the sync:
+  PTP: connected
+  Matching: established
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+
+Round 6: PTP rexmt 100 ms x 3, matching keepalive 200 ms, rexmt 100 ms, init count 5, leaving 200 ms after the sync:
+  PTP: connected
+  Matching: established
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+
+Round 7: PTP rexmt 500 ms x 2, matching keepalive 1000 ms, rexmt 200 ms, init count 2, leaving 500 ms after the sync:
+  PTP: connected
+  Matching: established
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+
+Round 8: PTP rexmt 500 ms x 2, matching keepalive 1000 ms, rexmt 200 ms, init count 2, leaving 800 ms after the sync:
+  PTP: connected
+  Matching: established
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+
+Round 9: PTP rexmt 500 ms x 2, matching keepalive 1000 ms, rexmt 200 ms, init count 2, leaving 200 ms after the sync:
+  PTP: connected
+  Matching: established
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Leave group: 00000000, event 2, state 0
