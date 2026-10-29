@@ -1,0 +1,25 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+Leave group: 00000000, event 2, state 0
+Game mode: 00000000, event 4
+Buffers: ok
+
+Master updated every 1 ms (3338 updates, 0 vblanks, 1000-5000 ms after GAMEMODE):
+  Replica changes                              n=200 min     9391 med    12348 avg    13147 max    24684 us
+  Update -> the client's echo of it            n=200 min    35059 med    38303 avg    39284 max    51192 us
+
+Master updated every vblank (240 updates, 240 vblanks, 6000-10000 ms after GAMEMODE):
+  Replica changes                              n=200 min     9299 med    12431 avg    13994 max    37048 us
+  Update -> the client's echo of it            n=200 min    34969 med    45084 avg    45896 max    71491 us
+
+Master updated every two vblanks (120 updates, 241 vblanks, 11000-15000 ms after GAMEMODE):
+  Replica changes                              n=200 min     9076 med    12367 avg    13636 max    37107 us
+  Update -> the client's echo of it            n=116 min    35697 med    44557 avg    46378 max    72514 us
+
+Master updated every 50 ms (80 updates, 0 vblanks, 16000-20000 ms after GAMEMODE):
+  Replica changes                              n=200 min      523 med    12444 avg    13950 max    49159 us
+  Update -> the client's echo of it            n= 79 min    36441 med    45816 avg    47347 max    83037 us
