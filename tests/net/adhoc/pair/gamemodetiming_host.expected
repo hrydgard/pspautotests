@@ -1,0 +1,39 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+
+Round 1, the client joining 200 ms after the host:
+Leave group: 00000000, event 2, state 0
+  CreateEnterGameMode: 00000000, event 4 (error 00000000)
+  GAMEMODE 4426 ms after the sync, 4426 ms after the call
+  ExitGameMode: 00000000
+  Event 2 643 ms after ExitGameMode
+Create group: 00000000, event 1 (error 00000000), state 1
+
+Round 2, the client joining 1000 ms after the host:
+Leave group: 00000000, event 2, state 0
+  CreateEnterGameMode: 00000000, event 4 (error 00000000)
+  GAMEMODE 4387 ms after the sync, 4387 ms after the call
+  ExitGameMode: 00000000
+  Event 2 654 ms after ExitGameMode
+Create group: 00000000, event 1 (error 00000000), state 1
+
+Round 3, the client joining 3000 ms after the host:
+Leave group: 00000000, event 2, state 0
+  CreateEnterGameMode: 00000000, event 4 (error 00000000)
+  GAMEMODE 4326 ms after the sync, 4326 ms after the call
+  ExitGameMode: 00000000
+  Event 2 653 ms after ExitGameMode
+Create group: 00000000, event 1 (error 00000000), state 1
+
+Round 4, the client joining 5000 ms after the host:
+Leave group: 00000000, event 2, state 0
+  CreateEnterGameMode: 00000000, event 4 (error 00000000)
+  GAMEMODE 6343 ms after the sync, 6343 ms after the call
+  ExitGameMode: 00000000
+  Event 2 644 ms after ExitGameMode
+Create group: 00000000, event 1 (error 00000000), state 1
+Leave group: 00000000, event 2, state 0

@@ -1,0 +1,54 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+
+Round 1, the client joining 200 ms after the host:
+Leave group: 00000000, event 2, state 0
+  JoinEnterGameMode: 00000000, event 4 (error 00000000)
+  GAMEMODE 4420 ms after the sync, 4220 ms after the call
+  ExitGameMode: 00000000
+  Event 2 653 ms after ExitGameMode
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+
+Round 2, the client joining 1000 ms after the host:
+Leave group: 00000000, event 2, state 0
+  JoinEnterGameMode: 00000000, event 4 (error 00000000)
+  GAMEMODE 4390 ms after the sync, 3389 ms after the call
+  ExitGameMode: 00000000
+  Event 2 643 ms after ExitGameMode
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+
+Round 3, the client joining 3000 ms after the host:
+Leave group: 00000000, event 2, state 0
+  JoinEnterGameMode: 00000000, event 4 (error 00000000)
+  GAMEMODE 4344 ms after the sync, 1343 ms after the call
+  ExitGameMode: 00000000
+  Event 2 653 ms after ExitGameMode
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+
+Round 4, the client joining 5000 ms after the host:
+Leave group: 00000000, event 2, state 0
+  JoinEnterGameMode: 00000000, event 4 (error 00000000)
+  GAMEMODE 6356 ms after the sync, 1355 ms after the call
+  ExitGameMode: 00000000
+  Event 2 653 ms after ExitGameMode
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Leave group: 00000000, event 2, state 0
