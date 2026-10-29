@@ -89,6 +89,9 @@ Started:
   Start2 30, 9, 4000: 80410815
   Start2 30, 4000, 9: 80410807
   GetHelloOpt: 00000000, len 16, 'helo'
+  Bytes: 68 65 6c 6f 01 00 00 00 00 00 00 00 00 00 00 00
+  GetHelloOpt, len 0: 00000000, len 20
+  GetHelloOpt into 4: 00000000, len 4, 'helo'
   SetHelloOpt: 00000000
   GetHelloOpt into 2: 00000000, len 2, 'he'
   GetMembers size: 00000000, size 12

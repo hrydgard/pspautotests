@@ -130,6 +130,16 @@ int main(int argc, char *argv[]) {
 	optlen = sizeof(opt);
 	memset(opt, 0, sizeof(opt));
 	printf("  GetHelloOpt: %08x, len %d, '%s'\n", sceNetAdhocMatchingGetHelloOpt(id, &optlen, opt), optlen, opt);
+	printf("  Bytes:");
+	for (int i = 0; i < optlen && i < (int)sizeof(opt); ++i) {
+		printf(" %02x", (u8)opt[i]);
+	}
+	printf("\n");
+	optlen = 0;
+	printf("  GetHelloOpt, len 0: %08x, len %d\n", sceNetAdhocMatchingGetHelloOpt(id, &optlen, NULL), optlen);
+	optlen = 4;
+	memset(opt, 0, sizeof(opt));
+	printf("  GetHelloOpt into 4: %08x, len %d, '%s'\n", sceNetAdhocMatchingGetHelloOpt(id, &optlen, opt), optlen, opt);
 	printf("  SetHelloOpt: %08x\n", sceNetAdhocMatchingSetHelloOpt(id, 6, "hello!"));
 	optlen = 2;
 	memset(opt, 0, sizeof(opt));
