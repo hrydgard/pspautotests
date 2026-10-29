@@ -1,0 +1,17 @@
+[x] Handler releasing itself:
+[x]   Register: 00000000
+[x]   Enable: 00000000
+[r]   Release in handler: 00000000
+[x]   Calls: 1
+[x]   Call order: 1
+[x]   Release again: 80020068
+
+[x] Handler releasing a later one in the same VBLANK:
+[x]   Register other: 00000000
+[x]   Register victim: 00000000
+[r]   Release in handler: 00000000
+[x]   Other calls: 4
+[x]   Victim calls: 0
+[x]   Call order: 2 2 2 2
+[x]   Release victim again: 80020068
+[x]   Release other: 00000000
