@@ -430,11 +430,11 @@ static void gameModeTiming() {
 }
 
 // Last, as there's no group to sync through while it runs: the host creates the group, the client
-// scans for it and joins, three times.
-// Rounds 0-2 scan and join; in rounds 3-4 the client scans until it sees the group and then calls
+// scans for it and joins, ten times.
+// Rounds 0-2 scan and join; in rounds 3-9 the client scans until it sees the group and then calls
 // Connect on it instead.
 static void joinTiming() {
-	for (int round = 0; round < 5; ++round) {
+	for (int round = 0; round < 10; ++round) {
 		int from = timedEventCount;
 #if HOST
 		u64 t = timeNow();

@@ -9,31 +9,36 @@ PDP:
   (echoed)
 
 PTP:
-  Accept waiting since the client's sync       n= 10 min     5802 med     7346 avg    11219 max    21942 us
+  Accept waiting since the client's sync       n= 10 min     3555 med     8233 avg    29875 max   203534 us
   (echoed)
 
 Matching:
   Host context: ok
   Host got REQUEST: yes
-  Host: REQUEST event -> SelectTarget returned    12261 us
+  Host: REQUEST event -> SelectTarget returned    15827 us
   Host SelectTarget 00000000, ESTABLISHED: yes
-  Host: REQUEST -> ESTABLISHED                    21567 us
-  Host answered 20
+  Host: REQUEST -> ESTABLISHED                    30624 us
+  Host answered 19
   Host context: ok
 
 Game mode:
 Leave group: 00000000, event 2, state 0
-  CreateEnterGameMode -> GAMEMODE event         4423689 us
-  UpdateMaster                                       98.24 us each (100 calls)
-  UpdateReplica                                      10.69 us each (100 calls)
-  Replica changes (289, 3397 master updates skipped) n=200 min    10011 med    12360 avg    14193 max   221103 us
-  Own master updates in 4s: 3349
-  ExitGameMode -> event                          645366 us
+  CreateEnterGameMode -> GAMEMODE event         4425001 us
+  UpdateMaster                                       98.63 us each (100 calls)
+  UpdateReplica                                      10.93 us each (100 calls)
+  Replica changes (276, 3402 master updates skipped) n=200 min     8130 med    12386 avg    14500 max   221090 us
+  Own master updates in 4s: 3358
+  ExitGameMode -> event                          645393 us
 
 Scanning and joining:
   Round 0: client in the peer list  after CONNECT
   Round 1: client in the peer list  after CONNECT
   Round 2: client in the peer list  after CONNECT
   Round 3: client in the peer list  after CONNECT
-  Round 4: client in the peer list never after CONNECT
-  Create -> CONNECT event                      n=  5 min  1128987 med  1152766 avg  1151426 max  1184137 us
+  Round 4: client in the peer list  after CONNECT
+  Round 5: client in the peer list  after CONNECT
+  Round 6: client in the peer list  after CONNECT
+  Round 7: client in the peer list  after CONNECT
+  Round 8: client in the peer list  after CONNECT
+  Round 9: client in the peer list  after CONNECT
+  Create -> CONNECT event                      n= 10 min  1100588 med  1105260 avg  1116913 max  1142013 us
