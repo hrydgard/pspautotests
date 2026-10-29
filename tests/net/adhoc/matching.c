@@ -62,6 +62,19 @@ int main(int argc, char *argv[]) {
 	printf("  GetPoolStat NULL: %08x\n", sceNetAdhocMatchingGetPoolStat(NULL));
 	printf("  Raw: GetPoolMaxAlloc %08x, GetPoolStat %x %x %x\n", sceNetAdhocMatchingGetPoolMaxAlloc(), stat[0], stat[1], stat[2]);
 
+	printf("\nHello data length:\n");
+	static const int helloLens[] = { 1, 4, 5, 8, 16, 17 };
+	for (int i = 0; i < (int)(sizeof(helloLens) / sizeof(helloLens[0])); ++i) {
+		static const char data[32] = "abcdefghijklmnopqrstuvwxyz";
+		int hid = sceNetAdhocMatchingCreate(1, 4, PORT + 2, 1024, 200000, 200000, 5, 200000, &matchingHandler);
+		sceNetAdhocMatchingStart(hid, 0x30, 0x2000, 0x30, 0x2000, helloLens[i], data);
+		int hlen = 0;
+		int result = sceNetAdhocMatchingGetHelloOpt(hid, &hlen, NULL);
+		printf("  Start with %d: GetHelloOpt %08x, len %d\n", helloLens[i], result, hlen);
+		sceNetAdhocMatchingStop(hid);
+		sceNetAdhocMatchingDelete(hid);
+	}
+
 	printf("\nCreate:\n");
 	testModes("  Normal", 4, 1024, 200000, 200000, 5, 200000);
 	testCreate("  Mode 0", 0, 4, PORT, 1024, 200000, 200000, 5, 200000, &matchingHandler);

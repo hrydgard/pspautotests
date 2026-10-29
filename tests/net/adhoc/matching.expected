@@ -13,6 +13,14 @@ Init:
   GetPoolStat NULL: 80410806
   Raw: GetPoolMaxAlloc 00000000, GetPoolStat 1ffe0 0 1ffe0
 
+Hello data length:
+  Start with 1: GetHelloOpt 00000000, len 17
+  Start with 4: GetHelloOpt 00000000, len 20
+  Start with 5: GetHelloOpt 00000000, len 21
+  Start with 8: GetHelloOpt 00000000, len 24
+  Start with 16: GetHelloOpt 00000000, len 32
+  Start with 17: GetHelloOpt 00000000, len 33
+
 Create:
   Normal, host: context
   Normal, client: context, id +1
@@ -37,7 +45,7 @@ Create:
   Rxbuflen 27 (maxnum 4), host: 80410804
   Rxbuflen 27 (maxnum 4), client: 80410804
   Rxbuflen 27 (maxnum 4), p2p: 80410804
-  Rxbuflen 28 (maxnum 4), host: context, id +1
+  Rxbuflen 28 (maxnum 4), host: context, id +-14
   Rxbuflen 28 (maxnum 4), client: context, id +1
   Rxbuflen 28 (maxnum 4), p2p: context, id +1
   Rxbuflen 15 (maxnum 2), host: 80410804
@@ -47,7 +55,7 @@ Create:
   Rxbuflen 16 (maxnum 2), client: context, id +1
   Rxbuflen 16 (maxnum 2), p2p: context, id +1
   Hello 0, host: 80410806
-  Hello 0, client: context, id +-14
+  Hello 0, client: context, id +1
   Hello 0, p2p: 80410806
   Keepalive 0, host: 80410806
   Keepalive 0, client: context, id +1
