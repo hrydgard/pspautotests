@@ -80,7 +80,7 @@ static void orderRound(int r, int helloUs, int keepaliveUs) {
 	u64 start = est >= 0 ? mEvents[est].time : sceKernelGetSystemTimeWide();
 	printMembers("Members at once", id);
 	int last = selfFirst(id);
-	while (sceKernelGetSystemTimeWide() - start < 10000000) {
+	while (sceKernelGetSystemTimeWide() - start < 2ULL * keepaliveUs) {
 		int now = selfFirst(id);
 		if (now != last) {
 			// In keepalive intervals, to the nearest tenth, so the output doesn't depend on exact timing.
@@ -90,7 +90,7 @@ static void orderRound(int r, int helloUs, int keepaliveUs) {
 		}
 		sceKernelDelayThread(20000);
 	}
-	printMembers("Members 10 s later", id);
+	printMembers("Members two keepalive intervals later", id);
 	printf("SetHelloOpt after joining: %08x\n", sceNetAdhocMatchingSetHelloOpt(id, 4, "CLI2"));
 	pairSync(10 * r + 2);
 #endif
