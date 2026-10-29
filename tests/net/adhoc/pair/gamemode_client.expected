@@ -10,7 +10,7 @@ Peers: 1
 Leave group: 00000000, event 2, state 0
 
 Entering game mode:
-  Scan doesn't see the game mode group
+  Scan sees the game mode group, mode 1
   JoinEnterGameMode: 00000000
   Event 4 (error 00000000), state 3
   GetGameModeInfo: 00000000, 2 members: peer local

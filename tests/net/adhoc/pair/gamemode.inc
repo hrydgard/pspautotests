@@ -41,8 +41,9 @@ int main(int argc, char *argv[]) {
 	int result = sceNetAdhocctlCreateEnterGameMode(GM_GROUP, 1, 2, members, 10000000, 0);
 	printf("  CreateEnterGameMode: %08x\n", result);
 #else
-	sceKernelDelayThread(1500000);
-	// The host is waiting in game mode now. See how its group shows up in a scan.
+	// The host is waiting in game mode now. Its group shows up in scans from about 2 s after it entered
+	// (pair/gamemodescan), so look 3 s after.
+	sceKernelDelayThread(3500000);
 	int scanStart = eventCount;
 	if (sceNetAdhocctlScan() >= 0 && waitEvent(scanStart, 5000) == 3) {
 		AdhocctlScanInfo infos[8];
