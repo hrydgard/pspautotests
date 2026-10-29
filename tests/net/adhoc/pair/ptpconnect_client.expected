@@ -1,0 +1,30 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+Round 1: state after Open 2, non-blocking Connect 80410709
+  States: [1643 us: 2] [5339 us: 4]
+  Poll CONNECT at 5339 us, SEND at 1643 us
+  Connect again: 00000000
+Round 2: state after Open 2, non-blocking Connect 80410709
+  States: [1975 us: 2] [4955 us: 4]
+  Poll CONNECT at 4955 us, SEND at 1975 us
+  Connect again: 00000000
+Round 3: state after Open 2, non-blocking Connect 80410709
+  States: [2082 us: 2] [5201 us: 4]
+  Poll CONNECT at 5201 us, SEND at 2082 us
+  Connect again: 00000000
+Round 4: state after Open 2, non-blocking Connect 80410709
+  States: [1425 us: 2] [6739 us: 4]
+  Poll CONNECT at 6739 us, SEND at 1425 us
+  Connect again: 00000000
+Round 5: state after Open 2, non-blocking Connect 80410709
+  States: [1755 us: 2] [5079 us: 4]
+  Poll CONNECT at 5079 us, SEND at 1755 us
+  Connect again: 00000000
+Leave group: 00000000, event 2, state 0

@@ -1,0 +1,13 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+Listen: ok
+Round 1: listener ACCEPT after 5610 us, Accept ok
+Round 2: listener ACCEPT after 4507 us, Accept ok
+Round 3: listener ACCEPT after 5084 us, Accept ok
+Round 4: listener ACCEPT after 6806 us, Accept ok
+Round 5: listener ACCEPT after 5559 us, Accept ok
+Leave group: 00000000, event 2, state 0
