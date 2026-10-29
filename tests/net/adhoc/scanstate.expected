@@ -1,0 +1,41 @@
+sceNetAdhocInit: 00000000
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: 00000000
+  state 2 from 1-2 ms
+  state 0 from 500-1000 ms
+  event 3 at 500-1000 ms
+Scan again: 00000000
+  state 2 from 1-2 ms
+  state 0 from 500-1000 ms
+  event 3 at 500-1000 ms
+Create: 00000000
+  state 0 from 1-2 ms
+  state 1 from 1-2 s
+  event 1 at 1-2 s
+Disconnect: 00000000
+  state 1 from 1-2 ms
+  state 0 from 100-200 ms
+  event 2 at 100-200 ms
+
+Ad hoc channel setting: 1
+Timed scan: 00000000
+  state 2 from 1-2 ms
+  state 0 from 500-1000 ms
+  event 3 at 500-1000 ms
+  (event at 781 ms, last state change at 781 ms)
+Timed scan: 00000000
+  state 2 from 1-2 ms
+  state 0 from 500-1000 ms
+  event 3 at 500-1000 ms
+  (event at 772 ms, last state change at 772 ms)
+Timed scan: 00000000
+  state 2 from 1-2 ms
+  state 0 from 500-1000 ms
+  event 3 at 500-1000 ms
+  (event at 772 ms, last state change at 772 ms)
+Timed scan: 00000000
+  state 2 from 1-2 ms
+  state 0 from 500-1000 ms
+  event 3 at 500-1000 ms
+  (event at 772 ms, last state change at 772 ms)
