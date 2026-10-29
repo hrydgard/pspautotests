@@ -1,0 +1,20 @@
+sceNetAdhocInit: 00000000
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+First: PDP 1, PDP 2, PTP listen 3
+Again, after deleting: PDP 4, PDP 5, PTP listen 6
+
+sceNetAdhocTerm: 00000000
+sceNetAdhocInit: 00000000
+After AdhocTerm and AdhocInit: PDP 1, PDP 2, PTP listen 3
+Leave group: 00000000, event 2, state 0
+
+sceNetAdhocctlTerm: 00000000
+sceNetAdhocTerm: 00000000
+sceNetTerm: 00000000
+sceNetInit: 00000000
+sceNetAdhocInit: 00000000
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+After a full net restart: PDP 1, PDP 2, PTP listen 3
