@@ -86,7 +86,11 @@ static void hostClient() {
 	start = mNumEvents;
 	printf("  SelectTarget: %08x\n", sceNetAdhocMatchingSelectTarget(id, &peerMac, 5, "JOIN1"));
 	// The host waits up to 5 seconds for this request before it cancels, so wait longer than that.
-	printf("  Got DENY: %s\n", waitMatching(4, start, 8000) >= 0 ? "yes" : "no");
+	int deny = waitMatching(4, start, 8000);
+	printf("  Got DENY: %s\n", deny >= 0 ? "yes" : "no");
+	// The host's hellos go on (every 200 ms); wait for the next one, so whether it shows up below doesn't
+	// depend on timing.
+	waitMatching(1, deny + 1, 1000);
 	pairSync(3);
 	printMatchingEvents(start);
 
