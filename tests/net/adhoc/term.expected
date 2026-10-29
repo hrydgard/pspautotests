@@ -1,0 +1,27 @@
+sceNetAdhocInit: 00000000
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+In the group: GetState 00000000, state 1, GetLocalEtherAddr 00000000
+Sockets: PDP 1, PTP 2
+MatchingInit: 00000000
+MatchingCreate: ok
+
+sceNetAdhocTerm: 00000000
+After AdhocTerm: GetState 00000000, state 1, GetLocalEtherAddr 00000000
+PdpSend on the old socket: 80410712
+PdpDelete on the old socket: 80410712
+PtpClose on the old socket: 80410712
+PdpCreate before AdhocInit: 80410712
+MatchingDelete: 00000000
+MatchingTerm: 00000000
+
+sceNetAdhocInit: 00000000
+After AdhocInit: GetState 00000000, state 1, GetLocalEtherAddr 00000000
+PdpCreate: 1
+PdpSend to self: 00000000
+PdpRecv: 00000000, len 4
+
+sceNetAdhocctlTerm: 00000000
+After AdhocctlTerm: GetState 80410b08, state -1, GetLocalEtherAddr 80410180
+sceNetAdhocTerm: 00000000
