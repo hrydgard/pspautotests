@@ -1,0 +1,24 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+
+Host creates the group, client discovers it:
+Leave group: 00000000, event 2, state 0
+Create group: 00000000, event 1 (error 00000000), state 1
+  Client joined: 5-10s
+  Handler events:
+Leave group: 00000000, event 2, state 0
+Create group: 00000000, event 1 (error 00000000), state 1
+
+Both discover (Legend of the Dragon's parameters):
+Leave group: 00000000, event 2, state 0
+  InitStart: 00000000
+  Status 2, result field 0
+  adhocctl state 1, GetParameter 00000000, group DISCPAIR, BSSID other, peers 1
+  Term: 00000000, adhocctl state 1
+Leave group: 00000000, event 2, state 0
+Create group: 00000000, event 1 (error 00000000), state 1
+Leave group: 00000000, event 2, state 0

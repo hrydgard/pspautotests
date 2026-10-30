@@ -1,0 +1,36 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+
+Host creates the group, client discovers it:
+Leave group: 00000000, event 2, state 0
+  InitStart: 00000000
+  status/state: 1/0 1/4 1/2 1/1 2/1
+  Status 2, result field 0, 5-10s
+  Handler events: 6(00000000) 3(00000000) 1(00000000)
+  adhocctl state 1, GetParameter 00000000, group DISCPAIR, BSSID other, peers 1
+  Term: 00000000, adhocctl state 1
+Leave group: 00000000, event 2, state 0
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+
+Both discover (Legend of the Dragon's parameters):
+Leave group: 00000000, event 2, state 0
+  InitStart: 00000000
+  Status 2, result field 0
+  adhocctl state 1, GetParameter 00000000, group DISCPAIR, BSSID other, peers 1
+  Term: 00000000, adhocctl state 1
+Leave group: 00000000, event 2, state 0
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Leave group: 00000000, event 2, state 0

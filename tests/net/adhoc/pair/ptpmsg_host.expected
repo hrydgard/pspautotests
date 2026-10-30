@@ -1,0 +1,14 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+Accept: ok
+
+Four messages, read with a 1000-byte buffer:
+  Recv lengths, bytes waiting 350: 350 then 80410709
+
+Two 100-byte messages, read with a 60-byte buffer:
+  Recv lengths, bytes waiting 200: 60 60 60 20 then 80410709
+Leave group: 00000000, event 2, state 0
