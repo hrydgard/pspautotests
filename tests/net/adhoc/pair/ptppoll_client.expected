@@ -8,7 +8,6 @@ Join: 00000000, event 1 (error 00000000), state 1
   BSSID is the scanned one: yes
 Peers: 1
 Open: ok
-  Before Connect: 00000001, revents 0011
   Before Connect: 00000001, revents 0015
 Connect: 00000000
 Send: 00000000, len 16

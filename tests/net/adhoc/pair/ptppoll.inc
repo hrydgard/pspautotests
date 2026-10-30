@@ -18,19 +18,15 @@ static int pollEvents(int id, int events, int *result) {
 	return sd.revents;
 }
 
-// Polls 20 times, 1 ms apart, and prints each answer that differs from the one before it.
+// Polls 20 times, 1 ms apart, and prints the last answer. (An opened connection comes up on its own a
+// few ms after PtpOpen, so the first answers depend on timing.)
 static void pollRepeatedly(const char *title, int id) {
-	int lastRevents = -1, lastResult = -1;
+	int result = 0, revents = 0;
 	for (int i = 0; i < 20; ++i) {
-		int result;
-		int revents = pollEvents(id, ALL_EVENTS, &result);
-		if (revents != lastRevents || result != lastResult) {
-			printf("  %s: %08x, revents %04x\n", title, result, revents);
-			lastRevents = revents;
-			lastResult = result;
-		}
+		revents = pollEvents(id, ALL_EVENTS, &result);
 		sceKernelDelayThread(1000);
 	}
+	printf("  %s: %08x, revents %04x\n", title, result, revents);
 }
 
 int main(int argc, char *argv[]) {
