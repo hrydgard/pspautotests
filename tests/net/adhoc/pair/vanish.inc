@@ -100,8 +100,9 @@ int main(int argc, char *argv[]) {
 		}
 		sceKernelDelayThread(100000);
 	}
-	printf("  PTP send fails: %s, %08x\n", ptpSendFailed ? timeBucket(ptpSendFailed) : "not within 40s", ptpSendError);
-	printf("  PTP recv fails: %s, %08x\n", ptpRecvFailed ? timeBucket(ptpRecvFailed) : "not within 40s", ptpRecvError);
+	// Counted from when the peer left the peer list, which is when the retransmits stop being answered.
+	printf("  PTP send fails: %s after the peer left, %08x\n", ptpSendFailed ? timeBucket(peerGone && ptpSendFailed > peerGone ? ptpSendFailed - peerGone : 0) : "not within 40s", ptpSendError);
+	printf("  PTP recv fails: %s after the peer left, %08x\n", ptpRecvFailed ? timeBucket(peerGone && ptpRecvFailed > peerGone ? ptpRecvFailed - peerGone : 0) : "not within 40s", ptpRecvError);
 	printf("  Peer gone from the peer list: %s\n", peerGone ? timeBucket(peerGone) : "not within 40s");
 	printf("  Matching TIMEOUT: %s\n", matchingTimeout ? timeBucket(matchingTimeout) : "not within 40s");
 	printf("  Matching SendData once the peer is gone: %08x, DATA_TIMEOUT after it: %s\n", sendData, dataTimeout ? timeBucket(dataTimeout) : "not within 40s");

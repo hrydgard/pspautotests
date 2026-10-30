@@ -10,8 +10,8 @@ Setup:
   Matching: established
 
 The client vanishes:
-  PTP send fails: 1-2s, 8041070c
-  PTP recv fails: 1-2s, 8041070c
+  PTP send fails: 1-2s after the peer left, 8041070c
+  PTP recv fails: 1-2s after the peer left, 8041070c
   Peer gone from the peer list: under 1s
   Matching TIMEOUT: 2-4s
   Matching SendData once the peer is gone: 00000000, DATA_TIMEOUT after it: 1-2s
