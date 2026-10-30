@@ -1,0 +1,38 @@
+sceNetAdhocInit: 00000000
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+
+Create, then Disconnect at once:
+  Create: 00000000, state then 0, Disconnect: 80410b10
+    state 0
+    event 1(00000000)
+    state 1
+  Peer list: 00000000, 0 peers
+Connect, then Disconnect at once:
+  Connect: 00000000, state then 0, Disconnect: 80410b10
+    state 0
+    event 1(00000000)
+    state 1
+  Peer list: 00000000, 0 peers
+Create, then Disconnect 1 ms later:
+  Create: 00000000, state then 0, Disconnect: 80410b10
+    state 0
+    event 1(00000000)
+    state 1
+  Peer list: 00000000, 0 peers
+Create, then Disconnect 20 ms later:
+  Create: 00000000, state then 0, Disconnect: 80410b10
+    state 0
+    event 1(00000000)
+    state 1
+  Peer list: 00000000, 0 peers
+Create, Disconnect, Create another at once:
+  Create: 00000000, Disconnect: 80410b10, Create again: 80410b10
+    state 0
+    event 1(00000000)
+    state 1
+  GetParameter: 00000000, group ABANDON
+  Peer list: 00000000, 0 peers
+
+Done, state:
+    state 0
