@@ -1,0 +1,22 @@
+load inet: 00000000
+Before InetInit: sceNetApctlGetState: 80410a0d, state -1, NULL: 80410a0d
+sceNetInetInit: 00000000
+Before Init: sceNetApctlGetState: 80410a0d, state -1, NULL: 80410a0d
+Before Init: sceNetGetLocalEtherAddr: 80410180, untouched
+sceNetApctlInit: 00000000
+After Init: sceNetApctlGetState: 00000000, state 0, NULL: 80410a03
+After Init: sceNetGetLocalEtherAddr: 80410180, untouched
+sceNetApctlInit again: 80410a01
+After second Init: sceNetApctlGetState: 00000000, state 0, NULL: 80410a03
+sceNetApctlTerm: 00000000
+After Term: sceNetApctlGetState: 80410a0d, state -1, NULL: 80410a0d
+After Term: sceNetGetLocalEtherAddr: 80410180, untouched
+sceNetApctlTerm again: 00000000
+sceNetApctlInit after Term: 00000000
+After Init after Term: sceNetApctlGetState: 00000000, state 0, NULL: 80410a03
+sceNetApctlTerm: 00000000
+sceNetInetTerm: 00000000
+sceNetTerm: 00000000
+unload inet: 00000000
+unload adhoc: 00000000
+unload common: 00000000
