@@ -18,11 +18,11 @@ static int pollEvents(int id, int events, int *result) {
 	return sd.revents;
 }
 
-// Polls 20 times, 1 ms apart, and prints the last answer. (An opened connection comes up on its own a
+// Polls for 100 ms, every 1 ms, and prints the last answer. (An opened connection comes up on its own a
 // few ms after PtpOpen, so the first answers depend on timing.)
 static void pollRepeatedly(const char *title, int id) {
 	int result = 0, revents = 0;
-	for (int i = 0; i < 20; ++i) {
+	for (int i = 0; i < 100; ++i) {
 		revents = pollEvents(id, ALL_EVENTS, &result);
 		sceKernelDelayThread(1000);
 	}
