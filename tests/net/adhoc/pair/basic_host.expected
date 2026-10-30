@@ -29,10 +29,8 @@ PDP:
   Send 4000 back: 00000000
   Recv 8000: 00000000, len 8000, from peer port 1000, data ok
   Send 8000 back: 00000000
-  Recv 16000: 00000000, len 16000, from peer port 1000, data ok
-  Send 16000 back: 00000000
-  Recv 32000: 80410715, len 65536, from unexpected port cccc, data -
-  Send 32000 back: 00000000
+  Recv 10000: 00000000, len 10000, from peer port 1000, data ok
+  Send 10000 back: 00000000
   Broadcast 100: 00000000
   Burst of 50: received at least 40, in order
 

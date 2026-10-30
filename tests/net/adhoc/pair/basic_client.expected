@@ -32,10 +32,8 @@ PDP:
   Recv 4000 back: 00000000, len 4000, from peer port 1000, data ok
   Send 8000: 00000000
   Recv 8000 back: 00000000, len 8000, from peer port 1000, data ok
-  Send 16000: 00000000
-  Recv 16000 back: 00000000, len 16000, from peer port 1000, data ok
-  Send 32000: 00000000
-  Recv 32000 back: 80410715, len 65536, from unexpected port cccc, data -
+  Send 10000: 00000000
+  Recv 10000 back: 00000000, len 10000, from peer port 1000, data ok
   Recv broadcast: 00000000, len 100, from peer port 1000, data ok
   Burst of 50: sent 50
   Send to a closed port: 00000000

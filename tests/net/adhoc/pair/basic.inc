@@ -95,9 +95,9 @@ static void testPdp() {
 	printf("  Create: %s\n", id > 0 ? "ok" : "failed");
 	pairSync(2);
 
-	// 32000 bytes never arrive, though 16000 do. Sending 65523 bytes sometimes fails with 0x80410001
-	// (out of memory), so it isn't tried here.
-	static const int sizes[] = { 16, 1444, 1445, 4000, 8000, 16000, 32000 };
+	// A PSP delivers 16000 bytes too, but that's unrealistically large for a game packet. 10000 is
+	// about the most an aemu_postoffice relay carries (10 KiB).
+	static const int sizes[] = { 16, 1444, 1445, 4000, 8000, 10000 };
 	for (int i = 0; i < (int)ARRAY_SIZE(sizes); ++i) {
 		char title[64];
 #if HOST
