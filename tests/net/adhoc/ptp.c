@@ -159,6 +159,13 @@ int main(int argc, char *argv[]) {
 	printf("  Connect: %08x\n", sceNetAdhocPtpConnect(client, 2000000, 0));
 	sceNetAdhocPtpClose(client, 0);
 
+	// PtpOpen starts connecting by itself; close it straight away, before anything answers.
+	client = sceNetAdhocPtpOpen(&localMac, PORT + 2, &localMac, PORT + 3, 4096, 200000, 2, 0);
+	u64 start = sceKernelGetSystemTimeWide();
+	int result = sceNetAdhocPtpClose(client, 0);
+	u64 took = sceKernelGetSystemTimeWide() - start;
+	printf("  Close right after open: %08x, %s\n", result, took < 100000 ? "under 100 ms" : "slow");
+
 	printf("\n");
 	adhocctlLeaveGroup();
 	adhocShutdown();

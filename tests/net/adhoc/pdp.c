@@ -169,6 +169,35 @@ static void runTests() {
 
 }
 
+static int lateSenderSocket = -1;
+static u8 lateData[100];
+
+static int lateSender(SceSize args, void *argp) {
+	sceKernelDelayThread(100000);
+	sceNetAdhocPdpSend(lateSenderSocket, &localMac, PORT, lateData, sizeof(lateData), 0, 1);
+	return 0;
+}
+
+// A blocking receive with a buffer too small for the datagram that arrives while it waits.
+static void testRecvTooSmallWhileWaiting() {
+	printf("\nBlocking recv, too-small datagram arriving while it waits:\n");
+	int id = sceNetAdhocPdpCreate(&localMac, PORT, 1024, 0);
+	lateSenderSocket = id;
+	memset(lateData, 0x77, sizeof(lateData));
+	SceUID thid = sceKernelCreateThread("lateSender", &lateSender, 0x18, 0x1000, 0, NULL);
+	sceKernelStartThread(thid, 0, NULL);
+	AdhocMac mac;
+	u16 port = 0;
+	int len = 10;
+	u64 start = sceKernelGetSystemTimeWide();
+	int result = sceNetAdhocPdpRecv(id, &mac, &port, buffer, &len, 1000000, 0);
+	u64 took = sceKernelGetSystemTimeWide() - start;
+	printf("  Recv into 10 (1s timeout): %08x, len %d, %s\n", result, len, took < 500000 ? "returned when it arrived" : "waited out the timeout");
+	sceKernelWaitThreadEnd(thid, NULL);
+	sceKernelDeleteThread(thid);
+	sceNetAdhocPdpDelete(id, 0);
+}
+
 int main(int argc, char *argv[]) {
 	if (!adhocStartup()) {
 		return 1;
@@ -192,6 +221,7 @@ int main(int argc, char *argv[]) {
 		AdhocMac mac;
 		printf("sceNetGetLocalEtherAddr: %08x, %s\n", sceNetGetLocalEtherAddr(&mac), macName(&mac));
 		runTests();
+		testRecvTooSmallWhileWaiting();
 		adhocctlLeaveGroup();
 	}
 

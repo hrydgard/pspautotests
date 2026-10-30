@@ -77,5 +77,6 @@ Connecting to nobody:
   Open: socket, id +1
   Connect, non-blocking: 80410718
   Connect: 80410718
+  Close right after open: 00000000, under 100 ms
 
 Leave group: 00000000, event 2, state 0

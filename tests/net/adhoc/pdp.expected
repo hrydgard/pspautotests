@@ -169,6 +169,9 @@ PdpDelete:
   No sockets: size query 00000000, size 20
   stat 00000000, size 20
   [0] next -1, mac local, port 1235, rcv 0
+
+Blocking recv, too-small datagram arriving while it waits:
+  Recv into 10 (1s timeout): 80400706, len 100, returned when it arrived
 Leave group: 00000000, event 2, state 0
 
 Term:
