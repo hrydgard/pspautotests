@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
 	printf("Listen: %s\n", listener > 0 ? "ok" : "failed");
 	pollRepeatedly("Listener, nothing pending", listener);
 	pairSync(1);
-	// The client connects now. Wait for ACCEPT, polling for everything.
+	// The client opens its connection now. Wait for ACCEPT, polling for everything.
 	int result = 0, revents = 0;
 	for (int i = 0; i < 3000 && !(revents & 0x08); ++i) {
 		revents = pollEvents(listener, ALL_EVENTS, &result);
@@ -60,10 +60,11 @@ int main(int argc, char *argv[]) {
 	sceNetAdhocPtpClose(id, 0);
 	sceNetAdhocPtpClose(listener, 0);
 #else
+	// Not before the host's polls of its idle listener are done: an opened connection connects by itself.
+	pairSync(1);
 	int id = sceNetAdhocPtpOpen(&localMac, PTP_PORT, &peerMac, PTP_PORT, 0x2000, 200000, 5, 0);
 	printf("Open: %s\n", id > 0 ? "ok" : "failed");
 	pollRepeatedly("Before Connect", id);
-	pairSync(1);
 	printf("Connect: %08x\n", sceNetAdhocPtpConnect(id, 3000000, 0));
 	int len = 16;
 	printf("Send: %08x, len %d\n", sceNetAdhocPtpSend(id, buffer, &len, 2000000, 0), len);
