@@ -1,0 +1,14 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+Listen: ok
+  Listener, nothing pending: 00000001, revents 0011
+  Listener, request pending: 00000001, revents 0019
+  Listener, request pending: 00000001, revents 0019
+Accept: ok
+Recv: 00000000, len 16
+Send: 00000000, len 16
+Leave group: 00000000, event 2, state 0

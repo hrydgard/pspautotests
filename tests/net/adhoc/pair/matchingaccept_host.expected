@@ -1,0 +1,21 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+
+Event thread above the caller's priority (0x10):
+  Round 0: SelectTarget 00000000 in under 1 ms, ESTABLISHED before it returned: no, 1-10 ms after the call
+  Round 1: SelectTarget 00000000 in under 1 ms, ESTABLISHED before it returned: no, 1-10 ms after the call
+  Round 2: SelectTarget 00000000 in under 1 ms, ESTABLISHED before it returned: no, 1-10 ms after the call
+  Round 3: SelectTarget 00000000 in under 1 ms, ESTABLISHED before it returned: no, 1-10 ms after the call
+  Round 4: SelectTarget 00000000 in under 1 ms, ESTABLISHED before it returned: no, 1-10 ms after the call
+
+Event thread below the caller's priority (0x60):
+  Round 0: SelectTarget 00000000 in under 1 ms, ESTABLISHED before it returned: no, 1-10 ms after the call
+  Round 1: SelectTarget 00000000 in under 1 ms, ESTABLISHED before it returned: no, 200 ms or more after the call
+  Round 2: SelectTarget 00000000 in under 1 ms, ESTABLISHED before it returned: no, 200 ms or more after the call
+  Round 3: SelectTarget 00000000 in under 1 ms, ESTABLISHED before it returned: no, 200 ms or more after the call
+  Round 4: SelectTarget 00000000 in under 1 ms, ESTABLISHED before it returned: no, 1-10 ms after the call
+Leave group: 00000000, event 2, state 0

@@ -1,0 +1,24 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+
+Event thread above the caller's priority (0x10):
+  Round 0: SelectTarget 00000000, ESTABLISHED: yes
+  Round 1: SelectTarget 00000000, ESTABLISHED: yes
+  Round 2: SelectTarget 00000000, ESTABLISHED: yes
+  Round 3: SelectTarget 00000000, ESTABLISHED: yes
+  Round 4: SelectTarget 00000000, ESTABLISHED: yes
+
+Event thread below the caller's priority (0x60):
+  Round 0: SelectTarget 00000000, ESTABLISHED: yes
+  Round 1: SelectTarget 00000000, ESTABLISHED: yes
+  Round 2: SelectTarget 00000000, ESTABLISHED: yes
+  Round 3: SelectTarget 00000000, ESTABLISHED: yes
+  Round 4: SelectTarget 00000000, ESTABLISHED: yes
+Leave group: 00000000, event 2, state 0
