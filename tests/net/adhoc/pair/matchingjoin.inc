@@ -84,7 +84,8 @@ static void joinCase(int c, const char *title, int helloOpt, int waitHello, int 
 	int deny = waitMatching(4, from, 17000);
 	printf("  Got DENY: %s\n", deny >= 0 ? "yes" : "no");
 	pairSync(sync + 3);
-	printMatchingEventsUntil(from, deny >= 0 ? deny + 1 : mNumEvents);
+	// The host's hellos go on until the DENY, as many as the timing allows, so they're left out.
+	printMatchingEventsUntilExcept(from, deny >= 0 ? deny + 1 : mNumEvents, 1);
 #endif
 	sceNetAdhocMatchingStop(id);
 	sceNetAdhocMatchingDelete(id);

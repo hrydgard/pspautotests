@@ -55,9 +55,13 @@ static inline int waitMatching(int event, int from, int timeoutMs) {
 }
 
 // Prints the events from index `from` up to, not including, `end`.
-static inline void printMatchingEventsUntil(int from, int end) {
+// Leaves out the events of type skipEvent (or none, with -1).
+static inline void printMatchingEventsUntilExcept(int from, int end, int skipEvent) {
 	printf("  Events:");
 	for (int i = from; i < end; ++i) {
+		if (mEvents[i].event == skipEvent) {
+			continue;
+		}
 		printf(" %d", mEvents[i].event);
 		if (mEvents[i].optlen > 0) {
 			printf("('%s')", mEvents[i].opt);
@@ -67,6 +71,10 @@ static inline void printMatchingEventsUntil(int from, int end) {
 		}
 	}
 	printf("\n");
+}
+
+static inline void printMatchingEventsUntil(int from, int end) {
+	printMatchingEventsUntilExcept(from, end, -1);
 }
 
 static inline void printMatchingEvents(int from) {
