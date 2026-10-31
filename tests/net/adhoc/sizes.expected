@@ -1,0 +1,63 @@
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+
+PDP, between two sockets of its own:
+       1 bytes: send min    34 med    36 us, recv min    13 med    14 us
+      64 bytes: send min    35 med    38 us, recv min    14 med    16 us
+     256 bytes: send min    42 med    44 us, recv min    18 med    20 us
+    1024 bytes: send min    47 med    49 us, recv min    22 med    23 us
+    2048 bytes: send min    76 med    78 us, recv min    34 med    36 us
+    4096 bytes: send min   104 med   106 us, recv min    51 med    53 us
+    8192 bytes: send min   183 med   185 us, recv min   103 med   105 us
+
+PDP, over the air to a MAC nobody has:
+  1 bytes                              min    46 med    55 us
+  64 bytes                             min    48 med    55 us
+  256 bytes                            min    53 med    62 us
+  1024 bytes                           min    56 med    67 us
+  1472 bytes                           min    71 med    80 us
+  2048 bytes                           min    80 med    89 us
+  4096 bytes                           min   106 med   115 us
+  8192 bytes                           min   183 med   193 us
+
+PDP, broadcast:
+  1 bytes                              min    55 med    59 us
+  64 bytes                             min    57 med    60 us
+  256 bytes                            min    62 med    66 us
+  1024 bytes                           min    68 med    72 us
+  1472 bytes                           min    80 med    85 us
+  2048 bytes                           min    90 med    95 us
+  4096 bytes                           min   122 med   125 us
+  8192 bytes                           min   188 med   223 us
+
+PDP, back to back over the air:
+  100 x 1024 bytes back to back: 3046 us in all, slowest 63 us, 47 failed (80410001)
+
+PTP, connected to itself:
+       1 bytes: send min    90 med   100 us, recv min    25 med    26 us
+      64 bytes: send min    92 med   102 us, recv min    26 med    27 us
+     256 bytes: send min   113 med   115 us, recv min    30 med    31 us
+    1024 bytes: send min   122 med   126 us, recv min    34 med    36 us
+    2048 bytes: send min   221 med   228 us, recv min    49 med    50 us
+    4096 bytes: send min   333 med   339 us, recv min    70 med    72 us
+    8192 bytes: send min   636 med   643 us, recv min   119 med   121 us
+   16384 bytes: send min  1249 med  1255 us, recv min   225 med   228 us
+
+PTP, recv into a 16384-byte buffer:
+  64 bytes waiting                     min    26 med    28 us
+  4096 bytes waiting                   min    70 med    73 us
+
+PollSocket by number of PDP sockets, non-blocking:
+  1 sockets                            min    18 med    19 us
+  1 sockets, one ready                 min    18 med    19 us
+  2 sockets                            min    19 med    20 us
+  2 sockets, one ready                 min    19 med    19 us
+  4 sockets                            min    21 med    21 us
+  4 sockets, one ready                 min    20 med    21 us
+  8 sockets                            min    24 med    24 us
+  8 sockets, one ready                 min    24 med    24 us
+  16 sockets                           min    31 med    32 us
+  16 sockets, one ready                min    31 med    32 us
+
+Leave group: 00000000, event 2, state 0

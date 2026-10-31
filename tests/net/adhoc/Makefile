@@ -1,4 +1,4 @@
-TARGETS = pdp adhocctl ptp matching self poll gamemode apctl loopback discover limits alerts timing ctlinit socketids term scanstate abandon apctlinit
+TARGETS = pdp adhocctl ptp matching self poll gamemode apctl loopback discover limits alerts timing ctlinit socketids term scanstate abandon apctlinit sizes
 EXTRA_OBJS = ../net-imports.o
 
 COMMON_DIR = ../../../common
