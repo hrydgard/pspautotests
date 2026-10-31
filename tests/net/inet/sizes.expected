@@ -1,18 +1,88 @@
-UDP:
-       1 bytes: send min    78 med    79 us, recv min    29 med    30 us
-      64 bytes: send min    79 med    80 us, recv min    30 med    31 us
-     256 bytes: send min   124 med   127 us, recv min    32 med    33 us
-    1024 bytes: send min   141 med   143 us, recv min    37 med    38 us
-    2048 bytes: send min   161 med   162 us, recv min    57 med    58 us
-    4096 bytes: send min   197 med   198 us, recv min    78 med    79 us
-    8192 bytes: send min   279 med   283 us, recv min   126 med   128 us
+UDP, sendto and recv:
+       1 bytes: send min    78 med    80 us, recv min    32 med    34 us
+      64 bytes: send min    80 med    81 us, recv min    35 med    36 us
+     256 bytes: send min   126 med   128 us, recv min    38 med    39 us
+    1024 bytes: send min   138 med   140 us, recv min    40 med    42 us
+    2048 bytes: send min   159 med   160 us, recv min    65 med    66 us
+    4096 bytes: send min   195 med   197 us, recv min    88 med    89 us
+    8192 bytes: send min   282 med   283 us, recv min   141 med   142 us
 
-TCP:
-       1 bytes: send min    89 med    97 us, recv min    44 med    47 us
-      64 bytes: send min    94 med   101 us, recv min    46 med    49 us
-     256 bytes: send min   116 med   117 us, recv min    47 med    50 us
-    1024 bytes: send min   112 med   130 us, recv min    51 med    55 us
-    2048 bytes: send min   147 med   154 us, recv min    62 med    71 us
-    4096 bytes: send min   198 med   208 us, recv min    81 med    95 us
-    8192 bytes: send min   313 med   316 us, recv min   185 med   191 us
-   16384 bytes: send min   329 med   625 us, recv min   270 med   318 us
+UDP, recv of part of an 8192-byte datagram:
+  recv 64 bytes                        min    65 med    66 us
+  recv 1024 bytes                      min    71 med    72 us
+  recv 4096 bytes                      min   108 med   109 us
+
+UDP, the other calls:
+  recvfrom 64 bytes                    min    36 med    37 us
+  sendmsg 64 bytes, 1 iov              min    81 med    83 us
+  recvmsg 64 bytes, 1 iov              min    38 med    39 us
+  sendmsg 64 bytes, 4 iov              min    82 med    83 us
+  recvmsg 64 bytes, 4 iov              min    40 med    41 us
+  recvfrom 4096 bytes                  min    89 med    90 us
+  sendmsg 4096 bytes, 1 iov            min   197 med   198 us
+  recvmsg 4096 bytes, 1 iov            min    92 med    93 us
+  sendmsg 4096 bytes, 4 iov            min   199 med   201 us
+  recvmsg 4096 bytes, 4 iov            min    95 med    96 us
+
+TCP, send and recv:
+       1 bytes: send min    93 med   101 us, recv min    47 med    49 us
+      64 bytes: send min    98 med   108 us, recv min    48 med    50 us
+     256 bytes: send min   124 med   126 us, recv min    50 med    52 us
+    1024 bytes: send min   120 med   137 us, recv min    53 med    55 us
+    2048 bytes: send min   155 med   157 us, recv min    67 med    73 us
+    4096 bytes: send min   211 med   219 us, recv min    86 med   101 us
+    8192 bytes: send min   329 med   338 us, recv min   192 med   196 us
+   16384 bytes: send min   358 med   659 us, recv min   285 med   328 us
+
+TCP, recv into a 16384-byte buffer:
+  64 bytes waiting                     min    48 med    51 us
+  4096 bytes waiting                   min    93 med    97 us
+
+poll and select by number of sockets, timeout 0:
+  poll, 1 sockets                      min    12 med    12 us
+  select, 1 sockets                    min    16 med    16 us
+  poll, 1 sockets, one ready           min     8 med     9 us
+  select, 1 sockets, one ready         min    12 med    12 us
+  poll, 4 sockets                      min    20 med    21 us
+  select, 4 sockets                    min    26 med    27 us
+  poll, 4 sockets, one ready           min    17 med    17 us
+  select, 4 sockets, one ready         min    22 med    23 us
+  poll, 8 sockets                      min    34 med    34 us
+  select, 8 sockets                    min    43 med    44 us
+  poll, 8 sockets, one ready           min    30 med    31 us
+  select, 8 sockets, one ready         min    39 med    39 us
+  poll, 16 sockets                     min    66 med    67 us
+  select, 16 sockets                   min    84 med    84 us
+  poll, 16 sockets, one ready          min    63 med    63 us
+  select, 16 sockets, one ready        min    80 med    80 us
+  poll, 32 sockets                     min   166 med   166 us
+  select, 32 sockets                   min   201 med   201 us
+  poll, 32 sockets, one ready          min   162 med   163 us
+  select, 32 sockets, one ready        min   196 med   197 us
+  poll, 48 sockets                     min   369 med   370 us
+  select, 48 sockets                   min   383 med   384 us
+  poll, 48 sockets, one ready          min   364 med   366 us
+  select, 48 sockets, one ready        min   379 med   380 us
+  poll, 64 sockets                     min   718 med   721 us
+  select, 64 sockets                   min   737 med   739 us
+  poll, 64 sockets, one ready          min   711 med   713 us
+  select, 64 sockets, one ready        min   731 med   733 us
+  select, 1 socket, nfds past all 64   min    18 med    19 us
+  poll, the last socket alone          min    26 med    27 us
+  poll, the last 16 sockets            min   220 med   222 us
+  (sockets 8 to 71)
+  recv, nothing there, the first socket min     4 med     5 us
+  getsockopt, the first socket         min    21 med    22 us
+  recv, nothing there, the last socket min    10 med    11 us
+  getsockopt, the last socket          min    28 med    29 us
+
+UDP sendto over WiFi, to the gateway's port 9:
+  1 bytes                              min   120 med   130 us
+  64 bytes                             min   125 med   131 us
+  256 bytes                            min   144 med   150 us
+  1024 bytes                           min   153 med   161 us
+  1472 bytes                           min   159 med   166 us
+  2048 bytes                           min   210 med   217 us
+  4096 bytes                           min   284 med   288 us
+  8192 bytes                           min   444 med   450 us
+  100 x 1024 bytes back to back: 9349 us in all, slowest 159 us, 57 failed (errno 105)
