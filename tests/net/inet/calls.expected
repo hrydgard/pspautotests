@@ -1,0 +1,68 @@
+Address conversions:
+  InetAddr                                     min     2 med     3 us
+  InetAton                                     min     2 med     3 us
+  InetPton                                     min     3 med     4 us
+  InetNtop                                     min     6 med     7 us
+  InetAton, bad                                min     1 med     1 us
+  GetErrno                                     min     1 med     2 us
+  GetPspError                                  min     1 med     2 us
+
+Setup and teardown:
+  socket(UDP)                                  min    32 med    33 us
+  socket(TCP)                                  min    45 med    46 us
+  close(UDP, never used)                       min    21 med    22 us
+  close(UDP, bound)                            min    20 med    21 us
+  CloseWithRST(TCP, never used)                min    32 med    33 us
+  bind(UDP)                                    min    35 med    36 us
+  bind(TCP)                                    min    36 med    37 us
+  bind(UDP, port 0)                            min    35 med    37 us
+  listen                                       min     9 med    10 us
+  connect(UDP)                                 min    30 med    31 us
+  SocketAbort(UDP, idle)                       min     7 med     7 us
+
+Socket options:
+  setsockopt(SO_REUSEADDR)                     min    22 med    22 us
+  setsockopt(SO_NBIO)                          min    22 med    23 us
+  setsockopt(SO_RCVBUF)                        min    23 med    23 us
+  setsockopt(IP_TTL)                           min    21 med    21 us
+  setsockopt(TCP_NODELAY)                      min    22 med    23 us
+  setsockopt(bad option)                       min    21 med    21 us
+  getsockopt(SO_TYPE)                          min    21 med    22 us
+  getsockopt(SO_ERROR)                         min    20 med    20 us
+  getsockopt(SO_RCVBUF)                        min    20 med    20 us
+  getsockopt(TCP_NODELAY)                      min    20 med    21 us
+  getsockname(UDP)                             min    27 med    28 us
+  getpeername(UDP, not connected)              min     3 med     4 us
+
+TCP over loopback:
+  accept, NULL address                         min    41 med    42 us
+  accept, with an address                      min    42 med    43 us
+  getsockname(TCP, connected)                  min    26 med    26 us
+  getpeername(TCP, connected)                  min    25 med    26 us
+  getsockopt(SO_ERROR, connected)              min    21 med    22 us
+  shutdown(SHUT_WR)                            min    61 med    62 us
+  shutdown(SHUT_RD)                            min    11 med    12 us
+  close(TCP, connected)                        min    75 med    76 us
+  CloseWithRST(TCP, connected)                 min    94 med    95 us
+  connect(TCP, blocking, to a listener)        min   498 med   504 us
+  connect(TCP, blocking, refused)              min   245 med   251 us
+  connect(TCP, non-blocking)                   min   109 med   112 us
+
+PCB lists by number of UDP sockets:
+  GetUdpcbstat size, 1 sockets                 min     1 med     2 us
+  GetUdpcbstat buffer, 1 sockets               min     2 med     3 us
+  GetTcpcbstat size, 1 UDP sockets             min     1 med     2 us
+  GetUdpcbstat size, 8 sockets                 min     2 med     2 us
+  GetUdpcbstat buffer, 8 sockets               min     6 med     6 us
+  GetTcpcbstat size, 8 UDP sockets             min     1 med     2 us
+  GetUdpcbstat size, 32 sockets                min     3 med     3 us
+  GetUdpcbstat buffer, 32 sockets              min    21 med    21 us
+  GetTcpcbstat size, 32 UDP sockets            min     1 med     2 us
+
+On a socket that isn't open:
+  recv                                         min     3 med     4 us
+  send                                         min     5 med     5 us
+  sendto                                       min     4 med     4 us
+  bind                                         min     4 med     5 us
+  close                                        min     3 med     4 us
+  getsockopt                                   min     3 med     4 us
