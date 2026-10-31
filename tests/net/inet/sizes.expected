@@ -1,0 +1,18 @@
+UDP:
+       1 bytes: send min    78 med    79 us, recv min    29 med    30 us
+      64 bytes: send min    79 med    80 us, recv min    30 med    31 us
+     256 bytes: send min   124 med   127 us, recv min    32 med    33 us
+    1024 bytes: send min   141 med   143 us, recv min    37 med    38 us
+    2048 bytes: send min   161 med   162 us, recv min    57 med    58 us
+    4096 bytes: send min   197 med   198 us, recv min    78 med    79 us
+    8192 bytes: send min   279 med   283 us, recv min   126 med   128 us
+
+TCP:
+       1 bytes: send min    89 med    97 us, recv min    44 med    47 us
+      64 bytes: send min    94 med   101 us, recv min    46 med    49 us
+     256 bytes: send min   116 med   117 us, recv min    47 med    50 us
+    1024 bytes: send min   112 med   130 us, recv min    51 med    55 us
+    2048 bytes: send min   147 med   154 us, recv min    62 med    71 us
+    4096 bytes: send min   198 med   208 us, recv min    81 med    95 us
+    8192 bytes: send min   313 med   316 us, recv min   185 med   191 us
+   16384 bytes: send min   329 med   625 us, recv min   270 med   318 us
