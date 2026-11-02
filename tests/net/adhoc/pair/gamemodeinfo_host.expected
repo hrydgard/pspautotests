@@ -1,0 +1,17 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+Leave group: 00000000, event 2, state 0
+Entering game mode: 00000000, event 4
+CreateMaster: 00000000
+CreateReplica: ok
+First UpdateReplica, right after creating it: 00000000
+  Info: length untouched, updated 0, timestamp 0
+Polling every 5 ms for 2 s:
+  Calls with new data: some; length 16 none, untouched all; timestamp ahead of GetSystemTimeWide: 0
+  Age of the timestamp when returned           n=133 min      187 med     2525 avg     2661 max     5042 us
+  Calls without: some; length 16 none, untouched all; updated 0 all
+    timestamp untouched none, the last update's all, 0 none, other none
