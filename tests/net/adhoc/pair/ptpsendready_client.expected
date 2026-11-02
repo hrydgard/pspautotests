@@ -1,0 +1,23 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+Connect: 00000000
+   16: snd stat the size right after: 5/5, poll right after: SEND 5/5, FLUSH 0/5
+       non-blocking send of 16 then: ok 5/5, SEND or FLUSH not within 200 ms: 0
+     16: poll SEND after                       n=  5 min      150 med      152 avg      152 max      155 us
+     16: poll FLUSH after                      n=  5 min     5983 med     7132 avg     8064 max    12511 us
+ 4096: snd stat the size right after: 5/5, poll right after: SEND 5/5, FLUSH 0/5
+       non-blocking send of 16 then: ok 5/5, SEND or FLUSH not within 200 ms: 0
+   4096: poll SEND after                       n=  5 min       79 med      152 avg      126 max      168 us
+   4096: poll FLUSH after                      n=  5 min    14224 med    15937 avg    17738 max    25488 us
+ 8192: snd stat the size right after: 5/5, poll right after: SEND 0/5, FLUSH 0/5
+       non-blocking send of 16 then: ok 0/5, else 80410709, SEND or FLUSH not within 200 ms: 0
+   8192: poll SEND after                       n=  5 min     9955 med    19165 avg    16457 max    20873 us
+   8192: poll FLUSH after                      n=  5 min    23325 med    30518 avg    35453 max    61209 us
+Leave group: 00000000, event 2, state 0
