@@ -75,6 +75,8 @@ int main(int argc, char *argv[]) {
 	for (int p = 0; p < PAIRS; ++p) {
 		for (int r = 0; r < REPS; ++r) {
 			pairSync(step++);
+			// Make sure the host is polling by now.
+			sceKernelDelayThread(20000);
 			int len = firsts[p];
 			sceNetAdhocPtpSend(c, buf, &len, 2000000, 0);
 			len = seconds_[p];
