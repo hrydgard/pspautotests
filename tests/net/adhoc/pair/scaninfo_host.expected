@@ -1,0 +1,15 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Before any scan: size query 00000000, 0 entries; GetScanInfo 00000000, 0 entries
+Host scan: Scan 00000000, event 3 (error 00000000), state 0
+After a scan: size query 00000000, 0 entries; GetScanInfo 00000000, 0 entries
+Create group: 00000000, event 1 (error 00000000), state 1
+After Create: size query 00000000, 0 entries; GetScanInfo 00000000, 0 entries
+Peers: 1
+With the peer listed: size query 00000000, 0 entries; GetScanInfo 00000000, 0 entries
+Three seconds later: size query 00000000, 0 entries; GetScanInfo 00000000, 0 entries
+Scan while connected: Scan 00000000, event 0 (error 80410b02), state 1
+After it: size query 00000000, 0 entries; GetScanInfo 00000000, 0 entries
+Leave group: 00000000, event 2, state 0

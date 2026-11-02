@@ -1,0 +1,33 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+Connect: 00000000
+Flush with nothing sent: 00000000
+Non-blocking flush after a send:
+     16: first flush 80410709, snd stat the size after the send and 0 after the flush: yes
+     16, reader at once: until 0               n=  8 min     4118 med     4920 avg     4981 max     5940 us
+    256: first flush 80410709, snd stat the size after the send and 0 after the flush: yes
+    256, reader at once: until 0               n=  8 min     4416 med     4480 avg     4681 max     5423 us
+   1024: first flush 80410709, snd stat the size after the send and 0 after the flush: yes
+   1024, reader at once: until 0               n=  8 min     5904 med     6870 avg     8301 max    15959 us
+   2048: first flush 80410709, snd stat the size after the send and 0 after the flush: yes
+   2048, reader at once: until 0               n=  8 min     9147 med    10466 avg    10292 max    11945 us
+   4096: first flush 80410709, snd stat the size after the send and 0 after the flush: yes
+   4096, reader at once: until 0               n=  8 min    12969 med    15346 avg    16975 max    28113 us
+   8192: first flush 80410709, snd stat the size after the send and 0 after the flush: yes
+   8192, reader at once: until 0               n=  8 min    23634 med    25257 avg    25573 max    28742 us
+  16384: first flush 80410709, snd stat the size after the send and 0 after the flush: yes
+  16384, reader at once: until 0               n=  8 min    42361 med    44201 avg    45365 max    52853 us
+   1024: first flush 80410709, snd stat the size after the send and 0 after the flush: yes
+   1024, reader late: until 0                  n=  8 min     5969 med     6181 avg     6327 max     7164 us
+   8192: first flush 80410709, snd stat the size after the send and 0 after the flush: yes
+   8192, reader late: until 0                  n=  8 min    21216 med    23055 avg    24619 max    37371 us
+Blocking flush after 1024, reader late: 00000000 after 11270 us
+Sent 8192, flush 80410709, close 00000000
+Leave group: 00000000, event 2, state 0

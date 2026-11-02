@@ -1,0 +1,28 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Before any scan: size query 00000000, 0 entries; GetScanInfo 00000000, 0 entries
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+After Join: size query 00000000, 1 entries; GetScanInfo 00000000, 1 entries
+  PAIRTEST: mode 0, channel 1/6/11, bssid is the group's: yes
+Peers: 1
+With the peer listed: size query 00000000, 1 entries; GetScanInfo 00000000, 1 entries
+  PAIRTEST: mode 0, channel 1/6/11, bssid is the group's: yes
+Three seconds later: size query 00000000, 1 entries; GetScanInfo 00000000, 1 entries
+  PAIRTEST: mode 0, channel 1/6/11, bssid is the group's: yes
+Leave group: 00000000, event 2, state 0
+After leaving: size query 00000000, 1 entries; GetScanInfo 00000000, 1 entries
+  PAIRTEST: mode 0, channel 1/6/11
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+After joining again: size query 00000000, 1 entries; GetScanInfo 00000000, 1 entries
+  PAIRTEST: mode 0, channel 1/6/11, bssid is the group's: yes
+Scan while connected: Scan 00000000, event 0 (error 80410b02), state 1
+After it: size query 00000000, 0 entries; GetScanInfo 00000000, 0 entries
+Leave group: 00000000, event 2, state 0
