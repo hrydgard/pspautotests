@@ -1,0 +1,16 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+Accept: ok
+   6 +   55: as sent 8/8, together 0/8, otherwise 0/8
+     6 +   55: between the two reads           n=  8 min      986 med     1061 avg     1748 max     5523 us
+   4 +    4: as sent 8/8, together 0/8, otherwise 0/8
+     4 +    4: between the two reads           n=  8 min      961 med      974 avg     2167 max     5758 us
+ 100 +  100: as sent 7/8, together 1/8, otherwise 0/8
+   100 +  100: between the two reads           n=  7 min      924 med     1001 avg     1465 max     4269 us
+1000 + 1000: as sent 8/8, together 0/8, otherwise 0/8
+  1000 + 1000: between the two reads           n=  8 min     1593 med     1600 avg     2952 max     8974 us
+Leave group: 00000000, event 2, state 0
