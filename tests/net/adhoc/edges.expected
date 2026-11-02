@@ -1,0 +1,55 @@
+sceNetAdhocInit: 00000000
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+
+Port in use:
+  PtpListen same port: 8041070a, next listen: socket, id +2
+  PtpOpen same port and peer: 8041070a, next open: socket, id +2
+  PtpOpen bufsize -1: socket, id +1
+  PtpListen bufsize -1: socket, id +1
+
+SetSocketAlert flags:
+  00000001: 00000000, flags now 00000000
+  00000010: 00000000, flags now 00000010
+  00000080: 00000000, flags now 00000080
+  00000400: 00000000, flags now 00000000
+  00001000: 00000000, flags now 00000000
+  ffffffff: 00000000, flags now 000003f0
+  00007ff0: 00000000, flags now 000003f0
+
+Connecting to a MAC that isn't there:
+  Blocking, 1 s timeout: 80410715, 0.5-1.5 s
+  Then non-blocking: 80410709
+  Non-blocking first: 80410709
+  Then 80410718 after 0.5-1.5 s
+  Still 80410718 after 3 s
+
+Blocking broadcast, alone in the group:
+  PdpSend 16, 100 ms timeout: 00000000, under 50 ms
+  PdpSend 16, no timeout: 00000000
+
+Two threads blocked on one socket:
+  Connected: yes
+  Second blocking recv, 200 ms: 80410715, 50-500 ms
+  Non-blocking recv meanwhile: 80410709
+  First thread: 80410715
+  PtpAccept with flag 2, nothing waiting: 80410711, under 50 ms
+  PtpAccept with flag -1: 80410711, under 50 ms
+
+Leaving with no handler:
+  Disconnect: 00000000, state right after 1
+  After 10 ms: 1
+  After 1 s: 0
+
+Creating with no handler:
+  Create: 00000000, state right after 0
+  State 1, 0.5-1.5 s
+  Disconnect: state 0, 50-500 ms
+
+Outside a group:
+  PtpListen: error
+    80410702
+  PtpOpen: error
+    80410702
+

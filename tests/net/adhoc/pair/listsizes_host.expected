@@ -1,0 +1,16 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+
+One peer, sizeof(AdhocctlPeerInfo) 152:
+  GetPeerList, size   0: 00000000, size now 0, buffer untouched: yes, past the size: yes
+  GetPeerList, size   1: 00000000, size now 0, buffer untouched: yes, past the size: yes
+  GetPeerList, size 100: 00000000, size now 0, buffer untouched: yes, past the size: yes
+  GetPeerList, size 151: 00000000, size now 0, buffer untouched: yes, past the size: yes
+  GetPeerList, size 152: 00000000, size now 152, buffer untouched: no, past the size: yes
+  GetPeerList, size 200: 00000000, size now 152, buffer untouched: no, past the size: yes
+  GetPeerList, size  -1: 80410b04, size now -1, buffer untouched: yes, past the size: yes
+Leave group: 00000000, event 2, state 0
