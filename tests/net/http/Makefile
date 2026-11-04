@@ -1,4 +1,4 @@
-TARGETS = http
+TARGETS = http ids
 LIBS = -lpsphttp -lcommon -lc -lm
 
 COMMON_DIR = ../../../common

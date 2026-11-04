@@ -1,0 +1,257 @@
+sceNetInit: 00000000
+sceHttpInit: 00000000
+
+Templates:
+  created: 00000001 00000002 00000003 00000004
+  delete second: 00000000
+  delete second again: 80431100
+  probe: live invalid live live
+  Deleted template (00000002):
+  SetResolveTimeOut: 80431100
+  SetResolveRetry: 80431100
+  SetConnectTimeOut: 80431100
+  SetSendTimeOut: 80431100
+  SetRecvTimeOut: 80431100
+  AddExtraHeader: 80431100
+  DeleteHeader: 80431100
+  DeleteHeader again: 80431100
+  GetStatusCode: 80431100
+  GetContentLength: 80431100
+  GetAllHeader: 80431100
+  ReadData: 80431100
+  CreateConnection: 80431100
+  CreateRequest: 80431100
+  delete fourth: 00000000
+  created after deletes: 00000002 00000004 00000005
+
+Connections:
+  created: 01000001 01000002 01000003 01000004
+  delete second: 00000000
+  delete second again: 80431100
+  probe: live invalid live live
+  Deleted connection (01000002):
+  SetResolveTimeOut: 80431100
+  SetResolveRetry: 80431100
+  SetConnectTimeOut: 80431100
+  SetSendTimeOut: 80431100
+  SetRecvTimeOut: 80431100
+  AddExtraHeader: 80431100
+  DeleteHeader: 80431100
+  DeleteHeader again: 80431100
+  GetStatusCode: 80431100
+  GetContentLength: 80431100
+  GetAllHeader: 80431100
+  ReadData: 80431100
+  CreateConnection: 80431100
+  CreateRequest: 80431100
+  delete fourth: 00000000
+  created after deletes: 01000002 01000004 01000005
+  WithURL: 01000002
+
+Requests:
+  created: 02000001 02000002 02000003 02000004
+  delete second: 00000000
+  delete second again: 80431100
+  probe: live invalid live live
+  Deleted request (02000002):
+  SetResolveTimeOut: 80431100
+  SetResolveRetry: 80431100
+  SetConnectTimeOut: 80431100
+  SetSendTimeOut: 80431100
+  SetRecvTimeOut: 80431100
+  AddExtraHeader: 80431100
+  DeleteHeader: 80431100
+  DeleteHeader again: 80431100
+  GetStatusCode: 80431100
+  GetContentLength: 80431100
+  GetAllHeader: 80431100
+  ReadData: 80431100
+  CreateConnection: 80431100
+  CreateRequest: 80431100
+  delete fourth: 00000000
+  created after deletes: 02000002 02000004 02000005
+  WithURL: 02000002
+  method 3: 02000004
+  method 4: 02000004
+  method 256: 02000004
+  method -1: 02000004
+
+Template (00000001):
+  SetResolveTimeOut: 00000000
+  SetResolveRetry: 00000000
+  SetConnectTimeOut: 00000000
+  SetSendTimeOut: 00000000
+  SetRecvTimeOut: 00000000
+  AddExtraHeader: 00000000
+  DeleteHeader: 00000000
+  DeleteHeader again: 80431025
+  GetStatusCode: 80431100
+  GetContentLength: 80431100
+  GetAllHeader: 80431100
+  ReadData: 80431100
+  CreateConnection: 01000004
+  CreateRequest: 80431100
+Connection (01000001):
+  SetResolveTimeOut: 80431100
+  SetResolveRetry: 80431100
+  SetConnectTimeOut: 00000000
+  SetSendTimeOut: 00000000
+  SetRecvTimeOut: 00000000
+  AddExtraHeader: 00000000
+  DeleteHeader: 00000000
+  DeleteHeader again: 80431025
+  GetStatusCode: 80431100
+  GetContentLength: 80431100
+  GetAllHeader: 80431100
+  ReadData: 80431100
+  CreateConnection: 80431100
+  CreateRequest: 02000004
+Request (02000001):
+  SetResolveTimeOut: 80431100
+  SetResolveRetry: 80431100
+  SetConnectTimeOut: 80431100
+  SetSendTimeOut: 80431100
+  SetRecvTimeOut: 80431100
+  AddExtraHeader: 00000000
+  DeleteHeader: 00000000
+  DeleteHeader again: 80431025
+  GetStatusCode: 80431065
+  GetContentLength: 80431065
+  GetAllHeader: 80431065
+  ReadData: 80431065
+  CreateConnection: 80431100
+  CreateRequest: 80431100
+Id 0 (00000000):
+  SetResolveTimeOut: 80431100
+  SetResolveRetry: 80431100
+  SetConnectTimeOut: 80431100
+  SetSendTimeOut: 80431100
+  SetRecvTimeOut: 80431100
+  AddExtraHeader: 80431100
+  DeleteHeader: 80431100
+  DeleteHeader again: 80431100
+  GetStatusCode: 80431100
+  GetContentLength: 80431100
+  GetAllHeader: 80431100
+  ReadData: 80431100
+  CreateConnection: 80431100
+  CreateRequest: 80431100
+Id -1 (ffffffff):
+  SetResolveTimeOut: 80431100
+  SetResolveRetry: 80431100
+  SetConnectTimeOut: 80431100
+  SetSendTimeOut: 80431100
+  SetRecvTimeOut: 80431100
+  AddExtraHeader: 80431100
+  DeleteHeader: 80431100
+  DeleteHeader again: 80431100
+  GetStatusCode: 80431100
+  GetContentLength: 80431100
+  GetAllHeader: 80431100
+  ReadData: 80431100
+  CreateConnection: 80431100
+  CreateRequest: 80431100
+Unused template (00000010):
+  SetResolveTimeOut: 80431100
+  SetResolveRetry: 80431100
+  SetConnectTimeOut: 80431100
+  SetSendTimeOut: 80431100
+  SetRecvTimeOut: 80431100
+  AddExtraHeader: 80431100
+  DeleteHeader: 80431100
+  DeleteHeader again: 80431100
+  GetStatusCode: 80431100
+  GetContentLength: 80431100
+  GetAllHeader: 80431100
+  ReadData: 80431100
+  CreateConnection: 80431100
+  CreateRequest: 80431100
+Unused connection (01000010):
+  SetResolveTimeOut: 80431100
+  SetResolveRetry: 80431100
+  SetConnectTimeOut: 80431100
+  SetSendTimeOut: 80431100
+  SetRecvTimeOut: 80431100
+  AddExtraHeader: 80431100
+  DeleteHeader: 80431100
+  DeleteHeader again: 80431100
+  GetStatusCode: 80431100
+  GetContentLength: 80431100
+  GetAllHeader: 80431100
+  ReadData: 80431100
+  CreateConnection: 80431100
+  CreateRequest: 80431100
+Unused request (02000010):
+  SetResolveTimeOut: 80431100
+  SetResolveRetry: 80431100
+  SetConnectTimeOut: 80431100
+  SetSendTimeOut: 80431100
+  SetRecvTimeOut: 80431100
+  AddExtraHeader: 80431100
+  DeleteHeader: 80431100
+  DeleteHeader again: 80431100
+  GetStatusCode: 80431100
+  GetContentLength: 80431100
+  GetAllHeader: 80431100
+  ReadData: 80431100
+  CreateConnection: 80431100
+  CreateRequest: 80431100
+Template number with type 3 (03000001):
+  SetResolveTimeOut: 80431100
+  SetResolveRetry: 80431100
+  SetConnectTimeOut: 80431100
+  SetSendTimeOut: 80431100
+  SetRecvTimeOut: 80431100
+  AddExtraHeader: 80431100
+  DeleteHeader: 80431100
+  DeleteHeader again: 80431100
+  GetStatusCode: 80431100
+  GetContentLength: 80431100
+  GetAllHeader: 80431100
+  ReadData: 80431100
+  CreateConnection: 80431100
+  CreateRequest: 80431100
+Template number with type 0x80 (80000001):
+  SetResolveTimeOut: 80431100
+  SetResolveRetry: 80431100
+  SetConnectTimeOut: 80431100
+  SetSendTimeOut: 80431100
+  SetRecvTimeOut: 80431100
+  AddExtraHeader: 80431100
+  DeleteHeader: 80431100
+  DeleteHeader again: 80431100
+  GetStatusCode: 80431100
+  GetContentLength: 80431100
+  GetAllHeader: 80431100
+  ReadData: 80431100
+  CreateConnection: 80431100
+  CreateRequest: 80431100
+
+Delete with the wrong call:
+  DeleteConnection(request): 80431100
+  DeleteTemplate(request): 80431100
+  DeleteRequest(connection): 80431100
+  DeleteTemplate(connection): 80431100
+  DeleteRequest(template): 80431100
+  DeleteConnection(template): 80431100
+  probe: live live live
+
+Delete a connection that has a request:
+  DeleteConnection: 80431067
+  probe: live live
+  DeleteRequest: 00000000
+  DeleteConnection: 00000000
+
+Delete a template that has a connection:
+  DeleteTemplate: 00000000
+  probe: invalid live live
+  CreateRequest on its connection: 02000003
+
+Cleanup:
+  DeleteRequest: 00000000
+  DeleteRequest: 00000000
+  DeleteConnection: 00000000
+  DeleteConnection: 00000000
+  DeleteTemplate: 00000000
+  sceHttpEnd: 00000000
+  sceNetTerm: 00000000

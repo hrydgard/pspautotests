@@ -1,0 +1,453 @@
+Load common: 00000000
+Load inet: 00000000
+Load np: 00000000
+Standard ticket is 212 bytes
+Before init, param 1: 00000000 [00 01] last non-zero 1, 0xAA left 0
+sceNpInit: 00000000
+sceNpAuthInit: 00000000
+
+Standard ticket:
+  2.1, param -1: 80550503 [] last non-zero -1, 0xAA left 0
+  2.1, param 0: 00000000 [41 42 43 44 45 46 47 48 49 4a 4b 4c] last non-zero 18, 0xAA left 0
+  2.1, param 1: 00000000 [00 01] last non-zero 1, 0xAA left 0
+  2.1, param 2: 00000000 [78 56 34 12 1d 01] last non-zero 5, 0xAA left 0
+  2.1, param 3: 00000000 [f0 de bc 9a 1d 01] last non-zero 5, 0xAA left 0
+  2.1, param 4: 00000000 [59 68 e8 46 c5 71 2e 59] last non-zero 7, 0xAA left 0
+  2.1, param 5: 00000000 [70 73 70 61 75 74 6f 74 65 73 74 73] last non-zero 11, 0xAA left 0
+  2.1, param 6: 00000000 [75 73 00 02] last non-zero 3, 0xAA left 0
+  2.1, param 7: 00000000 [63 39] last non-zero 1, 0xAA left 0
+  2.1, param 8: 00000000 [55 50 30 30 30 30 2d 4e 50 58 58 30] last non-zero 18, 0xAA left 0
+  2.1, param 9: 00000000 [00 00 00 14] last non-zero 3, 0xAA left 0
+  2.1, param 10: 80550603 [00 00 00 14] last non-zero 3, 0xAA left 0
+  2.1, param 11: 8055030f [] last non-zero -1, 0xAA left 0
+  2.1, param 12: 80550503 [] last non-zero -1, 0xAA left 0
+
+Lengths:
+  len 0, param 0: 80550505 [] last non-zero -1, 0xAA left 0
+  len 0, param 1: 80550505 [] last non-zero -1, 0xAA left 0
+  len 0, param 11: 80550505 [] last non-zero -1, 0xAA left 0
+  len 4, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  len 4, param 1: 80550603 [] last non-zero -1, 0xAA left 0
+  len 4, param 11: 8055030f [] last non-zero -1, 0xAA left 0
+  len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  len 8, param 1: 80550603 [] last non-zero -1, 0xAA left 0
+  len 8, param 11: 8055030f [] last non-zero -1, 0xAA left 0
+  len 11, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  len 11, param 1: 80550603 [] last non-zero -1, 0xAA left 0
+  len 11, param 11: 8055030f [] last non-zero -1, 0xAA left 0
+  len 12, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  len 12, param 1: 80550603 [] last non-zero -1, 0xAA left 0
+  len 12, param 11: 8055030f [] last non-zero -1, 0xAA left 0
+  len 15, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  len 15, param 1: 80550603 [] last non-zero -1, 0xAA left 0
+  len 15, param 11: 8055030f [] last non-zero -1, 0xAA left 0
+  len 16, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  len 16, param 1: 80550603 [] last non-zero -1, 0xAA left 0
+  len 16, param 11: 8055030f [] last non-zero -1, 0xAA left 0
+  len 36, param 0: 00000000 [41 42 43 44 45 46 47 48 49 4a 4b 4c] last non-zero 18, 0xAA left 0
+  len 36, param 1: 80550603 [41 42 43 44 45 46 47 48 49 4a 4b 4c] last non-zero 18, 0xAA left 0
+  len 36, param 11: 8055030f [] last non-zero -1, 0xAA left 0
+  len 37, param 0: 00000000 [41 42 43 44 45 46 47 48 49 4a 4b 4c] last non-zero 18, 0xAA left 0
+  len 37, param 1: 80550603 [41 42 43 44 45 46 47 48 49 4a 4b 4c] last non-zero 18, 0xAA left 0
+  len 37, param 11: 8055030f [] last non-zero -1, 0xAA left 0
+  len 39, param 0: 00000000 [41 42 43 44 45 46 47 48 49 4a 4b 4c] last non-zero 18, 0xAA left 0
+  len 39, param 1: 80550603 [41 42 43 44 45 46 47 48 49 4a 4b 4c] last non-zero 18, 0xAA left 0
+  len 39, param 11: 8055030f [] last non-zero -1, 0xAA left 0
+  len 40, param 0: 00000000 [41 42 43 44 45 46 47 48 49 4a 4b 4c] last non-zero 18, 0xAA left 0
+  len 40, param 1: 80550603 [41 42 43 44 45 46 47 48 49 4a 4b 4c] last non-zero 18, 0xAA left 0
+  len 40, param 11: 8055030f [] last non-zero -1, 0xAA left 0
+  len 48, param 0: 00000000 [41 42 43 44 45 46 47 48 49 4a 4b 4c] last non-zero 18, 0xAA left 0
+  len 48, param 1: 00000000 [00 01] last non-zero 1, 0xAA left 0
+  len 48, param 11: 8055030f [] last non-zero -1, 0xAA left 0
+  len 176, param 0: 00000000 [41 42 43 44 45 46 47 48 49 4a 4b 4c] last non-zero 18, 0xAA left 0
+  len 176, param 1: 00000000 [00 01] last non-zero 1, 0xAA left 0
+  len 176, param 11: 8055030f [] last non-zero -1, 0xAA left 0
+  len -1, param 0: 80550505 [] last non-zero -1, 0xAA left 0
+
+Header:
+  version 21000000, param 1: 80550310 [] last non-zero -1, 0xAA left 0
+  version 31000000, param 1: 00000000 [00 01] last non-zero 1, 0xAA left 0
+  version 41000000, param 1: 80550310 [] last non-zero -1, 0xAA left 0
+  version 00000000, param 1: 80550310 [] last non-zero -1, 0xAA left 0
+  version 12345678, param 1: 80550310 [] last non-zero -1, 0xAA left 0
+  section 3002, param 1: 80550603 [] last non-zero -1, 0xAA left 0
+  section 3010, param 1: 80550603 [] last non-zero -1, 0xAA left 0
+  section 0000, param 1: 80550603 [] last non-zero -1, 0xAA left 0
+  section size 8, param 1: 00000000 [00 01] last non-zero 1, 0xAA left 0
+  section size 8, param 5: 00000000 [70 73 70 61 75 74 6f 74 65 73 74 73] last non-zero 11, 0xAA left 0
+  ticket size 8, param 1: 00000000 [00 01] last non-zero 1, 0xAA left 0
+  ticket size 8, param 5: 00000000 [70 73 70 61 75 74 6f 74 65 73 74 73] last non-zero 11, 0xAA left 0
+
+Odd params:
+  odd, param -1: 80550503 [] last non-zero -1, 0xAA left 0
+  odd, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  odd, param 1: 80550603 [] last non-zero -1, 0xAA left 0
+  odd, param 2: 80550603 [] last non-zero -1, 0xAA left 0
+  odd, param 3: 80550603 [] last non-zero -1, 0xAA left 0
+  odd, param 4: 80550603 [] last non-zero -1, 0xAA left 0
+  odd, param 5: 80550603 [] last non-zero -1, 0xAA left 0
+  odd, param 6: 80550603 [] last non-zero -1, 0xAA left 0
+  odd, param 7: 80550603 [] last non-zero -1, 0xAA left 0
+  odd, param 8: 80550603 [] last non-zero -1, 0xAA left 0
+  odd, param 9: 80550603 [] last non-zero -1, 0xAA left 0
+  odd, param 10: 80550603 [] last non-zero -1, 0xAA left 0
+  odd, param 11: 8055030f [] last non-zero -1, 0xAA left 0
+  odd, param 12: 80550503 [] last non-zero -1, 0xAA left 0
+
+Types per slot:
+  slot 0 type 0 len 0, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 0 type 1 len 4, param 0: 80550603 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 0 type 2 len 8, param 0: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 0 type 3 len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 0 type 4 len 8, param 0: 80550603 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 0 type 5 len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 0 type 6 len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 0 type 7 len 8, param 0: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 0 type 8 len 8, param 0: 00000000 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 0 type 3010 len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 0 type 3011 len 8, param 0: 80550603 [62 61 63 64] last non-zero 3, 0xAA left 0
+  slot 1 type 0 len 0, param 1: 80550603 [41 42 43 44 45 46 47 48 49 4a 4b 4c] last non-zero 18, 0xAA left 0
+  slot 1 type 1 len 4, param 1: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 1 type 2 len 8, param 1: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 1 type 3 len 8, param 1: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 1 type 4 len 8, param 1: 80550603 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 1 type 5 len 8, param 1: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 1 type 6 len 8, param 1: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 1 type 7 len 8, param 1: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 1 type 8 len 8, param 1: 80550603 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 1 type 3010 len 8, param 1: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 1 type 3011 len 8, param 1: 80550603 [62 61 63 64] last non-zero 3, 0xAA left 0
+  slot 2 type 0 len 0, param 2: 80550603 [00 01] last non-zero 1, 0xAA left 0
+  slot 2 type 1 len 4, param 2: 80550603 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 2 type 2 len 8, param 2: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 2 type 3 len 8, param 2: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 2 type 4 len 8, param 2: 80550603 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 2 type 5 len 8, param 2: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 2 type 6 len 8, param 2: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 2 type 7 len 8, param 2: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 2 type 8 len 8, param 2: 80550603 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 2 type 3010 len 8, param 2: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 2 type 3011 len 8, param 2: 80550603 [62 61 63 64] last non-zero 3, 0xAA left 0
+  slot 3 type 0 len 0, param 3: 80550603 [78 56 34 12 1d 01] last non-zero 5, 0xAA left 0
+  slot 3 type 1 len 4, param 3: 80550603 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 3 type 2 len 8, param 3: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 3 type 3 len 8, param 3: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 3 type 4 len 8, param 3: 80550603 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 3 type 5 len 8, param 3: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 3 type 6 len 8, param 3: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 3 type 7 len 8, param 3: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 3 type 8 len 8, param 3: 80550603 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 3 type 3010 len 8, param 3: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 3 type 3011 len 8, param 3: 80550603 [62 61 63 64] last non-zero 3, 0xAA left 0
+  slot 4 type 0 len 0, param 4: 80550603 [f0 de bc 9a 1d 01] last non-zero 5, 0xAA left 0
+  slot 4 type 1 len 4, param 4: 80550603 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 4 type 2 len 8, param 4: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 4 type 3 len 8, param 4: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 4 type 4 len 8, param 4: 80550603 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 4 type 5 len 8, param 4: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 4 type 6 len 8, param 4: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 4 type 7 len 8, param 4: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 4 type 8 len 8, param 4: 80550603 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 4 type 3010 len 8, param 4: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 4 type 3011 len 8, param 4: 80550603 [62 61 63 64] last non-zero 3, 0xAA left 0
+  slot 5 type 0 len 0, param 5: 80550603 [59 68 e8 46 c5 71 2e 59] last non-zero 7, 0xAA left 0
+  slot 5 type 1 len 4, param 5: 80550603 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 5 type 2 len 8, param 5: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 5 type 3 len 8, param 5: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 5 type 4 len 8, param 5: 00000000 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 5 type 5 len 8, param 5: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 5 type 6 len 8, param 5: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 5 type 7 len 8, param 5: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 5 type 8 len 8, param 5: 80550603 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 5 type 3010 len 8, param 5: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 5 type 3011 len 8, param 5: 80550603 [62 61 63 64] last non-zero 3, 0xAA left 0
+  slot 6 type 0 len 0, param 6: 80550603 [70 73 70 61 75 74 6f 74 65 73 74 73] last non-zero 11, 0xAA left 0
+  slot 6 type 1 len 4, param 6: 80550603 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 6 type 2 len 8, param 6: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 6 type 3 len 8, param 6: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 6 type 4 len 8, param 6: 80550603 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 6 type 5 len 8, param 6: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 6 type 6 len 8, param 6: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 6 type 7 len 8, param 6: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 6 type 8 len 8, param 6: 00000000 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 6 type 3010 len 8, param 6: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 6 type 3011 len 8, param 6: 80550603 [62 61 63 64] last non-zero 3, 0xAA left 0
+  slot 7 type 0 len 0, param 7: 80550603 [75 73 00 02] last non-zero 3, 0xAA left 0
+  slot 7 type 1 len 4, param 7: 80550603 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 7 type 2 len 8, param 7: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 7 type 3 len 8, param 7: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 7 type 4 len 8, param 7: 00000000 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 7 type 5 len 8, param 7: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 7 type 6 len 8, param 7: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 7 type 7 len 8, param 7: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 7 type 8 len 8, param 7: 80550603 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 7 type 3010 len 8, param 7: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 7 type 3011 len 8, param 7: 80550603 [62 61 63 64] last non-zero 3, 0xAA left 0
+  slot 8 type 0 len 0, param 8: 80550603 [63 39] last non-zero 1, 0xAA left 0
+  slot 8 type 1 len 4, param 8: 80550603 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 8 type 2 len 8, param 8: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 8 type 3 len 8, param 8: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 8 type 4 len 8, param 8: 80550603 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 8 type 5 len 8, param 8: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 8 type 6 len 8, param 8: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 8 type 7 len 8, param 8: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 8 type 8 len 8, param 8: 00000000 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 8 type 3010 len 8, param 8: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 8 type 3011 len 8, param 8: 80550603 [62 61 63 64] last non-zero 3, 0xAA left 0
+  slot 9 type 0 len 0, param 9: 80550603 [55 50 30 30 30 30 2d 4e 50 58 58 30] last non-zero 18, 0xAA left 0
+  slot 9 type 1 len 4, param 9: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 9 type 2 len 8, param 9: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 9 type 3 len 8, param 9: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 9 type 4 len 8, param 9: 80550603 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 9 type 5 len 8, param 9: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 9 type 6 len 8, param 9: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 9 type 7 len 8, param 9: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 9 type 8 len 8, param 9: 80550603 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 9 type 3010 len 8, param 9: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 9 type 3011 len 8, param 9: 80550603 [62 61 63 64] last non-zero 3, 0xAA left 0
+  slot 10 type 0 len 0, param 10: 80550603 [00 00 00 14] last non-zero 3, 0xAA left 0
+  slot 10 type 1 len 4, param 10: 80550603 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 10 type 2 len 8, param 10: 80550603 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 10 type 3 len 8, param 10: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 10 type 4 len 8, param 10: 80550603 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 10 type 5 len 8, param 10: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 10 type 6 len 8, param 10: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 10 type 7 len 8, param 10: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 10 type 8 len 8, param 10: 80550603 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 10 type 3010 len 8, param 10: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 10 type 3011 len 8, param 10: 80550603 [62 61 63 64] last non-zero 3, 0xAA left 0
+
+Lengths per slot:
+  slot 0 type 8 len 0, param 0: 00000000 [] last non-zero -1, 0xAA left 0
+  slot 0 type 8 len 2, param 0: 00000000 [61 62] last non-zero 1, 0xAA left 0
+  slot 0 type 8 len 4, param 0: 00000000 [61 62 63 64] last non-zero 3, 0xAA left 0
+  slot 0 type 8 len 7, param 0: 00000000 [61 62 63 64 65 66 67] last non-zero 6, 0xAA left 0
+  slot 0 type 8 len 8, param 0: 00000000 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 0 type 8 len 9, param 0: 00000000 [61 62 63 64 65 66 67 68 69] last non-zero 8, 0xAA left 0
+  slot 0 type 8 len 16, param 0: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 15, 0xAA left 0
+  slot 0 type 8 len 32, param 0: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 31, 0xAA left 0
+  slot 0 type 8 len 255, param 0: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 254, 0xAA left 0
+  slot 0 type 8 len 256, param 0: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 254, 0xAA left 0
+  slot 0 type 8 len 300, param 0: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 254, 0xAA left 0
+  slot 1 type 1 len 0, param 1: 00000000 [08 00 07] last non-zero 2, 0xAA left 0
+  slot 1 type 1 len 2, param 1: 00000000 [07 00 62 61] last non-zero 3, 0xAA left 0
+  slot 1 type 1 len 4, param 1: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 1 type 1 len 7, param 1: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 1 type 1 len 8, param 1: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 1 type 1 len 9, param 1: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 1 type 1 len 16, param 1: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 1 type 1 len 32, param 1: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 1 type 1 len 255, param 1: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 1 type 1 len 256, param 1: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 1 type 1 len 300, param 1: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 2 type 7 len 0, param 2: 00000000 [1d 01 00 00 08 00 07] last non-zero 6, 0xAA left 0
+  slot 2 type 7 len 2, param 2: 00000000 [00 00 08 00 07 00 62 61] last non-zero 7, 0xAA left 0
+  slot 2 type 7 len 4, param 2: 00000000 [08 00 07 00 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 2 type 7 len 7, param 2: 00000000 [00 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 2 type 7 len 8, param 2: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 2 type 7 len 9, param 2: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 2 type 7 len 16, param 2: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 2 type 7 len 32, param 2: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 2 type 7 len 255, param 2: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 2 type 7 len 256, param 2: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 2 type 7 len 300, param 2: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 3 type 7 len 0, param 3: 00000000 [c5 71 2e 59 08 00 02] last non-zero 6, 0xAA left 0
+  slot 3 type 7 len 2, param 3: 00000000 [2e 59 08 00 02 00 62 61] last non-zero 7, 0xAA left 0
+  slot 3 type 7 len 4, param 3: 00000000 [08 00 02 00 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 3 type 7 len 7, param 3: 00000000 [00 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 3 type 7 len 8, param 3: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 3 type 7 len 9, param 3: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 3 type 7 len 16, param 3: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 3 type 7 len 32, param 3: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 3 type 7 len 255, param 3: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 3 type 7 len 256, param 3: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 3 type 7 len 300, param 3: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 4 type 2 len 0, param 4: 00000000 [61 70 73 70 20 00 04] last non-zero 6, 0xAA left 0
+  slot 4 type 2 len 2, param 4: 00000000 [73 70 20 00 04 00 62 61] last non-zero 7, 0xAA left 0
+  slot 4 type 2 len 4, param 4: 00000000 [20 00 04 00 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 4 type 2 len 7, param 4: 00000000 [00 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 4 type 2 len 8, param 4: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 4 type 2 len 9, param 4: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 4 type 2 len 16, param 4: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 4 type 2 len 32, param 4: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 4 type 2 len 255, param 4: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 4 type 2 len 256, param 4: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 4 type 2 len 300, param 4: 00000000 [68 67 66 65 64 63 62 61] last non-zero 7, 0xAA left 0
+  slot 5 type 4 len 0, param 5: 00000000 [] last non-zero -1, 0xAA left 0
+  slot 5 type 4 len 2, param 5: 00000000 [61 62] last non-zero 1, 0xAA left 0
+  slot 5 type 4 len 4, param 5: 00000000 [61 62 63 64] last non-zero 3, 0xAA left 0
+  slot 5 type 4 len 7, param 5: 00000000 [61 62 63 64 65 66 67] last non-zero 6, 0xAA left 0
+  slot 5 type 4 len 8, param 5: 00000000 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 5 type 4 len 9, param 5: 00000000 [61 62 63 64 65 66 67 68 69] last non-zero 8, 0xAA left 0
+  slot 5 type 4 len 16, param 5: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 15, 0xAA left 0
+  slot 5 type 4 len 32, param 5: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 31, 0xAA left 0
+  slot 5 type 4 len 255, param 5: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 254, 0xAA left 0
+  slot 5 type 4 len 256, param 5: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 254, 0xAA left 0
+  slot 5 type 4 len 300, param 5: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 254, 0xAA left 0
+  slot 6 type 8 len 0, param 6: 00000000 [] last non-zero -1, 0xAA left 0
+  slot 6 type 8 len 2, param 6: 00000000 [61 62] last non-zero 1, 0xAA left 0
+  slot 6 type 8 len 4, param 6: 00000000 [61 62 63 64] last non-zero 3, 0xAA left 0
+  slot 6 type 8 len 7, param 6: 00000000 [61 62 63 64 65 66 67] last non-zero 6, 0xAA left 0
+  slot 6 type 8 len 8, param 6: 00000000 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 6 type 8 len 9, param 6: 00000000 [61 62 63 64 65 66 67 68 69] last non-zero 8, 0xAA left 0
+  slot 6 type 8 len 16, param 6: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 15, 0xAA left 0
+  slot 6 type 8 len 32, param 6: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 31, 0xAA left 0
+  slot 6 type 8 len 255, param 6: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 254, 0xAA left 0
+  slot 6 type 8 len 256, param 6: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 254, 0xAA left 0
+  slot 6 type 8 len 300, param 6: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 254, 0xAA left 0
+  slot 7 type 4 len 0, param 7: 00000000 [] last non-zero -1, 0xAA left 0
+  slot 7 type 4 len 2, param 7: 00000000 [61 62] last non-zero 1, 0xAA left 0
+  slot 7 type 4 len 4, param 7: 00000000 [61 62 63 64] last non-zero 3, 0xAA left 0
+  slot 7 type 4 len 7, param 7: 00000000 [61 62 63 64 65 66 67] last non-zero 6, 0xAA left 0
+  slot 7 type 4 len 8, param 7: 00000000 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 7 type 4 len 9, param 7: 00000000 [61 62 63 64 65 66 67 68 69] last non-zero 8, 0xAA left 0
+  slot 7 type 4 len 16, param 7: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 15, 0xAA left 0
+  slot 7 type 4 len 32, param 7: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 31, 0xAA left 0
+  slot 7 type 4 len 255, param 7: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 254, 0xAA left 0
+  slot 7 type 4 len 256, param 7: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 254, 0xAA left 0
+  slot 7 type 4 len 300, param 7: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 254, 0xAA left 0
+  slot 8 type 8 len 0, param 8: 00000000 [] last non-zero -1, 0xAA left 0
+  slot 8 type 8 len 2, param 8: 00000000 [61 62] last non-zero 1, 0xAA left 0
+  slot 8 type 8 len 4, param 8: 00000000 [61 62 63 64] last non-zero 3, 0xAA left 0
+  slot 8 type 8 len 7, param 8: 00000000 [61 62 63 64 65 66 67] last non-zero 6, 0xAA left 0
+  slot 8 type 8 len 8, param 8: 00000000 [61 62 63 64 65 66 67 68] last non-zero 7, 0xAA left 0
+  slot 8 type 8 len 9, param 8: 00000000 [61 62 63 64 65 66 67 68 69] last non-zero 8, 0xAA left 0
+  slot 8 type 8 len 16, param 8: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 15, 0xAA left 0
+  slot 8 type 8 len 32, param 8: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 31, 0xAA left 0
+  slot 8 type 8 len 255, param 8: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 254, 0xAA left 0
+  slot 8 type 8 len 256, param 8: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 254, 0xAA left 0
+  slot 8 type 8 len 300, param 8: 00000000 [61 62 63 64 65 66 67 68 69 6a 6b 6c] last non-zero 254, 0xAA left 0
+  slot 9 type 1 len 0, param 9: 00000000 [] last non-zero -1, 0xAA left 0
+  slot 9 type 1 len 2, param 9: 00000000 [00 00 62 61] last non-zero 3, 0xAA left 0
+  slot 9 type 1 len 4, param 9: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 9 type 1 len 7, param 9: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 9 type 1 len 8, param 9: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 9 type 1 len 9, param 9: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 9 type 1 len 16, param 9: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 9 type 1 len 32, param 9: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 9 type 1 len 255, param 9: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 9 type 1 len 256, param 9: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 9 type 1 len 300, param 9: 00000000 [64 63 62 61] last non-zero 3, 0xAA left 0
+  slot 10 type 0 len 0, param 10: 80550603 [00 00 00 14] last non-zero 3, 0xAA left 0
+  slot 10 type 0 len 2, param 10: 80550603 [00 00 00 14] last non-zero 3, 0xAA left 0
+  slot 10 type 0 len 4, param 10: 80550603 [00 00 00 14] last non-zero 3, 0xAA left 0
+  slot 10 type 0 len 7, param 10: 80550603 [00 00 00 14] last non-zero 3, 0xAA left 0
+  slot 10 type 0 len 8, param 10: 80550603 [00 00 00 14] last non-zero 3, 0xAA left 0
+  slot 10 type 0 len 9, param 10: 80550603 [00 00 00 14] last non-zero 3, 0xAA left 0
+  slot 10 type 0 len 16, param 10: 80550603 [00 00 00 14] last non-zero 3, 0xAA left 0
+  slot 10 type 0 len 32, param 10: 80550603 [00 00 00 14] last non-zero 3, 0xAA left 0
+  slot 10 type 0 len 255, param 10: 80550603 [00 00 00 14] last non-zero 3, 0xAA left 0
+  slot 10 type 0 len 256, param 10: 80550603 [00 00 00 14] last non-zero 3, 0xAA left 0
+  slot 10 type 0 len 300, param 10: 80550603 [00 00 00 14] last non-zero 3, 0xAA left 0
+
+A bad slot after the one asked for:
+  slot 5 type 3, param 2: 00000000 [78 56 34 12 1d 01] last non-zero 5, 0xAA left 0
+  slot 5 type 3, param 4: 00000000 [59 68 e8 46 c5 71 2e 59] last non-zero 7, 0xAA left 0
+  slot 5 type 3, param 5: 80550603 [] last non-zero -1, 0xAA left 0
+  slot 5 type 3, param 6: 80550603 [] last non-zero -1, 0xAA left 0
+  len 0 param 12, param 12: 80550505 [] last non-zero -1, 0xAA left 0
+  len 0 param -1, param -1: 80550505 [] last non-zero -1, 0xAA left 0
+
+Type decoding:
+  type 3011 len 0, param 0: 80550603 [01 00 00 04] last non-zero 3, 0xAA left 0
+  type 3011 len 2, param 0: 80550603 [11 10 00 01] last non-zero 3, 0xAA left 0
+  type 3011 len 4, param 0: 80550603 [11 10 12 13] last non-zero 3, 0xAA left 0
+  type 3011 len 8, param 0: 80550603 [11 10 12 13] last non-zero 3, 0xAA left 0
+  type 3011 len 12, param 0: 80550603 [11 10 12 13] last non-zero 3, 0xAA left 0
+  type 3001 len 0, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3001 len 2, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3001 len 4, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3001 len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3001 len 12, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3007 len 0, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3007 len 2, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3007 len 4, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3007 len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3007 len 12, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3008 len 0, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3008 len 2, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3008 len 4, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3008 len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3008 len 12, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 11 len 0, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 11 len 2, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 11 len 4, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 11 len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 11 len 12, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 101 len 0, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 101 len 2, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 101 len 4, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 101 len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 101 len 12, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 1001 len 0, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 1001 len 2, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 1001 len 4, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 1001 len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 1001 len 12, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 8001 len 0, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 8001 len 2, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 8001 len 4, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 8001 len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 8001 len 12, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 9 len 0, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 9 len 2, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 9 len 4, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 9 len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 9 len 12, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type a len 0, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type a len 2, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type a len 4, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type a len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type a len 12, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type b len 0, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type b len 2, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type b len 4, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type b len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type b len 12, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type c len 0, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type c len 2, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type c len 4, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type c len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type c len 12, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 10 len 0, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 10 len 2, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 10 len 4, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 10 len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 10 len 12, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3000 len 0, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3000 len 2, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3000 len 4, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3000 len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3000 len 12, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3002 len 0, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3002 len 2, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3002 len 4, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3002 len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  type 3002 len 12, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+
+Check order:
+  version 21010001, param 1: 00000000 [00 01] last non-zero 1, 0xAA left 0
+  version 21020000, param 1: 80550310 [] last non-zero -1, 0xAA left 0
+  version 31010000, param 1: 80550310 [] last non-zero -1, 0xAA left 0
+  version 11010000, param 1: 80550310 [] last non-zero -1, 0xAA left 0
+  version 20010000, param 1: 00000000 [00 01] last non-zero 1, 0xAA left 0
+  version 22010000, param 1: 00000000 [00 01] last non-zero 1, 0xAA left 0
+  bad version, param 11: 80550310 [] last non-zero -1, 0xAA left 0
+  bad version, param 12: 80550503 [] last non-zero -1, 0xAA left 0
+  bad version len 4, param 0: 80550310 [] last non-zero -1, 0xAA left 0
+  bad version len 8, param 0: 80550310 [] last non-zero -1, 0xAA left 0
+  bad version len 12, param 0: 80550310 [] last non-zero -1, 0xAA left 0
+  bad section, param 11: 8055030f [] last non-zero -1, 0xAA left 0
+  bad section len 8, param 0: 80550603 [] last non-zero -1, 0xAA left 0
+  len 1, param 0: 80550505 [] last non-zero -1, 0xAA left 0
+  len 3, param 0: 80550505 [] last non-zero -1, 0xAA left 0
+  len 1 param 11, param 11: 80550505 [] last non-zero -1, 0xAA left 0
+  len 1 param 12, param 12: 80550505 [] last non-zero -1, 0xAA left 0
+  len 0x7fffffff param 12, param 12: 80550505 [] last non-zero -1, 0xAA left 0
+  len 400, param 1: 00000000 [00 01] last non-zero 1, 0xAA left 0
+  len 10000, param 1: 00000000 [00 01] last non-zero 1, 0xAA left 0
+  len 10001, param 1: 80550505 [] last non-zero -1, 0xAA left 0
+  len 100000, param 1: 80550505 [] last non-zero -1, 0xAA left 0
+
+sceNpAuthTerm: 00000000
+sceNpTerm: 00000000
