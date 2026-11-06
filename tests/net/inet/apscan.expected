@@ -1,0 +1,58 @@
+sceNetInit: 00000000
+sceNetInetInit: 00000000
+sceNetApctlInit: 00000000
+Scan 0: 00000000, events: 0->1 e1(00000000) 1->0 e2(00000000)
+  List: 00000000, 00000000, some, 8 bytes each, the same size
+  IDs from 1 in order: 1, linked by next: 1
+  Strengths 0-100: 1, strongest first: 1, SSID lengths match: 1
+  Code 0: 00000000, writes 6 bytes
+  Code 1: 00000000, writes 33 bytes
+  Code 2: 00000000, writes 4 bytes
+  Code 3: 00000000, writes 1 bytes
+  Code 4: 00000000, writes 1 bytes
+  Code 5: 00000000, writes 4 bytes
+  Code 6: 80410a02, writes 0 bytes
+  ID 0: 00000000, writes 1 bytes
+  ID past the last: 80410a09
+  ID 8: 80410a09
+  ID 16: 80410a09
+  ID 17: 80410a09
+  ID 18: 80410a09
+  ID 19: 80410a09
+  ID 20: 80410a82
+  ID 24: 80410a82
+  ID 28: 80410a82
+  ID 29: 80410a82
+  ID 30: 80410a82
+  ID 31: 80410a82
+  ID 1000: 80410a82
+  ID -1: 80410a82
+Scan 1: 00000000, events: 0->1 e1(00000000) 1->0 e2(00000000)
+  List: 00000000, 00000000, some, 8 bytes each, the same size
+  IDs from 1 in order: 1, linked by next: 1
+  Strengths 0-100: 1, strongest first: 1, SSID lengths match: 1
+  Code 0: 00000000, writes 6 bytes
+  Code 1: 00000000, writes 33 bytes
+  Code 2: 00000000, writes 4 bytes
+  Code 3: 00000000, writes 1 bytes
+  Code 4: 00000000, writes 1 bytes
+  Code 5: 00000000, writes 4 bytes
+  Code 6: 80410a02, writes 0 bytes
+  ID 0: 00000000, writes 1 bytes
+  ID past the last: 80410a09
+  ID 8: 80410a09
+  ID 16: 80410a09
+  ID 17: 80410a09
+  ID 18: 80410a09
+  ID 19: 80410a09
+  ID 20: 80410a82
+  ID 24: 80410a82
+  ID 28: 80410a82
+  ID 29: 80410a82
+  ID 30: 80410a82
+  ID 31: 80410a82
+  ID 1000: 80410a82
+  ID -1: 80410a82
+sceNetApctlTerm: 00000000
+sceNetInetTerm: 00000000
+sceNetTerm: 00000000
