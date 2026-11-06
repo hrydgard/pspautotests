@@ -1,0 +1,55 @@
+sceNetInit: 00000000
+sceNetInetInit: 00000000
+sceNetApctlInit: 00000000
+
+Before any scan:
+  List2: 00000000, 00000000, none, the same size
+  ListUser: 00000000, 00000000, none, the same size
+  List2 NULL size: 80410a03
+  Entry2 NULL info: 80410a03
+  Entry2 ID 1: 80410a09
+  ScanSSID2, 33 characters: 80410a85
+
+ScanSSID2(NULL):
+  00000000, state right after 0
+  ScanSSID2 again while scanning: 80410a80
+  ScanUser while scanning: 00000000
+  State after 0
+  Events: 0->0 e11(00000000) 1-3s 0->1 e1(00000000) 1-3s 1->0 e2(00000000) >3s
+  List2: 00000000, 00000000, some, the same size
+  IDs from 1 in order: 1, linked by next: 1, strongest first: 1, SSID lengths match: 1
+  Code 0: 00000000, writes 6 bytes
+  Code 1: 00000000, writes 33 bytes
+  Code 2: 00000000, writes 4 bytes
+  Code 3: 00000000, writes 1 bytes
+  Code 4: 00000000, writes 1 bytes
+  Code 5: 00000000, writes 4 bytes
+  Code 6: 80410a02, writes 0 bytes
+  ID past the last: 80410a09
+  ID 0: 00000000
+  ID -1: 80410a82
+  ID 19: 80410a09
+  ID 20: 80410a82
+  ListUser afterwards: 00000000, 00000000, some, the same size
+
+ScanSSID2 for the strongest one's SSID:
+  00000000
+  List2 after 1s: 00000000, 00000000, none, the same size
+  Events: 0->0 e11(00000000) 1-3s
+  List2 after 5s: 00000000, 00000000, some, the same size
+  IDs from 1 in order: 1, linked by next: 1, strongest first: 1, SSID lengths match: 1, all have the SSID: 1
+
+ScanSSID2 for an SSID that isn't there:
+  00000000
+  Events: 0->0 e11(00000000) 1-3s
+  List2: 00000000, 00000000, none, the same size
+
+ScanUser, then both lists:
+  00000000
+  Events: 0->1 e1(00000000) <0.1s 1->0 e2(00000000) 1-3s
+  ListUser: 00000000, 00000000, some, the same size
+  List2: 00000000, 00000000, none, the same size
+
+sceNetApctlTerm: 00000000
+sceNetInetTerm: 00000000
+sceNetTerm: 00000000
