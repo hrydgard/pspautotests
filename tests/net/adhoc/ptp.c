@@ -2,6 +2,7 @@
 // and PtpListen, a connection to itself, and the calls on sockets in the wrong state.
 
 #include "adhoc.h"
+#include <pspsysmem.h>
 
 #define PORT 0x2345
 
@@ -129,6 +130,26 @@ int main(int argc, char *argv[]) {
 	printf("  Recv empty: %08x, len %d\n", sceNetAdhocPtpRecv(accepted, buffer, &len, 0, 1), len);
 	len = 1000;
 	printf("  Recv, 1ms: %08x, len %d\n", sceNetAdhocPtpRecv(accepted, buffer, &len, 1000, 0), len);
+
+	// A buffer near the end of memory with a length that runs past it (Tales of VS receives into the top
+	// of its stack, asking for up to 4096 bytes). The highest block isn't quite at the end, which is on a
+	// 32 MB boundary (where depends on how much memory there is), so the length reaches 4 KB beyond that.
+	SceUID top = sceKernelAllocPartitionMemory(2, "ptptop", PSP_SMEM_High, 4096, NULL);
+	u8 *topEnd = (u8 *)sceKernelGetBlockHeadAddr(top) + 4096;
+	u32 memEnd = ((u32)topEnd + 0x01FFFFFF) & ~0x01FFFFFF;
+	int pastEnd = (int)(memEnd - (u32)(topEnd - 16)) + 0x1000;
+	len = 8;
+	sceNetAdhocPtpSend(client, buffer, &len, 0, 1);
+	sceNetAdhocPtpFlush(client, 1000000, 0);
+	memset(topEnd - 16, 0, 16);
+	len = pastEnd;
+	int recvResult = sceNetAdhocPtpRecv(accepted, topEnd - 16, &len, 1000000, 0);
+	printf("  Recv into the last 16 bytes, length past the end of memory: %08x, len %d, data %02x\n", recvResult, len, topEnd[-16]);
+	len = pastEnd;
+	recvResult = sceNetAdhocPtpRecv(accepted, topEnd - 16, &len, 0, 1);
+	printf("  The same, nothing waiting: %08x, len %s\n", recvResult, len == pastEnd ? "unchanged" : "changed");
+	sceKernelFreePartitionMemory(top);
+
 	len = 16;
 	printf("  Send NULL data: %08x\n", sceNetAdhocPtpSend(client, NULL, &len, 0, 1));
 	printf("  Send NULL length: %08x\n", sceNetAdhocPtpSend(client, buffer, NULL, 0, 1));

@@ -55,6 +55,8 @@ Data:
   Recv 1000: 00000000, len 70
   Recv empty: 80410709, len 1000
   Recv, 1ms: 80410715, len 1000
+  Recv into the last 16 bytes, length past the end of memory: 00000000, len 8, data 55
+  The same, nothing waiting: 80410709, len unchanged
   Send NULL data: 80410705
   Send NULL length: 80410711
   Send 0: 00000000, len 0
