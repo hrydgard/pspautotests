@@ -1,0 +1,37 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+
+Host leaves some time after the client shows up, client joins:
+Leave group: 00000000, event 2, state 0
+  Leave 0 ms after the client shows up: client showed up
+Leave group: 80410b10, event -1, state 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Leave group: 00000000, event 2, state 0
+  Leave 25 ms after the client shows up: client showed up
+Leave group: 80410b10, event -1, state 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Leave group: 00000000, event 2, state 0
+  Leave 50 ms after the client shows up: client showed up
+Leave group: 80410b10, event -1, state 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Leave group: 00000000, event 2, state 0
+  Leave 100 ms after the client shows up: client showed up
+Leave group: 80410b10, event -1, state 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Leave group: 00000000, event 2, state 0
+  Leave 200 ms after the client shows up: client showed up
+Leave group: 80410b10, event -1, state 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Leave group: 00000000, event 2, state 0
+  Leave 400 ms after the client shows up: client showed up
+Leave group: 80410b10, event -1, state 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Leave group: 00000000, event 2, state 0
+  Leave 800 ms after the client shows up: client showed up
+Leave group: 80410b10, event -1, state 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Leave group: 00000000, event 2, state 0

@@ -1,0 +1,61 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+
+Host leaves some time after the client shows up, client joins:
+Leave group: 00000000, event 2, state 0
+  Host leaves 0 ms after it sees us: saw the host
+Leave group: 00000000, event 2, state 0
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Leave group: 00000000, event 2, state 0
+  Host leaves 25 ms after it sees us: saw the host
+Leave group: 00000000, event 2, state 0
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Leave group: 00000000, event 2, state 0
+  Host leaves 50 ms after it sees us: saw the host
+Leave group: 00000000, event 2, state 0
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Leave group: 00000000, event 2, state 0
+  Host leaves 100 ms after it sees us: saw the host
+Leave group: 00000000, event 2, state 0
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Leave group: 00000000, event 2, state 0
+  Host leaves 200 ms after it sees us: saw the host
+Leave group: 00000000, event 2, state 0
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Leave group: 00000000, event 2, state 0
+  Host leaves 400 ms after it sees us: saw the host
+Leave group: 00000000, event 2, state 0
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Leave group: 00000000, event 2, state 0
+  Host leaves 800 ms after it sees us: saw the host
+Leave group: 00000000, event 2, state 0
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Leave group: 00000000, event 2, state 0
