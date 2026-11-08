@@ -1,0 +1,14 @@
+return 00000000: wait=00000000, exit status=00000000
+return 00000001: wait=00000001, exit status=00000001
+return 00000002: wait=00000002, exit status=00000002
+return 7fffffff: wait=7fffffff, exit status=7fffffff
+return ffffffff: wait=800200d2, exit status=800200d2
+return 80001234: wait=800200d2, exit status=800200d2
+return 80000000: wait=800200d2, exit status=800200d2
+exit 00000000: wait=00000000, exit status=00000000
+exit 00000001: wait=00000001, exit status=00000001
+exit 00000002: wait=00000002, exit status=00000002
+exit 7fffffff: wait=7fffffff, exit status=7fffffff
+exit ffffffff: wait=800200d2, exit status=800200d2
+exit 80001234: wait=800200d2, exit status=800200d2
+exit 80000000: wait=800200d2, exit status=800200d2

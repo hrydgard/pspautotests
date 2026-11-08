@@ -1,0 +1,85 @@
+module_start returns 0:
+  start: module id
+    status=00000000, module_start ran 1 time(s)
+  stop: 00000000
+    status=00000000, module_stop ran 1 time(s)
+  unload: module id
+module_start returns 1:
+  start: 00000000
+    status=00000001, module_start ran 1 time(s)
+  stop: 8002012e
+    status=12345678, module_stop ran 0 time(s)
+  unload: 8002012e
+module_start returns 2:
+  start: 00000002
+    status=00000002, module_start ran 1 time(s)
+  stop: 8002012e
+    status=12345678, module_stop ran 0 time(s)
+  unload: 8002012e
+module_start returns -1:
+  start: 800200d2
+    status=800200d2, module_start ran 1 time(s)
+  stop: 8002012e
+    status=12345678, module_stop ran 0 time(s)
+  unload: 8002012e
+module_start returns 80001234:
+  start: 800200d2
+    status=800200d2, module_start ran 1 time(s)
+  stop: 8002012e
+    status=12345678, module_stop ran 0 time(s)
+  unload: 8002012e
+module_stop returns 1:
+  start: module id
+    status=00000000, module_start ran 1 time(s)
+  stop: 80020136
+    status=00000001, module_stop ran 1 time(s)
+  unload: 80020138
+  stop: 00000000
+    status=00000000, module_stop ran 1 time(s)
+  unload: module id
+module_stop returns 2:
+  start: module id
+    status=00000000, module_start ran 1 time(s)
+  stop: 00000002
+    status=00000002, module_stop ran 1 time(s)
+  unload: 80020138
+  stop: 00000000
+    status=00000000, module_stop ran 1 time(s)
+  unload: module id
+module_stop returns -1:
+  start: module id
+    status=00000000, module_start ran 1 time(s)
+  stop: 800200d2
+    status=800200d2, module_stop ran 1 time(s)
+  unload: 80020138
+  stop: 00000000
+    status=00000000, module_stop ran 1 time(s)
+  unload: module id
+module_stop returns 80001234:
+  start: module id
+    status=00000000, module_start ran 1 time(s)
+  stop: 800200d2
+    status=800200d2, module_stop ran 1 time(s)
+  unload: 80020138
+  stop: 00000000
+    status=00000000, module_stop ran 1 time(s)
+  unload: module id
+Stop before start:
+  stop: 80020134
+    status=12345678, module_stop ran 0 time(s)
+  unload: module id
+Start after stop:
+  start: module id
+    status=00000000, module_start ran 1 time(s)
+  stop: 00000000
+    status=00000000, module_stop ran 1 time(s)
+  start: 80020001
+    status=12345678, module_start ran 0 time(s)
+  unload: module id
+Unload while started:
+  start: module id
+    status=00000000, module_start ran 1 time(s)
+  unload: 80020138
+  stop: 00000000
+    status=00000000, module_stop ran 1 time(s)
+  unload: module id

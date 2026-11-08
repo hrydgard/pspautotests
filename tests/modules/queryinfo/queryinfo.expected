@@ -1,0 +1,18 @@
+Before setting an SDK version:
+  Size 0: 00000000, written up to 63, nsegment=1 entry=ffffffff
+  Size 0x40: 00000000, written up to 63, nsegment=1 entry=ffffffff
+  Size 0x48: 00000000, written up to 63, nsegment=1 entry=ffffffff
+  Size 0x60: 00000000, written up to 95, nsegment=1 entry=ffffffff, attr=0000 version=1.1 name=queryinfochild
+  Size 0x80: 00000000, written up to 63, nsegment=1 entry=ffffffff
+  NULL info: 800200d3, written up to -1
+  Invalid id: 8002012e, written up to -1
+  Invalid id, NULL info: 800200d3, written up to -1
+SDK 6.06:
+  Size 0: 800201bc, written up to -1
+  Size 0x40: 00000000, written up to 63, nsegment=1 entry=ffffffff
+  Size 0x48: 800201bc, written up to -1
+  Size 0x60: 00000000, written up to 95, nsegment=1 entry=ffffffff, attr=0000 version=1.1 name=queryinfochild
+  Size 0x80: 800201bc, written up to -1
+  NULL info: 800200d3, written up to -1
+  Invalid id: 8002012e, written up to -1
+  Invalid id, NULL info: 800200d3, written up to -1
