@@ -1,0 +1,70 @@
+Lookups from the child's code:
+  GetModuleId: child
+  GetModuleIdByAddress(child text): child
+  GetModuleIdByAddress(child data): 8002012e
+  GetModuleIdByAddress(main data): main
+  GetModuleIdByAddress(child text + sizes - 4): child
+  GetModuleIdByAddress(child text + sizes): 8002012e
+  GetModuleIdByAddress(main text + sizes - 4): main
+  GetModuleIdByAddress(main text + sizes): 8002012e
+  GetModuleIdByAddress(0): 8002012e
+  GetModuleIdByAddress(88000000): 800200d3
+  GetModuleGPByAddress(child text): 00000000, gp written
+  GetModuleGPByAddress(0): 8002012e, gp untouched
+  GetModuleGPByAddress(88000000): 800200d3, gp untouched
+  GetModuleGPByAddress(child text, NULL): 800200d3
+  GetModuleGPByAddress(child text, 88000000): 800200d3
+SelfStopUnloadModule, module_stop returns 0:
+  wait: 00001234
+  call didn't return
+  module_stop ran 1 time(s), argSize=4, arg=00005678
+  status=12345678
+  module gone
+SelfStopUnloadModule, module_stop returns 1:
+  wait: 00000777
+  call returned 80020136
+  module_stop ran 1 time(s), argSize=4, arg=00005678
+  status=12345678
+  module still loaded
+SelfStopUnloadModule, module_stop returns 2:
+  wait: 00000777
+  call returned 80020138
+  module_stop ran 1 time(s), argSize=4, arg=00005678
+  status=12345678
+  module still loaded
+SelfStopUnloadModule, exit code -1:
+  wait: 800200d2
+  call didn't return
+  module_stop ran 1 time(s), argSize=4, arg=00005678
+  status=12345678
+  module gone
+StopUnloadSelfModule, module_stop returns 0:
+  wait: 00000000
+  call didn't return
+  module_stop ran 1 time(s), argSize=4, arg=00005678
+  status=00000000
+  module gone
+StopUnloadSelfModule, module_stop returns 2:
+  wait: 00000777
+  call returned 80020138
+  module_stop ran 1 time(s), argSize=4, arg=00005678
+  status=00000002
+  module still loaded
+StopUnloadSelfModuleWithStatus, module_stop returns 0:
+  wait: 00001234
+  call didn't return
+  module_stop ran 1 time(s), argSize=4, arg=00005678
+  status=00000000
+  module gone
+StopUnloadSelfModuleWithStatus, module_stop returns 2:
+  wait: 00000777
+  call returned 80020138
+  module_stop ran 1 time(s), argSize=4, arg=00005678
+  status=00000002
+  module still loaded
+StopUnloadSelfModule, kernel status pointer:
+  wait: 00000777
+  call returned 800200d3
+  module_stop ran 0 time(s)
+  status=12345678
+  module still loaded

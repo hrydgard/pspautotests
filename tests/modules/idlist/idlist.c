@@ -67,5 +67,13 @@ int main(int argc, char **argv) {
 	result = sceKernelGetModuleIdList(NULL, 4, &count);
 	printf("NULL buffer, size 4: result=%08x, count is total: %d\n", result, count == total);
 
+	result = sceKernelGetModuleIdList(buf, sizeof(buf), NULL);
+	printf("NULL count: result=%08x\n", result);
+	buf[0] = 0x12345678;
+	result = sceKernelGetModuleIdList(buf, sizeof(buf), (int *)0x88000000);
+	printf("Kernel count pointer: result=%08x, buffer %s\n", result, buf[0] == 0x12345678 ? "untouched" : "written");
+	result = sceKernelGetModuleIdList((SceUID *)0x88000000, 4, &count);
+	printf("Kernel buffer: result=%08x\n", result);
+
 	return 0;
 }

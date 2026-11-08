@@ -329,12 +329,15 @@ def main():
   tests = []
   args = []
   it = iter(sys.argv[1:])
-  global TIMEOUT
+  global TIMEOUT, PORT
   for arg in it:
     if arg[0] == "-":
+      if arg == "-p" or arg == "--port":
+        PORT = int(next(it))
+        continue
       if arg == "-t" or arg == "--timeout":
         TIMEOUT = int(next(it))
-        
+
       args.append(arg)
     else:
       tests.append(arg.replace("\\", "/"))
@@ -353,6 +356,7 @@ def main():
     print("      --sdkver-func=### use sceKernelSetCompiledSdkVersion###(VER)")
     print("  -a, --all-versions    run the test for all known versions")
     print("  -t, --timeout secs    set the timeout in seconds to secs")
+    print("  -p, --port PORT       usbhostfs_pc/pspsh port, for a second PSP (default 3000)")
     return
 
   if "-a" in args or "--all-versions" in args:

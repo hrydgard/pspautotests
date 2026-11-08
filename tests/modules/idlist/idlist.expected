@@ -11,3 +11,6 @@ Size 8: result=00000000, count is total: 1, entries written: ceil(size / 4)
 Size -4: result=800200d3, count is total: 0, entries written: none
 NULL buffer, size 0: result=800200d3, count is total: 0
 NULL buffer, size 4: result=800200d3, count is total: 0
+NULL count: result=800200d3
+Kernel count pointer: result=800200d3, buffer untouched
+Kernel buffer: result=800200d3
