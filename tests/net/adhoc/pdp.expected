@@ -172,6 +172,12 @@ PdpDelete:
 
 Blocking recv, too-small datagram arriving while it waits:
   Recv into 10 (1s timeout): 80400706, len 100, returned when it arrived
+
+Recv with a length past the end of memory:
+  Last 16 bytes of user memory: 00000000, len 8, data 66
+  The same, nothing waiting: 80410709, len unchanged
+  Scratchpad's last 2048 bytes, length 2049: 00000000, len 8, data 66
+  The same, nothing waiting: 80410709, len 2049
 Leave group: 00000000, event 2, state 0
 
 Term:

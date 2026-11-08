@@ -198,6 +198,48 @@ static void testRecvTooSmallWhileWaiting() {
 	sceNetAdhocPdpDelete(id, 0);
 }
 
+// Receives into a buffer whose length runs past the end of memory, with a small datagram waiting:
+// the last 16 bytes of user memory with the length reaching 4 KB past the end (as in ptp), and the
+// scratchpad's last 2 KB with a length of 2049 (Gods Eater Burst). Then the same with nothing waiting.
+static void testRecvPastEnd() {
+	printf("\nRecv with a length past the end of memory:\n");
+	int id = sceNetAdhocPdpCreate(&localMac, PORT, 4096, 0);
+	u8 data[8];
+	memset(data, 0x66, sizeof(data));
+
+	SceUID top = sceKernelAllocPartitionMemory(2, "pdptop", PSP_SMEM_High, 4096, NULL);
+	u8 *topEnd = (u8 *)sceKernelGetBlockHeadAddr(top) + 4096;
+	u32 memEnd = ((u32)topEnd + 0x01FFFFFF) & ~0x01FFFFFF;
+	int pastEnd = (int)(memEnd - (u32)(topEnd - 16)) + 0x1000;
+	AdhocMac mac;
+	u16 port = 0;
+	sceNetAdhocPdpSend(id, &localMac, PORT, data, sizeof(data), 0, 1);
+	memset(topEnd - 16, 0, 16);
+	int len = pastEnd;
+	int result = sceNetAdhocPdpRecv(id, &mac, &port, topEnd - 16, &len, 100000, 0);
+	printf("  Last 16 bytes of user memory: %08x, len %d, data %02x\n", result, len, topEnd[-16]);
+	len = pastEnd;
+	result = sceNetAdhocPdpRecv(id, &mac, &port, topEnd - 16, &len, 0, 1);
+	printf("  The same, nothing waiting: %08x, len %s\n", result, len == pastEnd ? "unchanged" : "changed");
+	sceKernelFreePartitionMemory(top);
+
+	u8 *scratch = (u8 *)0x00013800;
+	static u8 saved[2048];
+	memcpy(saved, scratch, sizeof(saved));
+	sceNetAdhocPdpSend(id, &localMac, PORT, data, sizeof(data), 0, 1);
+	scratch[0] = 0;
+	len = 2049;
+	result = sceNetAdhocPdpRecv(id, &mac, &port, scratch, &len, 100000, 0);
+	u8 got = scratch[0];
+	printf("  Scratchpad's last 2048 bytes, length 2049: %08x, len %d, data %02x\n", result, len, got);
+	len = 2049;
+	result = sceNetAdhocPdpRecv(id, &mac, &port, scratch, &len, 0, 1);
+	printf("  The same, nothing waiting: %08x, len %d\n", result, len);
+	memcpy(scratch, saved, sizeof(saved));
+
+	sceNetAdhocPdpDelete(id, 0);
+}
+
 int main(int argc, char *argv[]) {
 	if (!adhocStartup()) {
 		return 1;
@@ -222,6 +264,7 @@ int main(int argc, char *argv[]) {
 		printf("sceNetGetLocalEtherAddr: %08x, %s\n", sceNetGetLocalEtherAddr(&mac), macName(&mac));
 		runTests();
 		testRecvTooSmallWhileWaiting();
+		testRecvPastEnd();
 		adhocctlLeaveGroup();
 	}
 
