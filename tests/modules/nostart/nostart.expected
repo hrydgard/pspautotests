@@ -1,0 +1,13 @@
+With a status pointer:
+  start: module id
+  start status: 00000000
+  start again: 80020001
+  start again status: 12345678
+  stop: 00000000
+  stop status: 12345678
+  unload: module id
+Without a status pointer:
+  start: module id
+  start again: 80020001
+  stop: 00000000
+  unload: module id
