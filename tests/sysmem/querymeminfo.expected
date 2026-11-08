@@ -1,0 +1,36 @@
+Allocated: yes
+Block head: 00000000, partition=00000002, the allocated block
+Block last byte: 00000000, partition=00000002, the allocated block
+Block end: 800200cb, partition=12345678, block untouched
+Stack: 00000000, partition=00000002, another block, address at head+3fdec
+Global: 800200d1, partition=12345678, block untouched
+Code: 800200d1, partition=12345678, block untouched
+malloc: 00000000, partition=00000002, another block, address after head
+Past RAM: 800200d3, partition=12345678, block untouched
+Kernel partition (uncached): 800200cb, partition=12345678, block untouched
+VRAM: 800200d3, partition=12345678, block untouched
+Scratchpad: 800200d3, partition=12345678, block untouched
+Address 0: 800200d3, partition=12345678, block untouched
+Kernel address: 800200d1, partition=12345678, block untouched
+Uncached block head: 800200cb, partition=12345678, block untouched
+NULL partition pointer: 00000000, block the allocated block
+NULL block pointer: 00000000, partition=00000002
+Both NULL: 00000000
+Kernel partition pointer: 800200d1
+Kernel block pointer: 800200d1
+User partition start, partition only: 00000000, partition=00000002
+User partition last byte, partition only: 00000000, partition=00000002
+Past RAM, partition only: 800200d3, partition=12345678
+Kernel partition start, partition only: 00000000, partition=00000001
+0x082FFFFF, partition only: 00000000, partition=00000001
+Kernel partition 0x08300000, partition only: 00000000, partition=00000004
+Volatile memory 0x08400000, partition only: 00000000, partition=00000005
+0x087FFFFF, partition only: 00000000, partition=00000005
+Uncached user memory, partition only: 00000000, partition=00000002
+Mirror 0x28800000, partition only: 00000000, partition=00000002
+VRAM, partition only: 800200d3, partition=12345678
+Global, partition only: 00000000, partition=00000002
+Block end, partition only: 00000000, partition=00000002
+Freed block head: 800200cb, partition=12345678, block untouched
+Freed block head, partition only: 00000000, partition=00000002
+High block head: 00000000, partition=00000002, the allocated block
