@@ -1,4 +1,4 @@
-TARGETS = basic volume
+TARGETS = basic volume upsample
 EXTRA_LIBS = -lpspaudio
 EXTRA_OBJS = ../sascore/sascore-imports.o
 

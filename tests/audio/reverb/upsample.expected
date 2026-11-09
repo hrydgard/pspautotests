@@ -1,0 +1,19 @@
+[x] DC, wet only, ROOM:
+[x]   L: even frames partial (zero 0/1024), odd frames silent (zero 1024/1024), sign flips 0/2047
+[x]   R: even frames partial (zero 0/1024), odd frames silent (zero 1024/1024), sign flips 0/2047
+
+[x] DC, wet only, HALL:
+[x]   L: even frames partial (zero 0/1024), odd frames silent (zero 1024/1024), sign flips 0/2047
+[x]   R: even frames partial (zero 0/1024), odd frames silent (zero 1024/1024), sign flips 0/2047
+
+[x] 22.05khz tone, wet only, ROOM:
+[x]   L: even frames partial (zero 0/1024), odd frames silent (zero 1024/1024), sign flips 0/2047
+[x]   R: even frames partial (zero 0/1024), odd frames silent (zero 1024/1024), sign flips 0/2047
+
+[x] 22.05khz tone, wet only, OFF:
+[x]   L: even frames full scale (zero 0/1024), odd frames full scale (zero 0/1024), sign flips 2047/2047
+[x]   R: even frames full scale (zero 0/1024), odd frames full scale (zero 0/1024), sign flips 2047/2047
+
+[x] 22.05khz tone, dry only, ROOM:
+[x]   L: even frames full scale (zero 0/1024), odd frames full scale (zero 0/1024), sign flips 2047/2047
+[x]   R: even frames full scale (zero 0/1024), odd frames full scale (zero 0/1024), sign flips 2047/2047
