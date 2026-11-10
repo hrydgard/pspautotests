@@ -1,0 +1,529 @@
+j 1f:
+  j 1f / j 2f:                             ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / jal 2f:                           ----- ----- -- -- B1 B2 -- --  ra outer+32
+  j 1f / jr $t7:                           ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / jalr $t7:                         ----- ----- -- -- B1 B2 -- --  ra outer+32
+  j 1f / beq $0, $0, 2f:                   ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / bne $0, $0, 2f:                   ----- ----- A1 A2 -- -- -- --  ra unset
+  j 1f / beql $0, $0, 2f:                  ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / bnel $0, $0, 2f:                  ----- ----- A1 A2 -- -- -- --  ra unset
+  j 1f / bgezal $0, 2f:                    ----- ----- -- -- B1 B2 -- --  ra outer+32
+  j 1f / bltzal $0, 2f:                    ----- ----- A1 A2 -- -- -- --  ra outer+32
+  j 1f / bgezall $0, 2f:                   ----- ----- -- -- B1 B2 -- --  ra outer+32
+  j 1f / bltzall $0, 2f:                   ----- ----- A1 A2 -- -- -- --  ra outer+32
+  j 1f / bc1t 2f:                          ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / bc1f 2f:                          ----- ----- A1 A2 -- -- -- --  ra unset
+  j 1f / bc1tl 2f:                         ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / bc1fl 2f:                         ----- ----- A1 A2 -- -- -- --  ra unset
+  j 1f / bvt 0, 2f:                        ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / bvf 0, 2f:                        ----- ----- A1 A2 -- -- -- --  ra unset
+  j 1f / bvtl 0, 2f:                       ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / bvfl 0, 2f:                       ----- ----- A1 A2 -- -- -- --  ra unset
+
+jal 1f:
+  jal 1f / j 2f:                           ----- ----- -- -- B1 B2 -- --  ra outer+8
+  jal 1f / jal 2f:                         ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jal 1f / jr $t7:                         ----- ----- -- -- B1 B2 -- --  ra outer+8
+  jal 1f / jalr $t7:                       ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jal 1f / beq $0, $0, 2f:                 ----- ----- -- -- B1 B2 -- --  ra outer+8
+  jal 1f / bne $0, $0, 2f:                 ----- ----- A1 A2 -- -- -- --  ra outer+8
+  jal 1f / beql $0, $0, 2f:                ----- ----- -- -- B1 B2 -- --  ra outer+8
+  jal 1f / bnel $0, $0, 2f:                ----- ----- A1 A2 -- -- -- --  ra outer+8
+  jal 1f / bgezal $0, 2f:                  ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jal 1f / bltzal $0, 2f:                  ----- ----- A1 A2 -- -- -- --  ra outer+32
+  jal 1f / bgezall $0, 2f:                 ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jal 1f / bltzall $0, 2f:                 ----- ----- A1 A2 -- -- -- --  ra outer+32
+  jal 1f / bc1t 2f:                        ----- ----- -- -- B1 B2 -- --  ra outer+8
+  jal 1f / bc1f 2f:                        ----- ----- A1 A2 -- -- -- --  ra outer+8
+  jal 1f / bc1tl 2f:                       ----- ----- -- -- B1 B2 -- --  ra outer+8
+  jal 1f / bc1fl 2f:                       ----- ----- A1 A2 -- -- -- --  ra outer+8
+  jal 1f / bvt 0, 2f:                      ----- ----- -- -- B1 B2 -- --  ra outer+8
+  jal 1f / bvf 0, 2f:                      ----- ----- A1 A2 -- -- -- --  ra outer+8
+  jal 1f / bvtl 0, 2f:                     ----- ----- -- -- B1 B2 -- --  ra outer+8
+  jal 1f / bvfl 0, 2f:                     ----- ----- A1 A2 -- -- -- --  ra outer+8
+
+jr $t8:
+  jr $t8 / j 2f:                           ----- ----- -- -- B1 B2 -- --  ra unset
+  jr $t8 / jal 2f:                         ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jr $t8 / jr $t7:                         ----- ----- -- -- B1 B2 -- --  ra unset
+  jr $t8 / jalr $t7:                       ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jr $t8 / beq $0, $0, 2f:                 ----- ----- -- -- B1 B2 -- --  ra unset
+  jr $t8 / bne $0, $0, 2f:                 ----- ----- A1 A2 -- -- -- --  ra unset
+  jr $t8 / beql $0, $0, 2f:                ----- ----- -- -- B1 B2 -- --  ra unset
+  jr $t8 / bnel $0, $0, 2f:                ----- ----- A1 A2 -- -- -- --  ra unset
+  jr $t8 / bgezal $0, 2f:                  ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jr $t8 / bltzal $0, 2f:                  ----- ----- A1 A2 -- -- -- --  ra outer+32
+  jr $t8 / bgezall $0, 2f:                 ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jr $t8 / bltzall $0, 2f:                 ----- ----- A1 A2 -- -- -- --  ra outer+32
+  jr $t8 / bc1t 2f:                        ----- ----- -- -- B1 B2 -- --  ra unset
+  jr $t8 / bc1f 2f:                        ----- ----- A1 A2 -- -- -- --  ra unset
+  jr $t8 / bc1tl 2f:                       ----- ----- -- -- B1 B2 -- --  ra unset
+  jr $t8 / bc1fl 2f:                       ----- ----- A1 A2 -- -- -- --  ra unset
+  jr $t8 / bvt 0, 2f:                      ----- ----- -- -- B1 B2 -- --  ra unset
+  jr $t8 / bvf 0, 2f:                      ----- ----- A1 A2 -- -- -- --  ra unset
+  jr $t8 / bvtl 0, 2f:                     ----- ----- -- -- B1 B2 -- --  ra unset
+  jr $t8 / bvfl 0, 2f:                     ----- ----- A1 A2 -- -- -- --  ra unset
+
+jalr $t8:
+  jalr $t8 / j 2f:                         ----- ----- -- -- B1 B2 -- --  ra outer+8
+  jalr $t8 / jal 2f:                       ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jalr $t8 / jr $t7:                       ----- ----- -- -- B1 B2 -- --  ra outer+8
+  jalr $t8 / jalr $t7:                     ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jalr $t8 / beq $0, $0, 2f:               ----- ----- -- -- B1 B2 -- --  ra outer+8
+  jalr $t8 / bne $0, $0, 2f:               ----- ----- A1 A2 -- -- -- --  ra outer+8
+  jalr $t8 / beql $0, $0, 2f:              ----- ----- -- -- B1 B2 -- --  ra outer+8
+  jalr $t8 / bnel $0, $0, 2f:              ----- ----- A1 A2 -- -- -- --  ra outer+8
+  jalr $t8 / bgezal $0, 2f:                ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jalr $t8 / bltzal $0, 2f:                ----- ----- A1 A2 -- -- -- --  ra outer+32
+  jalr $t8 / bgezall $0, 2f:               ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jalr $t8 / bltzall $0, 2f:               ----- ----- A1 A2 -- -- -- --  ra outer+32
+  jalr $t8 / bc1t 2f:                      ----- ----- -- -- B1 B2 -- --  ra outer+8
+  jalr $t8 / bc1f 2f:                      ----- ----- A1 A2 -- -- -- --  ra outer+8
+  jalr $t8 / bc1tl 2f:                     ----- ----- -- -- B1 B2 -- --  ra outer+8
+  jalr $t8 / bc1fl 2f:                     ----- ----- A1 A2 -- -- -- --  ra outer+8
+  jalr $t8 / bvt 0, 2f:                    ----- ----- -- -- B1 B2 -- --  ra outer+8
+  jalr $t8 / bvf 0, 2f:                    ----- ----- A1 A2 -- -- -- --  ra outer+8
+  jalr $t8 / bvtl 0, 2f:                   ----- ----- -- -- B1 B2 -- --  ra outer+8
+  jalr $t8 / bvfl 0, 2f:                   ----- ----- A1 A2 -- -- -- --  ra outer+8
+
+beq $0, $0, 1f:
+  beq $0, $0, 1f / j 2f:                   ----- ----- A1 A2 -- -- -- --  ra unset
+  beq $0, $0, 1f / jal 2f:                 ----- ----- A1 A2 -- -- -- --  ra outer+12
+  beq $0, $0, 1f / jr $t7:                 ----- ----- A1 A2 -- -- -- --  ra unset
+  beq $0, $0, 1f / jalr $t7:               ----- ----- A1 A2 -- -- -- --  ra outer+12
+  beq $0, $0, 1f / beq $0, $0, 2f:         ----- ----- -- -- B1 B2 -- --  ra unset
+  beq $0, $0, 1f / bne $0, $0, 2f:         ----- ----- A1 A2 -- -- -- --  ra unset
+  beq $0, $0, 1f / beql $0, $0, 2f:        ----- ----- -- -- B1 B2 -- --  ra unset
+  beq $0, $0, 1f / bnel $0, $0, 2f:        ----- ----- A1 A2 -- -- -- --  ra unset
+  beq $0, $0, 1f / bgezal $0, 2f:          ----- ----- -- -- B1 B2 -- --  ra outer+12
+  beq $0, $0, 1f / bltzal $0, 2f:          ----- ----- A1 A2 -- -- -- --  ra outer+12
+  beq $0, $0, 1f / bgezall $0, 2f:         ----- ----- -- -- B1 B2 -- --  ra outer+12
+  beq $0, $0, 1f / bltzall $0, 2f:         ----- ----- A1 A2 -- -- -- --  ra outer+12
+  beq $0, $0, 1f / bc1t 2f:                ----- ----- -- -- B1 B2 -- --  ra unset
+  beq $0, $0, 1f / bc1f 2f:                ----- ----- A1 A2 -- -- -- --  ra unset
+  beq $0, $0, 1f / bc1tl 2f:               ----- ----- -- -- B1 B2 -- --  ra unset
+  beq $0, $0, 1f / bc1fl 2f:               ----- ----- A1 A2 -- -- -- --  ra unset
+  beq $0, $0, 1f / bvt 0, 2f:              ----- ----- -- -- B1 B2 -- --  ra unset
+  beq $0, $0, 1f / bvf 0, 2f:              ----- ----- A1 A2 -- -- -- --  ra unset
+  beq $0, $0, 1f / bvtl 0, 2f:             ----- ----- -- -- B1 B2 -- --  ra unset
+  beq $0, $0, 1f / bvfl 0, 2f:             ----- ----- A1 A2 -- -- -- --  ra unset
+
+beql $0, $0, 1f:
+  beql $0, $0, 1f / j 2f:                  ----- ----- A1 A2 -- -- -- --  ra unset
+  beql $0, $0, 1f / jal 2f:                ----- ----- A1 A2 -- -- -- --  ra outer+12
+  beql $0, $0, 1f / jr $t7:                ----- ----- A1 A2 -- -- -- --  ra unset
+  beql $0, $0, 1f / jalr $t7:              ----- ----- A1 A2 -- -- -- --  ra outer+12
+  beql $0, $0, 1f / beq $0, $0, 2f:        ----- ----- -- -- B1 B2 -- --  ra unset
+  beql $0, $0, 1f / bne $0, $0, 2f:        ----- ----- A1 A2 -- -- -- --  ra unset
+  beql $0, $0, 1f / beql $0, $0, 2f:       ----- ----- -- -- B1 B2 -- --  ra unset
+  beql $0, $0, 1f / bnel $0, $0, 2f:       ----- ----- A1 A2 -- -- -- --  ra unset
+  beql $0, $0, 1f / bgezal $0, 2f:         ----- ----- -- -- B1 B2 -- --  ra outer+12
+  beql $0, $0, 1f / bltzal $0, 2f:         ----- ----- A1 A2 -- -- -- --  ra outer+12
+  beql $0, $0, 1f / bgezall $0, 2f:        ----- ----- -- -- B1 B2 -- --  ra outer+12
+  beql $0, $0, 1f / bltzall $0, 2f:        ----- ----- A1 A2 -- -- -- --  ra outer+12
+  beql $0, $0, 1f / bc1t 2f:               ----- ----- -- -- B1 B2 -- --  ra unset
+  beql $0, $0, 1f / bc1f 2f:               ----- ----- A1 A2 -- -- -- --  ra unset
+  beql $0, $0, 1f / bc1tl 2f:              ----- ----- -- -- B1 B2 -- --  ra unset
+  beql $0, $0, 1f / bc1fl 2f:              ----- ----- A1 A2 -- -- -- --  ra unset
+  beql $0, $0, 1f / bvt 0, 2f:             ----- ----- -- -- B1 B2 -- --  ra unset
+  beql $0, $0, 1f / bvf 0, 2f:             ----- ----- A1 A2 -- -- -- --  ra unset
+  beql $0, $0, 1f / bvtl 0, 2f:            ----- ----- -- -- B1 B2 -- --  ra unset
+  beql $0, $0, 1f / bvfl 0, 2f:            ----- ----- A1 A2 -- -- -- --  ra unset
+
+bgezal $0, 1f:
+  bgezal $0, 1f / j 2f:                    ----- ----- A1 A2 -- -- -- --  ra outer+8
+  bgezal $0, 1f / jal 2f:                  ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bgezal $0, 1f / jr $t7:                  ----- ----- A1 A2 -- -- -- --  ra outer+8
+  bgezal $0, 1f / jalr $t7:                ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bgezal $0, 1f / beq $0, $0, 2f:          ----- ----- -- -- B1 B2 -- --  ra outer+8
+  bgezal $0, 1f / bne $0, $0, 2f:          ----- ----- A1 A2 -- -- -- --  ra outer+8
+  bgezal $0, 1f / beql $0, $0, 2f:         ----- ----- -- -- B1 B2 -- --  ra outer+8
+  bgezal $0, 1f / bnel $0, $0, 2f:         ----- ----- A1 A2 -- -- -- --  ra outer+8
+  bgezal $0, 1f / bgezal $0, 2f:           ----- ----- -- -- B1 B2 -- --  ra outer+12
+  bgezal $0, 1f / bltzal $0, 2f:           ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bgezal $0, 1f / bgezall $0, 2f:          ----- ----- -- -- B1 B2 -- --  ra outer+12
+  bgezal $0, 1f / bltzall $0, 2f:          ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bgezal $0, 1f / bc1t 2f:                 ----- ----- -- -- B1 B2 -- --  ra outer+8
+  bgezal $0, 1f / bc1f 2f:                 ----- ----- A1 A2 -- -- -- --  ra outer+8
+  bgezal $0, 1f / bc1tl 2f:                ----- ----- -- -- B1 B2 -- --  ra outer+8
+  bgezal $0, 1f / bc1fl 2f:                ----- ----- A1 A2 -- -- -- --  ra outer+8
+  bgezal $0, 1f / bvt 0, 2f:               ----- ----- -- -- B1 B2 -- --  ra outer+8
+  bgezal $0, 1f / bvf 0, 2f:               ----- ----- A1 A2 -- -- -- --  ra outer+8
+  bgezal $0, 1f / bvtl 0, 2f:              ----- ----- -- -- B1 B2 -- --  ra outer+8
+  bgezal $0, 1f / bvfl 0, 2f:              ----- ----- A1 A2 -- -- -- --  ra outer+8
+
+bgezall $0, 1f:
+  bgezall $0, 1f / j 2f:                   ----- ----- A1 A2 -- -- -- --  ra outer+8
+  bgezall $0, 1f / jal 2f:                 ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bgezall $0, 1f / jr $t7:                 ----- ----- A1 A2 -- -- -- --  ra outer+8
+  bgezall $0, 1f / jalr $t7:               ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bgezall $0, 1f / beq $0, $0, 2f:         ----- ----- -- -- B1 B2 -- --  ra outer+8
+  bgezall $0, 1f / bne $0, $0, 2f:         ----- ----- A1 A2 -- -- -- --  ra outer+8
+  bgezall $0, 1f / beql $0, $0, 2f:        ----- ----- -- -- B1 B2 -- --  ra outer+8
+  bgezall $0, 1f / bnel $0, $0, 2f:        ----- ----- A1 A2 -- -- -- --  ra outer+8
+  bgezall $0, 1f / bgezal $0, 2f:          ----- ----- -- -- B1 B2 -- --  ra outer+12
+  bgezall $0, 1f / bltzal $0, 2f:          ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bgezall $0, 1f / bgezall $0, 2f:         ----- ----- -- -- B1 B2 -- --  ra outer+12
+  bgezall $0, 1f / bltzall $0, 2f:         ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bgezall $0, 1f / bc1t 2f:                ----- ----- -- -- B1 B2 -- --  ra outer+8
+  bgezall $0, 1f / bc1f 2f:                ----- ----- A1 A2 -- -- -- --  ra outer+8
+  bgezall $0, 1f / bc1tl 2f:               ----- ----- -- -- B1 B2 -- --  ra outer+8
+  bgezall $0, 1f / bc1fl 2f:               ----- ----- A1 A2 -- -- -- --  ra outer+8
+  bgezall $0, 1f / bvt 0, 2f:              ----- ----- -- -- B1 B2 -- --  ra outer+8
+  bgezall $0, 1f / bvf 0, 2f:              ----- ----- A1 A2 -- -- -- --  ra outer+8
+  bgezall $0, 1f / bvtl 0, 2f:             ----- ----- -- -- B1 B2 -- --  ra outer+8
+  bgezall $0, 1f / bvfl 0, 2f:             ----- ----- A1 A2 -- -- -- --  ra outer+8
+
+bc1t 1f:
+  bc1t 1f / j 2f:                          ----- ----- A1 A2 -- -- -- --  ra unset
+  bc1t 1f / jal 2f:                        ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bc1t 1f / jr $t7:                        ----- ----- A1 A2 -- -- -- --  ra unset
+  bc1t 1f / jalr $t7:                      ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bc1t 1f / beq $0, $0, 2f:                ----- ----- -- -- B1 B2 -- --  ra unset
+  bc1t 1f / bne $0, $0, 2f:                ----- ----- A1 A2 -- -- -- --  ra unset
+  bc1t 1f / beql $0, $0, 2f:               ----- ----- -- -- B1 B2 -- --  ra unset
+  bc1t 1f / bnel $0, $0, 2f:               ----- ----- A1 A2 -- -- -- --  ra unset
+  bc1t 1f / bgezal $0, 2f:                 ----- ----- -- -- B1 B2 -- --  ra outer+12
+  bc1t 1f / bltzal $0, 2f:                 ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bc1t 1f / bgezall $0, 2f:                ----- ----- -- -- B1 B2 -- --  ra outer+12
+  bc1t 1f / bltzall $0, 2f:                ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bc1t 1f / bc1t 2f:                       ----- ----- -- -- B1 B2 -- --  ra unset
+  bc1t 1f / bc1f 2f:                       ----- ----- A1 A2 -- -- -- --  ra unset
+  bc1t 1f / bc1tl 2f:                      ----- ----- -- -- B1 B2 -- --  ra unset
+  bc1t 1f / bc1fl 2f:                      ----- ----- A1 A2 -- -- -- --  ra unset
+  bc1t 1f / bvt 0, 2f:                     ----- ----- -- -- B1 B2 -- --  ra unset
+  bc1t 1f / bvf 0, 2f:                     ----- ----- A1 A2 -- -- -- --  ra unset
+  bc1t 1f / bvtl 0, 2f:                    ----- ----- -- -- B1 B2 -- --  ra unset
+  bc1t 1f / bvfl 0, 2f:                    ----- ----- A1 A2 -- -- -- --  ra unset
+
+bc1tl 1f:
+  bc1tl 1f / j 2f:                         ----- ----- A1 A2 -- -- -- --  ra unset
+  bc1tl 1f / jal 2f:                       ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bc1tl 1f / jr $t7:                       ----- ----- A1 A2 -- -- -- --  ra unset
+  bc1tl 1f / jalr $t7:                     ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bc1tl 1f / beq $0, $0, 2f:               ----- ----- -- -- B1 B2 -- --  ra unset
+  bc1tl 1f / bne $0, $0, 2f:               ----- ----- A1 A2 -- -- -- --  ra unset
+  bc1tl 1f / beql $0, $0, 2f:              ----- ----- -- -- B1 B2 -- --  ra unset
+  bc1tl 1f / bnel $0, $0, 2f:              ----- ----- A1 A2 -- -- -- --  ra unset
+  bc1tl 1f / bgezal $0, 2f:                ----- ----- -- -- B1 B2 -- --  ra outer+12
+  bc1tl 1f / bltzal $0, 2f:                ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bc1tl 1f / bgezall $0, 2f:               ----- ----- -- -- B1 B2 -- --  ra outer+12
+  bc1tl 1f / bltzall $0, 2f:               ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bc1tl 1f / bc1t 2f:                      ----- ----- -- -- B1 B2 -- --  ra unset
+  bc1tl 1f / bc1f 2f:                      ----- ----- A1 A2 -- -- -- --  ra unset
+  bc1tl 1f / bc1tl 2f:                     ----- ----- -- -- B1 B2 -- --  ra unset
+  bc1tl 1f / bc1fl 2f:                     ----- ----- A1 A2 -- -- -- --  ra unset
+  bc1tl 1f / bvt 0, 2f:                    ----- ----- -- -- B1 B2 -- --  ra unset
+  bc1tl 1f / bvf 0, 2f:                    ----- ----- A1 A2 -- -- -- --  ra unset
+  bc1tl 1f / bvtl 0, 2f:                   ----- ----- -- -- B1 B2 -- --  ra unset
+  bc1tl 1f / bvfl 0, 2f:                   ----- ----- A1 A2 -- -- -- --  ra unset
+
+bvt 0, 1f:
+  bvt 0, 1f / j 2f:                        ----- ----- A1 A2 -- -- -- --  ra unset
+  bvt 0, 1f / jal 2f:                      ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bvt 0, 1f / jr $t7:                      ----- ----- A1 A2 -- -- -- --  ra unset
+  bvt 0, 1f / jalr $t7:                    ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bvt 0, 1f / beq $0, $0, 2f:              ----- ----- -- -- B1 B2 -- --  ra unset
+  bvt 0, 1f / bne $0, $0, 2f:              ----- ----- A1 A2 -- -- -- --  ra unset
+  bvt 0, 1f / beql $0, $0, 2f:             ----- ----- -- -- B1 B2 -- --  ra unset
+  bvt 0, 1f / bnel $0, $0, 2f:             ----- ----- A1 A2 -- -- -- --  ra unset
+  bvt 0, 1f / bgezal $0, 2f:               ----- ----- -- -- B1 B2 -- --  ra outer+12
+  bvt 0, 1f / bltzal $0, 2f:               ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bvt 0, 1f / bgezall $0, 2f:              ----- ----- -- -- B1 B2 -- --  ra outer+12
+  bvt 0, 1f / bltzall $0, 2f:              ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bvt 0, 1f / bc1t 2f:                     ----- ----- -- -- B1 B2 -- --  ra unset
+  bvt 0, 1f / bc1f 2f:                     ----- ----- A1 A2 -- -- -- --  ra unset
+  bvt 0, 1f / bc1tl 2f:                    ----- ----- -- -- B1 B2 -- --  ra unset
+  bvt 0, 1f / bc1fl 2f:                    ----- ----- A1 A2 -- -- -- --  ra unset
+  bvt 0, 1f / bvt 0, 2f:                   ----- ----- -- -- B1 B2 -- --  ra unset
+  bvt 0, 1f / bvf 0, 2f:                   ----- ----- A1 A2 -- -- -- --  ra unset
+  bvt 0, 1f / bvtl 0, 2f:                  ----- ----- -- -- B1 B2 -- --  ra unset
+  bvt 0, 1f / bvfl 0, 2f:                  ----- ----- A1 A2 -- -- -- --  ra unset
+
+bvtl 0, 1f:
+  bvtl 0, 1f / j 2f:                       ----- ----- A1 A2 -- -- -- --  ra unset
+  bvtl 0, 1f / jal 2f:                     ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bvtl 0, 1f / jr $t7:                     ----- ----- A1 A2 -- -- -- --  ra unset
+  bvtl 0, 1f / jalr $t7:                   ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bvtl 0, 1f / beq $0, $0, 2f:             ----- ----- -- -- B1 B2 -- --  ra unset
+  bvtl 0, 1f / bne $0, $0, 2f:             ----- ----- A1 A2 -- -- -- --  ra unset
+  bvtl 0, 1f / beql $0, $0, 2f:            ----- ----- -- -- B1 B2 -- --  ra unset
+  bvtl 0, 1f / bnel $0, $0, 2f:            ----- ----- A1 A2 -- -- -- --  ra unset
+  bvtl 0, 1f / bgezal $0, 2f:              ----- ----- -- -- B1 B2 -- --  ra outer+12
+  bvtl 0, 1f / bltzal $0, 2f:              ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bvtl 0, 1f / bgezall $0, 2f:             ----- ----- -- -- B1 B2 -- --  ra outer+12
+  bvtl 0, 1f / bltzall $0, 2f:             ----- ----- A1 A2 -- -- -- --  ra outer+12
+  bvtl 0, 1f / bc1t 2f:                    ----- ----- -- -- B1 B2 -- --  ra unset
+  bvtl 0, 1f / bc1f 2f:                    ----- ----- A1 A2 -- -- -- --  ra unset
+  bvtl 0, 1f / bc1tl 2f:                   ----- ----- -- -- B1 B2 -- --  ra unset
+  bvtl 0, 1f / bc1fl 2f:                   ----- ----- A1 A2 -- -- -- --  ra unset
+  bvtl 0, 1f / bvt 0, 2f:                  ----- ----- -- -- B1 B2 -- --  ra unset
+  bvtl 0, 1f / bvf 0, 2f:                  ----- ----- A1 A2 -- -- -- --  ra unset
+  bvtl 0, 1f / bvtl 0, 2f:                 ----- ----- -- -- B1 B2 -- --  ra unset
+  bvtl 0, 1f / bvfl 0, 2f:                 ----- ----- A1 A2 -- -- -- --  ra unset
+
+bne $0, $0, 1f:
+  bne $0, $0, 1f / j 2f:                   fall1 ----- -- -- B1 B2 -- --  ra unset
+  bne $0, $0, 1f / jal 2f:                 fall1 ----- -- -- B1 B2 -- --  ra outer+12
+  bne $0, $0, 1f / jr $t7:                 fall1 ----- -- -- B1 B2 -- --  ra unset
+  bne $0, $0, 1f / jalr $t7:               fall1 ----- -- -- B1 B2 -- --  ra outer+12
+  bne $0, $0, 1f / beq $0, $0, 2f:         fall1 ----- -- -- B1 B2 -- --  ra unset
+  bne $0, $0, 1f / bne $0, $0, 2f:         fall1 fall2 -- -- -- -- -- --  ra unset
+  bne $0, $0, 1f / beql $0, $0, 2f:        fall1 ----- -- -- B1 B2 -- --  ra unset
+  bne $0, $0, 1f / bnel $0, $0, 2f:        ----- fall2 -- -- -- -- -- --  ra unset
+  bne $0, $0, 1f / bgezal $0, 2f:          fall1 ----- -- -- B1 B2 -- --  ra outer+12
+  bne $0, $0, 1f / bltzal $0, 2f:          fall1 fall2 -- -- -- -- -- --  ra outer+12
+  bne $0, $0, 1f / bgezall $0, 2f:         fall1 ----- -- -- B1 B2 -- --  ra outer+12
+  bne $0, $0, 1f / bltzall $0, 2f:         ----- fall2 -- -- -- -- -- --  ra outer+12
+  bne $0, $0, 1f / bc1t 2f:                fall1 ----- -- -- B1 B2 -- --  ra unset
+  bne $0, $0, 1f / bc1f 2f:                fall1 fall2 -- -- -- -- -- --  ra unset
+  bne $0, $0, 1f / bc1tl 2f:               fall1 ----- -- -- B1 B2 -- --  ra unset
+  bne $0, $0, 1f / bc1fl 2f:               ----- fall2 -- -- -- -- -- --  ra unset
+  bne $0, $0, 1f / bvt 0, 2f:              fall1 ----- -- -- B1 B2 -- --  ra unset
+  bne $0, $0, 1f / bvf 0, 2f:              fall1 fall2 -- -- -- -- -- --  ra unset
+  bne $0, $0, 1f / bvtl 0, 2f:             fall1 ----- -- -- B1 B2 -- --  ra unset
+  bne $0, $0, 1f / bvfl 0, 2f:             ----- fall2 -- -- -- -- -- --  ra unset
+
+bnel $0, $0, 1f:
+  bnel $0, $0, 1f / j 2f:                  fall1 ----- -- -- B1 B2 -- --  ra unset
+  bnel $0, $0, 1f / jal 2f:                fall1 ----- -- -- B1 B2 -- --  ra unset
+  bnel $0, $0, 1f / jr $t7:                fall1 ----- -- -- B1 B2 -- --  ra unset
+  bnel $0, $0, 1f / jalr $t7:              fall1 ----- -- -- B1 B2 -- --  ra unset
+  bnel $0, $0, 1f / beq $0, $0, 2f:        fall1 fall2 -- -- -- -- -- --  ra unset
+  bnel $0, $0, 1f / bne $0, $0, 2f:        fall1 fall2 -- -- -- -- -- --  ra unset
+  bnel $0, $0, 1f / beql $0, $0, 2f:       fall1 fall2 -- -- -- -- -- --  ra unset
+  bnel $0, $0, 1f / bnel $0, $0, 2f:       fall1 fall2 -- -- -- -- -- --  ra unset
+  bnel $0, $0, 1f / bgezal $0, 2f:         fall1 fall2 -- -- -- -- -- --  ra unset
+  bnel $0, $0, 1f / bltzal $0, 2f:         fall1 fall2 -- -- -- -- -- --  ra unset
+  bnel $0, $0, 1f / bgezall $0, 2f:        fall1 fall2 -- -- -- -- -- --  ra unset
+  bnel $0, $0, 1f / bltzall $0, 2f:        fall1 fall2 -- -- -- -- -- --  ra unset
+  bnel $0, $0, 1f / bc1t 2f:               fall1 fall2 -- -- -- -- -- --  ra unset
+  bnel $0, $0, 1f / bc1f 2f:               fall1 fall2 -- -- -- -- -- --  ra unset
+  bnel $0, $0, 1f / bc1tl 2f:              fall1 fall2 -- -- -- -- -- --  ra unset
+  bnel $0, $0, 1f / bc1fl 2f:              fall1 fall2 -- -- -- -- -- --  ra unset
+  bnel $0, $0, 1f / bvt 0, 2f:             fall1 fall2 -- -- -- -- -- --  ra unset
+  bnel $0, $0, 1f / bvf 0, 2f:             fall1 fall2 -- -- -- -- -- --  ra unset
+  bnel $0, $0, 1f / bvtl 0, 2f:            fall1 fall2 -- -- -- -- -- --  ra unset
+  bnel $0, $0, 1f / bvfl 0, 2f:            fall1 fall2 -- -- -- -- -- --  ra unset
+
+bltzal $0, 1f:
+  bltzal $0, 1f / j 2f:                    fall1 ----- -- -- B1 B2 -- --  ra outer+8
+  bltzal $0, 1f / jal 2f:                  fall1 ----- -- -- B1 B2 -- --  ra outer+12
+  bltzal $0, 1f / jr $t7:                  fall1 ----- -- -- B1 B2 -- --  ra outer+8
+  bltzal $0, 1f / jalr $t7:                fall1 ----- -- -- B1 B2 -- --  ra outer+12
+  bltzal $0, 1f / beq $0, $0, 2f:          fall1 ----- -- -- B1 B2 -- --  ra outer+8
+  bltzal $0, 1f / bne $0, $0, 2f:          fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzal $0, 1f / beql $0, $0, 2f:         fall1 ----- -- -- B1 B2 -- --  ra outer+8
+  bltzal $0, 1f / bnel $0, $0, 2f:         ----- fall2 -- -- -- -- -- --  ra outer+8
+  bltzal $0, 1f / bgezal $0, 2f:           fall1 ----- -- -- B1 B2 -- --  ra outer+12
+  bltzal $0, 1f / bltzal $0, 2f:           fall1 fall2 -- -- -- -- -- --  ra outer+12
+  bltzal $0, 1f / bgezall $0, 2f:          fall1 ----- -- -- B1 B2 -- --  ra outer+12
+  bltzal $0, 1f / bltzall $0, 2f:          ----- fall2 -- -- -- -- -- --  ra outer+12
+  bltzal $0, 1f / bc1t 2f:                 fall1 ----- -- -- B1 B2 -- --  ra outer+8
+  bltzal $0, 1f / bc1f 2f:                 fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzal $0, 1f / bc1tl 2f:                fall1 ----- -- -- B1 B2 -- --  ra outer+8
+  bltzal $0, 1f / bc1fl 2f:                ----- fall2 -- -- -- -- -- --  ra outer+8
+  bltzal $0, 1f / bvt 0, 2f:               fall1 ----- -- -- B1 B2 -- --  ra outer+8
+  bltzal $0, 1f / bvf 0, 2f:               fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzal $0, 1f / bvtl 0, 2f:              fall1 ----- -- -- B1 B2 -- --  ra outer+8
+  bltzal $0, 1f / bvfl 0, 2f:              ----- fall2 -- -- -- -- -- --  ra outer+8
+
+bltzall $0, 1f:
+  bltzall $0, 1f / j 2f:                   fall1 ----- -- -- B1 B2 -- --  ra outer+8
+  bltzall $0, 1f / jal 2f:                 fall1 ----- -- -- B1 B2 -- --  ra outer+8
+  bltzall $0, 1f / jr $t7:                 fall1 ----- -- -- B1 B2 -- --  ra outer+8
+  bltzall $0, 1f / jalr $t7:               fall1 ----- -- -- B1 B2 -- --  ra outer+8
+  bltzall $0, 1f / beq $0, $0, 2f:         fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzall $0, 1f / bne $0, $0, 2f:         fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzall $0, 1f / beql $0, $0, 2f:        fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzall $0, 1f / bnel $0, $0, 2f:        fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzall $0, 1f / bgezal $0, 2f:          fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzall $0, 1f / bltzal $0, 2f:          fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzall $0, 1f / bgezall $0, 2f:         fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzall $0, 1f / bltzall $0, 2f:         fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzall $0, 1f / bc1t 2f:                fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzall $0, 1f / bc1f 2f:                fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzall $0, 1f / bc1tl 2f:               fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzall $0, 1f / bc1fl 2f:               fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzall $0, 1f / bvt 0, 2f:              fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzall $0, 1f / bvf 0, 2f:              fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzall $0, 1f / bvtl 0, 2f:             fall1 fall2 -- -- -- -- -- --  ra outer+8
+  bltzall $0, 1f / bvfl 0, 2f:             fall1 fall2 -- -- -- -- -- --  ra outer+8
+
+bc1f 1f:
+  bc1f 1f / j 2f:                          fall1 ----- -- -- B1 B2 -- --  ra unset
+  bc1f 1f / jal 2f:                        fall1 ----- -- -- B1 B2 -- --  ra outer+12
+  bc1f 1f / jr $t7:                        fall1 ----- -- -- B1 B2 -- --  ra unset
+  bc1f 1f / jalr $t7:                      fall1 ----- -- -- B1 B2 -- --  ra outer+12
+  bc1f 1f / beq $0, $0, 2f:                fall1 ----- -- -- B1 B2 -- --  ra unset
+  bc1f 1f / bne $0, $0, 2f:                fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1f 1f / beql $0, $0, 2f:               fall1 ----- -- -- B1 B2 -- --  ra unset
+  bc1f 1f / bnel $0, $0, 2f:               ----- fall2 -- -- -- -- -- --  ra unset
+  bc1f 1f / bgezal $0, 2f:                 fall1 ----- -- -- B1 B2 -- --  ra outer+12
+  bc1f 1f / bltzal $0, 2f:                 fall1 fall2 -- -- -- -- -- --  ra outer+12
+  bc1f 1f / bgezall $0, 2f:                fall1 ----- -- -- B1 B2 -- --  ra outer+12
+  bc1f 1f / bltzall $0, 2f:                ----- fall2 -- -- -- -- -- --  ra outer+12
+  bc1f 1f / bc1t 2f:                       fall1 ----- -- -- B1 B2 -- --  ra unset
+  bc1f 1f / bc1f 2f:                       fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1f 1f / bc1tl 2f:                      fall1 ----- -- -- B1 B2 -- --  ra unset
+  bc1f 1f / bc1fl 2f:                      ----- fall2 -- -- -- -- -- --  ra unset
+  bc1f 1f / bvt 0, 2f:                     fall1 ----- -- -- B1 B2 -- --  ra unset
+  bc1f 1f / bvf 0, 2f:                     fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1f 1f / bvtl 0, 2f:                    fall1 ----- -- -- B1 B2 -- --  ra unset
+  bc1f 1f / bvfl 0, 2f:                    ----- fall2 -- -- -- -- -- --  ra unset
+
+bc1fl 1f:
+  bc1fl 1f / j 2f:                         fall1 ----- -- -- B1 B2 -- --  ra unset
+  bc1fl 1f / jal 2f:                       fall1 ----- -- -- B1 B2 -- --  ra unset
+  bc1fl 1f / jr $t7:                       fall1 ----- -- -- B1 B2 -- --  ra unset
+  bc1fl 1f / jalr $t7:                     fall1 ----- -- -- B1 B2 -- --  ra unset
+  bc1fl 1f / beq $0, $0, 2f:               fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1fl 1f / bne $0, $0, 2f:               fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1fl 1f / beql $0, $0, 2f:              fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1fl 1f / bnel $0, $0, 2f:              fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1fl 1f / bgezal $0, 2f:                fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1fl 1f / bltzal $0, 2f:                fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1fl 1f / bgezall $0, 2f:               fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1fl 1f / bltzall $0, 2f:               fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1fl 1f / bc1t 2f:                      fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1fl 1f / bc1f 2f:                      fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1fl 1f / bc1tl 2f:                     fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1fl 1f / bc1fl 2f:                     fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1fl 1f / bvt 0, 2f:                    fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1fl 1f / bvf 0, 2f:                    fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1fl 1f / bvtl 0, 2f:                   fall1 fall2 -- -- -- -- -- --  ra unset
+  bc1fl 1f / bvfl 0, 2f:                   fall1 fall2 -- -- -- -- -- --  ra unset
+
+bvf 0, 1f:
+  bvf 0, 1f / j 2f:                        fall1 ----- -- -- B1 B2 -- --  ra unset
+  bvf 0, 1f / jal 2f:                      fall1 ----- -- -- B1 B2 -- --  ra outer+12
+  bvf 0, 1f / jr $t7:                      fall1 ----- -- -- B1 B2 -- --  ra unset
+  bvf 0, 1f / jalr $t7:                    fall1 ----- -- -- B1 B2 -- --  ra outer+12
+  bvf 0, 1f / beq $0, $0, 2f:              fall1 ----- -- -- B1 B2 -- --  ra unset
+  bvf 0, 1f / bne $0, $0, 2f:              fall1 fall2 -- -- -- -- -- --  ra unset
+  bvf 0, 1f / beql $0, $0, 2f:             fall1 ----- -- -- B1 B2 -- --  ra unset
+  bvf 0, 1f / bnel $0, $0, 2f:             ----- fall2 -- -- -- -- -- --  ra unset
+  bvf 0, 1f / bgezal $0, 2f:               fall1 ----- -- -- B1 B2 -- --  ra outer+12
+  bvf 0, 1f / bltzal $0, 2f:               fall1 fall2 -- -- -- -- -- --  ra outer+12
+  bvf 0, 1f / bgezall $0, 2f:              fall1 ----- -- -- B1 B2 -- --  ra outer+12
+  bvf 0, 1f / bltzall $0, 2f:              ----- fall2 -- -- -- -- -- --  ra outer+12
+  bvf 0, 1f / bc1t 2f:                     fall1 ----- -- -- B1 B2 -- --  ra unset
+  bvf 0, 1f / bc1f 2f:                     fall1 fall2 -- -- -- -- -- --  ra unset
+  bvf 0, 1f / bc1tl 2f:                    fall1 ----- -- -- B1 B2 -- --  ra unset
+  bvf 0, 1f / bc1fl 2f:                    ----- fall2 -- -- -- -- -- --  ra unset
+  bvf 0, 1f / bvt 0, 2f:                   fall1 ----- -- -- B1 B2 -- --  ra unset
+  bvf 0, 1f / bvf 0, 2f:                   fall1 fall2 -- -- -- -- -- --  ra unset
+  bvf 0, 1f / bvtl 0, 2f:                  fall1 ----- -- -- B1 B2 -- --  ra unset
+  bvf 0, 1f / bvfl 0, 2f:                  ----- fall2 -- -- -- -- -- --  ra unset
+
+bvfl 0, 1f:
+  bvfl 0, 1f / j 2f:                       fall1 ----- -- -- B1 B2 -- --  ra unset
+  bvfl 0, 1f / jal 2f:                     fall1 ----- -- -- B1 B2 -- --  ra unset
+  bvfl 0, 1f / jr $t7:                     fall1 ----- -- -- B1 B2 -- --  ra unset
+  bvfl 0, 1f / jalr $t7:                   fall1 ----- -- -- B1 B2 -- --  ra unset
+  bvfl 0, 1f / beq $0, $0, 2f:             fall1 fall2 -- -- -- -- -- --  ra unset
+  bvfl 0, 1f / bne $0, $0, 2f:             fall1 fall2 -- -- -- -- -- --  ra unset
+  bvfl 0, 1f / beql $0, $0, 2f:            fall1 fall2 -- -- -- -- -- --  ra unset
+  bvfl 0, 1f / bnel $0, $0, 2f:            fall1 fall2 -- -- -- -- -- --  ra unset
+  bvfl 0, 1f / bgezal $0, 2f:              fall1 fall2 -- -- -- -- -- --  ra unset
+  bvfl 0, 1f / bltzal $0, 2f:              fall1 fall2 -- -- -- -- -- --  ra unset
+  bvfl 0, 1f / bgezall $0, 2f:             fall1 fall2 -- -- -- -- -- --  ra unset
+  bvfl 0, 1f / bltzall $0, 2f:             fall1 fall2 -- -- -- -- -- --  ra unset
+  bvfl 0, 1f / bc1t 2f:                    fall1 fall2 -- -- -- -- -- --  ra unset
+  bvfl 0, 1f / bc1f 2f:                    fall1 fall2 -- -- -- -- -- --  ra unset
+  bvfl 0, 1f / bc1tl 2f:                   fall1 fall2 -- -- -- -- -- --  ra unset
+  bvfl 0, 1f / bc1fl 2f:                   fall1 fall2 -- -- -- -- -- --  ra unset
+  bvfl 0, 1f / bvt 0, 2f:                  fall1 fall2 -- -- -- -- -- --  ra unset
+  bvfl 0, 1f / bvf 0, 2f:                  fall1 fall2 -- -- -- -- -- --  ra unset
+  bvfl 0, 1f / bvtl 0, 2f:                 fall1 fall2 -- -- -- -- -- --  ra unset
+  bvfl 0, 1f / bvfl 0, 2f:                 fall1 fall2 -- -- -- -- -- --  ra unset
+
+chains:
+  j 1f / j 2f / j 5f:                      ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / j 2f / jal 5f:                    ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / j 2f / jr $t4:                    ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / j 2f / beq $0, $0, 5f:            ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / j 2f / bne $0, $0, 5f:            ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / j 2f / beql $0, $0, 5f:           ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / j 2f / bnel $0, $0, 5f:           ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / j 2f / bgezal $0, 5f:             ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / beq $0, $0, 2f / j 5f:            ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / beq $0, $0, 2f / jal 5f:          ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / beq $0, $0, 2f / jr $t4:          ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / beq $0, $0, 2f / beq $0, $0, 5f:  ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / beq $0, $0, 2f / bne $0, $0, 5f:  ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / beq $0, $0, 2f / beql $0, $0, 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / beq $0, $0, 2f / bnel $0, $0, 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / beq $0, $0, 2f / bgezal $0, 5f:   ----- ----- -- -- B1 B2 -- --  ra unset
+  j 1f / bnel $0, $0, 2f / j 5f:           ----- ----- A1 A2 -- -- -- --  ra unset
+  j 1f / bnel $0, $0, 2f / jal 5f:         ----- ----- A1 A2 -- -- -- --  ra unset
+  j 1f / bnel $0, $0, 2f / jr $t4:         ----- ----- A1 A2 -- -- -- --  ra unset
+  j 1f / bnel $0, $0, 2f / beq $0, $0, 5f: ----- ----- A1 A2 -- -- -- --  ra unset
+  j 1f / bnel $0, $0, 2f / bne $0, $0, 5f: ----- ----- A1 A2 -- -- -- --  ra unset
+  j 1f / bnel $0, $0, 2f / beql $0, $0, 5f: ----- ----- A1 A2 -- -- -- --  ra unset
+  j 1f / bnel $0, $0, 2f / bnel $0, $0, 5f: ----- ----- A1 A2 -- -- -- --  ra unset
+  j 1f / bnel $0, $0, 2f / bgezal $0, 5f:  ----- ----- A1 A2 -- -- -- --  ra unset
+  jal 1f / jal 2f / j 5f:                  ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jal 1f / jal 2f / jal 5f:                ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jal 1f / jal 2f / jr $t4:                ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jal 1f / jal 2f / beq $0, $0, 5f:        ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jal 1f / jal 2f / bne $0, $0, 5f:        ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jal 1f / jal 2f / beql $0, $0, 5f:       ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jal 1f / jal 2f / bnel $0, $0, 5f:       ----- ----- -- -- B1 B2 -- --  ra outer+32
+  jal 1f / jal 2f / bgezal $0, 5f:         ----- ----- -- -- B1 B2 -- --  ra outer+32
+  beq $0, $0, 1f / j 2f / j 5f:            ----- ----- A1 A2 -- -- -- --  ra unset
+  beq $0, $0, 1f / j 2f / jal 5f:          ----- ----- A1 A2 -- -- -- --  ra unset
+  beq $0, $0, 1f / j 2f / jr $t4:          ----- ----- A1 A2 -- -- -- --  ra unset
+  beq $0, $0, 1f / j 2f / beq $0, $0, 5f:  ----- ----- A1 A2 -- -- -- --  ra unset
+  beq $0, $0, 1f / j 2f / bne $0, $0, 5f:  ----- ----- A1 A2 -- -- -- --  ra unset
+  beq $0, $0, 1f / j 2f / beql $0, $0, 5f: ----- ----- A1 A2 -- -- -- --  ra unset
+  beq $0, $0, 1f / j 2f / bnel $0, $0, 5f: ----- ----- A1 A2 -- -- -- --  ra unset
+  beq $0, $0, 1f / j 2f / bgezal $0, 5f:   ----- ----- A1 A2 -- -- -- --  ra unset
+  beq $0, $0, 1f / beq $0, $0, 2f / j 5f:  ----- ----- -- -- B1 B2 -- --  ra unset
+  beq $0, $0, 1f / beq $0, $0, 2f / jal 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  beq $0, $0, 1f / beq $0, $0, 2f / jr $t4: ----- ----- -- -- B1 B2 -- --  ra unset
+  beq $0, $0, 1f / beq $0, $0, 2f / beq $0, $0, 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  beq $0, $0, 1f / beq $0, $0, 2f / bne $0, $0, 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  beq $0, $0, 1f / beq $0, $0, 2f / beql $0, $0, 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  beq $0, $0, 1f / beq $0, $0, 2f / bnel $0, $0, 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  beq $0, $0, 1f / beq $0, $0, 2f / bgezal $0, 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  beql $0, $0, 1f / beql $0, $0, 2f / j 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  beql $0, $0, 1f / beql $0, $0, 2f / jal 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  beql $0, $0, 1f / beql $0, $0, 2f / jr $t4: ----- ----- -- -- B1 B2 -- --  ra unset
+  beql $0, $0, 1f / beql $0, $0, 2f / beq $0, $0, 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  beql $0, $0, 1f / beql $0, $0, 2f / bne $0, $0, 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  beql $0, $0, 1f / beql $0, $0, 2f / beql $0, $0, 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  beql $0, $0, 1f / beql $0, $0, 2f / bnel $0, $0, 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  beql $0, $0, 1f / beql $0, $0, 2f / bgezal $0, 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  bne $0, $0, 1f / j 2f / j 5f:            ----- ----- -- -- -- -- C1 C2  ra unset
+  bne $0, $0, 1f / j 2f / jal 5f:          ----- ----- -- -- -- -- C1 C2  ra outer+48
+  bne $0, $0, 1f / j 2f / jr $t4:          ----- ----- -- -- -- -- C1 C2  ra unset
+  bne $0, $0, 1f / j 2f / beq $0, $0, 5f:  ----- ----- -- -- -- -- C1 C2  ra unset
+  bne $0, $0, 1f / j 2f / bne $0, $0, 5f:  ----- ----- -- -- B1 B2 -- --  ra unset
+  bne $0, $0, 1f / j 2f / beql $0, $0, 5f: ----- ----- -- -- -- -- C1 C2  ra unset
+  bne $0, $0, 1f / j 2f / bnel $0, $0, 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  bne $0, $0, 1f / j 2f / bgezal $0, 5f:   ----- ----- -- -- -- -- C1 C2  ra outer+48
+  bne $0, $0, 1f / beq $0, $0, 2f / j 5f:  ----- ----- -- -- B1 B2 -- --  ra unset
+  bne $0, $0, 1f / beq $0, $0, 2f / jal 5f: ----- ----- -- -- B1 B2 -- --  ra outer+16
+  bne $0, $0, 1f / beq $0, $0, 2f / jr $t4: ----- ----- -- -- B1 B2 -- --  ra unset
+  bne $0, $0, 1f / beq $0, $0, 2f / beq $0, $0, 5f: ----- ----- -- -- -- -- C1 C2  ra unset
+  bne $0, $0, 1f / beq $0, $0, 2f / bne $0, $0, 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  bne $0, $0, 1f / beq $0, $0, 2f / beql $0, $0, 5f: ----- ----- -- -- -- -- C1 C2  ra unset
+  bne $0, $0, 1f / beq $0, $0, 2f / bnel $0, $0, 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  bne $0, $0, 1f / beq $0, $0, 2f / bgezal $0, 5f: ----- ----- -- -- -- -- C1 C2  ra outer+16
+  bnel $0, $0, 1f / j 2f / j 5f:           ----- ----- -- -- -- -- C1 C2  ra unset
+  bnel $0, $0, 1f / j 2f / jal 5f:         ----- ----- -- -- -- -- C1 C2  ra outer+48
+  bnel $0, $0, 1f / j 2f / jr $t4:         ----- ----- -- -- -- -- C1 C2  ra unset
+  bnel $0, $0, 1f / j 2f / beq $0, $0, 5f: ----- ----- -- -- -- -- C1 C2  ra unset
+  bnel $0, $0, 1f / j 2f / bne $0, $0, 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  bnel $0, $0, 1f / j 2f / beql $0, $0, 5f: ----- ----- -- -- -- -- C1 C2  ra unset
+  bnel $0, $0, 1f / j 2f / bnel $0, $0, 5f: ----- ----- -- -- B1 B2 -- --  ra unset
+  bnel $0, $0, 1f / j 2f / bgezal $0, 5f:  ----- ----- -- -- -- -- C1 C2  ra outer+48
+  bnel $0, $0, 1f / beq $0, $0, 2f / j 5f: ----- fall2 -- -- -- -- C1 C2  ra unset
+  bnel $0, $0, 1f / beq $0, $0, 2f / jal 5f: ----- fall2 -- -- -- -- C1 C2  ra outer+16
+  bnel $0, $0, 1f / beq $0, $0, 2f / jr $t4: ----- fall2 -- -- -- -- C1 C2  ra unset
+  bnel $0, $0, 1f / beq $0, $0, 2f / beq $0, $0, 5f: ----- fall2 -- -- -- -- C1 C2  ra unset
+  bnel $0, $0, 1f / beq $0, $0, 2f / bne $0, $0, 5f: ----- fall2 -- -- -- -- -- --  ra unset
+  bnel $0, $0, 1f / beq $0, $0, 2f / beql $0, $0, 5f: ----- fall2 -- -- -- -- C1 C2  ra unset
+  bnel $0, $0, 1f / beq $0, $0, 2f / bnel $0, $0, 5f: ----- ----- -- -- -- -- -- --  ra unset
+  bnel $0, $0, 1f / beq $0, $0, 2f / bgezal $0, 5f: ----- fall2 -- -- -- -- C1 C2  ra outer+16
