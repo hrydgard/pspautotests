@@ -1,0 +1,25 @@
+sceMpegQueryStreamOffset: 00000000
+1 access unit(s), then the last again 4 times:
+  AU 0: 00000000, status 0, auSize nonzero -> 0
+  again #0: 80628002, status -1, auSize 0 -> 0, <0.5ms
+  again #1: 80628002, status -1, auSize 0 -> 0, <0.5ms
+  again #2: 80628002, status -1, auSize 0 -> 0, <0.5ms
+  again #3: 80628002, status -1, auSize 0 -> 0, <0.5ms
+  AU 1: 00000000, status 1, auSize nonzero -> 0
+  AU 2: 00000000, status 1, auSize nonzero -> 0
+  AU 3: 00000000, status 1, auSize nonzero -> 0
+3 access unit(s), then the last again 4 times:
+  AU 0: 00000000, status 0, auSize nonzero -> 0
+  AU 1: 00000000, status 1, auSize nonzero -> 0
+  AU 2: 00000000, status 1, auSize nonzero -> 0
+  again #0: 80628002, status -1, auSize 0 -> 0, <0.5ms
+  again #1: 80628002, status -1, auSize 0 -> 0, <0.5ms
+  again #2: 80628002, status -1, auSize 0 -> 0, <0.5ms
+  again #3: 80628002, status -1, auSize 0 -> 0, <0.5ms
+  AU 3: 00000000, status 1, auSize nonzero -> 0
+  AU 4: 00000000, status 1, auSize nonzero -> 0
+  AU 5: 00000000, status 1, auSize nonzero -> 0
+a fresh access unit with auSize 0:
+  AU 0: 00000000, status 0, auSize nonzero -> 0
+  AU 1, size 0: 80628002, status -1, auSize 0 -> 0, <0.5ms
+  again #0: 80628002, status -1, auSize 0 -> 0, <0.5ms
