@@ -1,0 +1,35 @@
+[x] Make the save
+[r]   MAKEDATA: 00000000
+[r]   LIST: 00000000, 1 entries, mode=000011ff name=ABC
+[x]     ctime: year ok=1, microsecond zero=1
+[x]     atime: year ok=1, microsecond zero=1
+[x]     mtime: year ok=1, microsecond zero=1
+[x]     atime is a date only: 1, mtime second even: 1
+
+[x] LIST again
+[r]   LIST: 00000000, 1 entries, mode=000011ff name=ABC
+[x]     same entry: 1 (ctime same: 1, atime same: 1, mtime same: 1)
+
+[x] READDATA, then LIST
+[r]   READDATA: 00000000
+[r]   LIST: 00000000, 1 entries, mode=000011ff name=ABC
+[x]     same entry: 1 (ctime same: 1, atime same: 1, mtime same: 1)
+
+[x] sceIoRead PARAM.SFO, then LIST
+[r]   sceIoGetstat PARAM.SFO: 00000000
+[r]   sceIoRead: 64
+[r]   sceIoGetstat PARAM.SFO: 00000000
+[x]     stat atime same: 1, ctime same: 1, mtime same: 1
+[x]     LIST mtime==SFO mtime: 1, LIST atime==SFO atime: 1
+[x]     SFO atime is a date only: 1
+[r]   LIST: 00000000, 1 entries, mode=000011ff name=ABC
+[x]     same entry: 1 (ctime same: 1, atime same: 1, mtime same: 1)
+
+[x] WRITEDATA, then LIST
+[r]   WRITEDATA: 00000000
+[r]   LIST: 00000000, 1 entries, mode=000011ff name=ABC
+[x]     ctime same: 1, atime same: 1
+[x]     ctime: year ok=1, microsecond zero=1
+[x]     atime: year ok=1, microsecond zero=1
+[x]     mtime: year ok=1, microsecond zero=1
+[x]     atime is a date only: 1, mtime second even: 1
