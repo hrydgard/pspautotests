@@ -1,0 +1,33 @@
+Releasing another thread from a callback:
+  * main callback: 00000001
+  * other: delay returned 800201aa
+  main callback: release other: 00000000
+  main callback returning
+  check callbacks: 1
+
+Releasing the thread the callback runs on:
+  * main callback: 00000002
+  main callback: release self: 80020197
+  main callback returning
+  check callbacks: 1
+
+From its own callback, on a thread in sceKernelSleepThreadCB:
+  * sleeper callback: 00000001
+  sleeper callback: release self: 80020197
+  sleeper callback returning
+  main: notified
+  * sleeper: sleep returned 00000000
+  sleeper done
+
+A thread whose callback is waiting:
+  * sleeper callback: 00000002
+  sleeper callback: delay returned 800201aa
+  sleeper callback returning
+  main: release sleeper: 00000000
+  * sleeper: sleep returned 00000000
+  sleeper done
+
+A thread in sceKernelSleepThreadCB, no callback:
+  * sleeper: sleep returned 800201aa
+  main: release sleeper: 00000000
+  sleeper done
