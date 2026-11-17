@@ -1,0 +1,36 @@
+ms0: 0x02415830
+To another directory: 00000000
+  ms0:/PSP/__FATDEV/f.txt: missing
+  ms0:/PSP/__FATDEV/sub/g.txt: file
+Onto an existing file: 80010011
+  ms0:/PSP/__FATDEV/sub/g.txt: file
+Missing source: 80010002
+A directory: 00000000
+  ms0:/PSP/__FATDEV/sub: missing
+  ms0:/PSP/__FATDEV/sub2/g.txt: file
+No leading slash: 00000000
+  ms0:/PSP/__FATDEV/e.txt: missing
+  ms0:/PSP/__FATDEV/r.txt: file
+Same name: 80010011
+With the device name: 80010016
+  ms0:/PSP/__FATDEV/r.txt: file
+  ms0:/PSP/__FATDEV/q.txt: missing
+4 bytes: 80010016
+NULL argument: 80010016
+NULL old name: 80010016
+NULL new name: 80010016
+fatms0: 00000000
+  ms0:/PSP/__FATDEV/fat.txt: missing
+  ms0:/PSP/__FATDEV/sub2/q.txt: file
+sceIoRename into sub2: 00000000
+  ms0:/PSP/__FATDEV/q.txt: missing
+  ms0:/PSP/__FATDEV/e.txt: file
+  ms0:/PSP/__FATDEV/sub2/e.txt: file
+
+mscmhc0: 0x0201580B
+Empty mask: 00000000
+16 bytes: 80220081
+NULL: 80220081
+
+fatms0: 0x0240D81E
+Invalidate: 800200d1
