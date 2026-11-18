@@ -18,6 +18,11 @@ HOSTFS = "usbhostfs_pc"
 MAKE = "make"
 TEST_ROOT = "tests/"
 PORT = 3000
+# The directory each bridge serves as host0:, by port. The second PSP's bridge serves tests/, so the
+# two consoles' output files don't collide (tests/net/adhoc/pair/record.py and PPSSPP's
+# Tools/psplink_wsl.sh use the same layout).
+HOST0_DIRS = {4000: TEST_ROOT}
+HOST0 = ""
 OUTFILE = "__testoutput.txt"
 OUTFILE2 = "__testerror.txt"
 FINISHFILE = "__testfinish.txt"
@@ -194,7 +199,7 @@ def hostfs_is_ready():
     return False
 
 def start_hostfs():
-  hostfs_command = Command([HOSTFS, "-b", str(PORT)])
+  hostfs_command = Command([HOSTFS, "-b", str(PORT)] + ([HOST0] if HOST0 else []))
   hostfs_command.start(capture=False)
 
 def stop_hostfs():
@@ -260,7 +265,7 @@ def gen_test(test, args):
       return False
 
   # Okay, time to run the command.
-  c = Command([PSPSH, "-p", str(PORT), "-e", prx_path + " " + " ".join(args)])
+  c = Command([PSPSH, "-p", str(PORT), "-e", prx_path[len(HOST0):] + " " + " ".join(args)])
   c.run(TIMEOUT)
   if not re.match(r"^Load/Start [^ ]+ UID: 0x[0-9A-F]+ Name: TESTMODULE\s*$", c.output.decode('utf-8')):
     print(c.output)
@@ -341,6 +346,13 @@ def main():
       args.append(arg)
     else:
       tests.append(arg.replace("\\", "/"))
+
+  global HOST0, OUTFILE, OUTFILE2, FINISHFILE, SHOTFILE
+  HOST0 = HOST0_DIRS.get(PORT, "")
+  OUTFILE = HOST0 + OUTFILE
+  OUTFILE2 = HOST0 + OUTFILE2
+  FINISHFILE = HOST0 + FINISHFILE
+  SHOTFILE = HOST0 + SHOTFILE
 
   if not tests:
     tests = tests_to_generate
