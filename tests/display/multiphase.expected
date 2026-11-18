@@ -1,0 +1,26 @@
+sceDisplayWaitVblankStartMulti:
+  0.3 frames: n=2, called at +0, 00000000 at +2
+  1.3 frames: n=1, called at +1, 00000000 at +2
+  1.3 frames: n=2, called at +1, 00000000 at +2
+  1.3 frames: n=3, called at +1, 00000000 at +3
+  2.3 frames: n=2, called at +2, 00000000 at +3
+  2.3 frames: n=3, called at +2, 00000000 at +3
+  Just before a vblank: n=2, called at +0, 00000000 at +2
+  Just before a vblank: n=3, called at +0, 00000000 at +3
+  10.3 frames: n=3, called at +10, 00000000 at +11
+sceDisplayWaitVblankStartMultiCB:
+  0.3 frames: n=2, called at +0, 00000000 at +2
+  1.3 frames: n=1, called at +1, 00000000 at +2
+  1.3 frames: n=2, called at +1, 00000000 at +2
+  1.3 frames: n=3, called at +1, 00000000 at +3
+  2.3 frames: n=2, called at +2, 00000000 at +3
+  2.3 frames: n=3, called at +2, 00000000 at +3
+  Just before a vblank: n=2, called at +0, 00000000 at +2
+  Just before a vblank: n=3, called at +0, 00000000 at +3
+  10.3 frames: n=3, called at +10, 00000000 at +11
+After sceDisplayWaitVblank:
+  Waited: 00000000, Multi(3) called at +1, 00000000 at +3
+  In vblank=1 at +2: 00000001, Multi(3) called at +3, 00000000 at +5
+On a new thread:
+  First wait: Multi(3) from +0, 00000000 at +1
+  Second wait: Multi(3) called at +1, 00000000 at +3

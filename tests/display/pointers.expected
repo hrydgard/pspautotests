@@ -1,0 +1,48 @@
+sceDisplayGetFrameBuf:
+  Normal: 00000000, top=04000000 stride=00000200 fmt=00000003
+  NULL top: 80000103, top=untouched stride=untouched fmt=untouched
+  NULL stride and format: 00000000, top=04000000 stride=untouched fmt=untouched
+  Kernel top: 80000023, top=untouched stride=untouched fmt=untouched
+  Kernel stride: 80000023, top=untouched stride=untouched fmt=untouched
+  Kernel format: 80000023, top=untouched stride=untouched fmt=untouched
+  Uncached: 00000000, top=04000000 stride=00000200 fmt=00000003
+sceDisplayGetMode:
+  Normal: 00000000, mode=00000000 width=000001e0 height=00000110
+  NULL: 00000000, mode=untouched width=untouched height=untouched
+  Kernel mode: 80000023, mode=untouched width=untouched height=untouched
+  Kernel height: 80000023, mode=untouched width=untouched height=untouched
+  Uncached: 00000000, mode=00000000 width=000001e0 height=00000110
+sceDisplayGetBrightness:
+  Normal: 00000000, level written, unk=00000000
+  Kernel level: 80000023, level untouched, unk=untouched
+  Kernel unk: 80000023, level untouched, unk=untouched
+sceDisplayGetResumeMode:
+  Normal: 00000000, mode=00000000
+  Kernel: 80000023, mode=untouched
+sceDisplaySetFrameBuf addresses:
+  04000000: 00000000
+  44000000: 00000000
+  84000000: 00000000
+  a4000000: 00000000
+  c4000000: 80000103
+  24000000: 80000103
+  14000000: 80000103
+  047ffff0: 00000000
+  04800000: 80000103
+  04600000: 00000000
+  05000000: 80000103
+  08000000: 00000000
+  48800000: 00000000
+  88800000: 00000000
+  a8800000: 00000000
+  c8800000: 80000103
+  28800000: 80000103
+  18800000: 80000103
+  09fffff0: 00000000
+  0a000000: 00000000
+  0bfffff0: 00000000
+  0c000000: 00000000
+  0e000000: 00000000
+  0ffffff0: 00000000
+  10000000: 80000103
+Latched after: top=04000000

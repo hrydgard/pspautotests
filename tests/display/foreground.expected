@@ -1,0 +1,6 @@
+Start: foreground=1
+Off, immediate: 00000000, foreground now=1, after vblank=0, after another=0
+On, immediate: 00000000, foreground now=0, after vblank=1, after another=1
+Off, next frame: 00000000, foreground now=1, after vblank=0, after another=0
+On, next frame: 00000000, foreground now=0, after vblank=1, after another=1
+Off and on in one frame: foreground 1, 1, after vblank=1

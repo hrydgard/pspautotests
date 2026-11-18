@@ -1,0 +1,40 @@
+sceDisplayGetVblankRest:
+  Early in vblank: 1-14, later: 1-14, fewer later: 1
+  Mid frame: -1
+  Agrees with IsVblank: yes, lowest: -1
+Alarm mid frame:
+  IsVblank: 0, GetVblankRest: -1
+  WaitVblank: 80020064, WaitVblankCB: 80020064
+  WaitVblankStart: 80020064, WaitVblankStartCB: 80020064
+  Multi(2): 80020064, Multi(0): 800001fe
+  IsVblank after: 0
+Alarm in vblank:
+  IsVblank: 1, GetVblankRest: 1-14
+  WaitVblank: 00000001, WaitVblankCB: 00000001
+  WaitVblankStart: 80020064, WaitVblankStartCB: 80020064
+  Multi(2): 80020064, Multi(0): 800001fe
+  IsVblank after: 1
+Dispatch disabled mid frame:
+  IsVblank: 0, GetVblankRest: -1
+  WaitVblank: 800201a7, WaitVblankCB: 800201a7
+  WaitVblankStart: 800201a7, WaitVblankStartCB: 800201a7
+  Multi(2): 800201a7, Multi(0): 800001fe
+  IsVblank after: 0
+Dispatch disabled in vblank:
+  IsVblank: 1, GetVblankRest: 1-14
+  WaitVblank: 00000001, WaitVblankCB: 00000001
+  WaitVblankStart: 800201a7, WaitVblankStartCB: 800201a7
+  Multi(2): 800201a7, Multi(0): 800001fe
+  IsVblank after: 1
+Interrupts disabled mid frame:
+  IsVblank: 0, GetVblankRest: -1
+  WaitVblank: 800201a7, WaitVblankCB: 800201a7
+  WaitVblankStart: 800201a7, WaitVblankStartCB: 800201a7
+  Multi(2): 800201a7, Multi(0): 800001fe
+  IsVblank after: 0
+Interrupts disabled in vblank:
+  IsVblank: 1, GetVblankRest: 1-14
+  WaitVblank: 00000001, WaitVblankCB: 00000001
+  WaitVblankStart: 800201a7, WaitVblankStartCB: 800201a7
+  Multi(2): 800201a7, Multi(0): 800001fe
+  IsVblank after: 1
