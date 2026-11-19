@@ -1,3 +1,4 @@
+Poll before sceNetAdhocInit: 80410712, revents cccc
 sceNetAdhocInit: 00000000
 sceNetAdhocctlInit: 00000000
 sceWlanGetEtherAddr: 00000000, switch 1
@@ -50,6 +51,12 @@ Waking a blocked receive:
   PdpDelete: 00000000
   Delete: done before 0, after 1, result 80410707
   Poll deleted socket: 80410701, revents 0100
+
+Waking a blocked poll:
+  Data arrives, timeout 1s: 00000001, revents 0002, after 100 ms
+  Data arrives, timeout 0: 00000001, revents 0002, after 100 ms
+  Poll alert set, timeout 1s: 80410717, revents 0400, after 100 ms
+  Poll after clearing the alert: 00000000, revents 0000
 
 Poll, PTP:
   Listener, nothing waiting: 00000001, revents 0011

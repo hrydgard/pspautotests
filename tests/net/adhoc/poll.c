@@ -80,10 +80,51 @@ static void deleteSocket(int id) {
 	printf("  PdpDelete: %08x\n", sceNetAdhocPdpDelete(id, 0));
 }
 
+static volatile int actionTarget;
+
+static int sendThread(SceSize argc, void *argv) {
+	sceKernelDelayThread(100000);
+	sceNetAdhocPdpSend(*(int *)argv, &localMac, PORT, "data", 4, 0, 1);
+	return 0;
+}
+
+static int alertThread(SceSize argc, void *argv) {
+	sceKernelDelayThread(100000);
+	sceNetAdhocSetSocketAlert(*(int *)argv, 0x40);
+	return 0;
+}
+
+// Blocks in PollSocket on pdpA for RECV while a thread does something to fromId after 100ms, and
+// reports how long the poll took, rounded to 50ms.
+static void testBlockingPoll(const char *title, SceKernelThreadEntry entry, int fromId, u32 timeout) {
+	int id = fromId;
+	SceUID thread = sceKernelCreateThread("action", entry, 0x18, 0x4000, 0, NULL);
+	sceKernelStartThread(thread, sizeof(id), &id);
+	AdhocPollSd sd = { pdpA, EV_RECV, 0xCCCC };
+	u32 start = sceKernelGetSystemTimeLow();
+	int result = sceNetAdhocPollSocket(&sd, 1, timeout, 0);
+	u32 elapsed = sceKernelGetSystemTimeLow() - start;
+	printf("%s: %08x, revents %04x, after %d ms\n", title, result, sd.revents, (int)((elapsed + 25000) / 50000) * 50);
+	sceKernelWaitThreadEnd(thread, NULL);
+	sceKernelDeleteThread(thread);
+}
+
+static void drainA() {
+	u8 buf[64];
+	int len = sizeof(buf);
+	AdhocMac mac;
+	u16 port;
+	while (sceNetAdhocPdpRecv(pdpA, &mac, &port, buf, &len, 0, 1) == 0) {
+		len = sizeof(buf);
+	}
+}
+
 int main(int argc, char *argv[]) {
 	if (!adhocStartup()) {
 		return 1;
 	}
+	AdhocPollSd early = { 1, EV_RECV, 0xCCCC };
+	testPoll("Poll before sceNetAdhocInit", &early, 1, 0, 1);
 	printf("sceNetAdhocInit: %08x\n", sceNetAdhocInit());
 	if (!adhocctlStartup() || !adhocctlCreateGroup("POLLTEST")) {
 		adhocShutdown();
@@ -164,6 +205,18 @@ int main(int argc, char *argv[]) {
 	sceNetAdhocSetSocketAlert(pdpB, 0);
 	testWake("  Delete", pdpB, deleteSocket);
 	pollOne("  Poll deleted socket", pdpB, EV_RECV);
+
+	printf("\nWaking a blocked poll:\n");
+	int pdpC = sceNetAdhocPdpCreate(&localMac, PORT + 6, 0x2000, 0);
+	drainA();
+	testBlockingPoll("  Data arrives, timeout 1s", sendThread, pdpC, 1000000);
+	drainA();
+	testBlockingPoll("  Data arrives, timeout 0", sendThread, pdpC, 0);
+	drainA();
+	testBlockingPoll("  Poll alert set, timeout 1s", alertThread, pdpA, 1000000);
+	sceNetAdhocSetSocketAlert(pdpA, 0);
+	pollOne("  Poll after clearing the alert", pdpA, EV_RECV);
+	sceNetAdhocPdpDelete(pdpC, 0);
 
 	printf("\nPoll, PTP:\n");
 	int listener = sceNetAdhocPtpListen(&localMac, PORT + 2, 4096, 200000, 5, 1, 0);
