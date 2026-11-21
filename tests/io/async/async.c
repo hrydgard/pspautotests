@@ -415,9 +415,10 @@ static void closeTests() {
 	fd = openFast(TESTFILE);
 	startRead(fd, FILESIZE);
 	out("  Close: %08x", sceIoClose(fd));
-	checkData();
 	doPoll("Poll", fd);
 	doWait("Wait", fd);
+	// Not before: PPSSPP reads on a host thread, so a half-done read is timing dependent.
+	checkData();
 	out("  Close again: %08x", sceIoClose(fd));
 	finish(fd);
 

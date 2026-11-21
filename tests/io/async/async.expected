@@ -170,9 +170,9 @@ Close while queued, WaitCB waiter:
 Close while in progress:
   ReadAsync: 00000000
   Close: 00000000
-  Data read: yes
   Poll: 80020323
   Wait: 80020323
+  Data read: yes
   Close again: 80020323
 
 Close while in progress, waiter:
@@ -289,9 +289,9 @@ Close while queued, WaitCB waiter:
 Close while in progress:
   ReadAsync: 00000000
   Close: 80020329
-  Data read: no
   Poll: 00000001
   Wait: 00000000, res=0000000000010000
+  Data read: yes
   Close again: 00000000
 
 Close while in progress, waiter:
