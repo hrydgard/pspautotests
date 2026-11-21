@@ -94,6 +94,11 @@ int main(int argc, char **argv) {
 	section("Seeking:");
 	fd = sceIoOpen("testfile", PSP_O_RDONLY, 0777);
 	doRead(fd, 128);
+	doSeek(fd, 0, PSP_SEEK_SET);
+	schedf("  Read NULL: %08x\n", sceIoRead(fd, NULL, 16));
+	schedf("  Read NULL, 0 bytes: %08x\n", sceIoRead(fd, NULL, 0));
+	schedf("  Read negative size: %08x\n", sceIoRead(fd, readBuf, -1));
+	doSeek(fd, 0, PSP_SEEK_CUR);
 	doSeek(fd, -10, PSP_SEEK_END);
 	doRead(fd, 128);
 	doSeek(fd, -10, PSP_SEEK_CUR);
@@ -162,6 +167,7 @@ int main(int argc, char **argv) {
 	schedf("  Again: %08x\n", sceIoRemove("other"));
 	schedf("  A directory: %08x\n", sceIoRemove("sub"));
 	schedf("  Missing parent: %08x\n", sceIoRemove("nodir/file"));
+	schedf("  Bad device: %08x\n", sceIoRemove("nodev0:/file"));
 	fd = sceIoOpen("testfile2", PSP_O_RDONLY, 0777);
 	schedf("  An open file: %08x\n", sceIoRemove("testfile2"));
 	printStat("testfile2");

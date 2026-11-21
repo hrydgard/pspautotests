@@ -22,6 +22,11 @@ Write only:
 
 Seeking:
   Read 128: 36 = ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
+  Lseek 0, 0: 0000000000000000
+  Read NULL: 80010016
+  Read NULL, 0 bytes: 80010016
+  Read negative size: 800200d3
+  Lseek 0, 1: 0000000000000000
   Lseek -10, 2: 000000000000001a
   Read 128: 10 = 0123456789
   Lseek -10, 1: 000000000000001a
@@ -87,6 +92,7 @@ Remove:
   Again: 80010002
   A directory: 8001000d
   Missing parent: 80010002
+  Bad device: 80020321
   An open file: 8001000d
   Getstat testfile2: attr=0020 mode=21ff size=74
   Read 4: 4 = ABCD
