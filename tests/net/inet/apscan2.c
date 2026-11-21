@@ -147,10 +147,19 @@ static void entryCodes(int count, int (*entry)(int, int, void *)) {
 	u32 first;
 	memcpy(&first, ids + 4, 4);
 	for (int code = 0; code <= 6; ++code) {
+		// Twice with different fills, since a written byte (like a random BSSID's) can equal the fill.
 		u8 info[64];
 		memset(info, 0xCC, sizeof(info));
 		int r = entry(first, code, info);
-		printf("  Code %d: %08x, writes %d bytes\n", code, r, written(info, sizeof(info)));
+		int n = written(info, sizeof(info));
+		memset(info, 0x33, sizeof(info));
+		entry(first, code, info);
+		for (int i = 0; i < (int)sizeof(info); ++i) {
+			if (info[i] != 0x33 && i + 1 > n) {
+				n = i + 1;
+			}
+		}
+		printf("  Code %d: %08x, writes %d bytes\n", code, r, n);
 	}
 	static const int others[] = { 0, -1, 19, 20 };
 	u8 info[64];
