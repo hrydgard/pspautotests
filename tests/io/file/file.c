@@ -1,255 +1,185 @@
 #include <common.h>
 
-#include <pspkernel.h>
-#include <pspctrl.h>
-#include <pspdebug.h>
-#include <pspdisplay.h>
-#include <psptypes.h>
 #include <pspiofilemgr.h>
-
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <sys/types.h>
-#include <sys/unistd.h>
-#include <sys/stat.h>
-#include <dirent.h>
 
-const char* fileText = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+// Basic file calls on ms0:, in a directory of the test's own, and what they return when they fail.
 
-void dumpFileStat(SceIoStat d_stat, int dump_date)
-{
-	printf(
-			"attr : %d\n",
-			d_stat.st_attr
-		);
-	printf(
-			"mode : %d\n",
-			d_stat.st_mode
-		);
-	if(dump_date == 1)
-	{
-		printf(
-			"creation date : %d-%d-%d-%d-%d-%d-%d\n",
-			d_stat.sce_st_ctime.year,
-			d_stat.sce_st_ctime.month,
-			d_stat.sce_st_ctime.day,
-			d_stat.sce_st_ctime.hour,
-			d_stat.sce_st_ctime.minute,
-			d_stat.sce_st_ctime.second,
-			d_stat.sce_st_ctime.microsecond
-		);
-		// Don't dump acces, it change every time and fail test
-		/*
-		printf(
-			"acces date : %d-%d-%d-%d-%d-%d-%d\n",
-			d_stat.sce_st_atime.year,
-			d_stat.sce_st_atime.month,
-			d_stat.sce_st_atime.day,
-			d_stat.sce_st_atime.hour,
-			d_stat.sce_st_atime.minute,
-			d_stat.sce_st_atime.second,
-			d_stat.sce_st_atime.microsecond
-		);
-		*/
-		printf(
-			"modif date : %d-%d-%d-%d-%d-%d-%d\n",
-			d_stat.sce_st_mtime.year,
-			d_stat.sce_st_mtime.month,
-			d_stat.sce_st_mtime.day,
-			d_stat.sce_st_mtime.hour,
-			d_stat.sce_st_mtime.minute,
-			d_stat.sce_st_mtime.second,
-			d_stat.sce_st_mtime.microsecond
-		);
+#define WORKDIR "ms0:/__filetest"
+
+static const char *fileText = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+static char readBuf[128];
+
+static void section(const char *title) {
+	schedf("\n%s\n", title);
+}
+
+static void doRead(SceUID fd, int size) {
+	int ret;
+	memset(readBuf, 0, sizeof(readBuf));
+	ret = sceIoRead(fd, readBuf, size);
+	if (ret > 0) {
+		schedf("  Read %d: %d = %s\n", size, ret, readBuf);
+	} else {
+		schedf("  Read %d: %08x\n", size, ret);
 	}
 }
 
-int main(int argc, char** argv) {
+static void doSeek(SceUID fd, SceOff offset, int whence) {
+	SceOff ret = sceIoLseek(fd, offset, whence);
+	schedf("  Lseek %lld, %d: %08x%08x\n", offset, whence, (unsigned)(ret >> 32), (unsigned)ret);
+}
 
-	char readBuf[128];
+static void doSeek32(SceUID fd, int offset, int whence) {
+	schedf("  Lseek32 %d, %d: %08x\n", offset, whence, sceIoLseek32(fd, offset, whence));
+}
 
-	sceIoMkdir("workdir", 0777);
-
-	SceUID fd = sceIoOpen("workdir", PSP_O_RDONLY, 0777);
-	printf("0x%08x = sceIoOpen(\"workdir\", PSP_O_RDONLY)\n",fd);
-
-	sceIoChdir("workdir");
-	
-	//sceIoGetstat+
-	//sceIoClose+
-	//sceIoLseek+
-	//sceIoLseek32+
-	//sceIoOpen+
-	//sceIoRemove
-	//sceIoRename
-	//sceIoRmdir
-	//sceIoMkdir
-	//sceIoWrite+
-	//sceIoRead+
-	
-	SceIoStat stat;
-	
-	int ret = sceIoGetstat("nofile",&stat);
-	printf("0x%08x = sceIoGetstat(\"nofile\")\n",ret);
-	
-	fd = sceIoOpen("nofile", PSP_O_RDONLY, 0777);
-	printf("0x%08x = sceIoOpen(\"nofile\", PSP_O_RDONLY)\n",fd);
-	
-	ret = sceIoClose(9999);
-	printf("0x%08x = sceIoClose(9999)\n",ret);
-	
-	ret = sceIoGetstat("../file.c",&stat);
-	dumpFileStat(stat,1);
-	
-	fd = sceIoOpen("testfile", PSP_O_WRONLY|PSP_O_CREAT, 0777);
-	if(fd > 0)
-	{
-		printf("sceIoOpen(\"testfile\", PSP_O_WRONLY|PSP_O_CREAT)\n");
-		
-		int write_num = sceIoWrite(fd,fileText,strlen(fileText));
-		printf("%d = sceIoWrite(%d)\n", write_num, strlen(fileText));
-		
-		ret = sceIoGetstat("testfile",&stat);
-		dumpFileStat(stat,0);
-		
-		memset(readBuf,0,128);
-		int read_num = sceIoRead(fd,&readBuf, 128);
-		printf("0x%08x = sceIoRead(128)\n", read_num);
-		
-		ret = sceIoClose(fd);
-		printf("%d = sceIoClose()\n",ret);
+static void printStat(const char *name) {
+	SceIoStat st;
+	int ret;
+	memset(&st, 0, sizeof(st));
+	ret = sceIoGetstat(name, &st);
+	if (ret < 0) {
+		schedf("  Getstat %s: %08x\n", name, ret);
+	} else {
+		schedf("  Getstat %s: attr=%04x mode=%04x size=%lld\n", name, st.st_attr, st.st_mode, st.st_size);
 	}
-	else
-	{
-		printf("0x%08x = sceIoOpen(\"testfile\", PSP_O_WRONLY|PSP_O_CREAT)\n",fd);
+}
+
+static void writeFile(const char *name) {
+	SceUID fd = sceIoOpen(name, PSP_O_WRONLY | PSP_O_CREAT | PSP_O_TRUNC, 0777);
+	sceIoWrite(fd, fileText, strlen(fileText));
+	sceIoClose(fd);
+}
+
+static void cleanup() {
+	sceIoRemove(WORKDIR "/testfile");
+	sceIoRemove(WORKDIR "/testfile2");
+	sceIoRemove(WORKDIR "/other");
+	sceIoRemove(WORKDIR "/sub/inner");
+	sceIoRmdir(WORKDIR "/sub");
+	sceIoRmdir(WORKDIR);
+}
+
+int main(int argc, char **argv) {
+	SceUID fd;
+
+	cleanup();
+	schedf("Mkdir: %08x\n", sceIoMkdir(WORKDIR, 0777));
+	schedf("Chdir: %08x\n", sceIoChdir(WORKDIR));
+
+	section("Missing files:");
+	printStat("nofile");
+	schedf("  Open: %08x\n", sceIoOpen("nofile", PSP_O_RDONLY, 0777));
+	schedf("  Close 9999: %08x\n", sceIoClose(9999));
+	schedf("  Open a directory: %s\n", (fd = sceIoOpen(".", PSP_O_RDONLY, 0777)) >= 0 ? "fd" : "error");
+	if (fd >= 0) {
+		sceIoClose(fd);
 	}
-	
+
+	section("Write only:");
+	fd = sceIoOpen("testfile", PSP_O_WRONLY | PSP_O_CREAT, 0777);
+	schedf("  Open: %s\n", fd >= 0 ? "fd" : "error");
+	schedf("  Write: %d\n", sceIoWrite(fd, fileText, strlen(fileText)));
+	printStat("testfile");
+	doRead(fd, 128);
+	schedf("  Write 0 bytes: %08x\n", sceIoWrite(fd, fileText, 0));
+	schedf("  Write NULL, 0 bytes: %08x\n", sceIoWrite(fd, NULL, 0));
+	schedf("  Write NULL: %08x\n", sceIoWrite(fd, NULL, 16));
+	schedf("  Write from kernel memory: %08x\n", sceIoWrite(fd, (void *)0x88000000, 16));
+	schedf("  Write negative size: %08x\n", sceIoWrite(fd, fileText, -1));
+	printStat("testfile");
+	schedf("  Close: %08x\n", sceIoClose(fd));
+
+	section("Seeking:");
 	fd = sceIoOpen("testfile", PSP_O_RDONLY, 0777);
-	if(fd > 0)
-	{
-		printf("sceIoOpen(\"testfile\", PSP_O_RDONLY)\n");
-		
-		memset(readBuf,0,128);
-		int read_num = sceIoRead(fd,&readBuf, 128);
-		printf("%d = sceIoRead(128) = %s\n", read_num, readBuf);
-		
-		ret = sceIoLseek(fd,-10, SEEK_END);
-		printf("%d = sceIoLseek(fd,-10, SEEK_END)\n", ret);
-		
-		memset(readBuf,0,128);
-		read_num = sceIoRead(fd,&readBuf, 128);
-		printf("%d = sceIoRead(128) = %s\n", read_num, readBuf);
-		
-		ret = sceIoLseek(fd,-10, SEEK_CUR);
-		printf("%d = sceIoLseek(fd,-10, SEEK_CUR)\n", ret);
-		
-		memset(readBuf,0,128);
-		read_num = sceIoRead(fd,&readBuf, 5);
-		printf("%d = sceIoRead(5) = %s\n", read_num, readBuf);
-		
-		ret = sceIoLseek(fd,-10, SEEK_CUR);
-		printf("%d = sceIoLseek(fd,-10, SEEK_CUR)\n", ret);
-		
-		memset(readBuf,0,128);
-		read_num = sceIoRead(fd,&readBuf, 128);
-		printf("%d = sceIoRead(128) = %s\n", read_num, readBuf);
-		
-		ret = sceIoLseek(fd,-10, SEEK_SET);
-		printf("%d = sceIoLseek(fd,-10, SEEK_SET)\n", ret);
+	doRead(fd, 128);
+	doSeek(fd, -10, PSP_SEEK_END);
+	doRead(fd, 128);
+	doSeek(fd, -10, PSP_SEEK_CUR);
+	doRead(fd, 5);
+	doSeek(fd, -10, PSP_SEEK_CUR);
+	doRead(fd, 128);
+	doSeek(fd, -10, PSP_SEEK_SET);
+	doSeek(fd, 200, PSP_SEEK_SET);
+	doRead(fd, 128);
+	doSeek(fd, -10, PSP_SEEK_CUR);
+	doRead(fd, 128);
+	doSeek(fd, 0, PSP_SEEK_END);
+	doSeek(fd, -100, PSP_SEEK_END);
+	doSeek(fd, -100, PSP_SEEK_CUR);
+	doSeek(fd, 0, 3);
+	doSeek(fd, 0, -1);
+	doSeek(fd, 0x100000000LL, PSP_SEEK_SET);
+	doSeek(fd, 0, PSP_SEEK_CUR);
+	doSeek(fd, 0x7FFFFFFFLL, PSP_SEEK_SET);
+	doSeek(fd, 0x80000000LL, PSP_SEEK_SET);
+	doSeek(fd, 0, PSP_SEEK_SET);
+	doSeek32(fd, -10, PSP_SEEK_END);
+	doRead(fd, 128);
+	doSeek32(fd, -10, PSP_SEEK_CUR);
+	doRead(fd, 5);
+	doSeek32(fd, -10, PSP_SEEK_SET);
+	doSeek32(fd, 0, 3);
+	doSeek32(fd, 0x7FFFFFFF, PSP_SEEK_SET);
+	doSeek32(fd, 0, PSP_SEEK_SET);
+	schedf("  Write: %08x\n", sceIoWrite(fd, fileText, strlen(fileText)));
+	schedf("  Close: %08x\n", sceIoClose(fd));
+	doSeek(fd, 0, PSP_SEEK_SET);
 
-		ret = sceIoLseek(fd,200, SEEK_SET);
-		printf("%d = sceIoLseek(fd,200, SEEK_SET)\n", ret);
+	section("Append:");
+	fd = sceIoOpen("testfile", PSP_O_RDWR | PSP_O_APPEND, 0777);
+	schedf("  Write: %d\n", sceIoWrite(fd, fileText, strlen(fileText)));
+	doSeek32(fd, 0, PSP_SEEK_SET);
+	schedf("  Write after seek: %d\n", sceIoWrite(fd, "ab", 2));
+	doSeek32(fd, 0, PSP_SEEK_CUR);
+	doSeek32(fd, 0, PSP_SEEK_SET);
+	doRead(fd, 128);
+	schedf("  Close: %08x\n", sceIoClose(fd));
 
-		memset(readBuf,0,128);
-		read_num = sceIoRead(fd,&readBuf, 128);
-		printf("%d = sceIoRead(128) = %s\n", read_num, readBuf);
+	section("Rename:");
+	schedf("  Rename: %08x\n", sceIoRename("testfile", "testfile2"));
+	printStat("testfile");
+	printStat("testfile2");
+	schedf("  Missing file: %08x\n", sceIoRename("nofile", "nofile2"));
+	writeFile("other");
+	schedf("  Onto a file: %08x\n", sceIoRename("other", "testfile2"));
+	schedf("  Into a missing dir: %08x\n", sceIoRename("other", "nodir/other"));
+	schedf("  Onto itself: %08x\n", sceIoRename("other", "other"));
 
-		ret = sceIoLseek(fd,-10, SEEK_CUR);
-		printf("%d = sceIoLseek(fd,-10, SEEK_CUR)\n", ret);
+	section("Mkdir:");
+	schedf("  New: %08x\n", sceIoMkdir("sub", 0777));
+	schedf("  Existing dir: %08x\n", sceIoMkdir("sub", 0777));
+	schedf("  Existing file: %08x\n", sceIoMkdir("other", 0777));
+	schedf("  Missing parent: %08x\n", sceIoMkdir("nodir/sub", 0777));
+	schedf("  Root: %08x\n", sceIoMkdir("ms0:/", 0777));
+	schedf("  Bad device: %08x\n", sceIoMkdir("nodev0:/sub", 0777));
+	printStat("sub");
 
-		memset(readBuf,0,128);
-		read_num = sceIoRead(fd,&readBuf, 128);
-		printf("%d = sceIoRead(128) = %s\n", read_num, readBuf);
-		
-		ret = sceIoLseek(fd,0, SEEK_END);
-		printf("%d = sceIoLseek(fd,0, SEEK_END)\n", ret);
-		
-		
-		ret = sceIoLseek32(fd,-10, SEEK_END);
-		printf("%d = sceIoLseek32(fd,-10, SEEK_END)\n", ret);
-		
-		memset(readBuf,0,128);
-		read_num = sceIoRead(fd,&readBuf, 128);
-		printf("%d = sceIoRead(128) = %s\n", read_num, readBuf);
-		
-		ret = sceIoLseek32(fd,-10, SEEK_CUR);
-		printf("%d = sceIoLseek32(fd,-10, SEEK_CUR)\n", ret);
-		
-		memset(readBuf,0,128);
-		read_num = sceIoRead(fd,&readBuf, 5);
-		printf("%d = sceIoRead(5) = %s\n", read_num, readBuf);
-		
-		ret = sceIoLseek32(fd,-10, SEEK_CUR);
-		printf("%d = sceIoLseek32(fd,-10, SEEK_CUR)\n", ret);
-		
-		memset(readBuf,0,128);
-		read_num = sceIoRead(fd,&readBuf, 128);
-		printf("%d = sceIoRead(128) = %s\n", read_num, readBuf);
-		
-		ret = sceIoLseek32(fd,-10, SEEK_SET);
-		printf("%d = sceIoLseek32(fd,-10, SEEK_CUR)\n", ret);
-		
-		
-		int write_num = sceIoWrite(fd,fileText,strlen(fileText));
-		printf("0x%08x = sceIoWrite(%d)\n", write_num, strlen(fileText));
-		
-		ret = sceIoClose(fd);
-		printf("%d = sceIoClose()\n",ret);
-	}
-	else
-	{
-		printf("0x%08x = sceIoOpen(\"testfile\", PSP_O_RDONLY)\n",fd);
-	}
-	
-	fd = sceIoOpen("testfile", PSP_O_RDONLY | PSP_O_WRONLY | PSP_O_APPEND, 0777);
-	if(fd > 0)
-	{
-		printf("sceIoOpen(\"testfile\", PSP_O_RDONLY | PSP_O_WRONLY | PSP_O_APPEND)\n");
-		
-		int write_num = sceIoWrite(fd,fileText,strlen(fileText));
-		printf("%d = sceIoWrite(%d)\n", write_num, strlen(fileText));
-		
-		ret = sceIoLseek32(fd,0, SEEK_SET);
-		printf("%d = sceIoLseek32(fd,0, SEEK_SET)\n", ret);
-		
-		memset(readBuf,0,128);
-		int read_num = sceIoRead(fd,&readBuf, 128);
-		printf("%d = sceIoRead(128) = %s\n", read_num, readBuf);
-	}
-	else
-	{
-		printf("0x%08x = sceIoOpen(\"testfile\", PSP_O_RDONLY)\n",fd);
-	}
-	
-	ret = sceIoRename("testfile", "testfile2");
-	printf("%d = sceIoRename(\"testfile\", \"testfile2\")\n",ret);
-	
-	ret = sceIoRename("nofile", "nofile2");
-	printf("0x%08x = sceIoRename(\"nofile\", \"nofile2\")\n",ret);
-	
-	ret = sceIoGetstat("testfile2",&stat);
-	dumpFileStat(stat,0);
-	
-	ret = sceIoRemove("testfile2");
-	printf("%d = sceIoRemove(\"testfile2\")\n",ret);
-	
-	ret = sceIoRemove("testfile2");
-	printf("0x%08x = sceIoRemove(\"testfile2\")\n",ret);
-	
-	sceIoChdir("..");
-	sceIoRmdir("workdir");
+	section("Remove:");
+	writeFile("sub/inner");
+	schedf("  File: %08x\n", sceIoRemove("other"));
+	schedf("  Again: %08x\n", sceIoRemove("other"));
+	schedf("  A directory: %08x\n", sceIoRemove("sub"));
+	schedf("  Missing parent: %08x\n", sceIoRemove("nodir/file"));
+	fd = sceIoOpen("testfile2", PSP_O_RDONLY, 0777);
+	schedf("  An open file: %08x\n", sceIoRemove("testfile2"));
+	printStat("testfile2");
+	doRead(fd, 4);
+	sceIoClose(fd);
 
-	
+	section("Rmdir:");
+	schedf("  Not empty: %08x\n", sceIoRmdir("sub"));
+	schedf("  A file: %08x\n", sceIoRmdir("sub/inner"));
+	schedf("  Missing: %08x\n", sceIoRmdir("nodir"));
+	sceIoRemove("sub/inner");
+	schedf("  Empty: %08x\n", sceIoRmdir("sub"));
+	schedf("  Again: %08x\n", sceIoRmdir("sub"));
+	schedf("  Bad device: %08x\n", sceIoRmdir("nodev0:/sub"));
+
+	sceIoChdir("ms0:/");
+	cleanup();
+	printStat(WORKDIR);
+	flushschedf();
 	return 0;
 }
