@@ -1,0 +1,219 @@
+file: 9f70 bytes, 10 chunks
+__sceSasInit: 00000000
+Clean, no end signalled:
+  set: state=4 streamOff=e8 streamDataByte=f18 fileDataEnd=9f70
+  __sceSasSetVoiceATRAC3: 00000000
+  __sceSasSetADSR: 00000000
+  __sceSasSetKeyOn: 00000000
+  grain 0: concatenated chunk 1 (1000 bytes)
+  grains    0-   0: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk1+0/1000
+  grains    1-  98: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk1+0/1000
+  grain 100: concatenated chunk 2 (1000 bytes)
+  grains   99-  99: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  100- 100: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk2+0/1000
+  grains  101- 206: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk2+0/1000
+  grain 208: concatenated chunk 3 (1000 bytes)
+  grains  207- 207: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  208- 208: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk3+0/1000
+  grains  209- 263: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk3+0/1000
+  grains  264- 264: core=00000000 concat=80420042 end=0 height=2 silent second=chunk3+0/1000
+  grains  265- 314: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk3+0/1000
+  grain 316: concatenated chunk 4 (1000 bytes)
+  grains  315- 315: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  316- 316: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk4+0/1000
+  grains  317- 422: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk4+0/1000
+  grain 424: concatenated chunk 5 (1000 bytes)
+  grains  423- 423: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  424- 424: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk5+0/1000
+  grains  425- 530: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk5+0/1000
+  grain 532: concatenated chunk 6 (1000 bytes)
+  grains  531- 531: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  532- 532: core=00000000 concat=00000000 end=0 height=2 silent second=chunk6+0/1000
+  grains  533- 638: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk6+0/1000
+  grain 640: concatenated chunk 7 (1000 bytes)
+  grains  639- 639: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  640- 640: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk7+0/1000
+  grains  641- 746: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk7+0/1000
+  grain 748: concatenated chunk 8 (1000 bytes)
+  grains  747- 747: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  748- 748: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk8+0/1000
+  grains  749- 799: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk8+0/1000
+  grains  800- 800: core=00000000 concat=80420042 end=0 height=2 silent second=chunk8+0/1000
+  grains  801- 854: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk8+0/1000
+  grain 856: concatenated chunk 9 (f70 bytes), last
+  grains  855- 855: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  856- 856: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk9+0/f70
+  grains  857- 962: core=00000000 concat=ffffffff end=0 height=2 sound  second=chunk9+0/f70
+  grains  963-1067: core=00000000 concat=ffffffff end=0 height=2 sound  second=FFFFFFFF/f70
+  grains 1068-1499: core=00000000 concat=ffffffff end=0 height=2 silent second=FFFFFFFF/f70
+  stopped after 1500 grains, 9 chunks concatenated of 9
+  ctx: state=16 curFileOff=1000 decodePos=445 buffer=0
+  __sceSasUnsetATRAC3: 00000000
+  sceAtracReleaseAtracID while state is 0x10: 80630005
+  sceAtracReleaseAtracID: 00000000
+Clean:
+  set: state=4 streamOff=e8 streamDataByte=f18 fileDataEnd=9f70
+  __sceSasSetVoiceATRAC3: 00000000
+  __sceSasSetADSR: 00000000
+  __sceSasSetKeyOn: 00000000
+  grain 0: concatenated chunk 1 (1000 bytes)
+  grains    0-   0: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk1+0/1000
+  grains    1-  98: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk1+0/1000
+  grain 100: concatenated chunk 2 (1000 bytes)
+  grains   99-  99: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  100- 100: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk2+0/1000
+  grains  101- 206: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk2+0/1000
+  grain 208: concatenated chunk 3 (1000 bytes)
+  grains  207- 207: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  208- 208: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk3+0/1000
+  grains  209- 263: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk3+0/1000
+  grains  264- 264: core=00000000 concat=80420042 end=0 height=2 silent second=chunk3+0/1000
+  grains  265- 314: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk3+0/1000
+  grain 316: concatenated chunk 4 (1000 bytes)
+  grains  315- 315: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  316- 316: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk4+0/1000
+  grains  317- 422: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk4+0/1000
+  grain 424: concatenated chunk 5 (1000 bytes)
+  grains  423- 423: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  424- 424: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk5+0/1000
+  grains  425- 530: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk5+0/1000
+  grain 532: concatenated chunk 6 (1000 bytes)
+  grains  531- 531: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  532- 532: core=00000000 concat=00000000 end=0 height=2 silent second=chunk6+0/1000
+  grains  533- 638: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk6+0/1000
+  grain 640: concatenated chunk 7 (1000 bytes)
+  grains  639- 639: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  640- 640: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk7+0/1000
+  grains  641- 746: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk7+0/1000
+  grain 748: concatenated chunk 8 (1000 bytes)
+  grains  747- 747: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  748- 748: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk8+0/1000
+  grains  749- 799: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk8+0/1000
+  grains  800- 800: core=00000000 concat=80420042 end=0 height=2 silent second=chunk8+0/1000
+  grains  801- 854: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk8+0/1000
+  grain 856: concatenated chunk 9 (f70 bytes), last
+  grains  855- 855: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  856- 856: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk9+0/f70
+  grains  857- 962: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk9+0/f70
+  grain 964: concatenated the end (0, 0)
+  grains  963- 963: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/f70
+  grains  964- 964: core=00000000 concat=00000000 end=0 height=2 sound  second=0/0
+  grains  965-1066: core=00000000 concat=ffffffff end=0 height=2 sound  second=0/0
+  grains 1067-1067: core=00000000 concat=ffffffff end=1 height=0 sound  second=0/0
+  grains 1068-1082: core=00000000 concat=ffffffff end=1 height=0 silent second=0/0
+  stopped after 1083 grains, 9 chunks concatenated of 9
+  ctx: state=16 curFileOff=1000 decodePos=445 buffer=0
+  __sceSasUnsetATRAC3: 00000000
+  sceAtracReleaseAtracID while state is 0x10: 80630005
+  sceAtracReleaseAtracID: 00000000
+Zeroed 0x400 at the start of chunk 3:
+  set: state=4 streamOff=e8 streamDataByte=f18 fileDataEnd=9f70
+  __sceSasSetVoiceATRAC3: 00000000
+  __sceSasSetADSR: 00000000
+  __sceSasSetKeyOn: 00000000
+  grain 0: concatenated chunk 1 (1000 bytes)
+  grains    0-   0: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk1+0/1000
+  grains    1-  98: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk1+0/1000
+  grain 100: concatenated chunk 2 (1000 bytes)
+  grains   99-  99: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  100- 100: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk2+0/1000
+  grains  101- 206: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk2+0/1000
+  grain 208: concatenated chunk 3 (1000 bytes)
+  grains  207- 207: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  208- 208: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk3+0/1000
+  grains  209- 263: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk3+0/1000
+  grains  264- 264: core=00000000 concat=80420042 end=0 height=2 silent second=chunk3+0/1000
+  grains  265- 314: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk3+0/1000
+  grain 316: concatenated chunk 4 (1000 bytes)
+  grains  315- 315: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  316- 316: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk4+0/1000
+  grains  317- 318: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk4+0/1000
+  grains  319- 319: core=00000000 concat=80420042 end=1 height=0 sound  second=chunk4+0/1000
+  grains  320- 334: core=00000000 concat=80420042 end=1 height=0 silent second=chunk4+0/1000
+  stopped after 335 grains, 4 chunks concatenated of 9
+  ctx: state=16 curFileOff=1000 decodePos=445 buffer=0
+  __sceSasUnsetATRAC3: 00000000
+  sceAtracReleaseAtracID while state is 0x10: 80630005
+  sceAtracReleaseAtracID: 00000000
+Zeroed 0x400 at the start of the last chunk:
+  set: state=4 streamOff=e8 streamDataByte=f18 fileDataEnd=9f70
+  __sceSasSetVoiceATRAC3: 00000000
+  __sceSasSetADSR: 00000000
+  __sceSasSetKeyOn: 00000000
+  grain 0: concatenated chunk 1 (1000 bytes)
+  grains    0-   0: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk1+0/1000
+  grains    1-  98: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk1+0/1000
+  grain 100: concatenated chunk 2 (1000 bytes)
+  grains   99-  99: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  100- 100: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk2+0/1000
+  grains  101- 206: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk2+0/1000
+  grain 208: concatenated chunk 3 (1000 bytes)
+  grains  207- 207: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  208- 208: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk3+0/1000
+  grains  209- 263: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk3+0/1000
+  grains  264- 264: core=00000000 concat=80420042 end=0 height=2 silent second=chunk3+0/1000
+  grains  265- 314: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk3+0/1000
+  grain 316: concatenated chunk 4 (1000 bytes)
+  grains  315- 315: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  316- 316: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk4+0/1000
+  grains  317- 422: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk4+0/1000
+  grain 424: concatenated chunk 5 (1000 bytes)
+  grains  423- 423: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  424- 424: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk5+0/1000
+  grains  425- 530: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk5+0/1000
+  grain 532: concatenated chunk 6 (1000 bytes)
+  grains  531- 531: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  532- 532: core=00000000 concat=00000000 end=0 height=2 silent second=chunk6+0/1000
+  grains  533- 638: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk6+0/1000
+  grain 640: concatenated chunk 7 (1000 bytes)
+  grains  639- 639: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  640- 640: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk7+0/1000
+  grains  641- 746: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk7+0/1000
+  grain 748: concatenated chunk 8 (1000 bytes)
+  grains  747- 747: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  748- 748: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk8+0/1000
+  grains  749- 799: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk8+0/1000
+  grains  800- 800: core=00000000 concat=80420042 end=0 height=2 silent second=chunk8+0/1000
+  grains  801- 854: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk8+0/1000
+  grain 856: concatenated chunk 9 (f70 bytes), last
+  grains  855- 855: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  856- 856: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk9+0/f70
+  grains  857- 962: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk9+0/f70
+  grain 964: concatenated the end (0, 0)
+  grains  963- 963: core=00000000 concat=80420042 end=1 height=0 sound  second=FFFFFFFF/f70
+  grains  964- 964: core=00000000 concat=00000000 end=1 height=0 silent second=0/0
+  grains  965- 978: core=00000000 concat=ffffffff end=1 height=0 silent second=0/0
+  stopped after 979 grains, 9 chunks concatenated of 9
+  ctx: state=16 curFileOff=1000 decodePos=445 buffer=0
+  __sceSasUnsetATRAC3: 00000000
+  sceAtracReleaseAtracID while state is 0x10: 80630005
+  sceAtracReleaseAtracID: 00000000
+Zeroed 0x98 (one frame) at the start of chunk 3:
+  set: state=4 streamOff=e8 streamDataByte=f18 fileDataEnd=9f70
+  __sceSasSetVoiceATRAC3: 00000000
+  __sceSasSetADSR: 00000000
+  __sceSasSetKeyOn: 00000000
+  grain 0: concatenated chunk 1 (1000 bytes)
+  grains    0-   0: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk1+0/1000
+  grains    1-  98: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk1+0/1000
+  grain 100: concatenated chunk 2 (1000 bytes)
+  grains   99-  99: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  100- 100: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk2+0/1000
+  grains  101- 206: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk2+0/1000
+  grain 208: concatenated chunk 3 (1000 bytes)
+  grains  207- 207: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  208- 208: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk3+0/1000
+  grains  209- 263: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk3+0/1000
+  grains  264- 264: core=00000000 concat=80420042 end=0 height=2 silent second=chunk3+0/1000
+  grains  265- 314: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk3+0/1000
+  grain 316: concatenated chunk 4 (1000 bytes)
+  grains  315- 315: core=00000000 concat=80420042 end=0 height=2 sound  second=FFFFFFFF/1000
+  grains  316- 316: core=00000000 concat=00000000 end=0 height=2 sound  second=chunk4+0/1000
+  grains  317- 318: core=00000000 concat=80420042 end=0 height=2 sound  second=chunk4+0/1000
+  grains  319- 319: core=00000000 concat=80420042 end=1 height=0 sound  second=chunk4+0/1000
+  grains  320- 334: core=00000000 concat=80420042 end=1 height=0 silent second=chunk4+0/1000
+  stopped after 335 grains, 4 chunks concatenated of 9
+  ctx: state=16 curFileOff=1000 decodePos=445 buffer=0
+  __sceSasUnsetATRAC3: 00000000
+  sceAtracReleaseAtracID while state is 0x10: 80630005
+  sceAtracReleaseAtracID: 00000000
