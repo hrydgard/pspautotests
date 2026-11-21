@@ -1,0 +1,364 @@
+
+No async op:
+  Wait: 8002032a
+  Poll: 8002032a
+  GetAsyncStat poll: 8002032a
+  GetAsyncStat wait: 8002032a
+  WaitCB: 8002032a
+
+Collecting twice:
+  ReadAsync: 00000000
+  Wait: 00000000, res=0000000000001000
+  Wait again: 8002032a
+  Poll: 8002032a
+
+Poll while queued:
+  ReadAsync: 00000000
+  Poll: 00000001
+  GetAsyncStat poll: 00000001
+  Wait: 00000000, res=0000000000001000
+  Poll after: 8002032a
+
+GetAsyncStat collects:
+  ReadAsync: 00000000
+  GetAsyncStat poll: 00000000, res=0000000000001000
+  GetAsyncStat poll again: 8002032a
+  ReadAsync: 00000000
+  GetAsyncStat wait: 00000000, res=0000000000001000
+  GetAsyncStat wait again: 8002032a
+
+Calls while queued:
+  ReadAsync: 00000000
+  Read: 80020329
+  Write: 80020329
+  Lseek: 80020329
+  Lseek32: 80020329
+  ReadAsync: 80020329
+  LseekAsync: 80020329
+  CloseAsync: 80020329
+  ChangeAsyncPriority: 00000000
+  Wait: 00000000, res=0000000000001000
+
+Calls with an uncollected result:
+  ReadAsync: 00000000
+  Read: 80020329
+  Write: 80020329
+  Lseek: 80020329
+  Lseek32: 80020329
+  ReadAsync: 80020329
+  LseekAsync: 80020329
+  CloseAsync: 80020329
+  ChangeAsyncPriority: 00000000
+  Wait: 00000000, res=0000000000001000
+
+Read position after async read:
+  ReadAsync: 00000000
+  Wait: 00000000, res=0000000000001000
+  Lseek: 00001000
+  LseekAsync: 00000000
+  Wait: 00000000, res=0000000000001010
+  Lseek32Async: 00000000
+  Wait: 00000000, res=0000000000001020
+  ReadAsync at end: 00000000
+  Wait: 00000000, res=000000000000efe0
+  ReadAsync past end: 00000000
+  Wait: 00000000, res=0000000000000000
+
+Wrong access mode:
+  WriteAsync: 80020323
+  Wait: 8002032a
+  ReadAsync: 80020323
+  Wait: 8002032a
+
+CloseAsync:
+  CloseAsync: 00000000
+  Wait: 00000000, res=0000000000000000
+  Wait again: 80020323
+  Close: 80020323
+
+CloseAsync, poll:
+  CloseAsync: 00000000
+  Poll: 00000001
+  Read: 80020329
+  Wait: 00000000, res=0000000000000000
+  Poll again: 80020323
+
+CloseAsync, then Close:
+  CloseAsync: 00000000
+  Close: 00000000
+  Wait: 80020323
+
+CloseAsync, then Close while queued:
+  CloseAsync: 00000000
+  Close: 00000000
+  Wait: 80020323
+
+OpenAsync:
+  OpenAsync: fd
+  Wait: 00000000, res = fd
+  Wait again: 8002032a
+  Read: 00000010
+  Close: 00000000
+
+OpenAsync, missing file:
+  OpenAsync: fd
+  Poll: 00000001
+  Wait: 00000000, res=ffffffff80010002
+  Wait again: 80020323
+  Read: 80020323
+  Close: 80020323
+
+OpenAsync, bad device:
+  OpenAsync: 80020321
+
+Invalid fds:
+  Wait -1: 80020323
+  Wait 20: 80020323
+  Wait 63: 80020323
+  Wait 64: 80020323
+  Poll 20: 80020323
+  GetAsyncStat 20: 80020323
+  ReadAsync 20: 80020323
+  CloseAsync 20: 80020323
+  ChangeAsyncPriority 20: 80020323
+  ChangeAsyncPriority 64: 80020323
+
+ChangeAsyncPriority values:
+  -2: 80020193
+  -1: 00000000
+  0: 80020193
+  1: 80020193
+  7: 80020193
+  8: 00000000
+  119: 00000000
+  120: 80020193
+  127: 80020193
+
+Close while queued:
+  ReadAsync: 00000000
+  Close: 00000000
+  Poll: 80020323
+  Wait: 80020323
+  Data read: no
+  Wait again: 80020323
+  Close again: 80020323
+
+Close while queued, Wait waiter:
+  ReadAsync: 00000000
+  Waiter Wait: 800201b5, res=ffffffffffffffff
+  Close: 00000000
+  Data read: no
+
+Close while queued, Poll waiter:
+  ReadAsync: 00000000
+  Waiter Poll: 00000001, res=ffffffffffffffff
+  Close: 00000000
+  Data read: no
+
+Close while queued, GetAsyncStat waiter:
+  ReadAsync: 00000000
+  Waiter GetAsyncStat: 800201b5, res=ffffffffffffffff
+  Close: 00000000
+  Data read: no
+
+Close while queued, WaitCB waiter:
+  ReadAsync: 00000000
+  Waiter WaitCB: 800201b5, res=ffffffffffffffff
+  Close: 00000000
+  Data read: no
+
+Close while in progress:
+  ReadAsync: 00000000
+  Close: 00000000
+  Data read: yes
+  Poll: 80020323
+  Wait: 80020323
+  Close again: 80020323
+
+Close while in progress, waiter:
+  ReadAsync: 00000000
+  Waiter Wait: 00000000, res=0000000000010000
+  Close: 00000000
+  Data read: yes
+
+Close while in progress, late waiter:
+  ReadAsync: 00000000
+  Close: 00000000
+  Waiter Wait: 80020199, res=0000000000010000
+
+Close while in progress, late poller:
+  ReadAsync: 00000000
+  Waiter Poll: 00000001, res=ffffffffffffffff
+  Close: 00000000
+
+Close after completion, Wait:
+  ReadAsync: 00000000
+  Close: 00000000
+  Wait: 80020323
+  Wait again: 80020323
+  Close again: 80020323
+
+Close after completion, Poll:
+  ReadAsync: 00000000
+  Close: 00000000
+  Poll: 80020323
+  Wait again: 80020323
+  Close again: 80020323
+
+Close after completion, GetAsyncStat:
+  ReadAsync: 00000000
+  Close: 00000000
+  GetAsyncStat: 80020323
+  Wait again: 80020323
+  Close again: 80020323
+
+Close after completion, WaitCB:
+  ReadAsync: 00000000
+  Close: 00000000
+  WaitCB: 80020323
+  Wait again: 80020323
+  Close again: 80020323
+
+Close after collecting:
+  ReadAsync: 00000000
+  Wait: 00000000, res=0000000000001000
+  Close: 00000000
+  Wait: 80020323
+  Poll: 80020323
+
+Close without async:
+  Close: 00000000
+  Wait: 80020323
+
+Reopen after close:
+  ReadAsync: 00000000
+  Close: 00000000
+  Open other: same fd
+  Wait on new fd: 8002032a
+  Read new: 00000100
+  Close new: 00000000
+  Wait on old fd: 80020323
+
+Seek result after close:
+  LseekAsync: 00000000
+  Close: 00000000
+  Wait: 80020323
+
+SDK 6.06:
+
+NULL result pointer:
+  Wait, no op: 800200d3
+  ReadAsync: 00000000
+  Poll: 800200d3
+  Wait: 800200d3
+  Wait again: 00000000, res=0000000000000010
+
+Close while queued:
+  ReadAsync: 00000000
+  Close: 80020329
+  Poll: 00000001
+  Wait: 00000000, res=0000000000001000
+  Data read: yes
+  Wait again: 8002032a
+  Close again: 00000000
+
+Close while queued, Wait waiter:
+  ReadAsync: 00000000
+  Close: 80020329
+  Waiter Wait: 00000000, res=0000000000001000
+  Data read: yes
+
+Close while queued, Poll waiter:
+  ReadAsync: 00000000
+  Waiter Poll: 00000001, res=ffffffffffffffff
+  Close: 80020329
+  Data read: yes
+
+Close while queued, GetAsyncStat waiter:
+  ReadAsync: 00000000
+  Close: 80020329
+  Waiter GetAsyncStat: 00000000, res=0000000000001000
+  Data read: yes
+
+Close while queued, WaitCB waiter:
+  ReadAsync: 00000000
+  Close: 80020329
+  Waiter WaitCB: 00000000, res=0000000000001000
+  Data read: yes
+
+Close while in progress:
+  ReadAsync: 00000000
+  Close: 80020329
+  Data read: no
+  Poll: 00000001
+  Wait: 00000000, res=0000000000010000
+  Close again: 00000000
+
+Close while in progress, waiter:
+  ReadAsync: 00000000
+  Close: 80020329
+  Waiter Wait: 00000000, res=0000000000010000
+  Data read: yes
+
+Close while in progress, late waiter:
+  ReadAsync: 00000000
+  Close: 80020329
+  Waiter Wait: 00000000, res=0000000000010000
+
+Close while in progress, late poller:
+  ReadAsync: 00000000
+  Close: 80020329
+  Waiter Poll: 00000001, res=ffffffffffffffff
+
+Close after completion, Wait:
+  ReadAsync: 00000000
+  Close: 80020329
+  Wait: 00000000, res=0000000000001000
+  Wait again: 8002032a
+  Close again: 00000000
+
+Close after completion, Poll:
+  ReadAsync: 00000000
+  Close: 80020329
+  Poll: 00000000, res=0000000000001000
+  Wait again: 8002032a
+  Close again: 00000000
+
+Close after completion, GetAsyncStat:
+  ReadAsync: 00000000
+  Close: 80020329
+  GetAsyncStat: 00000000, res=0000000000001000
+  Wait again: 8002032a
+  Close again: 00000000
+
+Close after completion, WaitCB:
+  ReadAsync: 00000000
+  Close: 80020329
+  WaitCB: 00000000, res=0000000000001000
+  Wait again: 8002032a
+  Close again: 00000000
+
+Close after collecting:
+  ReadAsync: 00000000
+  Wait: 00000000, res=0000000000001000
+  Close: 00000000
+  Wait: 80020323
+  Poll: 80020323
+
+Close without async:
+  Close: 00000000
+  Wait: 80020323
+
+Reopen after close:
+  ReadAsync: 00000000
+  Close: 80020329
+  Open other: different fd
+  Wait on new fd: 8002032a
+  Read new: 00000100
+  Close new: 00000000
+  Wait on old fd: 00000000, res=0000000000001000
+
+Seek result after close:
+  LseekAsync: 00000000
+  Close: 80020329
+  Wait: 00000000, res=0000000000001234
