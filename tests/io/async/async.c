@@ -8,8 +8,9 @@
 
 // Async IO on ms0:: collecting results, what's allowed while one is pending or uncollected, the
 // async open/close calls, and what sceIoClose does to an fd with an op queued, running, or finished
-// but not collected. The close cases run twice: with no compiled SDK version, and with one above
-// 2.06, where the firmware refuses such a close with ASYNC_BUSY. Misshitsu no Sacrifice
+// but not collected. Also completion callbacks, the calls with dispatch disabled and in an interrupt,
+// and the async thread's priority. Most cases run twice: with no compiled SDK version, and with one
+// above 2.06, where the firmware refuses such a close with ASYNC_BUSY. Misshitsu no Sacrifice
 // (NPJH00065/NPJH00077) relies on that: it calls sceIoReadAsync, then sceIoClose, and then
 // collects the read with sceIoWaitAsync.
 
@@ -36,7 +37,7 @@ static void section(const char *title) {
 }
 
 static void printRes(const char *title, int ret, SceInt64 res) {
-	if (ret == 0) {
+	if (ret == 0 && strcmp(title, "Close") != 0) {
 		out("  %s: %08x, res=%08x%08x", title, ret, (unsigned)(res >> 32), (unsigned)res);
 	} else {
 		out("  %s: %08x", title, ret);
@@ -487,6 +488,285 @@ static void closeTests() {
 	finish(fd);
 }
 
+static volatile int cbCount = 0;
+static volatile int cbArg2 = 0;
+static volatile int cbCommon = 0;
+
+static int asyncCallback(int arg1, int arg2, void *common) {
+	cbCount++;
+	cbArg2 = arg2;
+	cbCommon = (int)common;
+	return 0;
+}
+
+static void printCallback(const char *title) {
+	out("  %s: %d calls, arg2=%08x, common=%08x", title, cbCount, cbArg2, cbCommon);
+	cbCount = 0;
+	cbArg2 = 0;
+	cbCommon = 0;
+}
+
+static void callbackTests() {
+	SceUID fd, sema;
+	SceUID cb = sceKernelCreateCallback("asynccb", &asyncCallback, (void *)0x1234);
+
+	section("Async callback:");
+	fd = openFastMode(PSP_O_RDONLY);
+	out("  SetAsyncCallback: %08x", sceIoSetAsyncCallback(fd, cb, (void *)0x55));
+	out("  ReadAsync: %08x", sceIoReadAsync(fd, buf, 0x10));
+	doWait("Wait", fd);
+	printCallback("After Wait");
+	out("  CheckCallback: %08x", sceKernelCheckCallback());
+	printCallback("After CheckCallback");
+	out("  ReadAsync: %08x", sceIoReadAsync(fd, buf, 0x10));
+	doWaitCB("WaitCB", fd);
+	printCallback("After WaitCB");
+	out("  ReadAsync: %08x", sceIoReadAsync(fd, buf, 0x10));
+	sceKernelDelayThread(20000);
+	printCallback("After Delay");
+	sceKernelDelayThreadCB(1000);
+	printCallback("After DelayCB");
+	doPoll("Poll", fd);
+	out("  CloseAsync: %08x", sceIoCloseAsync(fd));
+	doWaitCB("WaitCB", fd);
+	printCallback("After CloseAsync");
+
+	section("Async callback, queued op:");
+	fd = openQueuedMode(PSP_O_RDONLY);
+	out("  SetAsyncCallback: %08x", sceIoSetAsyncCallback(fd, cb, (void *)0x66));
+	out("  ReadAsync: %08x", sceIoReadAsync(fd, buf, 0x10));
+	doWaitCB("WaitCB", fd);
+	printCallback("After WaitCB");
+	out("  SetAsyncCallback 0: %08x", sceIoSetAsyncCallback(fd, 0, (void *)0x77));
+	out("  ReadAsync: %08x", sceIoReadAsync(fd, buf, 0x10));
+	doWaitCB("WaitCB", fd);
+	printCallback("After WaitCB");
+	sceIoClose(fd);
+
+	section("SetAsyncCallback, bad args:");
+	fd = openFastMode(PSP_O_RDONLY);
+	sema = sceKernelCreateSema("notcb", 0, 0, 1, NULL);
+	out("  Not a callback: %08x", sceIoSetAsyncCallback(fd, sema, NULL));
+	out("  Bad uid: %08x", sceIoSetAsyncCallback(fd, 0x12345, NULL));
+	out("  -1: %08x", sceIoSetAsyncCallback(fd, -1, NULL));
+	out("  Bad fd: %08x", sceIoSetAsyncCallback(20, cb, NULL));
+	sceKernelDeleteSema(sema);
+	sceIoClose(fd);
+
+	sceKernelDeleteCallback(cb);
+}
+
+enum { STAT_POLL = WAITCB + 1, CLOSE };
+
+static const char *modeName(int mode) {
+	switch (mode) {
+	case WAIT: return "Wait";
+	case POLL: return "Poll";
+	case STAT: return "GetAsyncStat wait";
+	case STAT_POLL: return "GetAsyncStat poll";
+	case WAITCB: return "WaitCB";
+	default: return "Close";
+	}
+}
+
+static int callMode(SceUID fd, int mode, SceInt64 *res) {
+	switch (mode) {
+	case WAIT: return sceIoWaitAsync(fd, res);
+	case POLL: return sceIoPollAsync(fd, res);
+	case STAT: return sceIoGetAsyncStat(fd, 0, res);
+	case STAT_POLL: return sceIoGetAsyncStat(fd, 1, res);
+	case WAITCB: return sceIoWaitAsyncCB(fd, res);
+	default: return sceIoClose(fd);
+	}
+}
+
+static void dispatchCall(SceUID fd, int mode) {
+	SceInt64 res = -1;
+	int state = sceKernelSuspendDispatchThread();
+	int ret = callMode(fd, mode, &res);
+	sceKernelResumeDispatchThread(state);
+	printRes(modeName(mode), ret, res);
+}
+
+static void dispatchTests() {
+	SceUID fd;
+	int mode, state, state2;
+
+	section("Dispatch disabled, result ready:");
+	for (mode = WAIT; mode <= CLOSE; ++mode) {
+		fd = openFastMode(PSP_O_RDONLY);
+		sceIoReadAsync(fd, buf, 0x10);
+		sceKernelDelayThread(20000);
+		dispatchCall(fd, mode);
+		finish(fd);
+	}
+
+	section("Dispatch disabled, op queued:");
+	for (mode = WAIT; mode <= CLOSE; ++mode) {
+		fd = openQueuedMode(PSP_O_RDONLY);
+		sceIoReadAsync(fd, buf, 0x10);
+		dispatchCall(fd, mode);
+		finish(fd);
+	}
+
+	section("Dispatch disabled, op running:");
+	fd = openFastMode(PSP_O_RDONLY);
+	sceIoReadAsync(fd, buf, FILESIZE);
+	dispatchCall(fd, CLOSE);
+	finish(fd);
+
+	section("Dispatch disabled, starting an op:");
+	for (mode = 0; mode < 5; ++mode) {
+		int ret;
+		const char *name;
+		fd = sceIoOpen(TESTFILE2, PSP_O_RDWR, 0777);
+		sceIoChangeAsyncPriority(fd, 0x10);
+		state = sceKernelSuspendDispatchThread();
+		switch (mode) {
+		case 0: ret = sceIoReadAsync(fd, buf, 0x10); name = "ReadAsync"; break;
+		case 1: ret = sceIoWriteAsync(fd, buf, 0x10); name = "WriteAsync"; break;
+		case 2: ret = sceIoLseekAsync(fd, 0, PSP_SEEK_SET); name = "LseekAsync"; break;
+		case 3: ret = sceIoLseek32Async(fd, 0, PSP_SEEK_SET); name = "Lseek32Async"; break;
+		default: ret = sceIoCloseAsync(fd); name = "CloseAsync"; break;
+		}
+		state2 = sceKernelSuspendDispatchThread();
+		sceKernelResumeDispatchThread(state);
+		out("  %s: %08x, dispatch after: %s", name, ret, state2 == state ? "enabled" : "disabled");
+		finish(fd);
+	}
+	// Put back what WriteAsync wrote.
+	createFiles();
+
+	section("Dispatch disabled, OpenAsync:");
+	state = sceKernelSuspendDispatchThread();
+	fd = sceIoOpenAsync(TESTFILE, PSP_O_RDONLY, 0777);
+	state2 = sceKernelSuspendDispatchThread();
+	sceKernelResumeDispatchThread(state);
+	out("  OpenAsync: %s", fd >= 0 ? "fd" : "error");
+	out("  Dispatch after: %s", state2 == state ? "enabled" : "disabled");
+	finish(fd);
+}
+
+static volatile int intrMode = 0;
+static volatile int intrRet = 0;
+static volatile int intrDone = 0;
+static SceUID intrFd = -1;
+static SceInt64 intrRes = -1;
+
+static SceUInt intrHandler(void *common) {
+	intrRet = callMode(intrFd, intrMode, &intrRes);
+	intrDone = 1;
+	return 0;
+}
+
+// Spins rather than blocks, so a queued op doesn't get to run.
+static void intrCall(SceUID fd, int mode) {
+	intrFd = fd;
+	intrMode = mode;
+	intrRes = -1;
+	intrDone = 0;
+	sceKernelSetAlarm(1000, &intrHandler, NULL);
+	while (!intrDone) {
+		continue;
+	}
+	printRes(modeName(mode), intrRet, intrRes);
+}
+
+static void interruptTests() {
+	SceUID fd;
+	int mode;
+
+	section("In an interrupt, result ready:");
+	for (mode = WAIT; mode <= CLOSE; ++mode) {
+		fd = openFastMode(PSP_O_RDONLY);
+		sceIoReadAsync(fd, buf, 0x10);
+		sceKernelDelayThread(20000);
+		intrCall(fd, mode);
+		doPoll("Poll after", fd);
+		finish(fd);
+	}
+
+	section("In an interrupt, no op:");
+	fd = openFastMode(PSP_O_RDONLY);
+	intrCall(fd, POLL);
+	intrCall(fd, CLOSE);
+	out("  Close after: %08x", sceIoClose(fd));
+
+	section("In an interrupt, op queued:");
+	for (mode = WAIT; mode <= CLOSE; ++mode) {
+		fd = openQueuedMode(PSP_O_RDONLY);
+		sceIoReadAsync(fd, buf, 0x10);
+		intrCall(fd, mode);
+		doWait("Wait after", fd);
+		finish(fd);
+	}
+}
+
+// User mode can't see the async threads, so the priority shows in whether an op runs while the
+// thread that started it spins: only an async thread with a better priority gets to run.
+static SceUID probeFd = -1;
+static int probeRet = 0;
+
+static int probeFunc(SceSize argc, void *argp) {
+	SceInt64 res;
+	u32 start;
+	sceIoReadAsync(probeFd, buf, 0x10);
+	start = sceKernelGetSystemTimeLow();
+	while (sceKernelGetSystemTimeLow() - start < 20000) {
+		continue;
+	}
+	probeRet = sceIoPollAsync(probeFd, &res);
+	return 0;
+}
+
+static void probe(const char *title, SceUID fd, int pri) {
+	SceInt64 res;
+	SceUID th = sceKernelCreateThread("probe", &probeFunc, pri, 0x1000, 0, NULL);
+	probeFd = fd;
+	sceKernelStartThread(th, 0, NULL);
+	sceKernelWaitThreadEnd(th, NULL);
+	sceKernelDeleteThread(th);
+	out("  %s: %s", title, probeRet == 0 ? "ran" : probeRet == 1 ? "didn't run" : "error");
+	sceIoWaitAsync(fd, &res);
+}
+
+static void priorityTests() {
+	SceUID fd;
+	int main = sceKernelGetThreadCurrentPriority();
+
+	section("Async priority:");
+	fd = sceIoOpen(TESTFILE, PSP_O_RDONLY, 0777);
+	probe("Default, first op from +10", fd, main + 0x10);
+	probe("Default, then from +20", fd, main + 0x20);
+	probe("Default, then from +8", fd, main + 0x08);
+	sceIoClose(fd);
+
+	fd = sceIoOpen(TESTFILE, PSP_O_RDONLY, 0777);
+	probe("Default, first op from main", fd, main);
+	probe("Default, then from +10", fd, main + 0x10);
+	sceIoClose(fd);
+
+	fd = sceIoOpen(TESTFILE, PSP_O_RDONLY, 0777);
+	out("  Set 0x40: %08x", sceIoChangeAsyncPriority(fd, 0x40));
+	probe("0x40, from 0x38", fd, 0x38);
+	probe("0x40, from 0x48", fd, 0x48);
+	out("  Set -1: %08x", sceIoChangeAsyncPriority(fd, -1));
+	probe("-1, from +10", fd, main + 0x10);
+	probe("-1, from +20", fd, main + 0x20);
+	sceIoClose(fd);
+
+	out("  Set default 0x40: %08x", sceIoChangeAsyncPriority(-1, 0x40));
+	fd = sceIoOpen(TESTFILE, PSP_O_RDONLY, 0777);
+	probe("Default 0x40, from 0x38", fd, 0x38);
+	probe("Default 0x40, from 0x48", fd, 0x48);
+	sceIoClose(fd);
+	out("  Set default -1: %08x", sceIoChangeAsyncPriority(-1, -1));
+	fd = sceIoOpen(TESTFILE, PSP_O_RDONLY, 0777);
+	probe("Default -1, from +10", fd, main + 0x10);
+	probe("Default -1, then from +20", fd, main + 0x20);
+	sceIoClose(fd);
+}
+
 int main(int argc, char *argv[]) {
 	removeFiles();
 	sceIoRemove(MISSINGFILE);
@@ -495,12 +775,19 @@ int main(int argc, char *argv[]) {
 	basicTests();
 	// nullResultTests() hangs the PSP here: only later SDKs check the pointer.
 	closeTests();
+	callbackTests();
+	dispatchTests();
+	interruptTests();
+	priorityTests();
 
 	// Can't be set back, so the old-SDK cases go first.
 	sceKernelSetCompiledSdkVersion606(0x06060010);
 	section("SDK 6.06:");
 	nullResultTests();
 	closeTests();
+	dispatchTests();
+	interruptTests();
+	priorityTests();
 
 	removeFiles();
 	flushschedf();

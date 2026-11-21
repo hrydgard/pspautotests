@@ -244,6 +244,122 @@ Seek result after close:
   Close: 00000000
   Wait: 80020323
 
+Async callback:
+  SetAsyncCallback: 00000000
+  ReadAsync: 00000000
+  Wait: 00000000, res=0000000000000010
+  After Wait: 0 calls, arg2=00000000, common=00000000
+  CheckCallback: 00000001
+  After CheckCallback: 1 calls, arg2=00000055, common=00001234
+  ReadAsync: 00000000
+  WaitCB: 00000000, res=0000000000000010
+  After WaitCB: 1 calls, arg2=00000055, common=00001234
+  ReadAsync: 00000000
+  After Delay: 0 calls, arg2=00000000, common=00000000
+  After DelayCB: 1 calls, arg2=00000055, common=00001234
+  Poll: 00000000, res=0000000000000010
+  CloseAsync: 00000000
+  WaitCB: 00000000, res=0000000000000000
+  After CloseAsync: 0 calls, arg2=00000000, common=00000000
+
+Async callback, queued op:
+  SetAsyncCallback: 00000000
+  ReadAsync: 00000000
+  WaitCB: 00000000, res=0000000000000010
+  After WaitCB: 2 calls, arg2=00000066, common=00001234
+  SetAsyncCallback 0: 800200d2
+  ReadAsync: 00000000
+  WaitCB: 00000000, res=0000000000000010
+  After WaitCB: 1 calls, arg2=00000066, common=00001234
+
+SetAsyncCallback, bad args:
+  Not a callback: 800200d2
+  Bad uid: 800200d2
+  -1: 800200d2
+  Bad fd: 80020323
+
+Dispatch disabled, result ready:
+  Wait: 00000000, res=0000000000000010
+  Poll: 00000000, res=0000000000000010
+  GetAsyncStat wait: 00000000, res=0000000000000010
+  WaitCB: 00000000, res=0000000000000010
+  GetAsyncStat poll: 00000000, res=0000000000000010
+  Close: 800201a7
+
+Dispatch disabled, op queued:
+  Wait: 800201a7
+  Poll: 00000001
+  GetAsyncStat wait: 800201a7
+  WaitCB: 800201a7
+  GetAsyncStat poll: 00000001
+  Close: 800201a7
+
+Dispatch disabled, op running:
+  Close: 800201a7
+
+Dispatch disabled, starting an op:
+  ReadAsync: 00000000, dispatch after: enabled
+  WriteAsync: 00000000, dispatch after: enabled
+  LseekAsync: 00000000, dispatch after: enabled
+  Lseek32Async: 00000000, dispatch after: enabled
+  CloseAsync: 00000000, dispatch after: enabled
+
+Dispatch disabled, OpenAsync:
+  OpenAsync: fd
+  Dispatch after: enabled
+
+In an interrupt, result ready:
+  Wait: 80020064
+  Poll after: 00000000, res=0000000000000010
+  Poll: 80020064
+  Poll after: 00000000, res=0000000000000010
+  GetAsyncStat wait: 80020064
+  Poll after: 00000000, res=0000000000000010
+  WaitCB: 80020064
+  Poll after: 00000000, res=0000000000000010
+  GetAsyncStat poll: 80020064
+  Poll after: 00000000, res=0000000000000010
+  Close: 80020064
+  Poll after: 00000000, res=0000000000000010
+
+In an interrupt, no op:
+  Poll: 80020064
+  Close: 80020064
+  Close after: 00000000
+
+In an interrupt, op queued:
+  Wait: 80020064
+  Wait after: 00000000, res=0000000000000010
+  Poll: 80020064
+  Wait after: 00000000, res=0000000000000010
+  GetAsyncStat wait: 80020064
+  Wait after: 00000000, res=0000000000000010
+  WaitCB: 80020064
+  Wait after: 00000000, res=0000000000000010
+  GetAsyncStat poll: 80020064
+  Wait after: 00000000, res=0000000000000010
+  Close: 80020064
+  Wait after: 00000000, res=0000000000000010
+
+Async priority:
+  Default, first op from +10: didn't run
+  Default, then from +20: ran
+  Default, then from +8: didn't run
+  Default, first op from main: didn't run
+  Default, then from +10: ran
+  Set 0x40: 00000000
+  0x40, from 0x38: didn't run
+  0x40, from 0x48: ran
+  Set -1: 00000000
+  -1, from +10: ran
+  -1, from +20: ran
+  Set default 0x40: 00000000
+  Default 0x40, from 0x38: didn't run
+  Default 0x40, from 0x48: ran
+  Set default -1: 00000000
+  Default -1, from +10: didn't run
+  Default -1, then from +20: ran
+
 SDK 6.06:
 
 NULL result pointer:
@@ -362,3 +478,85 @@ Seek result after close:
   LseekAsync: 00000000
   Close: 80020329
   Wait: 00000000, res=0000000000001234
+
+Dispatch disabled, result ready:
+  Wait: 00000000, res=0000000000000010
+  Poll: 00000000, res=0000000000000010
+  GetAsyncStat wait: 00000000, res=0000000000000010
+  WaitCB: 00000000, res=0000000000000010
+  GetAsyncStat poll: 00000000, res=0000000000000010
+  Close: 80020329
+
+Dispatch disabled, op queued:
+  Wait: 800201a7
+  Poll: 00000001
+  GetAsyncStat wait: 800201a7
+  WaitCB: 800201a7
+  GetAsyncStat poll: 00000001
+  Close: 80020329
+
+Dispatch disabled, op running:
+  Close: 80020329
+
+Dispatch disabled, starting an op:
+  ReadAsync: 00000000, dispatch after: enabled
+  WriteAsync: 00000000, dispatch after: enabled
+  LseekAsync: 00000000, dispatch after: enabled
+  Lseek32Async: 00000000, dispatch after: enabled
+  CloseAsync: 00000000, dispatch after: enabled
+
+Dispatch disabled, OpenAsync:
+  OpenAsync: fd
+  Dispatch after: enabled
+
+In an interrupt, result ready:
+  Wait: 80020064
+  Poll after: 00000000, res=0000000000000010
+  Poll: 80020064
+  Poll after: 00000000, res=0000000000000010
+  GetAsyncStat wait: 80020064
+  Poll after: 00000000, res=0000000000000010
+  WaitCB: 80020064
+  Poll after: 00000000, res=0000000000000010
+  GetAsyncStat poll: 80020064
+  Poll after: 00000000, res=0000000000000010
+  Close: 80020064
+  Poll after: 00000000, res=0000000000000010
+
+In an interrupt, no op:
+  Poll: 80020064
+  Close: 80020064
+  Close after: 00000000
+
+In an interrupt, op queued:
+  Wait: 80020064
+  Wait after: 00000000, res=0000000000000010
+  Poll: 80020064
+  Wait after: 00000000, res=0000000000000010
+  GetAsyncStat wait: 80020064
+  Wait after: 00000000, res=0000000000000010
+  WaitCB: 80020064
+  Wait after: 00000000, res=0000000000000010
+  GetAsyncStat poll: 80020064
+  Wait after: 00000000, res=0000000000000010
+  Close: 80020064
+  Wait after: 00000000, res=0000000000000010
+
+Async priority:
+  Default, first op from +10: didn't run
+  Default, then from +20: didn't run
+  Default, then from +8: didn't run
+  Default, first op from main: didn't run
+  Default, then from +10: didn't run
+  Set 0x40: 00000000
+  0x40, from 0x38: didn't run
+  0x40, from 0x48: ran
+  Set -1: 00000000
+  -1, from +10: didn't run
+  -1, from +20: didn't run
+  Set default 0x40: 00000000
+  Default 0x40, from 0x38: didn't run
+  Default 0x40, from 0x48: ran
+  Set default -1: 00000000
+  Default -1, from +10: didn't run
+  Default -1, then from +20: didn't run
