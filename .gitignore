@@ -13,6 +13,7 @@ __testerror.txt
 __testfinish.txt
 __screenshot.bmp
 __testfailure.bmp
+__depth.bin
 
 # For emulators that outputs to elf's folder
 *.lastdebug*
