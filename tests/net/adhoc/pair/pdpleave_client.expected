@@ -1,0 +1,28 @@
+sceNetAdhocInit: 00000000
+Role: client
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Peers: 1
+PdpCreate: ok
+Leave group: 00000000, event 2, state 0
+Scan: found the group
+  Scan info: channel 1/6/11, mode 0, bssid low bits 2
+Join: 00000000, event 1 (error 00000000), state 1
+  BSSID is the scanned one: yes
+Back in the group: yes
+
+Leaving the group from another thread:
+Blocked recv meanwhile: 80410715, at the timeout
+adhocctl state: 0
+Outside the group:
+  Recv, non-blocking: 80410709
+  Send to the peer: 00000000
+  Broadcast: 00000000
+  Poll: 00000001, revents 0001
+  GetPdpStat: 00000000, 2 socket(s)
+PdpCreate outside the group: 80410702
+PdpDelete: 00000000

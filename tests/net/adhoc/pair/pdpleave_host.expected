@@ -1,0 +1,19 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+PdpCreate: ok
+
+The client leaves:
+Blocked recv meanwhile: 80410715, at the timeout
+With the client gone:
+  Recv, non-blocking: 80410709
+  Send to the peer: 00000000
+  Broadcast: 00000000
+  Poll: 00000001, revents 0001
+  GetPdpStat: 00000000, 2 socket(s)
+Client back: yes
+PdpDelete: 00000000
+Leave group: 00000000, event 2, state 0

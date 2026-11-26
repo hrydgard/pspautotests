@@ -1,0 +1,12 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+Leave group: 00000000, event 2, state 0
+Listen: ok
+Client in the peer list: yes
+Accepted a connection: yes, after the client was in the peer list
+Data on it: yes
+Leave group: 00000000, event 2, state 0
