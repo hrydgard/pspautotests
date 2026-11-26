@@ -1,0 +1,11 @@
+sceNetAdhocInit: 00000000
+Role: host
+sceNetAdhocctlInit: 00000000
+sceWlanGetEtherAddr: 00000000, switch 1
+Create group: 00000000, event 1 (error 00000000), state 1
+Peers: 1
+Client gone from the peer list: yes
+Its datagrams, read after that: 10 or more of 20
+Client back in the peer list within 2 s: no
+GetPeerInfo for it: 80410716
+Leave group: 00000000, event 2, state 0
